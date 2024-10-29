@@ -1,0 +1,23 @@
+@mixin abs-center-xy {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @mixin text($size, $weight, $color, $line-height, $text-decoration) {
+    font-size: $size;
+    font-weight: $weight;
+    color: $color;
+    line-height: $line-height;
+    text-decoration: $text-decoration;
+  }
+  
+  @mixin clamped($numberOfLine) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $numberOfLine;
+    overflow: hidden;
+    overflow-wrap: break-word;
+  }
+  

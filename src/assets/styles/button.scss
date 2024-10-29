@@ -1,0 +1,124 @@
+@import "./variables.scss";
+
+button {
+  &.mat-raised-button {
+    height: 40px;
+    &.c-button-large {
+      height: 50px;
+    }
+  }
+  &.mat-stroked-button {
+    height: 42px;
+    &.c-button-large {
+      height: 50px;
+    }
+  }
+
+  @include text($font-15, 500, null, 26px, null);
+  &:not(:disabled) {
+    &:hover {
+      &.mat-primary {
+        .mat-button-focus-overlay {
+          background-color: $primary-color-hover;
+        }
+      }
+
+      &.mat-accent {
+        .mat-button-focus-overlay {
+          background-color: $secondary-color-hover;
+        }
+      }
+
+      &.mat-warn {
+        .mat-button-focus-overlay {
+          background-color: $warn-color-hover;
+        }
+      }
+
+      .mat-button-focus-overlay {
+        opacity: 1;
+        z-index: -1;
+      }
+    }
+  }
+
+  &.button-outline-primary {
+    border-color: $primary-color !important;
+  }
+
+  &.button-outline-accent {
+    border-color: $secondary-color !important;
+    &-disabled {
+      border-color: $lighter-grey !important;
+    }
+  }
+  &.button-outline-warn {
+    border-color: $warn-color-hover !important;
+  }
+
+  &.mat-raised-button {
+    min-width: 150px;
+  }
+
+  &.mat-stroked-button {
+    min-width: 150px;
+  }
+}
+
+.c-button-medium {
+  height: 40px;
+}
+
+.c-button-orange {
+  background-color: $orange !important;
+  &:not(:disabled) {
+    &:hover {
+      &.mat-primary {
+        .mat-button-focus-overlay {
+          background-color: $orange-hover;
+        }
+      }
+    }
+  }
+}
+
+.action-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-icon-text {
+  margin-left: 14px;
+}
+
+.upload-multimedia {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $upload-image-button;
+  border: 1px dashed $upload-image-border;
+  @include text($font-12, 400, $grey, 18px, null);
+  mat-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+.mat-mdc-button.mat-mdc-button-base,
+.mat-mdc-raised-button.mat-mdc-button-base,
+.mat-mdc-unelevated-button.mat-mdc-button-base,
+.mat-mdc-outlined-button.mat-mdc-button-base {
+  &.c-button-large {
+    height: 50px;
+    font-size: $font-15;
+    font-weight: 500;
+    min-width: 120px;
+  }
+}
+
+.mdc-button.mdc-button--raised.mat-mdc-raised-button.mat-primary.mat-mdc-button-base {
+  min-width: 120px;
+  font-size: $font-15;
+  font-weight: 500;
+}
