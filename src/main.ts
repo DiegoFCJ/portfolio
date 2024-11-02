@@ -6,7 +6,7 @@ import { AppComponent } from './app/app.component';
  * Retrieves the Google Analytics ID from environment variables.
  * The ID should be defined in your environment configuration for the application.
  */
-const googleAnalyticsId: string | undefined = process.env.GOOGLE_ANALYTICS_ID;
+const googleAnalyticsId: string | undefined = process.env['GOOGLE_ANALYTICS_ID']; // Access using bracket notation
 
 /**
  * If the Google Analytics ID is defined, the following script tags are created
