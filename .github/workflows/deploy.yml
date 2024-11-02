@@ -27,6 +27,12 @@ jobs:
     - name: Build project
       run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
 
+    # Step per spostare i file dalla cartella `browser` alla root di `dist`
+    - name: Move files to root for GitHub Pages
+      run: |
+        mv dist/browser/* dist/
+        rm -r dist/browser
+
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
