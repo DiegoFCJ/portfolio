@@ -3,39 +3,40 @@ name: Deploy to GitHub Pages
 on:
   push:
     tags:
-      - 'v*'  # Trigger solo su tag che iniziano con "v"
+      - 'v*'  # Trigger the workflow on pushes to tags that start with "v"
 
 permissions:
-  contents: write  # Necessario per permettere il push su GitHub Pages
+  contents: write  # Permission to write content to the repository
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest version of Ubuntu for the job
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # Check out the repository code
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v3  # Set up Node.js environment
       with:
-        node-version: '18'  # Usa una versione LTS
+        node-version: '18'  # Specify the Node.js version to use
 
     - name: Install dependencies
-      run: npm install
+      run: npm install  # Install project dependencies from package.json
 
     - name: Build project
-      run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
+      env:
+        GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}  # Set Google Analytics ID from secrets
+      run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"  # Build the project with specified output path and base href
 
-    # Step per spostare i file dalla cartella `browser` alla root di `dist`
     - name: Move files to root for GitHub Pages
       run: |
-        mv dist/browser/* dist/
-        rm -r dist/browser
+        mv dist/browser/* dist/  # Move files from 'browser' directory to 'dist' root
+        rm -r dist/browser  # Remove the now empty 'browser' directory
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4
+      uses: JamesIves/github-pages-deploy-action@v4  # Use action to deploy to GitHub Pages
       with:
-        branch: gh-pages           # Branch di destinazione per GitHub Pages
-        folder: dist                # Cartella di output del build
-        clean: true                 # Opzionale: pulisce il contenuto di `gh-pages` prima del deploy
+        branch: gh-pages  # Specify the target branch for GitHub Pages
+        folder: dist  # Specify the folder that contains the built files to deploy
+        clean: true  # Optional: clean the content of 'gh-pages' before deploying
