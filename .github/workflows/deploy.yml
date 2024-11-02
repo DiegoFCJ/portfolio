@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'  # Trigger solo su tag che iniziano con "v"
 
+permissions:
+  contents: write  # Necessario per permettere il push su GitHub Pages
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,5 +30,6 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        branch: gh-pages  # Branch di destinazione per GitHub Pages
-        folder: dist  # Cartella di output del build
+        branch: gh-pages           # Branch di destinazione per GitHub Pages
+        folder: dist                # Cartella di output del build
+        clean: true                 # Opzionale: pulisce il contenuto di `gh-pages` prima del deploy
