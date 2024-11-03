@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { APP_TITLE } from './constants/general';
+import { APP_TITLE } from './constants/general'; // Import title constant
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -14,8 +14,9 @@ export class AppComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
+    // Ensure the title is only updated in the browser (not on the server)
     if (isPlatformBrowser(this.platformId)) {
-      document.title = APP_TITLE;
+      document.title = APP_TITLE; // Set the title dynamically
     }
   }
 }
