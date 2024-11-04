@@ -28,6 +28,11 @@
             "assets": [
               {
                 "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "**/*",
                 "input": "public"
               }
             ],
@@ -40,7 +45,7 @@
             "ssr": {
               "entry": "server.ts"
             },
-            "baseHref": "/home/"
+            "baseHref": "/dfcj_portfolio/"
           },
           "configurations": {
             "production": {

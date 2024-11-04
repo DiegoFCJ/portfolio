@@ -1,28 +1,5 @@
-<div class="hero-section">
-    <div class="hero-content">
-      <h1>Welcome to My Portfolio</h1>
-      <p>Hi, I'm Diego. A passionate web developer dedicated to creating beautiful and functional websites.</p>
-      <button (click)="scrollToSection('about')">Learn More About Me</button>
-    </div>
-  </div>
-  
-  <div class="about-section" id="about">
-    <h2>About Me</h2>
-    <p>
-      I'm a frontend developer with a love for clean code and a passion for designing engaging user experiences. 
-      Take a look at some of my projects below to see what I've been working on!
-    </p>
-  </div>
-  
-  <div class="projects-section">
-    <h2>Featured Projects</h2>
-    <div class="project-cards">
-      <div class="project-card" *ngFor="let project of projects">
-        <img [src]="project.image" alt="Project Image" />
-        <h3>{{ project.title }}</h3>
-        <p>{{ project.description }}</p>
-        <a [href]="project.link" target="_blank">View Project</a>
-      </div>
-    </div>
-  </div>
-  
+<app-hero></app-hero>
+
+<app-projects></app-projects>
+
+<app-about></app-about>
