@@ -25,7 +25,7 @@ jobs:
       run: npm install  # Install project dependencies from package.json
 
     - name: Build project
-      run: npm run build -- --output-path=dist --base-href="/home/"  # Build the project with specified output path and base href
+      run: npm run build -- --output-path=dist --base-href="/dfcj_portfolio/"  # Build the project with specified output path and base href
 
     - name: Move files to root for GitHub Pages
       run: |
