@@ -3,38 +3,38 @@ name: Deploy to GitHub Pages
 on:
   push:
     tags:
-      - 'v*'  # Trigger the workflow on pushes to tags that start with "v"
+      - 'v*'
 
 permissions:
-  contents: write  # Permission to write content to the repository
+  contents: write
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Use the latest version of Ubuntu for the job
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # Check out the repository code
+      uses: actions/checkout@v2
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3  # Set up Node.js environment
+      uses: actions/setup-node@v3
       with:
-        node-version: '18'  # Specify the Node.js version to use
+        node-version: '18'
 
     - name: Install dependencies
-      run: npm install  # Install project dependencies from package.json
+      run: npm install
 
     - name: Build project
-      run: npm run build -- --output-path=dist --base-href="/dfcj_portfolio/"  # Build the project with specified output path and base href
+      run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
 
     - name: Move files to root for GitHub Pages
       run: |
-        mv dist/browser/* dist/  # Move files from 'browser' directory to 'dist' root
-        rm -r dist/browser  # Remove the now empty 'browser' directory
+        mv dist/browser/* dist/
+        rm -r dist/browser
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4  # Use action to deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        branch: gh-pages  # Specify the target branch for GitHub Pages
-        folder: dist  # Specify the folder that contains the built files to deploy
-        clean: true  # Optional: clean the content of 'gh-pages' before deploying
+        branch: gh-pages
+        folder: dist
+        clean: true
