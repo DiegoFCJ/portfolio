@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  githubApiKey: process.env.GITHUB_API_KEY,
+  githubApiKey: 'http://localhost:3000/api/github/',
 };

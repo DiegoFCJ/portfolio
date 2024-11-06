@@ -1,40 +1,44 @@
-// src/app/components/skills/skills.component.ts
+
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GithubService } from '../../services/github.service';
 import { HttpClientModule } from '@angular/common/http';
-import { GithubEasyService } from '../../utils/github-easy.service';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
   imports: [CommonModule, HttpClientModule],
-  providers: [GithubService, GithubEasyService],
+  providers: [GithubService],
   templateUrl: './skills.component.html',
-  styleUrl: './skills.component.scss'
+  styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent implements OnInit {
   sections: { title: string, skills: string[] }[] = [];
+  loading: boolean = true;
+  error: string | null = null;
 
-  constructor(private githubService: GithubService, private githubEasyService: GithubEasyService) {}
+  constructor(private githubService: GithubService) {}
 
   ngOnInit(): void {
     this.githubService.getReadme().subscribe(
-      (content) => {
+      (response: { readme: string }) => {
+        const content = response.readme;
+        console.log('Contenuto del README:', content);
+        // Altri log per controllare il formato
         this.sections = [
-          { title: 'Languages & Frameworks', skills: this.githubEasyService.extractSection(content, 'Languages & Frameworks') },
-          { title: 'Front-end', skills: this.githubEasyService.extractSection(content, 'Front-end') },
-          { title: 'Back-end', skills: this.githubEasyService.extractSection(content, 'Back-end') },
-          { title: 'Databases', skills: this.githubEasyService.extractSection(content, 'Databases') },
-          { title: 'Tools & Platforms', skills: this.githubEasyService.extractSection(content, 'Tools & Platforms') },
-          { title: 'Versioning', skills: this.githubEasyService.extractSection(content, 'Versioning') },
-          { title: 'Project Management & Collaboration', skills: this.githubEasyService.extractSection(content, 'Project Management & Collaboration') },
-          { title: 'Other Tools', skills: this.githubEasyService.extractSection(content, 'Other Tools') },
+          { title: 'Languages & Frameworks', skills: this.githubService.extractSection(content, 'Languages & Frameworks') },
+          { title: 'Front-end', skills: this.githubService.extractSection(content, 'Front-end') },
+          { title: 'Back-end', skills: this.githubService.extractSection(content, 'Back-end') },
+          { title: 'Databases', skills: this.githubService.extractSection(content, 'Databases') },
+          { title: 'Tools & Platforms', skills: this.githubService.extractSection(content, 'Tools & Platforms') },
+          { title: 'Versioning', skills: this.githubService.extractSection(content, 'Versioning') },
+          { title: 'Project Management & Collaboration', skills: this.githubService.extractSection(content, 'Project Management & Collaboration') },
+          { title: 'Other Tools', skills: this.githubService.extractSection(content, 'Other Tools') },
         ];
       },
       (error) => {
-        console.error('Errore durante il caricamento delle skill:', error);
+        console.error('Errore durante il caricamento del README:', error);
       }
-    );
+    );   
   }
 }

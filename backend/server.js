@@ -6,8 +6,10 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+const cors = require('cors');
 
-// Rotta per ottenere il Readme di GitHub
+app.use(cors());
+
 app.get('/api/github/readme', async (req, res) => {
   try {
     const response = await axios.get('https://api.github.com/repos/DiegoFCJ/DiegoFCJ/readme', {
