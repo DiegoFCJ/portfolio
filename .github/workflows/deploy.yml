@@ -29,3 +29,30 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/diegofcjportfolio:latest
+
+      - name: Run container for debug
+        run: |
+          # Avvia il container in modalità detached
+          docker run -d -p 80:80 -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/diegofcjportfolio:latest
+          
+          # Attendi qualche secondo per dare tempo al container di avviarsi
+          sleep 10
+
+          # Trova l'ID del container in esecuzione
+          CONTAINER_ID=$(docker ps -q --filter "ancestor=${{ secrets.DOCKER_USERNAME }}/diegofcjportfolio:latest")
+
+          # Controlla i log del container per vedere eventuali errori
+          echo "Container logs:"
+          docker logs $CONTAINER_ID
+
+          # Controlla le variabili d'ambiente nel container
+          echo "Container environment variables:"
+          docker exec $CONTAINER_ID printenv
+
+          # Esponi i log di Nginx e verifica che il server risponda sulla porta 80
+          echo "Checking Nginx access logs"
+          docker exec $CONTAINER_ID cat /var/log/nginx/access.log
+
+          # Esegui un curl per verificare che il backend sia attivo sulla porta 3000
+          echo "Checking if backend is responding"
+          curl http://localhost:3000/api/github/readme
