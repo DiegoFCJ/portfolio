@@ -4,7 +4,7 @@ on:
   workflow_dispatch: # Trigger manuale
 
 jobs:
-  # Job per eseguire il backend
+    # Job per esporre il backend tramite ngrok
   run-backend:
     runs-on: ubuntu-latest
 
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js for Backend
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
@@ -22,11 +22,26 @@ jobs:
           cd backend
           npm install
 
+      - name: Install ngrok
+        run: |
+          curl -s https://ngrok.com/download | tar xvz
+          sudo mv ngrok /usr/local/bin
+
       - name: Start Backend Server
         run: |
           cd backend
-          nohup npm start & # Avvia il server in background, sulla porta 3000
-          sleep 10 # Diamo il tempo al server di avviarsi
+          nohup npm start & # Avvia il server in background
+
+      - name: Expose Backend via ngrok
+        run: |
+          ngrok http 3000 > ngrok.log & # Espone il server tramite ngrok
+          sleep 10 # Attendi che ngrok stabilisca la connessione
+
+      - name: Get Public Backend URL
+        run: |
+          BACKEND_URL=$(curl --silent http://localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)
+          echo "Backend URL: $BACKEND_URL" # Stampa l'URL pubblico
+          echo "BACKEND_URL=$BACKEND_URL" >> $GITHUB_ENV # Aggiungi l'URL come variabile d'ambiente
 
   # Job per il deploy del frontend su GitHub Pages
   deploy-frontend:
