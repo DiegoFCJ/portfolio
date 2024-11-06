@@ -1,44 +1,40 @@
-# 1. Immagine di base per il frontend (ad esempio per un'app React)
-FROM node:18 as build-frontend
+# 1. Fase di build del frontend
+FROM node:18 AS build-frontend
 
-# Impostiamo la directory di lavoro per il frontend
 WORKDIR /app/frontend
 
-# Copia il codice del frontend
+# Copia dei file del frontend
 COPY ./frontend/package.json ./frontend/package-lock.json ./
 RUN npm install
 
-# Compilazione del progetto frontend
+# Build del frontend
 COPY ./frontend ./
 RUN npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
 
-# 2. Immagine di base per il backend (Node.js)
-FROM node:18 as backend
+# 2. Fase di setup del backend
+FROM node:18 AS backend
 
-# Impostiamo la directory di lavoro per il backend
 WORKDIR /app/backend
 
-# Copia il codice del backend
+# Copia dei file del backend
 COPY ./backend/package.json ./backend/package-lock.json ./
 RUN npm install
 
-# Copia il codice del backend
+# Copia del backend nel container
 COPY ./backend ./
 
-# Espone la porta per il backend
-EXPOSE 3000
-
-# 3. Immagine finale che combina il frontend e il backend
+# 3. Fase finale di combinazione e avvio
 FROM nginx:alpine
 
-# Impostiamo la directory di lavoro per il frontend
+# Copia i file statici del frontend nella directory di Nginx
 COPY --from=build-frontend /app/frontend/dist /usr/share/nginx/html
 
-# Copia il backend all'interno del contenitore
+# Copia il backend
 COPY --from=backend /app/backend /app/backend
 
-# Espone la porta del backend
+# Espone le porte per backend (3000) e frontend (80)
 EXPOSE 3000
+EXPOSE 80
 
-# Avvia il backend con pm2 o simile
+# Comando per avviare il backend con PM2 o simile
 CMD ["sh", "-c", "cd /app/backend && npm start"]
