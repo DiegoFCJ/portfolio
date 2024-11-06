@@ -1,7 +1,10 @@
 name: Backend and Frontend Deployment
 
 on:
-  workflow_dispatch: # Trigger manuale
+    push:
+      branches:
+        - master
+    workflow_dispatch: # Trigger manuale
 
 jobs:
     # Job per esporre il backend tramite ngrok
