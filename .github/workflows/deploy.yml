@@ -25,11 +25,28 @@ jobs:
           cd backend
           npm install
 
+      - name: Install ngrok
+        run: |
+          curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
+          unzip ngrok.zip
+          sudo mv ngrok /usr/local/bin
+
       - name: Start Backend Server
         run: |
           cd backend
           nohup npm start & # Avvia il server in background, sulla porta 3000
           sleep 10 # Diamo il tempo al server di avviarsi
+
+      - name: Expose Backend via ngrok
+        run: |
+          ngrok http 3000 > ngrok.log & # Espone il server tramite ngrok
+          sleep 10 # Attendi che ngrok stabilisca la connessione
+
+      - name: Get Public Backend URL
+        run: |
+          BACKEND_URL=$(curl --silent http://localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)
+          echo "Backend URL: $BACKEND_URL" # Stampa l'URL pubblico
+          echo "BACKEND_URL=$BACKEND_URL" >> $GITHUB_ENV
 
   # Job per il deploy del frontend su GitHub Pages
   deploy-frontend:
