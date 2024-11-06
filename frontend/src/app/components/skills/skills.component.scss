@@ -1,0 +1,46 @@
+section {
+    padding: 3em 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f1f1f1;
+}
+
+.skill-section {
+    margin-bottom: 2rem;
+
+    h3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .badge-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        list-style: none;
+        padding: 0;
+
+        .badge {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            border-radius: 0.5rem;
+            background-color: #6c757d;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+
+            &:hover {
+                transform: scale(1.05);
+                background-color: #5a6268;
+            }
+        }
+    }
+}
