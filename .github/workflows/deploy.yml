@@ -34,12 +34,20 @@ jobs:
         run: |
           # Avvia il container in modalità detached
           docker run -d -p 80:80 -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/diegofcjportfolio:latest
-          
+
           # Attendi qualche secondo per dare tempo al container di avviarsi
           sleep 10
 
           # Trova l'ID del container in esecuzione
           CONTAINER_ID=$(docker ps -q --filter "ancestor=${{ secrets.DOCKER_USERNAME }}/diegofcjportfolio:latest")
+
+          # Verifica se l'ID del container è stato trovato
+          if [ -z "$CONTAINER_ID" ]; then
+            echo "Errore: nessun container trovato!"
+            exit 1
+          fi
+
+          echo "Container ID trovato: $CONTAINER_ID"
 
           # Controlla i log del container per vedere eventuali errori
           echo "Container logs:"
