@@ -38,6 +38,10 @@ jobs:
           # Attendi qualche secondo per dare tempo al container di avviarsi
           sleep 10
 
+          # Verifica lo stato dei container, anche quelli non in esecuzione
+          echo "Checking all containers"
+          docker ps -a
+
           # Trova l'ID del container in esecuzione
           CONTAINER_ID=$(docker ps -q --filter "ancestor=${{ secrets.DOCKER_USERNAME }}/diegofcjportfolio:latest")
 
