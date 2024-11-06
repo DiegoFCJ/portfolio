@@ -1,83 +1,24 @@
-name: Backend and Frontend Deployment
+name: Deploy Backend and Frontend to Docker
 
 on:
-    push:
-      branches:
-        - master
-    workflow_dispatch: # Trigger manuale
+  push:
+    branches:
+      - master
 
 jobs:
-  run-backend:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js for Backend
-        uses: actions/setup-node@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
         with:
-          node-version: '18'
-
-      - name: Install Backend Dependencies
-        run: |
-          cd backend
-          npm install
-
-      - name: Install ngrok
-        run: |
-          curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
-          unzip ngrok.zip
-          sudo mv ngrok /usr/local/bin
-
-      - name: Start Backend Server
-        run: |
-          cd backend
-          nohup npm start &  # Avvia il server in background, sulla porta 3000
-          sleep 10  # Diamo il tempo al server di avviarsi
-
-      - name: Expose Backend via ngrok
-        run: |
-          ngrok http 3000 > ngrok.log &  # Espone il server tramite ngrok
-          sleep 10  # Attendi che ngrok stabilisca la connessione
-          cat ngrok.log  # Visualizza i log di ngrok per debug
-
-      - name: Get Public Backend URL
-        run: |
-          curl --silent http://localhost:4040/api/tunnels  # Visualizza il tunnel ngrok per debug
-          BACKEND_URL=$(curl --silent http://localhost:4040/api/tunnels | jq -r .tunnels[0].public_url)
-          echo "Backend URL: $BACKEND_URL"  # Stampa l'URL
-          echo "BACKEND_URL=$BACKEND_URL" >> $GITHUB_ENV  # Aggiungi l'URL come variabile d'ambiente
-
-  deploy-frontend:
-    runs-on: ubuntu-latest
-    needs: run-backend # Assicura che il backend parta prima del frontend
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js for Frontend
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install Frontend Dependencies
-        run: npm install
-        working-directory: frontend
-
-      - name: Build Frontend Project
-        run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
-        working-directory: frontend
-
-      - name: Move Files to Root for GitHub Pages
-        run: |
-          mv frontend/dist/browser/* frontend/dist/
-          rm -r frontend/dist/browser
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: frontend/dist
-          clean: true
+          context: .
+          push: true
+          tags: user/my-app:latest
