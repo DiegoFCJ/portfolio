@@ -14,7 +14,7 @@ app.get('/api/github/readme', async (req, res) => {
   try {
     const response = await axios.get('https://api.github.com/repos/DiegoFCJ/DiegoFCJ/readme', {
       headers: {
-        'Authorization': `Bearer ${process.env.GITHUB_API_KEY}`,
+        'Authorization': `Bearer ${process.env.API_KEY_GITHUB}`,
         'Accept': 'application/vnd.github.v3.raw',
       }
     });
