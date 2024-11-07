@@ -1,5 +1,4 @@
-
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GithubService } from '../../services/github.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,18 +12,19 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent implements OnInit {
-  sections: { title: string, skills: string[] }[] = [];
+  sections: { title: string; skills: string[] }[] = [];
   loading: boolean = true;
   error: string | null = null;
 
   constructor(private githubService: GithubService) {}
 
   ngOnInit(): void {
-    this.githubService.getReadme().subscribe(
-      (response: { readme: string }) => {
+    this.githubService.getReadme().subscribe({
+      next: (response: { readme: string }) => {
         const content = response.readme;
         console.log('Contenuto del README:', content);
-        // Altri log per controllare il formato
+
+        // Popola le sezioni con i titoli specifici e le skill estratte
         this.sections = [
           { title: 'Languages & Frameworks', skills: this.githubService.extractSection(content, 'Languages & Frameworks') },
           { title: 'Front-end', skills: this.githubService.extractSection(content, 'Front-end') },
@@ -35,10 +35,13 @@ export class SkillsComponent implements OnInit {
           { title: 'Project Management & Collaboration', skills: this.githubService.extractSection(content, 'Project Management & Collaboration') },
           { title: 'Other Tools', skills: this.githubService.extractSection(content, 'Other Tools') },
         ];
+        this.loading = false; // Disattiva il caricamento quando i dati sono pronti
       },
-      (error) => {
-        console.error('Errore durante il caricamento del README:', error);
-      }
-    );   
+      error: (err) => {
+        console.error('Errore durante il caricamento del README:', err);
+        this.error = 'Errore durante il caricamento del README.';
+        this.loading = false; // Disattiva il caricamento in caso di errore
+      },
+    });
   }
 }
