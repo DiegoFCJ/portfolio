@@ -31,12 +31,12 @@ jobs:
 
       - name: Move Files to Root for GitHub Pages
         run: |
-          mv frontend/dist/browser/* frontend/dist/
-          rm -r frontend/dist/browser
+          mv /dist/diego-fcjporfolio/* /dist/
+          rm -r /dist/diego-fcjporfolio
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: frontend/dist
+          folder: /dist
           clean: true
