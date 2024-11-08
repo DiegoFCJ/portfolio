@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
+  workflow_dispatch: # Trigger manuale
 
 jobs:
   deploy:
@@ -29,10 +29,15 @@ jobs:
       - name: Build Project
         run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
 
+      - name: Verify build output structure
+        run: |
+          echo "Verifying the contents of the dist directory..."
+          ls -R dist
+
       - name: Move Files to Root for GitHub Pages
         run: |
-          mv dist/browser/* dist/
-          rm -r dist/browser
+          mv dist/diego-fcjportfolio/* dist/
+          rm -r dist/diego-fcjportfolio
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
