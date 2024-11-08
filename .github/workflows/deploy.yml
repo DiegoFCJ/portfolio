@@ -27,21 +27,16 @@ jobs:
           sed -i 's/githubToken: ""/githubToken: "${{ secrets.API_KEY_GITHUB }}"/' src/environments/environment.prod.ts
 
       - name: Build Project
-        run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
-
-      - name: Verify build output structure
-        run: |
-          echo "Verifying the contents of the dist directory..."
-          ls -R dist
+        run: npm run build -- --output-path=frontend/dist --base-href="/DiegoFCJPortfolio/"
 
       - name: Move Files to Root for GitHub Pages
         run: |
-          mv dist/diego-fcjportfolio/* dist/
-          rm -r dist/diego-fcjportfolio
+          mv frontend/dist/browser/* frontend/dist/
+          rm -r frontend/dist/browser
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist
+          folder: frontend/dist
           clean: true
