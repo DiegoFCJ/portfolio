@@ -1,4 +1,4 @@
-name: Backend and Frontend Deployment
+name: Deployment
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # Trigger manuale
 
 jobs:
-  deploy-frontend:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,13 +19,15 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Frontend Dependencies
+      - name: Install Dependencies
         run: npm install
-        working-directory: frontend
 
-      - name: Build Frontend Project
+      - name: Iniettare variabile API_KEY_GITHUB in environment.prod.ts
+        run: |
+          sed -i 's/githubToken: ""/githubToken: "${{ secrets.API_KEY_GITHUB }}"/' src/environments/environment.prod.ts
+
+      - name: Build Project
         run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
-        working-directory: frontend
 
       - name: Move Files to Root for GitHub Pages
         run: |
