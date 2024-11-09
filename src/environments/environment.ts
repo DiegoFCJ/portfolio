@@ -1,4 +1,6 @@
+import { environment as envConfig } from '../env-config';
+
 export const environment = {
-    production: true,
-    githubToken: process.env?.['API_KEY_GITHUB'] || '',
-  };
+  production: false,
+  githubToken: envConfig.githubToken,
+};
