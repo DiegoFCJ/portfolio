@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "DiegoFCJPortfolio:build:production"
+              "buildTarget": "diego-fcjportfolio:build:production"
             },
             "development": {
-              "buildTarget": "DiegoFCJPortfolio:build:development"
+              "buildTarget": "diego-fcjportfolio:build:development"
             }
           },
           "defaultConfiguration": "development"

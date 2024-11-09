@@ -28,17 +28,17 @@ jobs:
 
       - name: Build Project
         env:
-            API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
+          API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
         run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
         
       - name: Move Files to Root for GitHub Pages
         run: |
-          mv /dist/diego-fcjportfolio/browser/* /dist/
-          rm -r /dist/diego-fcjportfolio/browser
+          mv dist/diego-fcjportfolio/* dist/
+          rm -r dist/diego-fcjportfolio
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: /
+          folder: dist/
           clean: true
