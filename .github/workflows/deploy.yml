@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch: # Trigger manuale
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -22,16 +22,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Iniettare variabile API_KEY_GITHUB in environment.prod.ts
-        run: |
-          sed -i 's/githubToken: ""/githubToken: "${{ secrets.API_KEY_GITHUB }}"/' src/environments/environment.prod.ts
-
       - name: Build Project
         env:
           API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
-        run: npm run build -- --output-path=dist/diego-fcjportfolio --base-href="/DiegoFCJPortfolio/"
-        
-      # Step di debug per verificare il contenuto di dist
+        run: |
+          npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
+    
+
       - name: List files in dist folder for debugging
         run: ls -R dist
 
@@ -46,4 +43,3 @@ jobs:
           branch: gh-pages
           folder: dist/
           clean: true
-          token: ${{ secrets.API_KEY_GITHUB }}
