@@ -29,8 +29,12 @@ jobs:
       - name: Build Project
         env:
           API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
-        run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
+        run: npm run build -- --output-path=dist/diego-fcjportfolio --base-href="/DiegoFCJPortfolio/"
         
+      # Step di debug per verificare il contenuto di dist
+      - name: List files in dist folder for debugging
+        run: ls -R dist
+
       - name: Move Files to Root for GitHub Pages
         run: |
           mv dist/diego-fcjportfolio/* dist/
