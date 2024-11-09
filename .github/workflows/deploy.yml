@@ -46,3 +46,4 @@ jobs:
           branch: gh-pages
           folder: dist/
           clean: true
+          token: ${{ secrets.API_KEY_GITHUB }}
