@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
@@ -8,6 +8,7 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import ThemeSwitch from "./components/ThemeSwitch";
+import { MY_NAME } from "./constants/general";
 
 // Effetti di transizione a libro
 const pageTurnVariants = (direction: number) => ({
@@ -22,6 +23,7 @@ const App = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const pages = ["Home", "AboutMe", "Skills", "Projects", "Contact"];
   const controls = useAnimation();
+  const myName = MY_NAME || "User";
 
   const toggleTheme = () => setDarkMode((prevMode) => !prevMode);
 
@@ -53,9 +55,9 @@ const App = () => {
   return (
     <div className="app-container">
       <Helmet>
-        <title>{currentSection} | Mio Portfolio</title>
+        <title>{currentSection} | {myName}'s Portfolio</title>
       </Helmet>
-      
+
       {/* Switch Tema */}
       <ThemeSwitch darkMode={darkMode} toggleTheme={toggleTheme} />
 

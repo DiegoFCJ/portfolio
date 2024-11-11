@@ -1,5 +1,5 @@
 import React from "react";
-import "./ThemeSwitch.css";
+import "./styles/ThemeSwitch.css";
 
 interface ThemeSwitchProps {
     darkMode: boolean;
