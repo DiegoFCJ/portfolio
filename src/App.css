@@ -1,0 +1,26 @@
+/* Stili del tema */
+body.dark-mode {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.app-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.section {
+  width: 100%;
+  min-height: 94vh;
+  max-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden; /* Questo aiuta nell'effetto di rotazione */
+}
+
