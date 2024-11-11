@@ -39,7 +39,7 @@ const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <div className="project-card" key={index}>
               <h3>{project.title}</h3>
-              <img src={project.image}/>
+              <img src={project.image} alt=""/>
               <p>{project.description}</p>
               <a href={project.link} target="_blank" rel="noopener noreferrer">View Project</a>
             </div>
