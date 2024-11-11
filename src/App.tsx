@@ -10,7 +10,13 @@ import Contact from "./components/Contact";
 import ThemeSwitch from "./components/ThemeSwitch";
 import { MY_NAME } from "./constants/general";
 
-// Effetti di transizione a libro
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
+
 const pageTurnVariants = (direction: number) => ({
   initial: { rotateX: direction === 1 ? 90 : -90, opacity: 0 },
   animate: { rotateX: 0, opacity: 1, transition: { duration: 0.8, ease: "easeInOut" } },
@@ -28,7 +34,7 @@ const App = () => {
   const toggleTheme = () => setDarkMode((prevMode) => !prevMode);
 
   const handleScroll = useCallback(
-    (e: WheelEvent) => {
+    (e: { deltaY: number; }) => {
       if (e.deltaY > 0 && pageIndex < pages.length - 1) {
         setPageIndex((prevIndex) => prevIndex + 1);
       } else if (e.deltaY < 0 && pageIndex > 0) {
@@ -41,16 +47,38 @@ const App = () => {
   useEffect(() => {
     window.addEventListener("wheel", handleScroll);
     return () => window.removeEventListener("wheel", handleScroll);
-  }, [pages, handleScroll]);
+  }, [handleScroll]);
 
   useEffect(() => {
     setCurrentSection(pages[pageIndex]);
     controls.start(pageTurnVariants(pageIndex > 0 ? 1 : -1));
-  }, [pages, pageIndex, controls]);
+  }, [pageIndex, controls]);
 
   useEffect(() => {
     document.body.className = darkMode ? "dark-mode" : "light-mode";
-  }, [pages, darkMode]);
+  }, [darkMode]);
+  
+  useEffect(() => {
+    const gaId = process.env.REACT_APP_GG_LYTICS;
+    if (gaId) {
+      const script = document.createElement("script");
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+      script.async = true;
+      document.head.appendChild(script);
+  
+      script.onload = () => {
+        window.dataLayer = window.dataLayer || [];
+        
+        // Definiamo `gtag` come funzione globale sul window
+        window.gtag = function (...args) {
+          window.dataLayer.push(args);
+        };
+  
+        window.gtag("js", new Date());
+        window.gtag("config", gaId);
+      };
+    }
+  }, []);
 
   return (
     <div className="app-container">
@@ -58,7 +86,6 @@ const App = () => {
         <title>{currentSection} | {myName}'s Portfolio</title>
       </Helmet>
 
-      {/* Switch Tema */}
       <ThemeSwitch darkMode={darkMode} toggleTheme={toggleTheme} />
 
       <AnimatePresence mode="wait">
