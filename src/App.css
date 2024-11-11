@@ -9,14 +9,18 @@ body.light-mode {
   color: #333;
 }
 
-/* Effetti transizione a libro */
+.app-container {
+  position: relative;
+  overflow: hidden;
+}
+
 .section {
+  width: 100%;
   min-height: 94vh;
   max-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  perspective: 1000px;
-  overflow: hidden;
+  align-items: center;
+  backface-visibility: hidden; /* Questo aiuta nell'effetto di rotazione */
 }
 

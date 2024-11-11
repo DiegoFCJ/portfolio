@@ -41,16 +41,16 @@ const App = () => {
   useEffect(() => {
     window.addEventListener("wheel", handleScroll);
     return () => window.removeEventListener("wheel", handleScroll);
-  }, [handleScroll]);
+  }, [pages, handleScroll]);
 
   useEffect(() => {
     setCurrentSection(pages[pageIndex]);
     controls.start(pageTurnVariants(pageIndex > 0 ? 1 : -1));
-  }, [pageIndex, controls]);
+  }, [pages, pageIndex, controls]);
 
   useEffect(() => {
     document.body.className = darkMode ? "dark-mode" : "light-mode";
-  }, [darkMode]);
+  }, [pages, darkMode]);
 
   return (
     <div className="app-container">
