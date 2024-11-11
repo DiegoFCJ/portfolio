@@ -44,7 +44,7 @@ const App = () => {
   useEffect(() => {
     window.addEventListener("wheel", handleScroll);
     return () => window.removeEventListener("wheel", handleScroll);
-  }, [pages, handleScroll]);
+  }, [handleScroll]);
 
   useEffect(() => {
     setCurrentSection(pages[pageIndex]);
@@ -53,7 +53,7 @@ const App = () => {
 
   useEffect(() => {
     document.body.className = darkMode ? "dark-mode" : "light-mode";
-  }, [pages, darkMode]);
+  }, [darkMode]);
 
   return (
     <div className="app-container">

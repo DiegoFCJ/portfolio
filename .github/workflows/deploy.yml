@@ -18,16 +18,16 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Setup .env file  # Step per creare il file .env nel workflow
-        run: |
-          echo "REACT_APP_GG_LYTICS=${{ secrets.REACT_APP_GG_LYTICS }}" >> .env
-          echo "REACT_APP_API_KEY_GITHUB=${{ secrets.REACT_APP_API_KEY_GITHUB }}" >> .env
-
       - name: Install dependencies
         run: npm install
 
       - name: Build the project
         run: npm run build
+
+      - name: Inject Google Analytics ID  # Aggiungi dinamicamente Google Analytics ID a index.html
+        run: |
+          GA_ID=${{ secrets.REACT_APP_GG_LYTICS }}
+          sed -i "s|GOOGLE_ANALYTICS_ID|$GA_ID|g" build/index.html
 
       - name: Deploy to GitHub Pages
         if: success()
