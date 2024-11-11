@@ -47,16 +47,16 @@ const App = () => {
   useEffect(() => {
     window.addEventListener("wheel", handleScroll);
     return () => window.removeEventListener("wheel", handleScroll);
-  }, [handleScroll]);
+  }, [pages, handleScroll]);
 
   useEffect(() => {
     setCurrentSection(pages[pageIndex]);
     controls.start(pageTurnVariants(pageIndex > 0 ? 1 : -1));
-  }, [pageIndex, controls]);
+  }, [pages, pageIndex, controls]);
 
   useEffect(() => {
     document.body.className = darkMode ? "dark-mode" : "light-mode";
-  }, [darkMode]);
+  }, [pages, darkMode]);
   
   useEffect(() => {
     const gaId = process.env.REACT_APP_GG_LYTICS;
@@ -78,7 +78,7 @@ const App = () => {
         window.gtag("config", gaId);
       };
     }
-  }, []);
+  }, [pages]);
 
   return (
     <div className="app-container">
