@@ -28,10 +28,14 @@ jobs:
         run: |
           GA_ID=${{ secrets.REACT_APP_GG_LYTICS }}
           sed -i "s|GOOGLE_ANALYTICS_ID|$GA_ID|g" build/index.html
-
         env:
           REACT_APP_API_KEY_GITHUB: ${{ secrets.REACT_APP_API_KEY_GITHUB }}
 
+      - name: Debugging environment variables
+        run: |
+          echo "GITHUB Token: $REACT_APP_API_KEY_GITHUB"
+          echo "GA ID: $REACT_APP_GG_LYTICS"
+  
       - name: Deploy to GitHub Pages
         if: success()
         uses: peaceiris/actions-gh-pages@v3
