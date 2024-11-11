@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: DEBUG - reading the secret 
+        run: echo "REACT_APP_API_KEY_GITHUB = ${{ secrets.REACT_APP_API_KEY_GITHUB }}"
+
       - name: Build the project
         run: CI=false npm run build
 
@@ -28,5 +31,5 @@ jobs:
         if: success()
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.REACT_APP_API_KEY_GITHUB }}
+          github_token: "${{ secrets.REACT_APP_API_KEY_GITHUB }}"
           publish_dir: ./build
