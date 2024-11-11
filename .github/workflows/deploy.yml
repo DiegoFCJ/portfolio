@@ -29,4 +29,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.REACT_APP_API_KEY_GITHUB }}
-          publish_dir: ./
+          publish_dir: ./build
