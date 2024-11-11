@@ -24,13 +24,14 @@ export const getReadme = async () => {
   }
 };
 
-// Funzione per estrarre una sezione specifica dal README
 export const extractSection = (content, section) => {
   const sectionRegex = new RegExp(`### ${section}[\\s\\S]*?(?=###|$)`, 'g');
   const sectionMatch = content.match(sectionRegex);
 
   if (sectionMatch) {
-    const badgeRegex = /!\[([^\]]+)\]\([^\)]+\)/g;
+    // Rimuovi il carattere di escape `\` prima di `)` nel regex `badgeRegex`
+    const badgeRegex = /!\[([^\]]+)\]\([^)+]\)/g; // Modifica: Rimosso l'escape inutile `\)`
+
     const matches = sectionMatch[0].match(badgeRegex);
 
     return matches
