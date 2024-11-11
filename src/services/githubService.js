@@ -1,8 +1,6 @@
-// githubService.js
 const GITHUB_README_URL = 'https://api.github.com/repos/DiegoFCJ/DiegoFCJ/readme';
 const GITHUB_TOKEN = process.env.REACT_APP_API_KEY_GITHUB;
 
-// Funzione per ottenere il contenuto del README
 export const getReadme = async () => {
   try {
     const response = await fetch(GITHUB_README_URL, {
@@ -29,8 +27,7 @@ export const extractSection = (content, section) => {
   const sectionMatch = content.match(sectionRegex);
 
   if (sectionMatch) {
-    // Rimuovi il carattere di escape `\` prima di `)` nel regex `badgeRegex`
-    const badgeRegex = /!\[([^\]]+)\]\([^)+]\)/g; // Modifica: Rimosso l'escape inutile `\)`
+    const badgeRegex = /!\[([^\]]+)\]\([^)+]\)/g;
 
     const matches = sectionMatch[0].match(badgeRegex);
 

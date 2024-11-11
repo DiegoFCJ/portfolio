@@ -24,10 +24,13 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Inject Google Analytics ID  # Aggiungi dinamicamente Google Analytics ID a index.html
+      - name: Inject Google Analytics ID
         run: |
           GA_ID=${{ secrets.REACT_APP_GG_LYTICS }}
           sed -i "s|GOOGLE_ANALYTICS_ID|$GA_ID|g" build/index.html
+
+        env:
+          REACT_APP_API_KEY_GITHUB: ${{ secrets.REACT_APP_API_KEY_GITHUB }}
 
       - name: Deploy to GitHub Pages
         if: success()
