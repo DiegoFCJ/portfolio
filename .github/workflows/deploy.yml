@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master 
+      - master
 
 jobs:
   deploy:
@@ -13,24 +13,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js for 
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install  Dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build  Project
-        run: npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
+      - name: Build Project
+        run: npm run build -- --output-path=dist --base-href="/dfcj_portfolio/"
 
-      - name: Move Files to Root for GitHub Pages
-        run: |
-          mv dist/browser/* dist/
-          rm -r dist/browser
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: dist
           clean: true
