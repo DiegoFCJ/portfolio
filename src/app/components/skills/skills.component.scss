@@ -1,21 +1,9 @@
-section {
-    padding: 3em 1.5em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f1f1f1;
-
-    // Adjust padding to be more consistent
-    padding: 2rem;
-}
-
 .skill-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // Dynamic grid columns based on container width
     gap: 2rem;
     width: 100%;
-    max-width: 1200px; // Optional: max-width for larger screens
-    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .skill-section {
@@ -31,7 +19,6 @@ section {
 
 .skill-section h3 {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
     font-weight: bold;
     color: #0073e6;
     text-align: center; // Center-align the section title
@@ -42,8 +29,7 @@ section {
     flex-wrap: wrap;
     justify-content: center; // Center-align skills inside the section
     width: 100%;
-    gap: 1.5rem; // Space between skill items
-    margin-top: 1rem; // Add space above skill items
+    gap: 1rem; // Space between skill items
 }
 
 .skill-item {
@@ -55,7 +41,6 @@ section {
 
 .skill-item img {
     object-fit: contain;
-    margin-bottom: 0.5rem;
 
     // 3D effect
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1); // Add depth effect
@@ -85,7 +70,6 @@ section {
 
     .skill-item img {
         object-fit: contain;
-        margin-bottom: 0.5rem;
         transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
         cursor: pointer;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -111,7 +95,6 @@ section {
 
     .skill-item img {
         object-fit: contain;
-        margin-bottom: 0.5rem;
         transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
         cursor: pointer;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
