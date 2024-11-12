@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # O il branch che vuoi per il trigger
+      - master  # O il branch che vuoi per il trigger
 
 jobs:
   deploy:
