@@ -1,40 +1,29 @@
-name: Deployment
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - master
-  workflow_dispatch:
+      - main  # O il branch che vuoi per il trigger
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js for Frontend
+      - name: Set up Node.js
         uses: actions/setup-node@v3
-        with:   
-          node-version: '18'
+        with:
+          node-version: '16'  # Versione di Node.js che stai utilizzando
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Build Project
-        run: |
-          npm run build -- --output-path=dist --base-href="/DiegoFCJPortfolio/"
+      - name: Build project
+        run: npm run build  # Adatta il comando a seconda del tuo progetto
 
-      # Step di diagnostica per mostrare il contenuto della cartella dist
-      - name: Check Dist Directory
-        run: |
-          ls -R dist
-
-      - name: List all files in dist/
-        run: ls -R dist/
-        
-      # Controllo e spostamento condizionale dei file in dist/
       - name: Move Files to Root for GitHub Pages
         run: |
           mv dist/browser/* dist/
@@ -44,6 +33,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist/
-          clean: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          folder: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
