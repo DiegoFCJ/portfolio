@@ -21,5 +21,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build and Deploy Project
-        run: npx angular-cli-ghpages --dir=dist/diego-fcjportfolio --base-href="/dfcj_portfolio/"
+      - name: Build Project
+        run: npm run build -- --output-path=dist/diego-fcjportfolio
+
+      - name: Deploy to GitHub Pages
+        run: npx angular-cli-ghpages --dir=dist/diego-fcjportfolio

@@ -61,7 +61,8 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/dfcj_portfolio/"
             },
             "development": {
               "optimization": false,
