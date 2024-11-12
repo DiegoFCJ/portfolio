@@ -1,14 +1,18 @@
-<section *ngIf="sections.length; else loading">
-  <h2>Tech Stack</h2>
+<section>
+  <h2>💻 Tech Stack:</h2>
   <div class="skill-grid">
     <div *ngFor="let section of sections" class="skill-section">
       <h3>{{ section.title }}</h3>
       <div class="skills">
         <div *ngFor="let skill of section.skills" class="skill-item">
-          <img [src]="skill.icon" [alt]="skill.name" />
+          <img 
+            [src]="skill.icon" 
+            [alt]="skill.name" 
+            (click)="onSkillClick($event, skill)" 
+            [ngClass]="{'clicked': skill.clicked}"
+          />
         </div>
       </div>
     </div>
   </div>
 </section>
-<ng-template #loading>Loading skills...</ng-template>

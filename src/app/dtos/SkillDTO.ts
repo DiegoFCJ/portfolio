@@ -4,6 +4,8 @@ export interface Skill {
 }
 
 interface SkillItem {
-    name: string;
-    icon: string;
+    name: string; 
+    icon: string, 
+    clicked: boolean 
 }
+

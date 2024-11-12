@@ -48,16 +48,25 @@ section {
 
 .skill-item {
     text-align: center;
-    flex: 1 1 100px; // Flexible width with a base of 100px
-    min-width: 100px; // Ensure each item has a minimum width
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column; // Ensure the text and image are vertically aligned
+    align-items: center;
 }
 
 .skill-item img {
-    width: 60px;
-    height: 60px;
     object-fit: contain;
     margin-bottom: 0.5rem;
+
+    // 3D effect
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1); // Add depth effect
+
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; // Smooth hover effects
+}
+
+.skill-item img:hover {
+    transform: translateY(-5px); // Slightly lift the image on hover
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2); // Stronger shadow on hover for a deeper 3D effect
+    cursor: pointer;
 }
 
 .skill-item p {
@@ -74,15 +83,25 @@ section {
         padding: 1.5rem; // Adjust padding for smaller screens
     }
 
-    .skill-item {
-        flex: 1 1 80px; // Adjust the flex basis for smaller screens
-        min-width: 80px;
+    .skill-item img {
+        object-fit: contain;
+        margin-bottom: 0.5rem;
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
-    .skill-item img {
-        width: 50px;
-        height: 50px; // Reduce icon size for smaller screens
+    .skill-item img:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
     }
+
+    .skill-item img.clicked {
+        transform: translateY(-5px) rotate(360deg);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+
 }
 
 @media (max-width: 480px) {
@@ -91,7 +110,20 @@ section {
     }
 
     .skill-item img {
-        width: 40px;
-        height: 40px; // Further reduce icon size for very small screens
+        object-fit: contain;
+        margin-bottom: 0.5rem;
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .skill-item img:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .skill-item img.clicked {
+        transform: translateY(-5px) rotate(360deg);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
     }
 }
