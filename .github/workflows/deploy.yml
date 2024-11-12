@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - master 
 
 jobs:
   deploy:
@@ -26,9 +26,8 @@ jobs:
 
       - name: Move Files to Root for GitHub Pages
         run: |
-          mkdir -p dist
-          cp -r dist/diego-fcjportfolio/* dist/
-          rm -rf dist/diego-fcjportfolio
+          mv dist/diego-fcjportfolio/* dist/
+          rm -r dist/diego-fcjportfolio
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
