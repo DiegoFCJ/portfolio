@@ -20,11 +20,3 @@ p {
 .hero-content button:hover {
   background-color: #e0f7f4;
 }
-
-/* Media query per dispositivi mobili */
-@media (max-width: 768px) {
-  .hero-section {
-    height: 100vh;
-    padding: 2em 1em;
-  }
-}
