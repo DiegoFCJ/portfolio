@@ -31,18 +31,14 @@ jobs:
         run: |
           ls -R dist
 
+      - name: List all files in dist/
+        run: ls -R dist/
+        
       # Controllo e spostamento condizionale dei file in dist/
       - name: Move Files to Root for GitHub Pages
         run: |
-          if [ -d "dist/diego-fcjportfolio" ]; then
-            mv dist/diego-fcjportfolio/* dist/
-            rm -r dist/diego-fcjportfolio
-          elif [ -d "dist/DiegoFCJPortfolio" ]; then
-            mv dist/DiegoFCJPortfolio/* dist/
-            rm -r dist/DiegoFCJPortfolio
-          else
-            echo "No subfolder found to move."
-          fi
+          mv dist/browser/* dist/
+          rm -r dist/browser
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
@@ -50,3 +46,4 @@ jobs:
           branch: gh-pages
           folder: dist/
           clean: true
+          token: ${{ secrets.GITHUB_TOKEN }}
