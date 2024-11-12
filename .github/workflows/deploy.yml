@@ -28,7 +28,7 @@ jobs:
         run: ls dist/diego-fcjportfolio
 
       - name: Copy index.html to 404.html
-        run: cp dist/diego-fcjportfolio/index.html dist/diego-fcjportfolio/404.html
+        run: cp dist/diego-fcjportfolio/browser/index.html dist/diego-fcjportfolio/404.html
 
       - name: Deploy to GitHub Pages
         run: npx angular-cli-ghpages --dir=dist/diego-fcjportfolio
