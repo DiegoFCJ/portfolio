@@ -3,44 +3,95 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
     background-color: #f1f1f1;
+
+    // Adjust padding to be more consistent
+    padding: 2rem;
+}
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // Dynamic grid columns based on container width
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px; // Optional: max-width for larger screens
+    margin: 0 auto;
 }
 
 .skill-section {
-    margin-bottom: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; // Align contents vertically in the section
+    align-items: center; // Center-align the content horizontally
+    justify-content: flex-start; // Align content to the top within the section
+}
 
-    h3 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-        color: #333;
+.skill-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #0073e6;
+    text-align: center; // Center-align the section title
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; // Center-align skills inside the section
+    width: 100%;
+    gap: 1.5rem; // Space between skill items
+    margin-top: 1rem; // Add space above skill items
+}
+
+.skill-item {
+    text-align: center;
+    flex: 1 1 100px; // Flexible width with a base of 100px
+    min-width: 100px; // Ensure each item has a minimum width
+    margin-bottom: 1rem;
+}
+
+.skill-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.skill-item p {
+    font-size: 1rem;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 1.5rem; // Reduce padding on smaller screens
     }
 
-    .badge-list {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        list-style: none;
-        padding: 0;
+    .skill-section {
+        padding: 1.5rem; // Adjust padding for smaller screens
+    }
 
-        .badge {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: white;
-            border-radius: 0.5rem;
-            background-color: #6c757d;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+    .skill-item {
+        flex: 1 1 80px; // Adjust the flex basis for smaller screens
+        min-width: 80px;
+    }
 
-            &:hover {
-                transform: scale(1.05);
-                background-color: #5a6268;
-            }
-        }
+    .skill-item img {
+        width: 50px;
+        height: 50px; // Reduce icon size for smaller screens
+    }
+}
+
+@media (max-width: 480px) {
+    .skill-grid {
+        grid-template-columns: 1fr; // Single column layout on very small screens
+    }
+
+    .skill-item img {
+        width: 40px;
+        height: 40px; // Further reduce icon size for very small screens
     }
 }

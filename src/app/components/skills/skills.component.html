@@ -1,10 +1,14 @@
 <section *ngIf="sections.length; else loading">
-  <h2 style="font-size: 2.5em;">Tech Stack</h2>
-  <div *ngFor="let section of sections" class="skill-section">
-    <h3>{{ section.title }}</h3>
-    <ul class="badge-list">
-      <li *ngFor="let skill of section.skills" class="badge">{{ skill }}</li>
-    </ul>
+  <h2>Tech Stack</h2>
+  <div class="skill-grid">
+    <div *ngFor="let section of sections" class="skill-section">
+      <h3>{{ section.title }}</h3>
+      <div class="skills">
+        <div *ngFor="let skill of section.skills" class="skill-item">
+          <img [src]="skill.icon" [alt]="skill.name" />
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 <ng-template #loading>Loading skills...</ng-template>
