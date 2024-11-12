@@ -1,46 +1,88 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { getReadme, extractSection } from "../services/githubService"; // Assicurati che questo percorso sia corretto
 import "./styles/Skills.css";
-
-// Definisci un'interfaccia per tipizzare i dati delle sezioni
-interface Section {
-  title: string;
-  skills: string[];
-}
+import { Skill } from "../dtos/SkillDTO";
 
 const Skills = () => {
-  const [sections, setSections] = useState<Section[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchReadme = async () => {
-      try {
-        const { readme } = await getReadme();
-        console.log("Contenuto del README:", readme);
-
-        // Imposta le sezioni con i titoli e le competenze
-        setSections([
-          { title: "Languages & Frameworks", skills: extractSection(readme, "Languages & Frameworks") },
-          { title: "Front-end", skills: extractSection(readme, "Front-end") },
-          { title: "Back-end", skills: extractSection(readme, "Back-end") },
-          { title: "Databases", skills: extractSection(readme, "Databases") },
-          { title: "Tools & Platforms", skills: extractSection(readme, "Tools & Platforms") },
-          { title: "Versioning", skills: extractSection(readme, "Versioning") },
-          { title: "Project Management & Collaboration", skills: extractSection(readme, "Project Management & Collaboration") },
-          { title: "Other Tools", skills: extractSection(readme, "Other Tools") },
-        ]);
-      } catch (err) {
-        console.error("Errore durante il caricamento del README:", err);
-        setError("Errore durante il caricamento del README.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchReadme();
-  }, []);
+  const skills: Skill[] = [
+    {
+      title: "Languages & Frameworks",
+      skills: [
+        { name: "C#", icon: "https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white" },
+        { name: "Java", icon: "https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" },
+        { name: "JavaScript", icon: "https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" },
+        { name: "TypeScript", icon: "https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" },
+        { name: "Python", icon: "https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" },
+        { name: "PowerShell", icon: "https://img.shields.io/badge/PowerShell-%235391FE.svg?style=for-the-badge&logo=powershell&logoColor=white" },
+        { name: "Shell Script", icon: "https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white" },
+        { name: "YAML", icon: "https://img.shields.io/badge/yaml-%23ffffff.svg?style=for-the-badge&logo=yaml&logoColor=151515" },
+        { name: "HTML5", icon: "https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" },
+      ]
+    },
+    {
+      title: "Front-end",
+      skills: [
+        { name: "Angular", icon: "https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white" },
+        { name: "Angular.js", icon: "https://img.shields.io/badge/angular.js-%23E23237.svg?style=for-the-badge&logo=angularjs&logoColor=white" },
+        { name: "Bootstrap", icon: "https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white" },
+        { name: "React", icon: "https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" },
+        { name: "SASS", icon: "https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white" },
+        { name: "CSS", icon: "https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" },
+        { name: "SCSS", icon: "https://img.shields.io/badge/SCSS-hotpink.svg?style=for-the-badge&logo=sass&logoColor=white" },
+      ]
+    },
+    {
+      title: "Back-end",
+      skills: [
+        { name: "Spring", icon: "https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white" },
+        { name: ".NET", icon: "https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white" },
+        { name: "Hibernate", icon: "https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white" },
+        { name: "Spring Boot", icon: "https://img.shields.io/badge/Spring%20Boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white" },
+      ]
+    },
+    {
+      title: "Databases",
+      skills: [
+        { name: "MySQL", icon: "https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white" },
+        { name: "Postgres", icon: "https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" },
+        { name: "OracleDB", icon: "https://img.shields.io/badge/OracleDB-F80000.svg?style=for-the-badge&logo=oracle&logoColor=white" },
+      ]
+    },
+    {
+      title: "Tools & Platforms",
+      skills: [
+        { name: "Docker", icon: "https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" },
+        { name: "Kubernetes", icon: "https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white" },
+        { name: "OpenShift", icon: "https://img.shields.io/badge/OpenShift-EE0000.svg?style=for-the-badge&logo=redhatopenshift&logoColor=white" },
+        { name: "Windows Terminal", icon: "https://img.shields.io/badge/Windows%20Terminal-%234D4D4D.svg?style=for-the-badge&logo=windows-terminal&logoColor=white" },
+      ]
+    },
+    {
+      title: "Versioning",
+      skills: [
+        { name: "GitHub", icon: "https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" },
+        { name: "GitLab", icon: "https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white" },
+        { name: "Bitbucket", icon: "https://img.shields.io/badge/Bitbucket-%230047B3.svg?style=for-the-badge&logo=bitbucket&logoColor=white" },
+      ]
+    },
+    {
+      title: "Project Management & Collaboration",
+      skills: [
+        { name: "Trello", icon: "https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white" },
+        { name: "Notion", icon: "https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white" },
+        { name: "Jira", icon: "https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white" },
+      ]
+    },
+    {
+      title: "Other Tools",
+      skills: [
+        { name: "Swagger", icon: "https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white" },
+        { name: "Postman", icon: "https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" },
+        { name: "Gradle", icon: "https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white" },
+        { name: "Apache Maven", icon: "https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white" },
+      ]
+    }
+  ];
 
   return (
     <motion.section
@@ -51,24 +93,20 @@ const Skills = () => {
       transition={{ duration: 1 }}
     >
       <h2>Tech Stack</h2>
-      
-      {error && <p className="error-message">{error}</p>}
-      {loading ? (
-        <p>Loading skills...</p>
-      ) : (
-        <div>
-          {sections.map((section) => (
-            <div key={section.title} className="skill-section">
-              <h3>{section.title}</h3>
-              <ul className="badge-list">
-                {section.skills.map((skill) => (
-                  <li key={skill} className="badge">{skill}</li>
-                ))}
-              </ul>
+      <div className="skill-grid">
+        {skills.map((section) => (
+          <div key={section.title} className="skill-section">
+            <h3>{section.title}</h3>
+            <div className="skills">
+              {section.skills.map((skill, idx) => (
+                <div key={idx} className="skill-item">
+                  <img src={skill.icon} alt={skill.name} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
     </motion.section>
   );
 };

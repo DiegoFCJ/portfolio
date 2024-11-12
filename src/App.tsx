@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import "./App.css";
 import { Helmet } from "react-helmet";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Home from "./components/Home";
 import AboutMe from "./components/AboutMe";
 import Skills from "./components/Skills";
@@ -10,11 +10,38 @@ import Contact from "./components/Contact";
 import ThemeSwitch from "./components/ThemeSwitch";
 import { MY_NAME } from "./constants/general";
 
-// Effetti di transizione a libro
+// Varianti avanzate per piegatura e rotazione 3D realistica
 const pageTurnVariants = (direction: number) => ({
-  initial: { rotateX: direction === 1 ? 90 : -90, opacity: 0 },
-  animate: { rotateX: 0, opacity: 1, transition: { duration: 0.8, ease: "easeInOut" } },
-  exit: { rotateX: direction === 1 ? -90 : 90, opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } },
+  initial: {
+    rotateX: direction > 0 ? 20 : -20,
+    rotateZ: direction > 0 ? 5 : -5,
+    opacity: 0,
+    scale: 1,
+    transformOrigin: "bottom right",  // Piegatura dall'angolo in basso a destra
+    boxShadow: direction > 0 ? "5px 15px 35px rgba(0, 0, 0, 0.25)" : "-5px 15px 35px rgba(0, 0, 0, 0.25)",  // Ombra dinamica
+  },
+  animate: {
+    rotateX: 0,
+    rotateZ: 0,
+    opacity: 1,
+    scale: 1,
+    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)", // Ombra più morbida durante il movimento
+    transition: {
+      duration: 1.2,
+      ease: "easeInOut",
+    },
+  },
+  exit: {
+    rotateX: direction > 0 ? -270 : 270,  // Rotazione parziale
+    rotateZ: direction > 0 ? -20 : 20,    // Piega per effetto realistico
+    opacity: 0,
+    scale: 1,
+    boxShadow: direction > 0 ? "5px 15px 50px rgba(0, 0, 0, 0.4)" : "-5px 15px 50px rgba(0, 0, 0, 0.4)",  // Ombra dinamica con maggiore intensità
+    transition: {
+      duration: 1.2,
+      ease: "easeInOut",
+    },
+  },
 });
 
 const App = () => {
@@ -22,12 +49,7 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [pageIndex, setPageIndex] = useState(0);
 
-  // Usa useMemo per memorizzare l'array 'pages'
   const pages = useMemo(() => ["Home", "AboutMe", "Skills", "Projects", "Contact"], []);
-
-  const controls = useAnimation();
-  const myName = MY_NAME || "User";
-
   const toggleTheme = () => setDarkMode((prevMode) => !prevMode);
 
   const handleScroll = useCallback(
@@ -48,8 +70,7 @@ const App = () => {
 
   useEffect(() => {
     setCurrentSection(pages[pageIndex]);
-    controls.start(pageTurnVariants(pageIndex > 0 ? 1 : -1));
-  }, [pages, pageIndex, controls]);
+  }, [pages, pageIndex]);
 
   useEffect(() => {
     document.body.className = darkMode ? "dark-mode" : "light-mode";
@@ -58,7 +79,9 @@ const App = () => {
   return (
     <div className="app-container">
       <Helmet>
-        <title>{currentSection} | {myName}'s Portfolio</title>
+        <title>
+          {currentSection} | {MY_NAME}'s Portfolio
+        </title>
       </Helmet>
 
       <ThemeSwitch darkMode={darkMode} toggleTheme={toggleTheme} />
@@ -71,7 +94,6 @@ const App = () => {
           initial="initial"
           animate="animate"
           exit="exit"
-          custom={pageIndex}
         >
           {pageIndex === 0 && <Home />}
           {pageIndex === 1 && <AboutMe />}
