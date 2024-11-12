@@ -24,23 +24,11 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Validate build output folder
-        run: |
-          if [ ! -d "dist/diego-fcjportfolio" ]; then
-            echo "Error: dist/diego-fcjportfolio does not exist."
-            exit 1
-          fi
-          echo "dist/diego-fcjportfolio exists."
-
       - name: Move Files to Root for GitHub Pages
         run: |
-          # If dist/diego-fcjportfolio exists, move the contents to dist/
-          if [ -d "dist/diego-fcjportfolio" ]; then
-            cp -r dist/diego-fcjportfolio/* dist/  # Copy files to dist
-            rm -rf dist/diego-fcjportfolio  # Optionally remove the original folder
-          else
-            echo "No files to copy from dist/diego-fcjportfolio."
-          fi
+          mkdir -p dist
+          cp -r dist/diego-fcjportfolio/* dist/
+          rm -rf dist/diego-fcjportfolio
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
