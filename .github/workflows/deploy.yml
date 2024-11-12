@@ -21,13 +21,5 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Project
-        run: npm run build -- --output-path=dist/diego-fcjportfolio --base-href="/dfcj_portfolio/"
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          folder: dist/diego-fcjportfolio
-          clean: true
+      - name: Build and Deploy Project
+        run: npx angular-cli-ghpages --dir=dist/diego-fcjportfolio --base-href="/dfcj_portfolio/"
