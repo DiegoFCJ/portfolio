@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master  # O il branch che vuoi per il trigger
+      - master
 
 jobs:
   deploy:
@@ -16,18 +16,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'  # Versione di Node.js che stai utilizzando
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build  # Adatta il comando a seconda del tuo progetto
+        run: npm run build
 
       - name: Move Files to Root for GitHub Pages
         run: |
-          mv dist/browser/* dist/
-          rm -r dist/browser
+          mkdir -p dist  # Ensure the dist folder exists in the root
+          cp -r dist/browser/* dist/  # Copy all files from dist/browser to dist
+          rm -rf dist/browser  # Optionally remove the original browser folder
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
