@@ -24,22 +24,22 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Validate dist/browser folder
+      - name: Validate build output folder
         run: |
-          if [ ! -d "dist/browser" ]; then
-            echo "Error: dist/browser does not exist."
+          if [ ! -d "dist/diego-fcjportfolio" ]; then
+            echo "Error: dist/diego-fcjportfolio does not exist."
             exit 1
           fi
-          echo "dist/browser exists."
+          echo "dist/diego-fcjportfolio exists."
 
       - name: Move Files to Root for GitHub Pages
         run: |
-          # If dist/browser exists, move the contents to dist/
-          if [ -d "dist/browser" ]; then
-            cp -r dist/browser/* dist/  # Copy files to dist
-            rm -rf dist/browser  # Optionally remove the original folder
+          # If dist/diego-fcjportfolio exists, move the contents to dist/
+          if [ -d "dist/diego-fcjportfolio" ]; then
+            cp -r dist/diego-fcjportfolio/* dist/  # Copy files to dist
+            rm -rf dist/diego-fcjportfolio  # Optionally remove the original folder
           else
-            echo "No files to copy from dist/browser."
+            echo "No files to copy from dist/diego-fcjportfolio."
           fi
 
       - name: Deploy to GitHub Pages
