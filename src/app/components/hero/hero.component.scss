@@ -1,20 +1,27 @@
 .bg-container {
   background: linear-gradient(135deg, #ac80ff, #4a90e2, #50e3c2, #00ff88);
-  padding: 0 1.5em 3em 1.5em;
+  padding: 0 1.5em 0 1.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   text-align: center;
-  box-shadow: 0px 10px 100px rgba(0, 0, 0, 0.1);
 
-  p {
-    margin: auto;
+  .bottom-border{
+    width: 100vw;
+    height: 7px;
+    position: absolute;
+    bottom: 0;
   }
 
   .hero-content {
+    z-index: 3;
     max-width: 600px;
+
+    p {
+      margin: auto;
+    }
 
     button {
       margin-top: 20px;

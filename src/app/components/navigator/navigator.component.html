@@ -1,10 +1,8 @@
 <div class="navigator">
-  <!-- Bottone per navigare indietro, visibile solo se non è la prima sezione -->
   <span *ngIf="currentSectionIndex > 0" (click)="onPrevious()">
     <mat-icon fontSize="large" color="secondary">arrow_circle_up</mat-icon>
   </span>
 
-  <!-- Bottone per navigare avanti, visibile solo se non è l'ultima sezione -->
   <span *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()">
     <mat-icon fontSize="large" color="secondary">arrow_circle_down</mat-icon>
   </span>

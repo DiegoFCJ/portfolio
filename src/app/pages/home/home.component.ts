@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from '../../components/projects/projects.component';
 import { AboutComponent } from '../../components/about/about.component';
@@ -15,22 +15,36 @@ import { NavigatorComponent } from '../../components/navigator/navigator.compone
 })
 export class HomeComponent implements AfterViewInit {
   @ViewChildren('section') sections!: QueryList<ElementRef>;
-  currentSectionIndex = 1;
+  currentSectionIndex = 0;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
-    // Uso di ChangeDetectorRef per forzare il rilevamento delle modifiche dopo la visualizzazione
-    setTimeout(() => {
-      // Ritarda la modifica del valore per evitare il cambiamento immediato
-      if (this.sections && this.sections.length) {
-        this.currentSectionIndex = 0;
-      } else {
-        this.currentSectionIndex = -1;
+    this.updateCurrentSectionIndex();
+  }
+
+  // Listener per l'evento di scroll che aggiorna la sezione corrente
+  @HostListener('window:scroll', [])
+  onScroll() {
+    this.updateCurrentSectionIndex();
+  }
+
+  // Metodo per aggiornare dinamicamente l'indice della sezione attualmente visibile
+  updateCurrentSectionIndex() {
+    const sectionElements = this.sections.toArray();
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+    for (let i = 0; i < sectionElements.length; i++) {
+      const section = sectionElements[i].nativeElement;
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        this.currentSectionIndex = i;
+        this.cdr.detectChanges();
+        break;
       }
-      // Forza il rilevamento delle modifiche
-      this.cdr.detectChanges();
-    });
+    }
   }
 
   navigateNext() {
@@ -50,9 +64,5 @@ export class HomeComponent implements AfterViewInit {
   scrollToSection(index: number) {
     const section = this.sections.toArray()[index].nativeElement;
     section.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
   }
 }
