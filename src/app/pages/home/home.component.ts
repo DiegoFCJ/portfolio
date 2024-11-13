@@ -76,6 +76,6 @@ export class HomeComponent implements AfterViewInit {
 
   scrollToSection(index: number) {
     const section = this.sections.toArray()[index].nativeElement;
-    section.scrollIntoView({ behavior: 'smooth' });
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }

@@ -1,6 +1,6 @@
 .bg-container {
   background: linear-gradient(135deg, #ac80ff, #4a90e2, #50e3c2, #00ff88);
-  padding: 0 1.5em 0 1.5em;
+  padding: 0 1.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +8,7 @@
   height: 100vh;
   text-align: center;
 
-  .bottom-border{
+  .bottom-border {
     width: 100vw;
     height: 7px;
     position: absolute;
@@ -16,6 +16,7 @@
   }
 
   .hero-content {
+    width: 50vw;
     z-index: 3;
     max-width: 600px;
 
@@ -32,6 +33,41 @@
 
     button:hover {
       background-color: #e0f7f4;
+    }
+  }
+
+  // Media Query per dispositivi mobili
+  @media (max-width: 768px) {
+    .bg-container {
+      padding: 0 1em; // Ridurre il padding sui dispositivi più piccoli
+      height: auto; // Permettere alla sezione di adattarsi automaticamente
+      padding-bottom: 10vh; // Aggiungere un po' di spazio sul fondo per il footer
+
+      .hero-content {
+        width: 80vw; // Rende il contenuto più largo sui dispositivi piccoli
+        max-width: 90%; // Imposta una larghezza massima per una visualizzazione ottimale
+        padding: 0 10px; // Aggiungi un po' di spazio interno
+
+        button {
+          font-size: 14px; // Ridurre la dimensione del testo per il bottone
+          padding: 10px 20px; // Diminuisci il padding per una maggiore compattezza
+        }
+      }
+    }
+
+    .bottom-border {
+      width: 100%; // Rendi la border della base più stretta sui dispositivi mobili
+    }
+  }
+
+  // Media Query per schermi molto piccoli (es. telefoni più piccoli)
+  @media (max-width: 480px) {
+    .hero-content {
+      width: 90vw; // Rende il contenuto quasi a tutta larghezza
+      button {
+        font-size: 12px; // Ancora più piccolo sui dispositivi molto piccoli
+        padding: 8px 15px; // Riduci ancora il padding
+      }
     }
   }
 }

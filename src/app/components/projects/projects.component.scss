@@ -1,8 +1,14 @@
-section{
+// Box shadow for project cards
+$box-shadow-default: 0 4px 6px rgba(0, 0, 0, 0.1);
+$box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+// Section styles
+section {
     position: relative;
     z-index: 5;
 }
 
+// Project cards container
 .project-cards {
     display: flex;
     flex-wrap: wrap;
@@ -10,20 +16,23 @@ section{
     justify-content: center;
 }
 
+// Project card styles
 .project-card {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: $box-shadow-default;
     max-width: 300px;
     text-align: center;
     padding: 1em;
     transition: transform 0.3s;
 
+    // Hover effect for project card
     &:hover {
         transform: translateY(-5px);
         cursor: pointer;
     }
 
+    // Project card image
     img {
         width: 100%;
         height: 180px;
@@ -33,30 +42,34 @@ section{
         background-color: white;
     }
 
+    // Project card title
     h3 {
         color: #0073e6;
         margin-top: 0.75em;
         font-size: 1.4em;
     }
 
+    // Project card description
     p {
         font-size: 1em;
         margin: 0.75em 0;
     }
 
+    // Link inside project card
     a {
         color: #4a90e2;
         text-decoration: none;
         font-weight: bold;
         transition: color 0.3s;
 
+        // Hover effect for the link
         &:hover {
             color: #2a6eb8;
         }
     }
 }
 
-/* Media query per dispositivi mobili */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
     .projects-section {
         padding: 2em 1em;

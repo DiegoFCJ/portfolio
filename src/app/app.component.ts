@@ -10,8 +10,7 @@ declare var gtag: Function | undefined;
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: '<router-outlet />',
 })
 export class AppComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {}

@@ -1,6 +1,33 @@
 <section>
   <h2>Tech Stack:</h2>
-  <div class="skill-grid">
+  
+  <!-- Carosello per mobile -->
+  <div class="carousel-container" *ngIf="isMobile">
+    <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
+    
+    <div class="carousel-wrapper">
+      <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
+        <div class="skill-section">
+          <h3>{{ section.title }}</h3>
+          <div class="skills">
+            <div *ngFor="let skill of section.skills" class="skill-item">
+              <img 
+                [src]="skill.icon" 
+                [alt]="skill.name" 
+                (click)="onSkillClick($event, skill)" 
+                [ngClass]="{'clicked': skill.clicked}"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
+  </div>
+
+  <!-- Griglia per desktop -->
+  <div class="skill-grid" *ngIf="!isMobile">
     <div *ngFor="let section of sections" class="skill-section">
       <h3>{{ section.title }}</h3>
       <div class="skills">

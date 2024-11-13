@@ -1,6 +1,26 @@
 <section>
     <h2>Featured Projects</h2>
-    <div class="project-cards">
+    
+    <!-- Carosello per mobile -->
+    <div class="carousel-container" *ngIf="isMobile">
+        <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
+        
+        <div class="carousel-wrapper">
+            <div class="carousel-item" *ngFor="let project of projects; let i = index" [class.active]="i === currentIndex">
+                <div class="project-card">
+                    <h3>{{ project.title }}</h3>
+                    <img [src]="project.image" alt="Project Image" />
+                    <p>{{ project.description }}</p>
+                    <a [href]="project.link" target="_blank">View Project</a>
+                </div>
+            </div>
+        </div>
+        
+        <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
+    </div>
+
+    <!-- Griglia per desktop -->
+    <div class="project-cards" *ngIf="!isMobile">
         <div class="project-card" *ngFor="let project of projects">
             <h3>{{ project.title }}</h3>
             <img [src]="project.image" alt="Project Image" />

@@ -1,10 +1,17 @@
-.social-container{
+.social-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+}
 
-    .social-item a img{
-        height: 4vh;
-    }
+.social-item a img {
+    height: 4vh;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-item a img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, HostListener, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, AfterViewInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ThemeswitchComponent } from './themeswitch/themeswitch.component';
 
@@ -20,30 +20,8 @@ export class NavigatorComponent implements AfterViewInit {
   @Output() navigateNext = new EventEmitter<void>();
   @Output() navigatePrevious = new EventEmitter<void>();
 
-  private observer: IntersectionObserver | null = null;
-
   ngAfterViewInit() {
-    this.setupScrollObserver();
-  }
-
-  setupScrollObserver() {
-    const sectionElements = document.querySelectorAll('.section');
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.
-    };
-
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const index = Array.from(sectionElements).indexOf(entry.target);
-          this.currentSectionIndex = index + 1;
-        }
-      });
-    }, options);
-
-    sectionElements.forEach(section => this.observer?.observe(section));
+    // Niente da fare qui, rimuoviamo l'observer
   }
 
   onNext() {
@@ -52,10 +30,5 @@ export class NavigatorComponent implements AfterViewInit {
 
   onPrevious() {
     this.navigatePrevious.emit();
-  }
-
-  ngOnDestroy() {
-    // Pulizia dell'observer quando il componente viene distrutto
-    this.observer?.disconnect();
   }
 }

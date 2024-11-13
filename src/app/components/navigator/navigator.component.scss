@@ -1,15 +1,38 @@
-.navigator {
-  z-index: 10;
-  position: fixed;
-  bottom: 16px;
-  right: 36px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  scale: 1.6;
+$navigator-position-right-desktop: 36px;
+$navigator-position-right-tablet: 20px;
+$navigator-position-right-small: 35px !important;
 
-  span :hover{
-    cursor: pointer;
-  }
+$navigator-position-bottom-desktop: 16px;
+$navigator-position-bottom-tablet: 12px;
+$navigator-position-bottom-small: 65px !important;
+
+// Navigator styling
+.navigator {
+    z-index: 10;
+    position: fixed;
+    bottom: $navigator-position-bottom-desktop;
+    right: $navigator-position-right-desktop;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    // Hover effect for span elements inside navigator
+    span:hover {
+        cursor: pointer;
+    }
+}
+
+// Mobile-specific adjustments
+@media (max-width: 768px) {
+    .navigator {
+        right: $navigator-position-right-tablet;
+        bottom: $navigator-position-bottom-tablet;
+    }
+}
+
+@media (max-width: 480px) {
+    .navigator {
+        right: $navigator-position-right-small;
+        bottom: $navigator-position-bottom-small;
+    }
 }

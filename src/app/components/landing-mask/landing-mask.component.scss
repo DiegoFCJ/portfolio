@@ -1,15 +1,14 @@
-// Variabili SCSS per colori, opacità e dimensioni
+// SCSS variables for colors, opacity, and circle sizes
 $color-top-left: rgb(213, 249, 255);
 $color-center-left: rgb(232, 255, 235);
 $color-bottom-center: rgb(255, 244, 244);
 $color-center-right: rgb(253, 255, 231);
 $circle-opacity: 0.3;
 
-// Range per le dimensioni casuali dei cerchi
 $min-circle-size: 400px;
 $max-circle-size: 600px;
 
-// Contenitore generale
+// General container for circles with full-screen size
 .full_mask {
     position: absolute;
     top: 0;
@@ -23,10 +22,10 @@ $max-circle-size: 600px;
         position: absolute;
         border-radius: 50%;
         opacity: $circle-opacity;
-        transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out; // Smooth transition for circle movements
     }
 
-    // Cerchio in alto a sinistra
+    // Top left circle
     .top-left-circle {
         top: -10vh;
         left: -10vw;
@@ -35,7 +34,7 @@ $max-circle-size: 600px;
         height: $min-circle-size;
     }
 
-    // Cerchio al centro a sinistra
+    // Center left circle
     .center-left-circle {
         bottom: -16vh;
         left: -8vw;
@@ -44,7 +43,7 @@ $max-circle-size: 600px;
         height: $min-circle-size;
     }
 
-    // Cerchio in basso al centro
+    // Bottom center circle
     .bottom-center-circle {
         bottom: -15vw;
         left: 70vw;
@@ -53,12 +52,74 @@ $max-circle-size: 600px;
         height: $min-circle-size;
     }
 
-    // Cerchio al centro a destra
+    // Center right circle
     .center-right-circle {
         top: 30vh;
         right: 0;
         background-color: $color-center-right;
         width: $min-circle-size;
         height: $min-circle-size;
+    }
+}
+
+// Mobile-specific adjustments
+@media (max-width: 768px) {
+    .full_mask {
+        .circle {
+            width: $max-circle-size; // Increase the size of the circles on mobile
+            height: $max-circle-size;
+        }
+
+        // Adjust positions of circles for mobile screens
+        .top-left-circle {
+            top: -8vh;
+            left: -5vw;
+        }
+
+        .center-left-circle {
+            bottom: -12vh;
+            left: -5vw;
+        }
+
+        .bottom-center-circle {
+            bottom: -10vw;
+            left: 60vw;
+        }
+
+        .center-right-circle {
+            top: 20vh;
+            right: 5vw;
+        }
+    }
+}
+
+// Small mobile screens (480px and below)
+@media (max-width: 480px) {
+    .full_mask {
+        .circle {
+            width: $max-circle-size; // Further increase circle size on very small screens
+            height: $max-circle-size;
+        }
+
+        // Adjust positions of circles for very small mobile screens
+        .top-left-circle {
+            top: -6vh;
+            left: -4vw;
+        }
+
+        .center-left-circle {
+            bottom: -10vh;
+            left: -4vw;
+        }
+
+        .bottom-center-circle {
+            bottom: -8vw;
+            left: 55vw;
+        }
+
+        .center-right-circle {
+            top: 15vh;
+            right: 10vw;
+        }
     }
 }

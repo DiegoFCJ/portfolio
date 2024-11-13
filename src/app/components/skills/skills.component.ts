@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { skills } from '../../data/skills.data';
 import { Skill } from '../../dtos/SkillDTO';
@@ -9,12 +9,19 @@ import { Skill } from '../../dtos/SkillDTO';
   imports: [CommonModule],
   providers: [],
   templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.scss']
+  styleUrls: [
+    './skills.component.scss',
+    './skills.carousel.component.scss'
+  ]
 })
 export class SkillsComponent implements OnInit {
   sections: Skill[] = [];
   loading: boolean = true;
   error: string | null = null;
+
+  // Variabili per il carosello
+  isMobile: boolean = false;
+  currentIndex: number = 0;
 
   constructor() {}
 
@@ -24,7 +31,34 @@ export class SkillsComponent implements OnInit {
       skills: section.skills.map(skill => ({ ...skill, clicked: false }))
     }));
     this.loading = false;
-    console.log('section.title', this.sections[0].title)
+    this.checkIfMobile();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkIfMobile();
+  }
+
+  checkIfMobile() {
+    this.isMobile = window.innerWidth <= 768;
+  }
+
+  // Metodo per spostarsi alla sezione successiva
+  moveToNext() {
+    if (this.currentIndex < this.sections.length - 1) {
+      this.currentIndex++;
+    } else {
+      this.currentIndex = 0; // Torna alla prima sezione quando arrivi alla fine
+    }
+  }
+
+  // Metodo per spostarsi alla sezione precedente
+  moveToPrevious() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } else {
+      this.currentIndex = this.sections.length - 1; // Torna all'ultima sezione quando arrivi all'inizio
+    }
   }
 
   onSkillClick(event: MouseEvent, skill: any): void {
@@ -57,5 +91,4 @@ export class SkillsComponent implements OnInit {
       }, 3000);
     }
   }
-  
 }

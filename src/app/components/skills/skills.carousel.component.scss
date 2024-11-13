@@ -1,0 +1,86 @@
+// Box shadow for images
+$box-shadow-default: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+// Carosello per dispositivi mobili
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    .carousel-wrapper {
+        display: flex;
+        transition: transform 0.3s ease;
+    }
+
+    .carousel-item {
+        min-width: 100%;
+        display: none; // Nascondi tutte le sezioni inizialmente
+
+        &.active {
+            display: block; // Mostra solo la sezione attiva
+        }
+
+        .skill-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: $box-shadow-default;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            gap: 1rem;
+        }
+    }
+
+    .arrow-left,
+    .arrow-right {
+        position: absolute;
+        top: 50%;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 24px;
+        transform: translateY(-50%);
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    .arrow-left {
+        left: 10px;
+    }
+
+    .arrow-right {
+        right: 10px;
+    }
+}
+
+// Media Query per dispositivi mobili (max-width: 768px)
+@media (max-width: 768px) {
+    .skill-grid {
+        display: none; // Nascondi la griglia per i dispositivi mobili
+    }
+}
+
+// Extra small mobile devices
+@media (max-width: 480px) {
+    .carousel-container {
+        margin-top: 10vh;
+    }
+}

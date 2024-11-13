@@ -37,33 +37,31 @@ export class HeroComponent implements OnInit {
     const textLength = currentText.length;
 
     if (this.isWriting) {
-      // Se stiamo scrivendo, aggiungiamo una lettera alla volta
       if (this.displayText.length < textLength) {
         this.displayText += currentText[this.displayText.length];
         setTimeout(() => this.startTypingAnimation(), this.typingSpeed);
       } else {
-        // Se il testo è completo, attendi e poi avvia la cancellazione o fermati
+
         if (this.currentTextIndex === this.texts.length - 1) {
           this.isFinalText = true;
-          return; // Ferma l'animazione sull'ultimo testo
+          setTimeout(() => this.delayBetweenTexts * 3);
+          this.displayText = this.texts[0]
+          return;
         } else {
           this.isWriting = false;
           setTimeout(() => this.startTypingAnimation(), this.delayBetweenTexts);
         }
       }
     } else {
-      // Se siamo al testo 3 ("I'm a Student") e cancelliamo solo "Student"
       if (this.currentTextIndex === 2 && this.displayText === "I'm a ") {
         this.isWriting = true;
         this.currentTextIndex++;
         setTimeout(() => this.startTypingAnimation(), this.typingSpeed);
       }
-      // Cancellazione di una lettera alla volta per il resto dei testi
       else if (this.displayText.length > 0) {
         this.displayText = this.displayText.slice(0, -1);
         setTimeout(() => this.startTypingAnimation(), this.deletingSpeed);
       } else {
-        // Passa al testo successivo e riprendi a scrivere
         this.isWriting = true;
         this.currentTextIndex++;
         setTimeout(() => this.startTypingAnimation(), this.typingSpeed);
