@@ -1,5 +1,5 @@
 {
-  "name": "diego-fcjportfolio",
+  "name": "DiegoFCJPortfolio",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:DiegoFCJPortfolio": "node dist/diego-fcjportfolio/server/server.mjs"
+    "serve:ssr:DiegoFCJPortfolio": "node dist/DiegoFCJPortfolio/server/server.mjs"
   },
   "private": true,
   "dependencies": {

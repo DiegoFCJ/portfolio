@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/diego-fcjportfolio",
+            "outputPath": "dist/DiegoFCJPortfolio",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -77,7 +77,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "diego-fcjportfolio:build:production"
+              "buildTarget": "DiegoFCJPortfolio:build:production"
             },
             "development": {
               "buildTarget": "DiegoFCJPortfolio:build:development"
