@@ -1,3 +1,15 @@
+// Variabili SCSS per colori, opacità e dimensioni
+$color-top-left: rgb(213, 249, 255);
+$color-center-left: rgb(232, 255, 235);
+$color-bottom-center: rgb(255, 244, 244);
+$color-center-right: rgb(253, 255, 231);
+$circle-opacity: 0.3;
+
+// Range per le dimensioni casuali dei cerchi
+$min-circle-size: 400px;
+$max-circle-size: 600px;
+
+// Contenitore generale
 .full_mask {
     position: absolute;
     top: 0;
@@ -7,132 +19,46 @@
     z-index: 2;
     overflow: hidden;
 
-    .top-left-circle {
+    .circle {
         position: absolute;
+        border-radius: 50%;
+        opacity: $circle-opacity;
+        transition: all 0.5s ease-in-out;
+    }
+
+    // Cerchio in alto a sinistra
+    .top-left-circle {
         top: -10vh;
         left: -10vw;
-        height: 600px;
-        width: 600px;
-        background-color: rgb(213, 249, 255);
-        opacity: 0;
-        border-radius: 50%;
-        animation: appearFromTopLeft 1s ease-out forwards;
+        background-color: $color-top-left;
+        width: $min-circle-size;
+        height: $min-circle-size;
     }
 
+    // Cerchio al centro a sinistra
     .center-left-circle {
-        position: absolute;
         bottom: -16vh;
         left: -8vw;
-        transform: translateY(-50%);
-        height: 500px;
-        width: 500px;
-        background-color: rgb(232, 255, 235);
-        opacity: 0;
-        border-radius: 50%;
-        animation: appearFromLeft 1s ease-out 0.3s forwards;
-
-        .inside-circle {
-            position: relative;
-            bottom: 0vh;
-            left: -4vw;
-        }
+        background-color: $color-center-left;
+        width: $min-circle-size;
+        height: $min-circle-size;
     }
 
+    // Cerchio in basso al centro
     .bottom-center-circle {
-        position: absolute;
         bottom: -15vw;
         left: 70vw;
-        transform: translateX(-50%);
-        height: 450px;
-        width: 450px;
-        background-color: rgb(255, 244, 244);
-        opacity: 0;
-        border-radius: 50%;
-
-        .inside-circle {
-            position: relative;
-            bottom: 6vh;
-        }
-
-        animation: appearFromBottom 1s ease-out 0.6s forwards;
+        background-color: $color-bottom-center;
+        width: $min-circle-size;
+        height: $min-circle-size;
     }
 
+    // Cerchio al centro a destra
     .center-right-circle {
-        position: absolute;
         top: 30vh;
         right: 0;
-        transform: translateY(-50%);
-        height: 450px;
-        width: 450px;
-        background-color: rgb(253, 255, 231);
-        opacity: 0;
-        border-radius: 50%;
-        animation: appearFromRight 1s ease-out 0.9s forwards;
-
-        .inside-circle {
-            position: relative;
-            bottom: 6vh;
-        }
-    }
-
-    .inside-circle {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        height: 600px;
-        width: 600px;
-        background-color: rgb(213, 249, 255);
-        opacity: 30%;
-        border-radius: 50%;
-    }
-
-    @keyframes appearFromTopLeft {
-        0% {
-            transform: translate(-100%, -100%);
-            opacity: 0;
-        }
-
-        100% {
-            transform: translate(0, 0);
-            opacity: 0.2;
-        }
-    }
-
-    @keyframes appearFromLeft {
-        0% {
-            transform: translate(-100%, -50%);
-            opacity: 0;
-        }
-
-        100% {
-            transform: translate(0, -50%);
-            opacity: 0.3;
-        }
-    }
-
-    @keyframes appearFromBottom {
-        0% {
-            transform: translate(-50%, 100%);
-            opacity: 0;
-        }
-
-        100% {
-            transform: translate(-50%, 0);
-            opacity: 0.4;
-        }
-    }
-
-    @keyframes appearFromRight {
-        0% {
-            transform: translate(100%, -50%);
-            opacity: 0;
-        }
-
-        100% {
-            transform: translate(0, -50%);
-            opacity: 0.25;
-        }
+        background-color: $color-center-right;
+        width: $min-circle-size;
+        height: $min-circle-size;
     }
 }

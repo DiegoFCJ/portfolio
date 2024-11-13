@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { writeFileSync } from 'fs'; // Importa il modulo per salvare su file
 import { LandingMaskComponent } from '../landing-mask/landing-mask.component';
 import { SocialComponent } from '../social/social.component';
 
@@ -22,15 +21,14 @@ export class HeroComponent implements OnInit {
   ];
 
   displayText = "";
-  isWriting = true;
-  currentTextIndex = 0;
-  typingSpeed = 50;
-  deletingSpeed = 50;
-  delayBetweenTexts = 1000;
-  totalTime = 0; // Variabile per il tempo totale
+  isWriting = true; // Controlla se sta scrivendo o cancellando
+  currentTextIndex = 0; // Indice del testo corrente
+  typingSpeed = 50; // Velocità della macchina da scrivere
+  deletingSpeed = 50; // Velocità di cancellazione
+  delayBetweenTexts = 1000; // Ritardo di 2 secondi
+  isFinalText = false; // Flag per fermare l'animazione dopo l'ultimo testo
 
   ngOnInit() {
-    this.calculateTotalAnimationTime();
     this.startTypingAnimation();
   }
 
@@ -39,51 +37,38 @@ export class HeroComponent implements OnInit {
     const textLength = currentText.length;
 
     if (this.isWriting) {
+      // Se stiamo scrivendo, aggiungiamo una lettera alla volta
       if (this.displayText.length < textLength) {
         this.displayText += currentText[this.displayText.length];
         setTimeout(() => this.startTypingAnimation(), this.typingSpeed);
       } else {
+        // Se il testo è completo, attendi e poi avvia la cancellazione o fermati
         if (this.currentTextIndex === this.texts.length - 1) {
-          return;
+          this.isFinalText = true;
+          return; // Ferma l'animazione sull'ultimo testo
         } else {
           this.isWriting = false;
           setTimeout(() => this.startTypingAnimation(), this.delayBetweenTexts);
         }
       }
     } else {
+      // Se siamo al testo 3 ("I'm a Student") e cancelliamo solo "Student"
       if (this.currentTextIndex === 2 && this.displayText === "I'm a ") {
         this.isWriting = true;
         this.currentTextIndex++;
         setTimeout(() => this.startTypingAnimation(), this.typingSpeed);
-      } else if (this.displayText.length > 0) {
+      }
+      // Cancellazione di una lettera alla volta per il resto dei testi
+      else if (this.displayText.length > 0) {
         this.displayText = this.displayText.slice(0, -1);
         setTimeout(() => this.startTypingAnimation(), this.deletingSpeed);
       } else {
+        // Passa al testo successivo e riprendi a scrivere
         this.isWriting = true;
         this.currentTextIndex++;
         setTimeout(() => this.startTypingAnimation(), this.typingSpeed);
       }
     }
-  }
-
-  calculateTotalAnimationTime() {
-    this.totalTime = this.texts.reduce((total, text, index) => {
-      const textLength = text.length;
-      const writeTime = textLength * this.typingSpeed;
-      const deleteTime = index === 2 ? 7 * this.deletingSpeed : textLength * this.deletingSpeed; // Special case for "I'm a "
-      return total + writeTime + deleteTime + this.delayBetweenTexts;
-    }, 0);
-
-    this.saveTotalTimeToFile(this.totalTime);
-  }
-
-  saveTotalTimeToFile(totalTime: number) {
-    const filePath = './data/animationTime.txt';
-    const fileContent = `Total Animation Time: ${totalTime} ms`;
-
-    // Salva il tempo in un file
-    writeFileSync(filePath, fileContent, 'utf8');
-    console.log(`Total animation time saved to ${filePath}`);
   }
 
   scrollToSection(sectionId: string) {
