@@ -1,3 +1,9 @@
+$box-shadow-3d: 
+    0 4px 6px rgba(0, 0, 0, 0.2),   // Ombra primaria vicina
+    0 8px 15px rgba(0, 0, 0, 0.15), // Ombra più morbida per maggiore profondità
+    0 15px 25px rgba(0, 0, 0, 0.1), // Ombra diffusa che aumenta la realisticità
+    0 25px 35px rgba(0, 0, 0, 0.05); // Ombra esterna per un effetto soffuso
+
 .skill-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // Dynamic grid columns based on container width
@@ -7,7 +13,7 @@
 }
 
 .skill-section {
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 8px;
     padding: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -41,10 +47,7 @@
 
 .skill-item img {
     object-fit: contain;
-
-    // 3D effect
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1); // Add depth effect
-
+    box-shadow: $box-shadow-3d;
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; // Smooth hover effects
 }
 

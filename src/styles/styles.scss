@@ -1,0 +1,139 @@
+$box-shadow-3d: 0 4px 6px rgba(0, 0, 0, 0.2), // Ombra primaria vicina
+    0 8px 15px rgba(0, 0, 0, 0.15), // Ombra più morbida per maggiore profondità
+    0 15px 25px rgba(0, 0, 0, 0.1), // Ombra diffusa che aumenta la realisticità
+    0 25px 35px rgba(0, 0, 0, 0.05); // Ombra esterna per un effetto soffuso
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    font-size: 1.2em;
+    max-width: 700px;
+    margin-bottom: 1.5em;
+}
+
+button {
+    padding: 0.75em 1.5em;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Layout delle sezioni */
+section {
+    padding: 0 1.5em 3em 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 100vh;
+    text-align: center;
+    box-shadow: 0px 10px 100px rgba(0, 0, 0, 0.1);
+}
+
+.skill-section {
+    &:hover {
+        transform: translateY(-5px);
+        cursor: pointer;
+    }
+}
+
+/* Tema scuro */
+body.dark-mode {
+    background-color: #181818;
+    color: #ffffff;
+
+    h1,
+    h2,
+    p {
+        color: #e0e0e0;
+    }
+
+    button {
+        background-color: #333;
+        color: #ffffff;
+
+        &:hover {
+            background-color: #444;
+        }
+    }
+
+    section {
+        background-color: #1e1e1e;
+    }
+
+    .bg-container {
+        background: linear-gradient(315deg, #1a004b, #002147, #002b21, #002b17);
+
+        .hero-content {
+            button {
+                background-color: #181818 !important;
+            }
+
+            button:hover {
+                background-color: #1f1f1f !important;
+            }
+
+        }
+    }
+
+    .project-card {
+        background-color: #181818;
+        box-shadow: $box-shadow-3d;
+
+        img {
+            background-color: #181818 !important;
+        }
+    }
+
+    .skill-section {
+        background-color: #181818;
+        box-shadow: $box-shadow-3d;
+    }
+}
+
+/* Media query per dispositivi mobili */
+@media (max-width: 768px) {
+    section {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    button {
+        padding: 0.6em 1.2em;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {}

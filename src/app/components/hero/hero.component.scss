@@ -1,22 +1,30 @@
-section {
-  background: linear-gradient(135deg, #4a90e2, #50e3c2);
-  color: white;
+.bg-container {
+  background: linear-gradient(135deg, #ac80ff, #4a90e2, #50e3c2, #00ff88);
+  padding: 0 1.5em 3em 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
-}
+  text-align: center;
+  box-shadow: 0px 10px 100px rgba(0, 0, 0, 0.1);
 
-p {
+  p {
     margin: auto;
-}
+  }
 
-.hero-content {
-  max-width: 600px;
-}
+  .hero-content {
+    max-width: 600px;
 
-.hero-content button {
-  background-color: #ffffff;
-  color: #4a90e2;
-}
+    button {
+      margin-top: 20px;
+      background-color: #ffffff;
+      color: #4a90e2;
+      font-weight: bold;
+    }
 
-.hero-content button:hover {
-  background-color: #e0f7f4;
+    button:hover {
+      background-color: #e0f7f4;
+    }
+  }
 }

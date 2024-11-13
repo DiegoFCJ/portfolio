@@ -1,0 +1,16 @@
+
+
+.navigator {
+  position: fixed;
+  bottom: 16px;
+  right: 36px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  scale: 1.6;
+
+  span :hover{
+    cursor: pointer;
+  }
+}

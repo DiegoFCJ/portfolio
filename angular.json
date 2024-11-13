@@ -37,7 +37,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "src/styles/styles.scss"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -103,7 +104,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "src/styles/styles.scss"
             ],
             "scripts": []
           }

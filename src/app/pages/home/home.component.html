@@ -1,4 +1,14 @@
-<app-hero></app-hero>
-<app-about></app-about>
-<app-projects></app-projects>
-<app-skills></app-skills>
+<div *ngIf="sections">
+    <div #section><app-hero></app-hero></div>
+    <div #section><app-about></app-about></div>
+    <div #section><app-projects></app-projects></div>
+    <div #section><app-skills></app-skills></div>
+  
+    <app-navigator 
+      [totalSections]="sections.length"
+      [currentSectionIndex]="currentSectionIndex"
+      (navigateNext)="navigateNext()"
+      (navigatePrevious)="navigatePrevious()">
+    </app-navigator>
+  </div>
+  
