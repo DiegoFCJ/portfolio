@@ -1,0 +1,10 @@
+.social-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    .social-item a img{
+        height: 4vh;
+    }
+}

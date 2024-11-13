@@ -1,12 +1,6 @@
-$box-shadow-3d: 
-    0 4px 6px rgba(0, 0, 0, 0.2),   // Ombra primaria vicina
-    0 8px 15px rgba(0, 0, 0, 0.15), // Ombra più morbida per maggiore profondità
-    0 15px 25px rgba(0, 0, 0, 0.1), // Ombra diffusa che aumenta la realisticità
-    0 25px 35px rgba(0, 0, 0, 0.05); // Ombra esterna per un effetto soffuso
-
 .skill-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // Dynamic grid columns based on container width
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
     width: 100%;
     max-width: 1200px;
@@ -18,42 +12,41 @@ $box-shadow-3d:
     padding: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column; // Align contents vertically in the section
-    align-items: center; // Center-align the content horizontally
-    justify-content: flex-start; // Align content to the top within the section
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .skill-section h3 {
     font-size: 1.5rem;
     font-weight: bold;
     color: #0073e6;
-    text-align: center; // Center-align the section title
+    text-align: center;
 }
 
 .skills {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; // Center-align skills inside the section
+    justify-content: center;
     width: 100%;
-    gap: 1rem; // Space between skill items
+    gap: 1rem;
 }
 
 .skill-item {
     text-align: center;
     display: flex;
-    flex-direction: column; // Ensure the text and image are vertically aligned
+    flex-direction: column;
     align-items: center;
 }
 
 .skill-item img {
     object-fit: contain;
-    box-shadow: $box-shadow-3d;
-    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; // Smooth hover effects
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .skill-item img:hover {
-    transform: translateY(-5px); // Slightly lift the image on hover
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2); // Stronger shadow on hover for a deeper 3D effect
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
@@ -64,11 +57,11 @@ $box-shadow-3d:
 
 @media (max-width: 768px) {
     section {
-        padding: 1.5rem; // Reduce padding on smaller screens
+        padding: 1.5rem;
     }
 
     .skill-section {
-        padding: 1.5rem; // Adjust padding for smaller screens
+        padding: 1.5rem;
     }
 
     .skill-item img {
@@ -87,13 +80,11 @@ $box-shadow-3d:
         transform: translateY(-5px) rotate(360deg);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
     }
-
-
 }
 
 @media (max-width: 480px) {
     .skill-grid {
-        grid-template-columns: 1fr; // Single column layout on very small screens
+        grid-template-columns: 1fr;
     }
 
     .skill-item img {

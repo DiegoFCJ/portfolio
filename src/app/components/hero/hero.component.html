@@ -1,8 +1,9 @@
 <app-landing-mask></app-landing-mask>
 <div class="bg-container">
     <div class="hero-content">
-        <h1>Welcome to My Portfolio</h1>
-        <p>Hi, I'm Diego. A passionate web developer dedicated to creating beautiful and functional websites.</p>
+        <!-- Mostra il testo con l'effetto macchina da scrivere e il cursore -->
+        <h1>{{ displayText }}<span class="cursor">|</span></h1>
+        <app-social></app-social>
         <button (click)="scrollToSection('about')">Learn More About Me</button>
     </div>
     <div class="bottom-border"></div>

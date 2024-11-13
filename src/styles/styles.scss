@@ -1,9 +1,12 @@
-$box-shadow-3d: 0 4px 6px rgba(0, 0, 0, 0.2), // Ombra primaria vicina
-    0 8px 15px rgba(0, 0, 0, 0.15), // Ombra più morbida per maggiore profondità
-    0 15px 25px rgba(0, 0, 0, 0.1), // Ombra diffusa che aumenta la realisticità
-    0 25px 35px rgba(0, 0, 0, 0.05); // Ombra esterna per un effetto soffuso
+$box-shadow-3d: 0 4px 6px rgba(0, 0, 0, 0.2),
+    0 8px 15px rgba(0, 0, 0, 0.15),
+    0 15px 25px rgba(0, 0, 0, 0.1),
+    0 25px 35px rgba(0, 0, 0, 0.05);
 
-$section-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+$section-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15),
+    0px 10px 15px rgba(0, 0, 0, 0.1),
+    0px 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0px -1px 3px rgba(0, 0, 0, 0.05);
 
 html,
 body {
@@ -64,6 +67,21 @@ section {
 
 .skill-section {
     &:hover {
+        transform: translateY(-5px);
+        cursor: pointer;
+    }
+
+    .skill-item img {
+        box-shadow: $box-shadow-3d;
+    }
+}
+
+.social-container {
+    .social-item a img {
+        box-shadow: $box-shadow-3d;
+    }
+
+    .social-item a img:hover {
         transform: translateY(-5px);
         cursor: pointer;
     }

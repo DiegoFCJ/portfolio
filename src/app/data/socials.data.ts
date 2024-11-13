@@ -1,19 +1,16 @@
 import { Social } from '../dtos/SocialDTO';
 
-export const projects: Social[] = [
+export const socials: Social[] = [
     {
-        title: 'Linkedin',
-        link: 'https://github.com/DiegoFCJ/MicroGames',
-        icon: 'fas fa-gamepad'
+        link: 'https://linkedin.com/in/diegofois/',
+        icon: 'https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white'
     },
     {
-        title: 'Discord',
-        link: 'https://github.com/DiegoFCJ/self',
-        icon: 'fas fa-gamepad'
+        link: 'https://discordapp.com/users/die96',
+        icon: 'https://img.shields.io/badge/Discord-%237289DA.svg?logo=discord&logoColor=white'
     },
     {
-        title: 'Instagram',
-        link: 'https://github.com/DiegoFCJ/E-commerce',
-        icon: 'fas fa-gamepad'
+        link: 'https://www.instagram.com/diego._fois/',
+        icon: 'https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white'
     }
 ];

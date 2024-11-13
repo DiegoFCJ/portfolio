@@ -1,1 +1,7 @@
-<p>social works!</p>
+<div class="social-container">
+    <div class="social-item" *ngFor="let social of socialsData">
+        <a [href]="social.link" target="_blank">
+            <img [src]="social.icon" alt="social Image" />
+        </a>
+    </div>
+</div>
