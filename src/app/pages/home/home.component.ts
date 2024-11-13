@@ -5,11 +5,24 @@ import { AboutComponent } from '../../components/about/about.component';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { SkillsComponent } from '../../components/skills/skills.component';
 import { NavigatorComponent } from '../../components/navigator/navigator.component';
+import { EducationComponent } from '../../components/education/education.component';
+import { StatsComponent } from '../../components/stats/stats.component';
+import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ProjectsComponent, AboutComponent, HeroComponent, SkillsComponent, NavigatorComponent],
+  imports: [
+    CommonModule,
+    ProjectsComponent, 
+    AboutComponent, 
+    HeroComponent, 
+    SkillsComponent, 
+    NavigatorComponent,
+    EducationComponent,
+    StatsComponent,
+    ContactMeComponent
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -17,7 +30,7 @@ export class HomeComponent implements AfterViewInit {
   @ViewChildren('section') sections!: QueryList<ElementRef>;
   currentSectionIndex = 0;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit() {
     this.updateCurrentSectionIndex();
