@@ -71,6 +71,11 @@ section {
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
+
+    section {
+        height: 80vh;
+    }
+
     .projects-section {
         padding: 2em 1em;
 
