@@ -136,12 +136,16 @@ body.dark-mode {
     }
 
     .project-card {
-        background-color: #181818;
+        background-color: #181818 !important;
         box-shadow: $box-shadow-3d;
 
         img {
             background-color: #181818 !important;
         }
+    }
+
+    .carousel-container{
+        background-color: #181818;
     }
 
     .skill-section {

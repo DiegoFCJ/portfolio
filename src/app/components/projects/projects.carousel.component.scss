@@ -19,52 +19,6 @@
         &.active {
             display: block; // Mostra solo la card attiva
         }
-
-        .project-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            padding: 1em;
-            transition: transform 0.3s;
-
-            // Hover effect per le card nel carosello mobile
-            &:hover {
-                transform: translateY(-5px);
-                cursor: pointer;
-            }
-
-            img {
-                width: 100%;
-                height: 180px;
-                object-fit: contain;
-                object-position: top;
-                border-radius: 8px 8px 0 0;
-                background-color: white;
-            }
-
-            h3 {
-                color: #0073e6;
-                margin-top: 0.75em;
-                font-size: 1.4em;
-            }
-
-            p {
-                font-size: 1em;
-                margin: 0.75em 0;
-            }
-
-            a {
-                color: #4a90e2;
-                text-decoration: none;
-                font-weight: bold;
-                transition: color 0.3s;
-
-                &:hover {
-                    color: #2a6eb8;
-                }
-            }
-        }
     }
 
     .arrow-left,

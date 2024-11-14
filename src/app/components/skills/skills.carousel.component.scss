@@ -22,25 +22,6 @@ $box-shadow-default: 0 4px 8px rgba(0, 0, 0, 0.1);
         &.active {
             display: block; // Mostra solo la sezione attiva
         }
-
-        .skill-section {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: $box-shadow-default;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            width: 100%;
-            gap: 1rem;
-        }
     }
 
     .arrow-left,

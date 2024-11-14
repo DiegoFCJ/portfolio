@@ -1,10 +1,10 @@
-$navigator-position-right-desktop: 36px;
+$navigator-position-right-desktop: 46px;
 $navigator-position-right-tablet: 20px;
-$navigator-position-right-small: 35px !important;
+$navigator-position-right-small: 15px !important;
 
 $navigator-position-bottom-desktop: 16px;
 $navigator-position-bottom-tablet: 12px;
-$navigator-position-bottom-small: 65px !important;
+$navigator-position-bottom-small: 20px !important;
 
 // Navigator styling
 .navigator {
@@ -15,6 +15,7 @@ $navigator-position-bottom-small: 65px !important;
     display: flex;
     flex-direction: row;
     align-items: center;
+    scale: 2;
 
     // Hover effect for span elements inside navigator
     span:hover {
@@ -25,6 +26,7 @@ $navigator-position-bottom-small: 65px !important;
 // Mobile-specific adjustments
 @media (max-width: 768px) {
     .navigator {
+        scale: 1.5;
         right: $navigator-position-right-tablet;
         bottom: $navigator-position-bottom-tablet;
     }
@@ -34,5 +36,6 @@ $navigator-position-bottom-small: 65px !important;
     .navigator {
         right: $navigator-position-right-small;
         bottom: $navigator-position-bottom-small;
+        scale: 1;
     }
 }
