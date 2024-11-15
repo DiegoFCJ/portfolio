@@ -14,8 +14,8 @@ import { SocialComponent } from '../social/social.component';
 })
 export class HeroComponent implements OnInit {
   texts = [
-    "Hi! Welcome to my portfolio!", 
-    "My name is Diego Fois", 
+    "Hi! My name is Diego Fois", 
+    "Welcome to my portfolio!", 
     "I'm a Student", 
     "I'm a Developer"
   ];
@@ -44,8 +44,6 @@ export class HeroComponent implements OnInit {
 
         if (this.currentTextIndex === this.texts.length - 1) {
           this.isFinalText = true;
-          setTimeout(() => this.delayBetweenTexts * 3);
-          this.displayText = this.texts[0]
           return;
         } else {
           this.isWriting = false;

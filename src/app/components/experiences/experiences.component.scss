@@ -1,0 +1,22 @@
+.experiences-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .experience {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #f1f1f1;
+        margin: 10px;
+
+        p {
+            text-align: start;
+            margin: 0;
+            padding: 5px;
+        }
+    }
+}

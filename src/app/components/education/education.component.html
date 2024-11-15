@@ -1,4 +1,16 @@
 <section>
-    <h2>Education</h2>
-    <p>Work in progress...</p>
+  <h2>Education</h2>
+  <div class="education-container">
+    <div class="education-item" *ngFor="let education of educationList; let i = index; let last = last">
+      <div class="vertical-line" [ngClass]="resizeConditions(i, last)">
+        <span class="point-on-line"></span>
+      </div>
+      <div class="restrained">
+        <p><strong>{{ education.startDate }} - {{ education.endDate }}</strong></p>
+        <h3>{{ education.title }}</h3>
+        <p>{{ education.institution }}</p>
+        <p>{{ education.description }}</p>
+      </div>
+    </div>
+  </div>
 </section>

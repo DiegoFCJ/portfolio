@@ -8,6 +8,7 @@ import { NavigatorComponent } from '../../components/navigator/navigator.compone
 import { EducationComponent } from '../../components/education/education.component';
 import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
+import { ExperiencesComponent } from '../../components/experiences/experiences.component';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ import { ContactMeComponent } from '../../components/contact-me/contact-me.compo
     NavigatorComponent,
     EducationComponent,
     StatsComponent,
-    ContactMeComponent
+    ContactMeComponent,
+    ExperiencesComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
