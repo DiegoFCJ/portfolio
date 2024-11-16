@@ -31,9 +31,9 @@
     <!-- Griglia per desktop -->
     <div class="project-cards" *ngIf="!isMobile">
         <div class="project-card" *ngFor="let project of projects">
-            <h3>{{ project.title }}</h3>
             <img [src]="project.image" alt="Project Image" />
 
+            <h3>{{ project.title }}</h3>
             <p>
                 {{ getTruncatedDescription(project) }}
                 <!-- Mostra "More" solo se il testo non è espanso -->
