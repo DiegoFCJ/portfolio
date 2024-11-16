@@ -54,3 +54,13 @@
     }
   }
 }
+
+
+
+    /* Schermi molto piccoli (extra small) */
+    @media (max-width: 480px) {
+
+      .point-on-line {
+        top: 32px !important;
+      }
+  }
