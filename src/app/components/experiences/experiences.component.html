@@ -3,7 +3,7 @@
     <div class="experiences-container">
         <div class="experience" *ngFor="let experience of experiences">
             <p><strong>{{ experience.startDate }} - {{ experience.endDate }}</strong></p>
-            <p>{{ experience.location }} - {{ experience.position }}</p>
+            <p>{{ experience.location }} - <strong>{{ experience.position }}</strong></p>
             <p *ngIf="experience.technologies"> {{ experience.technologies }}</p>
             <p>{{ experience.responsibilities }}</p>
         </div>

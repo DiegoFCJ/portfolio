@@ -1,5 +1,8 @@
-section{
+section {
     position: relative;
     z-index: 6;
-    //height: 40vh;
+
+    p {
+        max-width: 90vw;
+    }
 }

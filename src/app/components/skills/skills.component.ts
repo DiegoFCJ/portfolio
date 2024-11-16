@@ -68,16 +68,17 @@ export class SkillsComponent implements OnInit {
     // Optionally, display a message when the image is clicked
     if (skill.clicked) {
       const message = document.createElement('div');
-      message.textContent = 'Compliments! You discovered the Easter egg!';
+      message.classList.add('popup');
       message.style.position = 'absolute';
       message.style.top = '10px';
       message.style.left = '50%';
       message.style.transform = 'translateX(-50%)';
       message.style.fontSize = '1.2rem';
-      message.style.color = '#0073e6';
       message.style.fontWeight = 'bold';
       message.style.zIndex = '10';
       message.style.textAlign = 'center';
+      message.style.padding = '10px';
+      message.style.borderRadius = '10px';
   
       // Cast event.target to HTMLElement to avoid TypeScript error
       const targetElement = event.target as HTMLElement;
@@ -88,7 +89,7 @@ export class SkillsComponent implements OnInit {
       // Remove the message after 3 seconds
       setTimeout(() => {
         message.remove();
-      }, 3000);
+      }, 5000);
     }
   }
 }

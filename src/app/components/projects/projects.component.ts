@@ -21,6 +21,10 @@ export class ProjectsComponent implements OnInit {
     this.checkIfMobile();
   }
 
+  toggleExpand(project: any): void {
+    project.expanded = !project.expanded;  // Toggle stato espanso
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.checkIfMobile();

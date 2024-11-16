@@ -1,9 +1,9 @@
-// Box shadow for images
+// Variabili per gli effetti di box-shadow
 $box-shadow-default: 0 4px 8px rgba(0, 0, 0, 0.1);
 $box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
 $box-shadow-mobile: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
 
-// Skill grid container
+// Container della griglia delle competenze
 .skill-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -12,7 +12,7 @@ $box-shadow-mobile: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
 }
 
-// Skill section container
+// Contenitore della sezione di abilità
 .skill-section {
     border-radius: 8px;
     padding: 2rem;
@@ -21,87 +21,79 @@ $box-shadow-mobile: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+
+    h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #0073e6;
+        text-align: center;
+    }
+
+    .skills {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        gap: 0.5rem;
+
+        .skill-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            img {
+                object-fit: contain;
+                transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+                cursor: pointer;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: $box-shadow-hover;
+                }
+
+                &.clicked {
+                    transform: translateY(-5px) rotate(360deg);
+                }
+            }
+
+            p {
+                font-size: 1rem;
+                color: #555;
+            }
+        }
+    }
 }
 
-// Skill section header
-.skill-section h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #0073e6;
-    text-align: center;
-}
-
-// Skills container
-.skills {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    gap: 0.5rem;
-}
-
-// Skill item container
-.skill-item {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-// Skill item image styles
-.skill-item img {
-    object-fit: contain;
-    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-
-// Hover effect for skill item images
-.skill-item img:hover {
-    transform: translateY(-5px);
-    box-shadow: $box-shadow-hover;
-    cursor: pointer;
-}
-
-// Skill item description
-.skill-item p {
-    font-size: 1rem;
-    color: #555;
-}
-
-/* Mobile responsiveness */
 @media (max-width: 768px) {
-    section {
+    .skill-grid {
+        display: none; // Nascondi la griglia per dispositivi mobili
+    }
+
+    .carousel-container {
+        display: block;
         padding: 1.5rem;
-    }
 
-    .skill-section {
-        padding: 1.5rem;
-    }
+        .skill-section {
+            padding: 1.5rem;
+        }
 
-    .skill-item img {
-        box-shadow: $box-shadow-mobile;
-    }
-
-    .skill-item img.clicked {
-        transform: translateY(-5px) rotate(360deg);
+        .skill-item img {
+            box-shadow: $box-shadow-mobile;
+        }
     }
 }
 
-/* Extra small mobile devices */
 @media (max-width: 480px) {
-
-    section {
-        padding: 1.5rem;
-    }
-
     .skill-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; // Modifica per schermi molto piccoli
     }
 
-    .skill-item img {
-        box-shadow: $box-shadow-mobile;
-    }
+    .carousel-container {
 
-    .skill-item img.clicked {
-        transform: translateY(-5px) rotate(360deg);
+        .arrow-left,
+        .arrow-right {
+            font-size: 1.5rem; // Riduci la dimensione delle frecce su schermi più piccoli
+        }
     }
 }

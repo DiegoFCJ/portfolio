@@ -1,21 +1,30 @@
 <section>
     <h2>Featured Projects</h2>
-    
+
     <!-- Carosello per mobile -->
     <div class="carousel-container" *ngIf="isMobile">
         <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
-        
+
         <div class="carousel-wrapper">
-            <div class="carousel-item" *ngFor="let project of projects; let i = index" [class.active]="i === currentIndex">
+            <div class="carousel-item" *ngFor="let project of projects; let i = index"
+                [class.active]="i === currentIndex">
                 <div class="project-card">
-                    <h3>{{ project.title }}</h3>
                     <img [src]="project.image" alt="Project Image" />
-                    <p>{{ project.description }}</p>
+                    <h3>{{ project.title }}</h3>
+
+                    <p [ngClass]="{ expanded: project.expanded }">
+                        {{ project.description }}
+                        <!-- Mostra "More" solo se il testo non è espanso -->
+                        <span *ngIf="!project.expanded" class="more" (click)="toggleExpand(project)">... More</span>
+                        <!-- Mostra "Less" solo se il testo è espanso -->
+                        <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)"> Less</span>
+                    </p>
+
                     <a [href]="project.link" target="_blank">View Project</a>
                 </div>
             </div>
         </div>
-        
+
         <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
     </div>
 
@@ -24,7 +33,15 @@
         <div class="project-card" *ngFor="let project of projects">
             <h3>{{ project.title }}</h3>
             <img [src]="project.image" alt="Project Image" />
-            <p>{{ project.description }}</p>
+
+            <p [ngClass]="{ expanded: project.expanded }">
+                {{ project.description }}
+                <!-- Mostra "More" solo se il testo non è espanso -->
+                <span *ngIf="!project.expanded" class="more" (click)="toggleExpand(project)">... More</span>
+                <!-- Mostra "Less" solo se il testo è espanso -->
+                <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)"> Less</span>
+            </p>
+
             <a [href]="project.link" target="_blank">View Project</a>
         </div>
     </div>

@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { LandingMaskComponent } from '../landing-mask/landing-mask.component';
 import { SocialComponent } from '../social/social.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
   imports: [
     LandingMaskComponent,
-    SocialComponent
+    SocialComponent,
+    CommonModule
   ],
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss']
@@ -21,12 +23,12 @@ export class HeroComponent implements OnInit {
   ];
 
   displayText = "";
-  isWriting = true; // Controlla se sta scrivendo o cancellando
-  currentTextIndex = 0; // Indice del testo corrente
-  typingSpeed = 50; // Velocità della macchina da scrivere
-  deletingSpeed = 50; // Velocità di cancellazione
-  delayBetweenTexts = 1000; // Ritardo di 2 secondi
-  isFinalText = false; // Flag per fermare l'animazione dopo l'ultimo testo
+  isWriting = true;
+  currentTextIndex = 0;
+  typingSpeed = 50;
+  deletingSpeed = 50; 
+  delayBetweenTexts = 1000;
+  isFinalText = false;
 
   ngOnInit() {
     this.startTypingAnimation();
@@ -68,6 +70,20 @@ export class HeroComponent implements OnInit {
   }
 
   scrollToSection(sectionId: string) {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    this.togglePopup()
+  }
+
+
+  isPopupVisible = false;
+  popupText = "Work in progress...";
+
+  togglePopup() {
+    if (!this.isPopupVisible) {
+      this.isPopupVisible = true;
+
+      setTimeout(() => {
+        this.isPopupVisible = false;
+      }, 3000);
+    }
   }
 }

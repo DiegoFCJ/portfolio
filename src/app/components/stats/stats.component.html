@@ -1,4 +1,18 @@
-<section>
-    <h2>Statistics</h2>
-    <p>Work in progress...</p>
-</section>
+<section class="statistics-component">
+    <div class="statistics-section">
+      <div class="statistics-container">
+        <div class="statistics-row">
+          <div *ngFor="let stat of statistics" class="statistics-card">
+            <div class="statistics-content">
+              <div class="statistics-icon">
+                <mat-icon>{{stat.icon}}</mat-icon>
+              </div>
+              <p class="statistics-label">{{stat.label}}</p>
+              <h1 class="statistics-value">{{stat.value}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

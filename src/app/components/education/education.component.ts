@@ -19,8 +19,8 @@ export class EducationComponent implements OnInit {
   // Controllo delle dimensioni dello schermo
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.isLargeScreen = event.target.innerWidth >= 1697;
-    this.is2kMoreScreen = event.target.innerWidth >= 2253;
+    this.isLargeScreen = event.target.innerWidth >= 1497;
+    this.is2kMoreScreen = event.target.innerWidth >= 2224;
   }
 
   ngOnInit(): void {

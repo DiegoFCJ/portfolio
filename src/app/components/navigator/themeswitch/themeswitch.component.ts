@@ -9,21 +9,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./themeswitch.component.scss']
 })
 export class ThemeswitchComponent implements OnInit {
-  darkMode = false;
+  darkMode: boolean = false;
 
   ngOnInit(): void {
-    // All'avvio, controlla se il tema scuro è già attivo (utile se salvato nel LocalStorage)
-    this.darkMode = localStorage.getItem('darkMode') === 'true';
+    // On initialization, check the stored theme preference or default to dark mode
+    const storedTheme = localStorage.getItem('darkMode');
+    if (storedTheme === null) {
+      // If no theme preference is stored, default to dark mode
+      this.darkMode = true;
+    } else {
+      // Otherwise, use the stored value
+      this.darkMode = storedTheme === 'true';
+    }
+
+    // Apply the theme (dark or light)
     this.updateThemeClass();
   }
 
   toggleTheme(): void {
+    // Toggle dark mode
     this.darkMode = !this.darkMode;
-    localStorage.setItem('darkMode', this.darkMode.toString()); // Salva il tema selezionato
+    
+    // Save the selected theme in localStorage
+    localStorage.setItem('darkMode', this.darkMode.toString());
+
+    // Apply the theme class
     this.updateThemeClass();
   }
 
   private updateThemeClass(): void {
+    // Add or remove the 'dark-mode' class from the body element
     document.body.classList.toggle('dark-mode', this.darkMode);
   }
 }

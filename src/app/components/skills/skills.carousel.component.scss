@@ -27,14 +27,15 @@ $box-shadow-default: 0 4px 8px rgba(0, 0, 0, 0.1);
     .arrow-left,
     .arrow-right {
         position: absolute;
-        top: 50%;
+        top: 85px;
         z-index: 10;
         background-color: rgba(0, 0, 0, 0.5);
         color: white;
         border: none;
-        padding: 10px;
+        padding-block: 2px;
+        padding-inline: 10px;
         cursor: pointer;
-        font-size: 24px;
+        font-size: 16px;
         transform: translateY(-50%);
         transition: background-color 0.3s ease;
 
@@ -44,11 +45,11 @@ $box-shadow-default: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .arrow-left {
-        left: 10px;
+        left: 30px;
     }
 
     .arrow-right {
-        right: 10px;
+        right: 30px;
     }
 }
 

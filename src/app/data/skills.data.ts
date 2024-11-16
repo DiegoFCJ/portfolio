@@ -56,20 +56,10 @@ export const skills: Skill[] = [
         ]
     },
     {
-        title: "Project Management & Collaboration",
+        title: "Management",
         skills: [
             { name: "Trello", icon: "https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white", clicked: false },
             { name: "Jira", icon: "https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white", clicked: false },
-        ]
-    },
-    {
-        title: "Other Tools",
-        skills: [
-            { name: "Swagger", icon: "https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white", clicked: false },
-            { name: "Postman", icon: "https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white", clicked: false },
-            { name: "Gradle", icon: "https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white", clicked: false },
-            { name: "Apache Maven", icon: "https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white", clicked: false },
-            { name: "Notion", icon: "https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white", clicked: false },
         ]
     },
     {
@@ -79,6 +69,15 @@ export const skills: Skill[] = [
             { name: "Ubuntu", icon: "https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white", clicked: false },
             { name: "Windows", icon: "https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white", clicked: false }
         ]
-
+    },
+    {
+        title: "Other",
+        skills: [
+            { name: "Swagger", icon: "https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white", clicked: false },
+            { name: "Postman", icon: "https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white", clicked: false },
+            { name: "Gradle", icon: "https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white", clicked: false },
+            { name: "Apache Maven", icon: "https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white", clicked: false },
+            { name: "Notion", icon: "https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white", clicked: false },
+        ]
     }
 ];

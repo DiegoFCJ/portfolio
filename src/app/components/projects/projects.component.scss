@@ -20,7 +20,6 @@ section {
 .project-card {
     border-radius: 8px;
     box-shadow: $box-shadow-default;
-    max-width: 300px;
     text-align: center;
     padding: 1em;
     transition: transform 0.3s;
@@ -34,7 +33,7 @@ section {
     // Project card image
     img {
         width: 100%;
-        height: 180px;
+        height: 142px;
         object-fit: contain;
         object-position: top;
         border-radius: 8px 8px 0 0;
@@ -43,14 +42,29 @@ section {
     // Project card title
     h3 {
         color: #0073e6;
-        margin-top: 0.75em;
         font-size: 1.4em;
     }
 
     // Project card description
     p {
         font-size: 1em;
-        margin: 0.75em 0;
+        margin: 0 0 2em 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 4; /* Limit to 4 lines */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      
+        /* Standard syntax for non-webkit browsers (no prefix) */
+        line-clamp: 4; /* Limit to 4 lines */
+        box-orient: vertical;
+    }
+
+    .more, .less {
+        color: blue;
+        cursor: pointer;
+        text-decoration: underline;
+        display: inline-block;
     }
 
     // Link inside project card
@@ -67,11 +81,14 @@ section {
     }
 }
 
+.project-card.expanded p {
+    -webkit-line-clamp: unset; /* Remove line clamp when expanded for WebKit browsers */
+    line-clamp: unset; /* Standard property for modern browsers */
+    overflow: visible;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-
-    section {
-    }
 
     .projects-section {
         padding: 2em 1em;
