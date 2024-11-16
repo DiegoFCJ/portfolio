@@ -16,6 +16,7 @@ export class ProjectsComponent implements OnInit {
   projects = projects;
   isMobile: boolean = false;
   currentIndex: number = 0;
+  maxChars: number = 150; // Numero massimo di caratteri da mostrare inizialmente
 
   ngOnInit() {
     this.checkIfMobile();
@@ -23,6 +24,17 @@ export class ProjectsComponent implements OnInit {
 
   toggleExpand(project: any): void {
     project.expanded = !project.expanded;  // Toggle stato espanso
+  }
+
+  getTruncatedDescription(project: any): string {
+    // Restituisce la descrizione troncata in base alla lunghezza dei caratteri
+    if (project.expanded) {
+      return project.description;
+    } else {
+      return project.description.length > this.maxChars ? 
+        project.description.substring(0, this.maxChars) + '...' : 
+        project.description;
+    }
   }
 
   @HostListener('window:resize', ['$event'])

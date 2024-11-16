@@ -12,8 +12,8 @@
                     <img [src]="project.image" alt="Project Image" />
                     <h3>{{ project.title }}</h3>
 
-                    <p [ngClass]="{ expanded: project.expanded }">
-                        {{ project.description }}
+                    <p>
+                        {{ getTruncatedDescription(project) }}
                         <!-- Mostra "More" solo se il testo non è espanso -->
                         <span *ngIf="!project.expanded" class="more" (click)="toggleExpand(project)">... More</span>
                         <!-- Mostra "Less" solo se il testo è espanso -->
@@ -34,8 +34,8 @@
             <h3>{{ project.title }}</h3>
             <img [src]="project.image" alt="Project Image" />
 
-            <p [ngClass]="{ expanded: project.expanded }">
-                {{ project.description }}
+            <p>
+                {{ getTruncatedDescription(project) }}
                 <!-- Mostra "More" solo se il testo non è espanso -->
                 <span *ngIf="!project.expanded" class="more" (click)="toggleExpand(project)">... More</span>
                 <!-- Mostra "Less" solo se il testo è espanso -->
