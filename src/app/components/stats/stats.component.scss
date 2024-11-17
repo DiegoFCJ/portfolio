@@ -1,7 +1,6 @@
 .statistics-component {
     .statistics-section {
         position: relative;
-        padding: 80px 0;
 
         .statistics-overlay {
             position: absolute;
@@ -74,6 +73,10 @@
             margin-bottom: 2rem;
             color: #333;
         }
+
+        h1{
+            margin-bottom: 24px;
+        }
     }
 
     /* Media Queries per la responsività */
@@ -89,6 +92,10 @@
 
     /* Schermi larghezza <= 992px */
     @media (max-width: 992px) {
+        .statistics-component{
+            padding: 0 !important;
+        }
+
         .statistics-card {
             flex: 1 1 calc(50% - 20px);  /* 2 card per riga */
             max-width: 300px;  /* Ancora più piccole */
@@ -98,6 +105,10 @@
 
     /* Schermi larghezza <= 768px */
     @media (max-width: 768px) {
+        .statistics-component{
+            padding: 0 !important;
+        }
+
         .statistics-card {
             flex: 1 1 100% !important;  /* 1 card per riga */
             max-width: 280px !important;  /* Card piccolissime */
@@ -105,21 +116,25 @@
             padding: 10px !important;  /* Ridurre il padding per spazi più stretti */
         }
 
-        h1{
+        h2{
             font-size: 1.5rem !important;
         }
     }
 
     /* Schermi molto piccoli (extra small) */
     @media (max-width: 480px) {
+        .statistics-component{
+            padding: 0 !important;
+        }
+
         .statistics-card {
             flex: 1 1 100% !important;  /* 1 card per riga */
-            max-width: 120px !important;  /* Card molto piccole */
+            max-width: 147px !important;  /* Card molto piccole */
             min-width: 90px !important;
             padding: 5px !important; /* Ridurre ulteriormente il padding */
         }
 
-        h1{
+        h2{
             font-size: 1rem !important;
         }
     }
