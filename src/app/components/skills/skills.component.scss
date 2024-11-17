@@ -85,6 +85,7 @@ $box-shadow-mobile: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 480px) {
+
     .skill-grid {
         grid-template-columns: 1fr; // Modifica per schermi molto piccoli
     }

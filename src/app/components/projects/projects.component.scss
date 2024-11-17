@@ -19,7 +19,7 @@ section {
 // Project card styles
 .project-card {
     width: 282px;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: $box-shadow-default;
     text-align: center;
     padding: 1em;
@@ -91,6 +91,7 @@ section {
     }
 
     .project-card {
+        box-shadow: none !important;
         max-width: 100%;
         padding: 1em;
 

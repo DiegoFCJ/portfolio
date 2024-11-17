@@ -27,7 +27,7 @@ $box-shadow-default: 0 4px 8px rgba(0, 0, 0, 0.1);
     .arrow-left,
     .arrow-right {
         position: absolute;
-        top: 85px;
+        top: 88px;
         z-index: 10;
         background-color: rgba(0, 0, 0, 0.5);
         color: white;
@@ -62,6 +62,10 @@ $box-shadow-default: 0 4px 8px rgba(0, 0, 0, 0.1);
 
 // Extra small mobile devices
 @media (max-width: 480px) {
+    .skill-section {
+        width: 75vw !important;
+    }
+
     .carousel-container {
         margin-top: 1vh;
     }
