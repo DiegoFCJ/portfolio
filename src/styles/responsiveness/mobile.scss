@@ -1,0 +1,61 @@
+@use '../variables' as *;
+
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    button {
+        padding: 0.6em 1.2em;
+        font-size: 0.9em;
+    }
+
+    .carousel-container {
+        .skill-item img {
+            box-shadow: $box-shadow-mobile;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    p {
+        font-size: 0.9em;
+        margin-bottom: 1em;
+    }
+
+    button {
+        padding: 0.5em 1em;
+        font-size: 0.8em;
+    }
+
+    .skill-section {
+        margin-bottom: 1em;
+    }
+
+    .bg-container {
+        padding: 1rem;
+    }
+
+    .social-container {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+}

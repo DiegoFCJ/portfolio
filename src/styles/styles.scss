@@ -1,29 +1,11 @@
-// Box shadows
-$box-shadow-3d: 0 4px 6px rgba(0, 0, 0, 0.2),
-    0 8px 15px rgba(0, 0, 0, 0.15),
-    0 15px 25px rgba(0, 0, 0, 0.1),
-    0 25px 35px rgba(0, 0, 0, 0.05);
+@use 'variables' as *;
+@use 'light';
+@use 'dark';
+@use 'responsiveness/mobile';
+@use 'responsiveness/tablet';
+@use 'responsiveness/pc';
+@use 'responsiveness/large';
 
-$section-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15),
-    0px 10px 15px rgba(0, 0, 0, 0.1),
-    0px 2px 4px rgba(0, 0, 0, 0.2),
-    inset 0px -1px 3px rgba(0, 0, 0, 0.05);
-
-// SCSS variables for colors, opacity, and circle sizes
-$color-top-left: rgb(213, 249, 255);
-$color-center-left: rgb(232, 255, 235);
-$color-bottom-center: rgb(255, 244, 244);
-$color-center-right: rgb(253, 255, 231);
-
-$theme-switch-bg-light: #eeeeee;
-$theme-switch-bg-dark: #292929;
-
-// Box shadow for project cards
-$box-shadow-default: 0 4px 6px rgba(0, 0, 0, 0.1);
-$box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.3);
-$box-shadow-mobile: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
-
-// Global styles
 html,
 body {
     height: 100%;
@@ -37,7 +19,6 @@ body {
     overflow-x: hidden;
 }
 
-// Typography styles
 h1 {
     font-size: 3em;
     margin-bottom: 0.5em;
@@ -54,7 +35,6 @@ p {
     margin-bottom: 1.5em;
 }
 
-// Button styles
 button {
     padding: 0.75em 1.5em;
     font-size: 1em;
@@ -64,7 +44,6 @@ button {
     transition: background-color 0.3s;
 }
 
-// Section styles
 section {
     padding: 0 1.5em 3em 1.5em;
     display: flex;
@@ -72,354 +51,14 @@ section {
     align-items: center;
     justify-content: center;
     text-align: center;
-    box-shadow: $section-box-shadow;
     margin-top: 1vh;
     margin-bottom: 1vh;
 }
 
-// Background container styles
-.bg-container {
-    background: linear-gradient(135deg, #ac80ff, #4a90e2, #50e3c2, #00ff88);
-
-    .bottom-border {
-        box-shadow: $section-box-shadow;
-    }
-
-    .hero-content {
-
-        button {
-            background-color: #ffffff;
-            color: #4a90e2;
-        }
-
-        button:hover {
-            background-color: #e0f7f4;
-        }
-    }
-}
-
-.full_mask {
-
-    // Top left circle
-    .top-left-circle {
-        background-color: $color-top-left;
-    }
-
-    // Center left circle
-    .center-left-circle {
-        background-color: $color-center-left;
-    }
-
-    // Bottom center circle
-    .bottom-center-circle {
-        background-color: $color-bottom-center;
-    }
-
-    // Center right circle
-    .center-right-circle {
-        background-color: $color-center-right;
-    }
-}
-
-.popup {
-    background-color: #e4e4e4;
-    border: 1px solid #ccc;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-.theme-switch-label {
-    background-color: $theme-switch-bg-light;
-}
-
-
-input[type="checkbox"]:checked+.theme-switch-label {
-    background-color: $theme-switch-bg-dark; // Dark background when checked
-}
-
-// Social container styles
 .social-container {
 
     .social-item a img:hover {
         transform: translateY(-5px);
         cursor: pointer;
-    }
-}
-
-.vertical-line {
-    background-color: #dddddd;
-
-    .point-on-line {
-        background-color: black;
-    }
-}
-
-.arrow-left,
-.arrow-right {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-}
-
-.education-item {
-    .restrained {
-        border: 1px solid #ebebeb;
-    }
-}
-
-
-.experience {
-    border: 1px solid #f1f1f1;
-}
-
-.project-card {
-    box-shadow: $box-shadow-default;
-
-    h3 {
-        color: #0073e6;
-    }
-
-    .more,
-    .less {
-        color: blue;
-    }
-
-    a {
-        color: #4a90e2;
-
-        // Hover effect for the link
-        &:hover {
-            color: #2a6eb8;
-        }
-    }
-}
-
-.skill-section {
-    box-shadow: $box-shadow-default;
-
-    h3 {
-        color: #0073e6;
-    }
-
-    .skills {
-        .skill-item {
-            img {
-                &:hover {
-                    box-shadow: $box-shadow-hover;
-                }
-            }
-
-            p {
-                color: #555;
-            }
-        }
-    }
-}
-
-.social-container {
-    .social-item {
-        a {
-            img {
-                filter: drop-shadow(-4px 5px 2px rgba(0, 0, 0, 0.2));
-            }
-        }
-    }
-}
-
-.statistics-component {
-    .statistics-section {
-        .statistics-card {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-            .statistics-content {
-                .statistics-icon {
-                    mat-icon {
-                        color: black;
-                    }
-                }
-            }
-
-            .statistics-label {
-                color: #bbb;
-            }
-        }
-
-        .statistics-section-title {
-            color: #333;
-        }
-    }
-}
-
-/* Dark mode theme */
-body.dark-mode {
-    background-color: #181818;
-    color: #ffffff;
-
-    h1,
-    h2,
-    p {
-        color: #e0e0e0;
-    }
-
-    button {
-        background-color: #333;
-        color: #ffffff;
-
-        &:hover {
-            background-color: #444;
-        }
-    }
-
-    section {
-        background-color: #1e1e1e;
-    }
-
-    .bg-container {
-        background: linear-gradient(315deg, #1a004b, #002147, #002b21, #002b17);
-
-        .hero-content {
-            button {
-                background-color: #181818 !important;
-            }
-
-            button:hover {
-                background-color: #1f1f1f !important;
-            }
-        }
-    }
-
-    .project-card {
-        background-color: #181818 !important;
-        box-shadow: $box-shadow-3d;
-
-        img {
-            background-color: #181818 !important;
-        }
-    }
-
-    .skill-section {
-        background-color: #181818;
-        box-shadow: $box-shadow-3d;
-    }
-
-    .full_mask {
-        .top-left-circle {
-            background-color: rgb(49, 59, 59) !important;
-        }
-
-        .center-left-circle {
-            background-color: rgb(43, 53, 45) !important;
-        }
-
-        .bottom-center-circle {
-            background-color: rgb(63, 55, 55) !important;
-        }
-
-        .center-right-circle {
-            background-color: rgb(57, 59, 50) !important;
-        }
-
-        .inside-circle {
-            background-color: rgb(52, 66, 68);
-        }
-    }
-
-    .statistics-card {
-        background-color: #181818;
-    }
-
-    .popup {
-        background-color: #181818;
-    }
-
-    .point-on-line {
-        background-color: white !important;
-    }
-
-    .statistics-content {
-        .statistics-icon {
-            mat-icon {
-                color: white !important;
-            }
-        }
-    }
-
-    .social-item a img {
-        filter: drop-shadow(-4px 5px 2px rgba(38, 0, 255, 0.2)) invert(1) brightness(0.8) !important;
-    }
-
-    .arrow-left,
-    .arrow-right {
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-
-        &:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-    }
-
-}
-
-/* Mobile media queries */
-@media (max-width: 768px) {
-
-    h1 {
-        font-size: 2.5em;
-    }
-
-    h2 {
-        font-size: 2em;
-    }
-
-    p {
-        font-size: 1em;
-    }
-
-    button {
-        padding: 0.6em 1.2em;
-        font-size: 0.9em;
-    }
-
-    .carousel-container {
-        .skill-item img {
-            box-shadow: $box-shadow-mobile;
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 2em;
-    }
-
-    h2 {
-        font-size: 1.8em;
-    }
-
-    p {
-        font-size: 0.9em;
-        margin-bottom: 1em;
-    }
-
-    button {
-        padding: 0.5em 1em;
-        font-size: 0.8em;
-    }
-
-    .skill-section {
-        margin-bottom: 1em;
-    }
-
-    .bg-container {
-        padding: 1rem;
-    }
-
-    .social-container {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
     }
 }

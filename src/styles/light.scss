@@ -1,0 +1,166 @@
+@use 'variables' as *;
+
+section {
+    box-shadow: $section-box-shadow;
+}
+
+.bg-container {
+    background: linear-gradient(135deg, #ac80ff, #4a90e2, #50e3c2, #00ff88);
+
+    .bottom-border {
+        box-shadow: $section-box-shadow;
+    }
+
+    .hero-content {
+
+        button {
+            background-color: #ffffff;
+            color: #4a90e2;
+        }
+
+        button:hover {
+            background-color: #e0f7f4;
+        }
+    }
+}
+
+.full_mask {
+
+    .top-left-circle {
+        background-color: $color-top-left;
+    }
+
+    .center-left-circle {
+        background-color: $color-center-left;
+    }
+
+    .bottom-center-circle {
+        background-color: $color-bottom-center;
+    }
+
+    .center-right-circle {
+        background-color: $color-center-right;
+    }
+}
+
+.popup {
+    background-color: #e4e4e4;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.theme-switch-label {
+    background-color: $theme-switch-bg-light;
+}
+
+
+input[type="checkbox"]:checked+.theme-switch-label {
+    background-color: $theme-switch-bg-dark;
+}
+
+.vertical-line {
+    background-color: #dddddd;
+
+    .point-on-line {
+        background-color: black;
+    }
+}
+
+.arrow-left,
+.arrow-right {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+
+.education-item {
+    .restrained {
+        border: 1px solid #ebebeb;
+    }
+}
+
+
+.experience {
+    border: 1px solid #f1f1f1;
+}
+
+.project-card {
+    box-shadow: $box-shadow-default;
+
+    h3 {
+        color: #0073e6;
+    }
+
+    .more,
+    .less {
+        color: blue;
+    }
+
+    a {
+        color: #4a90e2;
+
+        &:hover {
+            color: #2a6eb8;
+        }
+    }
+}
+
+.skill-section {
+    box-shadow: $box-shadow-default;
+
+    h3 {
+        color: #0073e6;
+    }
+
+    .skills {
+        .skill-item {
+            img {
+                &:hover {
+                    box-shadow: $box-shadow-hover;
+                }
+            }
+
+            p {
+                color: #555;
+            }
+        }
+    }
+}
+
+.social-container {
+    .social-item {
+        a {
+            img {
+                filter: drop-shadow(-4px 5px 2px rgba(0, 0, 0, 0.2));
+            }
+        }
+    }
+}
+
+.statistics-component {
+    .statistics-section {
+        .statistics-card {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+            .statistics-content {
+                .statistics-icon {
+                    mat-icon {
+                        color: black;
+                    }
+                }
+            }
+
+            .statistics-label {
+                color: #bbb;
+            }
+        }
+
+        .statistics-section-title {
+            color: #333;
+        }
+    }
+}

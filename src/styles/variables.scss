@@ -1,0 +1,33 @@
+// ************************* light ************************* \\
+// Box shadows
+$box-shadow-3d: 0 4px 6px rgba(0, 0, 0, 0.2),
+    0 8px 15px rgba(0, 0, 0, 0.15),
+    0 15px 25px rgba(0, 0, 0, 0.1),
+    0 25px 35px rgba(0, 0, 0, 0.05);
+
+$section-box-shadow: -7px 10px 10px rgba(0, 0, 0, 0.15),
+    -13px 11px 15px rgba(0, 0, 0, 0.1),
+    -8px 8px 4px rgba(0, 0, 0, 0.2),
+    inset -15px 0px 3px rgba(0, 0, 0, 0.05);
+
+// SCSS variables for colors, opacity, and circle sizes
+$color-top-left: rgb(213, 249, 255);
+$color-center-left: rgb(232, 255, 235);
+$color-bottom-center: rgb(255, 244, 244);
+$color-center-right: rgb(253, 255, 231);
+
+$theme-switch-bg-light: #eeeeee;
+$theme-switch-bg-dark: #292929;
+
+// Box shadow for project cards
+$box-shadow-default: 0 4px 6px rgba(0, 0, 0, 0.1);
+$box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+// ************************* dark ************************* \\
+$box-shadow-3d: 0 4px 6px rgba(0, 0, 0, 0.2),
+    0 8px 15px rgba(0, 0, 0, 0.15),
+    0 15px 25px rgba(0, 0, 0, 0.1),
+    0 25px 35px rgba(0, 0, 0, 0.05);
+
+// ************************* mobile ************************* \\
+$box-shadow-mobile: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);

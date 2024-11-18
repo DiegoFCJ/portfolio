@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "DiegoFCJPortfolio": {
+    "portfolio": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/DiegoFCJPortfolio",
+            "outputPath": "dist/portfolio",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -46,7 +46,7 @@
             "ssr": {
               "entry": "server.ts"
             },
-            "baseHref": "/DiegoFCJPortfolio/"
+            "baseHref": "/portfolio/"
           },
           "configurations": {
             "production": {
@@ -63,7 +63,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/DiegoFCJPortfolio/"
+              "baseHref": "/portfolio/"
             },
             "development": {
               "optimization": false,
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "DiegoFCJPortfolio:build:production"
+              "buildTarget": "portfolio:build:production"
             },
             "development": {
-              "buildTarget": "DiegoFCJPortfolio:build:development"
+              "buildTarget": "portfolio:build:development"
             }
           },
           "defaultConfiguration": "development"
