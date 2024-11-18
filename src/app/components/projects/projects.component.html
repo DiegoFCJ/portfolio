@@ -9,7 +9,7 @@
             <div class="carousel-item" *ngFor="let project of projects; let i = index"
                 [class.active]="i === currentIndex">
                 <div class="project-card">
-                    <img [src]="project.image" alt="Project Image" />
+                    <img class="proj-image" [src]="project.image" alt="Project Image" />
                     <h3>{{ project.title }}</h3>
 
                     <p>
@@ -20,7 +20,7 @@
                         <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)"> Less</span>
                     </p>
 
-                    <a [href]="project.link" target="_blank">View Project</a>
+                    <a class="proj-link" [href]="project.link" target="_blank">View Project</a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
     <!-- Griglia per desktop -->
     <div class="project-cards" *ngIf="!isMobile">
         <div class="project-card" *ngFor="let project of projects">
-            <img [src]="project.image" alt="Project Image" />
+            <img class="proj-image" [src]="project.image" alt="Project Image"/>
 
             <h3>{{ project.title }}</h3>
             <p>
@@ -42,7 +42,7 @@
                 <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)"> Less</span>
             </p>
 
-            <a [href]="project.link" target="_blank">View Project</a>
+            <a class="proj-link" [href]="project.link" target="_blank">View Project</a>
         </div>
     </div>
 </section>

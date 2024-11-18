@@ -1,10 +1,4 @@
-// SCSS variables for colors, opacity, and circle sizes
-$color-top-left: rgb(213, 249, 255);
-$color-center-left: rgb(232, 255, 235);
-$color-bottom-center: rgb(255, 244, 244);
-$color-center-right: rgb(253, 255, 231);
 $circle-opacity: 0.3;
-
 $min-circle-size: 400px;
 $max-circle-size: 600px;
 
@@ -29,7 +23,6 @@ $max-circle-size: 600px;
     .top-left-circle {
         top: -10vh;
         left: -10vw;
-        background-color: $color-top-left;
         width: $min-circle-size;
         height: $min-circle-size;
     }
@@ -38,7 +31,6 @@ $max-circle-size: 600px;
     .center-left-circle {
         bottom: -16vh;
         left: -8vw;
-        background-color: $color-center-left;
         width: $min-circle-size;
         height: $min-circle-size;
     }
@@ -47,7 +39,6 @@ $max-circle-size: 600px;
     .bottom-center-circle {
         bottom: -15vw;
         left: 70vw;
-        background-color: $color-bottom-center;
         width: $min-circle-size;
         height: $min-circle-size;
     }
@@ -56,7 +47,6 @@ $max-circle-size: 600px;
     .center-right-circle {
         top: 30vh;
         right: 0;
-        background-color: $color-center-right;
         width: $min-circle-size;
         height: $min-circle-size;
     }

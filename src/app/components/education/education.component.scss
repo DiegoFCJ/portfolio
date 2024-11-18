@@ -11,13 +11,11 @@
 
     .full-height {
       height: 100% !important;
-      background-color: red;
     }
 
     .vertical-line {
       position: relative;
       width: 1px;
-      background-color: #dddddd;
       margin-left: 10px;
       margin-right: 20px;
       height: 107%;
@@ -30,7 +28,6 @@
         height: 15px;
         width: 15px;
         border-radius: 50%;
-        background-color: black;
       }
     }
 
@@ -39,7 +36,6 @@
       flex-direction: column;
       align-items: flex-start;
       text-align: start;
-      border: 1px solid #ebebeb;
       border-radius: 10px;
       padding: 30px;
 
