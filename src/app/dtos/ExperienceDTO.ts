@@ -1,3 +1,8 @@
+export interface ExperienceFull {
+    title: string;
+    experiences: Experience[];
+}
+
 export interface Experience {
     position: string;
     location: string;

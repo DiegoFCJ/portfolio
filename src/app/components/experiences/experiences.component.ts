@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Experience } from '../../dtos/ExperienceDTO';
+import { ExperienceFull } from '../../dtos/ExperienceDTO';
 import { experiencesData } from '../../data/experiences.data';
 
 @Component({
@@ -11,5 +11,5 @@ import { experiencesData } from '../../data/experiences.data';
   styleUrl: './experiences.component.scss'
 })
 export class ExperiencesComponent {
-  experiences: Experience[] = experiencesData;
+  experiences: ExperienceFull = experiencesData;
 }

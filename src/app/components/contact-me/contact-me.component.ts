@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { SocialComponent } from '../social/social.component';
+import { contactMeData } from '../../data/contact-me.data';
+import { ContactMe } from '../../dtos/ContactMeDTO';
 import { WinP } from '../../constants/general.const';
-import { CMC } from '../../constants/contact-me.const';
 
 @Component({
   selector: 'app-contact-me',
@@ -12,5 +13,5 @@ import { CMC } from '../../constants/contact-me.const';
 })
 export class ContactMeComponent {
   WinP=WinP;
-  CMC=CMC;
+  contactMe: ContactMe = contactMeData;
 }

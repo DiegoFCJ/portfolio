@@ -1,3 +1,8 @@
+export interface EducationFull {
+    title: string;
+    education: Education[];
+}
+
 export interface Education {
     title: string;
     institution: string;

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { aboutMeData } from '../../data/about-me.data';
 import { AboutMe } from '../../dtos/AboutMeDTO';
-import { AMC } from '../../constants/about-me.const';
 
 @Component({
   selector: 'app-about',
@@ -12,5 +11,4 @@ import { AMC } from '../../constants/about-me.const';
 })
 export class AboutComponent {
   aboutMe: AboutMe = aboutMeData;
-  AMC = AMC;
 }
