@@ -4,7 +4,7 @@ export const experiencesData: ExperienceFull = {
     title: 'Experience',
     experiences: [
         {
-            position: 'Web Developer',
+            position: 'Software Developer',
             location: 'Full Remote',
             startDate: 'Jul 2024',
             endDate: 'Nov 2024',
@@ -12,7 +12,7 @@ export const experiencesData: ExperienceFull = {
             responsibilities: 'Worked on automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
         },
         {
-            position: 'Web Developer',
+            position: 'Software Developer',
             location: 'Full Remote',
             startDate: 'Apr 2024',
             endDate: 'Jun 2024',
@@ -20,7 +20,7 @@ export const experiencesData: ExperienceFull = {
             responsibilities: 'Developed and maintained full-stack features for both management software and remote device update filtering systems. Focused on bug fixes and version control management via GitHub.'
         },
         {
-            position: 'Web Developer',
+            position: 'Software Developer',
             location: 'Full Remote',
             startDate: 'Nov 2023',
             endDate: 'Mar 2024',
@@ -28,7 +28,7 @@ export const experiencesData: ExperienceFull = {
             responsibilities: 'Contributed from the initial stages of an e-commerce project. Worked on both backend and frontend, implementing JWT authentication and ensuring secure user management. Managed the project repository and handled application deployment.'
         },
         {
-            position: 'Web Developer',
+            position: 'Software Developer',
             location: 'Benevento, Hybrid',
             startDate: 'Feb 2023',
             endDate: 'Oct 2023',
