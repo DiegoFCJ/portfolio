@@ -20,7 +20,7 @@ export class StatsComponent implements OnInit {
   statistics: { icon: string, value: string, label: string }[] = [];
 
   ngOnInit(): void {
-    this.stats = this.calculateStats(experiencesData, projects);
+    this.stats = this.calculateStats(experiencesData.experiences, projects);
     this.prepareStatistics();
   }
 
