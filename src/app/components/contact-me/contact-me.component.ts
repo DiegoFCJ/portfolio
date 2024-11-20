@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { SocialComponent } from '../social/social.component';
+import { WinP } from '../../constants/general.const';
+import { CMC } from '../../constants/contact-me.const';
 
 @Component({
   selector: 'app-contact-me',
@@ -9,5 +11,6 @@ import { SocialComponent } from '../social/social.component';
   styleUrl: './contact-me.component.scss'
 })
 export class ContactMeComponent {
-
+  WinP=WinP;
+  CMC=CMC;
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { aboutMeData } from '../../data/about-me.data';
 import { AboutMe } from '../../dtos/AboutMeDTO';
+import { AMC } from '../../constants/about-me.const';
 
 @Component({
   selector: 'app-about',
@@ -10,5 +11,6 @@ import { AboutMe } from '../../dtos/AboutMeDTO';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent {
-  aboutMe: AboutMe = aboutMeData; // Inizializza la proprietà con i dati importati
+  aboutMe: AboutMe = aboutMeData;
+  AMC = AMC;
 }
