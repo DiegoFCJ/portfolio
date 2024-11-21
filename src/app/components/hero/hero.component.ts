@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { LandingMaskComponent } from '../landing-mask/landing-mask.component';
 import { SocialComponent } from '../social/social.component';
 import { CommonModule } from '@angular/common';
+import { heroData } from '../../data/hero.data';
+
 
 @Component({
   selector: 'app-hero',
@@ -15,12 +17,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./hero.component.scss']
 })
 export class HeroComponent implements OnInit {
-  texts = [
-    "Hi! My name is Diego Fois", 
-    "Welcome to my portfolio!", 
-    "I'm a Student", 
-    "I'm a Developer"
-  ];
+  heroData = heroData
 
   displayText = "";
   isWriting = true;
@@ -35,7 +32,7 @@ export class HeroComponent implements OnInit {
   }
 
   startTypingAnimation() {
-    const currentText = this.texts[this.currentTextIndex];
+    const currentText = this.heroData.texts[this.currentTextIndex];
     const textLength = currentText.length;
 
     if (this.isWriting) {
@@ -44,7 +41,7 @@ export class HeroComponent implements OnInit {
         setTimeout(() => this.startTypingAnimation(), this.typingSpeed);
       } else {
 
-        if (this.currentTextIndex === this.texts.length - 1) {
+        if (this.currentTextIndex === this.heroData.texts.length - 1) {
           this.isFinalText = true;
           return;
         } else {
