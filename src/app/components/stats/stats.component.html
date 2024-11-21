@@ -1,19 +1,18 @@
 <section class="statistics-component">
-    <div class="statistics-section">
-      <h1>Statistics</h1>
-      <div class="statistics-container">
-        <div class="statistics-row">
-          <div *ngFor="let stat of statistics" class="statistics-card">
-            <div class="statistics-content">
-              <div class="statistics-icon">
-                <mat-icon>{{stat.icon}}</mat-icon>
-              </div>
-              <p class="statistics-label">{{stat.label}}</p>
-              <h2 class="statistics-value">{{stat.value}}</h2>
+  <div class="statistics-section">
+    <h1>Statistics</h1>
+    <div class="statistics-container">
+      <div class="statistics-row">
+        <div *ngFor="let stat of statistics" class="statistics-card">
+          <div class="statistics-content">
+            <div class="statistics-icon">
+              <mat-icon>{{ stat.icon }}</mat-icon>
             </div>
+            <p class="statistics-label">{{ stat.label }}</p>
+            <h2 class="statistics-value">{{ stat.value }}</h2>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>

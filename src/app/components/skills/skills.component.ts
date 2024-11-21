@@ -15,6 +15,7 @@ import { Skill } from '../../dtos/SkillDTO';
   ]
 })
 export class SkillsComponent implements OnInit {
+  skillFull = skills;
   sections: Skill[] = [];
   loading: boolean = true;
   error: string | null = null;
@@ -26,7 +27,7 @@ export class SkillsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.sections = skills.map(section => ({
+    this.sections = this.skillFull.skills.map(section => ({
       ...section,
       skills: section.skills.map(skill => ({ ...skill, clicked: false }))
     }));

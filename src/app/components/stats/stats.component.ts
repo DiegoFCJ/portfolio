@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Stats } from '../../dtos/StatsDTO';
+import { CommonModule } from '@angular/common';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
-import { CommonModule } from '@angular/common';
+import { StatsItem, Stats } from '../../dtos/StatsDTO';
 
+/**
+ * Component for displaying statistics based on experiences and projects.
+ */
 @Component({
   selector: 'app-stats',
   standalone: true,
@@ -16,14 +19,20 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./stats.component.scss']
 })
 export class StatsComponent implements OnInit {
-  stats!: Stats;
-  statistics: { icon: string, value: string, label: string }[] = [];
+  stats!: StatsItem;
+  statistics: Stats[] = [];
 
+  /**
+   * Initializes the component and prepares statistics data.
+   */
   ngOnInit(): void {
     this.stats = this.calculateStats(experiencesData.experiences, projects.projects);
     this.prepareStatistics();
   }
 
+  /**
+   * Prepares the statistics for rendering in the template.
+   */
   prepareStatistics(): void {
     this.statistics = [
       { icon: 'history', value: this.stats.hours, label: 'Total Hours' },
@@ -33,75 +42,89 @@ export class StatsComponent implements OnInit {
     ];
   }
 
-  calculateStats(experiences: any[], projectList: any[]): Stats {
+  /**
+   * Calculates statistics such as hours, months, projects, and most used technologies.
+   * @param experiences List of professional experiences.
+   * @param projectList List of projects.
+   * @returns Calculated statistics.
+   */
+  calculateStats(experiences: any[], projectList: any[]): StatsItem {
     let totalHours = 0;
     let totalMonths = 0;
-    let totalProjects = projectList.length; // Projects from projects.data
+    let totalProjects = projectList.length;
     let technologyCount: { [key: string]: number } = {};
 
-    // Filter experiences with technologies and calculate
     const experiencesWithTechnologies = experiences.filter(exp => exp.technologies && exp.technologies.trim().length > 0);
-    totalProjects += experiencesWithTechnologies.length; // Add projects from experiences
+    totalProjects += experiencesWithTechnologies.length;
 
     experiencesWithTechnologies.forEach((exp, index) => {
-      // Calculate months
       const months = this.calculateMonths(exp.startDate, exp.endDate);
       totalMonths += months;
 
-      // Calculate hours
-      const weeks = months * 4; // Assume 4 weeks per month
-      const hoursWorkedPerWeek = 40; // 40 hours a week
+      const weeks = months * 4;
+      const hoursWorkedPerWeek = 40;
       let hoursWorked = weeks * hoursWorkedPerWeek;
 
-      // Add extra hours for the last experience
       if (index === experiencesWithTechnologies.length - 1) {
-        const extraHours = weeks; // 1 extra hour per day = 1 week extra
+        const extraHours = weeks;
         hoursWorked += extraHours;
       }
 
       totalHours += hoursWorked;
 
-      // Normalize and count technologies
       const technologies = exp.technologies.split(', ').map((tech: any) => this.normalizeTechnology(tech));
       technologies.forEach((tech: any) => {
         technologyCount[tech] = (technologyCount[tech] || 0) + 1;
       });
     });
 
-    // Find top 4 technologies
     const sortedTechnologies = Object.entries(technologyCount)
-      .sort(([, a], [, b]) => b - a) // Sort by count descending
-      .slice(0, 4) // Take top 4
-      .map(([tech]) => this.formatTechnology(tech)); // Format technology names
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 4)
+      .map(([tech]) => this.formatTechnology(tech));
 
     return {
       hours: `${Math.round(totalHours)} hours`,
       months: `${totalMonths} months`,
       projects: `${totalProjects} projects`,
-      mostUsed: sortedTechnologies.join(', ') // Return the top 4 technologies
+      mostUsed: sortedTechnologies.join(', ')
     };
   }
 
+  /**
+   * Normalizes a technology name by removing version numbers and extra characters.
+   * @param tech The technology name to normalize.
+   * @returns Normalized technology name.
+   */
   normalizeTechnology(tech: string): string {
-    // Rimuove versioni (es. "Java 8" -> "Java") e parentesi
     return tech
-      .replace(/\([^)]*\)/g, '') // Rimuove tutto tra parentesi
-      .replace(/\d+/g, '')      // Rimuove numeri
-      .trim()                   // Rimuove spazi extra
-      .toLowerCase();           // Normalizza tutto in minuscolo
+      .replace(/\([^)]*\)/g, '')
+      .replace(/\d+/g, '')
+      .trim()
+      .toLowerCase();
   }
 
+  /**
+   * Formats a technology name to capitalize its first letter and handle special cases.
+   * @param tech The technology name to format.
+   * @returns Formatted technology name.
+   */
   formatTechnology(tech: string): string {
-    // Capitalize first letter of each word, always capitalize "SQL"
     return tech
       .split(' ')
       .map(word => word.toUpperCase().includes('SQL') ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 
+  /**
+   * Calculates the number of months between two dates.
+   * @param start Start date in string format.
+   * @param end End date in string format.
+   * @returns Number of months.
+   */
   calculateMonths(start: string, end: string): number {
     const startDate = new Date(start);
     const endDate = new Date(end);
-    return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1; // +1 to include the start month
+    return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
   }
 }
