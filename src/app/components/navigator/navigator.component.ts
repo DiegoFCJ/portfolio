@@ -20,6 +20,8 @@ export class NavigatorComponent {
   @Output() navigateNext = new EventEmitter<void>();
   @Output() navigatePrevious = new EventEmitter<void>();
 
+  //TODO add button for translation
+
   onNext() {
     this.navigateNext.emit();
   }

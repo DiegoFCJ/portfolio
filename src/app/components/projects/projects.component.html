@@ -1,12 +1,12 @@
 <section>
-    <h2>Featured Projects</h2>
+    <h2>{{projects.title}}</h2>
 
     <!-- Carosello per mobile -->
     <div class="carousel-container" *ngIf="isMobile">
         <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
 
         <div class="carousel-wrapper">
-            <div class="carousel-item" *ngFor="let project of projects; let i = index"
+            <div class="carousel-item" *ngFor="let project of projects.projects; let i = index"
                 [class.active]="i === currentIndex">
                 <div class="project-card">
                     <img class="proj-image" [src]="project.image" alt="Project Image" />
@@ -15,12 +15,12 @@
                     <p>
                         {{ getTruncatedDescription(project) }}
                         <!-- Mostra "More" solo se il testo non è espanso -->
-                        <span *ngIf="!project.expanded" class="more" (click)="toggleExpand(project)">... More</span>
+                        <span *ngIf="!project.expanded" class="more" (click)="toggleExpand(project)">{{projects.moreDesc}}</span>
                         <!-- Mostra "Less" solo se il testo è espanso -->
-                        <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)"> Less</span>
+                        <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)">{{projects.lessDesc}}</span>
                     </p>
 
-                    <a class="proj-link" [href]="project.link" target="_blank">View Project</a>
+                    <a class="proj-link" [href]="project.link" target="_blank">{{projects.button}}</a>
                 </div>
             </div>
         </div>
@@ -30,19 +30,19 @@
 
     <!-- Griglia per desktop -->
     <div class="project-cards" *ngIf="!isMobile">
-        <div class="project-card" *ngFor="let project of projects">
+        <div class="project-card" *ngFor="let project of projects.projects">
             <img class="proj-image" [src]="project.image" alt="Project Image"/>
 
             <h3>{{ project.title }}</h3>
             <p>
                 {{ getTruncatedDescription(project) }}
                 <!-- Mostra "More" solo se il testo non è espanso -->
-                <span *ngIf="!project.expanded" class="more" (click)="toggleExpand(project)">... More</span>
+                <span *ngIf="!project.expanded" class="more" (click)="toggleExpand(project)">{{projects.moreDesc}}</span>
                 <!-- Mostra "Less" solo se il testo è espanso -->
-                <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)"> Less</span>
+                <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)">{{projects.lessDesc}}</span>
             </p>
 
-            <a class="proj-link" [href]="project.link" target="_blank">View Project</a>
+            <a class="proj-link" [href]="project.link" target="_blank">{{projects.button}}</a>
         </div>
     </div>
 </section>
