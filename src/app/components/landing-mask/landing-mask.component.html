@@ -1,6 +1,4 @@
 <div class="full_mask">
-    <span class="circle top-left-circle"></span>
-    <span class="circle center-left-circle"></span>
-    <span class="circle bottom-center-circle"></span>
-    <span class="circle center-right-circle"></span>
+    <span *ngFor="let circle of circles; let i = index" class="circle" [ngClass]="circle.class" #circleElement>
+    </span>
 </div>

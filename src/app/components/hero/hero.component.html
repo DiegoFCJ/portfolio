@@ -1,17 +1,14 @@
 <app-landing-mask></app-landing-mask>
 <div class="bg-container">
-    <div class="hero-content">
-        <!-- Mostra il testo con l'effetto macchina da scrivere e il cursore -->
-        <h1>{{ displayText }}<span class="cursor">|</span></h1>
-        <app-social></app-social>
-        <div style="position: relative;">
-            <div class="popup-container">
-                <button (click)="scrollToSection('about')">{{heroData.button}}</button>
-                <div [ngClass]="{'popup': true, 'popup-hidden': !isPopupVisible}">
-                    <p>{{popupText}}</p>
-                </div>
-            </div>
-        </div>
+  <div class="hero-content">
+    <h1>{{ displayText }}<span class="cursor">|</span></h1>
+    <app-social></app-social>
+    <div style="position: relative;">
+      <div class="popup-container">
+        <button (click)="scrollToSection('about')">{{ heroData.button }}</button>
+        <app-custom-popup [message]="popupText" [isVisible]="isPopupVisible"></app-custom-popup>
+      </div>
     </div>
-    <div class="bottom-border"></div>
+  </div>
+  <div class="bottom-border"></div>
 </div>

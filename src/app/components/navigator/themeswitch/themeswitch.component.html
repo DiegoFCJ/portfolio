@@ -1,14 +1,13 @@
 <input type="checkbox" id="theme-toggle" [checked]="darkMode" (change)="toggleTheme()" />
 
 <label for="theme-toggle" class="theme-switch-label">
-    <span class="slider">
-        <!-- Contenitore dell'icona dentro la pallina che si muove -->
-        <span class="theme-icon">
-            <!-- Icona Sole, visibile solo se darkMode è disattivato -->
-            <img class="svg-icon sun" src="./assets/sun.svg" alt="Sun Icon" [ngClass]="{'hidden': darkMode}" />
+  <span class="slider">
+    <span class="theme-icon">
+      <!-- Sun Icon (visible when darkMode is false) -->
+      <img class="svg-icon sun" src="./assets/sun.svg" alt="Sun Icon" [ngClass]="{'hidden': darkMode}" />
 
-            <!-- Icona Luna, visibile solo se darkMode è attivato -->
-            <img class="svg-icon moon" src="./assets/moon.svg" alt="Moon Icon" [ngClass]="{'hidden': !darkMode}" />
-        </span>
+      <!-- Moon Icon (visible when darkMode is true) -->
+      <img class="svg-icon moon" src="./assets/moon.svg" alt="Moon Icon" [ngClass]="{'hidden': !darkMode}" />
     </span>
+  </span>
 </label>

@@ -9,59 +9,68 @@ import { ProjectFull } from '../../dtos/ProjectDTO';
   imports: [CommonModule],
   templateUrl: './projects.component.html',
   styleUrls: [
-    './projects.component.scss', 
+    './projects.component.scss',
     './projects.carousel.component.scss'
   ]
 })
 export class ProjectsComponent implements OnInit {
   projects: ProjectFull = projects;
-  isMobile: boolean = false;
-  currentIndex: number = 0;
-  maxChars: number = 150; // Numero massimo di caratteri da mostrare inizialmente
+  isMobile = false; // Inizializza il valore per la visualizzazione mobile
+  currentIndex = 0; // Indice per il carosello
+  maxChars = 150; // Numero massimo di caratteri da mostrare inizialmente
 
   ngOnInit() {
     this.checkIfMobile();
   }
 
+  /**
+   * Toggle the expanded state of a project description.
+   * @param project The project whose description state will be toggled.
+   */
   toggleExpand(project: any): void {
-    project.expanded = !project.expanded;  // Toggle stato espanso
+    project.expanded = !project.expanded;
   }
 
+  /**
+   * Truncates or returns the full description of a project.
+   * @param project The project whose description is to be truncated.
+   * @returns The truncated or full description based on the expansion state.
+   */
   getTruncatedDescription(project: any): string {
-    // Restituisce la descrizione troncata in base alla lunghezza dei caratteri
-    if (project.expanded) {
-      return project.description;
-    } else {
-      return project.description.length > this.maxChars ? 
-        project.description.substring(0, this.maxChars) + '...' : 
-        project.description;
-    }
+    return project.expanded
+      ? project.description
+      : project.description.length > this.maxChars
+        ? project.description.substring(0, this.maxChars) + '...'
+        : project.description;
   }
 
+  /**
+   * Handles window resizing events to adjust mobile view state.
+   * @param event The resize event.
+   */
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize(event: Event): void {
     this.checkIfMobile();
   }
 
-  checkIfMobile() {
-    this.isMobile = window.innerWidth <= 768; // Impostiamo la soglia mobile
+  /**
+   * Checks if the current window size is considered mobile (<= 768px).
+   */
+  checkIfMobile(): void {
+    this.isMobile = window.innerWidth <= 768;
   }
 
-  // Metodo per spostarsi alla card successiva
-  moveToNext() {
-    if (this.currentIndex < this.projects.projects.length - 1) {
-      this.currentIndex++;
-    } else {
-      this.currentIndex = 0; // Torna alla prima card quando arrivi alla fine
-    }
+  /**
+   * Moves to the next project in the carousel.
+   */
+  moveToNext(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.projects.projects.length;
   }
 
-  // Metodo per spostarsi alla card precedente
-  moveToPrevious() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-    } else {
-      this.currentIndex = this.projects.projects.length - 1; // Torna all'ultima card quando arrivi all'inizio
-    }
+  /**
+   * Moves to the previous project in the carousel.
+   */
+  moveToPrevious(): void {
+    this.currentIndex = (this.currentIndex - 1 + this.projects.projects.length) % this.projects.projects.length;
   }
 }

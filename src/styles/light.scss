@@ -12,6 +12,7 @@ section {
         button {
             background-color: #ffffff;
             color: #4a90e2;
+            box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
         }
 
         button:hover {
@@ -76,16 +77,19 @@ input[type="checkbox"]:checked+.theme-switch-label {
 .education-item {
     .restrained {
         border: 1px solid #ebebeb;
+        box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
     }
 }
 
 
 .experience {
     border: 1px solid #f1f1f1;
+    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 .project-card {
-    box-shadow: $box-shadow-default;
+    border: 1px solid #ccc;
+    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
 
     h3 {
         color: #0073e6;
@@ -99,14 +103,15 @@ input[type="checkbox"]:checked+.theme-switch-label {
     a {
         color: #4a90e2;
 
-        &:hover {
+        &:hover {  
             color: #2a6eb8;
         }
     }
 }
 
 .skill-section {
-    box-shadow: $box-shadow-default;
+    border: 1px solid #f1f1f1;
+    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
 
     h3 {
         color: #0073e6;
@@ -140,7 +145,8 @@ input[type="checkbox"]:checked+.theme-switch-label {
 .statistics-component {
     .statistics-section {
         .statistics-card {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid #f1f1f1;
+            box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
 
             .statistics-content {
                 .statistics-icon {

@@ -19,67 +19,39 @@ $max-circle-size: 600px;
         transition: all 0.5s ease-in-out; // Smooth transition for circle movements
     }
 
-    // Top left circle
-    .top-left-circle {
-        top: -10vh;
-        left: -10vw;
-        width: $min-circle-size;
+    // Circle sizes
+    .circle { 
+        width: $min-circle-size; 
         height: $min-circle-size;
     }
 
-    // Center left circle
-    .center-left-circle {
-        bottom: -16vh;
-        left: -8vw;
-        width: $min-circle-size;
-        height: $min-circle-size;
-    }
+    // Circle positions
+    .top-left-circle { top: -10vh; left: -10vw; }
+    .center-left-circle { bottom: -16vh; left: -8vw; }
+    .bottom-center-circle { bottom: -15vw; left: 70vw; }
+    .center-right-circle { top: 30vh; right: 0; }
 
-    // Bottom center circle
-    .bottom-center-circle {
-        bottom: -15vw;
-        left: 70vw;
-        width: $min-circle-size;
-        height: $min-circle-size;
-    }
-
-    // Center right circle
-    .center-right-circle {
-        top: 30vh;
-        right: 0;
-        width: $min-circle-size;
-        height: $min-circle-size;
-    }
+    .top-right-circle { top: -8vh; right: -5vw; }
+    .center-center-circle { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .bottom-left-circle { bottom: -12vh; left: 10vw; }
 }
 
 // Mobile-specific adjustments
 @media (max-width: 768px) {
     .full_mask {
         .circle {
-            width: $max-circle-size; // Increase the size of the circles on mobile
+            width: $max-circle-size;
             height: $max-circle-size;
         }
 
-        // Adjust positions of circles for mobile screens
-        .top-left-circle {
-            top: -8vh;
-            left: -5vw;
-        }
+        .top-left-circle { top: -8vh; left: -5vw; }
+        .center-left-circle { bottom: -12vh; left: -5vw; }
+        .bottom-center-circle { bottom: -10vw; left: 60vw; }
+        .center-right-circle { top: 20vh; right: 5vw; }
 
-        .center-left-circle {
-            bottom: -12vh;
-            left: -5vw;
-        }
-
-        .bottom-center-circle {
-            bottom: -10vw;
-            left: 60vw;
-        }
-
-        .center-right-circle {
-            top: 20vh;
-            right: 5vw;
-        }
+        .top-right-circle { top: -6vh; right: -4vw; }
+        .center-center-circle { top: 40%; left: 50%; }
+        .bottom-left-circle { bottom: -10vw; left: 5vw; }
     }
 }
 
@@ -87,29 +59,17 @@ $max-circle-size: 600px;
 @media (max-width: 480px) {
     .full_mask {
         .circle {
-            width: $max-circle-size; // Further increase circle size on very small screens
+            width: $max-circle-size;
             height: $max-circle-size;
         }
 
-        // Adjust positions of circles for very small mobile screens
-        .top-left-circle {
-            top: -6vh;
-            left: -4vw;
-        }
+        .top-left-circle { top: -6vh; left: -4vw; }
+        .center-left-circle { bottom: -10vh; left: -4vw; }
+        .bottom-center-circle { bottom: -8vw; left: 55vw; }
+        .center-right-circle { top: 15vh; right: 10vw; }
 
-        .center-left-circle {
-            bottom: -10vh;
-            left: -4vw;
-        }
-
-        .bottom-center-circle {
-            bottom: -8vw;
-            left: 55vw;
-        }
-
-        .center-right-circle {
-            top: 15vh;
-            right: 10vw;
-        }
+        .top-right-circle { top: -4vh; right: -3vw; }
+        .center-center-circle { top: 30%; left: 50%; }
+        .bottom-left-circle { bottom: -6vw; left: 5vw; }
     }
 }

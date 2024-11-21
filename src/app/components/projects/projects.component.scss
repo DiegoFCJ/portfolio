@@ -22,6 +22,7 @@ section {
 
     // Hover effect for project card
     &:hover {
+        border: none;
         transform: translateY(-5px);
         cursor: pointer;
     }

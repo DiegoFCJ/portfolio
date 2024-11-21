@@ -1,5 +1,5 @@
-<section>
-  <h2>{{educationList.title}}</h2>
+<section class="education-section">
+  <h2 class="education-title">{{ educationList.title }}</h2>
   <div class="education-container">
     <div class="education-item" *ngFor="let education of educationList.education; let i = index; let last = last">
       <div class="vertical-line" [ngClass]="resizeConditions(i, last)">

@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Component for switching between dark and light themes.
+ */
 @Component({
   selector: 'app-themeswitch',
   standalone: true,
@@ -11,34 +14,29 @@ import { Component, OnInit } from '@angular/core';
 export class ThemeswitchComponent implements OnInit {
   darkMode: boolean = false;
 
+  /**
+   * Initializes the component, checking the stored theme preference.
+   */
   ngOnInit(): void {
-    // On initialization, check the stored theme preference or default to dark mode
     const storedTheme = localStorage.getItem('darkMode');
-    if (storedTheme === null) {
-      // If no theme preference is stored, default to dark mode
-      this.darkMode = true;
-    } else {
-      // Otherwise, use the stored value
-      this.darkMode = storedTheme === 'true';
-    }
+    this.darkMode = storedTheme === null ? true : storedTheme === 'true';
 
-    // Apply the theme (dark or light)
     this.updateThemeClass();
   }
 
+  /**
+   * Toggles between dark and light modes, stores the preference in localStorage, and applies the theme.
+   */
   toggleTheme(): void {
-    // Toggle dark mode
     this.darkMode = !this.darkMode;
-    
-    // Save the selected theme in localStorage
     localStorage.setItem('darkMode', this.darkMode.toString());
-
-    // Apply the theme class
     this.updateThemeClass();
   }
 
-  private updateThemeClass(): void {
-    // Add or remove the 'dark-mode' class from the body element
+  /**
+   * Applies or removes the 'dark-mode' class on the body element based on the current theme.
+   */
+  updateThemeClass(): void {
     document.body.classList.toggle('dark-mode', this.darkMode);
   }
 }

@@ -1,11 +1,14 @@
 <div class="navigator">
+  <!-- Navigation to previous section, visible when current section index > 0 -->
   <span *ngIf="currentSectionIndex > 0" (click)="onPrevious()">
     <mat-icon fontSize="large" color="secondary">arrow_circle_up</mat-icon>
   </span>
 
+  <!-- Navigation to next section, visible when current section index < total sections - 1 -->
   <span *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()">
     <mat-icon fontSize="large" color="secondary">arrow_circle_down</mat-icon>
   </span>
 
+  <!-- Theme switcher component -->
   <app-themeswitch></app-themeswitch>
 </div>

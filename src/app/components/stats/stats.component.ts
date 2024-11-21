@@ -54,7 +54,7 @@ export class StatsComponent implements OnInit {
     let totalProjects = projectList.length;
     let technologyCount: { [key: string]: number } = {};
 
-    const experiencesWithTechnologies = experiences.filter(exp => exp.technologies && exp.technologies.trim().length > 0);
+    const experiencesWithTechnologies = experiences.filter(exp => exp.technologies?.trim().length);
     totalProjects += experiencesWithTechnologies.length;
 
     experiencesWithTechnologies.forEach((exp, index) => {
@@ -66,13 +66,12 @@ export class StatsComponent implements OnInit {
       let hoursWorked = weeks * hoursWorkedPerWeek;
 
       if (index === experiencesWithTechnologies.length - 1) {
-        const extraHours = weeks;
-        hoursWorked += extraHours;
+        hoursWorked += weeks; // Add extra hours for the last experience
       }
 
       totalHours += hoursWorked;
 
-      const technologies = exp.technologies.split(', ').map((tech: any) => this.normalizeTechnology(tech));
+      const technologies = exp.technologies.split(', ').map(this.normalizeTechnology);
       technologies.forEach((tech: any) => {
         technologyCount[tech] = (technologyCount[tech] || 0) + 1;
       });

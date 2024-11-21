@@ -1,45 +1,37 @@
 <section>
-  <h2>{{skillFull.title}}</h2>
-  
-  <!-- Carosello per mobile -->
-  <div class="carousel-container" *ngIf="isMobile">
+  <h2>{{ skillFull.title }}</h2>
+
+  <!-- Condizione unica per il carosello e la griglia -->
+  <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
     <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
-    
     <div class="carousel-wrapper">
       <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
         <div class="skill-section">
           <h3>{{ section.title }}</h3>
           <div class="skills">
             <div *ngFor="let skill of section.skills" class="skill-item">
-              <img 
-                [src]="skill.icon" 
-                [alt]="skill.name" 
-                (click)="onSkillClick($event, skill)" 
-                [ngClass]="{'clicked': skill.clicked}"
-              />
+              <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
+                [ngClass]="{'clicked': skill.clicked}" />
             </div>
           </div>
         </div>
       </div>
     </div>
-    
     <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
   </div>
 
-  <!-- Griglia per desktop -->
-  <div class="skill-grid" *ngIf="!isMobile">
-    <div *ngFor="let section of sections" class="skill-section">
-      <h3>{{ section.title }}</h3>
-      <div class="skills">
-        <div *ngFor="let skill of section.skills" class="skill-item">
-          <img 
-            [src]="skill.icon" 
-            [alt]="skill.name" 
-            (click)="onSkillClick($event, skill)" 
-            [ngClass]="{'clicked': skill.clicked}"
-          />
+  <!-- Template per il layout desktop -->
+  <ng-template #desktopLayout>
+    <div class="skill-grid">
+      <div *ngFor="let section of sections" class="skill-section">
+        <h3>{{ section.title }}</h3>
+        <div class="skills">
+          <div *ngFor="let skill of section.skills" class="skill-item">
+            <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
+              [ngClass]="{'clicked': skill.clicked}" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-template>
 </section>

@@ -1,3 +1,4 @@
+// Positioning variables
 $navigator-position-right-desktop: 70px;
 $navigator-position-right-tablet: 20px;
 $navigator-position-right-small: 15px !important;
@@ -6,7 +7,7 @@ $navigator-position-bottom-desktop: 16px;
 $navigator-position-bottom-tablet: 12px;
 $navigator-position-bottom-small: 20px !important;
 
-// Navigator styling
+/* Styling for navigator container */
 .navigator {
     z-index: 10;
     position: fixed;
@@ -17,13 +18,13 @@ $navigator-position-bottom-small: 20px !important;
     align-items: center;
     scale: 2;
 
-    // Hover effect for span elements inside navigator
+    /* Hover effect for clickable elements */
     span:hover {
         cursor: pointer;
     }
 }
 
-// Mobile-specific adjustments
+/* Mobile-specific adjustments */
 @media (max-width: 768px) {
     .navigator {
         scale: 1.5;

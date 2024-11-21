@@ -1,8 +1,8 @@
-section {
+.about-section {
     position: relative;
     z-index: 6;
 
-    p {
+    .about-description {
         max-width: 90vw;
     }
 }

@@ -7,25 +7,19 @@ import { Skill } from '../../dtos/SkillDTO';
   selector: 'app-skills',
   standalone: true,
   imports: [CommonModule],
-  providers: [],
   templateUrl: './skills.component.html',
-  styleUrls: [
-    './skills.component.scss',
-    './skills.carousel.component.scss'
-  ]
+  styleUrls: ['./skills.component.scss', './skills.carousel.component.scss']
 })
 export class SkillsComponent implements OnInit {
   skillFull = skills;
   sections: Skill[] = [];
-  loading: boolean = true;
-  error: string | null = null;
+  loading = true;
+  isMobile = false;
+  currentIndex = 0;
 
-  // Variabili per il carosello
-  isMobile: boolean = false;
-  currentIndex: number = 0;
-
-  constructor() {}
-
+  /**
+   * Initializes the component and maps the skill data.
+   */
   ngOnInit(): void {
     this.sections = this.skillFull.skills.map(section => ({
       ...section,
@@ -35,62 +29,70 @@ export class SkillsComponent implements OnInit {
     this.checkIfMobile();
   }
 
+  /**
+   * Listens for window resize events to toggle mobile view.
+   */
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize(): void {
     this.checkIfMobile();
   }
 
-  checkIfMobile() {
+  /**
+   * Checks if the window width is less than or equal to 768px to determine if it's a mobile device.
+   */
+  checkIfMobile(): void {
     this.isMobile = window.innerWidth <= 768;
   }
 
-  // Metodo per spostarsi alla sezione successiva
-  moveToNext() {
-    if (this.currentIndex < this.sections.length - 1) {
-      this.currentIndex++;
-    } else {
-      this.currentIndex = 0; // Torna alla prima sezione quando arrivi alla fine
-    }
+  /**
+   * Moves the carousel to the next section.
+   */
+  moveToNext(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.sections.length;
   }
 
-  // Metodo per spostarsi alla sezione precedente
-  moveToPrevious() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-    } else {
-      this.currentIndex = this.sections.length - 1; // Torna all'ultima sezione quando arrivi all'inizio
-    }
+  /**
+   * Moves the carousel to the previous section.
+   */
+  moveToPrevious(): void {
+    this.currentIndex = (this.currentIndex - 1 + this.sections.length) % this.sections.length;
   }
 
+  /**
+   * Handles skill click, toggling the clicked state and showing a popup.
+   * @param event - The mouse click event
+   * @param skill - The skill that was clicked
+   */
   onSkillClick(event: MouseEvent, skill: any): void {
-    // Toggle the clicked state of the skill
     skill.clicked = !skill.clicked;
-  
-    // Optionally, display a message when the image is clicked
+
     if (skill.clicked) {
-      const message = document.createElement('div');
-      message.classList.add('popup');
-      message.style.position = 'absolute';
-      message.style.top = '10px';
-      message.style.left = '50%';
-      message.style.transform = 'translateX(-50%)';
-      message.style.fontSize = '1.2rem';
-      message.style.fontWeight = 'bold';
-      message.style.zIndex = '10';
-      message.style.textAlign = 'center';
-      message.style.padding = '10px';
-      message.style.borderRadius = '10px';
-  
-      // Cast event.target to HTMLElement to avoid TypeScript error
-      const targetElement = event.target as HTMLElement;
-  
-      // Append the message to the image's parent element
-      targetElement.parentElement?.appendChild(message);
-  
-      // Remove the message after 3 seconds
-      setTimeout(() => {
-        message.remove();
-      }, 5000);
+      const message = this.createPopupMessage(event.target as HTMLElement);
+      setTimeout(() => message.remove(), 5000);
     }
+  }
+
+  /**
+   * Creates a popup message next to the clicked skill.
+   * @param targetElement - The DOM element of the clicked image
+   * @returns The created message element
+   */
+  createPopupMessage(targetElement: HTMLElement): HTMLElement {
+    const message = document.createElement('div');
+    message.classList.add('popup');
+    message.style.cssText = `
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 10;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+    `;
+    targetElement.parentElement?.appendChild(message);
+    return message;
   }
 }
