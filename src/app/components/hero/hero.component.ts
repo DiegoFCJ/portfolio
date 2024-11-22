@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LandingMaskComponent } from '../landing-mask/landing-mask.component';
 import { SocialComponent } from '../social/social.component';
 import { CommonModule } from '@angular/common';
@@ -28,10 +28,8 @@ export class HeroComponent implements OnInit {
   deletingSpeed = 50;
   delayBetweenTexts = 1000;
   isFinalText = false;
-
-  // Popup properties
-  isPopupVisible = false;
-  popupText = 'Work in progress...';
+  popupMessage = 'Work in progress...';
+  @ViewChild(CustomPopupComponent) customPopup: CustomPopupComponent | undefined;
 
   ngOnInit() {
     this.startTypingAnimation();
@@ -72,18 +70,9 @@ export class HeroComponent implements OnInit {
     }
   }
 
-  // Scroll to a section and show the popup
-  scrollToSection(sectionId: string) {
-    this.togglePopup();
-  }
-
-  // Toggle the visibility of the popup
-  togglePopup() {
-    if (!this.isPopupVisible) {
-      this.isPopupVisible = true;
-      setTimeout(() => {
-        this.isPopupVisible = false;
-      }, 3000); // Hide popup after 3 seconds
+  showPopup(message: string): void {
+    if (this.customPopup) {
+      this.customPopup.togglePopup(message);
     }
   }
 }

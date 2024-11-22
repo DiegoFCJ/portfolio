@@ -1,4 +1,9 @@
-<div [ngClass]="{'popup': true, 'popup-hidden': !isVisible}">
-    <p>{{ message }}</p>
-  </div>
-  
+<div class="popup" [class.popup-hidden]="!isPopupVisible"
+     [ngStyle]="{
+       'width': width,
+       'top': top,
+       'left': left,
+       'transform': transform
+     }">
+  <p>{{ message }}</p>
+</div>

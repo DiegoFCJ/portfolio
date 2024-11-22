@@ -1,59 +1,89 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+// src/app/contact-me/contact-me.component.ts
+import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { SocialComponent } from '../social/social.component';
+import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { contactMeData } from '../../data/contact-me.data';
-import { ContactMe } from '../../dtos/ContactMeDTO';
-import emailjs from 'emailjs-com';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule } from '@angular/forms';
 
-// Importing Angular Material Modules
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { ContactMe } from '../../dtos/ContactMeDTO';
+import { EmailService } from '../../services/email.service';
 
-/**
- * Component to display the "Contact Me" section with social links and additional details.
- */
 @Component({
   selector: 'app-contact-me',
   standalone: true,
   imports: [
     SocialComponent,
+    CustomPopupComponent,
     CommonModule,
-    FormsModule, 
+    FormsModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatIconModule
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './contact-me.component.html',
   styleUrls: ['./contact-me.component.scss']
 })
 export class ContactMeComponent {
-  /**
-   * Data for the "Contact Me" section.
-   */
-  contactMe: ContactMe = contactMeData;
+  contactMe: ContactMe = contactMeData;  // Dynamically loaded data from contactMeData
+  popupMessage: string = '';
+  @ViewChild(CustomPopupComponent) customPopup: CustomPopupComponent | undefined;
+
+  constructor(private emailService: EmailService) {}
 
   /**
-   * Handles the form submission, sending the form data to the email service.
+   * Handles form submission. Validates and sends email if everything is valid.
    * @param form The form data submitted by the user.
    */
   onSubmit(form: any): void {
-    emailjs.send('service_id', 'template_id', {
-      name: form.name,
-      email: form.email,
-      message: form.message
-    }, 'your_public_key')
+    if (!this.emailService.canSubmitMessage()) {
+      this.showPopup(this.contactMe.emailMessages.find(msg => msg.keyMess === 'one-each-two')?.valueMess || '');
+      return;
+    }
+
+    if (!form || !form.name || !form.email || !form.message) {
+      console.error(this.contactMe.emailMessages.find(msg => msg.keyMess === 'form-miss')?.valueMess || '');
+      this.showPopup(this.contactMe.emailMessages.find(msg => msg.keyMess === 'all-field-req')?.valueMess || '');
+      return;
+    }
+
+    if (!this.emailService.isValidEmail(form.email)) {
+      this.showPopup(this.contactMe.emailMessages.find(msg => msg.keyMess === 'email-valid')?.valueMess || '');
+      return;
+    }
+
+    if (!this.emailService.isMessageValid(form.message)) {
+      this.showPopup(this.contactMe.emailMessages.find(msg => msg.keyMess === 'ten-char-mess')?.valueMess || '');
+      return;
+    }
+
+    this.emailService.sendEmail(form)
       .then((response) => {
-        alert('Message sent successfully!');
-        form.reset();
+        if (response.ok) {
+          this.emailService.recordSubmissionTime(); // Record submission time on success
+          this.showPopup(this.contactMe.emailMessages.find(msg => msg.keyMess === 'success')?.valueMess || '');
+        } else {
+          this.showPopup(this.contactMe.emailMessages.find(msg => msg.keyMess === 'fail-retry')?.valueMess || '');
+          console.error(this.contactMe.emailMessages.find(msg => msg.keyMess === 'form-miss')?.valueMess || '', response);
+        }
       })
       .catch((error) => {
-        alert('Failed to send the message. Please try again later.');
-        console.error(error);
+        this.showPopup(this.contactMe.emailMessages.find(msg => msg.keyMess === 'err-sending')?.valueMess || '');
+        console.error(this.contactMe.emailMessages.find(msg => msg.keyMess === 'form-miss')?.valueMess || '', error);
       });
+  }
+
+  /**
+   * Shows a popup with the provided message.
+   * @param message The message to display in the popup.
+   */
+  showPopup(message: string): void {
+    if (this.customPopup) {
+      this.customPopup.togglePopup(message);
+    }
   }
 }

@@ -7,4 +7,10 @@ export interface ContactMe {
     message: string;
     messageReq: string;
     sendBtn: string;
+    emailMessages: EmailMessages[];
+}
+
+export interface EmailMessages {
+    keyMess: string;
+    valueMess: string;
 }
