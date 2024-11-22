@@ -38,30 +38,12 @@ describe('ContactMeComponent', () => {
   });
 
   /**
-   * Verifies that the WinP constant is initialized correctly.
-   */
-  it('should initialize WinP correctly', () => {
-    expect(component.WinP).toBeDefined();
-    expect(component.WinP).toBeTruthy();
-  });
-
-  /**
-   * Verifies that the template renders contactMe title correctly.
+   * Verifies that the template renders the title correctly.
    */
   it('should render the title in the template', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const titleElement = compiled.querySelector('.contact-me-title') as HTMLElement;
 
     expect(titleElement.textContent).toBe(component.contactMe.title);
-  });
-
-  /**
-   * Verifies that the template renders WinP correctly.
-   */
-  it('should render WinP in the template', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const extraElement = compiled.querySelector('.contact-me-extra') as HTMLElement;
-
-    expect(extraElement.textContent).toBe(component.WinP);
   });
 });

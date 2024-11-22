@@ -1,5 +1,9 @@
 @use 'variables' as *;
 
+// * {
+//     scrollbar-color: #2e2e2e #181818;
+// }
+
 body.dark-mode {
     background-color: #181818;
     color: #ffffff;
@@ -107,4 +111,45 @@ body.dark-mode {
         }
     }
 
+    .contact-me-section {
+        .form-field {
+            .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+                background-color: #181818 !important;
+
+                .mdc-floating-label {
+                    color: white;
+                }
+
+                .mat-mdc-input-element,
+                .mat-mdc-form-field-input-control,
+                .mdc-text-field__input,
+                .cdk-text-field-autofill-monitored,
+                .ng-dirty,
+                .ng-touched,
+                .cdk-text-field-autofilled,
+                .ng-valid {
+                    background-color: #181818 !important;
+                    color: white !important;
+                    caret-color: #242424 !important;
+                }
+
+            }
+        }
+
+        .submit-btn {
+            button {
+                color: rgb(173, 173, 173);
+                box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
+                border: 1px solid #ebebeb;
+
+                &.disabled {
+                    background-color: rgb(68, 68, 68);
+                }
+
+                &.enabled {
+                    background-color: #181818 !important;
+                }
+            }
+        }
+    }
 }

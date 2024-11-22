@@ -1,6 +1,36 @@
 <section class="contact-me-section">
-    <h2 class="contact-me-title">{{ contactMe.title }}</h2>
-    <app-social></app-social>
-    <p class="contact-me-extra">{{ WinP }}</p>
-  </section>
-  
+  <h2 class="contact-me-title">{{ contactMe.title }}</h2>
+
+  <app-social></app-social>
+
+  <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm.value)" class="contact-form">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{contactMe.name}}</mat-label>
+      <input matInput type="text" id="name" name="name" ngModel required>
+      <mat-error *ngIf="contactForm.submitted && !contactForm.controls['name']?.valid">
+        {{contactMe.nameReq}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{contactMe.email}}</mat-label>
+      <input matInput type="email" id="email" name="email" ngModel required email>
+      <mat-error *ngIf="contactForm.submitted && !contactForm.controls['email']?.valid">
+        {{contactMe.emailReq}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{contactMe.message}}</mat-label>
+      <textarea matInput id="message" name="message" ngModel required></textarea>
+      <mat-error *ngIf="contactForm.submitted && !contactForm.controls['message']?.valid">
+        {{contactMe.messageReq}}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="submit-btn">
+      <button mat-raised-button type="submit" [disabled]="!contactForm.valid"
+        [ngClass]="{ 'enabled': contactForm.valid, 'disabled': !contactForm.valid }">{{contactMe.sendBtn}}</button>
+    </div>
+  </form>
+</section>
