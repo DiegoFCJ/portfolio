@@ -3,11 +3,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
-import { StatsItem, Stats } from '../../dtos/StatsDTO';
+import { TranslationService } from '../../services/translation.service';
+import { Stat, StatsItem } from '../../dtos/StatsDTO';
+import { statsData } from '../../data/stats.data';
 
-/**
- * Component for displaying statistics based on experiences and projects.
- */
 @Component({
   selector: 'app-stats',
   standalone: true,
@@ -20,34 +19,44 @@ import { StatsItem, Stats } from '../../dtos/StatsDTO';
 })
 export class StatsComponent implements OnInit {
   stats!: StatsItem;
-  statistics: Stats[] = [];
+  statsTitle!: string;
+  statistics: Stat[] = []
 
-  /**
-   * Initializes the component and prepares statistics data.
-   */
+  constructor(private translationService: TranslationService) { }
+
   ngOnInit(): void {
-    this.stats = this.calculateStats(experiencesData.experiences, projects.projects);
-    this.prepareStatistics();
+    this.translationService.currentLanguage$.subscribe(language => {
+      const experiences = experiencesData.en.experiences;
+      const projectList = projects.en.projects;
+      this.statsTitle = statsData[language].title;
+      this.stats = this.calculateStats(experiences, projectList);
+      this.prepareStatistics(language);
+    });
   }
 
-  /**
-   * Prepares the statistics for rendering in the template.
-   */
-  prepareStatistics(): void {
-    this.statistics = [
-      { icon: 'history', value: this.stats.hours, label: 'Total Hours' },
-      { icon: 'today', value: this.stats.months, label: 'Total Months' },
-      { icon: 'work', value: this.stats.projects, label: 'Projects' },
-      { icon: 'apps', value: this.stats.mostUsed, label: 'Most Used' }
-    ];
+  prepareStatistics(language: string): void {
+    const labels = statsData[language]?.stats;
+
+    if (labels) {
+      this.statistics = labels.map((stat, index) => {
+        switch (index) {
+          case 0: // Total Hours
+            return { ...stat, value: this.stats.hours };
+          case 1: // Total Months
+            return { ...stat, value: this.stats.months };
+          case 2: // Projects
+            return { ...stat, value: this.stats.projects };
+          case 3: // Most Used
+            return { ...stat, value: this.stats.mostUsed };
+          default:
+            return stat;
+        }
+      });
+    } else {
+      console.error(`Language ${language} not found in statsLabels.`);
+    }
   }
 
-  /**
-   * Calculates statistics such as hours, months, projects, and most used technologies.
-   * @param experiences List of professional experiences.
-   * @param projectList List of projects.
-   * @returns Calculated statistics.
-   */
   calculateStats(experiences: any[], projectList: any[]): StatsItem {
     let totalHours = 0;
     let totalMonths = 0;
@@ -66,7 +75,7 @@ export class StatsComponent implements OnInit {
       let hoursWorked = weeks * hoursWorkedPerWeek;
 
       if (index === experiencesWithTechnologies.length - 1) {
-        hoursWorked += weeks; // Add extra hours for the last experience
+        hoursWorked += weeks;
       }
 
       totalHours += hoursWorked;
@@ -83,9 +92,9 @@ export class StatsComponent implements OnInit {
       .map(([tech]) => this.formatTechnology(tech));
 
     return {
-      hours: `${Math.round(totalHours)} hours`,
-      months: `${totalMonths} months`,
-      projects: `${totalProjects} projects`,
+      hours: `${Math.round(totalHours)}`,
+      months: `${totalMonths}`,
+      projects: `${totalProjects}`,
       mostUsed: sortedTechnologies.join(', ')
     };
   }

@@ -1,16 +1,15 @@
-// src/app/contact-me/contact-me.component.ts
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { SocialComponent } from '../social/social.component';
 import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { contactMeData } from '../../data/contact-me.data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { ContactMe } from '../../dtos/ContactMeDTO';
 import { EmailService } from '../../services/email.service';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-contact-me',
@@ -29,11 +28,15 @@ import { EmailService } from '../../services/email.service';
   styleUrls: ['./contact-me.component.scss']
 })
 export class ContactMeComponent {
-  contactMe: ContactMe = contactMeData;  // Dynamically loaded data from contactMeData
+  contactMe!: ContactMe;
   popupMessage: string = '';
   @ViewChild(CustomPopupComponent) customPopup: CustomPopupComponent | undefined;
 
-  constructor(private emailService: EmailService) {}
+  constructor(private emailService: EmailService, private translationService: TranslationService) {
+    this.translationService.currentLanguage$.subscribe(language => {
+      this.contactMe = this.translationService.getTranslatedData<ContactMe>(contactMeData);
+    });    
+  }
 
   /**
    * Handles form submission. Validates and sends email if everything is valid.

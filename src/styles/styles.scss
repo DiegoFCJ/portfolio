@@ -66,3 +66,21 @@ section {
 mat-error {
     color: red;
 }
+
+.mat-mdc-menu-content {
+    padding: 0 !important;
+
+    button {
+        border-radius: 0 !important;
+    }
+}
+
+.cdk-overlay-connected-position-bounding-box {
+    bottom: 80px !important;
+}
+
+@media (max-width: 480px) {
+    .cdk-overlay-connected-position-bounding-box {
+        bottom: 60px !important;
+    }
+}

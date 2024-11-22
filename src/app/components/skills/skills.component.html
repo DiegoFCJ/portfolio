@@ -1,7 +1,7 @@
 <section>
-  <h2>{{ skillFull.title }}</h2>
+  <h2>{{skillFullTitle}}</h2>
 
-  <!-- Condizione unica per il carosello e la griglia -->
+  <!-- Carousell-->
   <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
     <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
     <div class="carousel-wrapper">
@@ -20,7 +20,7 @@
     <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
   </div>
 
-  <!-- Template per il layout desktop -->
+  <!-- Desktop -->
   <ng-template #desktopLayout>
     <div class="skill-grid">
       <div *ngFor="let section of sections" class="skill-section">

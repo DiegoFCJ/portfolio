@@ -1,8 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { skills } from '../../data/skills.data';
-import { Skill } from '../../dtos/SkillDTO';
+import { TranslationService } from '../../services/translation.service'; 
 
+/**
+ * Component to display and manage skills in a categorized and interactive format.
+ * Supports mobile and desktop views, and dynamically adjusts to screen size.
+ */
 @Component({
   selector: 'app-skills',
   standalone: true,
@@ -12,25 +16,35 @@ import { Skill } from '../../dtos/SkillDTO';
 })
 export class SkillsComponent implements OnInit {
   skillFull = skills;
-  sections: Skill[] = [];
+  skillFullTitle!: string;
+  sections: any[] = [];
   loading = true;
   isMobile = false;
   currentIndex = 0;
 
+  constructor(private translationService: TranslationService) {}
+
   /**
-   * Initializes the component and maps the skill data.
+   * Initializes the component:
+   * - Subscribes to the translation service to fetch and apply translations.
+   * - Checks if the current device is mobile.
    */
   ngOnInit(): void {
-    this.sections = this.skillFull.skills.map(section => ({
-      ...section,
-      skills: section.skills.map(skill => ({ ...skill, clicked: false }))
-    }));
-    this.loading = false;
+    this.translationService.currentLanguage$.subscribe(lang => {
+      this.sections = this.skillFull.skills.map(section => ({
+        ...section,
+        title: section.title[lang],
+        skills: section.skills.map(skill => ({ ...skill, clicked: false }))
+      }));
+      this.loading = false;
+      this.skillFullTitle = this.skillFull.title[lang];
+    });
+
     this.checkIfMobile();
   }
 
   /**
-   * Listens for window resize events to toggle mobile view.
+   * Listens to window resize events and updates the `isMobile` property accordingly.
    */
   @HostListener('window:resize', ['$event'])
   onResize(): void {
@@ -38,30 +52,30 @@ export class SkillsComponent implements OnInit {
   }
 
   /**
-   * Checks if the window width is less than or equal to 768px to determine if it's a mobile device.
+   * Checks if the current window size qualifies as mobile.
    */
   checkIfMobile(): void {
     this.isMobile = window.innerWidth <= 768;
   }
 
   /**
-   * Moves the carousel to the next section.
+   * Moves to the next section in the skills carousel.
    */
   moveToNext(): void {
     this.currentIndex = (this.currentIndex + 1) % this.sections.length;
   }
 
   /**
-   * Moves the carousel to the previous section.
+   * Moves to the previous section in the skills carousel.
    */
   moveToPrevious(): void {
     this.currentIndex = (this.currentIndex - 1 + this.sections.length) % this.sections.length;
   }
 
   /**
-   * Handles skill click, toggling the clicked state and showing a popup.
-   * @param event - The mouse click event
-   * @param skill - The skill that was clicked
+   * Toggles the clicked state of a skill and displays a popup message if clicked.
+   * @param event The mouse event triggering the action.
+   * @param skill The skill that was clicked.
    */
   onSkillClick(event: MouseEvent, skill: any): void {
     skill.clicked = !skill.clicked;
@@ -73,9 +87,9 @@ export class SkillsComponent implements OnInit {
   }
 
   /**
-   * Creates a popup message next to the clicked skill.
-   * @param targetElement - The DOM element of the clicked image
-   * @returns The created message element
+   * Creates a temporary popup message element and appends it to the DOM.
+   * @param targetElement The HTML element where the popup will appear.
+   * @returns The created popup message element.
    */
   createPopupMessage(targetElement: HTMLElement): HTMLElement {
     const message = document.createElement('div');

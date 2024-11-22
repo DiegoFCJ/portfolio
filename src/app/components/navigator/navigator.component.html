@@ -11,4 +11,19 @@
 
   <!-- Theme switcher component -->
   <app-themeswitch></app-themeswitch>
+
+  <!-- Language Dropdown Menu -->
+  <span [matMenuTriggerFor]="languageMenu">
+    <mat-icon fontSize="large" color="secondary">language</mat-icon>
+  </span>
+
+  <!-- Language Selection Menu -->
+  <mat-menu #languageMenu="matMenu" class="custom-menu-panel">
+    <button mat-menu-item (click)="changeLanguage('en')">
+      <mat-icon>language</mat-icon> English
+    </button>
+    <button mat-menu-item (click)="changeLanguage('it')">
+      <mat-icon>language</mat-icon> Italiano
+    </button>
+  </mat-menu>
 </div>

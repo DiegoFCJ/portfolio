@@ -1,11 +1,9 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { ExperienceFull } from '../../dtos/ExperienceDTO';
 import { experiencesData } from '../../data/experiences.data';
+import { TranslationService } from '../../services/translation.service';
 
-/**
- * Component for displaying a list of professional experiences.
- */
 @Component({
   selector: 'app-experiences',
   standalone: true,
@@ -13,7 +11,14 @@ import { experiencesData } from '../../data/experiences.data';
   templateUrl: './experiences.component.html',
   styleUrls: ['./experiences.component.scss']
 })
-export class ExperiencesComponent {
-  // Data containing the list of professional experiences
-  experiences: ExperienceFull = experiencesData;
+export class ExperiencesComponent implements OnInit {
+  experiences!: ExperienceFull;
+
+  constructor(private translationService: TranslationService) {}
+
+  ngOnInit(): void {
+    this.translationService.currentLanguage$.subscribe(language => {
+      this.experiences = this.translationService.getTranslatedData<ExperienceFull>(experiencesData);
+    });
+  }
 }

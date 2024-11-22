@@ -1,10 +1,10 @@
 // Positioning variables
 $navigator-position-right-desktop: 70px;
-$navigator-position-right-tablet: 20px;
-$navigator-position-right-small: 15px !important;
+$navigator-position-right-tablet: 40px;
+$navigator-position-right-small: 30px !important;
 
-$navigator-position-bottom-desktop: 16px;
-$navigator-position-bottom-tablet: 12px;
+$navigator-position-bottom-desktop: 25px;
+$navigator-position-bottom-tablet: 25px;
 $navigator-position-bottom-small: 20px !important;
 
 /* Styling for navigator container */
@@ -37,6 +37,6 @@ $navigator-position-bottom-small: 20px !important;
     .navigator {
         right: $navigator-position-right-small;
         bottom: $navigator-position-bottom-small;
-        scale: 1;
+        scale: 1.3;
     }
 }

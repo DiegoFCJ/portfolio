@@ -1,3 +1,9 @@
+export interface ExperienceFullLangs {
+    en: ExperienceFull;
+    it: ExperienceFull;
+    [key: string]: ExperienceFull;
+}
+
 export interface ExperienceFull {
     title: string;
     experiences: Experience[];
@@ -11,4 +17,3 @@ export interface Experience {
     technologies?: string;
     responsibilities: string;
 }
-

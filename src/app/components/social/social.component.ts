@@ -14,8 +14,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./social.component.scss']
 })
 export class SocialComponent {
-  /**
-   * List of social media data.
-   */
   socialsData: Social[] = socials;
 }

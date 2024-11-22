@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { projects } from '../../data/projects.data';
 import { ProjectFull } from '../../dtos/ProjectDTO';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-projects',
@@ -14,13 +15,18 @@ import { ProjectFull } from '../../dtos/ProjectDTO';
   ]
 })
 export class ProjectsComponent implements OnInit {
-  projects: ProjectFull = projects;
-  isMobile = false; // Inizializza il valore per la visualizzazione mobile
-  currentIndex = 0; // Indice per il carosello
-  maxChars = 150; // Numero massimo di caratteri da mostrare inizialmente
+  projects!: ProjectFull;
+  isMobile = false;
+  currentIndex = 0;
+  maxChars = 150;
+
+  constructor(private translationService: TranslationService) {}
 
   ngOnInit() {
     this.checkIfMobile();
+    this.translationService.currentLanguage$.subscribe(language => {
+      this.projects = this.translationService.getTranslatedData<ProjectFull>(projects);
+    });
   }
 
   /**

@@ -26,10 +26,10 @@
             border-radius: 8px;
             padding: 20px;
             text-align: center;
-            flex: 1 1 calc(25% - 20px); /* 4 card per riga su schermi larghi */
-            min-width: 250px; /* Card più piccole per default */
+            flex: 1 1 calc(25% - 20px);
+            min-width: 250px;
             transition: transform 0.3s ease;
-            max-width: 300px; /* Dimensione massima per card grande */
+            max-width: 300px;
 
             &:hover {
                 transform: translateY(-10px);
@@ -43,20 +43,20 @@
                     margin-bottom: 15px;
 
                     mat-icon {
-                        font-size: 7vh; /* Ridurre la dimensione delle icone */
+                        font-size: 7vh;
                         width: 100%;
                         height: 100%;
                     }
                 }
 
                 .statistics-value {
-                    font-size: 2rem; /* Ridurre la dimensione del valore */
+                    font-size: 2rem;
                     font-weight: 700;
                     margin-bottom: 10px;
                 }
 
                 .statistics-label {
-                    font-size: 0.9rem; /* Ridurre la dimensione della label */
+                    font-size: 1.5rem;
                     text-align: center;
                     max-width: 100%;
                 }
@@ -75,41 +75,36 @@
         }
     }
 
-    /* Media Queries per la responsività */
-    
-    /* Schermi larghezza <= 1200px */
     @media (max-width: 1200px) {
         .statistics-card {
-            flex: 1 1 calc(33.33% - 20px); /* 3 card per riga */
-            max-width: 240px;  /* Card più piccole */
-            min-width: 220px;  /* Card più strette */
+            flex: 1 1 calc(33.33% - 20px);
+            max-width: 240px;
+            min-width: 220px;
         }
     }
 
-    /* Schermi  */
     @media (max-width: 992px) {
         .statistics-component{
             padding: 0 !important;
         }
 
         .statistics-card {
-            flex: 1 1 calc(50% - 20px);  /* 2 card per riga */
-            max-width: 300px;  /* Ancora più piccole */
+            flex: 1 1 calc(50% - 20px);
+            max-width: 300px;
             min-width: 200px;
         }
     }
 
-    /* Schermi larghezza <= 768px */
     @media (max-width: 768px) {
         .statistics-component{
             padding: 0 !important;
         }
 
         .statistics-card {
-            flex: 1 1 100% !important;  /* 1 card per riga */
-            max-width: 280px !important;  /* Card piccolissime */
+            flex: 1 1 100% !important;
+            max-width: 280px !important;
             min-width: 180px !important;
-            padding: 10px !important;  /* Ridurre il padding per spazi più stretti */
+            padding: 10px !important;
         }
 
         h2{
@@ -117,17 +112,16 @@
         }
     }
 
-    /* Schermi molto piccoli (extra small) */
     @media (max-width: 480px) {
         .statistics-component{
             padding: 0 !important;
         }
 
         .statistics-card {
-            flex: 1 1 100% !important;  /* 1 card per riga */
-            max-width: 34vw !important;  /* Card molto piccole */
+            flex: 1 1 100% !important;
+            max-width: 34vw !important;
             min-width: 90px !important;
-            padding: 5px !important; /* Ridurre ulteriormente il padding */
+            padding: 5px !important;
         }
 
         h2{

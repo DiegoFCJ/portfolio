@@ -1,3 +1,9 @@
+export interface ContactMeLangs{
+    en: ContactMe;
+    it: ContactMe;
+    [key: string]: ContactMe;
+}
+
 export interface ContactMe {
     title: string;
     name: string;

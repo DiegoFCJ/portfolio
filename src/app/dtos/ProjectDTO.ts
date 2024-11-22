@@ -1,3 +1,9 @@
+export interface ProjectsLangs {
+    en: ProjectFull;
+    it: ProjectFull;
+    [key: string]: ProjectFull;
+}
+
 export interface ProjectFull {
     title: string;
     button: string;

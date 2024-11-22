@@ -1,2 +1,2 @@
-export const APP_TITLE = "Diego's Portfolio";
-export const WinP = "Work in progress...";
+export const APP_TITLE_en = "Diego's Portfolio";
+export const APP_TITLE_it = "Portfolio di Diego";
