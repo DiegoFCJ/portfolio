@@ -1,75 +1,32 @@
-$circle-opacity: 0.3;
-$min-circle-size: 400px;
-$max-circle-size: 600px;
-
-// General container for circles with full-screen size
-.full_mask {
-    position: absolute;
+:host {
+    position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
     width: 100vw;
-    z-index: 2;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.panel-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
     overflow: hidden;
-
-    .circle {
-        position: absolute;
-        border-radius: 50%;
-        opacity: $circle-opacity;
-        transition: all 0.5s ease-in-out; // Smooth transition for circle movements
-    }
-
-    // Circle sizes
-    .circle { 
-        width: $min-circle-size; 
-        height: $min-circle-size;
-    }
-
-    // Circle positions
-    .top-left-circle { top: -10vh; left: -10vw; }
-    .center-left-circle { bottom: -16vh; left: -8vw; }
-    .bottom-center-circle { bottom: -15vw; left: 70vw; }
-    .center-right-circle { top: 30vh; right: 0; }
-
-    .top-right-circle { top: -8vh; right: -5vw; }
-    .center-center-circle { top: 50%; left: 50%; transform: translate(-50%, -50%); }
-    .bottom-left-circle { bottom: -12vh; left: 10vw; }
 }
 
-// Mobile-specific adjustments
-@media (max-width: 768px) {
-    .full_mask {
-        .circle {
-            width: $max-circle-size;
-            height: $max-circle-size;
-        }
-
-        .top-left-circle { top: -8vh; left: -5vw; }
-        .center-left-circle { bottom: -12vh; left: -5vw; }
-        .bottom-center-circle { bottom: -10vw; left: 60vw; }
-        .center-right-circle { top: 20vh; right: 5vw; }
-
-        .top-right-circle { top: -6vh; right: -4vw; }
-        .center-center-circle { top: 40%; left: 50%; }
-        .bottom-left-circle { bottom: -10vw; left: 5vw; }
-    }
-}
-
-// Small mobile screens (480px and below)
-@media (max-width: 480px) {
-    .full_mask {
-        .circle {
-            width: $max-circle-size;
-            height: $max-circle-size;
-        }
-
-        .top-left-circle { top: -6vh; left: -4vw; }
-        .center-left-circle { bottom: -10vh; left: -4vw; }
-        .bottom-center-circle { bottom: -8vw; left: 55vw; }
-        .center-right-circle { top: 15vh; right: 10vw; }
-
-        .top-right-circle { top: -4vh; right: -3vw; }
-        .center-center-circle { top: 30%; left: 50%; }
-        .bottom-left-circle { bottom: -6vw; left: 5vw; }
-    }
+.panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;
+    will-change: transform;
+    /* aggiungi un po’ di trasparenza e sfumatura */
+    background-clip: padding-box;
 }

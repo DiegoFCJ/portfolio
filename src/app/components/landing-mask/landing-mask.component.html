@@ -1,4 +1,13 @@
-<div class="full_mask">
-    <span *ngFor="let circle of circles; let i = index" class="circle" [ngClass]="circle.class" #circleElement>
-    </span>
+<div class="panel-wrapper">
+  <div
+    *ngFor="let panel of panels; let i = index"
+    #panelElement
+    class="panel"
+    [ngStyle]="{
+      width: panel.width + 'px',
+      height: panel.height + 'px',
+      backgroundColor: panel.color,
+      clipPath: panel.clipPath
+    }"
+  ></div>
 </div>
