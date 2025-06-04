@@ -1,4 +1,4 @@
-<section class="education-section">
+<section class="education-section" *ngIf="educationList">
   <h2 class="education-title">{{ educationList.title }}</h2>
   <div class="education-container">
     <div class="education-item" *ngFor="let education of educationList.education; let i = index; let last = last">

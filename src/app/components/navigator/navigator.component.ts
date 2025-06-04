@@ -1,13 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { MAT_MENU_DEFAULT_OPTIONS, MatMenuModule } from '@angular/material/menu';  // Aggiungere MatMenuModule
-import { ThemeswitchComponent } from './themeswitch/themeswitch.component';
+import { MatMenuModule } from '@angular/material/menu';
 import { TranslationService } from '../../services/translation.service';
 
-/**
- * NavigatorComponent allows for navigation between sections and includes a theme switcher.
- */
 @Component({
   selector: 'app-navigator',
   standalone: true,
@@ -15,44 +11,41 @@ import { TranslationService } from '../../services/translation.service';
     CommonModule,
     MatIconModule,
     MatMenuModule,
-    ThemeswitchComponent
-  ],
-  providers: [
-    {
-      provide: MAT_MENU_DEFAULT_OPTIONS,
-      useValue: { panelClass: 'custom-menu-panel' }
-    }
   ],
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
 })
 export class NavigatorComponent {
-  @Input() totalSections: number = 8;  // Total number of sections
-  @Input() currentSectionIndex: number = 1;  // Index of the current section
-  @Output() navigateNext = new EventEmitter<void>();  // Event emitter for next navigation
-  @Output() navigatePrevious = new EventEmitter<void>();  // Event emitter for previous navigation
+  @Input() totalSections: number = 8;
+  @Input() currentSectionIndex: number = 0;
+  @Output() navigateNext = new EventEmitter<void>();
+  @Output() navigatePrevious = new EventEmitter<void>();
 
-  constructor(private translationService: TranslationService) { }
+  currentLang: string;
+  currentTheme: string = 'light';
 
-  /**
-   * Emits the navigateNext event to move to the next section.
-   */
+  constructor(private translationService: TranslationService) {
+    this.currentLang = this.translationService.getCurrentLanguage();
+  }
+
   onNext(): void {
     this.navigateNext.emit();
   }
 
-  /**
-   * Emits the navigatePrevious event to move to the previous section.
-   */
   onPrevious(): void {
     this.navigatePrevious.emit();
   }
 
-  /**
-   * Changes the current language by passing either 'en' or 'it' to the TranslationService.
-   * @param language The language to set, either 'en' or 'it'.
-   */
   changeLanguage(language: 'en' | 'it'): void {
     this.translationService.setLanguage(language);
+    this.currentLang = language;
+  }
+
+  changeTheme(theme: string): void {
+    this.currentTheme = theme;
+    document.body.classList.toggle('dark-mode', theme === 'dark');
+
+    // Future: handle more themes (e.g., 'solarized', 'blue-hue', etc.)
+    // You could emit an event or use a ThemeService here.
   }
 }

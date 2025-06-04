@@ -18,8 +18,13 @@ import { statsData } from '../../data/stats.data';
   styleUrls: ['./stats.component.scss']
 })
 export class StatsComponent implements OnInit {
-  stats!: StatsItem;
-  statsTitle!: string;
+  stats: StatsItem = {
+    hours: "",
+    months: "",
+    projects: "",
+    mostUsed: ""
+  };
+  statsTitle: string = "";
   statistics: Stat[] = []
 
   constructor(private translationService: TranslationService) { }

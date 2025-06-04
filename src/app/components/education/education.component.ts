@@ -12,7 +12,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./education.component.scss']
 })
 export class EducationComponent implements OnInit {
-  educationList!: EducationFull;
+  educationList: EducationFull = {
+    title: '',
+    education: []
+  };
 
   isLargeScreen: boolean = false;
   is2kMoreScreen: boolean = false;
@@ -26,8 +29,10 @@ export class EducationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLargeScreen = window.innerWidth >= 1497;
-    this.is2kMoreScreen = window.innerWidth >= 2224;
+    if (typeof window !== 'undefined') {
+      this.isLargeScreen = window.innerWidth >= 1497;
+      this.is2kMoreScreen = window.innerWidth >= 2224;
+    }
     this.translationService.currentLanguage$.subscribe(language => {
       this.educationList = this.translationService.getTranslatedData<EducationFull>(educationData);
     });

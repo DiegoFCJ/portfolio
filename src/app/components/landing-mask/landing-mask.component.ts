@@ -69,7 +69,7 @@ export class LandingMaskComponent implements AfterViewInit {
    */
   animateCircle(circle: { class: string; startX: number; startY: number }, circleElement: HTMLElement): void {
     const randomSize = `${Math.floor(Math.random() * (600 - 400 + 1)) + 400}px`;
-    const duration = Math.random() * 4 + 7; // Duration between 7 and 11 seconds
+    const duration = Math.random() * 4 + 7;
 
     this.renderer.setStyle(circleElement, 'width', randomSize);
     this.renderer.setStyle(circleElement, 'height', randomSize);
@@ -79,12 +79,17 @@ export class LandingMaskComponent implements AfterViewInit {
       { transform: `translate(0, 0) scale(1)`, opacity: 0.4 }
     ];
 
-    // Execute animation using Web Animations API
-    circleElement.animate(keyframes, {
-      duration: duration * 1000, // Convert to milliseconds
-      easing: 'ease-in-out',
-      fill: 'forwards'
-    });
+    if ('animate' in circleElement) {
+      circleElement.animate(keyframes, {
+        duration: duration * 1000,
+        easing: 'ease-in-out',
+        fill: 'forwards'
+      });
+    } else {
+      // fallback: usa animazioni CSS o semplicemente imposta lo stile finale
+      this.renderer.setStyle(circleElement, 'transform', `translate(0, 0) scale(1)`);
+      this.renderer.setStyle(circleElement, 'opacity', '0.4');
+    }
   }
 
   /**

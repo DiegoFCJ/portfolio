@@ -17,5 +17,10 @@ export class TranslationService {
   getTranslatedData<T>(data: { [key: string]: T }): T {
     const language = this.currentLanguage.value;
     return data[language];
-  }  
+  }
+
+  /** Returns the current language string ('en' or 'it') */
+  getCurrentLanguage(): 'en' | 'it' {
+    return this.currentLanguage.value;
+  }
 }

@@ -12,9 +12,19 @@ import { TranslationService } from '../../services/translation.service';
   styleUrls: ['./experiences.component.scss']
 })
 export class ExperiencesComponent implements OnInit {
-  experiences!: ExperienceFull;
+  experiences: ExperienceFull = {
+    title: "",
+    experiences: [{
+      position: "",
+      location: "",
+      startDate: "",
+      endDate: "",
+      technologies: "",
+      responsibilities: ""
+    }]
+  };
 
-  constructor(private translationService: TranslationService) {}
+  constructor(private translationService: TranslationService) { }
 
   ngOnInit(): void {
     this.translationService.currentLanguage$.subscribe(language => {

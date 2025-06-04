@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { LandingMaskComponent } from '../landing-mask/landing-mask.component';
 import { SocialComponent } from '../social/social.component';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ import { HeroFull } from '../../dtos/HeroDTO';
 })
 export class HeroComponent implements OnInit {
   heroData: HeroFull = heroData.en; 
+  @Output() navigateNextSection = new EventEmitter<void>();
 
   // Typing animation properties
   displayText = '';
@@ -30,8 +31,6 @@ export class HeroComponent implements OnInit {
   deletingSpeed = 50;
   delayBetweenTexts = 1000;
   isFinalText = false;
-  popupMessage = 'Work in progress...';
-  @ViewChild(CustomPopupComponent) customPopup: CustomPopupComponent | undefined;
 
   // Flag to ensure that animation state is correctly managed
   isAnimating = false;
@@ -117,9 +116,7 @@ export class HeroComponent implements OnInit {
     this.timeoutIds = [];  // Reset the array
   }
 
-  showPopup(message: string): void {
-    if (this.customPopup) {
-      this.customPopup.togglePopup(message);
-    }
-  }
+  navigateToNextSection(): void {
+  this.navigateNextSection.emit();
+}
 }

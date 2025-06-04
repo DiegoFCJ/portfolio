@@ -1,34 +1,34 @@
 @use 'variables' as *;
 
 * {
-    scrollbar-color: #c9c9c9 #e6e6e6;
+    scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
 section {
     box-shadow: $section-box-shadow;
+    border-radius: 1rem;
 }
 
 .bg-container {
-    background: linear-gradient(135deg, #ac80ff, #4a90e2, #50e3c2, #00ff88);
+    background: linear-gradient(135deg, #6c63ff, #3b82f6, #00bfa6, #a0f0e0);
 
     .hero-content {
-
         button {
             background-color: #ffffff;
-            color: #4a90e2;
-            box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1);
+            color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 999px;
+            transition: box-shadow 180ms ease;
         }
 
         button:hover {
             background-color: #e0f7f4;
-            box-shadow: 1px 2px 3px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
         }
     }
 }
 
 .full_mask {
-
     .top-left-circle {
         background-color: $color-top-left;
     }
@@ -47,92 +47,97 @@ section {
 }
 
 .popup {
-    background-color: #e4e4e4;
-    border: 1px solid #ccc;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
-
 
 .theme-switch-label {
     background-color: $theme-switch-bg-light;
 }
 
-
-input[type="checkbox"]:checked+.theme-switch-label {
+input[type='checkbox']:checked+.theme-switch-label {
     background-color: $theme-switch-bg-dark;
 }
 
 .vertical-line {
-    background-color: #dddddd;
+    background-color: #e5e7eb;
 
     .point-on-line {
-        background-color: black;
+        background-color: #1f2937;
     }
 }
 
 .arrow-left,
 .arrow-right {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    background-color: rgba(31, 41, 55, 0.1);
+    color: #1f2937;
 
     &:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(31, 41, 55, 0.2);
     }
 }
 
 .education-item {
     .restrained {
-        border: 1px solid #ebebeb;
-        box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
     }
 }
 
-
 .experience {
-    border: 1px solid #f1f1f1;
-    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
 }
 
 .project-card {
-    border: 1px solid #ccc;
-    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
 
     h3 {
-        color: #0073e6;
+        color: #6c63ff;
     }
 
     .more,
     .less {
-        color: #4a90e2;
+        color: #3b82f6;
     }
 
     a {
-        color: #4a90e2;
+        color: #3b82f6;
 
         &:hover {
-            color: #4a90e2;
+            color: #2563eb;
         }
     }
 }
 
 .skill-section {
-    border: 1px solid #f1f1f1;
-    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
 
     h3 {
-        color: #0073e6;
+        color: #6c63ff;
     }
 
     .skills {
         .skill-item {
             img {
+                border-radius: 8px;
+                transition: box-shadow 0.3s ease;
+
                 &:hover {
                     box-shadow: $box-shadow-hover;
                 }
             }
 
             p {
-                color: #555;
+                color: #374151;
             }
         }
     }
@@ -142,7 +147,7 @@ input[type="checkbox"]:checked+.theme-switch-label {
     .social-item {
         a {
             img {
-                filter: drop-shadow(-4px 5px 2px rgba(0, 0, 0, 0.2));
+                filter: drop-shadow(-4px 5px 2px rgba(0, 0, 0, 0.1));
             }
         }
     }
@@ -151,24 +156,25 @@ input[type="checkbox"]:checked+.theme-switch-label {
 .statistics-component {
     .statistics-section {
         .statistics-card {
-            border: 1px solid #f1f1f1;
-            box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 14px;
 
             .statistics-content {
                 .statistics-icon {
                     mat-icon {
-                        color: black;
+                        color: #1f2937;
                     }
                 }
             }
 
             .statistics-label {
-                color: #bbb;
+                color: #6b7280;
             }
         }
 
         .statistics-section-title {
-            color: #333;
+            color: #1f2937;
         }
     }
 }
@@ -177,22 +183,24 @@ input[type="checkbox"]:checked+.theme-switch-label {
     .form-field {
         .mdc-text-field--filled:not(.mdc-text-field--disabled) {
             background-color: #ffffff;
-            border: 1px solid #ebebeb;
-            box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
         }
     }
 
     .submit-btn {
         button {
-            box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ebebeb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
 
             &.disabled {
-                background-color: rgb(187, 187, 187);
+                background-color: #d1d5db;
             }
 
             &.enabled {
-                background-color: rgb(255, 255, 255) !important;
+                background-color: #ffffff !important;
             }
         }
     }

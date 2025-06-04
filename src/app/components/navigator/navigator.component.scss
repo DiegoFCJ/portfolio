@@ -1,42 +1,69 @@
-// Positioning variables
-$navigator-position-right-desktop: 70px;
-$navigator-position-right-tablet: 40px;
-$navigator-position-right-small: 30px !important;
+@use '../../../styles/variables.scss' as *;
 
-$navigator-position-bottom-desktop: 25px;
-$navigator-position-bottom-tablet: 25px;
-$navigator-position-bottom-small: 20px !important;
+$navigator-bg: #ffffff;
+$navigator-bg-dark: #1f1f1f;
+$navigator-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+$navigator-icon-size: 24px;
+$navigator-button-size: 48px;
 
-/* Styling for navigator container */
-.navigator {
-    z-index: 10;
+.modern-navigator {
     position: fixed;
-    bottom: $navigator-position-bottom-desktop;
-    right: $navigator-position-right-desktop;
+    bottom: 30px;
+    right: 30px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    scale: 2;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
 
-    /* Hover effect for clickable elements */
-    span:hover {
-        cursor: pointer;
+    .nav-button {
+        width: $navigator-button-size;
+        height: $navigator-button-size;
+        border-radius: 50%;
+        background-color: $navigator-bg;
+        box-shadow: $navigator-shadow;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, background-color 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+            background-color: lighten($navigator-bg, 4%);
+        }
+
+        mat-icon {
+            font-size: $navigator-icon-size;
+            color: #333;
+        }
+
+        .lang-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+        }
     }
 }
 
-/* Mobile-specific adjustments */
-@media (max-width: 768px) {
-    .navigator {
-        scale: 1.5;
-        right: $navigator-position-right-tablet;
-        bottom: $navigator-position-bottom-tablet;
+body.dark-mode {
+    .modern-navigator {
+        .nav-button {
+            background-color: $navigator-bg-dark;
+
+            &:hover {
+                background-color: lighten($navigator-bg-dark, 5%);
+            }
+
+            mat-icon,
+            .lang-label {
+                color: #f0f0f0;
+            }
+        }
     }
 }
 
-@media (max-width: 480px) {
-    .navigator {
-        right: $navigator-position-right-small;
-        bottom: $navigator-position-bottom-small;
-        scale: 1.3;
-    }
+.lang-flag {
+    font-size: 1.2rem;
+    margin-right: 8px;
 }

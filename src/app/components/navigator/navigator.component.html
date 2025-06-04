@@ -1,29 +1,39 @@
-<div class="navigator">
-  <!-- Navigation to previous section, visible when current section index > 0 -->
-  <span *ngIf="currentSectionIndex > 0" (click)="onPrevious()">
-    <mat-icon fontSize="large" color="secondary">arrow_circle_up</mat-icon>
-  </span>
+<!-- Modern, animated, circular floating navbar -->
+<div class="modern-navigator">
+  <!-- Previous button -->
+  <button class="nav-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section">
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
 
-  <!-- Navigation to next section, visible when current section index < total sections - 1 -->
-  <span *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()">
-    <mat-icon fontSize="large" color="secondary">arrow_circle_down</mat-icon>
-  </span>
+  <!-- Next button -->
+  <button class="nav-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section">
+    <mat-icon>arrow_downward</mat-icon>
+  </button>
 
-  <!-- Theme switcher component -->
-  <app-themeswitch></app-themeswitch>
+  <!-- Theme dropdown -->
+  <button [matMenuTriggerFor]="themeMenu" class="nav-button" aria-label="Theme selector">
+    <mat-icon>palette</mat-icon>
+  </button>
+  <mat-menu #themeMenu="matMenu">
+    <button mat-menu-item (click)="changeTheme('light')">
+      <mat-icon style="z-index: 100;">light_mode</mat-icon> Light
+    </button>
+    <button mat-menu-item (click)="changeTheme('dark')">
+      <mat-icon>dark_mode</mat-icon> Dark
+    </button>
+    <!-- Placeholder for future themes -->
+  </mat-menu>
 
-  <!-- Language Dropdown Menu -->
-  <span [matMenuTriggerFor]="languageMenu">
-    <mat-icon fontSize="large" color="secondary">language</mat-icon>
-  </span>
-
-  <!-- Language Selection Menu -->
-  <mat-menu #languageMenu="matMenu" class="custom-menu-panel">
+  <!-- Language dropdown with current lang code -->
+  <button [matMenuTriggerFor]="languageMenu" class="nav-button">
+    <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
+  </button>
+  <mat-menu #languageMenu="matMenu">
     <button mat-menu-item (click)="changeLanguage('en')">
-      <mat-icon>language</mat-icon> English
+      <span class="lang-flag">🇬🇧</span> English
     </button>
     <button mat-menu-item (click)="changeLanguage('it')">
-      <mat-icon>language</mat-icon> Italiano
+      <span class="lang-flag">🇮🇹</span> Italiano
     </button>
   </mat-menu>
 </div>

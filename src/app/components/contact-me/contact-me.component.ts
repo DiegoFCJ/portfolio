@@ -28,14 +28,28 @@ import { TranslationService } from '../../services/translation.service';
   styleUrls: ['./contact-me.component.scss']
 })
 export class ContactMeComponent {
-  contactMe!: ContactMe;
+  contactMe: ContactMe = {
+    title: "",
+    name: "",
+    nameReq: "",
+    email: "",
+    emailReq: "",
+    message: "",
+    messageReq: "",
+    sendBtn: "",
+    emailMessages: [{
+      keyMess: "",
+      valueMess: ""
+    }]
+  };
+  
   popupMessage: string = '';
   @ViewChild(CustomPopupComponent) customPopup: CustomPopupComponent | undefined;
 
   constructor(private emailService: EmailService, private translationService: TranslationService) {
     this.translationService.currentLanguage$.subscribe(language => {
       this.contactMe = this.translationService.getTranslatedData<ContactMe>(contactMeData);
-    });    
+    });
   }
 
   /**

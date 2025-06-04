@@ -11,7 +11,10 @@ import { TranslationService } from '../../services/translation.service';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent {
-  aboutMe!: AboutMe;
+  aboutMe: AboutMe = {
+    title: "",
+    description: ""
+  }
 
   constructor(private translationService: TranslationService) {
     this.translationService.currentLanguage$.subscribe(language => {

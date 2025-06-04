@@ -31,3 +31,50 @@ $box-shadow-3d: 0 4px 6px rgba(0, 0, 0, 0.2),
 
 // ************************* mobile ************************* \\
 $box-shadow-mobile: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
+
+
+// ************************* Navigator layout ************************* \\
+$navigator-gap: 1rem;
+$navigator-padding: 0.6rem 1.2rem;
+$navigator-radius: 2rem;
+$navigator-bg-light: rgba(255, 255, 255, 0.15);
+$navigator-bg-dark: rgba(24, 24, 24, 0.6);
+$navigator-blur: 12px;
+$navigator-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+$navigator-border-light: rgba(255, 255, 255, 0.2);
+$navigator-border-dark: rgba(255, 255, 255, 0.1);
+
+// === Icon button ===
+$nav-icon-size: 1.8rem;
+$nav-icon-bg: rgba(255, 255, 255, 0.1);
+$nav-icon-bg-hover: rgba(255, 255, 255, 0.2);
+$nav-icon-bg-dark: rgba(255, 255, 255, 0.08);
+$nav-icon-bg-dark-hover: rgba(255, 255, 255, 0.15);
+$nav-icon-color-light: white;
+$nav-icon-color-dark: #e0e0e0;
+
+// === Responsive ===
+$navigator-scale-tablet: 0.9;
+$navigator-scale-mobile: 0.8;
+$navigator-gap-mobile: 0.8rem;
+
+
+
+// ************************* THEME SWITCH layout ************************* \\
+// === Dimensioni e layout ===
+$theme-switch-width: 50px;
+$theme-switch-height: 24px;
+$theme-switch-radius: 999px;
+
+// === Icona ===
+$theme-icon-size: 18px;
+$theme-icon-padding: 3px;
+$theme-icon-translate-x: 26px;
+
+// === Colori (chiaro/scuro) ===
+$theme-switch-bg-light: rgba(0, 0, 0, 0.08);
+$theme-switch-bg-dark: rgba(255, 255, 255, 0.1);
+
+$theme-sun-filter: invert(0%) sepia(100%) saturate(600%) hue-rotate(0deg) brightness(105%) contrast(100%);
+$theme-moon-filter: invert(100%) sepia(0%) saturate(100%) hue-rotate(200deg) brightness(90%) contrast(90%);
+
