@@ -98,4 +98,20 @@ export class NavigatorComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * Returns the Material icon name corresponding to the given theme.
+   */
+  getThemeIcon(theme: 'light' | 'dark' | 'blue' | 'green'): string {
+    switch (theme) {
+      case 'dark':
+        return 'dark_mode';
+      case 'blue':
+        return 'water_drop';
+      case 'green':
+        return 'eco';
+      default:
+        return 'light_mode';
+    }
+  }
 }
