@@ -1,6 +1,12 @@
+
 .about-section {
     position: relative;
     z-index: 6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     .about-description {
         max-width: 90vw;
