@@ -16,8 +16,15 @@ $navigator-button-size: 48px;
     gap: 12px;
 
     .arrow-container {
+        width: $navigator-button-size;
+        padding: 4px;
+        background-color: $navigator-bg;
+        box-shadow: $navigator-shadow;
+        border-radius: $navigator-button-size;
         display: flex;
-        gap: 12px;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
     }
     z-index: 9999;
 
@@ -50,21 +57,45 @@ $navigator-button-size: 48px;
             color: #333;
         }
     }
+
+    .arrow-button {
+        width: $navigator-button-size - 12px;
+        height: $navigator-button-size - 12px;
+        border-radius: 50%;
+        border: none;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        mat-icon {
+            font-size: $navigator-icon-size;
+            color: #333;
+        }
+    }
 }
 
 body.dark-mode {
     .modern-navigator {
-        .nav-button {
+        .nav-button,
+        .arrow-container {
             background-color: $navigator-bg-dark;
+        }
 
-            &:hover {
-                background-color: lighten($navigator-bg-dark, 5%);
-            }
+        .nav-button:hover,
+        .arrow-button:hover {
+            background-color: lighten($navigator-bg-dark, 5%);
+        }
 
-            mat-icon,
-            .lang-label {
-                color: #f0f0f0;
-            }
+        .nav-button mat-icon,
+        .nav-button .lang-label,
+        .arrow-button mat-icon {
+            color: #f0f0f0;
         }
     }
 }
