@@ -64,6 +64,7 @@ export class NavigatorComponent implements OnInit {
     }
   }
 
+
   changeLanguage(language: 'en' | 'it' | 'de' | 'es'): void {
     this.translationService.setLanguage(language);
     this.currentLang = language;

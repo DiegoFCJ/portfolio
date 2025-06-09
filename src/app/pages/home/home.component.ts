@@ -42,7 +42,9 @@ export class HomeComponent implements AfterViewInit {
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+  ) { }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -65,6 +67,7 @@ export class HomeComponent implements AfterViewInit {
       this.scrollToSection(this.currentSectionIndex);
     }
   }
+
 
   scrollToSection(index: number): void {
     const section = this.sections.toArray()[index].nativeElement;
