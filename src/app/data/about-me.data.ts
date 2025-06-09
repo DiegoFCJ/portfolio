@@ -11,7 +11,7 @@ export const aboutMeData: AboutMeLangs = {
     it: {
         title: 'Chi Sono',
         description: `
-      Sviluppatore Full Stack di 28 anni e studente di Informatica. Ho iniziato nel mondo dell'ospitalità, con due anni di esperienza in Inghilterra, dove ho affinato flessibilità, gestione delle scadenze e attenzione al cliente.
+      Sviluppatore Full Stack di 28 anni e studente di Informatica. Ho iniziato nel mondo della ristorazione, con due anni di esperienza in Inghilterra, dove ho affinato flessibilità, gestione delle scadenze e attenzione al cliente.
       Oggi mi occupo di Java, Angular, Spring Boot e pratiche DevOps.
       Mi piace imparare e creare soluzioni che portino valore.`
     },
