@@ -17,19 +17,23 @@
   <div class="nav-group">
     <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Theme selector"
       [matTooltip]="currentLang === 'en' ? 'Theme' : 'Tema'" matTooltipPosition="left">
-      <mat-icon>palette</mat-icon>
+      <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
     </button>
     <div class="option-container" *ngIf="showThemeOptions">
-      <button class="option-button" (click)="changeTheme('light')" aria-label="Light mode">
+      <button class="option-button" (click)="changeTheme('light')" aria-label="Light mode"
+        [class.selected]="currentTheme === 'light'">
         <mat-icon>light_mode</mat-icon>
       </button>
-      <button class="option-button" (click)="changeTheme('dark')" aria-label="Dark mode">
+      <button class="option-button" (click)="changeTheme('dark')" aria-label="Dark mode"
+        [class.selected]="currentTheme === 'dark'">
         <mat-icon>dark_mode</mat-icon>
       </button>
-      <button class="option-button" (click)="changeTheme('blue')" aria-label="Blue mode">
+      <button class="option-button" (click)="changeTheme('blue')" aria-label="Blue mode"
+        [class.selected]="currentTheme === 'blue'">
         <mat-icon>water_drop</mat-icon>
       </button>
-      <button class="option-button" (click)="changeTheme('green')" aria-label="Green mode">
+      <button class="option-button" (click)="changeTheme('green')" aria-label="Green mode"
+        [class.selected]="currentTheme === 'green'">
         <mat-icon>eco</mat-icon>
       </button>
     </div>
