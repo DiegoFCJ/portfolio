@@ -1,0 +1,22 @@
+@use 'variables' as *;
+
+body.green-mode {
+  background-color: #e6fff2;
+  color: #1f4033;
+
+  .bg-container {
+    background: linear-gradient(135deg, #6ee7b7, #34d399, #10b981);
+  }
+
+  .project-card,
+  .skill-section,
+  .statistics-card,
+  .popup {
+    background-color: #ffffff;
+    box-shadow: $section-box-shadow;
+  }
+
+  .point-on-line {
+    background-color: #10b981;
+  }
+}
