@@ -4,6 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
 
     .statistics-section {
         position: relative;
@@ -34,11 +35,13 @@
             text-align: center;
             flex: 1 1 calc(25% - 20px);
             min-width: 250px;
-            transition: transform 0.3s ease;
+            box-shadow: $box-shadow-default;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 300px;
 
             &:hover {
                 transform: translateY(-10px);
+                box-shadow: $box-shadow-hover;
                 cursor: pointer;
             }
 
