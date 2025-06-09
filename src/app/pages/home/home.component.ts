@@ -61,10 +61,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.viewInitialized = true;
+    this.cdr.detectChanges();
+
     setTimeout(() => {
       this.totalSections = this.sections?.length || 0;
-      this.viewInitialized = true;
-      this.cdr.detectChanges();
     });
   }
 
