@@ -21,6 +21,12 @@ describe('HeroComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should emit when navigateToNextSection is called', () => {
+    spyOn(component.navigateNextSection, 'emit');
+    component.navigateToNextSection();
+    expect(component.navigateNextSection.emit).toHaveBeenCalled();
+  });
+  
   it('should emit navigateNextSection when navigateToNextSection is called', () => {
     spyOn(component.navigateNextSection, 'emit');
     component.navigateToNextSection();
