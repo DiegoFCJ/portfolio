@@ -43,11 +43,15 @@ export class NavigatorComponent implements OnInit {
   }
 
   onNext(): void {
-    this.navigateNext.emit();
+    if (this.currentSectionIndex < this.totalSections - 1) {
+      this.navigateNext.emit();
+    }
   }
 
   onPrevious(): void {
-    this.navigatePrevious.emit();
+    if (this.currentSectionIndex > 0) {
+      this.navigatePrevious.emit();
+    }
   }
 
   toggleLanguageOptions(): void {
