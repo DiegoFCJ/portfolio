@@ -31,19 +31,20 @@
             align-items: center;
             justify-content: center;
 
-            .svg-icon {
-                height: 100%;
+            .theme-circle {
                 width: 100%;
+                height: 100%;
+                border-radius: 50%;
                 transition: opacity 0.3s ease;
             }
 
-            .sun {
-                filter: $theme-sun-filter;
+            .light {
+                background: radial-gradient(circle at center, #ffeb3b, #fdd835);
                 opacity: 1;
             }
 
-            .moon {
-                filter: $theme-moon-filter;
+            .dark {
+                background: radial-gradient(circle at center, #37474f, #263238);
                 opacity: 0;
             }
         }
@@ -57,11 +58,11 @@ input[type="checkbox"]:checked+.theme-switch-label {
     .slider .theme-icon {
         transform: translateX($theme-icon-translate-x);
 
-        .sun {
+        .light {
             opacity: 0;
         }
 
-        .moon {
+        .dark {
             opacity: 1;
         }
     }

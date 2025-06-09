@@ -3,11 +3,11 @@
 <label for="theme-toggle" class="theme-switch-label">
   <span class="slider">
     <span class="theme-icon">
-      <!-- Sun Icon (visible when darkMode is false) -->
-      <img class="svg-icon sun" src="./assets/sun.svg" alt="Sun Icon" [ngClass]="{'hidden': darkMode}" />
+      <!-- Colored circle for light theme -->
+      <span class="theme-circle light" [ngClass]="{'hidden': darkMode}"></span>
 
-      <!-- Moon Icon (visible when darkMode is true) -->
-      <img class="svg-icon moon" src="./assets/moon.svg" alt="Moon Icon" [ngClass]="{'hidden': !darkMode}" />
+      <!-- Colored circle for dark theme -->
+      <span class="theme-circle dark" [ngClass]="{'hidden': !darkMode}"></span>
     </span>
   </span>
 </label>
