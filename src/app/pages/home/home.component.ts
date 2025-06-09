@@ -17,8 +17,6 @@ import { EducationComponent } from '../../components/education/education.compone
 import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
 import { ExperiencesComponent } from '../../components/experiences/experiences.component';
-import { TranslationService } from '../../services/translation.service';
-import { sectionTitles } from '../../data/section-titles.data';
 
 @Component({
   selector: 'app-home',
@@ -42,19 +40,14 @@ export class HomeComponent implements AfterViewInit, OnInit {
   currentSectionIndex = 0;
   viewInitialized = false;
   totalSections = 0;
-  sectionLabels: string[] = [];
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private translationService: TranslationService,
   ) { }
 
   ngOnInit(): void {
-    this.translationService.currentLanguage$.subscribe(lang => {
-      this.sectionLabels = sectionTitles[lang];
-    });
   }
 
   ngAfterViewInit(): void {
@@ -76,13 +69,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
     if (this.viewInitialized && this.currentSectionIndex > 0) {
       this.currentSectionIndex--;
       this.scrollToSection(this.currentSectionIndex);
-    }
-  }
-
-  navigateTo(index: number): void {
-    if (this.viewInitialized && index >= 0 && index < this.totalSections) {
-      this.currentSectionIndex = index;
-      this.scrollToSection(index);
     }
   }
 

@@ -2,29 +2,18 @@
 <div class="modern-navigator">
   <div class="arrow-container">
     <!-- Previous button -->
-    <button class="nav-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section"
-      [matTooltip]="currentLang === 'en' ? 'Previous section' : 'Sezione precedente'" matTooltipPosition="left">
+    <button class="nav-button" (click)="onPrevious()" aria-label="Previous section"
+      [matTooltip]="currentLang === 'en' ? 'Previous section' : 'Sezione precedente'" matTooltipPosition="left"
+      [disabled]="currentSectionIndex <= 0">
       <mat-icon>arrow_upward</mat-icon>
     </button>
 
     <!-- Next button -->
-    <button class="nav-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section"
-      [matTooltip]="currentLang === 'en' ? 'Next section' : 'Sezione successiva'" matTooltipPosition="left">
+    <button class="nav-button" (click)="onNext()" aria-label="Next section"
+      [matTooltip]="currentLang === 'en' ? 'Next section' : 'Sezione successiva'" matTooltipPosition="left"
+      [disabled]="currentSectionIndex >= totalSections - 1">
       <mat-icon>arrow_downward</mat-icon>
     </button>
-  </div>
-
-
-  <div class="nav-group">
-    <button class="nav-button" (click)="toggleSectionOptions()" aria-label="Sections"
-      [matTooltip]="currentLang === 'en' ? 'Sections' : (currentLang === 'it' ? 'Sezioni' : (currentLang === 'de' ? 'Abschnitte' : 'Secciones'))" matTooltipPosition="left">
-      <mat-icon>list</mat-icon>
-    </button>
-    <div class="option-container" *ngIf="showSectionOptions">
-      <button class="option-button" *ngFor="let label of sectionLabels; let i = index" (click)="goToSection(i)" [attr.aria-label]="label">
-        <span class="section-number">{{ i + 1 }}</span>
-      </button>
-    </div>
   </div>
 
   <div class="nav-group">

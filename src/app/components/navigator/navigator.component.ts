@@ -18,14 +18,11 @@ import { TranslationService } from '../../services/translation.service';
 export class NavigatorComponent implements OnInit {
   @Input() totalSections: number = 8;
   @Input() currentSectionIndex: number = 0;
-  @Input() sectionLabels: string[] = [];
   @Output() navigateNext = new EventEmitter<void>();
   @Output() navigatePrevious = new EventEmitter<void>();
-  @Output() navigateToSection = new EventEmitter<number>();
 
   showLanguageOptions = false;
   showThemeOptions = false;
-  showSectionOptions = false;
 
   currentLang: string;
   currentTheme: 'light' | 'dark' | 'blue' | 'green' = 'light';
@@ -57,7 +54,6 @@ export class NavigatorComponent implements OnInit {
     this.showLanguageOptions = !this.showLanguageOptions;
     if (this.showLanguageOptions) {
       this.showThemeOptions = false;
-      this.showSectionOptions = false;
     }
   }
 
@@ -65,21 +61,7 @@ export class NavigatorComponent implements OnInit {
     this.showThemeOptions = !this.showThemeOptions;
     if (this.showThemeOptions) {
       this.showLanguageOptions = false;
-      this.showSectionOptions = false;
     }
-  }
-
-  toggleSectionOptions(): void {
-    this.showSectionOptions = !this.showSectionOptions;
-    if (this.showSectionOptions) {
-      this.showLanguageOptions = false;
-      this.showThemeOptions = false;
-    }
-  }
-
-  goToSection(index: number): void {
-    this.navigateToSection.emit(index);
-    this.showSectionOptions = false;
   }
 
   changeLanguage(language: 'en' | 'it' | 'de' | 'es'): void {
