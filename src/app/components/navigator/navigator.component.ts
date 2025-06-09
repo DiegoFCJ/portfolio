@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
@@ -27,14 +27,19 @@ export class NavigatorComponent implements OnInit {
   currentLang: string;
   currentTheme: 'light' | 'dark' | 'blue' | 'green' = 'light';
 
-  constructor(private translationService: TranslationService) {
+  constructor(
+    private translationService: TranslationService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+  ) {
     this.currentLang = this.translationService.getCurrentLanguage();
   }
 
   ngOnInit(): void {
-    const storedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'blue' | 'green') || 'light';
-    this.currentTheme = storedTheme;
-    this.applyTheme(storedTheme);
+    if (isPlatformBrowser(this.platformId)) {
+      const storedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'blue' | 'green') || 'light';
+      this.currentTheme = storedTheme;
+      this.applyTheme(storedTheme);
+    }
   }
 
   onNext(): void {
@@ -67,19 +72,23 @@ export class NavigatorComponent implements OnInit {
 
   changeTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
     this.currentTheme = theme;
-    localStorage.setItem('theme', theme);
-    this.applyTheme(theme);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('theme', theme);
+      this.applyTheme(theme);
+    }
     this.showThemeOptions = false;
   }
 
   private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
-    document.body.classList.remove('dark-mode', 'blue-mode', 'green-mode');
-    if (theme === 'dark') {
-      document.body.classList.add('dark-mode');
-    } else if (theme === 'blue') {
-      document.body.classList.add('blue-mode');
-    } else if (theme === 'green') {
-      document.body.classList.add('green-mode');
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.classList.remove('dark-mode', 'blue-mode', 'green-mode');
+      if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+      } else if (theme === 'blue') {
+        document.body.classList.add('blue-mode');
+      } else if (theme === 'green') {
+        document.body.classList.add('green-mode');
+      }
     }
   }
 }

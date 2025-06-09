@@ -38,6 +38,7 @@ import { ExperiencesComponent } from '../../components/experiences/experiences.c
 export class HomeComponent implements AfterViewInit {
   currentSectionIndex = 0;
   viewInitialized = false;
+  totalSections = 0;
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
 
@@ -45,13 +46,10 @@ export class HomeComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
+      this.totalSections = this.sections?.length || 0;
       this.viewInitialized = true;
       this.cdr.detectChanges();
     });
-  }
-
-  get totalSections(): number {
-    return this.sections?.length || 0;
   }
 
   navigateNext(): void {
