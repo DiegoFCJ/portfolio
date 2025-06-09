@@ -16,7 +16,8 @@ $navigator-button-size: 48px;
     gap: 12px;
 
     .arrow-container {
-        width: $navigator-button-size;
+        width: $navigator-button-size - 8;
+        height: 78px;
         padding: 4px;
         background-color: $navigator-bg;
         box-shadow: $navigator-shadow;
@@ -76,6 +77,7 @@ $navigator-button-size: 48px;
         mat-icon {
             font-size: $navigator-icon-size;
             color: #333;
+            position: absolute;
         }
     }
 }
