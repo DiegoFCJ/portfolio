@@ -11,11 +11,10 @@ section {
 
 // Project cards container
 .project-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5em;
-    width: 100%;
-    max-width: 1200px;
+    justify-content: center;
 }
 
 // Project card styles
@@ -24,14 +23,12 @@ section {
     border-radius: 10px;
     text-align: center;
     padding: 1em;
-    box-shadow: $box-shadow-default;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s;
 
     // Hover effect for project card
     &:hover {
         border: none;
         transform: translateY(-5px);
-        box-shadow: $box-shadow-hover;
         cursor: pointer;
     }
 

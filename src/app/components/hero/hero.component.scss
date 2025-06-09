@@ -24,7 +24,6 @@
     width: 50vw;
     z-index: 3;
     max-width: 600px;
-    gap: 1rem;
 
     p {
       margin: auto;
@@ -34,10 +33,6 @@
       margin-top: 20px;
       font-weight: bold;
     }
-  }
-
-  .popup-wrapper {
-    position: relative;
   }
 
   // Media Query per dispositivi mobili
