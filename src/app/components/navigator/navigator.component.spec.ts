@@ -46,6 +46,7 @@ describe('NavigatorComponent', () => {
    */
   it('should emit navigatePrevious event when onPrevious is called', () => {
     spyOn(component.navigatePrevious, 'emit');
+    component.currentSectionIndex = 1;
     component.onPrevious();
     expect(component.navigatePrevious.emit).toHaveBeenCalled();
   });
