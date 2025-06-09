@@ -2,6 +2,11 @@
 section {
     position: relative;
     z-index: 5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 // Project cards container
