@@ -10,11 +10,10 @@ html,
 body {
     height: 100%;
     margin: 0;
-    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Inter', Roboto, "Helvetica Neue", sans-serif;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
     max-width: 100vw;
     overflow-x: hidden;
@@ -40,20 +39,9 @@ button {
     padding: 0.75em 1.5em;
     font-size: 1em;
     border: none;
-    border-radius: 999px;
+    border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
-
-    &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    &:active {
-        transform: translateY(0);
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-    }
+    transition: background-color 0.3s;
 }
 
 section {
@@ -65,9 +53,6 @@ section {
     text-align: center;
     margin-top: 1vh;
     margin-bottom: 1vh;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .social-container {
