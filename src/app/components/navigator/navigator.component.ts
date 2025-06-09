@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -15,7 +15,7 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
 })
-export class NavigatorComponent {
+export class NavigatorComponent implements OnInit {
   @Input() totalSections: number = 8;
   @Input() currentSectionIndex: number = 0;
   @Output() navigateNext = new EventEmitter<void>();
@@ -25,10 +25,16 @@ export class NavigatorComponent {
   showThemeOptions = false;
 
   currentLang: string;
-  currentTheme: string = 'light';
+  currentTheme: 'light' | 'dark' | 'blue' | 'green' = 'light';
 
   constructor(private translationService: TranslationService) {
     this.currentLang = this.translationService.getCurrentLanguage();
+  }
+
+  ngOnInit(): void {
+    const storedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'blue' | 'green') || 'light';
+    this.currentTheme = storedTheme;
+    this.applyTheme(storedTheme);
   }
 
   onNext(): void {
@@ -59,13 +65,21 @@ export class NavigatorComponent {
     this.showLanguageOptions = false;
   }
 
-  changeTheme(theme: string): void {
+  changeTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
     this.currentTheme = theme;
-    document.body.classList.toggle('dark-mode', theme === 'dark');
-
+    localStorage.setItem('theme', theme);
+    this.applyTheme(theme);
     this.showThemeOptions = false;
+  }
 
-    // Future: handle more themes (e.g., 'solarized', 'blue-hue', etc.)
-    // You could emit an event or use a ThemeService here.
+  private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
+    document.body.classList.remove('dark-mode', 'blue-mode', 'green-mode');
+    if (theme === 'dark') {
+      document.body.classList.add('dark-mode');
+    } else if (theme === 'blue') {
+      document.body.classList.add('blue-mode');
+    } else if (theme === 'green') {
+      document.body.classList.add('green-mode');
+    }
   }
 }
