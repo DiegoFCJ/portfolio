@@ -26,6 +26,7 @@ describe('CustomPopupComponent', () => {
     expect(compiled.querySelector('p')?.textContent).toContain('Test Popup Message');
   });
 
+  // should show the popup when the isPopupVisible property is true
   it('should have the popup visible when isPopupVisible is true', () => {
     component.isPopupVisible = true;
     fixture.detectChanges();
@@ -33,6 +34,7 @@ describe('CustomPopupComponent', () => {
     expect(compiled.querySelector('.popup')?.classList).not.toContain('popup-hidden');
   });
 
+  // should hide the popup when the isPopupVisible property is false
   it('should have the popup hidden when isPopupVisible is false', () => {
     component.isPopupVisible = false;
     fixture.detectChanges();

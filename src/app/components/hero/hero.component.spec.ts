@@ -26,4 +26,16 @@ describe('HeroComponent', () => {
     component.navigateToNextSection();
     expect(component.navigateNextSection.emit).toHaveBeenCalled();
   });
+  
+  it('should emit navigateNextSection when navigateToNextSection is called', () => {
+    spyOn(component.navigateNextSection, 'emit');
+    component.navigateToNextSection();
+    expect(component.navigateNextSection.emit).toHaveBeenCalled();
+  });
+
+  it('should start the typing animation', () => {
+    component.displayText = '';
+    component.startTypingAnimation();
+    expect(component.displayText).not.toBe('');
+  });
 });

@@ -9,7 +9,7 @@ export const experiencesData: ExperienceFullLangs = {
                 location: 'Full Remote',
                 startDate: 'Jul 2024',
                 endDate: 'Nov 2024',
-                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, Yml, AngularJS, Python',
+                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
                 responsibilities: 'Worked on automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
             },
             {
@@ -60,7 +60,7 @@ export const experiencesData: ExperienceFullLangs = {
                 location: 'Full Remote',
                 startDate: 'Lug 2024',
                 endDate: 'Nov 2024',
-                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, Yml, AngularJS, Python',
+                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
                 responsibilities: 'Automatizzazione di processi e ottimizzazione delle attività, inclusa la risoluzione di bug. Miglioramento dell\'efficienza operativa attraverso la semplificazione dei compiti e l\'uso di tecnologie moderne per migliorare l\'esperienza utente.'
             },
             {

@@ -1,3 +1,11 @@
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 // Container della griglia delle competenze
 .skill-grid {
     display: grid;
