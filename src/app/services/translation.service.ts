@@ -5,12 +5,12 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class TranslationService {
-  private currentLanguage = new BehaviorSubject<'en' | 'it'>('en');
+  private currentLanguage = new BehaviorSubject<'en' | 'it' | 'de' | 'es'>('en');
   currentLanguage$ = this.currentLanguage.asObservable();
 
   constructor() { }
 
-  setLanguage(language: 'en' | 'it'): void {
+  setLanguage(language: 'en' | 'it' | 'de' | 'es'): void {
     this.currentLanguage.next(language);
   }
 
@@ -19,8 +19,8 @@ export class TranslationService {
     return data[language];
   }
 
-  /** Returns the current language string ('en' or 'it') */
-  getCurrentLanguage(): 'en' | 'it' {
+  /** Returns the current language string ('en', 'it', 'de' or 'es') */
+  getCurrentLanguage(): 'en' | 'it' | 'de' | 'es' {
     return this.currentLanguage.value;
   }
 }

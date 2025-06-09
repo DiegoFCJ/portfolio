@@ -5,14 +5,14 @@ import { BehaviorSubject } from 'rxjs';
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
-  let languageSubject: BehaviorSubject<'en' | 'it'>;
+  let languageSubject: BehaviorSubject<'en' | 'it' | 'de' | 'es'>;
 
   beforeEach(async () => {
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
-    languageSubject = new BehaviorSubject<'en' | 'it'>('en');
+    languageSubject = new BehaviorSubject<'en' | 'it' | 'de' | 'es'>('en');
     mockTranslationService = {
       currentLanguage$: languageSubject.asObservable(),
-      setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: 'en' | 'it') => {
+      setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: 'en' | 'it' | 'de' | 'es') => {
         languageSubject.next(language);
       }),
     };
@@ -40,5 +40,19 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     expect(document.title).toEqual('Portfolio di Diego');
+  });
+
+  it('should set the document title to "Diegos Portfolio" for German', () => {
+    languageSubject.next('de');
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    expect(document.title).toEqual('Diegos Portfolio');
+  });
+
+  it('should set the document title to "Portfolio de Diego" for Spanish', () => {
+    languageSubject.next('es');
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    expect(document.title).toEqual('Portfolio de Diego');
   });
 });

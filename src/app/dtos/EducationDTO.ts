@@ -1,6 +1,8 @@
 export interface EducationFullLangs {
     en: EducationFull;
     it: EducationFull;
+    de: EducationFull;
+    es: EducationFull;
     [key: string]: EducationFull;
 }
 

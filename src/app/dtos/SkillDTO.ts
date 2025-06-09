@@ -11,6 +11,8 @@ export interface Skill {
 interface SkillTitle {
     en: string;
     it: string;
+    de: string;
+    es: string;
 }
 
 

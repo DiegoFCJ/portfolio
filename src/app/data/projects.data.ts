@@ -58,5 +58,63 @@ export const projects: ProjectsLangs = {
                 expanded: false
             }
         ]
+    },
+    de: {
+        title: 'Ausgewählte Projekte',
+        button: 'Projekt anzeigen',
+        moreDesc: '... Mehr',
+        lessDesc: ' Weniger',
+        projects: [
+            {
+                title: 'Micro Games',
+                description: 'A collection of simple games built using various technologies.',
+                image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
+                link: 'https://github.com/DiegoFCJ/MicroGames',
+                expanded: false
+            },
+            {
+                title: 'Self',
+                description: 'Tools for tracking goals and progress through an intuitive interface.',
+                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                link: 'https://github.com/DiegoFCJ/self',
+                expanded: false
+            },
+            {
+                title: 'E-commerce',
+                description: 'Base repository for building a robust e-commerce platform.',
+                image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
+                link: 'https://github.com/DiegoFCJ/E-commerce',
+                expanded: false
+            }
+        ]
+    },
+    es: {
+        title: 'Proyectos Destacados',
+        button: 'Ver Proyecto',
+        moreDesc: '... Más',
+        lessDesc: ' Menos',
+        projects: [
+            {
+                title: 'Micro Games',
+                description: 'Una colección de juegos sencillos construidos con varias tecnologías.',
+                image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
+                link: 'https://github.com/DiegoFCJ/MicroGames',
+                expanded: false
+            },
+            {
+                title: 'Self',
+                description: 'Herramientas para seguir objetivos y progresos con una interfaz intuitiva.',
+                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                link: 'https://github.com/DiegoFCJ/self',
+                expanded: false
+            },
+            {
+                title: 'E-commerce',
+                description: 'Repositorio base para una sólida plataforma de compras en línea.',
+                image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
+                link: 'https://github.com/DiegoFCJ/E-commerce',
+                expanded: false
+            }
+        ]
     }
 };

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslationService } from './services/translation.service'; // Servizio per gestire la lingua
+import { APP_TITLE_en, APP_TITLE_it, APP_TITLE_de, APP_TITLE_es } from './constants/general.const';
 import { filter } from 'rxjs/operators';
 
 declare var gtag: Function | undefined;
@@ -23,7 +24,10 @@ export class AppComponent implements OnInit {
     // Cambia il titolo dinamicamente in base alla lingua
     this.translationService.currentLanguage$.subscribe(language => {
       if (isPlatformBrowser(this.platformId)) {
-        const appTitle = language === 'it' ? "Portfolio di Diego" : "Diego's Portfolio";
+        let appTitle = APP_TITLE_en;
+        if (language === 'it') appTitle = APP_TITLE_it;
+        else if (language === 'de') appTitle = APP_TITLE_de;
+        else if (language === 'es') appTitle = APP_TITLE_es;
         document.title = appTitle;
       }
     });
