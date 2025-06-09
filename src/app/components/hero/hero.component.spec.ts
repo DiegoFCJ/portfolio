@@ -21,16 +21,9 @@ describe('HeroComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show the popup when togglePopup is called', () => {
-    component.togglePopup();
-    expect(component.isPopupVisible).toBeTrue();
-  });
-
-  it('should hide the popup after 3 seconds when togglePopup is called', (done: DoneFn) => {
-    component.togglePopup();
-    setTimeout(() => {
-      expect(component.isPopupVisible).toBeFalse();
-      done();
-    }, 3000);
+  it('should emit when navigateToNextSection is called', () => {
+    spyOn(component.navigateNextSection, 'emit');
+    component.navigateToNextSection();
+    expect(component.navigateNextSection.emit).toHaveBeenCalled();
   });
 });

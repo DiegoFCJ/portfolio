@@ -26,15 +26,15 @@ describe('CustomPopupComponent', () => {
     expect(compiled.querySelector('p')?.textContent).toContain('Test Popup Message');
   });
 
-  it('should have the popup visible when isVisible is true', () => {
-    component.isVisible = true;
+  it('should have the popup visible when isPopupVisible is true', () => {
+    component.isPopupVisible = true;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.popup')?.classList).not.toContain('popup-hidden');
   });
 
-  it('should have the popup hidden when isVisible is false', () => {
-    component.isVisible = false;
+  it('should have the popup hidden when isPopupVisible is false', () => {
+    component.isPopupVisible = false;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.popup')?.classList).toContain('popup-hidden');
