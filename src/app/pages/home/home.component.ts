@@ -5,7 +5,8 @@ import {
   QueryList,
   AfterViewInit,
   ChangeDetectorRef,
-  OnInit
+  OnInit,
+  HostListener
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from '../../components/projects/projects.component';
@@ -46,6 +47,15 @@ export class HomeComponent implements AfterViewInit, OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
   ) { }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.key === 'ArrowDown') {
+      this.navigateNext();
+    } else if (event.key === 'ArrowUp') {
+      this.navigatePrevious();
+    }
+  }
 
   ngOnInit(): void {
   }
