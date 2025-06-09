@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavigatorComponent } from './navigator.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeswitchComponent } from './themeswitch/themeswitch.component';
 
 /**
@@ -15,7 +16,7 @@ describe('NavigatorComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavigatorComponent, MatIconModule, ThemeswitchComponent]
+      imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent]
     })
       .compileComponents();
 
@@ -55,18 +56,18 @@ describe('NavigatorComponent', () => {
   it('should display navigation buttons based on current section index', () => {
     component.currentSectionIndex = 0;
     fixture.detectChanges();
-    let prevButton = fixture.nativeElement.querySelector('span:first-child');
+    let prevButton = fixture.nativeElement.querySelector('button[aria-label="Previous section"]');
     expect(prevButton).toBeNull();  // Previous button should be hidden
 
     component.currentSectionIndex = 7;
     fixture.detectChanges();
-    let nextButton = fixture.nativeElement.querySelector('span:last-child');
+    let nextButton = fixture.nativeElement.querySelector('button[aria-label="Next section"]');
     expect(nextButton).toBeNull();  // Next button should be hidden
 
     component.currentSectionIndex = 4;
     fixture.detectChanges();
-    prevButton = fixture.nativeElement.querySelector('span:first-child');
-    nextButton = fixture.nativeElement.querySelector('span:last-child');
+    prevButton = fixture.nativeElement.querySelector('button[aria-label="Previous section"]');
+    nextButton = fixture.nativeElement.querySelector('button[aria-label="Next section"]');
     expect(prevButton).toBeTruthy();  // Previous button should be visible
     expect(nextButton).toBeTruthy();  // Next button should be visible
   });

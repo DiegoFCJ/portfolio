@@ -75,7 +75,9 @@ body.dark-mode {
 
 .option-container {
     position: absolute;
-    right: $navigator-button-size + 8px;
+    top: 50%;
+    right: calc(100% + 8px);
+    transform: translateY(-50%);
     display: flex;
     gap: 6px;
     background: $navigator-bg;
@@ -83,6 +85,7 @@ body.dark-mode {
     border-radius: 2rem;
     box-shadow: $navigator-shadow;
     align-items: center;
+    z-index: 1;
 }
 
 body.dark-mode {
