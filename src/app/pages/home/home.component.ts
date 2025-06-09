@@ -48,6 +48,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
+  ) { }
     private translationService: TranslationService,
   ) { }
 

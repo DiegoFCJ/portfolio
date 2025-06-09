@@ -1,16 +1,19 @@
 <!-- Modern, animated, circular floating navbar -->
 <div class="modern-navigator">
-  <!-- Previous button -->
-  <button class="nav-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section"
-    [matTooltip]="currentLang === 'en' ? 'Previous section' : 'Sezione precedente'" matTooltipPosition="left">
-    <mat-icon>arrow_upward</mat-icon>
-  </button>
+  <div class="arrow-container">
+    <!-- Previous button -->
+    <button class="nav-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section"
+      [matTooltip]="currentLang === 'en' ? 'Previous section' : 'Sezione precedente'" matTooltipPosition="left">
+      <mat-icon>arrow_upward</mat-icon>
+    </button>
 
-  <!-- Next button -->
-  <button class="nav-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section"
-    [matTooltip]="currentLang === 'en' ? 'Next section' : 'Sezione successiva'" matTooltipPosition="left">
-    <mat-icon>arrow_downward</mat-icon>
-  </button>
+    <!-- Next button -->
+    <button class="nav-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section"
+      [matTooltip]="currentLang === 'en' ? 'Next section' : 'Sezione successiva'" matTooltipPosition="left">
+      <mat-icon>arrow_downward</mat-icon>
+    </button>
+  </div>
+
 
   <div class="nav-group">
     <button class="nav-button" (click)="toggleSectionOptions()" aria-label="Sections"
