@@ -10,30 +10,31 @@
     <mat-icon>arrow_downward</mat-icon>
   </button>
 
-  <!-- Theme dropdown -->
-  <button [matMenuTriggerFor]="themeMenu" class="nav-button" aria-label="Theme selector">
-    <mat-icon>palette</mat-icon>
-  </button>
-  <mat-menu #themeMenu="matMenu">
-    <button mat-menu-item (click)="changeTheme('light')">
-      <mat-icon style="z-index: 100;">light_mode</mat-icon> Light
+  <div class="nav-group">
+    <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Theme selector">
+      <mat-icon>palette</mat-icon>
     </button>
-    <button mat-menu-item (click)="changeTheme('dark')">
-      <mat-icon>dark_mode</mat-icon> Dark
-    </button>
-    <!-- Placeholder for future themes -->
-  </mat-menu>
+    <div class="option-container" *ngIf="showThemeOptions">
+      <button class="option-button" (click)="changeTheme('light')" aria-label="Light mode">
+        <mat-icon>light_mode</mat-icon>
+      </button>
+      <button class="option-button" (click)="changeTheme('dark')" aria-label="Dark mode">
+        <mat-icon>dark_mode</mat-icon>
+      </button>
+    </div>
+  </div>
 
-  <!-- Language dropdown with current lang code -->
-  <button [matMenuTriggerFor]="languageMenu" class="nav-button">
-    <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
-  </button>
-  <mat-menu #languageMenu="matMenu">
-    <button mat-menu-item (click)="changeLanguage('en')">
-      <span class="lang-flag">🇬🇧</span> English
+  <div class="nav-group">
+    <button class="nav-button" (click)="toggleLanguageOptions()">
+      <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
     </button>
-    <button mat-menu-item (click)="changeLanguage('it')">
-      <span class="lang-flag">🇮🇹</span> Italiano
-    </button>
-  </mat-menu>
+    <div class="option-container" *ngIf="showLanguageOptions">
+      <button class="option-button" (click)="changeLanguage('en')" aria-label="English">
+        <span class="lang-flag">🇬🇧</span>
+      </button>
+      <button class="option-button" (click)="changeLanguage('it')" aria-label="Italiano">
+        <span class="lang-flag">🇮🇹</span>
+      </button>
+    </div>
+  </div>
 </div>

@@ -6,10 +6,6 @@ $navigator-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 $navigator-icon-size: 24px;
 $navigator-button-size: 48px;
 
-.cdk-overlay-connected-position-bounding-box {
-    bottom: 30px !important;
-    right: 90px !important;
-}
 
 .modern-navigator {
     position: fixed;
@@ -71,4 +67,60 @@ body.dark-mode {
 .lang-flag {
     font-size: 1.2rem;
     margin-right: 8px;
+}
+
+.nav-group {
+    position: relative;
+}
+
+.option-container {
+    position: absolute;
+    right: $navigator-button-size + 8px;
+    display: flex;
+    gap: 6px;
+    background: $navigator-bg;
+    padding: 4px 6px;
+    border-radius: 2rem;
+    box-shadow: $navigator-shadow;
+    align-items: center;
+}
+
+body.dark-mode {
+    .option-container {
+        background: $navigator-bg-dark;
+    }
+    .option-button mat-icon,
+    .option-button .lang-flag {
+        color: #f0f0f0;
+    }
+}
+
+.option-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    mat-icon {
+        font-size: 20px;
+        color: #333;
+    }
+}
+
+body.dark-mode {
+    .option-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    .option-button mat-icon {
+        color: #f0f0f0;
+    }
 }
