@@ -8,7 +8,7 @@
   <div #section><app-stats></app-stats></div>
   <div #section><app-contact-me></app-contact-me></div>
 
-  <app-navigator [totalSections]="totalSections" [currentSectionIndex]="currentSectionIndex" [sectionLabels]="sectionLabels"
-    (navigateNext)="navigateNext()" (navigatePrevious)="navigatePrevious()" (navigateToSection)="navigateTo($event)">
+  <app-navigator [totalSections]="totalSections" [currentSectionIndex]="currentSectionIndex"
+    (navigateNext)="navigateNext()" (navigatePrevious)="navigatePrevious()">
   </app-navigator>
 </div>
