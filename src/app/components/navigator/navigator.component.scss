@@ -125,6 +125,13 @@ body.dark-mode {
         font-size: 20px;
         color: #333;
     }
+
+    .section-number {
+        position: absolute;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+    }
 }
 
 body.dark-mode {
@@ -132,7 +139,8 @@ body.dark-mode {
         background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .option-button mat-icon {
+    .option-button mat-icon,
+    .option-button .section-number {
         position: absolute;
         color: #f0f0f0;
     }

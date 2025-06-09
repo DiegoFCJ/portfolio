@@ -4,7 +4,8 @@ import {
   ViewChildren,
   QueryList,
   AfterViewInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from '../../components/projects/projects.component';
@@ -16,6 +17,8 @@ import { EducationComponent } from '../../components/education/education.compone
 import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
 import { ExperiencesComponent } from '../../components/experiences/experiences.component';
+import { TranslationService } from '../../services/translation.service';
+import { sectionTitles } from '../../data/section-titles.data';
 
 @Component({
   selector: 'app-home',
@@ -35,16 +38,25 @@ import { ExperiencesComponent } from '../../components/experiences/experiences.c
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit, OnInit {
   currentSectionIndex = 0;
   viewInitialized = false;
   totalSections = 0;
+  sectionLabels: string[] = [];
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
 
   constructor(
     private cdr: ChangeDetectorRef,
   ) { }
+    private translationService: TranslationService,
+  ) { }
+
+  ngOnInit(): void {
+    this.translationService.currentLanguage$.subscribe(lang => {
+      this.sectionLabels = sectionTitles[lang];
+    });
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -68,6 +80,12 @@ export class HomeComponent implements AfterViewInit {
     }
   }
 
+  navigateTo(index: number): void {
+    if (this.viewInitialized && index >= 0 && index < this.totalSections) {
+      this.currentSectionIndex = index;
+      this.scrollToSection(index);
+    }
+  }
 
   scrollToSection(index: number): void {
     const section = this.sections.toArray()[index].nativeElement;
