@@ -80,7 +80,7 @@ export class StatsComponent implements OnInit {
       let hoursWorked = weeks * hoursWorkedPerWeek;
 
       if (index === experiencesWithTechnologies.length - 1) {
-        hoursWorked += weeks;
+        hoursWorked += hoursWorkedPerWeek; // add one week of hours
       }
 
       totalHours += hoursWorked;
