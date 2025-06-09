@@ -13,6 +13,18 @@
   </button>
 
   <div class="nav-group">
+    <button class="nav-button" (click)="toggleSectionOptions()" aria-label="Sections"
+      [matTooltip]="currentLang === 'en' ? 'Sections' : (currentLang === 'it' ? 'Sezioni' : (currentLang === 'de' ? 'Abschnitte' : 'Secciones'))" matTooltipPosition="left">
+      <mat-icon>list</mat-icon>
+    </button>
+    <div class="option-container" *ngIf="showSectionOptions">
+      <button class="option-button" *ngFor="let label of sectionLabels; let i = index" (click)="goToSection(i)" [attr.aria-label]="label">
+        <span class="section-number">{{ i + 1 }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav-group">
     <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Theme selector"
       [matTooltip]="currentLang === 'en' ? 'Theme' : 'Tema'" matTooltipPosition="left">
       <mat-icon>palette</mat-icon>
