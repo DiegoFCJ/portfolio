@@ -92,8 +92,10 @@ body.dark-mode {
     .option-container {
         background: $navigator-bg-dark;
     }
+
     .option-button mat-icon,
     .option-button .lang-flag {
+        position: absolute;
         color: #f0f0f0;
     }
 }
@@ -114,6 +116,7 @@ body.dark-mode {
     }
 
     mat-icon {
+        position: absolute;
         font-size: 20px;
         color: #333;
     }
@@ -123,7 +126,9 @@ body.dark-mode {
     .option-button:hover {
         background-color: rgba(255, 255, 255, 0.1);
     }
+
     .option-button mat-icon {
+        position: absolute;
         color: #f0f0f0;
     }
 }
