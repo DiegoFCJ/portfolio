@@ -6,6 +6,37 @@ $navigator-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 $navigator-icon-size: 24px;
 $navigator-button-size: 48px;
 
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.nav-toggle-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: $navigator-button-size;
+    height: $navigator-button-size;
+    border-radius: 50%;
+    background-color: $navigator-bg;
+    box-shadow: $navigator-shadow;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 3s ease-in-out infinite;
+    cursor: pointer;
+    z-index: 9999;
+
+    mat-icon {
+        font-size: $navigator-icon-size;
+        color: #333;
+    }
+
+    &:hover {
+        background-color: lighten($navigator-bg, 4%);
+    }
+}
 
 .modern-navigator {
     position: fixed;
@@ -85,6 +116,17 @@ $navigator-button-size: 48px;
 }
 
 body.dark-mode {
+    .nav-toggle-button {
+        background-color: $navigator-bg-dark;
+
+        mat-icon {
+            color: #f0f0f0;
+        }
+
+        &:hover {
+            background-color: lighten($navigator-bg-dark, 5%);
+        }
+    }
     .modern-navigator {
 
         .nav-button,
@@ -101,6 +143,48 @@ body.dark-mode {
         .nav-button .lang-label,
         .arrow-button mat-icon {
             color: #f0f0f0;
+        }
+    }
+}
+
+body.blue-mode {
+    .nav-toggle-button {
+        background-color: $navigator-bg;
+
+        &:hover {
+            background-color: lighten($navigator-bg, 4%);
+        }
+    }
+    .modern-navigator {
+        .nav-button,
+        .arrow-container {
+            background-color: $navigator-bg;
+        }
+
+        .nav-button:hover,
+        .arrow-button:hover {
+            background-color: lighten($navigator-bg, 4%);
+        }
+    }
+}
+
+body.green-mode {
+    .nav-toggle-button {
+        background-color: $navigator-bg;
+
+        &:hover {
+            background-color: lighten($navigator-bg, 4%);
+        }
+    }
+    .modern-navigator {
+        .nav-button,
+        .arrow-container {
+            background-color: $navigator-bg;
+        }
+
+        .nav-button:hover,
+        .arrow-button:hover {
+            background-color: lighten($navigator-bg, 4%);
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -27,14 +27,50 @@ export class NavigatorComponent implements OnInit {
   currentLang: string;
   currentTheme: 'light' | 'dark' | 'blue' | 'green' = 'light';
 
+  /** Controls visibility of the navigator */
+  isOpen = false;
+
+  /** Tooltip translations */
+  tooltipTexts: { [key: string]: { prev: string; next: string; theme: string; language: string } } = {
+    en: {
+      prev: 'Previous section',
+      next: 'Next section',
+      theme: 'Theme',
+      language: 'Language'
+    },
+    it: {
+      prev: 'Sezione precedente',
+      next: 'Sezione successiva',
+      theme: 'Tema',
+      language: 'Lingua'
+    },
+    de: {
+      prev: 'Vorheriger Abschnitt',
+      next: 'Nächster Abschnitt',
+      theme: 'Thema',
+      language: 'Sprache'
+    },
+    es: {
+      prev: 'Sección anterior',
+      next: 'Siguiente sección',
+      theme: 'Tema',
+      language: 'Idioma'
+    }
+  };
+
   constructor(
     private translationService: TranslationService,
     @Inject(PLATFORM_ID) private platformId: Object,
+    private elementRef: ElementRef
   ) {
     this.currentLang = this.translationService.getCurrentLanguage();
   }
 
   ngOnInit(): void {
+    // keep language in sync with translation service
+    this.translationService.currentLanguage$.subscribe(lang => {
+      this.currentLang = lang;
+    });
     if (isPlatformBrowser(this.platformId)) {
       const storedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'blue' | 'green') || 'light';
       this.currentTheme = storedTheme;
@@ -86,6 +122,11 @@ export class NavigatorComponent implements OnInit {
     this.showThemeOptions = false;
   }
 
+  /** Returns the tooltip text for the given key based on current language */
+  getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
+    return this.tooltipTexts[this.currentLang][key];
+  }
+
   private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
     if (isPlatformBrowser(this.platformId)) {
       document.body.classList.remove('dark-mode', 'blue-mode', 'green-mode');
@@ -112,6 +153,25 @@ export class NavigatorComponent implements OnInit {
         return 'eco';
       default:
         return 'light_mode';
+    }
+  }
+
+  /** Toggles navigator visibility */
+  toggleNavigator(): void {
+    this.isOpen = !this.isOpen;
+  }
+
+  /** Opens the navigator */
+  openNavigator(): void {
+    this.isOpen = true;
+  }
+
+  /** Host listener to detect clicks outside and close */
+  @HostListener('document:click', ['$event.target'])
+  onDocumentClick(target: HTMLElement): void {
+    const clickedInside = this.elementRef.nativeElement.contains(target);
+    if (!clickedInside && this.isOpen) {
+      this.isOpen = false;
     }
   }
 }
