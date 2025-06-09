@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { TranslationService } from '../../services/translation.service';
   imports: [
     CommonModule,
     MatIconModule,
+    MatTooltipModule,
   ],
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']

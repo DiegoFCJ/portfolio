@@ -1,17 +1,20 @@
 <!-- Modern, animated, circular floating navbar -->
 <div class="modern-navigator">
   <!-- Previous button -->
-  <button class="nav-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section">
+  <button class="nav-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section"
+    [matTooltip]="currentLang === 'en' ? 'Previous section' : 'Sezione precedente'" matTooltipPosition="left">
     <mat-icon>arrow_upward</mat-icon>
   </button>
 
   <!-- Next button -->
-  <button class="nav-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section">
+  <button class="nav-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section"
+    [matTooltip]="currentLang === 'en' ? 'Next section' : 'Sezione successiva'" matTooltipPosition="left">
     <mat-icon>arrow_downward</mat-icon>
   </button>
 
   <div class="nav-group">
-    <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Theme selector">
+    <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Theme selector"
+      [matTooltip]="currentLang === 'en' ? 'Theme' : 'Tema'" matTooltipPosition="left">
       <mat-icon>palette</mat-icon>
     </button>
     <div class="option-container" *ngIf="showThemeOptions">
@@ -25,7 +28,8 @@
   </div>
 
   <div class="nav-group">
-    <button class="nav-button" (click)="toggleLanguageOptions()">
+    <button class="nav-button" (click)="toggleLanguageOptions()" [matTooltip]="currentLang === 'en' ? 'Language' : 'Lingua'"
+      matTooltipPosition="left">
       <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
     </button>
     <div class="option-container" *ngIf="showLanguageOptions">
