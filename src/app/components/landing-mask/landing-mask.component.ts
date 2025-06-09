@@ -89,7 +89,8 @@ export class LandingMaskComponent implements AfterViewInit, OnDestroy {
     const panelCount = window.innerWidth < 768 ? 10 : 20;
     const centerX = 0;
     const centerY = 0;
-    const margin = 80;
+    // distance from the edges where panels will stop
+    const margin = 20;
 
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
@@ -119,8 +120,9 @@ export class LandingMaskComponent implements AfterViewInit, OnDestroy {
 
       return {
         class: `panel-${i}`,
-        posX: centerX,
-        posY: centerY,
+        // start slightly around the center so the panels appear already spread
+        posX: centerX + (Math.random() - 0.5) * 200,
+        posY: centerY + (Math.random() - 0.5) * 200,
         posZ: 0,
         rotX: Math.random() * 40 - 20,
         rotY: Math.random() * 40 - 20,
