@@ -1,6 +1,8 @@
 export interface ExperienceFullLangs {
     en: ExperienceFull;
     it: ExperienceFull;
+    de: ExperienceFull;
+    es: ExperienceFull;
     [key: string]: ExperienceFull;
 }
 

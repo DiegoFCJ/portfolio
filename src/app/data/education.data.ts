@@ -66,5 +66,71 @@ export const educationData: EducationFullLangs = {
                 description: 'Un\'educazione generale con un focus scientifico, sviluppando capacità analitiche e di risoluzione dei problemi.'
             }
         ]
+    },
+    de: {
+        title: 'Ausbildung',
+        education: [
+            {
+                title: 'Bachelor in Informatik für digitale Unternehmen',
+                institution: 'Pegaso Telematic University',
+                startDate: 'Nov 2023',
+                endDate: 'Laufend',
+                description: 'Ein Studiengang mit Schwerpunkt auf angewandter Informatik in digitalen Unternehmen.'
+            },
+            {
+                title: 'Cloud-Native-Entwicklung mit OpenShift und Kubernetes',
+                institution: 'RedHat - Coursera',
+                startDate: 'Aug 2023',
+                endDate: 'Sep 2023',
+                description: 'Zertifizierungskurs über cloud-native Entwicklung mit OpenShift und Kubernetes.'
+            },
+            {
+                title: 'Junior Full Stack Developer',
+                institution: 'TNV Academy',
+                startDate: 'Feb 2022',
+                endDate: 'Dez 2022',
+                description: 'Intensivkurs zu C, .NET, C#, Spring Boot, Java, Angular 14, Android und Unity.'
+            },
+            {
+                title: 'Abitur mit naturwissenschaftlichem Schwerpunkt',
+                institution: 'Liceo Scientifico A.Scorcu',
+                startDate: 'Sep 2010',
+                endDate: 'Jul 2016',
+                description: 'Allgemeine Ausbildung mit naturwissenschaftlichem Fokus.'
+            }
+        ]
+    },
+    es: {
+        title: 'Educación',
+        education: [
+            {
+                title: 'Grado en Informática para Empresas Digitales',
+                institution: 'Universidad Telemática Pegaso',
+                startDate: 'Nov 2023',
+                endDate: 'En curso',
+                description: 'Programa centrado en informática aplicada en el contexto de los negocios digitales.'
+            },
+            {
+                title: 'Desarrollo nativo en la nube con OpenShift y Kubernetes',
+                institution: 'RedHat - Coursera',
+                startDate: 'Ago 2023',
+                endDate: 'Sep 2023',
+                description: 'Curso de certificación sobre desarrollo nativo en la nube con OpenShift y Kubernetes.'
+            },
+            {
+                title: 'Junior Full Stack Developer',
+                institution: 'TNV Academy',
+                startDate: 'Feb 2022',
+                endDate: 'Dic 2022',
+                description: 'Curso intensivo de C, .NET, C#, Spring Boot, Java, Angular 14, Android y Unity.'
+            },
+            {
+                title: 'Bachillerato Científico',
+                institution: 'Liceo Scientifico A.Scorcu',
+                startDate: 'Sep 2010',
+                endDate: 'Jul 2016',
+                description: 'Educación general con enfoque científico y desarrollo de habilidades analíticas.'
+            }
+        ]
     }
 };

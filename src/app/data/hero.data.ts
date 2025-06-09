@@ -20,5 +20,25 @@ export const heroData: HeroFullLangs = {
             "Sono uno Studente",
             "Sono uno Sviluppatore"
         ]
+    },
+    de: {
+        button: 'Erfahre mehr über mich',
+        description: '',
+        texts: [
+            "Hallo! Ich heiße Diego Fois",
+            "Willkommen in meinem Portfolio!",
+            "Ich bin Student",
+            "Ich bin Entwickler"
+        ]
+    },
+    es: {
+        button: 'Conoce más sobre mí',
+        description: '',
+        texts: [
+            "¡Hola! Me llamo Diego Fois",
+            "¡Bienvenido a mi portafolio!",
+            "Soy Estudiante",
+            "Soy Desarrollador"
+        ]
     }
 };

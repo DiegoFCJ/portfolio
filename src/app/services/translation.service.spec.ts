@@ -28,6 +28,18 @@ describe('TranslationService', () => {
     });
   });
 
+  it('should support german and spanish languages', (done: DoneFn) => {
+    service.setLanguage('de');
+    service.currentLanguage$.subscribe(lang => {
+      expect(lang).toBe('de');
+      service.setLanguage('es');
+      service.currentLanguage$.subscribe(lang2 => {
+        expect(lang2).toBe('es');
+        done();
+      });
+    });
+  });
+
   it('should return the correct translated data for the current language', () => {
     const mockData = {
       en: 'Hello',

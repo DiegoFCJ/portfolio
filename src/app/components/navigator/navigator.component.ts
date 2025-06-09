@@ -51,7 +51,7 @@ export class NavigatorComponent {
     }
   }
 
-  changeLanguage(language: 'en' | 'it'): void {
+  changeLanguage(language: 'en' | 'it' | 'de' | 'es'): void {
     this.translationService.setLanguage(language);
     this.currentLang = language;
     this.showLanguageOptions = false;

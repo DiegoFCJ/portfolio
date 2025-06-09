@@ -3,13 +3,17 @@ import { SkillFull } from '../dtos/SkillDTO';
 export const skills: SkillFull = {
     title: {
         en: "Tech Stack",
-        it: "Stack Tecnologico"
+        it: "Stack Tecnologico",
+        de: "Technologie-Stack",
+        es: "Stack Tecnológico"
     },
     skills: [
         {
             title: {
                 en: "Languages & Frameworks",
-                it: "Linguaggi & Framework"
+                it: "Linguaggi & Framework",
+                de: "Sprachen & Frameworks",
+                es: "Lenguajes y Frameworks"
             },
             skills: [
                 { name: "Java", icon: "https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white", clicked: false },
@@ -22,7 +26,9 @@ export const skills: SkillFull = {
         {
             title: {
                 en: "Front-end",
-                it: "Front-end"
+                it: "Front-end",
+                de: "Front-end",
+                es: "Front-end"
             },
             skills: [
                 { name: "Angular", icon: "https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white", clicked: false },
@@ -35,7 +41,9 @@ export const skills: SkillFull = {
         {
             title: {
                 en: "Back-end",
-                it: "Back-end"
+                it: "Back-end",
+                de: "Back-end",
+                es: "Back-end"
             },
             skills: [
                 { name: "Spring", icon: "https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white", clicked: false },
@@ -46,7 +54,9 @@ export const skills: SkillFull = {
         {
             title: {
                 en: "Database",
-                it: "Database"
+                it: "Database",
+                de: "Datenbanken",
+                es: "Bases de Datos"
             },
             skills: [
                 { name: "MySQL", icon: "https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white", clicked: false },
@@ -57,7 +67,9 @@ export const skills: SkillFull = {
         {
             title: {
                 en: "Tools & Platforms",
-                it: "Piattaforme e Strumenti"
+                it: "Piattaforme e Strumenti",
+                de: "Tools & Plattformen",
+                es: "Herramientas y Plataformas"
             },
             skills: [
                 { name: "Docker", icon: "https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white", clicked: false },
@@ -68,7 +80,9 @@ export const skills: SkillFull = {
         {
             title: {
                 en: "Versioning",
-                it: "Versionamento"
+                it: "Versionamento",
+                de: "Versionierung",
+                es: "Versionado"
             },
             skills: [
                 { name: "GitHub", icon: "https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white", clicked: false },
@@ -79,7 +93,9 @@ export const skills: SkillFull = {
         {
             title: {
                 en: "Management",
-                it: "Gestione"
+                it: "Gestione",
+                de: "Management",
+                es: "Gestión"
             },
             skills: [
                 { name: "Trello", icon: "https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white", clicked: false },
@@ -89,7 +105,9 @@ export const skills: SkillFull = {
         {
             title: {
                 en: "Operative Systems",
-                it: "Sistemi Operativi"
+                it: "Sistemi Operativi",
+                de: "Betriebssysteme",
+                es: "Sistemas Operativos"
             },
             skills: [
                 { name: "Fedora", icon: "https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white", clicked: false },
@@ -101,7 +119,9 @@ export const skills: SkillFull = {
         {
             title: {
                 en: "Other",
-                it: "Altro"
+                it: "Altro",
+                de: "Sonstiges",
+                es: "Otros"
             },
             skills: [
                 { name: "Salesforce", icon: "https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white", clicked: false },
