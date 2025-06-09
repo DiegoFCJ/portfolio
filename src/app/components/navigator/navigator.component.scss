@@ -17,7 +17,8 @@ $navigator-button-size: 48px;
 
     .arrow-container {
         width: $navigator-button-size - 8;
-        height: 78px;
+        justify-content: center;
+        height: 90px;
         padding: 4px;
         background-color: $navigator-bg;
         box-shadow: $navigator-shadow;
@@ -27,6 +28,7 @@ $navigator-button-size: 48px;
         align-items: center;
         gap: 6px;
     }
+
     z-index: 9999;
 
     .nav-button {
@@ -60,8 +62,8 @@ $navigator-button-size: 48px;
     }
 
     .arrow-button {
-        width: $navigator-button-size - 12px;
-        height: $navigator-button-size - 12px;
+        width: $navigator-button-size;
+        height: $navigator-button-size;
         border-radius: 50%;
         border: none;
         background-color: transparent;
@@ -84,6 +86,7 @@ $navigator-button-size: 48px;
 
 body.dark-mode {
     .modern-navigator {
+
         .nav-button,
         .arrow-container {
             background-color: $navigator-bg-dark;
