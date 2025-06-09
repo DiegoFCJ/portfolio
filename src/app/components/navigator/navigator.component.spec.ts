@@ -22,6 +22,7 @@ describe('NavigatorComponent', () => {
 
     fixture = TestBed.createComponent(NavigatorComponent);
     component = fixture.componentInstance;
+    component.isOpen = true;
     fixture.detectChanges();
   });
 
