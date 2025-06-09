@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -10,7 +9,6 @@ import { TranslationService } from '../../services/translation.service';
   imports: [
     CommonModule,
     MatIconModule,
-    MatMenuModule,
   ],
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
@@ -20,6 +18,9 @@ export class NavigatorComponent {
   @Input() currentSectionIndex: number = 0;
   @Output() navigateNext = new EventEmitter<void>();
   @Output() navigatePrevious = new EventEmitter<void>();
+
+  showLanguageOptions = false;
+  showThemeOptions = false;
 
   currentLang: string;
   currentTheme: string = 'light';
@@ -36,14 +37,31 @@ export class NavigatorComponent {
     this.navigatePrevious.emit();
   }
 
+  toggleLanguageOptions(): void {
+    this.showLanguageOptions = !this.showLanguageOptions;
+    if (this.showLanguageOptions) {
+      this.showThemeOptions = false;
+    }
+  }
+
+  toggleThemeOptions(): void {
+    this.showThemeOptions = !this.showThemeOptions;
+    if (this.showThemeOptions) {
+      this.showLanguageOptions = false;
+    }
+  }
+
   changeLanguage(language: 'en' | 'it'): void {
     this.translationService.setLanguage(language);
     this.currentLang = language;
+    this.showLanguageOptions = false;
   }
 
   changeTheme(theme: string): void {
     this.currentTheme = theme;
     document.body.classList.toggle('dark-mode', theme === 'dark');
+
+    this.showThemeOptions = false;
 
     // Future: handle more themes (e.g., 'solarized', 'blue-hue', etc.)
     // You could emit an event or use a ThemeService here.
