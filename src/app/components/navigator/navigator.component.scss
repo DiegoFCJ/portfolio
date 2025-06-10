@@ -7,8 +7,15 @@ $navigator-icon-size: 24px;
 $navigator-button-size: 48px;
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
 }
 
 .nav-toggle-button {
@@ -29,6 +36,7 @@ $navigator-button-size: 48px;
     z-index: 9999;
 
     mat-icon {
+        position: absolute;
         font-size: $navigator-icon-size;
         color: #333;
     }
@@ -127,6 +135,7 @@ body.dark-mode {
             background-color: lighten($navigator-bg-dark, 5%);
         }
     }
+
     .modern-navigator {
 
         .nav-button,
@@ -155,7 +164,9 @@ body.blue-mode {
             background-color: lighten($navigator-bg, 4%);
         }
     }
+
     .modern-navigator {
+
         .nav-button,
         .arrow-container {
             background-color: $navigator-bg;
@@ -176,7 +187,9 @@ body.green-mode {
             background-color: lighten($navigator-bg, 4%);
         }
     }
+
     .modern-navigator {
+
         .nav-button,
         .arrow-container {
             background-color: $navigator-bg;
