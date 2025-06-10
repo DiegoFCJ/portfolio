@@ -7,26 +7,34 @@ export const experiencesData: ExperienceFullLangs = {
             {
                 position: 'Software Developer',
                 location: 'Full Remote',
-                startDate: 'Jul 2024',
-                endDate: 'Nov 2024',
+                startDate: 'Apr 2024',
+                endDate: 'Present',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
                 responsibilities: 'Worked on automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
             },
             {
                 position: 'Software Developer',
-                location: 'Full Remote',
-                startDate: 'Apr 2024',
-                endDate: 'Jun 2024',
-                technologies: 'Spring Boot (1.3), Java 8, JSP, MySQL',
-                responsibilities: 'Developed and maintained full-stack features for both management software and remote device update filtering systems. Focused on bug fixes and version control management via GitHub.'
+                location: 'Hybrid, Turin',
+                startDate: 'Jan 2025',
+                endDate: 'Jun 2025',
+                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
+                responsibilities: 'Implemented a custom logging system for Linux servers, automated daily process monitoring, fixed critical bugs and integrated new features using Boomi.'
             },
             {
                 position: 'Software Developer',
                 location: 'Full Remote',
-                startDate: 'Nov 2023',
-                endDate: 'Mar 2024',
+                startDate: 'Apr 2024',
+                endDate: 'Oct 2024',
+                technologies: 'Spring Boot, AngularJS, JSP, Java',
+                responsibilities: 'Implemented new features and resolved critical issues for legacy projects. Automated daily tasks for the AMS team using Java.'
+            },
+            {
+                position: 'Software Developer',
+                location: 'Full Remote',
+                startDate: 'Oct 2023',
+                endDate: 'Apr 2024',
                 technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
-                responsibilities: 'Contributed from the initial stages of an e-commerce project. Worked on both backend and frontend, implementing JWT authentication and ensuring secure user management. Managed the project repository and handled application deployment.'
+                responsibilities: 'Implemented back-end and front-end solutions for internal projects, including repository management and application deployment.'
             },
             {
                 position: 'Software Developer',
@@ -58,26 +66,34 @@ export const experiencesData: ExperienceFullLangs = {
             {
                 position: 'Sviluppatore Software',
                 location: 'Full Remote',
-                startDate: 'Lug 2024',
-                endDate: 'Nov 2024',
+                startDate: 'Apr 2024',
+                endDate: 'In corso',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Automatizzazione di processi e ottimizzazione delle attività, inclusa la risoluzione di bug. Miglioramento dell\'efficienza operativa attraverso la semplificazione dei compiti e l\'uso di tecnologie moderne per migliorare l\'esperienza utente.'
+                responsibilities: 'Automatizzazione di processi e ottimizzazione delle attività, inclusa la risoluzione di bug. Miglioramento dell\'efficienza operativa tramite tecnologie moderne.'
+            },
+            {
+                position: 'Sviluppatore Software',
+                location: 'Ibrido, Torino',
+                startDate: 'Gen 2025',
+                endDate: 'Giu 2025',
+                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
+                responsibilities: 'Implementazione di un sistema di custom logging su server Linux, monitoraggio giornaliero dei processi con relativa automazione, bug fixing e integrazione di funzionalità con Boomi.'
             },
             {
                 position: 'Sviluppatore Software',
                 location: 'Full Remote',
                 startDate: 'Apr 2024',
-                endDate: 'Giu 2024',
-                technologies: 'Spring Boot (1.3), Java 8, JSP, MySQL',
-                responsibilities: 'Sviluppo e manutenzione di funzionalità full-stack per software gestionale e sistemi di filtro per aggiornamenti remoti dei dispositivi. Correzione di bug e gestione delle versioni tramite GitHub.'
+                endDate: 'Ott 2024',
+                technologies: 'Spring Boot, AngularJS, JSP, Java',
+                responsibilities: 'Implementazione di evolutive in progetti esistenti e risoluzione di bug critici. Automazione delle attività quotidiane del team AMS tramite Java.'
             },
             {
                 position: 'Sviluppatore Software',
                 location: 'Full Remote',
-                startDate: 'Nov 2023',
-                endDate: 'Mar 2024',
+                startDate: 'Ott 2023',
+                endDate: 'Apr 2024',
                 technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
-                responsibilities: 'Partecipazione alle fasi iniziali di un progetto di e-commerce, lavorando sia sul backend sia sul frontend. Implementazione dell\'autenticazione JWT e gestione sicura degli utenti. Gestione del repository del progetto e deployment dell\'applicazione.'
+                responsibilities: 'Sviluppo di soluzioni backend e frontend per progetti interni con gestione del repository e deployment applicativo.'
             },
             {
                 position: 'Sviluppatore Software',
@@ -109,26 +125,34 @@ export const experiencesData: ExperienceFullLangs = {
             {
                 position: 'Software Developer',
                 location: 'Full Remote',
-                startDate: 'Jul 2024',
-                endDate: 'Nov 2024',
+                startDate: 'Apr 2024',
+                endDate: 'Present',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
                 responsibilities: 'Worked on automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
             },
             {
                 position: 'Software Developer',
-                location: 'Full Remote',
-                startDate: 'Apr 2024',
-                endDate: 'Jun 2024',
-                technologies: 'Spring Boot (1.3), Java 8, JSP, MySQL',
-                responsibilities: 'Developed and maintained full-stack features for both management software and remote device update filtering systems. Focused on bug fixes and version control management via GitHub.'
+                location: 'Hybrid, Turin',
+                startDate: 'Jan 2025',
+                endDate: 'Jun 2025',
+                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
+                responsibilities: 'Implemented a custom logging system for Linux servers, automated daily process monitoring, fixed critical bugs and integrated new features using Boomi.'
             },
             {
                 position: 'Software Developer',
                 location: 'Full Remote',
-                startDate: 'Nov 2023',
-                endDate: 'Mar 2024',
+                startDate: 'Apr 2024',
+                endDate: 'Oct 2024',
+                technologies: 'Spring Boot, AngularJS, JSP, Java',
+                responsibilities: 'Implemented new features and resolved critical issues for legacy projects. Automated daily tasks for the AMS team using Java.'
+            },
+            {
+                position: 'Software Developer',
+                location: 'Full Remote',
+                startDate: 'Oct 2023',
+                endDate: 'Apr 2024',
                 technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
-                responsibilities: 'Contributed from the initial stages of an e-commerce project. Worked on both backend and frontend, implementing JWT authentication and ensuring secure user management. Managed the project repository and handled application deployment.'
+                responsibilities: 'Implemented back-end and front-end solutions for internal projects, including repository management and application deployment.'
             },
             {
                 position: 'Software Developer',
@@ -160,26 +184,34 @@ export const experiencesData: ExperienceFullLangs = {
             {
                 position: 'Software Developer',
                 location: 'Full Remote',
-                startDate: 'Jul 2024',
-                endDate: 'Nov 2024',
+                startDate: 'Apr 2024',
+                endDate: 'Present',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
                 responsibilities: 'Worked on automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
             },
             {
                 position: 'Software Developer',
-                location: 'Full Remote',
-                startDate: 'Apr 2024',
-                endDate: 'Jun 2024',
-                technologies: 'Spring Boot (1.3), Java 8, JSP, MySQL',
-                responsibilities: 'Developed and maintained full-stack features for both management software and remote device update filtering systems. Focused on bug fixes and version control management via GitHub.'
+                location: 'Hybrid, Turin',
+                startDate: 'Jan 2025',
+                endDate: 'Jun 2025',
+                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
+                responsibilities: 'Implemented a custom logging system for Linux servers, automated daily process monitoring, fixed critical bugs and integrated new features using Boomi.'
             },
             {
                 position: 'Software Developer',
                 location: 'Full Remote',
-                startDate: 'Nov 2023',
-                endDate: 'Mar 2024',
+                startDate: 'Apr 2024',
+                endDate: 'Oct 2024',
+                technologies: 'Spring Boot, AngularJS, JSP, Java',
+                responsibilities: 'Implemented new features and resolved critical issues for legacy projects. Automated daily tasks for the AMS team using Java.'
+            },
+            {
+                position: 'Software Developer',
+                location: 'Full Remote',
+                startDate: 'Oct 2023',
+                endDate: 'Apr 2024',
                 technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
-                responsibilities: 'Contributed from the initial stages of an e-commerce project. Worked on both backend and frontend, implementing JWT authentication and ensuring secure user management. Managed the project repository and handled application deployment.'
+                responsibilities: 'Implemented back-end and front-end solutions for internal projects, including repository management and application deployment.'
             },
             {
                 position: 'Software Developer',

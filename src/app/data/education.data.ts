@@ -19,6 +19,13 @@ export const educationData: EducationFullLangs = {
                 description: 'Certification program covering cloud-native development with OpenShift and Kubernetes, essential skills for managing and deploying applications in cloud environments.'
             },
             {
+                title: 'Boomi training & certifications',
+                institution: 'Boomi',
+                startDate: 'Feb 2025',
+                endDate: 'Mar 2025',
+                description: 'Boomi Integration Professional, API Management & API Design.'
+            },
+            {
                 title: 'Junior Full Stack Developer',
                 institution: 'TNV Academy',
                 startDate: 'Feb 2022',
@@ -50,6 +57,13 @@ export const educationData: EducationFullLangs = {
                 startDate: 'Ago 2023',
                 endDate: 'Set 2023',
                 description: 'Programma di certificazione su sviluppo cloud-nativo con OpenShift e Kubernetes, competenze essenziali per gestire e distribuire applicazioni in ambienti cloud.'
+            },
+            {
+                title: 'Formazione e certificazioni Boomi',
+                institution: 'Boomi',
+                startDate: 'Feb 2025',
+                endDate: 'Mar 2025',
+                description: 'Boomi Integration Professional, API Management & API Design.'
             },
             {
                 title: 'Junior Full Stack Developer',
@@ -85,6 +99,13 @@ export const educationData: EducationFullLangs = {
                 description: 'Zertifizierungskurs über cloud-native Entwicklung mit OpenShift und Kubernetes.'
             },
             {
+                title: 'Boomi Schulungen und Zertifizierungen',
+                institution: 'Boomi',
+                startDate: 'Feb 2025',
+                endDate: 'Mar 2025',
+                description: 'Boomi Integration Professional, API Management & API Design.'
+            },
+            {
                 title: 'Junior Full Stack Developer',
                 institution: 'TNV Academy',
                 startDate: 'Feb 2022',
@@ -116,6 +137,13 @@ export const educationData: EducationFullLangs = {
                 startDate: 'Ago 2023',
                 endDate: 'Sep 2023',
                 description: 'Curso de certificación sobre desarrollo nativo en la nube con OpenShift y Kubernetes.'
+            },
+            {
+                title: 'Formación y certificaciones Boomi',
+                institution: 'Boomi',
+                startDate: 'Feb 2025',
+                endDate: 'Mar 2025',
+                description: 'Boomi Integration Professional, API Management & API Design.'
             },
             {
                 title: 'Junior Full Stack Developer',
