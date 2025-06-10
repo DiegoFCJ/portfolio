@@ -7,8 +7,28 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
 
-    .about-description {
-        max-width: 90vw;
+.about-content {
+    width: 50vw;
+    max-width: 600px;
+}
+
+.about-description {
+    max-width: 90%;
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        width: 80vw;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-content {
+        width: 90vw;
     }
 }
