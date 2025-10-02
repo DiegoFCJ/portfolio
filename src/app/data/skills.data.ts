@@ -34,6 +34,7 @@ export const skills: SkillFull = {
                 { name: "Angular", icon: "https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white", clicked: false },
                 { name: "Bootstrap", icon: "https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white", clicked: false },
                 { name: "React", icon: "https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB", clicked: false },
+                { name: "Next.js", icon: "https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white", clicked: false },
                 { name: "CSS", icon: "https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white", clicked: false },
                 { name: "SCSS", icon: "https://img.shields.io/badge/SCSS-hotpink.svg?style=for-the-badge&logo=sass&logoColor=white", clicked: false }
             ]
@@ -131,7 +132,8 @@ export const skills: SkillFull = {
                 { name: "Postman", icon: "https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white", clicked: false },
                 { name: "Gradle", icon: "https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white", clicked: false },
                 { name: "Apache Maven", icon: "https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white", clicked: false },
-                { name: "Notion", icon: "https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white", clicked: false }
+                { name: "Notion", icon: "https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white", clicked: false },
+                { name: "OpenAI (ChatGPT)", icon: "https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white", clicked: false }
             ]
 
         }
