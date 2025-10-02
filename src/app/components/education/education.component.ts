@@ -12,10 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./education.component.scss']
 })
 export class EducationComponent implements OnInit {
-  educationList: EducationFull = {
-    title: '',
-    education: []
-  };
+  educationList: typeof educationData = educationData;
 
   isLargeScreen: boolean = false;
   is2kMoreScreen: boolean = false;
@@ -33,9 +30,14 @@ export class EducationComponent implements OnInit {
       this.isLargeScreen = window.innerWidth >= 1497;
       this.is2kMoreScreen = window.innerWidth >= 2224;
     }
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.educationList = this.translationService.getTranslatedData<EducationFull>(educationData);
+    this.translationService.currentLanguage$.subscribe(() => {
+      // ensure change detection is triggered when language updates
+      this.educationList = { ...educationData } as typeof educationData;
     });
+  }
+
+  get currentEducation(): EducationFull {
+    return this.translationService.getTranslatedData<EducationFull>(this.educationList);
   }
 
   resizeConditions(i: number, last: boolean): string | null {

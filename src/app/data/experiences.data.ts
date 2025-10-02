@@ -1,6 +1,6 @@
-import { ExperienceFullLangs } from '../dtos/ExperienceDTO';
+import { Experience, ExperienceFullLangs } from '../dtos/ExperienceDTO';
 
-export const experiencesData: ExperienceFullLangs = {
+const experiencesByLanguage: ExperienceFullLangs = {
     en: {
         title: 'Experience',
         experiences: [
@@ -238,3 +238,12 @@ export const experiencesData: ExperienceFullLangs = {
         ]
     }
 };
+
+export const experiencesData = experiencesByLanguage as ExperienceFullLangs & {
+    experiences: Experience[];
+    title: string;
+};
+
+(experiencesData as any).experiences = experiencesByLanguage.en.experiences;
+(experiencesData as any).title = experiencesByLanguage.en.title;
+

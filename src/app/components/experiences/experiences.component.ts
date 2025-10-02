@@ -12,23 +12,17 @@ import { TranslationService } from '../../services/translation.service';
   styleUrls: ['./experiences.component.scss']
 })
 export class ExperiencesComponent implements OnInit {
-  experiences: ExperienceFull = {
-    title: "",
-    experiences: [{
-      position: "",
-      location: "",
-      startDate: "",
-      endDate: "",
-      technologies: "",
-      responsibilities: ""
-    }]
-  };
+  experiences: typeof experiencesData = experiencesData;
 
   constructor(private translationService: TranslationService) { }
 
   ngOnInit(): void {
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.experiences = this.translationService.getTranslatedData<ExperienceFull>(experiencesData);
+    this.translationService.currentLanguage$.subscribe(() => {
+      this.experiences = { ...experiencesData } as typeof experiencesData;
     });
+  }
+
+  get currentExperiences(): ExperienceFull {
+    return this.translationService.getTranslatedData<ExperienceFull>(this.experiences);
   }
 }

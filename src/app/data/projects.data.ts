@@ -1,6 +1,6 @@
-import { ProjectsLangs } from '../dtos/ProjectDTO';
+import { Project, ProjectsLangs } from '../dtos/ProjectDTO';
 
-export const projects: ProjectsLangs = {
+const projectsByLanguage: ProjectsLangs = {
     en: {
         title: 'Featured Projects',
         button: 'View Project',
@@ -118,3 +118,10 @@ export const projects: ProjectsLangs = {
         ]
     }
 };
+
+export const projects = projectsByLanguage as ProjectsLangs & {
+    projects: Project[];
+};
+
+(projects as any).projects = projectsByLanguage.en.projects;
+

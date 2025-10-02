@@ -1,7 +1,7 @@
-<section class="education-section" *ngIf="educationList">
-  <h2 class="education-title">{{ educationList.title }}</h2>
+<section class="education-section" *ngIf="currentEducation as translated">
+  <h2 class="education-title">{{ translated.title }}</h2>
   <div class="education-container">
-    <div class="education-item" *ngFor="let education of educationList.education; let i = index; let last = last">
+    <div class="education-item" *ngFor="let education of translated.education; let i = index; let last = last">
       <div class="vertical-line" [ngClass]="resizeConditions(i, last)">
         <span class="point-on-line"></span>
       </div>

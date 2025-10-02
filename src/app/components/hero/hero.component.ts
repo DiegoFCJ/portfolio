@@ -36,7 +36,7 @@ export class HeroComponent implements OnInit {
   isAnimating = false;
 
   // Store the timeout references to be able to clear them
-  timeoutIds: (number | NodeJS.Timeout)[] = []; // This will store both browser and Node.js timeout ids
+  timeoutIds: ReturnType<typeof setTimeout>[] = []; // This will store both browser and Node.js timeout ids
 
   constructor(private translationService: TranslationService) { }
 
@@ -117,6 +117,6 @@ export class HeroComponent implements OnInit {
   }
 
   navigateToNextSection(): void {
-  this.navigateNextSection.emit();
-}
+    this.navigateNextSection.emit();
+  }
 }

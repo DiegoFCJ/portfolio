@@ -19,28 +19,28 @@ import { statsData } from '../../data/stats.data';
 })
 export class StatsComponent implements OnInit {
   stats: StatsItem = {
-    hours: "",
-    months: "",
-    projects: "",
-    mostUsed: ""
+    hours: '',
+    months: '',
+    projects: '',
+    mostUsed: ''
   };
-  statsTitle: string = "";
-  statistics: Stat[] = []
+  statsTitle: string = '';
+  statistics: Stat[] = [];
 
   constructor(private translationService: TranslationService) { }
 
   ngOnInit(): void {
+    const initialLanguage = this.translationService.getCurrentLanguage();
+    this.updateStatistics(initialLanguage);
+
     this.translationService.currentLanguage$.subscribe(language => {
-      const experiences = experiencesData.en.experiences;
-      const projectList = projects.en.projects;
-      this.statsTitle = statsData[language].title;
-      this.stats = this.calculateStats(experiences, projectList);
-      this.prepareStatistics(language);
+      this.updateStatistics(language);
     });
   }
 
-  prepareStatistics(language: string): void {
-    const labels = statsData[language]?.stats;
+  prepareStatistics(language?: string): void {
+    const lang = (language ?? this.translationService.getCurrentLanguage());
+    const labels = statsData[lang]?.stats ?? statsData.en.stats;
 
     if (labels) {
       this.statistics = labels.map((stat, index) => {
@@ -58,15 +58,15 @@ export class StatsComponent implements OnInit {
         }
       });
     } else {
-      console.error(`Language ${language} not found in statsLabels.`);
+      console.error(`Language ${lang} not found in statsLabels.`);
     }
   }
 
-  calculateStats(experiences: any[], projectList: any[]): StatsItem {
+  calculateStats(experiences: any[] = [], projectList: any[] = []): StatsItem {
     let totalHours = 0;
     let totalMonths = 0;
     let totalProjects = projectList.length;
-    let technologyCount: { [key: string]: number } = {};
+    const technologyCount: { [key: string]: number } = {};
 
     const experiencesWithTechnologies = experiences.filter(exp => exp.technologies?.trim().length);
     totalProjects += experiencesWithTechnologies.length;
@@ -97,9 +97,9 @@ export class StatsComponent implements OnInit {
       .map(([tech]) => this.formatTechnology(tech));
 
     return {
-      hours: `${Math.round(totalHours)}`,
-      months: `${totalMonths}`,
-      projects: `${totalProjects}`,
+      hours: `${Math.round(totalHours)} hours`,
+      months: `${totalMonths} months`,
+      projects: `${totalProjects} projects`,
       mostUsed: sortedTechnologies.join(', ')
     };
   }
@@ -136,8 +136,36 @@ export class StatsComponent implements OnInit {
    * @returns Number of months.
    */
   calculateMonths(start: string, end: string): number {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
+    const startDate = this.parseDate(start);
+    const endDate = this.parseDate(end);
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
+  }
+
+  private updateStatistics(language: 'en' | 'it' | 'de' | 'es'): void {
+    const experiences = experiencesData[language]?.experiences ?? experiencesData.en.experiences;
+    const projectList = projects[language]?.projects ?? projects.en.projects;
+
+    this.statsTitle = statsData[language]?.title ?? statsData.en.title;
+    this.stats = this.calculateStats(experiences, projectList);
+    this.prepareStatistics(language);
+  }
+
+  private parseDate(value: string): Date {
+    const normalized = value.trim().toLowerCase();
+    const ongoingKeywords = ['present', 'ongoing', 'in corso', 'laufend', 'en curso'];
+
+    if (ongoingKeywords.includes(normalized)) {
+      return new Date();
+    }
+
+    const parsed = new Date(value);
+
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed;
+    }
+
+    // Fallback: try to parse assuming month-year format
+    const fallback = new Date(`${value} 01`);
+    return Number.isNaN(fallback.getTime()) ? new Date() : fallback;
   }
 }

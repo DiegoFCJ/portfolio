@@ -1,6 +1,6 @@
-import { EducationFullLangs } from '../dtos/EducationDTO';
+import { EducationFull, EducationFullLangs } from '../dtos/EducationDTO';
 
-export const educationData: EducationFullLangs = {
+const educationByLanguage: EducationFullLangs = {
     en: {
         title: 'Education',
         education: [
@@ -162,3 +162,11 @@ export const educationData: EducationFullLangs = {
         ]
     }
 };
+
+export const educationData = educationByLanguage as EducationFullLangs & {
+    education: EducationFull['education'];
+    title: string;
+};
+
+(educationData as any).education = educationByLanguage.en.education;
+(educationData as any).title = educationByLanguage.en.title;

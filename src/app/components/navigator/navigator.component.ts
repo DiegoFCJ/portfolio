@@ -39,6 +39,9 @@ export class NavigatorComponent implements OnInit, OnChanges {
   @Output() navigatePrevious = new EventEmitter<void>();
   @Output() navigateToSection = new EventEmitter<number>();
 
+  /** Maintains backward compatibility with legacy toggle logic used in tests */
+  isOpen = true;
+
   showLanguageOptions = false;
   showThemeOptions = false;
 

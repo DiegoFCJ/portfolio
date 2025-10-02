@@ -6,7 +6,8 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   OnInit,
-  HostListener
+  HostListener,
+  OnDestroy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from '../../components/projects/projects.component';
@@ -37,10 +38,12 @@ import { ExperiencesComponent } from '../../components/experiences/experiences.c
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements AfterViewInit, OnInit {
+export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
   currentSectionIndex = 0;
   viewInitialized = false;
   totalSections = 0;
+  isScrolling = false;
+  private scrollCooldownId: ReturnType<typeof setTimeout> | null = null;
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
 
@@ -60,6 +63,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    if (this.scrollCooldownId) {
+      clearTimeout(this.scrollCooldownId);
+      this.scrollCooldownId = null;
+    }
+  }
+
   ngAfterViewInit(): void {
     this.viewInitialized = true;
     this.cdr.detectChanges();
@@ -67,6 +77,35 @@ export class HomeComponent implements AfterViewInit, OnInit {
     setTimeout(() => {
       this.totalSections = this.sections?.length || 0;
     });
+  }
+
+  @HostListener('wheel', ['$event'])
+  onWheelScroll(event: WheelEvent): void {
+    if (!this.viewInitialized) {
+      return;
+    }
+
+    if (this.isScrolling) {
+      event.preventDefault();
+      return;
+    }
+
+    this.isScrolling = true;
+
+    if (event.deltaY > 0) {
+      this.navigateNext();
+    } else if (event.deltaY < 0) {
+      this.navigatePrevious();
+    }
+
+    if (this.scrollCooldownId) {
+      clearTimeout(this.scrollCooldownId);
+    }
+
+    this.scrollCooldownId = setTimeout(() => {
+      this.isScrolling = false;
+      this.scrollCooldownId = null;
+    }, 500);
   }
 
   navigateNext(): void {
