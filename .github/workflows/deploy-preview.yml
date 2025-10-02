@@ -20,10 +20,15 @@ jobs:
   build-and-deploy:
     if: github.event.action != 'closed'
     runs-on: ubuntu-latest
+    environment:
+      name: preview/pr-${{ github.event.number }}
+      url: https://${{ github.repository_owner }}.github.io/portfolio/previews/pr-${{ github.event.number }}/
 
     env:
       PREVIEW_FOLDER: previews/pr-${{ github.event.number }}
       PREVIEW_BASE_HREF: /portfolio/previews/pr-${{ github.event.number }}/
+      PREVIEW_URL: https://${{ github.repository_owner }}.github.io/portfolio/previews/pr-${{ github.event.number }}/
+      CI: true
 
     steps:
       - name: Checkout repository
@@ -40,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run unit tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
       - name: Build preview
         run: npm run build -- --output-path=dist/portfolio --base-href="$PREVIEW_BASE_HREF"
 
@@ -55,7 +63,7 @@ jobs:
       - name: Post preview link to job summary
         run: |
           echo "### Preview ready" >> "$GITHUB_STEP_SUMMARY"
-          echo "https://$GITHUB_REPOSITORY_OWNER.github.io/portfolio/$PREVIEW_FOLDER/" >> "$GITHUB_STEP_SUMMARY"
+          echo "$PREVIEW_URL" >> "$GITHUB_STEP_SUMMARY"
 
   cleanup-preview:
     if: github.event.action == 'closed'
@@ -94,3 +102,4 @@ jobs:
             echo "Removed preview folder previews/pr-${{ github.event.number }}." >> "$GITHUB_STEP_SUMMARY"
           else
             echo "No preview folder to remove for PR #${{ github.event.number }}." >> "$GITHUB_STEP_SUMMARY"
+          fi
