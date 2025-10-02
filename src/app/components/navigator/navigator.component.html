@@ -65,3 +65,42 @@
     </div>
   </div>
 </div>
+
+<!-- Command palette overlay -->
+<div class="command-palette-overlay" *ngIf="isPaletteOpen">
+  <div class="command-palette-backdrop" (click)="closePalette()" aria-hidden="true"></div>
+  <div class="command-palette-panel" #palettePanel role="dialog" aria-modal="true" aria-label="Command palette"
+    (keydown)="handlePaletteKeydown($event)" (click)="$event.stopPropagation()">
+    <div class="command-palette-header">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input #searchInput class="command-palette-input" type="text" [(ngModel)]="searchTerm"
+        placeholder="Type a command" aria-label="Search commands" />
+      <button class="command-palette-close" type="button" (click)="closePalette()" aria-label="Close command palette">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="command-palette-hint">
+      <span>Use ↑ ↓ to navigate, Enter to select</span>
+      <span class="command-palette-shortcut">ESC</span>
+    </div>
+
+    <div class="command-list" role="list">
+      <ng-container *ngIf="groupedFilteredCommands as groups">
+        <ng-container *ngIf="groups.length; else emptyState">
+          <div class="command-group" *ngFor="let group of groups">
+            <h3 class="command-group-title">{{ group.group }}</h3>
+            <button class="command-item" type="button" *ngFor="let command of group.commands"
+              (click)="executeCommand(command)" data-command-button>
+              <mat-icon class="command-item-icon">{{ command.icon }}</mat-icon>
+              <span class="command-item-label">{{ command.label }}</span>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-template #emptyState>
+        <p class="command-empty">No commands found</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

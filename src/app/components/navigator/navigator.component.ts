@@ -1,8 +1,16 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
 import { TranslationService } from '../../services/translation.service';
+
+interface CommandAction {
+  label: string;
+  icon: string;
+  group: 'Navigation' | 'Theme' | 'Language';
+  action: () => void;
+}
 
 @Component({
   selector: 'app-navigator',
@@ -11,6 +19,7 @@ import { TranslationService } from '../../services/translation.service';
     CommonModule,
     MatIconModule,
     MatTooltipModule,
+    FormsModule,
   ],
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
@@ -24,11 +33,26 @@ export class NavigatorComponent implements OnInit {
   showLanguageOptions = false;
   showThemeOptions = false;
 
+  isPaletteOpen = false;
+  private _searchTerm = '';
+  get searchTerm(): string {
+    return this._searchTerm;
+  }
+
+  set searchTerm(value: string) {
+    this._searchTerm = value;
+    this.resetCommandFocus();
+  }
+  commands: CommandAction[] = [];
+
   currentLang: string;
   currentTheme: 'light' | 'dark' | 'blue' | 'green' = 'light';
 
   /** Controls visibility of the navigator */
   isOpen = false;
+
+  @ViewChild('searchInput') searchInputRef?: ElementRef<HTMLInputElement>;
+  @ViewChild('palettePanel') palettePanelRef?: ElementRef<HTMLDivElement>;
 
   /** Tooltip translations */
   tooltipTexts: { [key: string]: { prev: string; next: string; theme: string; language: string } } = {
@@ -70,12 +94,14 @@ export class NavigatorComponent implements OnInit {
     // keep language in sync with translation service
     this.translationService.currentLanguage$.subscribe(lang => {
       this.currentLang = lang;
+      this.buildCommands();
     });
     if (isPlatformBrowser(this.platformId)) {
       const storedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'blue' | 'green') || 'light';
       this.currentTheme = storedTheme;
       this.applyTheme(storedTheme);
     }
+    this.buildCommands();
     console.log('currentSectionIndex ngOnInit', this.currentSectionIndex)
   }
 
@@ -111,6 +137,7 @@ export class NavigatorComponent implements OnInit {
     this.translationService.setLanguage(language);
     this.currentLang = language;
     this.showLanguageOptions = false;
+    this.buildCommands();
   }
 
   changeTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
@@ -120,11 +147,30 @@ export class NavigatorComponent implements OnInit {
       this.applyTheme(theme);
     }
     this.showThemeOptions = false;
+    this.buildCommands();
   }
 
   /** Returns the tooltip text for the given key based on current language */
   getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
     return this.tooltipTexts[this.currentLang][key];
+  }
+
+  get filteredCommands(): CommandAction[] {
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      return this.commands;
+    }
+    return this.commands.filter(command =>
+      command.label.toLowerCase().includes(term) || command.group.toLowerCase().includes(term)
+    );
+  }
+
+  get groupedFilteredCommands(): { group: CommandAction['group']; commands: CommandAction[] }[] {
+    const groups: CommandAction['group'][] = ['Navigation', 'Theme', 'Language'];
+    const filtered = this.filteredCommands;
+    return groups
+      .map(group => ({ group, commands: filtered.filter(command => command.group === group) }))
+      .filter(group => group.commands.length > 0);
   }
 
   private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
@@ -166,6 +212,78 @@ export class NavigatorComponent implements OnInit {
     this.isOpen = true;
   }
 
+  openPalette(): void {
+    this.isPaletteOpen = true;
+    this.searchTerm = '';
+    this.showLanguageOptions = false;
+    this.showThemeOptions = false;
+    setTimeout(() => this.focusSearchInput());
+  }
+
+  closePalette(): void {
+    this.isPaletteOpen = false;
+  }
+
+  togglePalette(): void {
+    if (this.isPaletteOpen) {
+      this.closePalette();
+    } else {
+      this.openPalette();
+    }
+  }
+
+  executeCommand(command: CommandAction): void {
+    command.action();
+    this.closePalette();
+  }
+
+  handlePaletteKeydown(event: KeyboardEvent): void {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.focusRelativeCommand('next');
+      return;
+    }
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.focusRelativeCommand('previous');
+      return;
+    }
+    if (event.key === 'Tab') {
+      const focusable = this.getFocusableElements();
+      if (!focusable.length) {
+        event.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const current = document.activeElement as HTMLElement | null;
+      if (event.shiftKey) {
+        if (current === first || !current) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (current === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    }
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleGlobalShortcuts(event: KeyboardEvent): void {
+    const isToggleShortcut = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k';
+    if (isToggleShortcut) {
+      event.preventDefault();
+      this.togglePalette();
+    }
+    if (event.key === 'Escape' && this.isPaletteOpen) {
+      event.preventDefault();
+      this.closePalette();
+    }
+  }
+
   /** Host listener to detect clicks outside and close */
   @HostListener('document:click', ['$event.target'])
   onDocumentClick(target: HTMLElement): void {
@@ -173,5 +291,123 @@ export class NavigatorComponent implements OnInit {
     if (!clickedInside && this.isOpen) {
       this.isOpen = false;
     }
+    if (!clickedInside && this.isPaletteOpen) {
+      this.closePalette();
+    }
+  }
+
+  private focusSearchInput(): void {
+    this.searchInputRef?.nativeElement?.focus();
+  }
+
+  private getFocusableElements(): HTMLElement[] {
+    const panel = this.palettePanelRef?.nativeElement;
+    if (!panel) {
+      return [];
+    }
+    const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    return Array.from(panel.querySelectorAll<HTMLElement>(focusableSelectors)).filter(el => !el.hasAttribute('disabled'));
+  }
+
+  private getCommandButtons(): HTMLButtonElement[] {
+    const panel = this.palettePanelRef?.nativeElement;
+    if (!panel) {
+      return [];
+    }
+    return Array.from(panel.querySelectorAll<HTMLButtonElement>('[data-command-button]'));
+  }
+
+  private focusRelativeCommand(direction: 'next' | 'previous'): void {
+    const buttons = this.getCommandButtons();
+    if (!buttons.length) {
+      return;
+    }
+    const activeElement = document.activeElement as HTMLElement | null;
+    const currentIndex = buttons.indexOf(activeElement as HTMLButtonElement);
+    if (currentIndex === 0 && direction === 'previous') {
+      this.focusSearchInput();
+      return;
+    }
+    let targetIndex: number;
+    if (currentIndex === -1) {
+      targetIndex = direction === 'next' ? 0 : buttons.length - 1;
+    } else if (direction === 'next') {
+      targetIndex = Math.min(currentIndex + 1, buttons.length - 1);
+    } else {
+      targetIndex = Math.max(currentIndex - 1, 0);
+    }
+    buttons[targetIndex].focus();
+  }
+
+  private resetCommandFocus(): void {
+    if (!this.isPaletteOpen) {
+      return;
+    }
+    this.focusSearchInput();
+  }
+
+  private buildCommands(): void {
+    this.commands = [
+      {
+        label: 'Go to next section',
+        icon: 'arrow_downward',
+        group: 'Navigation',
+        action: () => this.onNext()
+      },
+      {
+        label: 'Go to previous section',
+        icon: 'arrow_upward',
+        group: 'Navigation',
+        action: () => this.onPrevious()
+      },
+      {
+        label: 'Switch to light theme',
+        icon: 'light_mode',
+        group: 'Theme',
+        action: () => this.changeTheme('light')
+      },
+      {
+        label: 'Switch to dark theme',
+        icon: 'dark_mode',
+        group: 'Theme',
+        action: () => this.changeTheme('dark')
+      },
+      {
+        label: 'Switch to blue theme',
+        icon: 'water_drop',
+        group: 'Theme',
+        action: () => this.changeTheme('blue')
+      },
+      {
+        label: 'Switch to green theme',
+        icon: 'eco',
+        group: 'Theme',
+        action: () => this.changeTheme('green')
+      },
+      {
+        label: 'Change language to English',
+        icon: 'language',
+        group: 'Language',
+        action: () => this.changeLanguage('en')
+      },
+      {
+        label: 'Change language to Italian',
+        icon: 'translate',
+        group: 'Language',
+        action: () => this.changeLanguage('it')
+      },
+      {
+        label: 'Change language to German',
+        icon: 'g_translate',
+        group: 'Language',
+        action: () => this.changeLanguage('de')
+      },
+      {
+        label: 'Change language to Spanish',
+        icon: 'language',
+        group: 'Language',
+        action: () => this.changeLanguage('es')
+      }
+    ];
   }
 }
