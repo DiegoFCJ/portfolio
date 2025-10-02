@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SkillsComponent } from './skills.component';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
 import { skills } from '../../data/skills.data'; // Import skills data
 import { Skill } from '../../dtos/SkillDTO'; // Import Skill DTO
 
@@ -9,11 +8,10 @@ describe('SkillsComponent', () => {
   let component: SkillsComponent;
   let fixture: ComponentFixture<SkillsComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [CommonModule],
-      declarations: [SkillsComponent],
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CommonModule, SkillsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SkillsComponent);
     component = fixture.componentInstance;

@@ -6,6 +6,7 @@ import { heroData } from '../../data/hero.data';
 import { TranslationService } from '../../services/translation.service';
 import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { HeroFull } from '../../dtos/HeroDTO';
+import { skip } from 'rxjs';
 
 @Component({
   selector: 'app-hero',
@@ -41,14 +42,21 @@ export class HeroComponent implements OnInit {
   constructor(private translationService: TranslationService) { }
 
   ngOnInit() {
-    // Subscribe to language changes
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.heroData = this.translationService.getTranslatedData(heroData);
-      this.resetAnimation();  // Reset animation before starting again
-      setTimeout(() => {
-        this.startTypingAnimation();  // Restart the animation after the reset
-      }, 100);  // Small delay to ensure view updates before animation starts
-    });
+    this.heroData = this.translationService.getTranslatedData(heroData);
+    this.resetAnimation();
+    this.startTypingAnimation();
+
+    // Subscribe to language changes skipping the initial emission to avoid
+    // triggering ExpressionChanged errors during the first change detection run.
+    this.translationService.currentLanguage$
+      .pipe(skip(1))
+      .subscribe(() => {
+        this.heroData = this.translationService.getTranslatedData(heroData);
+        this.resetAnimation();  // Reset animation before starting again
+        setTimeout(() => {
+          this.startTypingAnimation();  // Restart the animation after the reset
+        }, 100);  // Small delay to ensure view updates before animation starts
+      });
   }
 
   // Resets animation state to start over
