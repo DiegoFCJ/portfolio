@@ -1,67 +1,97 @@
-<!-- Floating toggle button -->
-<button class="nav-toggle-button" *ngIf="!isOpen" (click)="toggleNavigator()" aria-label="Open navigator">
-  <mat-icon>chevron_left</mat-icon>
-</button>
-
-<!-- Modern, animated, circular floating navbar -->
-<div class="modern-navigator" *ngIf="isOpen">
-  <div class="arrow-container">
-    <!-- Previous button -->
-    <button class="arrow-button" (click)="onPrevious()" aria-label="Previous section"
-      [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
-      <mat-icon>arrow_upward</mat-icon>
-    </button>
-
-    <!-- Next button -->
-    <button class="arrow-button" (click)="onNext()" aria-label="Next section"
-      [matTooltip]="getTooltip('next')" matTooltipPosition="left">
-      <mat-icon>arrow_downward</mat-icon>
-    </button>
-  </div>
-
-  <div class="nav-group">
-    <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Theme selector"
-      [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
-      <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
-    </button>
-    <div class="option-container" *ngIf="showThemeOptions">
-      <button class="option-button" (click)="changeTheme('light')" aria-label="Light mode"
-        [class.selected]="currentTheme === 'light'">
-        <mat-icon>light_mode</mat-icon>
-      </button>
-      <button class="option-button" (click)="changeTheme('dark')" aria-label="Dark mode"
-        [class.selected]="currentTheme === 'dark'">
-        <mat-icon>dark_mode</mat-icon>
-      </button>
-      <button class="option-button" (click)="changeTheme('blue')" aria-label="Blue mode"
-        [class.selected]="currentTheme === 'blue'">
-        <mat-icon>water_drop</mat-icon>
-      </button>
-      <button class="option-button" (click)="changeTheme('green')" aria-label="Green mode"
-        [class.selected]="currentTheme === 'green'">
-        <mat-icon>eco</mat-icon>
-      </button>
+<aside class="timeline-nav" role="navigation" aria-label="Section timeline"
+  [style.--timeline-progress]="progressPercentage + '%'">
+  <header class="timeline-header">
+    <div class="timeline-summary">
+      <span class="timeline-current-index" aria-hidden="true">
+        {{ (activeSection?.index ?? 0) + 1 | number: '2.0-0' }}
+      </span>
+      <div class="timeline-current-info">
+        <span class="timeline-current-label">{{ activeSection?.label }}</span>
+        <span class="timeline-total" aria-label="Total sections">/{{ totalSections }}</span>
+      </div>
     </div>
+
+    <div class="timeline-actions">
+      <div class="action-group">
+        <button class="action-button" type="button" (click)="toggleThemeOptions()"
+          [attr.aria-label]="getTooltip('theme')" [attr.aria-expanded]="showThemeOptions"
+          matTooltip="{{ getTooltip('theme') }}" matTooltipPosition="below">
+          <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
+        </button>
+        <div class="action-menu" *ngIf="showThemeOptions">
+          <button class="menu-item" type="button" (click)="changeTheme('light')"
+            [class.is-active]="currentTheme === 'light'" aria-label="Light theme">
+            <mat-icon>light_mode</mat-icon>
+          </button>
+          <button class="menu-item" type="button" (click)="changeTheme('dark')"
+            [class.is-active]="currentTheme === 'dark'" aria-label="Dark theme">
+            <mat-icon>dark_mode</mat-icon>
+          </button>
+          <button class="menu-item" type="button" (click)="changeTheme('blue')"
+            [class.is-active]="currentTheme === 'blue'" aria-label="Blue theme">
+            <mat-icon>water_drop</mat-icon>
+          </button>
+          <button class="menu-item" type="button" (click)="changeTheme('green')"
+            [class.is-active]="currentTheme === 'green'" aria-label="Green theme">
+            <mat-icon>eco</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="action-group">
+        <button class="action-button" type="button" (click)="toggleLanguageOptions()"
+          [attr.aria-label]="getTooltip('language')" [attr.aria-expanded]="showLanguageOptions"
+          matTooltip="{{ getTooltip('language') }}" matTooltipPosition="below">
+          <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
+        </button>
+        <div class="action-menu" *ngIf="showLanguageOptions">
+          <button class="menu-item" type="button" (click)="changeLanguage('en')"
+            [class.is-active]="currentLang === 'en'" aria-label="English">
+            <span class="lang-flag">🇬🇧</span>
+          </button>
+          <button class="menu-item" type="button" (click)="changeLanguage('it')"
+            [class.is-active]="currentLang === 'it'" aria-label="Italiano">
+            <span class="lang-flag">🇮🇹</span>
+          </button>
+          <button class="menu-item" type="button" (click)="changeLanguage('de')"
+            [class.is-active]="currentLang === 'de'" aria-label="Deutsch">
+            <span class="lang-flag">🇩🇪</span>
+          </button>
+          <button class="menu-item" type="button" (click)="changeLanguage('es')"
+            [class.is-active]="currentLang === 'es'" aria-label="Español">
+            <span class="lang-flag">🇪🇸</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <button class="timeline-arrow" type="button" (click)="onPrevious()" [disabled]="currentSectionIndex === 0"
+    [attr.aria-label]="getTooltip('prev')" matTooltip="{{ getTooltip('prev') }}" matTooltipPosition="left">
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+
+  <div class="timeline-track">
+    <div class="timeline-progress">
+      <div class="timeline-progress-bar"></div>
+    </div>
+
+    <ol class="timeline-steps">
+      <li *ngFor="let section of sectionItems; trackBy: trackBySection">
+        <button class="timeline-step" type="button" (click)="onSelectSection(section.index)"
+          [class.is-active]="section.index === currentSectionIndex"
+          [attr.aria-current]="section.index === currentSectionIndex ? 'step' : null"
+          matTooltip="{{ section.label }}" matTooltipPosition="left">
+          <span class="timeline-marker" aria-hidden="true">{{ section.index + 1 }}</span>
+          <span class="timeline-label">{{ section.label }}</span>
+        </button>
+      </li>
+    </ol>
   </div>
 
-  <div class="nav-group">
-    <button class="nav-button" (click)="toggleLanguageOptions()" [matTooltip]="getTooltip('language')"
-      matTooltipPosition="left">
-      <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
-    </button>
-    <div class="option-container" *ngIf="showLanguageOptions">
-      <button class="option-button" (click)="changeLanguage('en')" aria-label="English">
-        <span class="lang-flag">🇬🇧</span>
-      </button>
-      <button class="option-button" (click)="changeLanguage('it')" aria-label="Italiano">
-        <span class="lang-flag">🇮🇹</span>
-      </button>
-      <button class="option-button" (click)="changeLanguage('de')" aria-label="Deutsch">
-        <span class="lang-flag">🇩🇪</span>
-      </button>
-      <button class="option-button" (click)="changeLanguage('es')" aria-label="Español">
-        <span class="lang-flag">🇪🇸</span>
-      </button>
-    </div>
-  </div>
-</div>
+  <button class="timeline-arrow" type="button" (click)="onNext()"
+    [disabled]="currentSectionIndex === totalSections - 1"
+    [attr.aria-label]="getTooltip('next')" matTooltip="{{ getTooltip('next') }}" matTooltipPosition="left">
+    <mat-icon>arrow_downward</mat-icon>
+  </button>
+</aside>

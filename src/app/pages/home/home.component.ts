@@ -83,6 +83,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
     }
   }
 
+  navigateTo(index: number): void {
+    if (this.viewInitialized && index !== this.currentSectionIndex && index >= 0 && index < this.totalSections) {
+      this.currentSectionIndex = index;
+      this.scrollToSection(index);
+    }
+  }
+
   scrollToSection(index: number): void {
     const section = this.sections.toArray()[index].nativeElement;
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
