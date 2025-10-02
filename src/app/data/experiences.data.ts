@@ -8,9 +8,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Software Developer',
                 location: 'Full Remote',
                 startDate: 'Apr 2024',
-                endDate: 'Present',
+                endDate: 'Jun 2025',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Worked on automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
+                responsibilities: 'Concluded the engagement after automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
             },
             {
                 position: 'Software Developer',
@@ -67,9 +67,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Sviluppatore Software',
                 location: 'Full Remote',
                 startDate: 'Apr 2024',
-                endDate: 'In corso',
+                endDate: 'Giu 2025',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Automatizzazione di processi e ottimizzazione delle attività, inclusa la risoluzione di bug. Miglioramento dell\'efficienza operativa tramite tecnologie moderne.'
+                responsibilities: 'Concluso l\'incarico dopo aver automatizzato processi e ottimizzato le attività, inclusa la risoluzione di bug. Migliorata l\'efficienza operativa grazie all\'uso di tecnologie moderne.'
             },
             {
                 position: 'Sviluppatore Software',
@@ -126,9 +126,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Software Developer',
                 location: 'Full Remote',
                 startDate: 'Apr 2024',
-                endDate: 'Present',
+                endDate: 'Jun 2025',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Worked on automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
+                responsibilities: 'Concluded the engagement after automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
             },
             {
                 position: 'Software Developer',
@@ -185,9 +185,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Software Developer',
                 location: 'Full Remote',
                 startDate: 'Apr 2024',
-                endDate: 'Present',
+                endDate: 'Jun 2025',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Worked on automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
+                responsibilities: 'Concluded the engagement after automating processes and optimizing activities, including bug fixing. Enhanced operational efficiency by streamlining tasks and improving the overall user experience through modern technologies.'
             },
             {
                 position: 'Software Developer',
