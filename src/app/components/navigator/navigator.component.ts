@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef, ViewChild, DestroyRef, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslationService } from '../../services/translation.service';
 
 interface CommandAction {
@@ -82,6 +83,8 @@ export class NavigatorComponent implements OnInit {
     }
   };
 
+  private readonly destroyRef = inject(DestroyRef);
+
   constructor(
     private translationService: TranslationService,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -92,28 +95,27 @@ export class NavigatorComponent implements OnInit {
 
   ngOnInit(): void {
     // keep language in sync with translation service
-    this.translationService.currentLanguage$.subscribe(lang => {
-      this.currentLang = lang;
-      this.buildCommands();
-    });
+    this.translationService.currentLanguage$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(lang => {
+        this.currentLang = lang;
+        this.buildCommands();
+      });
     if (isPlatformBrowser(this.platformId)) {
       const storedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'blue' | 'green') || 'light';
       this.currentTheme = storedTheme;
       this.applyTheme(storedTheme);
     }
     this.buildCommands();
-    console.log('currentSectionIndex ngOnInit', this.currentSectionIndex)
   }
 
   onNext(): void {
-    console.log('currentSectionIndex onNext', this.currentSectionIndex)
     if (this.currentSectionIndex < this.totalSections - 1) {
       this.navigateNext.emit();
     }
   }
 
   onPrevious(): void {
-    console.log('currentSectionIndex onPrevious', this.currentSectionIndex)
     if (this.currentSectionIndex > 0) {
       this.navigatePrevious.emit();
     }
