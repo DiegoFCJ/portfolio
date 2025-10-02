@@ -31,8 +31,8 @@ export class StatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.translationService.currentLanguage$.subscribe(language => {
-      const experiences = experiencesData.en.experiences;
-      const projectList = projects.en.projects;
+      const experiences = experiencesData[language]?.experiences ?? experiencesData.en.experiences;
+      const projectList = projects[language]?.projects ?? projects.en.projects;
       this.statsTitle = statsData[language].title;
       this.stats = this.calculateStats(experiences, projectList);
       this.prepareStatistics(language);
@@ -136,8 +136,17 @@ export class StatsComponent implements OnInit {
    * @returns Number of months.
    */
   calculateMonths(start: string, end: string): number {
+    const normalizedEnd = end.trim().toLowerCase();
+    const ongoingValues = ['present', 'in corso', 'presente'];
+    const endDate = ongoingValues.includes(normalizedEnd)
+      ? new Date()
+      : new Date(end);
     const startDate = new Date(start);
-    const endDate = new Date(end);
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      return 0;
+    }
+
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
   }
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EducationComponent } from './education.component';
 import { educationData } from '../../data/education.data';
+import { TranslationService } from '../../services/translation.service';
 
 /**
  * Unit tests for EducationComponent.
@@ -33,7 +34,10 @@ describe('EducationComponent', () => {
    * Verifies that the education list data is initialized correctly.
    */
   it('should initialize educationList correctly', () => {
-    expect(component.educationList).toEqual(educationData);
+    const translationService = TestBed.inject(TranslationService);
+    const expectedEducation = translationService.getTranslatedData(educationData);
+
+    expect(component.educationList).toEqual(expectedEducation);
     expect(component.educationList.education.length).toBeGreaterThan(0);
   });
 

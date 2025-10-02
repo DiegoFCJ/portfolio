@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExperiencesComponent } from './experiences.component';
 import { experiencesData } from '../../data/experiences.data';
+import { TranslationService } from '../../services/translation.service';
 
 /**
  * Unit tests for ExperiencesComponent.
@@ -27,7 +28,10 @@ describe('ExperiencesComponent', () => {
 
   // Verify the data is correctly initialized
   it('should initialize experiences data correctly', () => {
-    expect(component.experiences).toEqual(experiencesData);
+    const translationService = TestBed.inject(TranslationService);
+    const expectedExperiences = translationService.getTranslatedData(experiencesData);
+
+    expect(component.experiences).toEqual(expectedExperiences);
     expect(component.experiences.experiences.length).toBeGreaterThan(0);
   });
 
