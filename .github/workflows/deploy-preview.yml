@@ -1,0 +1,105 @@
+name: Deploy Preview to GitHub Pages
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: deploy-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    environment:
+      name: preview/pr-${{ github.event.number }}
+      url: https://${{ github.repository_owner }}.github.io/portfolio/previews/pr-${{ github.event.number }}/
+
+    env:
+      PREVIEW_FOLDER: previews/pr-${{ github.event.number }}
+      PREVIEW_BASE_HREF: /portfolio/previews/pr-${{ github.event.number }}/
+      PREVIEW_URL: https://${{ github.repository_owner }}.github.io/portfolio/previews/pr-${{ github.event.number }}/
+      CI: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
+      - name: Build preview
+        run: npm run build -- --output-path=dist/portfolio --base-href="$PREVIEW_BASE_HREF"
+
+      - name: Publish preview to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: dist/portfolio
+          target-folder: ${{ env.PREVIEW_FOLDER }}
+          clean: false
+
+      - name: Post preview link to job summary
+        run: |
+          echo "### Preview ready" >> "$GITHUB_STEP_SUMMARY"
+          echo "$PREVIEW_URL" >> "$GITHUB_STEP_SUMMARY"
+
+  cleanup-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Remove preview folder
+        id: cleanup
+        run: |
+          set -euo pipefail
+          PREVIEW_FOLDER="previews/pr-${{ github.event.number }}"
+          if [ -d "$PREVIEW_FOLDER" ]; then
+            git rm -rf "$PREVIEW_FOLDER"
+            echo "removed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "removed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push changes
+        if: steps.cleanup.outputs.removed == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Remove preview for PR #${{ github.event.number }}"
+          git push origin HEAD:gh-pages
+
+      - name: Summarize cleanup result
+        run: |
+          if [ "${{ steps.cleanup.outputs.removed }}" = "true" ]; then
+            echo "Removed preview folder previews/pr-${{ github.event.number }}." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No preview folder to remove for PR #${{ github.event.number }}." >> "$GITHUB_STEP_SUMMARY"
+          fi
