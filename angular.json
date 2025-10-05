@@ -41,7 +41,7 @@
               "src/styles/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/portfolio/"
+            "baseHref": "./"
           },
           "configurations": {
             "production": {
@@ -58,7 +58,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/portfolio/"
+              "baseHref": "./"
             },
             "development": {
               "optimization": false,
