@@ -76,18 +76,15 @@ export class NavigatorComponent implements OnInit {
       this.currentTheme = storedTheme;
       this.applyTheme(storedTheme);
     }
-    console.log('currentSectionIndex ngOnInit', this.currentSectionIndex)
   }
 
   onNext(): void {
-    console.log('currentSectionIndex onNext', this.currentSectionIndex)
     if (this.currentSectionIndex < this.totalSections - 1) {
       this.navigateNext.emit();
     }
   }
 
   onPrevious(): void {
-    console.log('currentSectionIndex onPrevious', this.currentSectionIndex)
     if (this.currentSectionIndex > 0) {
       this.navigatePrevious.emit();
     }
