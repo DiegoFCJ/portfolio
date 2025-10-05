@@ -1,0 +1,7 @@
+{
+  "name": "on-headers",
+  "version": "1.0.3",
+  "description": "Execute a listener when a response is about to write headers (patched)",
+  "main": "index.js",
+  "license": "MIT"
+}
