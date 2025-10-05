@@ -8,5 +8,9 @@ export const socials: Social[] = [
     {
         link: 'https://github.com/DiegoFCJ',
         icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg'
+    },
+    {
+        link: 'https://discord.com/invite/diegofois',
+        icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/discord.svg'
     }
 ];
