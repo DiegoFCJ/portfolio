@@ -51,12 +51,15 @@ jobs:
       - name: Build preview
         run: npm run build -- --output-path=dist/portfolio --base-href="$PREVIEW_BASE_HREF"
 
+      - name: Verify browser build output
+        run: ls dist/portfolio/browser
+
       - name: Publish preview to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: dist/portfolio
+          folder: dist/portfolio/browser
           target-folder: ${{ env.PREVIEW_FOLDER }}
           clean: false
 
