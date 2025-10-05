@@ -45,6 +45,9 @@ describe('ThemeswitchComponent', () => {
    * Verifies the toggleTheme function works correctly.
    */
   it('should toggle theme and update localStorage', () => {
+    localStorage.setItem('darkMode', 'false');
+    component.ngOnInit();
+
     spyOn(localStorage, 'setItem');
 
     component.toggleTheme();
