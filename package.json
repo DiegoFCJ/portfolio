@@ -54,6 +54,10 @@
     "puppeteer": "^23.7.0",
     "sass": "^1.80.7",
     "three": "^0.177.0",
-    "typescript": "~5.5.2"
+    "typescript": "~5.5.2",
+    "http-proxy-middleware": "^3.0.4"
+  },
+  "overrides": {
+    "http-proxy-middleware": "^3.0.4"
   }
 }
