@@ -41,6 +41,11 @@
               "src/styles/styles.scss"
             ],
             "scripts": [],
+            "optimization": {
+              "fonts": {
+                "inline": false
+              }
+            },
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
