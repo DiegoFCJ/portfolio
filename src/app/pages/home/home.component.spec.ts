@@ -31,7 +31,7 @@ describe('HomeComponent', () => {
     } as any; // Mock della sezione per il test
     component.currentSectionIndex = 0;
 
-    component.onWheelScroll({ deltaY: 1 } as WheelEvent); // Simula scroll down
+    component.onWheelScroll({ deltaY: 1, preventDefault: () => {} } as WheelEvent); // Simula scroll down
     expect(component.currentSectionIndex).toBe(1);
   });
 
@@ -44,7 +44,7 @@ describe('HomeComponent', () => {
     } as any;
     component.currentSectionIndex = 1;
 
-    component.onWheelScroll({ deltaY: 1 } as WheelEvent); // Simula scroll down
+    component.onWheelScroll({ deltaY: 1, preventDefault: () => {} } as WheelEvent); // Simula scroll down
     expect(component.currentSectionIndex).toBe(1); // Dovrebbe restare sull'ultima sezione
   });
 
@@ -57,7 +57,7 @@ describe('HomeComponent', () => {
     } as any;
     component.currentSectionIndex = 1;
 
-    component.onWheelScroll({ deltaY: -1 } as WheelEvent); // Simula scroll up
+    component.onWheelScroll({ deltaY: -1, preventDefault: () => {} } as WheelEvent); // Simula scroll up
     expect(component.currentSectionIndex).toBe(0);
   });
 
@@ -67,7 +67,7 @@ describe('HomeComponent', () => {
     } as any;
     component.currentSectionIndex = 0;
 
-    component.onWheelScroll({ deltaY: -1 } as WheelEvent); // Simula scroll up
+    component.onWheelScroll({ deltaY: -1, preventDefault: () => {} } as WheelEvent); // Simula scroll up
     expect(component.currentSectionIndex).toBe(0); // Dovrebbe restare sulla prima sezione
   });
 
@@ -78,10 +78,10 @@ describe('HomeComponent', () => {
     component.currentSectionIndex = 0;
     component.isScrolling = false;
 
-    component.onWheelScroll({ deltaY: 1 } as WheelEvent); // Simula scroll down
+    component.onWheelScroll({ deltaY: 1, preventDefault: () => {} } as WheelEvent); // Simula scroll down
     expect(component.isScrolling).toBeTrue();
 
-    component.onWheelScroll({ deltaY: 1 } as WheelEvent); // Scroll bloccato
+    component.onWheelScroll({ deltaY: 1, preventDefault: () => {} } as WheelEvent); // Scroll bloccato
     expect(component.currentSectionIndex).toBe(1); // Indice resta invariato mentre isScrolling è true
   });
 });
