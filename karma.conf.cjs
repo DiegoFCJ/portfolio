@@ -1,11 +1,25 @@
-const { existsSync } = require('node:fs');
 const { join } = require('node:path');
 
-const chromeExecutablePath =
-  process.env.CHROME_BIN ||
-  (existsSync(join(__dirname, 'node_modules', 'puppeteer'))
-    ? require('puppeteer').executablePath()
-    : undefined);
+let chromeExecutablePath = process.env.CHROME_BIN;
+
+try {
+  chromeExecutablePath = require('puppeteer').executablePath();
+} catch (error) {
+  try {
+    const puppeteerPath = require.resolve('puppeteer');
+    chromeExecutablePath = require(puppeteerPath).executablePath();
+  } catch (resolveError) {
+    if (resolveError.code !== 'MODULE_NOT_FOUND') {
+      throw resolveError;
+    }
+  }
+}
+
+if (chromeExecutablePath) {
+  process.env.CHROME_BIN = chromeExecutablePath;
+} else {
+  delete process.env.CHROME_BIN;
+}
 
 module.exports = function (config) {
   config.set({
