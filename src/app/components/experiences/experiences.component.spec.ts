@@ -1,10 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExperiencesComponent } from './experiences.component';
+import { of } from 'rxjs';
 import { experiencesData } from '../../data/experiences.data';
+import { TranslationService } from '../../services/translation.service';
 
 /**
  * Unit tests for ExperiencesComponent.
  */
+class MockTranslationService {
+  currentLanguage$ = of<'en'>('en');
+
+  getTranslatedData<T>(data: { [key: string]: T }): T {
+    return data['en'];
+  }
+}
+
 describe('ExperiencesComponent', () => {
   let component: ExperiencesComponent;
   let fixture: ComponentFixture<ExperiencesComponent>;
@@ -12,7 +22,10 @@ describe('ExperiencesComponent', () => {
   // Initialize the test environment and component
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExperiencesComponent]
+      imports: [ExperiencesComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExperiencesComponent);
@@ -27,8 +40,10 @@ describe('ExperiencesComponent', () => {
 
   // Verify the data is correctly initialized
   it('should initialize experiences data correctly', () => {
-    expect(component.experiences).toEqual(experiencesData);
-    expect(component.experiences.experiences.length).toBeGreaterThan(0);
+    const expectedExperiences = experiencesData.en;
+    expect(component.experiences).toEqual(expectedExperiences);
+    expect(component.experiences.experiences.length).toBe(expectedExperiences.experiences.length);
+    expect(component.experiences.title).toBe(expectedExperiences.title);
   });
 
   // Verify the template renders the experiences correctly
