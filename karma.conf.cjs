@@ -38,11 +38,11 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessPuppeteer'],
     singleRun: false,
     restartOnFileChange: true,
     customLaunchers: {
-      ChromeHeadless: {
+      ChromeHeadlessPuppeteer: {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
         executablePath: chromeExecutablePath,
