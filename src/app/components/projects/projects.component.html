@@ -1,47 +1,59 @@
 <section>
-    <h2>{{projects.title}}</h2>
+    <h2>{{ isLoading ? '...' : projects.title }}</h2>
 
-    <!-- Carosello per mobile -->
-    <div class="carousel-container" *ngIf="isMobile">
-        <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
+    <ng-container *ngIf="!isLoading; else projectsLoading">
+        <!-- Carosello per mobile -->
+        <div class="carousel-container" *ngIf="isMobile">
+            <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
 
-        <div class="carousel-wrapper">
-            <div class="carousel-item" *ngFor="let project of projects.projects; let i = index"
-                [class.active]="i === currentIndex">
-                <div class="project-card">
-                    <img class="proj-image" [src]="project.image" alt="Project Image" />
-                    <h3>{{ project.title }}</h3>
+            <div class="carousel-wrapper">
+                <div class="carousel-item" *ngFor="let project of projects.projects; let i = index"
+                    [class.active]="i === currentIndex">
+                    <div class="project-card">
+                        <img class="proj-image" [src]="project.image" alt="Project Image" />
+                        <h3>{{ project.title }}</h3>
 
-                    <p>
-                        {{ getTruncatedDescription(project) }}
-                        <span *ngIf="!project.expanded" class="more"
-                            (click)="toggleExpand(project)">{{projects.moreDesc}}</span>
-                        <span *ngIf="project.expanded" class="less"
-                            (click)="toggleExpand(project)">{{projects.lessDesc}}</span>
-                    </p>
+                        <p>
+                            {{ getTruncatedDescription(project) }}
+                            <span *ngIf="!project.expanded" class="more"
+                                (click)="toggleExpand(project)">{{ projects.moreDesc }}</span>
+                            <span *ngIf="project.expanded" class="less"
+                                (click)="toggleExpand(project)">{{ projects.lessDesc }}</span>
+                        </p>
 
-                    <a class="proj-link" [href]="project.link" target="_blank">{{projects.button}}</a>
+                        <a class="proj-link" [href]="project.link" target="_blank">{{ projects.button }}</a>
+                    </div>
                 </div>
             </div>
+
+            <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
         </div>
 
-        <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
-    </div>
+        <!-- Griglia per desktop -->
+        <div class="project-cards" *ngIf="!isMobile">
+            <div class="project-card" *ngFor="let project of projects.projects">
+                <img class="proj-image" [src]="project.image" alt="Project Image" />
+                <h3>{{ project.title }}</h3>
 
-    <!-- Griglia per desktop -->
-    <div class="project-cards" *ngIf="!isMobile">
-        <div class="project-card" *ngFor="let project of projects.projects">
-            <img class="proj-image" [src]="project.image" alt="Project Image" />
-            <h3>{{ project.title }}</h3>
+                <p>
+                    {{ getTruncatedDescription(project) }}
+                    <span *ngIf="!project.expanded" class="more"
+                        (click)="toggleExpand(project)">{{ projects.moreDesc }}</span>
+                    <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)">{{ projects.lessDesc }}</span>
+                </p>
 
-            <p>
-                {{ getTruncatedDescription(project) }}
-                <span *ngIf="!project.expanded" class="more"
-                    (click)="toggleExpand(project)">{{projects.moreDesc}}</span>
-                <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)">{{projects.lessDesc}}</span>
-            </p>
-
-            <a class="proj-link" [href]="project.link" target="_blank">{{projects.button}}</a>
+                <a class="proj-link" [href]="project.link" target="_blank">{{ projects.button }}</a>
+            </div>
         </div>
-    </div>
+    </ng-container>
 </section>
+
+<ng-template #projectsLoading>
+    <div class="project-cards">
+        <div class="project-card">
+            <h3>...</h3>
+            <p>...</p>
+            <a class="proj-link" href="javascript:void(0)" aria-disabled="true">...</a>
+        </div>
+    </div>
+</ng-template>

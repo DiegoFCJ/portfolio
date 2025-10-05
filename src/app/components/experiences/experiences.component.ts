@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExperienceFull } from '../../dtos/ExperienceDTO';
 import { experiencesData } from '../../data/experiences.data';
 import { TranslationService } from '../../services/translation.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-experiences',
@@ -11,24 +12,29 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './experiences.component.html',
   styleUrls: ['./experiences.component.scss']
 })
-export class ExperiencesComponent implements OnInit {
-  experiences: ExperienceFull = {
-    title: "",
-    experiences: [{
-      position: "",
-      location: "",
-      startDate: "",
-      endDate: "",
-      technologies: "",
-      responsibilities: ""
-    }]
-  };
+export class ExperiencesComponent implements OnInit, OnDestroy {
+  experiences: ExperienceFull = experiencesData.en;
+  isLoading = true;
+  private readonly subscriptions = new Subscription();
 
   constructor(private translationService: TranslationService) { }
 
   ngOnInit(): void {
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.experiences = this.translationService.getTranslatedData<ExperienceFull>(experiencesData);
-    });
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(() => {
+        this.isLoading = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.getTranslatedData<ExperienceFull>(experiencesData).subscribe((data) => {
+        this.experiences = data;
+        this.isLoading = false;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

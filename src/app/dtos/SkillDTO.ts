@@ -10,15 +10,14 @@ export interface Skill {
 
 interface SkillTitle {
     en: string;
-    it: string;
-    de: string;
-    es: string;
+    it?: string;
+    de?: string;
+    es?: string;
+    [key: string]: string | undefined;
 }
-
 
 interface SkillItem {
-    name: string; 
-    icon: string, 
-    clicked: boolean 
+    name: string;
+    icon: string;
+    clicked: boolean;
 }
-

@@ -1,8 +1,9 @@
-import { Component, OnInit, HostListener, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, HostListener, PLATFORM_ID, Inject, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { projects } from '../../data/projects.data';
+import { projects as projectsData } from '../../data/projects.data';
 import { ProjectFull } from '../../dtos/ProjectDTO';
 import { TranslationService } from '../../services/translation.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-projects',
@@ -14,24 +15,13 @@ import { TranslationService } from '../../services/translation.service';
     './projects.carousel.component.scss'
   ]
 })
-export class ProjectsComponent implements OnInit {
-  projects: ProjectFull = {
-    title: "",
-    button: "",
-    moreDesc: "",
-    lessDesc: "",
-    projects: [{
-      title: "",
-      description: "",
-      image: "",
-      link: "",
-      expanded: false
-    }]
-  };
-
+export class ProjectsComponent implements OnInit, OnDestroy {
+  projects: ProjectFull = projectsData.en;
   isMobile = false;
   currentIndex = 0;
   maxChars = 150;
+  isLoading = true;
+  private readonly subscriptions = new Subscription();
 
   constructor(
     private translationService: TranslationService,
@@ -43,9 +33,23 @@ export class ProjectsComponent implements OnInit {
       this.checkIfMobile();
     }
 
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.projects = this.translationService.getTranslatedData<ProjectFull>(projects);
-    });
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(() => {
+        this.isLoading = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.getTranslatedData<ProjectFull>(projectsData).subscribe((data) => {
+        this.projects = data;
+        this.isLoading = false;
+        this.currentIndex = 0;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -60,10 +64,16 @@ export class ProjectsComponent implements OnInit {
   }
 
   toggleExpand(project: any): void {
+    if (this.isLoading) {
+      return;
+    }
     project.expanded = !project.expanded;
   }
 
   getTruncatedDescription(project: any): string {
+    if (this.isLoading) {
+      return '...';
+    }
     return project.expanded
       ? project.description
       : project.description.length > this.maxChars
@@ -72,10 +82,16 @@ export class ProjectsComponent implements OnInit {
   }
 
   moveToNext(): void {
+    if (this.isLoading || !this.projects.projects.length) {
+      return;
+    }
     this.currentIndex = (this.currentIndex + 1) % this.projects.projects.length;
   }
 
   moveToPrevious(): void {
+    if (this.isLoading || !this.projects.projects.length) {
+      return;
+    }
     this.currentIndex = (this.currentIndex - 1 + this.projects.projects.length) % this.projects.projects.length;
   }
 }

@@ -1,7 +1,7 @@
 <section class="statistics-component">
   <div class="statistics-section">
-    <h1>{{statsTitle}}</h1>
-    <div class="statistics-container">
+    <h1>{{ isLoading ? '...' : statsTitle }}</h1>
+    <div class="statistics-container" *ngIf="!isLoading; else statsLoading">
       <div class="statistics-row">
         <div *ngFor="let stat of statistics" class="statistics-card">
           <div class="statistics-content">
@@ -16,3 +16,19 @@
     </div>
   </div>
 </section>
+
+<ng-template #statsLoading>
+  <div class="statistics-container">
+    <div class="statistics-row">
+      <div class="statistics-card">
+        <div class="statistics-content">
+          <div class="statistics-icon">
+            <mat-icon>hourglass_empty</mat-icon>
+          </div>
+          <p class="statistics-label">...</p>
+          <h2 class="statistics-value">...</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

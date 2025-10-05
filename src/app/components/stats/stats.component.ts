@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { experiencesData } from '../../data/experiences.data';
-import { projects } from '../../data/projects.data';
+import { projects as projectsData } from '../../data/projects.data';
 import { TranslationService } from '../../services/translation.service';
-import { Stat, StatsItem } from '../../dtos/StatsDTO';
+import { Stat, StatsItem, StatsFull } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stats',
@@ -17,48 +18,55 @@ import { statsData } from '../../data/stats.data';
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss']
 })
-export class StatsComponent implements OnInit {
-  stats: StatsItem = {
-    hours: "",
-    months: "",
-    projects: "",
-    mostUsed: ""
-  };
-  statsTitle: string = "";
-  statistics: Stat[] = []
+export class StatsComponent implements OnInit, OnDestroy {
+  stats: StatsItem = { hours: '', months: '', projects: '', mostUsed: '' };
+  statsTitle = statsData.en.title;
+  statistics: Stat[] = [];
+  isLoading = true;
+
+  private readonly subscriptions = new Subscription();
 
   constructor(private translationService: TranslationService) { }
 
   ngOnInit(): void {
-    this.translationService.currentLanguage$.subscribe(language => {
-      const experiences = experiencesData.en.experiences;
-      const projectList = projects.en.projects;
-      this.statsTitle = statsData[language].title;
-      this.stats = this.calculateStats(experiences, projectList);
-      this.prepareStatistics(language);
-    });
+    const experiences = experiencesData.en.experiences;
+    const projectList = projectsData.en.projects;
+    this.stats = this.calculateStats(experiences, projectList);
+
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(() => {
+        this.isLoading = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.getTranslatedData<StatsFull>(statsData).subscribe((data) => {
+        this.statsTitle = data.title;
+        this.statistics = data.stats.map((stat, index) => ({
+          ...stat,
+          value: this.valueForIndex(index)
+        }));
+        this.isLoading = false;
+      })
+    );
   }
 
-  prepareStatistics(language: string): void {
-    const labels = statsData[language]?.stats;
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
-    if (labels) {
-      this.statistics = labels.map((stat, index) => {
-        switch (index) {
-          case 0: // Total Hours
-            return { ...stat, value: this.stats.hours };
-          case 1: // Total Months
-            return { ...stat, value: this.stats.months };
-          case 2: // Projects
-            return { ...stat, value: this.stats.projects };
-          case 3: // Most Used
-            return { ...stat, value: this.stats.mostUsed };
-          default:
-            return stat;
-        }
-      });
-    } else {
-      console.error(`Language ${language} not found in statsLabels.`);
+  private valueForIndex(index: number): string {
+    switch (index) {
+      case 0:
+        return this.stats.hours;
+      case 1:
+        return this.stats.months;
+      case 2:
+        return this.stats.projects;
+      case 3:
+        return this.stats.mostUsed;
+      default:
+        return '';
     }
   }
 

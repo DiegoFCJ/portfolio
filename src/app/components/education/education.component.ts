@@ -1,8 +1,9 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { EducationFull } from '../../dtos/EducationDTO';
 import { educationData } from '../../data/education.data';
 import { TranslationService } from '../../services/translation.service';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-education',
@@ -11,14 +12,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.scss']
 })
-export class EducationComponent implements OnInit {
-  educationList: EducationFull = {
-    title: '',
-    education: []
-  };
-
+export class EducationComponent implements OnInit, OnDestroy {
+  educationList: EducationFull = educationData.en;
   isLargeScreen: boolean = false;
   is2kMoreScreen: boolean = false;
+  isLoading = true;
+  private readonly subscriptions = new Subscription();
 
   constructor(private translationService: TranslationService) { }
 
@@ -33,9 +32,23 @@ export class EducationComponent implements OnInit {
       this.isLargeScreen = window.innerWidth >= 1497;
       this.is2kMoreScreen = window.innerWidth >= 2224;
     }
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.educationList = this.translationService.getTranslatedData<EducationFull>(educationData);
-    });
+
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(() => {
+        this.isLoading = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.getTranslatedData<EducationFull>(educationData).subscribe((data) => {
+        this.educationList = data;
+        this.isLoading = false;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   resizeConditions(i: number, last: boolean): string | null {

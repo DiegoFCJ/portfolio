@@ -1,8 +1,16 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
+import { Subscription } from 'rxjs';
+
+interface TooltipTexts {
+  prev: string;
+  next: string;
+  theme: string;
+  language: string;
+}
 
 @Component({
   selector: 'app-navigator',
@@ -15,7 +23,7 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
 })
-export class NavigatorComponent implements OnInit {
+export class NavigatorComponent implements OnInit, OnDestroy {
   @Input() totalSections: number = 8;
   @Input() currentSectionIndex: number = 0;
   @Output() navigateNext = new EventEmitter<void>();
@@ -30,33 +38,16 @@ export class NavigatorComponent implements OnInit {
   /** Controls visibility of the navigator */
   isOpen = false;
 
-  /** Tooltip translations */
-  tooltipTexts: { [key: string]: { prev: string; next: string; theme: string; language: string } } = {
-    en: {
-      prev: 'Previous section',
-      next: 'Next section',
-      theme: 'Theme',
-      language: 'Language'
-    },
-    it: {
-      prev: 'Sezione precedente',
-      next: 'Sezione successiva',
-      theme: 'Tema',
-      language: 'Lingua'
-    },
-    de: {
-      prev: 'Vorheriger Abschnitt',
-      next: 'Nächster Abschnitt',
-      theme: 'Thema',
-      language: 'Sprache'
-    },
-    es: {
-      prev: 'Sección anterior',
-      next: 'Siguiente sección',
-      theme: 'Tema',
-      language: 'Idioma'
-    }
+  private readonly baseTooltipTexts: TooltipTexts = {
+    prev: 'Previous section',
+    next: 'Next section',
+    theme: 'Theme',
+    language: 'Language'
   };
+  private translatedTooltips: TooltipTexts = this.baseTooltipTexts;
+  tooltipLoading = true;
+
+  private readonly subscriptions = new Subscription();
 
   constructor(
     private translationService: TranslationService,
@@ -67,15 +58,29 @@ export class NavigatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // keep language in sync with translation service
-    this.translationService.currentLanguage$.subscribe(lang => {
-      this.currentLang = lang;
-    });
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(lang => {
+        this.currentLang = lang;
+        this.tooltipLoading = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.translateContent<TooltipTexts>(this.baseTooltipTexts).subscribe(tooltips => {
+        this.translatedTooltips = tooltips;
+        this.tooltipLoading = false;
+      })
+    );
+
     if (isPlatformBrowser(this.platformId)) {
       const storedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'blue' | 'green') || 'light';
       this.currentTheme = storedTheme;
       this.applyTheme(storedTheme);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   onNext(): void {
@@ -120,8 +125,11 @@ export class NavigatorComponent implements OnInit {
   }
 
   /** Returns the tooltip text for the given key based on current language */
-  getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
-    return this.tooltipTexts[this.currentLang][key];
+  getTooltip(key: keyof TooltipTexts): string {
+    if (this.tooltipLoading) {
+      return '...';
+    }
+    return this.translatedTooltips[key];
   }
 
   private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {

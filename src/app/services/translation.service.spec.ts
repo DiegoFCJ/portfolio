@@ -1,65 +1,72 @@
 import { TestBed } from '@angular/core/testing';
+import { PLATFORM_ID } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { TranslationService } from './translation.service';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+const TRANSLATION_URL = (source: string, target: string, text: string) =>
+  `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${source}&tl=${target}&dt=t&q=${encodeURIComponent(text)}`;
 
 describe('TranslationService', () => {
   let service: TranslationService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+    });
     service = TestBed.inject(TranslationService);
+    httpMock = TestBed.inject(HttpTestingController);
+    window.localStorage.clear();
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+    window.localStorage.clear();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should have "en" as the default language', (done: DoneFn) => {
-    service.currentLanguage$.subscribe((language) => {
-      expect(language).toBe('en');
-      done();
-    });
+  it('should have "en" as the default language', async () => {
+    const language = await firstValueFrom(service.currentLanguage$);
+    expect(language).toBe('en');
   });
 
-  it('should update the language when setLanguage is called', (done: DoneFn) => {
+  it('should update the language when setLanguage is called', async () => {
     service.setLanguage('it');
-    service.currentLanguage$.subscribe((language) => {
-      expect(language).toBe('it');
-      done();
-    });
+    const language = await firstValueFrom(service.currentLanguage$);
+    expect(language).toBe('it');
   });
 
-  it('should support german and spanish languages', async () => {
-    service.setLanguage('de');
-    const german = await firstValueFrom(service.currentLanguage$);
-    expect(german).toBe('de');
+  it('should request translations on cache miss', async () => {
+    const text = 'Hello';
+    const request$ = firstValueFrom(service.translateText(text, 'it'));
 
-    service.setLanguage('es');
-    const spanish = await firstValueFrom(service.currentLanguage$);
-    expect(spanish).toBe('es');
+    const req = httpMock.expectOne(TRANSLATION_URL('en', 'it', text));
+    req.flush([[['Ciao', text]]]);
+
+    await expectAsync(request$).toBeResolvedTo('Ciao');
   });
 
-  it('should return the correct translated data for the current language', () => {
-    const mockData = {
-      en: 'Hello',
-      it: 'Ciao',
-    };
+  it('should reuse cached translations without new HTTP calls', async () => {
+    const text = 'Developer';
+    const url = TRANSLATION_URL('en', 'de', text);
 
-    // Test default language (en)
-    expect(service.getTranslatedData(mockData)).toBe('Hello');
+    const firstCall = firstValueFrom(service.translateText(text, 'de'));
+    httpMock.expectOne(url).flush([[['Entwickler', text]]]);
+    await expectAsync(firstCall).toBeResolvedTo('Entwickler');
 
-    // Change language to 'it' and test
-    service.setLanguage('it');
-    expect(service.getTranslatedData(mockData)).toBe('Ciao');
+    const secondCall = firstValueFrom(service.translateText(text, 'de'));
+    httpMock.expectNone(url);
+    await expectAsync(secondCall).toBeResolvedTo('Entwickler');
   });
 
-  it('should handle missing keys in getTranslatedData gracefully', () => {
-    const mockData = {
-      en: 'Hello',
-    };
-
-    // Test for a missing key ('it') in the provided data
-    service.setLanguage('it');
-    expect(service.getTranslatedData(mockData)).toBeUndefined();
+  it('should fall back to original content when translating the source language', async () => {
+    const data = { en: { message: 'Welcome' } };
+    const translated = await firstValueFrom(service.getTranslatedData(data));
+    expect(translated).toEqual(data.en);
   });
 });

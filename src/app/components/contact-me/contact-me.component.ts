@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { SocialComponent } from '../social/social.component';
 import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { contactMeData } from '../../data/contact-me.data';
@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ContactMe } from '../../dtos/ContactMeDTO';
 import { EmailService } from '../../services/email.service';
 import { TranslationService } from '../../services/translation.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-contact-me',
@@ -27,29 +28,32 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './contact-me.component.html',
   styleUrls: ['./contact-me.component.scss']
 })
-export class ContactMeComponent {
-  contactMe: ContactMe = {
-    title: "",
-    name: "",
-    nameReq: "",
-    email: "",
-    emailReq: "",
-    message: "",
-    messageReq: "",
-    sendBtn: "",
-    emailMessages: [{
-      keyMess: "",
-      valueMess: ""
-    }]
-  };
-  
+export class ContactMeComponent implements OnInit, OnDestroy {
+  contactMe: ContactMe = contactMeData.en;
   popupMessage: string = '';
+  isLoading = true;
+  private readonly subscriptions = new Subscription();
   @ViewChild(CustomPopupComponent) customPopup: CustomPopupComponent | undefined;
 
-  constructor(private emailService: EmailService, private translationService: TranslationService) {
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.contactMe = this.translationService.getTranslatedData<ContactMe>(contactMeData);
-    });
+  constructor(private emailService: EmailService, private translationService: TranslationService) { }
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(() => {
+        this.isLoading = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.getTranslatedData<ContactMe>(contactMeData).subscribe((data) => {
+        this.contactMe = data;
+        this.isLoading = false;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   /**
@@ -57,6 +61,10 @@ export class ContactMeComponent {
    * @param form The form data submitted by the user.
    */
   onSubmit(form: any): void {
+    if (this.isLoading) {
+      return;
+    }
+
     if (!this.emailService.canSubmitMessage()) {
       this.showPopup(this.contactMe.emailMessages.find(msg => msg.keyMess === 'one-each-two')?.valueMess || '');
       return;

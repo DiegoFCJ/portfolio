@@ -1,7 +1,9 @@
-import { Component, OnInit, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { skills } from '../../data/skills.data';
+import { skills as skillsData } from '../../data/skills.data';
 import { TranslationService } from '../../services/translation.service';
+import { Subscription } from 'rxjs';
+import { SkillFull } from '../../dtos/SkillDTO';
 
 @Component({
   selector: 'app-skills',
@@ -10,11 +12,17 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss', './skills.carousel.component.scss']
 })
-export class SkillsComponent implements OnInit {
-  skillFull = skills;
-  skillFullTitle: string = "";
-  sections: any[] = [];
-  loading = true;
+export class SkillsComponent implements OnInit, OnDestroy {
+  private readonly subscriptions = new Subscription();
+  private readonly baseSkills: SkillFull = skillsData;
+
+  skillFullTitle: string = this.baseSkills.title.en;
+  sections: any[] = this.baseSkills.skills.map(section => ({
+    ...section,
+    title: section.title.en,
+    skills: section.skills.map(skill => ({ ...skill, clicked: false }))
+  }));
+  isLoading = true;
   isMobile = false;
   currentIndex = 0;
   isBrowser = false;
@@ -27,19 +35,31 @@ export class SkillsComponent implements OnInit {
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
-    this.translationService.currentLanguage$.subscribe(lang => {
-      this.sections = this.skillFull.skills.map(section => ({
-        ...section,
-        title: section.title[lang],
-        skills: section.skills.map(skill => ({ ...skill, clicked: false }))
-      }));
-      this.skillFullTitle = this.skillFull.title[lang];
-      this.loading = false;
-    });
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(() => {
+        this.isLoading = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.translateContent<SkillFull>(this.baseSkills).subscribe((translated) => {
+        this.skillFullTitle = translated.title.en ?? this.baseSkills.title.en;
+        this.sections = translated.skills.map(section => ({
+          ...section,
+          title: section.title.en ?? '',
+          skills: section.skills.map(skill => ({ ...skill, clicked: false }))
+        }));
+        this.isLoading = false;
+      })
+    );
 
     if (this.isBrowser) {
       this.checkIfMobile();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -54,15 +74,21 @@ export class SkillsComponent implements OnInit {
   }
 
   moveToNext(): void {
+    if (this.isLoading || !this.sections.length) {
+      return;
+    }
     this.currentIndex = (this.currentIndex + 1) % this.sections.length;
   }
 
   moveToPrevious(): void {
+    if (this.isLoading || !this.sections.length) {
+      return;
+    }
     this.currentIndex = (this.currentIndex - 1 + this.sections.length) % this.sections.length;
   }
 
   onSkillClick(event: MouseEvent, skill: any): void {
-    if (!this.isBrowser) return;
+    if (!this.isBrowser || this.isLoading) return;
 
     skill.clicked = !skill.clicked;
 

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { aboutMeData } from '../../data/about-me.data';
 import { AboutMe } from '../../dtos/AboutMeDTO';
 import { TranslationService } from '../../services/translation.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-about',
@@ -10,15 +11,29 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent {
-  aboutMe: AboutMe = {
-    title: "",
-    description: ""
+export class AboutComponent implements OnInit, OnDestroy {
+  aboutMe: AboutMe = aboutMeData.en;
+  isLoading = true;
+  private readonly subscriptions = new Subscription();
+
+  constructor(private translationService: TranslationService) { }
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(() => {
+        this.isLoading = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.getTranslatedData<AboutMe>(aboutMeData).subscribe((data) => {
+        this.aboutMe = data;
+        this.isLoading = false;
+      })
+    );
   }
 
-  constructor(private translationService: TranslationService) {
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.aboutMe = this.translationService.getTranslatedData<AboutMe>(aboutMeData);
-    });
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

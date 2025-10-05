@@ -1,11 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { LandingMaskComponent } from '../landing-mask/landing-mask.component';
 import { SocialComponent } from '../social/social.component';
 import { CommonModule } from '@angular/common';
 import { heroData } from '../../data/hero.data';
 import { TranslationService } from '../../services/translation.service';
-import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { HeroFull } from '../../dtos/HeroDTO';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hero',
@@ -13,14 +13,13 @@ import { HeroFull } from '../../dtos/HeroDTO';
   imports: [
     LandingMaskComponent,
     SocialComponent,
-    CustomPopupComponent,
     CommonModule
   ],
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss']
 })
-export class HeroComponent implements OnInit {
-  heroData: HeroFull = heroData.en; 
+export class HeroComponent implements OnInit, OnDestroy {
+  heroData: HeroFull = heroData.en;
   @Output() navigateNextSection = new EventEmitter<void>();
 
   // Typing animation properties
@@ -38,17 +37,35 @@ export class HeroComponent implements OnInit {
   // Store the timeout references to be able to clear them
   timeoutIds: ReturnType<typeof setTimeout>[] = []; // This will store both browser and Node.js timeout ids
 
+  isLoading = true;
+  private readonly subscriptions = new Subscription();
+
   constructor(private translationService: TranslationService) { }
 
   ngOnInit() {
-    // Subscribe to language changes
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.heroData = this.translationService.getTranslatedData(heroData);
-      this.resetAnimation();  // Reset animation before starting again
-      setTimeout(() => {
-        this.startTypingAnimation();  // Restart the animation after the reset
-      }, 100);  // Small delay to ensure view updates before animation starts
-    });
+    this.subscriptions.add(
+      this.translationService.currentLanguage$.subscribe(() => {
+        this.isLoading = true;
+        this.clearTimeOuts();
+        this.isAnimating = false;
+      })
+    );
+
+    this.subscriptions.add(
+      this.translationService.getTranslatedData(heroData).subscribe((data) => {
+        this.heroData = data;
+        this.isLoading = false;
+        this.resetAnimation();  // Reset animation before starting again
+        setTimeout(() => {
+          this.startTypingAnimation();  // Restart the animation after the reset
+        }, 100);  // Small delay to ensure view updates before animation starts
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+    this.clearTimeOuts();
   }
 
   // Resets animation state to start over
@@ -117,6 +134,6 @@ export class HeroComponent implements OnInit {
   }
 
   navigateToNextSection(): void {
-  this.navigateNextSection.emit();
-}
+    this.navigateNextSection.emit();
+  }
 }
