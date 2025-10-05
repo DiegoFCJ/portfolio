@@ -1,0 +1,2 @@
+import './polyfills.server.mjs';
+import{J as n,f as a}from"./chunk-5GA6B7FI.mjs";var u=class t{currentLanguage=new a("en");currentLanguage$=this.currentLanguage.asObservable();constructor(){}setLanguage(e){this.currentLanguage.next(e)}getTranslatedData(e){let r=this.currentLanguage.value;return e[r]}getCurrentLanguage(){return this.currentLanguage.value}static \u0275fac=function(r){return new(r||t)};static \u0275prov=n({token:t,factory:t.\u0275fac,providedIn:"root"})};export{u as a};
