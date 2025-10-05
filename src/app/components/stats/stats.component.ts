@@ -45,13 +45,13 @@ export class StatsComponent implements OnInit {
     if (labels) {
       this.statistics = labels.map((stat, index) => {
         switch (index) {
-          case 0: // Total Hours
+          case 0:
             return { ...stat, value: this.stats.hours };
-          case 1: // Total Months
+          case 1:
             return { ...stat, value: this.stats.months };
-          case 2: // Projects
+          case 2:
             return { ...stat, value: this.stats.projects };
-          case 3: // Most Used
+          case 3:
             return { ...stat, value: this.stats.mostUsed };
           default:
             return stat;
@@ -97,10 +97,10 @@ export class StatsComponent implements OnInit {
       .map(([tech]) => this.formatTechnology(tech));
 
     return {
-      hours: `${Math.round(totalHours)}`,
-      months: `${totalMonths}`,
-      projects: `${totalProjects}`,
-      mostUsed: sortedTechnologies.join(', ')
+      hours: `${Math.round(totalHours)}+ engineering hours delivered`,
+      months: `${totalMonths}+ months across enterprise projects`,
+      projects: `${totalProjects} end-to-end initiatives led`,
+      mostUsed: sortedTechnologies.join(' · ')
     };
   }
 
