@@ -23,7 +23,7 @@ describe('EmailService', () => {
       expect(service.isValidEmail('invalid-email')).toBeFalse();
     });
 
-    it('should return false for an email with an invalid domain', () => {
+    it('should return false for an email missing a valid top-level domain', () => {
       expect(service.isValidEmail('test@invalid_domain')).toBeFalse();
     });
   });

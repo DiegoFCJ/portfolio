@@ -42,7 +42,6 @@
     "@types/three": "^0.177.0",
     "angular-cli-ghpages": "^2.0.3",
     "dotenv-webpack": "^8.1.0",
-    "email-validator": "^2.0.4",
     "emailjs-com": "^3.2.0",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
@@ -58,5 +57,6 @@
   },
   "overrides": {
     "on-headers": "file:vendor/on-headers"
+    "tmp": "^0.2.3"
   }
 }

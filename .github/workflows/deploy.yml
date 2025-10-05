@@ -28,12 +28,12 @@ jobs:
         run: npm run build -- --output-path=dist/portfolio --base-href="/portfolio/"
 
       - name: Verify Build Output
-        run: ls dist/portfolio
+        run: ls dist/portfolio/browser
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: dist/portfolio
+          folder: dist/portfolio/browser
           clean: true
