@@ -54,6 +54,10 @@
     "puppeteer": "^23.7.0",
     "sass": "^1.80.7",
     "three": "^0.177.0",
-    "typescript": "~5.5.2"
+    "typescript": "~5.5.2",
+    "webpack-dev-server": "^5.1.0"
+  },
+  "overrides": {
+    "webpack-dev-server": "^5.1.0"
   }
 }
