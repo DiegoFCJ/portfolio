@@ -21,7 +21,12 @@ if (chromeExecutablePath) {
   delete process.env.CHROME_BIN;
 }
 
-const chromeHeadlessFlags = ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'];
+const chromeHeadlessFlags = [
+  '--no-sandbox',
+  '--disable-gpu',
+  '--disable-dev-shm-usage',
+  '--disable-setuid-sandbox',
+];
 
 if (!process.env.CHROME_BIN && chromeExecutablePath) {
   process.env.CHROME_BIN = chromeExecutablePath;
@@ -38,8 +43,8 @@ module.exports = function (config) {
             .filter(Boolean)
       : undefined;
 
-  const browsers = (requestedBrowsers || ['ChromeHeadlessNoSandbox']).map((browser) =>
-    browser === 'ChromeHeadless' ? 'ChromeHeadlessNoSandbox' : browser,
+  const browsers = (requestedBrowsers || ['ChromeHeadless']).map((browser) =>
+    browser === 'ChromeHeadlessNoSandbox' ? 'ChromeHeadless' : browser,
   );
 
   config.set({
@@ -76,16 +81,31 @@ module.exports = function (config) {
     singleRun: false,
     restartOnFileChange: true,
     customLaunchers: {
-      ChromeHeadlessNoSandbox: {
+      ChromeHeadless: {
         base: 'ChromeHeadless',
         flags: chromeHeadlessFlags,
         executablePath: chromeExecutablePath,
       },
-      ChromeHeadlessPuppeteer: {
+      ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
         flags: chromeHeadlessFlags,
         executablePath: chromeExecutablePath,
       },
     },
   });
+
+  const chromeLauncherModule = require('karma-chrome-launcher');
+  const chromeHeadlessProvider = chromeLauncherModule['launcher:ChromeHeadless'];
+
+  config.plugins.push({
+    'launcher:ChromeHeadlessBase': chromeHeadlessProvider,
+  });
+
+  if (config.customLaunchers?.ChromeHeadless) {
+    config.customLaunchers.ChromeHeadless.base = 'ChromeHeadlessBase';
+  }
+
+  if (config.customLaunchers?.ChromeHeadlessNoSandbox) {
+    config.customLaunchers.ChromeHeadlessNoSandbox.base = 'ChromeHeadlessBase';
+  }
 };
