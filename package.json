@@ -55,5 +55,8 @@
     "sass": "^1.80.7",
     "three": "^0.177.0",
     "typescript": "~5.5.2"
+  },
+  "overrides": {
+    "gh-pages": "^6.1.1"
   }
 }
