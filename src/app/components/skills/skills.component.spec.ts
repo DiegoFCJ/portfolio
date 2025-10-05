@@ -11,8 +11,7 @@ describe('SkillsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule],
-      declarations: [SkillsComponent],
+      imports: [CommonModule, SkillsComponent],
     });
 
     fixture = TestBed.createComponent(SkillsComponent);
