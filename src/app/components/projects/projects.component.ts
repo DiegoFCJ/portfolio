@@ -33,7 +33,6 @@ export class ProjectsComponent implements OnInit {
 
   isMobile = false;
   currentIndex = 0;
-  maxChars = 150;
 
   constructor(
     private translationService: TranslationService,
@@ -63,14 +62,6 @@ export class ProjectsComponent implements OnInit {
 
   toggleExpand(project: any): void {
     project.expanded = !project.expanded;
-  }
-
-  getTruncatedDescription(project: any): string {
-    return project.expanded
-      ? project.description
-      : project.description.length > this.maxChars
-        ? project.description.substring(0, this.maxChars) + '...'
-        : project.description;
   }
 
   moveToNext(): void {

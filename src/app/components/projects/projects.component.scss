@@ -52,12 +52,43 @@ section {
         color: #4b5563;
     }
 
-    .more,
-    .less {
+    .project-description {
+        margin-bottom: 0.75em;
+        overflow: hidden;
+        display: block;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        max-height: 6.5em;
+        opacity: 0.9;
+        transition: max-height 0.4s ease, opacity 0.4s ease;
+
+        p {
+            margin: 0;
+        }
+
+        &.expanded {
+            -webkit-line-clamp: unset;
+            display: block;
+            max-height: 1000px;
+            opacity: 1;
+            overflow: visible;
+        }
+    }
+
+    .toggle-description {
+        background: none;
+        border: none;
+        color: inherit;
+        font: inherit;
         cursor: pointer;
         text-decoration: underline;
-        display: inline-block;
-        margin-top: 5px;
+        margin-bottom: 1em;
+
+        &:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 2px;
+        }
     }
 
     // Link inside project card
@@ -66,10 +97,6 @@ section {
         font-weight: bold;
         transition: color 0.3s;
     }
-}
-
-.project-card.expanded p {
-    overflow: visible;
 }
 
 /* Mobile responsiveness */
