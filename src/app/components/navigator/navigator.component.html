@@ -7,13 +7,13 @@
 <div class="modern-navigator" *ngIf="isOpen">
   <div class="arrow-container">
     <!-- Previous button -->
-    <button class="arrow-button" (click)="onPrevious()" aria-label="Previous section"
+    <button class="arrow-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section"
       [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
       <mat-icon>arrow_upward</mat-icon>
     </button>
 
     <!-- Next button -->
-    <button class="arrow-button" (click)="onNext()" aria-label="Next section"
+    <button class="arrow-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section"
       [matTooltip]="getTooltip('next')" matTooltipPosition="left">
       <mat-icon>arrow_downward</mat-icon>
     </button>
