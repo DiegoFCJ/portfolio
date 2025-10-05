@@ -5,39 +5,32 @@ export const educationData: EducationFullLangs = {
         title: 'Education',
         education: [
             {
-                title: 'Bachelor\'s Degree in Computer Science for Digital Businesses',
-                institution: 'Pegaso Telematic University',
-                startDate: 'Nov 2023',
-                endDate: 'Ongoing',
-                description: 'A program focused on applied computer science in the context of digital businesses, emphasizing data management, software development, and digital technologies for enterprises.'
-            },
-            {
                 title: 'Cloud-Native Development with OpenShift and Kubernetes',
                 institution: 'RedHat - Coursera',
                 startDate: 'Aug 2023',
                 endDate: 'Sep 2023',
-                description: 'Certification program covering cloud-native development with OpenShift and Kubernetes, essential skills for managing and deploying applications in cloud environments.'
+                description: 'Certification program with hands-on labs on OpenShift and Kubernetes, focusing on container orchestration, CI/CD automation, and resilient application deployment in cloud environments.'
             },
             {
                 title: 'Boomi training & certifications',
                 institution: 'Boomi',
                 startDate: 'Feb 2025',
                 endDate: 'Mar 2025',
-                description: 'Boomi Integration Professional, API Management & API Design.'
+                description: 'Completed Boomi Integration Professional and API Management certifications, designing and governing integrations and APIs across hybrid environments.'
             },
             {
                 title: 'Junior Full Stack Developer',
                 institution: 'TNV Academy',
                 startDate: 'Feb 2022',
                 endDate: 'Dec 2022',
-                description: 'An intensive course focusing on C, .NET, C#, Spring Boot, Java, Angular 14, Android, and Unity, providing a strong foundation for full-stack development.'
+                description: 'Intensive full-stack bootcamp covering C, .NET, C#, Spring Boot, Java, Angular 14, Android, and Unity, with project work on end-to-end application development.'
             },
             {
                 title: 'High School Diploma in Scientific Studies',
                 institution: 'Liceo Scientifico A.Scorcu',
                 startDate: 'Sep 2010',
                 endDate: 'Jul 2016',
-                description: 'A general education with a scientific focus, developing analytical and problem-solving skills.'
+                description: 'Scientific-track diploma with advanced mathematics, physics, and laboratory studies, strengthening analytical and problem-solving skills.'
             }
         ]
     },
@@ -45,39 +38,32 @@ export const educationData: EducationFullLangs = {
         title: 'Formazione',
         education: [
             {
-                title: 'Laurea Triennale in Informatica per le Aziende Digitali',
-                institution: 'Università Telematica Pegaso',
-                startDate: 'Nov 2023',
-                endDate: 'In corso',
-                description: 'Un programma incentrato sull\'informatica applicata nel contesto delle aziende digitali, con enfasi sulla gestione dei dati, sviluppo software e tecnologie digitali per le imprese.'
-            },
-            {
                 title: 'Sviluppo Cloud-Nativo con OpenShift e Kubernetes',
                 institution: 'RedHat - Coursera',
                 startDate: 'Ago 2023',
                 endDate: 'Set 2023',
-                description: 'Programma di certificazione su sviluppo cloud-nativo con OpenShift e Kubernetes, competenze essenziali per gestire e distribuire applicazioni in ambienti cloud.'
+                description: 'Programma di certificazione con laboratori pratici su OpenShift e Kubernetes, focalizzato su orchestrazione di container, automazione CI/CD e deployment resiliente in ambienti cloud.'
             },
             {
                 title: 'Formazione e certificazioni Boomi',
                 institution: 'Boomi',
                 startDate: 'Feb 2025',
                 endDate: 'Mar 2025',
-                description: 'Boomi Integration Professional, API Management & API Design.'
+                description: 'Completate le certificazioni Boomi Integration Professional e API Management, progettando e governando integrazioni e API in ambienti ibridi.'
             },
             {
                 title: 'Junior Full Stack Developer',
                 institution: 'TNV Academy',
                 startDate: 'Feb 2022',
                 endDate: 'Dic 2022',
-                description: 'Un corso intensivo focalizzato su C, .NET, C#, Spring Boot, Java, Angular 14, Android e Unity, fornendo una solida base per lo sviluppo full-stack.'
+                description: 'Bootcamp intensivo full-stack su C, .NET, C#, Spring Boot, Java, Angular 14, Android e Unity, con progetti end-to-end di sviluppo applicativo.'
             },
             {
                 title: 'Diploma di Maturità Scientifica',
                 institution: 'Liceo Scientifico A.Scorcu',
                 startDate: 'Set 2010',
                 endDate: 'Lug 2016',
-                description: 'Un\'educazione generale con un focus scientifico, sviluppando capacità analitiche e di risoluzione dei problemi.'
+                description: 'Percorso scientifico con approfondimenti in matematica, fisica e laboratori, rafforzando le capacità analitiche e di problem solving.'
             }
         ]
     },
@@ -85,39 +71,32 @@ export const educationData: EducationFullLangs = {
         title: 'Ausbildung',
         education: [
             {
-                title: 'Bachelor in Informatik für digitale Unternehmen',
-                institution: 'Pegaso Telematic University',
-                startDate: 'Nov 2023',
-                endDate: 'Laufend',
-                description: 'Ein Studiengang mit Schwerpunkt auf angewandter Informatik in digitalen Unternehmen.'
-            },
-            {
                 title: 'Cloud-Native-Entwicklung mit OpenShift und Kubernetes',
                 institution: 'RedHat - Coursera',
                 startDate: 'Aug 2023',
                 endDate: 'Sep 2023',
-                description: 'Zertifizierungskurs über cloud-native Entwicklung mit OpenShift und Kubernetes.'
+                description: 'Zertifizierungsprogramm mit praxisnahen Labs zu OpenShift und Kubernetes, mit Fokus auf Container-Orchestrierung, CI/CD-Automatisierung und resilientem Deployment in Cloud-Umgebungen.'
             },
             {
                 title: 'Boomi Schulungen und Zertifizierungen',
                 institution: 'Boomi',
                 startDate: 'Feb 2025',
                 endDate: 'Mar 2025',
-                description: 'Boomi Integration Professional, API Management & API Design.'
+                description: 'Abschluss der Zertifizierungen Boomi Integration Professional und API Management mit Schwerpunkt auf dem Design und der Steuerung von Integrationen und APIs in hybriden Landschaften.'
             },
             {
                 title: 'Junior Full Stack Developer',
                 institution: 'TNV Academy',
                 startDate: 'Feb 2022',
                 endDate: 'Dez 2022',
-                description: 'Intensivkurs zu C, .NET, C#, Spring Boot, Java, Angular 14, Android und Unity.'
+                description: 'Intensiv-Bootcamp zu C, .NET, C#, Spring Boot, Java, Angular 14, Android und Unity mit Projektarbeit für ganzheitliche Anwendungsentwicklung.'
             },
             {
                 title: 'Abitur mit naturwissenschaftlichem Schwerpunkt',
                 institution: 'Liceo Scientifico A.Scorcu',
                 startDate: 'Sep 2010',
                 endDate: 'Jul 2016',
-                description: 'Allgemeine Ausbildung mit naturwissenschaftlichem Fokus.'
+                description: 'Naturwissenschaftlicher Bildungsgang mit vertiefter Mathematik, Physik und Laborarbeit zur Stärkung analytischer und problemlösender Fähigkeiten.'
             }
         ]
     },
@@ -125,39 +104,32 @@ export const educationData: EducationFullLangs = {
         title: 'Educación',
         education: [
             {
-                title: 'Grado en Informática para Empresas Digitales',
-                institution: 'Universidad Telemática Pegaso',
-                startDate: 'Nov 2023',
-                endDate: 'En curso',
-                description: 'Programa centrado en informática aplicada en el contexto de los negocios digitales.'
-            },
-            {
                 title: 'Desarrollo nativo en la nube con OpenShift y Kubernetes',
                 institution: 'RedHat - Coursera',
                 startDate: 'Ago 2023',
                 endDate: 'Sep 2023',
-                description: 'Curso de certificación sobre desarrollo nativo en la nube con OpenShift y Kubernetes.'
+                description: 'Programa de certificación con laboratorios prácticos en OpenShift y Kubernetes, enfocado en orquestación de contenedores, automatización CI/CD y despliegues resilientes en la nube.'
             },
             {
                 title: 'Formación y certificaciones Boomi',
                 institution: 'Boomi',
                 startDate: 'Feb 2025',
                 endDate: 'Mar 2025',
-                description: 'Boomi Integration Professional, API Management & API Design.'
+                description: 'Finalización de las certificaciones Boomi Integration Professional y API Management, diseñando y gobernando integraciones y API en entornos híbridos.'
             },
             {
                 title: 'Junior Full Stack Developer',
                 institution: 'TNV Academy',
                 startDate: 'Feb 2022',
                 endDate: 'Dic 2022',
-                description: 'Curso intensivo de C, .NET, C#, Spring Boot, Java, Angular 14, Android y Unity.'
+                description: 'Bootcamp intensivo full-stack sobre C, .NET, C#, Spring Boot, Java, Angular 14, Android y Unity, con proyectos integrales de desarrollo de aplicaciones.'
             },
             {
                 title: 'Bachillerato Científico',
                 institution: 'Liceo Scientifico A.Scorcu',
                 startDate: 'Sep 2010',
                 endDate: 'Jul 2016',
-                description: 'Educación general con enfoque científico y desarrollo de habilidades analíticas.'
+                description: 'Itinerario científico con énfasis en matemáticas avanzadas, física y laboratorios, fortaleciendo las habilidades analíticas y de resolución de problemas.'
             }
         ]
     }

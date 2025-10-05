@@ -61,6 +61,7 @@ jobs:
           branch: gh-pages
           folder: dist/portfolio/browser
           target-folder: ${{ env.PREVIEW_FOLDER }}
+          force: true
           clean: false
 
       - name: Post preview link to job summary

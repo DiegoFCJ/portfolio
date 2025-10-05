@@ -9,21 +9,27 @@ export const projects: ProjectsLangs = {
         projects: [
             {
                 title: 'Micro Games',
-                description: 'A collection of simple games built using various technologies. Key Features: Multiple mini-games designed to challenge players. Interactive UI with responsive design. Easy to extend with new games and features.',
+                status: 'Status: Active · Open source',
+                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
+                description: 'Modular suite of casual mini-games with shared core, player profiles and a mobile-ready leaderboard for quick sessions.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/MicroGames',
                 expanded: false
             },
             {
                 title: 'Self',
-                description: 'This project provides tools for tracking goals and progress, focusing on self-improvement and productivity through an intuitive interface. Users can add plugins for enhanced functionality. Key Features: Goal tracking and visualization, User-friendly task management dashboard, Optimized with modern web technologies.',
+                status: 'Status: Public beta (2024)',
+                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
+                description: 'Productivity hub that tracks habits, exposes a plugin marketplace and syncs goals with calendar reminders across devices.',
                 image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/self',
                 expanded: false
             },
             {
                 title: 'E-commerce',
-                description: 'This repository serves as the foundation for an e-commerce application, providing essential features and structure for building a robust online shopping platform.',
+                status: 'Status: In development',
+                technologies: ['Spring Boot 3', 'Angular 17', 'MySQL', 'Keycloak', 'Docker'],
+                description: 'Headless commerce template with modular checkout, inventory workflows and an admin dashboard ready for ERP integrations.',
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/E-commerce',
                 expanded: false
@@ -38,21 +44,27 @@ export const projects: ProjectsLangs = {
         projects: [
             {
                 title: 'Micro Games',
-                description: 'Una raccolta di giochi semplici costruiti utilizzando varie tecnologie. Caratteristiche principali: Molti mini-giochi progettati per sfidare i giocatori. UI interattiva con design reattivo. Facile da estendere con nuovi giochi e funzionalità.',
+                status: 'Stato: Attivo · Open source',
+                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
+                description: 'Suite modulare di mini-giochi casual con core condiviso, profili utente e classifica ottimizzata per sessioni rapide su mobile.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/MicroGames',
                 expanded: false
             },
             {
                 title: 'Self',
-                description: 'Questo progetto fornisce strumenti per monitorare obiettivi e progressi, con un focus sull\'auto-miglioramento e produttività tramite un\'interfaccia intuitiva. Gli utenti possono aggiungere plugin per funzionalità avanzate. Caratteristiche principali: Monitoraggio obiettivi e visualizzazione, Dashboard di gestione attività intuitiva, Ottimizzato con tecnologie web moderne.',
+                status: 'Stato: Beta pubblica (2024)',
+                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
+                description: 'Hub di produttività che traccia le abitudini, integra un marketplace di plugin e sincronizza gli obiettivi con promemoria calendario multi-dispositivo.',
                 image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/self',
                 expanded: false
             },
             {
                 title: 'E-commerce',
-                description: 'Questo repository serve come base per un\'applicazione di e-commerce, fornendo funzionalità essenziali e struttura per costruire una piattaforma di shopping online robusta.',
+                status: 'Stato: In sviluppo',
+                technologies: ['Spring Boot 3', 'Angular 17', 'MySQL', 'Keycloak', 'Docker'],
+                description: 'Template headless per e-commerce con checkout modulare, flussi di inventario e dashboard amministrativa pronta per integrazioni ERP.',
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/E-commerce',
                 expanded: false
@@ -67,21 +79,27 @@ export const projects: ProjectsLangs = {
         projects: [
             {
                 title: 'Micro Games',
-                description: 'A collection of simple games built using various technologies.',
+                status: 'Status: Aktiv · Open Source',
+                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
+                description: 'Modulare Sammlung von Casual-Minispielen mit gemeinsamem Kern, Spielerprofilen und einer mobiloptimierten Bestenliste.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/MicroGames',
                 expanded: false
             },
             {
                 title: 'Self',
-                description: 'Tools for tracking goals and progress through an intuitive interface.',
+                status: 'Status: Öffentliche Beta (2024)',
+                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
+                description: 'Produktivitätsplattform, die Gewohnheiten erfasst, einen Plugin-Marktplatz integriert und Ziele mit Kalendererinnerungen synchronisiert.',
                 image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/self',
                 expanded: false
             },
             {
                 title: 'E-commerce',
-                description: 'Base repository for building a robust e-commerce platform.',
+                status: 'Status: In Entwicklung',
+                technologies: ['Spring Boot 3', 'Angular 17', 'MySQL', 'Keycloak', 'Docker'],
+                description: 'Headless-Commerce-Vorlage mit modularem Checkout, Bestands-Workflows und einem Admin-Dashboard zur ERP-Integration.',
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/E-commerce',
                 expanded: false
@@ -96,21 +114,27 @@ export const projects: ProjectsLangs = {
         projects: [
             {
                 title: 'Micro Games',
-                description: 'Una colección de juegos sencillos construidos con varias tecnologías.',
+                status: 'Estado: Activo · Código abierto',
+                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
+                description: 'Suite modular de minijuegos casuales con núcleo compartido, perfiles de usuario y ranking optimizado para sesiones móviles.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/MicroGames',
                 expanded: false
             },
             {
                 title: 'Self',
-                description: 'Herramientas para seguir objetivos y progresos con una interfaz intuitiva.',
+                status: 'Estado: Beta pública (2024)',
+                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
+                description: 'Centro de productividad que registra hábitos, integra un marketplace de plugins y sincroniza objetivos con recordatorios de calendario.',
                 image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/self',
                 expanded: false
             },
             {
                 title: 'E-commerce',
-                description: 'Repositorio base para una sólida plataforma de compras en línea.',
+                status: 'Estado: En desarrollo',
+                technologies: ['Spring Boot 3', 'Angular 17', 'MySQL', 'Keycloak', 'Docker'],
+                description: 'Plantilla headless de comercio electrónico con checkout modular, flujos de inventario y panel administrativo listo para integrarse con ERP.',
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/E-commerce',
                 expanded: false
