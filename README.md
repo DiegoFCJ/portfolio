@@ -77,6 +77,10 @@ npm run serve:ssr:portfolio
 ```
 The Express server listens on `http://localhost:4000` by default.
 
+### Deployments
+- **Production** – Tag the commit you want to publish with a prefix `v` (for example `v1.3.0`) and push the tag. The GitHub Actions workflow will build the project and update the `gh-pages` branch automatically.
+- **Pull Request preview** – Each open PR gets its own preview at `https://<github-username>.github.io/portfolio/previews/pr-<PR_NUMBER>/`. Once the `Deploy Preview to GitHub Pages / build-and-deploy` job succeeds, the same URL is shown in the PR environments panel.
+
 ---
 
 ## Italiano
@@ -129,6 +133,10 @@ npm run build
 npm run serve:ssr:portfolio
 ```
 Il server Express è in ascolto su `http://localhost:4000`.
+
+### Deployment
+- **Produzione** – Aggiungi un tag con prefisso `v` (es. `v1.3.0`) al commit da pubblicare e pushalo. Il workflow di GitHub Actions compilerà il progetto e aggiornerà automaticamente il branch `gh-pages`.
+- **Anteprima delle Pull Request** – Ogni PR aperta pubblica un'anteprima su `https://<github-username>.github.io/portfolio/previews/pr-<NUMERO_PR>/`. Quando il job `Deploy Preview to GitHub Pages / build-and-deploy` va a buon fine, lo stesso link compare anche nel pannello degli ambienti della PR.
 
 ---
 
@@ -183,6 +191,10 @@ npm run serve:ssr:portfolio
 ```
 Der Express-Server ist standardmäßig unter `http://localhost:4000` erreichbar.
 
+### Bereitstellungen
+- **Produktion** – Versioniere den gewünschten Commit mit einem Tag, das mit `v` beginnt (z. B. `v1.3.0`), und pushe das Tag. Das GitHub-Actions-Workflow baut das Projekt und aktualisiert den `gh-pages`-Branch automatisch.
+- **Pull-Request-Vorschau** – Für jede offene PR wird eine Vorschau unter `https://<github-username>.github.io/portfolio/previews/pr-<PR_NUMMER>/` veröffentlicht. Nachdem der Job `Deploy Preview to GitHub Pages / build-and-deploy` erfolgreich war, erscheint derselbe Link im Umgebungsbereich der PR.
+
 ---
 
 ## Español
@@ -235,3 +247,7 @@ npm run build
 npm run serve:ssr:portfolio
 ```
 El servidor Express escucha en `http://localhost:4000` por defecto.
+
+### Despliegues
+- **Producción** – Etiqueta el commit que quieres publicar con un prefijo `v` (por ejemplo, `v1.3.0`) y sube la etiqueta. El workflow de GitHub Actions compilará el proyecto y actualizará automáticamente la rama `gh-pages`.
+- **Vista previa de Pull Request** – Cada PR abierta publica una vista previa en `https://<github-username>.github.io/portfolio/previews/pr-<NÚMERO_PR>/`. Cuando el job `Deploy Preview to GitHub Pages / build-and-deploy` finaliza correctamente, el mismo enlace aparece en el panel de entornos de la PR.
