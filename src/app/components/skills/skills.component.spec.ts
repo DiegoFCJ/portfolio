@@ -2,16 +2,24 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SkillsComponent } from './skills.component';
 import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
-import { skills } from '../../data/skills.data'; // Import skills data
-import { Skill } from '../../dtos/SkillDTO'; // Import Skill DTO
+import { skills } from '../../data/skills.data';
+import { TranslationService } from '../../services/translation.service';
 
 describe('SkillsComponent', () => {
   let component: SkillsComponent;
   let fixture: ComponentFixture<SkillsComponent>;
 
   beforeEach(() => {
+    const translationServiceStub = {
+      currentLanguage$: of<'en'>('en'),
+      translateContent: () => of(skills)
+    } as Pick<TranslationService, 'currentLanguage$' | 'translateContent'>;
+
     TestBed.configureTestingModule({
       imports: [CommonModule, SkillsComponent],
+      providers: [
+        { provide: TranslationService, useValue: translationServiceStub }
+      ]
     });
 
     fixture = TestBed.createComponent(SkillsComponent);

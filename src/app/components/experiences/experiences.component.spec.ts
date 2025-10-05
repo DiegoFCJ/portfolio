@@ -3,6 +3,7 @@ import { ExperiencesComponent } from './experiences.component';
 import { of } from 'rxjs';
 import { experiencesData } from '../../data/experiences.data';
 import { TranslationService } from '../../services/translation.service';
+import { LanguageMap } from '../../models/language.types';
 
 /**
  * Unit tests for ExperiencesComponent.
@@ -10,8 +11,8 @@ import { TranslationService } from '../../services/translation.service';
 class MockTranslationService {
   currentLanguage$ = of<'en'>('en');
 
-  getTranslatedData<T>(data: { [key: string]: T }) {
-    return of(data['en']);
+  getTranslatedData<T>(data: LanguageMap<T>) {
+    return of(data.en);
   }
 }
 

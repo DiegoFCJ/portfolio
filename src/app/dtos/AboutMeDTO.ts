@@ -1,10 +1,6 @@
-export interface AboutMeLangs {
-    en: AboutMe;
-    it?: AboutMe;
-    de?: AboutMe;
-    es?: AboutMe;
-    [key: string]: AboutMe | undefined;
-}
+import { LanguageMap } from '../models/language.types';
+
+export type AboutMeLangs = LanguageMap<AboutMe>;
 
 export interface AboutMe {
     title: string;

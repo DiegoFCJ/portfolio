@@ -1,25 +1,18 @@
+import { LanguageMap } from '../models/language.types';
+
 export interface SkillFull {
-    title: SkillTitle;
+    title: LanguageMap<string>;
     skills: Skill[];
 }
 
 export interface Skill {
-    title: SkillTitle;
+    title: LanguageMap<string>;
     skills: SkillItem[];
 }
 
-interface SkillTitle {
-    en: string;
-    it?: string;
-    de?: string;
-    es?: string;
-    [key: string]: string | undefined;
-}
-
-
-interface SkillItem {
-    name: string; 
-    icon: string, 
-    clicked: boolean 
+export interface SkillItem {
+    name: string;
+    icon: string;
+    clicked: boolean;
 }
 

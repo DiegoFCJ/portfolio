@@ -1,10 +1,6 @@
-export interface ProjectsLangs {
-    en: ProjectFull;
-    it?: ProjectFull;
-    de?: ProjectFull;
-    es?: ProjectFull;
-    [key: string]: ProjectFull | undefined;
-}
+import { LanguageMap } from '../models/language.types';
+
+export type ProjectsLangs = LanguageMap<ProjectFull>;
 
 export interface ProjectFull {
     title: string;

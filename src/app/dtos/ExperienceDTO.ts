@@ -1,10 +1,6 @@
-export interface ExperienceFullLangs {
-    en: ExperienceFull;
-    it?: ExperienceFull;
-    de?: ExperienceFull;
-    es?: ExperienceFull;
-    [key: string]: ExperienceFull | undefined;
-}
+import { LanguageMap } from '../models/language.types';
+
+export type ExperienceFullLangs = LanguageMap<ExperienceFull>;
 
 export interface ExperienceFull {
     title: string;

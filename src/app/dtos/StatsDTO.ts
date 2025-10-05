@@ -1,10 +1,6 @@
-export interface Stats {
-    en: StatsFull,
-    it?: StatsFull,
-    de?: StatsFull,
-    es?: StatsFull,
-    [key: string]: StatsFull | undefined;
-}
+import { LanguageMap } from '../models/language.types';
+
+export type Stats = LanguageMap<StatsFull>;
 
 export interface StatsFull {
     title: string;

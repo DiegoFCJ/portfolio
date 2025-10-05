@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, forkJoin, map, of, tap, catchError } from 'rxjs';
-
-export type SupportedLanguage = 'en' | 'it' | 'de' | 'es';
+import { LanguageMap, SupportedLanguage } from '../models/language.types';
 
 @Injectable({
   providedIn: 'root',
@@ -29,25 +28,23 @@ export class TranslationService {
     return this.currentLanguage.value;
   }
 
-  getTranslatedData<T>(
-    data: Record<string, T | undefined> & { en: T },
-    sourceLang: SupportedLanguage = 'en'
-  ): Observable<T> {
+  getTranslatedData<T>(data: LanguageMap<T>, sourceLang: SupportedLanguage = 'en'): Observable<T> {
+    const dataset = data as Record<string, T | undefined> & { en: T };
     const targetLanguage = this.getCurrentLanguage();
     if (targetLanguage === sourceLang) {
-      return of(data[sourceLang] ?? data['en']);
+      return of(dataset[sourceLang] ?? dataset['en']);
     }
 
-    const existingTranslation = data[targetLanguage];
+    const existingTranslation = dataset[targetLanguage];
     if (existingTranslation !== undefined) {
       return of(existingTranslation);
     }
 
     const sourceContent =
-      data[sourceLang] ?? data['en'] ?? (Object.values(data).find((value): value is T => value !== undefined));
+      dataset[sourceLang] ?? dataset['en'] ?? Object.values(dataset).find((value): value is T => value !== undefined);
 
     if (sourceContent === undefined) {
-      return of(data['en']);
+      return of(dataset['en']);
     }
 
     return this.translateContent(sourceContent, sourceLang, targetLanguage);
@@ -177,3 +174,5 @@ export class TranslationService {
     }
   }
 }
+
+export type { SupportedLanguage } from '../models/language.types';

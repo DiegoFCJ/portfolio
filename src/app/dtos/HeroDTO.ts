@@ -1,10 +1,6 @@
-export interface HeroFullLangs {
-    en: HeroFull;
-    it?: HeroFull;
-    de?: HeroFull;
-    es?: HeroFull;
-    [key: string]: HeroFull | undefined;
-}
+import { LanguageMap } from '../models/language.types';
+
+export type HeroFullLangs = LanguageMap<HeroFull>;
 
 export interface HeroFull {
     button: string;
