@@ -13,9 +13,11 @@ export interface ExperienceFull {
 
 export interface Experience {
     position: string;
+    company?: string;
     location: string;
     startDate: string;
     endDate: string;
     technologies?: string;
-    responsibilities: string;
+    responsibilities?: string;
+    responsibilityList?: string[];
 }
