@@ -52,6 +52,33 @@ describe('NavigatorComponent', () => {
     expect(component.navigatePrevious.emit).toHaveBeenCalled();
   });
 
+  it('should close navigator and reset menus when toggle button is clicked', () => {
+    component.isOpen = true;
+    component.showLanguageOptions = true;
+    component.showThemeOptions = true;
+    fixture.detectChanges();
+
+    const toggleButton: HTMLButtonElement = fixture.nativeElement.querySelector('.nav-toggle-button');
+    toggleButton.click();
+    fixture.detectChanges();
+
+    expect(component.isOpen).toBeFalse();
+    expect(component.showLanguageOptions).toBeFalse();
+    expect(component.showThemeOptions).toBeFalse();
+  });
+
+  it('should close navigator and reset menus on window scroll', () => {
+    component.isOpen = true;
+    component.showLanguageOptions = true;
+    component.showThemeOptions = true;
+
+    component.onWindowScroll();
+
+    expect(component.isOpen).toBeFalse();
+    expect(component.showLanguageOptions).toBeFalse();
+    expect(component.showThemeOptions).toBeFalse();
+  });
+
   /**
    * Verifies that the navigation buttons are displayed conditionally.
    */

@@ -155,12 +155,31 @@ export class NavigatorComponent implements OnInit {
 
   /** Toggles navigator visibility */
   toggleNavigator(): void {
-    this.isOpen = !this.isOpen;
+    if (this.isOpen) {
+      this.closeNavigator();
+    } else {
+      this.openNavigator();
+    }
   }
 
   /** Opens the navigator */
   openNavigator(): void {
     this.isOpen = true;
+    this.resetOptionMenus();
+  }
+
+  /** Closes the navigator and resets option menus */
+  closeNavigator(): void {
+    if (!this.isOpen) {
+      return;
+    }
+    this.isOpen = false;
+    this.resetOptionMenus();
+  }
+
+  private resetOptionMenus(): void {
+    this.showLanguageOptions = false;
+    this.showThemeOptions = false;
   }
 
   /** Host listener to detect clicks outside and close */
@@ -168,7 +187,15 @@ export class NavigatorComponent implements OnInit {
   onDocumentClick(target: HTMLElement): void {
     const clickedInside = this.elementRef.nativeElement.contains(target);
     if (!clickedInside && this.isOpen) {
-      this.isOpen = false;
+      this.closeNavigator();
+    }
+  }
+
+  /** Host listener to close navigator on scroll */
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    if (this.isOpen) {
+      this.closeNavigator();
     }
   }
 }
