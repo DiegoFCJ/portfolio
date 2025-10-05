@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { NavigatorComponent } from './navigator.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -67,16 +67,48 @@ describe('NavigatorComponent', () => {
     expect(component.showThemeOptions).toBeFalse();
   });
 
-  it('should close navigator and reset menus on window scroll', () => {
+  it('should keep navigator open during programmatic scroll after navigation', fakeAsync(() => {
+    component.isOpen = true;
+    component.currentSectionIndex = 0;
+    spyOn(component.navigateNext, 'emit');
+
+    component.onNext();
+    (window as any).scrollY = 0;
+    component.onWindowScroll();
+
+    expect(component.isOpen).toBeTrue();
+
+    tick(600);
+  }));
+
+  it('should close navigator after prolonged manual wheel scroll', () => {
     component.isOpen = true;
     component.showLanguageOptions = true;
     component.showThemeOptions = true;
 
-    component.onWindowScroll();
+    component.onWheel({ deltaY: 80 } as WheelEvent);
+    component.onWheel({ deltaY: 80 } as WheelEvent);
+    component.onWheel({ deltaY: 80 } as WheelEvent);
 
     expect(component.isOpen).toBeFalse();
     expect(component.showLanguageOptions).toBeFalse();
     expect(component.showThemeOptions).toBeFalse();
+  });
+
+  it('should close navigator after cumulative manual scroll detected via window scroll', () => {
+    component.isOpen = true;
+    component.openNavigator();
+    (window as any).scrollY = 0;
+    component.onWindowScroll();
+
+    (window as any).scrollY = 120;
+    component.onWindowScroll();
+    expect(component.isOpen).toBeTrue();
+
+    (window as any).scrollY = 240;
+    component.onWindowScroll();
+
+    expect(component.isOpen).toBeFalse();
   });
 
   /**

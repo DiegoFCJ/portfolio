@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -15,7 +15,7 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
 })
-export class NavigatorComponent implements OnInit {
+export class NavigatorComponent implements OnInit, OnDestroy {
   @Input() totalSections: number = 8;
   @Input() currentSectionIndex: number = 0;
   @Output() navigateNext = new EventEmitter<void>();
@@ -29,6 +29,24 @@ export class NavigatorComponent implements OnInit {
 
   /** Controls visibility of the navigator */
   isOpen = false;
+
+  /** Identifies programmatic scrolls triggered by navigator buttons */
+  private programmaticScrollActive = false;
+
+  /** Timeout reference used to reset the programmatic scroll flag */
+  private programmaticScrollResetTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  /** Accumulated manual scroll delta used to decide when to close the navigator */
+  private manualScrollDelta = 0;
+
+  /** Threshold in pixels after which a prolonged manual scroll closes the navigator */
+  private readonly manualScrollThreshold = 200;
+
+  /** Keeps track of the last known scroll position to derive deltas on scroll events */
+  private lastKnownScrollPosition: number | null = null;
+
+  /** Tracks the latest Y position during touch gestures */
+  private lastTouchY: number | null = null;
 
   /** Tooltip translations */
   tooltipTexts: { [key: string]: { prev: string; next: string; theme: string; language: string } } = {
@@ -78,14 +96,23 @@ export class NavigatorComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.programmaticScrollResetTimeout) {
+      clearTimeout(this.programmaticScrollResetTimeout);
+      this.programmaticScrollResetTimeout = null;
+    }
+  }
+
   onNext(): void {
     if (this.currentSectionIndex < this.totalSections - 1) {
+      this.markProgrammaticScroll();
       this.navigateNext.emit();
     }
   }
 
   onPrevious(): void {
     if (this.currentSectionIndex > 0) {
+      this.markProgrammaticScroll();
       this.navigatePrevious.emit();
     }
   }
@@ -166,6 +193,7 @@ export class NavigatorComponent implements OnInit {
   openNavigator(): void {
     this.isOpen = true;
     this.resetOptionMenus();
+    this.resetManualScrollTracking();
   }
 
   /** Closes the navigator and resets option menus */
@@ -175,11 +203,44 @@ export class NavigatorComponent implements OnInit {
     }
     this.isOpen = false;
     this.resetOptionMenus();
+    this.resetManualScrollTracking();
   }
 
   private resetOptionMenus(): void {
     this.showLanguageOptions = false;
     this.showThemeOptions = false;
+  }
+
+  private markProgrammaticScroll(): void {
+    this.programmaticScrollActive = true;
+    this.resetManualScrollTracking();
+    if (this.programmaticScrollResetTimeout) {
+      clearTimeout(this.programmaticScrollResetTimeout);
+    }
+    this.programmaticScrollResetTimeout = setTimeout(() => {
+      this.programmaticScrollActive = false;
+      this.programmaticScrollResetTimeout = null;
+    }, 600);
+  }
+
+  private resetManualScrollTracking(): void {
+    this.manualScrollDelta = 0;
+    this.lastTouchY = null;
+    if (isPlatformBrowser(this.platformId)) {
+      this.lastKnownScrollPosition = window.scrollY;
+    } else {
+      this.lastKnownScrollPosition = null;
+    }
+  }
+
+  private registerManualScroll(delta: number): void {
+    if (!this.isOpen || delta <= 0) {
+      return;
+    }
+    this.manualScrollDelta += Math.abs(delta);
+    if (this.manualScrollDelta >= this.manualScrollThreshold) {
+      this.closeNavigator();
+    }
   }
 
   /** Host listener to detect clicks outside and close */
@@ -194,8 +255,62 @@ export class NavigatorComponent implements OnInit {
   /** Host listener to close navigator on scroll */
   @HostListener('window:scroll')
   onWindowScroll(): void {
-    if (this.isOpen) {
-      this.closeNavigator();
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
     }
+
+    const currentPosition = window.scrollY;
+    if (this.lastKnownScrollPosition === null) {
+      this.lastKnownScrollPosition = currentPosition;
+    }
+
+    if (!this.isOpen) {
+      this.lastKnownScrollPosition = currentPosition;
+      return;
+    }
+
+    if (this.programmaticScrollActive) {
+      this.lastKnownScrollPosition = currentPosition;
+      return;
+    }
+
+    const delta = Math.abs(currentPosition - this.lastKnownScrollPosition);
+    this.lastKnownScrollPosition = currentPosition;
+    this.registerManualScroll(delta);
+  }
+
+  @HostListener('window:wheel', ['$event'])
+  onWheel(event: WheelEvent): void {
+    if (this.programmaticScrollActive || !this.isOpen) {
+      return;
+    }
+    this.registerManualScroll(event.deltaY);
+  }
+
+  @HostListener('window:touchstart', ['$event'])
+  onTouchStart(event: TouchEvent): void {
+    const touch = event.touches[0];
+    this.lastTouchY = touch ? touch.clientY : null;
+  }
+
+  @HostListener('window:touchmove', ['$event'])
+  onTouchMove(event: TouchEvent): void {
+    if (this.programmaticScrollActive || !this.isOpen) {
+      return;
+    }
+
+    const touch = event.touches[0];
+    if (!touch) {
+      return;
+    }
+
+    if (this.lastTouchY === null) {
+      this.lastTouchY = touch.clientY;
+      return;
+    }
+
+    const delta = Math.abs(touch.clientY - this.lastTouchY);
+    this.lastTouchY = touch.clientY;
+    this.registerManualScroll(delta);
   }
 }
