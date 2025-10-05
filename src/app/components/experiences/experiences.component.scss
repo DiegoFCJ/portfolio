@@ -24,7 +24,32 @@
         p {
             text-align: start;
             margin: 0;
-            padding: 5px;
+            padding: 4px 0;
+        }
+
+        .experience-title {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .experience-location,
+        .experience-period {
+            font-size: 0.95rem;
+        }
+
+        .experience-technologies {
+            font-style: italic;
+        }
+
+        .responsibility-list {
+            margin: 8px 0 0;
+            padding-left: 20px;
+
+            li {
+                text-align: start;
+                margin-bottom: 4px;
+            }
         }
     }
 }
