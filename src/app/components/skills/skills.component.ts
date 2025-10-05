@@ -1,5 +1,7 @@
-import { Component, OnInit, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { skills } from '../../data/skills.data';
 import { TranslationService } from '../../services/translation.service';
 
@@ -10,7 +12,7 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss', './skills.carousel.component.scss']
 })
-export class SkillsComponent implements OnInit {
+export class SkillsComponent implements OnInit, OnDestroy {
   skillFull = skills;
   skillFullTitle: string = "";
   sections: any[] = [];
@@ -18,6 +20,7 @@ export class SkillsComponent implements OnInit {
   isMobile = false;
   currentIndex = 0;
   isBrowser = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private translationService: TranslationService,
@@ -27,15 +30,21 @@ export class SkillsComponent implements OnInit {
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
-    this.translationService.currentLanguage$.subscribe(lang => {
-      this.sections = this.skillFull.skills.map(section => ({
-        ...section,
-        title: section.title[lang],
-        skills: section.skills.map(skill => ({ ...skill, clicked: false }))
-      }));
-      this.skillFullTitle = this.skillFull.title[lang];
-      this.loading = false;
-    });
+    this.translationService.currentLanguage$
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => this.loading = true),
+        switchMap(language => this.translationService.translateContent(this.skillFull, 'en', language))
+      )
+      .subscribe(translated => {
+        this.sections = translated.skills.map(section => ({
+          ...section,
+          title: section.title.en,
+          skills: section.skills.map(skill => ({ ...skill, clicked: false }))
+        }));
+        this.skillFullTitle = translated.title.en;
+        this.loading = false;
+      });
 
     if (this.isBrowser) {
       this.checkIfMobile();
@@ -54,10 +63,16 @@ export class SkillsComponent implements OnInit {
   }
 
   moveToNext(): void {
+    if (this.loading || !this.sections.length) {
+      return;
+    }
     this.currentIndex = (this.currentIndex + 1) % this.sections.length;
   }
 
   moveToPrevious(): void {
+    if (this.loading || !this.sections.length) {
+      return;
+    }
     this.currentIndex = (this.currentIndex - 1 + this.sections.length) % this.sections.length;
   }
 
@@ -108,5 +123,10 @@ export class SkillsComponent implements OnInit {
 
     parent.appendChild(message);
     return message;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

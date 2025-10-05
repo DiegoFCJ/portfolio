@@ -1,5 +1,5 @@
 <section class="contact-me-section">
-  <h2 class="contact-me-title">{{ contactMe.title }}</h2>
+  <h2 class="contact-me-title">{{ isLoading ? 'Loading...' : contactMe.title }}</h2>
 
   <div class="popup-relativeness">
     <app-social></app-social>
@@ -9,7 +9,7 @@
   <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm.value)" class="contact-form">
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ contactMe.name }}</mat-label>
-      <input matInput type="text" id="name" name="name" ngModel required>
+      <input matInput type="text" id="name" name="name" ngModel required [disabled]="isLoading">
       <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['name']?.valid">
         {{ contactMe.nameReq }}
       </mat-error>
@@ -17,7 +17,7 @@
 
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ contactMe.email }}</mat-label>
-      <input matInput type="email" id="email" name="email" ngModel required email>
+      <input matInput type="email" id="email" name="email" ngModel required email [disabled]="isLoading">
       <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['email']?.valid">
         {{ contactMe.emailReq }}
       </mat-error>
@@ -25,16 +25,16 @@
 
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ contactMe.message }}</mat-label>
-      <textarea matInput id="message" name="message" ngModel required></textarea>
+      <textarea matInput id="message" name="message" ngModel required [disabled]="isLoading"></textarea>
       <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['message']?.valid">
         {{ contactMe.messageReq }}
       </mat-error>
     </mat-form-field>
 
     <div class="submit-btn">
-      <button mat-raised-button type="submit" [disabled]="!contactForm.form.valid"
-        [ngClass]="{ 'enabled': contactForm.form.valid, 'disabled': !contactForm.form.valid }">
-        {{ contactMe.sendBtn }}
+      <button mat-raised-button type="submit" [disabled]="isLoading || !contactForm.form.valid"
+        [ngClass]="{ 'enabled': contactForm.form.valid && !isLoading, 'disabled': isLoading || !contactForm.form.valid }">
+        {{ isLoading ? 'Loading...' : contactMe.sendBtn }}
       </button>
     </div>
   </form>

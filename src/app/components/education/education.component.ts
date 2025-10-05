@@ -1,8 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { EducationFull } from '../../dtos/EducationDTO';
 import { educationData } from '../../data/education.data';
 import { TranslationService } from '../../services/translation.service';
 import { CommonModule } from '@angular/common';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-education',
@@ -11,7 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.scss']
 })
-export class EducationComponent implements OnInit {
+export class EducationComponent implements OnInit, OnDestroy {
   educationList: EducationFull = {
     title: '',
     education: []
@@ -19,6 +21,8 @@ export class EducationComponent implements OnInit {
 
   isLargeScreen: boolean = false;
   is2kMoreScreen: boolean = false;
+  isLoading = true;
+  private destroy$ = new Subject<void>();
 
   constructor(private translationService: TranslationService) { }
 
@@ -33,9 +37,21 @@ export class EducationComponent implements OnInit {
       this.isLargeScreen = window.innerWidth >= 1497;
       this.is2kMoreScreen = window.innerWidth >= 2224;
     }
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.educationList = this.translationService.getTranslatedData<EducationFull>(educationData);
-    });
+    this.translationService.currentLanguage$
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => this.isLoading = true),
+        switchMap(() => this.translationService.getTranslatedData<EducationFull>(educationData))
+      )
+      .subscribe(translated => {
+        this.educationList = translated;
+        this.isLoading = false;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   resizeConditions(i: number, last: boolean): string | null {

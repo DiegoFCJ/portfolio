@@ -1,6 +1,12 @@
 <section class="about-section">
-  <div class="about-content">
+  <div class="about-content" *ngIf="!isLoading; else aboutLoading">
     <h2 class="about-title">{{ aboutMe.title }}</h2>
     <p class="about-description">{{ aboutMe.description }}</p>
   </div>
 </section>
+
+<ng-template #aboutLoading>
+  <div class="about-content">
+    <p class="about-description">Loading...</p>
+  </div>
+</ng-template>

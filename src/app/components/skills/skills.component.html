@@ -1,24 +1,26 @@
 <section>
-  <h2>{{skillFullTitle}}</h2>
+  <h2>{{ loading ? 'Loading...' : skillFullTitle }}</h2>
 
-  <!-- Carousell-->
-  <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
-    <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
-    <div class="carousel-wrapper">
-      <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
-        <div class="skill-section">
-          <h3>{{ section.title }}</h3>
-          <div class="skills">
-            <div *ngFor="let skill of section.skills" class="skill-item">
-              <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
-                [ngClass]="{'clicked': skill.clicked}" />
+  <ng-container *ngIf="!loading; else skillsLoading">
+    <!-- Carousell-->
+    <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
+      <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
+      <div class="carousel-wrapper">
+        <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
+          <div class="skill-section">
+            <h3>{{ section.title }}</h3>
+            <div class="skills">
+              <div *ngFor="let skill of section.skills" class="skill-item">
+                <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
+                  [ngClass]="{'clicked': skill.clicked}" />
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
     </div>
-    <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
-  </div>
+  </ng-container>
 
   <!-- Desktop -->
   <ng-template #desktopLayout>
@@ -35,3 +37,7 @@
     </div>
   </ng-template>
 </section>
+
+<ng-template #skillsLoading>
+  <p>Loading skills...</p>
+</ng-template>

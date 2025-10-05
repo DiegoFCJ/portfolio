@@ -10,8 +10,8 @@ import { TranslationService } from '../../services/translation.service';
 class MockTranslationService {
   currentLanguage$ = of<'en'>('en');
 
-  getTranslatedData<T>(data: { [key: string]: T }): T {
-    return data['en'];
+  getTranslatedData<T>(data: { [key: string]: T }) {
+    return of(data['en']);
   }
 }
 
@@ -31,6 +31,8 @@ describe('ExperiencesComponent', () => {
     fixture = TestBed.createComponent(ExperiencesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   // Verify component creation
@@ -42,6 +44,7 @@ describe('ExperiencesComponent', () => {
   it('should initialize experiences data correctly', () => {
     const expectedExperiences = experiencesData.en;
     expect(component.experiences).toEqual(expectedExperiences);
+    expect(component.isLoading).toBeFalse();
     expect(component.experiences.experiences.length).toBe(expectedExperiences.experiences.length);
     expect(component.experiences.title).toBe(expectedExperiences.title);
   });
