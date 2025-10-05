@@ -6,11 +6,7 @@ export const socials: Social[] = [
         icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/linkedin.svg'
     },
     {
-        link: 'https://discordapp.com/users/die96',
-        icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/discord.svg'
-    },
-    {
-        link: 'https://www.instagram.com/diego._fois/',
-        icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/instagram.svg'
+        link: 'https://github.com/DiegoFCJ',
+        icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg'
     }
 ];
