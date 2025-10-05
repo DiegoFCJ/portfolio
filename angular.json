@@ -46,7 +46,14 @@
             "ssr": {
               "entry": "server.ts"
             },
-            "baseHref": "/portfolio/"
+            "baseHref": "/portfolio/",
+            "optimization": {
+              "scripts": true,
+              "styles": true,
+              "fonts": {
+                "inline": false
+              }
+            }
           },
           "configurations": {
             "production": {
