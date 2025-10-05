@@ -31,10 +31,11 @@ export class StatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.translationService.currentLanguage$.subscribe(language => {
-      const experiences = experiencesData.en.experiences;
-      const projectList = projects.en.projects;
+      const localizedExperiences = experiencesData[language]?.experiences ?? experiencesData.en.experiences;
+      const localizedProjects = projects[language]?.projects ?? projects.en.projects;
+
       this.statsTitle = statsData[language].title;
-      this.stats = this.calculateStats(experiences, projectList);
+      this.stats = this.calculateStats(localizedExperiences, localizedProjects);
       this.prepareStatistics(language);
     });
   }
