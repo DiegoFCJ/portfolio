@@ -47,11 +47,14 @@ describe('StatsComponent', () => {
    * Verifies that calculateStats computes correct statistics based on test data.
    */
   it('should calculate correct stats', () => {
-    const stats: StatsItem = component.calculateStats(experiencesData.en.experiences, projects.en.projects);
+    const stats: StatsItem = component.calculateStats(
+      experiencesData.en.experiences,
+      projects.en.projects
+    );
 
-    expect(stats.hours).toContain('hours');
-    expect(stats.months).toContain('months');
-    expect(stats.projects).toContain('projects');
+    expect(stats.hours).toBe('7080');
+    expect(stats.months).toBe('44');
+    expect(stats.projects).toBe('8');
     expect(stats.mostUsed).toBeTruthy();
   });
 
