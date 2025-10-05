@@ -52,8 +52,8 @@ describe('StatsComponent', () => {
       projects.en.projects
     );
 
-    expect(stats.hours).toBe('7080');
-    expect(stats.months).toBe('44');
+    expect(stats.hours).toBe('7240');
+    expect(stats.months).toBe('45');
     expect(stats.projects).toBe('8');
     expect(stats.mostUsed).toBeTruthy();
   });
