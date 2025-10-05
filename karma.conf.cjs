@@ -28,7 +28,16 @@ if (!process.env.CHROME_BIN && chromeExecutablePath) {
 }
 
 module.exports = function (config) {
-  const requestedBrowsers = config.browsers && config.browsers.length > 0 ? config.browsers : undefined;
+  const requestedBrowsers =
+    config.browsers && config.browsers.length > 0
+      ? Array.isArray(config.browsers)
+        ? config.browsers
+        : String(config.browsers)
+            .split(',')
+            .map((browser) => browser.trim())
+            .filter(Boolean)
+      : undefined;
+
   const browsers = (requestedBrowsers || ['ChromeHeadlessNoSandbox']).map((browser) =>
     browser === 'ChromeHeadless' ? 'ChromeHeadlessNoSandbox' : browser,
   );
