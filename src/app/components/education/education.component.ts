@@ -3,11 +3,12 @@ import { EducationFull } from '../../dtos/EducationDTO';
 import { educationData } from '../../data/education.data';
 import { TranslationService } from '../../services/translation.service';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-education',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.scss']
 })

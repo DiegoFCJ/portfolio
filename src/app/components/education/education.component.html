@@ -1,16 +1,34 @@
 <section class="education-section" *ngIf="educationList">
-  <h2 class="education-title">{{ educationList.title }}</h2>
+  <div class="section-header">
+    <div class="section-icon" aria-hidden="true">
+      <mat-icon>school</mat-icon>
+    </div>
+    <h2 class="education-title">{{ educationList.title }}</h2>
+  </div>
   <div class="education-container">
     <div class="education-item" *ngFor="let education of educationList.education; let i = index; let last = last">
-      <div class="vertical-line" [ngClass]="resizeConditions(i, last)">
-        <span class="point-on-line"></span>
+      <div class="timeline-side">
+        <div class="timeline-marker" aria-hidden="true">
+          <mat-icon>workspace_premium</mat-icon>
+        </div>
+        <div class="vertical-line" [ngClass]="resizeConditions(i, last)">
+          <span class="point-on-line"></span>
+        </div>
       </div>
-      <div class="restrained">
-        <p><strong>{{ education.startDate }} - {{ education.endDate }}</strong></p>
-        <h3>{{ education.title }}</h3>
-        <p>{{ education.institution }}</p>
-        <p>{{ education.description }}</p>
-      </div>
+      <article class="education-card">
+        <header class="card-header">
+          <span class="year-badge">
+            <mat-icon aria-hidden="true">calendar_month</mat-icon>
+            {{ education.startDate }} - {{ education.endDate }}
+          </span>
+          <div class="card-institution">
+            <mat-icon aria-hidden="true">apartment</mat-icon>
+            <span>{{ education.institution }}</span>
+          </div>
+        </header>
+        <h3 class="card-title">{{ education.title }}</h3>
+        <p class="card-description">{{ education.description }}</p>
+      </article>
     </div>
   </div>
 </section>
