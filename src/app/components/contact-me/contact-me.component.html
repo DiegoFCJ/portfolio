@@ -25,7 +25,8 @@
 
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ contactMe.message }}</mat-label>
-      <textarea matInput id="message" name="message" ngModel required></textarea>
+      <textarea matInput id="message" name="message" ngModel required cdkTextareaAutosize
+        cdkAutosizeMinRows="4" cdkAutosizeMaxRows="12"></textarea>
       <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['message']?.valid">
         {{ contactMe.messageReq }}
       </mat-error>
@@ -37,5 +38,5 @@
         {{ contactMe.sendBtn }}
       </button>
     </div>
-  </form>
+</form>
 </section>

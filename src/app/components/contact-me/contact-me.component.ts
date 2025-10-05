@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { ContactMe } from '../../dtos/ContactMeDTO';
 import { EmailService } from '../../services/email.service';
 import { TranslationService } from '../../services/translation.service';
@@ -22,6 +23,7 @@ import { TranslationService } from '../../services/translation.service';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    TextFieldModule,
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './contact-me.component.html',
