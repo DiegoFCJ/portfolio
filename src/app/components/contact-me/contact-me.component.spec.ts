@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactMeComponent } from './contact-me.component';
 import { SocialComponent } from '../social/social.component';
 
@@ -14,7 +15,7 @@ describe('ContactMeComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactMeComponent, SocialComponent]
+      imports: [ContactMeComponent, SocialComponent, NoopAnimationsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactMeComponent);
