@@ -8,7 +8,8 @@ import {
   HostListener,
   OnDestroy,
   PLATFORM_ID,
-  Inject
+  Inject,
+  OnInit
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
@@ -38,7 +39,7 @@ interface PanelData {
   templateUrl: './landing-mask.component.html',
   styleUrls: ['./landing-mask.component.scss']
 })
-export class LandingMaskComponent implements AfterViewInit, OnDestroy {
+export class LandingMaskComponent implements OnInit, AfterViewInit, OnDestroy {
   initialAnimation = true;
   panels: PanelData[] = [];
 
@@ -57,11 +58,15 @@ export class LandingMaskComponent implements AfterViewInit, OnDestroy {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     if (!this.isBrowser) return;
 
     this.generatePanels();
     this.rotationAngles = new Array(this.panels.length).fill(0);
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.isBrowser) return;
 
     setTimeout(() => {
       this.initialAnimation = false;
