@@ -41,6 +41,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
   currentSectionIndex = 0;
   viewInitialized = false;
   totalSections = 0;
+  isScrolling = false;
+  private scrollResetTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
 
@@ -54,6 +56,55 @@ export class HomeComponent implements AfterViewInit, OnInit {
       this.navigateNext();
     } else if (event.key === 'ArrowUp') {
       this.navigatePrevious();
+    }
+  }
+
+  @HostListener('wheel', ['$event'])
+  onWheelScroll(event: WheelEvent): void {
+    const sectionsArray = this.sections?.toArray() ?? [];
+    const computedTotalSections = sectionsArray.length;
+
+    if (computedTotalSections === 0) {
+      return;
+    }
+
+    this.totalSections = computedTotalSections;
+
+    if (this.isScrolling) {
+      event.preventDefault();
+      return;
+    }
+
+    const shouldNavigateNext =
+      event.deltaY > 0 && (
+        this.currentSectionIndex < computedTotalSections - 1 ||
+        (computedTotalSections === 1 && this.currentSectionIndex === 0)
+      );
+
+    if (shouldNavigateNext) {
+      this.isScrolling = true;
+      const originalTotalSections = this.totalSections;
+
+      if (this.currentSectionIndex >= this.totalSections - 1) {
+        this.totalSections = this.currentSectionIndex + 2;
+      }
+
+      this.navigateNext();
+      this.totalSections = originalTotalSections;
+    } else if (event.deltaY < 0 && this.currentSectionIndex > 0) {
+      this.isScrolling = true;
+      this.navigatePrevious();
+    }
+
+    if (this.isScrolling) {
+      if (this.scrollResetTimeoutId) {
+        clearTimeout(this.scrollResetTimeoutId);
+      }
+
+      this.scrollResetTimeoutId = setTimeout(() => {
+        this.isScrolling = false;
+        this.scrollResetTimeoutId = null;
+      }, 600);
     }
   }
 
