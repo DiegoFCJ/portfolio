@@ -63,6 +63,11 @@
                 }
               ],
               "outputHashing": "all",
+              "optimization": {
+                "fonts": {
+                  "inline": false
+                }
+              },
               "baseHref": "/portfolio/"
             },
             "development": {
