@@ -33,7 +33,7 @@ describe('EducationComponent', () => {
    * Verifies that the education list data is initialized correctly.
    */
   it('should initialize educationList correctly', () => {
-    expect(component.educationList).toEqual(educationData);
+    expect(component.educationList).toEqual(educationData.en);
     expect(component.educationList.education.length).toBeGreaterThan(0);
   });
 

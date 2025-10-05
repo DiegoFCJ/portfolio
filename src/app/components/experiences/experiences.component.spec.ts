@@ -27,7 +27,7 @@ describe('ExperiencesComponent', () => {
 
   // Verify the data is correctly initialized
   it('should initialize experiences data correctly', () => {
-    expect(component.experiences).toEqual(experiencesData);
+    expect(component.experiences).toEqual(experiencesData.en);
     expect(component.experiences.experiences.length).toBeGreaterThan(0);
   });
 

@@ -1,10 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { ElementRef } from '@angular/core';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+
+  const createMockSections = (count: number): ElementRef[] => {
+    return Array.from({ length: count }, () => {
+      const element = document.createElement('div');
+      (element as any).scrollIntoView = jasmine.createSpy('scrollIntoView');
+      return { nativeElement: element } as ElementRef;
+    });
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,63 +32,74 @@ describe('HomeComponent', () => {
     expect(component.currentSectionIndex).toBe(0);
   });
 
-  it('should move to the next section on scroll down', () => {
-    component.sections = {
-      toArray: () => [{ nativeElement: document.createElement('div') }] as ElementRef[]
-    } as any; // Mock della sezione per il test
-    component.currentSectionIndex = 0;
+  it('should update totalSections after view init', fakeAsync(() => {
+    const sections = createMockSections(3);
+    component.sections = { toArray: () => sections } as any;
 
-    component.onWheelScroll({ deltaY: 1 } as WheelEvent); // Simula scroll down
+    component.ngAfterViewInit();
+    tick();
+
+    expect(component.totalSections).toBe(3);
+  }));
+
+  it('should move to the next section when navigateNext is called', () => {
+    const sections = createMockSections(2);
+    component.sections = { toArray: () => sections } as any;
+    component.totalSections = sections.length;
+    component.viewInitialized = true;
+
+    component.navigateNext();
+
+    expect(component.currentSectionIndex).toBe(1);
+    expect((sections[1].nativeElement as any).scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+  });
+
+  it('should not move beyond the last section', () => {
+    const sections = createMockSections(2);
+    component.sections = { toArray: () => sections } as any;
+    component.totalSections = sections.length;
+    component.viewInitialized = true;
+
+    component.currentSectionIndex = 1;
+    component.navigateNext();
+
     expect(component.currentSectionIndex).toBe(1);
   });
 
-  it('should not move beyond the last section on scroll down', () => {
-    component.sections = {
-      toArray: () => [
-        { nativeElement: document.createElement('div') },
-        { nativeElement: document.createElement('div') }
-      ] as ElementRef[]
-    } as any;
+  it('should move to the previous section when navigatePrevious is called', () => {
+    const sections = createMockSections(2);
+    component.sections = { toArray: () => sections } as any;
+    component.totalSections = sections.length;
+    component.viewInitialized = true;
     component.currentSectionIndex = 1;
 
-    component.onWheelScroll({ deltaY: 1 } as WheelEvent); // Simula scroll down
-    expect(component.currentSectionIndex).toBe(1); // Dovrebbe restare sull'ultima sezione
+    component.navigatePrevious();
+
+    expect(component.currentSectionIndex).toBe(0);
+    expect((sections[0].nativeElement as any).scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
   });
 
-  it('should move to the previous section on scroll up', () => {
-    component.sections = {
-      toArray: () => [
-        { nativeElement: document.createElement('div') },
-        { nativeElement: document.createElement('div') }
-      ] as ElementRef[]
-    } as any;
-    component.currentSectionIndex = 1;
+  it('should not move before the first section', () => {
+    const sections = createMockSections(1);
+    component.sections = { toArray: () => sections } as any;
+    component.totalSections = sections.length;
+    component.viewInitialized = true;
 
-    component.onWheelScroll({ deltaY: -1 } as WheelEvent); // Simula scroll up
+    component.navigatePrevious();
+
     expect(component.currentSectionIndex).toBe(0);
   });
 
-  it('should not move beyond the first section on scroll up', () => {
-    component.sections = {
-      toArray: () => [{ nativeElement: document.createElement('div') }] as ElementRef[]
-    } as any;
-    component.currentSectionIndex = 0;
+  it('should handle keyboard navigation', () => {
+    const sections = createMockSections(2);
+    component.sections = { toArray: () => sections } as any;
+    component.totalSections = sections.length;
+    component.viewInitialized = true;
 
-    component.onWheelScroll({ deltaY: -1 } as WheelEvent); // Simula scroll up
-    expect(component.currentSectionIndex).toBe(0); // Dovrebbe restare sulla prima sezione
-  });
+    component.handleKeyboardEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    expect(component.currentSectionIndex).toBe(1);
 
-  it('should set isScrolling to true during scroll and block further scrolls', () => {
-    component.sections = {
-      toArray: () => [{ nativeElement: document.createElement('div') }] as ElementRef[]
-    } as any;
-    component.currentSectionIndex = 0;
-    component.isScrolling = false;
-
-    component.onWheelScroll({ deltaY: 1 } as WheelEvent); // Simula scroll down
-    expect(component.isScrolling).toBeTrue();
-
-    component.onWheelScroll({ deltaY: 1 } as WheelEvent); // Scroll bloccato
-    expect(component.currentSectionIndex).toBe(1); // Indice resta invariato mentre isScrolling è true
+    component.handleKeyboardEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+    expect(component.currentSectionIndex).toBe(0);
   });
 });
