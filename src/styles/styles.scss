@@ -86,3 +86,110 @@ mat-error {
         bottom: 60px !important;
     }
 }
+
+body.dark-mode {
+    .nav-toggle-button {
+        background-color: #1f1f1f;
+
+        .material-symbols-outlined {
+            color: #f0f0f0;
+        }
+
+        &:hover {
+            background-color: #2c2c2c;
+        }
+    }
+
+    .modern-navigator {
+        .nav-button,
+        .arrow-container {
+            background-color: #1f1f1f;
+        }
+
+        .nav-button:hover,
+        .arrow-button:hover {
+            background-color: #2c2c2c;
+        }
+
+        .nav-button .material-symbols-outlined,
+        .nav-button .lang-label,
+        .arrow-button .material-symbols-outlined {
+            color: #f0f0f0;
+        }
+    }
+
+    .option-container {
+        background: #1f1f1f;
+    }
+
+    .option-button {
+        color: #f0f0f0;
+    }
+
+    .option-button .lang-flag,
+    .option-button .section-number {
+        color: #f0f0f0;
+    }
+
+    .option-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .option-button.selected {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+@media (max-width: 1200px) {
+    .statistics-component .statistics-card {
+        flex: 1 1 calc(33.33% - 20px);
+        max-width: 240px;
+        min-width: 220px;
+    }
+}
+
+@media (max-width: 992px) {
+    .statistics-component {
+        padding: 0 !important;
+    }
+
+    .statistics-component .statistics-card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: 300px;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .statistics-component {
+        padding: 0 !important;
+    }
+
+    .statistics-component .statistics-card {
+        flex: 1 1 100% !important;
+        max-width: 280px !important;
+        min-width: 180px !important;
+        padding: 10px !important;
+    }
+
+    .statistics-component h2 {
+        font-size: 1.5rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .statistics-component {
+        padding: 0 !important;
+    }
+
+    .statistics-component .statistics-card {
+        flex: 1 1 100% !important;
+        max-width: 34vw !important;
+        min-width: 90px !important;
+        padding: 5px !important;
+    }
+
+    .statistics-component h2 {
+        font-size: 1rem !important;
+    }
+}

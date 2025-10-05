@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
@@ -11,7 +10,6 @@ import { statsData } from '../../data/stats.data';
   selector: 'app-stats',
   standalone: true,
   imports: [
-    MatIconModule,
     CommonModule
   ],
   templateUrl: './stats.component.html',

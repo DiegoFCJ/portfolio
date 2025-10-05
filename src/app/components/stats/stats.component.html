@@ -6,7 +6,7 @@
         <div *ngFor="let stat of statistics" class="statistics-card">
           <div class="statistics-content">
             <div class="statistics-icon">
-              <mat-icon>{{ stat.icon }}</mat-icon>
+              <span class="material-symbols-outlined" aria-hidden="true">{{ stat.icon }}</span>
             </div>
             <p class="statistics-label">{{ stat.label }}</p>
             <h2 class="statistics-value">{{ stat.value }}</h2>

@@ -9,35 +9,36 @@ import {
   HostListener
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProjectsComponent } from '../../components/projects/projects.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { HeroComponent } from '../../components/hero/hero.component';
-import { SkillsComponent } from '../../components/skills/skills.component';
 import { NavigatorComponent } from '../../components/navigator/navigator.component';
-import { EducationComponent } from '../../components/education/education.component';
-import { StatsComponent } from '../../components/stats/stats.component';
-import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
-import { ExperiencesComponent } from '../../components/experiences/experiences.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    ProjectsComponent,
     AboutComponent,
     HeroComponent,
-    SkillsComponent,
     NavigatorComponent,
-    EducationComponent,
-    StatsComponent,
-    ContactMeComponent,
-    ExperiencesComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements AfterViewInit, OnInit {
+  readonly loadProjectsComponent = () => import('../../components/projects/projects.component')
+    .then(m => m.ProjectsComponent);
+  readonly loadSkillsComponent = () => import('../../components/skills/skills.component')
+    .then(m => m.SkillsComponent);
+  readonly loadEducationComponent = () => import('../../components/education/education.component')
+    .then(m => m.EducationComponent);
+  readonly loadExperiencesComponent = () => import('../../components/experiences/experiences.component')
+    .then(m => m.ExperiencesComponent);
+  readonly loadStatsComponent = () => import('../../components/stats/stats.component')
+    .then(m => m.StatsComponent);
+  readonly loadContactMeComponent = () => import('../../components/contact-me/contact-me.component')
+    .then(m => m.ContactMeComponent);
+
   currentSectionIndex = 0;
   viewInitialized = false;
   totalSections = 0;

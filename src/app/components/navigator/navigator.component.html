@@ -1,52 +1,52 @@
 <!-- Floating toggle button -->
 <button class="nav-toggle-button" *ngIf="!isOpen" (click)="toggleNavigator()" aria-label="Open navigator">
-  <mat-icon>chevron_left</mat-icon>
+  <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
 </button>
 
 <!-- Modern, animated, circular floating navbar -->
 <div class="modern-navigator" *ngIf="isOpen">
   <div class="arrow-container">
     <!-- Previous button -->
-    <button class="arrow-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section"
-      [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
-      <mat-icon>arrow_upward</mat-icon>
+    <button class="arrow-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()"
+      [attr.aria-label]="getTooltip('prev')" [attr.title]="getTooltip('prev')">
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>
     </button>
 
     <!-- Next button -->
-    <button class="arrow-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section"
-      [matTooltip]="getTooltip('next')" matTooltipPosition="left">
-      <mat-icon>arrow_downward</mat-icon>
+    <button class="arrow-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()"
+      [attr.aria-label]="getTooltip('next')" [attr.title]="getTooltip('next')">
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_downward</span>
     </button>
   </div>
 
   <div class="nav-group">
-    <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Theme selector"
-      [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
-      <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
+    <button class="nav-button" (click)="toggleThemeOptions()" [attr.aria-label]="getTooltip('theme')"
+      [attr.title]="getTooltip('theme')">
+      <span class="material-symbols-outlined" aria-hidden="true">{{ getThemeIcon(currentTheme) }}</span>
     </button>
     <div class="option-container" *ngIf="showThemeOptions">
       <button class="option-button" (click)="changeTheme('light')" aria-label="Light mode"
         [class.selected]="currentTheme === 'light'">
-        <mat-icon>light_mode</mat-icon>
+        <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
       </button>
       <button class="option-button" (click)="changeTheme('dark')" aria-label="Dark mode"
         [class.selected]="currentTheme === 'dark'">
-        <mat-icon>dark_mode</mat-icon>
+        <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
       </button>
       <button class="option-button" (click)="changeTheme('blue')" aria-label="Blue mode"
         [class.selected]="currentTheme === 'blue'">
-        <mat-icon>water_drop</mat-icon>
+        <span class="material-symbols-outlined" aria-hidden="true">water_drop</span>
       </button>
       <button class="option-button" (click)="changeTheme('green')" aria-label="Green mode"
         [class.selected]="currentTheme === 'green'">
-        <mat-icon>eco</mat-icon>
+        <span class="material-symbols-outlined" aria-hidden="true">eco</span>
       </button>
     </div>
   </div>
 
   <div class="nav-group">
-    <button class="nav-button" (click)="toggleLanguageOptions()" [matTooltip]="getTooltip('language')"
-      matTooltipPosition="left">
+    <button class="nav-button" (click)="toggleLanguageOptions()" [attr.title]="getTooltip('language')"
+      [attr.aria-label]="getTooltip('language')">
       <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
     </button>
     <div class="option-container" *ngIf="showLanguageOptions">

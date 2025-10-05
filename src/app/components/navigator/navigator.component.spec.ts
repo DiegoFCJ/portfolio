@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavigatorComponent } from './navigator.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeswitchComponent } from './themeswitch/themeswitch.component';
 
 /**
@@ -16,7 +14,7 @@ describe('NavigatorComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent]
+      imports: [NavigatorComponent, ThemeswitchComponent]
     })
       .compileComponents();
 

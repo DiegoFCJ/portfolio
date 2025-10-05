@@ -1,12 +1,60 @@
 <div *ngIf="viewInitialized">
   <div #section><app-hero (navigateNextSection)="navigateNext()"></app-hero></div>
   <div #section><app-about></app-about></div>
-  <div #section><app-projects></app-projects></div>
-  <div #section><app-skills></app-skills></div>
-  <div #section><app-education></app-education></div>
-  <div #section><app-experiences></app-experiences></div>
-  <div #section><app-stats></app-stats></div>
-  <div #section><app-contact-me></app-contact-me></div>
+  <div #section>
+    @defer (on viewport) {
+      @if (loadProjectsComponent() | async; as component) {
+        <ng-container *ngComponentOutlet="component"></ng-container>
+      }
+    } @placeholder {
+      <div class="section-placeholder" aria-hidden="true"></div>
+    }
+  </div>
+  <div #section>
+    @defer (on viewport) {
+      @if (loadSkillsComponent() | async; as component) {
+        <ng-container *ngComponentOutlet="component"></ng-container>
+      }
+    } @placeholder {
+      <div class="section-placeholder" aria-hidden="true"></div>
+    }
+  </div>
+  <div #section>
+    @defer (on viewport) {
+      @if (loadEducationComponent() | async; as component) {
+        <ng-container *ngComponentOutlet="component"></ng-container>
+      }
+    } @placeholder {
+      <div class="section-placeholder" aria-hidden="true"></div>
+    }
+  </div>
+  <div #section>
+    @defer (on viewport) {
+      @if (loadExperiencesComponent() | async; as component) {
+        <ng-container *ngComponentOutlet="component"></ng-container>
+      }
+    } @placeholder {
+      <div class="section-placeholder" aria-hidden="true"></div>
+    }
+  </div>
+  <div #section>
+    @defer (on viewport) {
+      @if (loadStatsComponent() | async; as component) {
+        <ng-container *ngComponentOutlet="component"></ng-container>
+      }
+    } @placeholder {
+      <div class="section-placeholder" aria-hidden="true"></div>
+    }
+  </div>
+  <div #section>
+    @defer (on viewport) {
+      @if (loadContactMeComponent() | async; as component) {
+        <ng-container *ngComponentOutlet="component"></ng-container>
+      }
+    } @placeholder {
+      <div class="section-placeholder" aria-hidden="true"></div>
+    }
+  </div>
 
   <app-navigator [totalSections]="totalSections" [currentSectionIndex]="currentSectionIndex"
     (navigateNext)="navigateNext()" (navigatePrevious)="navigatePrevious()">

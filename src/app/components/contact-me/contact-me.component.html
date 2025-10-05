@@ -7,32 +7,36 @@
   </div>
 
   <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm.value)" class="contact-form">
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ contactMe.name }}</mat-label>
-      <input matInput type="text" id="name" name="name" ngModel required>
-      <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['name']?.valid">
+    <div class="form-field">
+      <label class="field-label" for="name">{{ contactMe.name }}</label>
+      <input class="field-control" type="text" id="name" name="name" ngModel #nameModel="ngModel" required
+        [attr.aria-invalid]="contactForm.submitted && nameModel.invalid ? 'true' : null" />
+      <p class="field-error" *ngIf="contactForm.submitted && nameModel.invalid">
         {{ contactMe.nameReq }}
-      </mat-error>
-    </mat-form-field>
+      </p>
+    </div>
 
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ contactMe.email }}</mat-label>
-      <input matInput type="email" id="email" name="email" ngModel required email>
-      <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['email']?.valid">
+    <div class="form-field">
+      <label class="field-label" for="email">{{ contactMe.email }}</label>
+      <input class="field-control" type="email" id="email" name="email" ngModel #emailModel="ngModel" required email
+        [attr.aria-invalid]="contactForm.submitted && emailModel.invalid ? 'true' : null" />
+      <p class="field-error" *ngIf="contactForm.submitted && emailModel.invalid">
         {{ contactMe.emailReq }}
-      </mat-error>
-    </mat-form-field>
+      </p>
+    </div>
 
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ contactMe.message }}</mat-label>
-      <textarea matInput id="message" name="message" ngModel required></textarea>
-      <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['message']?.valid">
+    <div class="form-field">
+      <label class="field-label" for="message">{{ contactMe.message }}</label>
+      <textarea class="field-control field-control--textarea" id="message" name="message" ngModel
+        #messageModel="ngModel" required rows="5"
+        [attr.aria-invalid]="contactForm.submitted && messageModel.invalid ? 'true' : null"></textarea>
+      <p class="field-error" *ngIf="contactForm.submitted && messageModel.invalid">
         {{ contactMe.messageReq }}
-      </mat-error>
-    </mat-form-field>
+      </p>
+    </div>
 
     <div class="submit-btn">
-      <button mat-raised-button type="submit" [disabled]="!contactForm.form.valid"
+      <button type="submit" class="submit-button" [disabled]="!contactForm.form.valid"
         [ngClass]="{ 'enabled': contactForm.form.valid, 'disabled': !contactForm.form.valid }">
         {{ contactMe.sendBtn }}
       </button>

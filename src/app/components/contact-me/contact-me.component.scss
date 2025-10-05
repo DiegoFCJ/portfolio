@@ -27,24 +27,81 @@
         width: 90vw;
         max-width: 600px;
         margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
 
-        .mdc-text-field {
-            position: static;
+        .field-label {
+            font-weight: 600;
+            font-size: 1rem;
         }
 
-        .mat-mdc-text-field-wrapper {
-            width: 96% !important;
+        .field-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            background-color: rgba(255, 255, 255, 0.85);
+            color: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+            &:focus {
+                outline: none;
+                border-color: rgba(0, 0, 0, 0.4);
+                box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+            }
+
+            &[aria-invalid='true'] {
+                border-color: #f87171;
+                box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.25);
+            }
         }
 
-        .mat-form-field {
-            width: 96% !important;
+        .field-control--textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .field-error {
+            color: #f87171;
+            font-size: 0.875rem;
+            margin: 0;
         }
     }
 
     .submit-btn {
         display: flex;
         justify-content: center;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
+
+        .submit-button {
+            border: none;
+            border-radius: 9999px;
+            padding: 0.85rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+
+            &.disabled,
+            &:disabled {
+                cursor: not-allowed;
+                opacity: 0.6;
+                box-shadow: none;
+            }
+
+            &.enabled {
+                box-shadow: 0 10px 25px rgba(30, 60, 114, 0.35);
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 14px 30px rgba(30, 60, 114, 0.45);
+                }
+            }
+        }
     }
 }
 

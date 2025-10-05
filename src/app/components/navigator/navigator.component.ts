@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -9,8 +7,6 @@ import { TranslationService } from '../../services/translation.service';
   standalone: true,
   imports: [
     CommonModule,
-    MatIconModule,
-    MatTooltipModule,
   ],
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
