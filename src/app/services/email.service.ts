@@ -1,6 +1,5 @@
 // src/services/email.service.ts
 import { Injectable } from '@angular/core';
-import * as emailValidator from 'email-validator';
 
 /**
  * Service responsible for handling email-related operations.
@@ -15,24 +14,19 @@ export class EmailService {
   constructor() {}
 
   /**
-   * Validates the email format using a regular expression or email-validator library.
+   * Angular-aligned email validation regex (mirrors Validators.email behaviour).
+   * See https://angular.io/api/forms/Validators#email for reference.
+   */
+  private readonly emailPattern =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+  /**
+   * Validates the email format using a regular expression compatible with Angular's Validators.email.
    * @param email The email to validate.
    * @returns boolean Whether the email is valid.
    */
   isValidEmail(email: string): boolean {
-    // First validate the general email format
-    const isValidFormat = emailValidator.validate(email);
-
-    if (!isValidFormat) {
-      return false; // Invalid format
-    }
-
-    // Check if the domain exists (additional logic can be added to check for specific domains)
-    const domain = email.split('@')[1];
-    const domainPattern = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    const isValidDomain = domainPattern.test(domain);
-
-    return isValidDomain;
+    return this.emailPattern.test(email);
   }
 
   /**
