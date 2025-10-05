@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { firstValueFrom } from 'rxjs';
 import { TranslationService } from './translation.service';
 
 describe('TranslationService', () => {
@@ -28,16 +29,14 @@ describe('TranslationService', () => {
     });
   });
 
-  it('should support german and spanish languages', (done: DoneFn) => {
+  it('should support german and spanish languages', async () => {
     service.setLanguage('de');
-    service.currentLanguage$.subscribe(lang => {
-      expect(lang).toBe('de');
-      service.setLanguage('es');
-      service.currentLanguage$.subscribe(lang2 => {
-        expect(lang2).toBe('es');
-        done();
-      });
-    });
+    const german = await firstValueFrom(service.currentLanguage$);
+    expect(german).toBe('de');
+
+    service.setLanguage('es');
+    const spanish = await firstValueFrom(service.currentLanguage$);
+    expect(spanish).toBe('es');
   });
 
   it('should return the correct translated data for the current language', () => {
