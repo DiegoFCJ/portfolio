@@ -7,8 +7,8 @@ export const heroData: HeroFullLangs = {
         texts: [
             "Hi! My name is Diego Fois",
             "Welcome to my portfolio!",
-            "I'm a Student",
-            "I'm a Developer"
+            "I'm a Senior Full-Stack Software Developer",
+            "I build automation-driven digital experiences"
         ]
     },
     it: {
@@ -17,8 +17,8 @@ export const heroData: HeroFullLangs = {
         texts: [
             "Ciao! Mi chiamo Diego Fois",
             "Benvenuto nel mio portfolio!",
-            "Sono uno Studente",
-            "Sono uno Sviluppatore"
+            "Sono uno sviluppatore software full-stack senior",
+            "Creo esperienze digitali guidate dall'automazione"
         ]
     },
     de: {
@@ -27,8 +27,8 @@ export const heroData: HeroFullLangs = {
         texts: [
             "Hallo! Ich heiße Diego Fois",
             "Willkommen in meinem Portfolio!",
-            "Ich bin Student",
-            "Ich bin Entwickler"
+            "Ich bin Senior Full-Stack-Softwareentwickler",
+            "Ich entwickle automatisierungsgetriebene digitale Lösungen"
         ]
     },
     es: {
@@ -37,8 +37,8 @@ export const heroData: HeroFullLangs = {
         texts: [
             "¡Hola! Me llamo Diego Fois",
             "¡Bienvenido a mi portafolio!",
-            "Soy Estudiante",
-            "Soy Desarrollador"
+            "Soy un desarrollador de software full-stack senior",
+            "Diseño experiencias digitales impulsadas por la automatización"
         ]
     }
 };

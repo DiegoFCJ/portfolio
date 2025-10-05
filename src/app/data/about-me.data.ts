@@ -4,27 +4,29 @@ export const aboutMeData: AboutMeLangs = {
     en: {
         title: 'About Me',
         description: `
-      I'm a 29-year-old Full Stack Developer and Computer Science student. My career started in hospitality, including two years in the UK, where I refined adaptability, deadline management and customer focus.
-      After moving into tech I've specialized in Java, Angular, Spring Boot, DevOps tools and Boomi integrations.
-      I'm passionate about learning and building solutions that make a difference.`
+      I'm a 29-year-old senior full-stack software developer driven by curiosity and the craft of building reliable products.
+      From Java, Angular and Spring Boot to CI/CD pipelines and Boomi, I design automation-first solutions that streamline processes end-to-end.
+      I thrive in collaborative teams, aligning people and technology to deliver measurable impact.`
     },
     it: {
         title: 'Chi Sono',
         description: `
-      Sviluppatore Full Stack di 29 anni e studente di Informatica. Ho iniziato nel mondo della ristorazione, con due anni di esperienza in Inghilterra, dove ho affinato flessibilità, gestione delle scadenze e attenzione al cliente.
-      Oggi mi occupo di Java, Angular, Spring Boot, pratiche DevOps e integrazioni Boomi.
-      Mi piace imparare e creare soluzioni che portino valore.`
+      Sono uno sviluppatore software full-stack senior di 29 anni, spinto dalla curiosità e dalla voglia di creare prodotti affidabili.
+      Da Java, Angular e Spring Boot alle pipeline CI/CD e a Boomi, progetto soluzioni orientate all'automazione che ottimizzano i processi a 360 gradi.
+      Lavoro al meglio in team collaborativi, allineando persone e tecnologia per generare impatto concreto.`
     },
     de: {
         title: 'Über mich',
         description: `
-      Ich bin 29, arbeite als Full-Stack-Entwickler und studiere Informatik. Nach einer Zeit im Gastgewerbe – darunter zwei Jahre in England – konzentriere ich mich heute auf Java, Angular, Spring Boot, DevOps und Boomi.
-      Ich lerne gern dazu und entwickle Lösungen mit echtem Mehrwert.`
+      Ich bin 29 Jahre alt, arbeite als Senior Full-Stack-Softwareentwickler und liebe es, verlässliche Produkte mit Neugier und Handwerk zu gestalten.
+      Mit Java, Angular, Spring Boot, CI/CD-Pipelines und Boomi entwickle ich Automatisierungslösungen, die Prozesse ganzheitlich verschlanken.
+      In kollaborativen Teams laufe ich zur Höchstform auf, wenn Menschen und Technologie für messbare Ergebnisse zusammenfinden.`
     },
     es: {
         title: 'Sobre mí',
         description: `
-      Desarrollador Full Stack de 29 años y estudiante de Informática. Tras una etapa en hostelería, con dos años en Inglaterra, me centro en Java, Angular, Spring Boot, DevOps y Boomi.
-      Me apasiona aprender y crear soluciones que aporten valor.`
+      Soy un desarrollador de software full-stack senior de 29 años, impulsado por la curiosidad y el deseo de crear productos fiables.
+      Con Java, Angular, Spring Boot, pipelines de CI/CD y Boomi diseño soluciones centradas en la automatización que optimizan los procesos de principio a fin.
+      Disfruto trabajando en equipos colaborativos, alineando a las personas y la tecnología para lograr un impacto medible.`
     }
 };
