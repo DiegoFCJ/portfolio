@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
-import { TranslationService } from '../../services/translation.service';
+import { SupportedLanguage, TranslationService } from '../../services/translation.service';
 import { Stat, StatsItem } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
 import { forkJoin, Subject } from 'rxjs';
@@ -60,6 +60,12 @@ export class StatsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  prepareStatistics(language: SupportedLanguage = 'en'): void {
+    const statsContent = statsData[language] ?? statsData.en;
+    this.statsTitle = statsContent.title;
+    this.statistics = this.mapStatistics(statsContent.stats, this.stats);
   }
 
   private mapStatistics(labels: Stat[] = [], computed: StatsItem): Stat[] {

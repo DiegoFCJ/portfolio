@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, forkJoin, map, of, tap, catchError } from 'rxjs';
 
-type SupportedLanguage = 'en' | 'it' | 'de' | 'es';
+export type SupportedLanguage = 'en' | 'it' | 'de' | 'es';
 
 @Injectable({
   providedIn: 'root',
@@ -29,16 +29,25 @@ export class TranslationService {
     return this.currentLanguage.value;
   }
 
-  getTranslatedData<T>(data: { [key: string]: T }, sourceLang: SupportedLanguage = 'en'): Observable<T> {
+  getTranslatedData<T>(
+    data: Record<string, T | undefined> & { en: T },
+    sourceLang: SupportedLanguage = 'en'
+  ): Observable<T> {
     const targetLanguage = this.getCurrentLanguage();
+    if (targetLanguage === sourceLang) {
+      return of(data[sourceLang] ?? data['en']);
+    }
+
     const existingTranslation = data[targetLanguage];
-    if (existingTranslation) {
+    if (existingTranslation !== undefined) {
       return of(existingTranslation);
     }
 
-    const sourceContent = data[sourceLang] ?? data.en ?? Object.values(data)[0];
-    if (!sourceContent) {
-      return of(existingTranslation as T);
+    const sourceContent =
+      data[sourceLang] ?? data['en'] ?? (Object.values(data).find((value): value is T => value !== undefined));
+
+    if (sourceContent === undefined) {
+      return of(data['en']);
     }
 
     return this.translateContent(sourceContent, sourceLang, targetLanguage);
