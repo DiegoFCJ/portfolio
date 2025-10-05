@@ -66,13 +66,24 @@ export class SkillsComponent implements OnInit {
 
     skill.clicked = !skill.clicked;
 
-    if (skill.clicked) {
-      const message = this.createPopupMessage(event.target as HTMLElement);
+    if (!skill.clicked) {
+      return;
+    }
+
+    const resolvedTarget = (event.currentTarget ?? event.target);
+
+    if (!(resolvedTarget instanceof HTMLElement)) {
+      console.warn('Skill click target is not an HTMLElement.');
+      return;
+    }
+
+    const message = this.createPopupMessage(resolvedTarget);
+    if (message) {
       setTimeout(() => message.remove(), 5000);
     }
   }
 
-  createPopupMessage(targetElement: HTMLElement): HTMLElement {
+  createPopupMessage(targetElement: HTMLElement): HTMLElement | null {
     const message = document.createElement('div');
     message.classList.add('popup');
     message.style.cssText = `
@@ -87,7 +98,15 @@ export class SkillsComponent implements OnInit {
       padding: 10px;
       border-radius: 10px;
     `;
-    targetElement.parentElement?.appendChild(message);
+
+    const parent = targetElement.parentElement;
+
+    if (!parent) {
+      console.warn('Unable to attach popup message: parent element not found.');
+      return null;
+    }
+
+    parent.appendChild(message);
     return message;
   }
 }
