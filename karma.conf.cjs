@@ -7,7 +7,18 @@ const chromeExecutablePath =
     ? require('puppeteer').executablePath()
     : undefined);
 
+const chromeHeadlessFlags = ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'];
+
+if (!process.env.CHROME_BIN && chromeExecutablePath) {
+  process.env.CHROME_BIN = chromeExecutablePath;
+}
+
 module.exports = function (config) {
+  const requestedBrowsers = config.browsers && config.browsers.length > 0 ? config.browsers : undefined;
+  const browsers = (requestedBrowsers || ['ChromeHeadlessNoSandbox']).map((browser) =>
+    browser === 'ChromeHeadless' ? 'ChromeHeadlessNoSandbox' : browser,
+  );
+
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -38,13 +49,18 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadlessPuppeteer'],
+    browsers,
     singleRun: false,
     restartOnFileChange: true,
     customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: chromeHeadlessFlags,
+        executablePath: chromeExecutablePath,
+      },
       ChromeHeadlessPuppeteer: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
+        flags: chromeHeadlessFlags,
         executablePath: chromeExecutablePath,
       },
     },
