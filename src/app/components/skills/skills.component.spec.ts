@@ -78,9 +78,25 @@ describe('SkillsComponent', () => {
 
   it('should show popup message when a skill is clicked', () => {
     const skill = component.sections[0].skills[0];
-    const event = new MouseEvent('click');
-    spyOn(document, 'createElement').and.returnValue(document.createElement('div'));
+    const parentElement = document.createElement('div');
+    const targetElement = document.createElement('button');
+    parentElement.appendChild(targetElement);
+    const event = { currentTarget: targetElement } as unknown as MouseEvent;
+    const popupSpy = spyOn(component, 'createPopupMessage').and.callThrough();
+
     component.onSkillClick(event, skill);
-    expect(document.createElement).toHaveBeenCalledWith('div');
+
+    expect(popupSpy).toHaveBeenCalledWith(targetElement);
+    expect(parentElement.querySelector('.popup')).toBeTruthy();
+  });
+
+  it('should guard against missing event targets when creating popup', () => {
+    const skill = component.sections[0].skills[0];
+    const event = { currentTarget: null, target: null } as unknown as MouseEvent;
+    const popupSpy = spyOn(component, 'createPopupMessage');
+
+    component.onSkillClick(event, skill);
+
+    expect(popupSpy).not.toHaveBeenCalled();
   });
 });
