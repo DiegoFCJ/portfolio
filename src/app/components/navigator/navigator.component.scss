@@ -6,6 +6,70 @@ $navigator-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 $navigator-icon-size: 24px;
 $navigator-button-size: 48px;
 
+$navigator-themes: (
+    light: (
+        selector: ':root',
+        background: $navigator-bg,
+        icon-color: #333,
+        hover-background: lighten($navigator-bg, 4%),
+        arrow-hover-background: rgba(0, 0, 0, 0.05),
+        option-background: $navigator-bg,
+        option-hover-background: rgba(0, 0, 0, 0.05),
+        option-selected-background: rgba(0, 0, 0, 0.1),
+        text-color: #333
+    ),
+    dark: (
+        selector: 'body.dark-mode',
+        background: $navigator-bg-dark,
+        icon-color: #f0f0f0,
+        hover-background: lighten($navigator-bg-dark, 5%),
+        arrow-hover-background: lighten($navigator-bg-dark, 5%),
+        option-background: $navigator-bg-dark,
+        option-hover-background: rgba(255, 255, 255, 0.1),
+        option-selected-background: rgba(255, 255, 255, 0.2),
+        text-color: #f0f0f0
+    ),
+    blue: (
+        selector: 'body.blue-mode',
+        background: $navigator-bg,
+        icon-color: #333,
+        hover-background: lighten($navigator-bg, 4%),
+        arrow-hover-background: rgba(0, 0, 0, 0.05),
+        option-background: $navigator-bg,
+        option-hover-background: rgba(0, 0, 0, 0.05),
+        option-selected-background: rgba(0, 0, 0, 0.1),
+        text-color: #333
+    ),
+    green: (
+        selector: 'body.green-mode',
+        background: $navigator-bg,
+        icon-color: #333,
+        hover-background: lighten($navigator-bg, 4%),
+        arrow-hover-background: rgba(0, 0, 0, 0.05),
+        option-background: $navigator-bg,
+        option-hover-background: rgba(0, 0, 0, 0.05),
+        option-selected-background: rgba(0, 0, 0, 0.1),
+        text-color: #333
+    )
+);
+
+@mixin apply-navigator-theme($config) {
+    #{map-get($config, selector)} {
+        --navigator-background: #{map-get($config, background)};
+        --navigator-icon-color: #{map-get($config, icon-color)};
+        --navigator-hover-background: #{map-get($config, hover-background)};
+        --navigator-arrow-hover-background: #{map-get($config, arrow-hover-background)};
+        --navigator-option-background: #{map-get($config, option-background)};
+        --navigator-option-hover-background: #{map-get($config, option-hover-background)};
+        --navigator-option-selected-background: #{map-get($config, option-selected-background)};
+        --navigator-text-color: #{map-get($config, text-color)};
+    }
+}
+
+@each $theme, $config in $navigator-themes {
+    @include apply-navigator-theme($config);
+}
+
 @keyframes float {
 
     0%,
@@ -25,7 +89,7 @@ $navigator-button-size: 48px;
     width: $navigator-button-size;
     height: $navigator-button-size;
     border-radius: 50%;
-    background-color: $navigator-bg;
+    background-color: var(--navigator-background);
     box-shadow: $navigator-shadow;
     border: none;
     display: flex;
@@ -38,11 +102,11 @@ $navigator-button-size: 48px;
     mat-icon {
         position: absolute;
         font-size: $navigator-icon-size;
-        color: #333;
+        color: var(--navigator-icon-color);
     }
 
     &:hover {
-        background-color: lighten($navigator-bg, 4%);
+        background-color: var(--navigator-hover-background);
     }
 }
 
@@ -59,7 +123,7 @@ $navigator-button-size: 48px;
         justify-content: center;
         height: 90px;
         padding: 4px;
-        background-color: $navigator-bg;
+        background-color: var(--navigator-background);
         box-shadow: $navigator-shadow;
         border-radius: $navigator-button-size;
         display: flex;
@@ -74,7 +138,7 @@ $navigator-button-size: 48px;
         width: $navigator-button-size;
         height: $navigator-button-size;
         border-radius: 50%;
-        background-color: $navigator-bg;
+        background-color: var(--navigator-background);
         box-shadow: $navigator-shadow;
         border: none;
         display: flex;
@@ -85,18 +149,18 @@ $navigator-button-size: 48px;
 
         &:hover {
             transform: scale(1.1);
-            background-color: lighten($navigator-bg, 4%);
+            background-color: var(--navigator-hover-background);
         }
 
         mat-icon {
             font-size: $navigator-icon-size;
-            color: #333;
+            color: var(--navigator-icon-color);
         }
 
         .lang-label {
             font-size: 0.9rem;
             font-weight: 600;
-            color: #333;
+            color: var(--navigator-text-color);
         }
     }
 
@@ -112,92 +176,13 @@ $navigator-button-size: 48px;
         transition: background-color 0.2s ease;
 
         &:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: var(--navigator-arrow-hover-background);
         }
 
         mat-icon {
             font-size: $navigator-icon-size;
-            color: #333;
+            color: var(--navigator-icon-color);
             position: absolute;
-        }
-    }
-}
-
-body.dark-mode {
-    .nav-toggle-button {
-        background-color: $navigator-bg-dark;
-
-        mat-icon {
-            color: #f0f0f0;
-        }
-
-        &:hover {
-            background-color: lighten($navigator-bg-dark, 5%);
-        }
-    }
-
-    .modern-navigator {
-
-        .nav-button,
-        .arrow-container {
-            background-color: $navigator-bg-dark;
-        }
-
-        .nav-button:hover,
-        .arrow-button:hover {
-            background-color: lighten($navigator-bg-dark, 5%);
-        }
-
-        .nav-button mat-icon,
-        .nav-button .lang-label,
-        .arrow-button mat-icon {
-            color: #f0f0f0;
-        }
-    }
-}
-
-body.blue-mode {
-    .nav-toggle-button {
-        background-color: $navigator-bg;
-
-        &:hover {
-            background-color: lighten($navigator-bg, 4%);
-        }
-    }
-
-    .modern-navigator {
-
-        .nav-button,
-        .arrow-container {
-            background-color: $navigator-bg;
-        }
-
-        .nav-button:hover,
-        .arrow-button:hover {
-            background-color: lighten($navigator-bg, 4%);
-        }
-    }
-}
-
-body.green-mode {
-    .nav-toggle-button {
-        background-color: $navigator-bg;
-
-        &:hover {
-            background-color: lighten($navigator-bg, 4%);
-        }
-    }
-
-    .modern-navigator {
-
-        .nav-button,
-        .arrow-container {
-            background-color: $navigator-bg;
-        }
-
-        .nav-button:hover,
-        .arrow-button:hover {
-            background-color: lighten($navigator-bg, 4%);
         }
     }
 }
@@ -205,6 +190,7 @@ body.green-mode {
 .lang-flag {
     font-size: 1.2rem;
     margin-right: 8px;
+    color: var(--navigator-text-color);
 }
 
 .nav-group {
@@ -218,24 +204,12 @@ body.green-mode {
     transform: translateY(-50%);
     display: flex;
     gap: 6px;
-    background: $navigator-bg;
+    background: var(--navigator-option-background);
     padding: 4px 6px;
     border-radius: 2rem;
     box-shadow: $navigator-shadow;
     align-items: center;
     z-index: 1;
-}
-
-body.dark-mode {
-    .option-container {
-        background: $navigator-bg-dark;
-    }
-
-    .option-button mat-icon,
-    .option-button .lang-flag {
-        position: absolute;
-        color: #f0f0f0;
-    }
 }
 
 .option-button {
@@ -250,39 +224,23 @@ body.dark-mode {
     transition: background-color 0.2s ease;
 
     &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: var(--navigator-option-hover-background);
     }
 
     mat-icon {
         position: absolute;
         font-size: 20px;
-        color: #333;
+        color: var(--navigator-icon-color);
     }
 
     .section-number {
         position: absolute;
         font-size: 0.9rem;
         font-weight: 600;
-        color: #333;
+        color: var(--navigator-text-color);
     }
 
     &.selected {
-        background-color: rgba(0, 0, 0, 0.1);
-    }
-}
-
-body.dark-mode {
-    .option-button:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .option-button mat-icon,
-    .option-button .section-number {
-        position: absolute;
-        color: #f0f0f0;
-    }
-
-    .option-button.selected {
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: var(--navigator-option-selected-background);
     }
 }
