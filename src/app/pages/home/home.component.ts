@@ -5,10 +5,11 @@ import {
   QueryList,
   AfterViewInit,
   ChangeDetectorRef,
-  OnInit,
-  HostListener
+  HostListener,
+  OnDestroy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { fromEvent, Subscription } from 'rxjs';
 import { ProjectsComponent } from '../../components/projects/projects.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { HeroComponent } from '../../components/hero/hero.component';
@@ -37,12 +38,11 @@ import { ExperiencesComponent } from '../../components/experiences/experiences.c
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements AfterViewInit, OnInit {
+export class HomeComponent implements AfterViewInit, OnDestroy {
   currentSectionIndex = 0;
   viewInitialized = false;
   totalSections = 0;
-  isScrolling = false;
-  private scrollResetTimeoutId: ReturnType<typeof setTimeout> | null = null;
+  private scrollSubscription: Subscription | null = null;
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
 
@@ -59,78 +59,38 @@ export class HomeComponent implements AfterViewInit, OnInit {
     }
   }
 
-  @HostListener('wheel', ['$event'])
-  onWheelScroll(event: WheelEvent): void {
-    const sectionsArray = this.sections?.toArray() ?? [];
-    const computedTotalSections = sectionsArray.length;
-
-    if (computedTotalSections === 0) {
-      return;
-    }
-
-    this.totalSections = computedTotalSections;
-
-    if (this.isScrolling) {
-      event.preventDefault();
-      return;
-    }
-
-    const shouldNavigateNext =
-      event.deltaY > 0 && (
-        this.currentSectionIndex < computedTotalSections - 1 ||
-        (computedTotalSections === 1 && this.currentSectionIndex === 0)
-      );
-
-    if (shouldNavigateNext) {
-      this.isScrolling = true;
-      const originalTotalSections = this.totalSections;
-
-      if (this.currentSectionIndex >= this.totalSections - 1) {
-        this.totalSections = this.currentSectionIndex + 2;
-      }
-
-      this.navigateNext();
-      this.totalSections = originalTotalSections;
-    } else if (event.deltaY < 0 && this.currentSectionIndex > 0) {
-      this.isScrolling = true;
-      this.navigatePrevious();
-    }
-
-    if (this.isScrolling) {
-      if (this.scrollResetTimeoutId) {
-        clearTimeout(this.scrollResetTimeoutId);
-      }
-
-      this.scrollResetTimeoutId = setTimeout(() => {
-        this.isScrolling = false;
-        this.scrollResetTimeoutId = null;
-      }, 600);
-    }
-  }
-
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
     this.viewInitialized = true;
     this.cdr.detectChanges();
 
     setTimeout(() => {
-      this.totalSections = this.sections?.length || 0;
+      this.initializeScrollTracking();
     });
   }
 
+  ngOnDestroy(): void {
+    this.destroyScrollTracking();
+  }
+
   navigateNext(): void {
-    if (this.viewInitialized && this.currentSectionIndex < this.totalSections - 1) {
-      this.currentSectionIndex++;
-      this.scrollToSection(this.currentSectionIndex);
+    if (this.viewInitialized) {
+      const nextIndex = Math.min(this.currentSectionIndex + 1, this.totalSections - 1);
+
+      if (nextIndex !== this.currentSectionIndex) {
+        this.currentSectionIndex = nextIndex;
+        this.scrollToSection(nextIndex);
+      }
     }
   }
 
   navigatePrevious(): void {
-    if (this.viewInitialized && this.currentSectionIndex > 0) {
-      this.currentSectionIndex--;
-      this.scrollToSection(this.currentSectionIndex);
+    if (this.viewInitialized) {
+      const previousIndex = Math.max(this.currentSectionIndex - 1, 0);
+
+      if (previousIndex !== this.currentSectionIndex) {
+        this.currentSectionIndex = previousIndex;
+        this.scrollToSection(previousIndex);
+      }
     }
   }
 
@@ -143,5 +103,55 @@ export class HomeComponent implements AfterViewInit, OnInit {
     }
 
     section.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  private initializeScrollTracking(): void {
+    this.destroyScrollTracking();
+    this.updateCurrentSectionFromViewport();
+
+    this.scrollSubscription = fromEvent(window, 'scroll', { passive: true }).subscribe(() => {
+      this.updateCurrentSectionFromViewport();
+    });
+  }
+
+  private destroyScrollTracking(): void {
+    if (this.scrollSubscription) {
+      this.scrollSubscription.unsubscribe();
+      this.scrollSubscription = null;
+    }
+  }
+
+  private updateCurrentSectionFromViewport(): void {
+    const sectionsArray = this.sections?.toArray() ?? [];
+    this.totalSections = sectionsArray.length;
+
+    if (sectionsArray.length === 0) {
+      this.currentSectionIndex = 0;
+      return;
+    }
+
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    const viewportCenter = viewportHeight / 2;
+
+    const sectionRects = sectionsArray.map(section => section.nativeElement.getBoundingClientRect());
+
+    let candidateIndex = sectionRects.findIndex(rect => {
+      return rect.top <= viewportCenter && rect.bottom >= viewportCenter;
+    });
+
+    if (candidateIndex === -1) {
+      const firstVisibleIndex = sectionRects.findIndex(rect => rect.top >= 0);
+
+      if (firstVisibleIndex !== -1) {
+        candidateIndex = firstVisibleIndex;
+      } else {
+        candidateIndex = sectionRects.length - 1;
+      }
+    }
+
+    if (candidateIndex !== this.currentSectionIndex) {
+      this.currentSectionIndex = candidateIndex;
+      this.cdr.markForCheck();
+    }
   }
 }
