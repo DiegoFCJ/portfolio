@@ -67,6 +67,7 @@ This repository contains a portfolio application built with **Angular 18**. It u
 - `npm start` – run the dev server
 - `npm run build` – build the project
 - `npm test` – execute unit tests
+- `npm run test:headless` – run the CI-friendly headless Chrome test suite
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
 
 ### Server-side Rendering
