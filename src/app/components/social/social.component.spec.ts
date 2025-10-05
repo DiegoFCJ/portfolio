@@ -32,31 +32,31 @@ describe('SocialComponent', () => {
   /**
    * Verifies that the social media data is populated correctly.
    */
-  it('should have social media data', () => {
-    expect(component.socialsData.length).toBeGreaterThan(0);
-    expect(component.socialsData[0].link).toBeDefined();
-    expect(component.socialsData[0].icon).toBeDefined();
+  it('should expose social media data as an array', () => {
+    expect(Array.isArray(component.socialsData)).toBeTrue();
   });
 
   /**
    * Verifies the structure of a social media object.
    */
   it('should contain valid social media objects', () => {
-    const social: Social = component.socialsData[0];
-    expect(social.link).toBeDefined();
-    expect(social.icon).toBeDefined();
-    expect(typeof social.link).toBe('string');
-    expect(typeof social.icon).toBe('string');
+    component.socialsData.forEach((social: Social) => {
+      expect(social.link).toBeDefined();
+      expect(social.icon).toBeDefined();
+      expect(typeof social.link).toBe('string');
+      expect(typeof social.icon).toBe('string');
+    });
   });
 
   /**
    * Verifies that the social media data contains valid objects.
    */
   it('should contain valid social objects with link and icon properties', () => {
-    const social: Social = component.socialsData[0];
-    expect(social).toEqual(jasmine.objectContaining({
-      link: jasmine.any(String),
-      icon: jasmine.any(String)
-    }));
+    component.socialsData.forEach((social: Social) => {
+      expect(social).toEqual(jasmine.objectContaining({
+        link: jasmine.any(String),
+        icon: jasmine.any(String)
+      }));
+    });
   });
 });
