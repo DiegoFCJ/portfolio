@@ -6,7 +6,6 @@ export const experiencesData: ExperienceFullLangs = {
         experiences: [
             {
                 position: 'Software Developer',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Full Remote',
                 startDate: 'Apr 2024',
                 endDate: 'Jun 2025',
@@ -20,7 +19,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Software Developer',
-                company: 'Reply S.p.A.',
                 location: 'Hybrid, Turin',
                 startDate: 'Jan 2025',
                 endDate: 'Jun 2025',
@@ -35,21 +33,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Software Developer',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
-                location: 'Full Remote',
-                startDate: 'Apr 2024',
-                endDate: 'Oct 2024',
-                technologies: 'Spring Boot, AngularJS, JSP, Java',
-                responsibilities: 'Delivered corrective and evolutive maintenance on legacy platforms.',
-                responsibilityList: [
-                    'Resolved critical bugs and delivered evolutive changes on JSP and AngularJS modules.',
-                    'Automated recurring AMS activities with Java schedulers, reducing manual intervention.',
-                    'Documented troubleshooting guides to support the on-call rotation.'
-                ]
-            },
-            {
-                position: 'Software Developer',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Full Remote',
                 startDate: 'Oct 2023',
                 endDate: 'Apr 2024',
@@ -63,7 +46,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Software Developer',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Hybrid',
                 startDate: 'Feb 2023',
                 endDate: 'Oct 2023',
@@ -76,29 +58,16 @@ export const experiencesData: ExperienceFullLangs = {
                 ]
             },
             {
-                position: 'Head Waiter',
-                company: 'D&D London',
-                location: 'London',
-                startDate: 'Dec 2018',
-                endDate: 'Mar 2020',
-                responsibilities: 'Oversaw floor operations for premium dining venues.',
+                position: 'Software Developer',
+                location: 'Turin',
+                startDate: 'Jun 2022',
+                endDate: 'Jan 2023',
+                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
+                responsibilities: 'Focused on maintenance and automation activities for enterprise clients in the mobility sector.',
                 responsibilityList: [
-                    'Coordinated waiting staff schedules across multiple restaurants to guarantee service coverage.',
-                    'Trained new hires on fine-dining procedures, safety rules, and POS systems.',
-                    'Acted as liaison between kitchen, bar, and front of house to maintain service quality.'
-                ]
-            },
-            {
-                position: 'National Civil Service Rescuer',
-                company: 'Croce Rossa Italiana',
-                location: 'Italy',
-                startDate: 'Oct 2017',
-                endDate: 'Oct 2018',
-                responsibilities: 'Supported emergency response initiatives as a national civil service volunteer.',
-                responsibilityList: [
-                    'Assisted ambulance teams during non-critical interventions and community outreach programmes.',
-                    'Managed radio communications and logged incidents to support emergency crews.',
-                    'Delivered first-aid awareness sessions alongside local volunteers.'
+                    'Extended Java services powering ticketing workflows and customer-facing integrations.',
+                    'Industrialised AMS activities by scripting routine tasks with Bash and Ansible.',
+                    'Improved monitoring dashboards and log analysis pipelines used by on-call teams.'
                 ]
             }
         ]
@@ -108,7 +77,6 @@ export const experiencesData: ExperienceFullLangs = {
         experiences: [
             {
                 position: 'Sviluppatore Software',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Full Remote',
                 startDate: 'Apr 2024',
                 endDate: 'Giu 2025',
@@ -122,7 +90,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Sviluppatore Software',
-                company: 'Reply S.p.A.',
                 location: 'Ibrido, Torino',
                 startDate: 'Gen 2025',
                 endDate: 'Giu 2025',
@@ -137,21 +104,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Sviluppatore Software',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
-                location: 'Full Remote',
-                startDate: 'Apr 2024',
-                endDate: 'Ott 2024',
-                technologies: 'Spring Boot, AngularJS, JSP, Java',
-                responsibilities: 'Manutenzione correttiva ed evolutiva di piattaforme legacy.',
-                responsibilityList: [
-                    'Risoluzione di bug critici e rilascio di evolutive su moduli JSP e AngularJS.',
-                    'Automazione delle attività ricorrenti AMS con scheduler Java riducendo il lavoro manuale.',
-                    'Redazione di guide operative a supporto della reperibilità.'
-                ]
-            },
-            {
-                position: 'Sviluppatore Software',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Full Remote',
                 startDate: 'Ott 2023',
                 endDate: 'Apr 2024',
@@ -165,7 +117,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Sviluppatore Software',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Ibrido',
                 startDate: 'Feb 2023',
                 endDate: 'Ott 2023',
@@ -178,29 +129,16 @@ export const experiencesData: ExperienceFullLangs = {
                 ]
             },
             {
-                position: 'Capo Cameriere',
-                company: 'D&D London',
-                location: 'Londra',
-                startDate: 'Dic 2018',
-                endDate: 'Mar 2020',
-                responsibilities: 'Supervisione delle operazioni di sala in ristoranti di fascia alta.',
+                position: 'Sviluppatore Software',
+                location: 'Torino',
+                startDate: 'Giu 2022',
+                endDate: 'Gen 2023',
+                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
+                responsibilities: 'Attività di manutenzione e automazione per clienti enterprise del settore mobilità.',
                 responsibilityList: [
-                    'Coordinamento dei turni del personale di sala in più sedi garantendo copertura del servizio.',
-                    'Formazione dei nuovi assunti su procedure fine dining, norme di sicurezza e sistemi POS.',
-                    'Interfaccia costante con cucina e bar per mantenere alto lo standard del servizio.'
-                ]
-            },
-            {
-                position: 'Volontario Servizio Civile Nazionale',
-                company: 'Croce Rossa Italiana',
-                location: 'Italia',
-                startDate: 'Ott 2017',
-                endDate: 'Ott 2018',
-                responsibilities: 'Supporto alle attività di risposta alle emergenze come volontario del Servizio Civile.',
-                responsibilityList: [
-                    'Affiancamento alle squadre di ambulanza durante interventi non critici e iniziative di sensibilizzazione.',
-                    'Gestione delle comunicazioni radio e registrazione degli interventi a supporto degli equipaggi.',
-                    'Erogazione di sessioni informative di primo soccorso insieme ai volontari locali.'
+                    'Estensione di servizi Java a supporto dei workflow di ticketing e delle integrazioni verso i clienti.',
+                    'Industrializzazione delle attività AMS tramite script Bash e playbook Ansible.',
+                    'Miglioramento di dashboard di monitoraggio e pipeline di analisi log usate dai team di reperibilità.'
                 ]
             }
         ]
@@ -210,7 +148,6 @@ export const experiencesData: ExperienceFullLangs = {
         experiences: [
             {
                 position: 'Softwareentwickler',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Voll Remote',
                 startDate: 'Apr 2024',
                 endDate: 'Jun 2025',
@@ -224,7 +161,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Softwareentwickler',
-                company: 'Reply S.p.A.',
                 location: 'Hybrid, Turin',
                 startDate: 'Jan 2025',
                 endDate: 'Jun 2025',
@@ -239,21 +175,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Softwareentwickler',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
-                location: 'Voll Remote',
-                startDate: 'Apr 2024',
-                endDate: 'Oct 2024',
-                technologies: 'Spring Boot, AngularJS, JSP, Java',
-                responsibilities: 'Lieferte Korrektur- und Evolutionswartung für Legacy-Plattformen.',
-                responsibilityList: [
-                    'Behebung kritischer Fehler und Umsetzung von Erweiterungen in JSP- und AngularJS-Modulen.',
-                    'Automatisierung wiederkehrender AMS-Aufgaben mit Java-Schedulern zur Verringerung manueller Tätigkeiten.',
-                    'Erstellung von Troubleshooting-Anleitungen für den Bereitschaftsdienst.'
-                ]
-            },
-            {
-                position: 'Softwareentwickler',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Voll Remote',
                 startDate: 'Oct 2023',
                 endDate: 'Apr 2024',
@@ -267,7 +188,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Softwareentwickler',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Hybrid',
                 startDate: 'Feb 2023',
                 endDate: 'Oct 2023',
@@ -280,29 +200,16 @@ export const experiencesData: ExperienceFullLangs = {
                 ]
             },
             {
-                position: 'Oberkellner',
-                company: 'D&D London',
-                location: 'London',
-                startDate: 'Dec 2018',
-                endDate: 'Mar 2020',
-                responsibilities: 'Verantwortete den Servicebetrieb in gehobenen Restaurants.',
+                position: 'Softwareentwickler',
+                location: 'Turin',
+                startDate: 'Jun 2022',
+                endDate: 'Jan 2023',
+                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
+                responsibilities: 'Betreute Wartung und Automatisierung für Unternehmenskunden aus dem Mobilitätssektor.',
                 responsibilityList: [
-                    'Koordination der Einsatzpläne des Servicepersonals an mehreren Standorten.',
-                    'Einarbeitung neuer Mitarbeitender in Fine-Dining-Prozesse, Sicherheitsrichtlinien und Kassensysteme.',
-                    'Schnittstelle zwischen Küche, Bar und Service zur Sicherung der Servicequalität.'
-                ]
-            },
-            {
-                position: 'Zivildiensthelfer',
-                company: 'Croce Rossa Italiana',
-                location: 'Italien',
-                startDate: 'Oct 2017',
-                endDate: 'Oct 2018',
-                responsibilities: 'Unterstützte als Freiwilliger den Rettungsdienst.',
-                responsibilityList: [
-                    'Begleitung von Rettungsteams bei nicht-kritischen Einsätzen und Community-Aktionen.',
-                    'Führung von Funkkommunikation und Einsatzprotokollen zur Unterstützung der Teams.',
-                    'Durchführung von Erste-Hilfe-Schulungen gemeinsam mit lokalen Freiwilligen.'
+                    'Erweiterung von Java-Services für Ticketing-Workflows und kundenorientierte Integrationen.',
+                    'Industrialisierung von AMS-Aktivitäten durch Automatisierung mit Bash- und Ansible-Skripten.',
+                    'Verbesserung von Monitoring-Dashboards und Log-Analysen zur Unterstützung von Bereitschaftsteams.'
                 ]
             }
         ]
@@ -312,7 +219,6 @@ export const experiencesData: ExperienceFullLangs = {
         experiences: [
             {
                 position: 'Desarrollador de Software',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Totalmente remoto',
                 startDate: 'Abr 2024',
                 endDate: 'Jun 2025',
@@ -326,7 +232,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Desarrollador de Software',
-                company: 'Reply S.p.A.',
                 location: 'Híbrido, Turín',
                 startDate: 'Ene 2025',
                 endDate: 'Jun 2025',
@@ -341,21 +246,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Desarrollador de Software',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
-                location: 'Totalmente remoto',
-                startDate: 'Abr 2024',
-                endDate: 'Oct 2024',
-                technologies: 'Spring Boot, AngularJS, JSP, Java',
-                responsibilities: 'Entregó mantenimiento correctivo y evolutivo en plataformas heredadas.',
-                responsibilityList: [
-                    'Resolución de errores críticos y entrega de evolutivos en módulos JSP y AngularJS.',
-                    'Automatización de tareas recurrentes de AMS con planificadores en Java para reducir el esfuerzo manual.',
-                    'Documentación de guías de resolución de problemas para el personal de guardia.'
-                ]
-            },
-            {
-                position: 'Desarrollador de Software',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Totalmente remoto',
                 startDate: 'Oct 2023',
                 endDate: 'Abr 2024',
@@ -369,7 +259,6 @@ export const experiencesData: ExperienceFullLangs = {
             },
             {
                 position: 'Desarrollador de Software',
-                company: 'Engineering Ingegneria Informatica S.p.A.',
                 location: 'Híbrido',
                 startDate: 'Feb 2023',
                 endDate: 'Oct 2023',
@@ -382,29 +271,16 @@ export const experiencesData: ExperienceFullLangs = {
                 ]
             },
             {
-                position: 'Jefe de Sala',
-                company: 'D&D London',
-                location: 'Londres',
-                startDate: 'Dic 2018',
-                endDate: 'Mar 2020',
-                responsibilities: 'Supervisó las operaciones de sala en restaurantes de alto nivel.',
+                position: 'Desarrollador de Software',
+                location: 'Turín',
+                startDate: 'Jun 2022',
+                endDate: 'Ene 2023',
+                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
+                responsibilities: 'Se centró en mantenimiento y automatización para clientes enterprise del sector movilidad.',
                 responsibilityList: [
-                    'Coordinó los turnos del personal de sala en varios locales para asegurar la cobertura del servicio.',
-                    'Formó a nuevas incorporaciones en protocolos de fine dining, normas de seguridad y sistemas POS.',
-                    'Actuó como enlace entre cocina, barra y sala para mantener la calidad del servicio.'
-                ]
-            },
-            {
-                position: 'Voluntario del Servicio Civil Nacional',
-                company: 'Croce Rossa Italiana',
-                location: 'Italia',
-                startDate: 'Oct 2017',
-                endDate: 'Oct 2018',
-                responsibilities: 'Apoyó iniciativas de respuesta a emergencias como voluntario del servicio civil.',
-                responsibilityList: [
-                    'Asistencia a equipos de ambulancia durante intervenciones no críticas y acciones comunitarias.',
-                    'Gestión de comunicaciones por radio y registro de incidencias en apoyo a los equipos de emergencia.',
-                    'Impartición de sesiones de sensibilización sobre primeros auxilios junto a voluntarios locales.'
+                    'Extendió servicios Java que soportan los flujos de ticketing y las integraciones orientadas al cliente.',
+                    'Industrializó actividades AMS mediante scripts en Bash y playbooks de Ansible.',
+                    'Mejoró paneles de monitoreo y procesos de análisis de logs utilizados por los equipos de guardia.'
                 ]
             }
         ]
