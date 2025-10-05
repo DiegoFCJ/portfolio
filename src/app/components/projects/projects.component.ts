@@ -23,6 +23,8 @@ export class ProjectsComponent implements OnInit {
     projects: [{
       title: "",
       description: "",
+      technologies: [],
+      status: "",
       image: "",
       link: "",
       expanded: false

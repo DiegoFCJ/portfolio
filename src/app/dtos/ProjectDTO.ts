@@ -17,6 +17,8 @@ export interface ProjectFull {
 export interface Project {
     title: string;
     description: string;
+    technologies: string[];
+    status: string;
     image: string;
     link: string;
     expanded: boolean;
