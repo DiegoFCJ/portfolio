@@ -47,11 +47,14 @@ describe('StatsComponent', () => {
    * Verifies that calculateStats computes correct statistics based on test data.
    */
   it('should calculate correct stats', () => {
-    const stats: StatsItem = component.calculateStats(experiencesData.experiences, projects.projects);
+    const stats: StatsItem = component.calculateStats(
+      experiencesData.en.experiences,
+      projects.en.projects
+    );
 
-    expect(stats.hours).toContain('hours');
-    expect(stats.months).toContain('months');
-    expect(stats.projects).toContain('projects');
+    expect(Number(stats.hours)).toBe(7080);
+    expect(Number(stats.months)).toBe(44);
+    expect(Number(stats.projects)).toBe(8);
     expect(stats.mostUsed).toBeTruthy();
   });
 
@@ -96,7 +99,7 @@ describe('StatsComponent', () => {
       mostUsed: 'Java, Angular, SQL, Node.js'
     };
 
-    component.prepareStatistics();
+    component.prepareStatistics('en');
 
     expect(component.statistics.length).toBe(4);
     expect(component.statistics[0].value).toBe('4000 hours');
