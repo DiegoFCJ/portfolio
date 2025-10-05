@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:headless": "CHROME_BIN=\"$(node -p \"require('puppeteer').executablePath()\")\" ng test --watch=false --browsers=ChromeHeadless",
     "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs"
   },
   "private": true,
@@ -50,6 +51,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ngx-build-plus": "^18.0.0",
+    "puppeteer": "^23.7.0",
     "sass": "^1.80.7",
     "three": "^0.177.0",
     "typescript": "~5.5.2"
