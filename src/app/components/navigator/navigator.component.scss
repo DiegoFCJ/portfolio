@@ -83,14 +83,12 @@ $navigator-themes: (
 }
 
 .navigator-wrapper {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
-    z-index: 9999;
+    z-index: 1;
 }
 
 .nav-toggle-button {

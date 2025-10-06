@@ -8,7 +8,11 @@
   <div #section><app-stats></app-stats></div>
   <div #section><app-contact-me></app-contact-me></div>
 
-  <app-navigator [totalSections]="totalSections" [currentSectionIndex]="currentSectionIndex"
-    (navigateNext)="navigateNext()" (navigatePrevious)="navigatePrevious()">
-  </app-navigator>
+  <div class="home__floating-controls" [class.home__floating-controls--assistant-open]="isAssistantOpen">
+    <app-navigator [totalSections]="totalSections" [currentSectionIndex]="currentSectionIndex"
+      (navigateNext)="navigateNext()" (navigatePrevious)="navigatePrevious()">
+    </app-navigator>
+
+    <app-assistant (opened)="onAssistantOpened()" (closed)="onAssistantClosed()"></app-assistant>
+  </div>
 </div>
