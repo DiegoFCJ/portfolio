@@ -158,29 +158,14 @@ input[type='checkbox']:checked+.theme-switch-label {
 }
 
 .statistics-component {
-    .statistics-section {
-        .statistics-card {
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-radius: 14px;
-
-            .statistics-content {
-                .statistics-icon {
-                    mat-icon {
-                        color: #1f2937;
-                    }
-                }
-            }
-
-            .statistics-label {
-                color: #6b7280;
-            }
-        }
-
-        .statistics-section-title {
-            color: #1f2937;
-        }
-    }
+    --stat-bg: linear-gradient(135deg, rgba(108, 99, 255, 0.08), rgba(59, 130, 246, 0.08), rgba(0, 191, 166, 0.1));
+    --stat-card-bg: rgba(255, 255, 255, 0.94);
+    --stat-card-border: rgba(209, 213, 219, 0.5);
+    --stat-icon-bg: rgba(59, 130, 246, 0.14);
+    --stat-icon-color: #2563eb;
+    --stat-label-color: #4b5563;
+    --stat-value-color: #1f2937;
+    --stat-title-color: #1f2937;
 }
 
 .contact-me-section {
