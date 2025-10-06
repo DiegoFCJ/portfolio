@@ -1,9 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SkillsComponent } from './skills.component';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
+import { PLATFORM_ID } from '@angular/core';
+import { TranslationService } from '../../services/translation.service';
 import { skills } from '../../data/skills.data'; // Import skills data
-import { Skill } from '../../dtos/SkillDTO'; // Import Skill DTO
+
+class MockTranslationService {
+  private readonly languageSubject = new BehaviorSubject<'en' | 'it' | 'de' | 'es'>('en');
+  readonly currentLanguage$ = this.languageSubject.asObservable();
+
+  translateContent<T>(content: T, _source: string, _target?: string) {
+    return of(content);
+  }
+
+  setLanguage(language: 'en' | 'it' | 'de' | 'es') {
+    this.languageSubject.next(language);
+  }
+}
 
 describe('SkillsComponent', () => {
   let component: SkillsComponent;
@@ -12,6 +26,10 @@ describe('SkillsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, SkillsComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService },
+        { provide: PLATFORM_ID, useValue: 'browser' }
+      ]
     });
 
     fixture = TestBed.createComponent(SkillsComponent);
@@ -24,7 +42,6 @@ describe('SkillsComponent', () => {
   });
 
   it('should initialize skill sections correctly', () => {
-    component.ngOnInit();
     expect(component.sections.length).toBeGreaterThan(0);
     expect(component.sections[0].skills.length).toBeGreaterThan(0);
   });
