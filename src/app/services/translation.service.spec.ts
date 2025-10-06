@@ -23,7 +23,7 @@ describe('TranslationService', () => {
 
     internals.cache?.clear();
     internals.storage?.removeItem('translation-cache');
-    service.setLanguage('en');
+    service.setLanguage('it');
   });
 
   afterEach(() => {
@@ -34,9 +34,9 @@ describe('TranslationService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should have "en" as the default language', async () => {
+  it('should have "it" as the default language', async () => {
     const language = await firstValueFrom(service.currentLanguage$);
-    expect(language).toBe('en');
+    expect(language).toBe('it');
   });
 
   it('should update the language when setLanguage is called', () => {

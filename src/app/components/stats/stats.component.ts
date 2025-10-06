@@ -8,6 +8,7 @@ import { projects } from '../../data/projects.data';
 import { LanguageCode, TranslationService } from '../../services/translation.service';
 import { Stat, StatsFull, StatsItem } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
+import { LanguageCode } from '../../models/language-code.type';
 
 @Component({
   selector: 'app-stats',
@@ -42,16 +43,26 @@ export class StatsComponent implements OnInit, OnDestroy {
           this.isLoading = true;
         }),
         switchMap(language => {
-          const experiences = experiencesData.en.experiences;
-          const projectList = projects.en.projects;
-          const baseComputed = this.calculateStats(experiences, projectList, 'en');
+          const experiencesSource = this.resolveLocalizedContent(experiencesData);
+          const projectsSource = this.resolveLocalizedContent(projects);
+          const statsTemplateSource = this.resolveLocalizedContent(statsData);
 
-          const template$ = this.getTemplateByLanguage(language);
-          const computed$ = this.getComputedByLanguage(language, experiences, projectList, baseComputed);
+          const computed = this.calculateStats(
+            experiencesSource.content.experiences,
+            projectsSource.content.projects
+          );
 
           return forkJoin({
-            template: template$,
-            computed: computed$
+            template: this.translationService.translateContent(
+              statsTemplateSource.content,
+              statsTemplateSource.language,
+              language
+            ),
+            computed: this.translationService.translateContent(
+              computed,
+              'it',
+              language
+            )
           });
         })
       )
@@ -115,9 +126,9 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
 
     return {
-      hours: `${Math.round(totalHours)}+ engineering hours delivered`,
-      months: `${totalMonths}+ months across enterprise projects`,
-      projects: `${totalProjects} end-to-end initiatives led`,
+      hours: `${Math.round(totalHours)}+ ore di ingegneria erogate`,
+      months: `${totalMonths}+ mesi su progetti enterprise`,
+      projects: `${totalProjects} iniziative end-to-end guidate`,
       mostUsed: sortedTechnologies.join(' · ')
     };
   }
@@ -174,33 +185,28 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getTemplateByLanguage(language: LanguageCode): Observable<StatsFull> {
-    if (language === 'en') {
-      return of(statsData.en);
+  private resolveLocalizedContent<T extends { [key: string]: any }>(
+    data: Partial<Record<LanguageCode, T>>
+  ): { content: T; language: LanguageCode } {
+    const preferred: LanguageCode = 'it';
+    const preferredContent = data[preferred];
+    if (preferredContent) {
+      return { content: preferredContent, language: preferred };
     }
 
-    const template = statsData[language];
-    if (template) {
-      return of(template);
+    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
+    for (const fallback of fallbackOrder) {
+      const content = data[fallback];
+      if (content) {
+        return { content, language: fallback };
+      }
     }
 
-    return this.translationService.translateContent<StatsFull>(statsData.en, 'en', language);
-  }
-
-  private getComputedByLanguage(
-    language: LanguageCode,
-    experiences: any[],
-    projectList: any[],
-    baseComputed: StatsItem
-  ): Observable<StatsItem> {
-    if (language === 'en') {
-      return of(baseComputed);
+    const firstEntry = Object.entries(data)[0];
+    if (firstEntry) {
+      return { content: firstEntry[1] as T, language: firstEntry[0] as LanguageCode };
     }
 
-    if (language === 'it') {
-      return of(this.calculateStats(experiences, projectList, 'it'));
-    }
-
-    return this.translationService.translateContent<StatsItem>(baseComputed, 'en', language);
+    throw new Error('No data available for statistics');
   }
 }

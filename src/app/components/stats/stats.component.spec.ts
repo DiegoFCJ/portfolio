@@ -40,10 +40,10 @@ describe('StatsComponent', () => {
   it('should prepare statistics correctly', () => {
     fixture.detectChanges();
     expect(component.statistics.length).toBe(4);
-    expect(component.statistics[0].label).toBe('Total Hours');
-    expect(component.statistics[1].label).toBe('Experience Months');
-    expect(component.statistics[2].label).toBe('Projects Delivered');
-    expect(component.statistics[3].label).toBe('Core Stack');
+    expect(component.statistics[0].label).toBe('Ore Totali');
+    expect(component.statistics[1].label).toBe('Mesi di Esperienza');
+    expect(component.statistics[2].label).toBe('Progetti Consegnati');
+    expect(component.statistics[3].label).toBe('Stack Principale');
   });
 
   /**
@@ -55,9 +55,9 @@ describe('StatsComponent', () => {
       projects.en.projects
     );
 
-    expect(stats.hours).toBe('7240+ engineering hours delivered');
-    expect(stats.months).toBe('45+ months across enterprise projects');
-    expect(stats.projects).toBe('8 end-to-end initiatives led');
+    expect(stats.hours).toBe('7240+ ore di ingegneria erogate');
+    expect(stats.months).toBe('45+ mesi su progetti enterprise');
+    expect(stats.projects).toBe('8 iniziative end-to-end guidate');
     expect(stats.mostUsed).toContain('·');
   });
 

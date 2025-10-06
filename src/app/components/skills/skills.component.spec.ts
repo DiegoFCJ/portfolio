@@ -46,32 +46,28 @@ describe('SkillsComponent', () => {
   });
 
   it('should correctly move to the next section in the carousel', () => {
-    const sections = skills.en.skills;
-    component.sections = sections; // Simulating skills data
+    component.sections = skills.it?.skills ?? skills.en?.skills ?? [];
     component.currentIndex = 0;
     component.moveToNext();
     expect(component.currentIndex).toBe(1); // Should move to the next section
   });
 
   it('should correctly move to the previous section in the carousel', () => {
-    const sections = skills.en.skills;
-    component.sections = sections; // Simulating skills data
+    component.sections = skills.it?.skills ?? skills.en?.skills ?? [];
     component.currentIndex = 1;
     component.moveToPrevious();
     expect(component.currentIndex).toBe(0); // Should move to the previous section
   });
 
   it('should reset to the first section when moving past the last one', () => {
-    const sections = skills.en.skills;
-    component.sections = sections; // Simulating skills data
+    component.sections = skills.it?.skills ?? skills.en?.skills ?? [];
     component.currentIndex = component.sections.length - 1;
     component.moveToNext();
     expect(component.currentIndex).toBe(0); // Should reset to the first section
   });
 
   it('should reset to the last section when moving before the first one', () => {
-    const sections = skills.en.skills;
-    component.sections = sections; // Simulating skills data
+    component.sections = skills.it?.skills ?? skills.en?.skills ?? [];
     component.currentIndex = 0;
     component.moveToPrevious();
     expect(component.currentIndex).toBe(component.sections.length - 1); // Should reset to the last section

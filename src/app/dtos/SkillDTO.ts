@@ -1,10 +1,4 @@
-export interface SkillLangs {
-    en: SkillFull;
-    it?: SkillFull;
-    de?: SkillFull;
-    es?: SkillFull;
-    [key: string]: SkillFull | undefined;
-}
+import { LanguageCode } from '../models/language-code.type';
 
 export interface SkillFull {
     title: string;
@@ -21,4 +15,6 @@ export interface SkillItem {
     icon: string;
     clicked: boolean;
 }
+
+export type SkillFullLangs = Partial<Record<LanguageCode, SkillFull>>;
 

@@ -22,7 +22,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./hero.component.scss']
 })
 export class HeroComponent implements OnInit, OnDestroy {
-  heroData: HeroFull = heroDataSource.en;
+  heroData: HeroFull = heroDataSource.it ?? heroDataSource.en;
   isLoading = true;
   @Output() navigateNextSection = new EventEmitter<void>();
 
@@ -53,7 +53,7 @@ export class HeroComponent implements OnInit, OnDestroy {
         this.clearTimeOuts();
       });
 
-    this.translationService.getTranslatedData<HeroFull>(heroDataSource)
+    this.translationService.getTranslatedData<HeroFull>(heroDataSource, 'it')
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.heroData = data;

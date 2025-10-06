@@ -1,6 +1,16 @@
 import { HeroFullLangs } from '../dtos/HeroDTO';
 
 export const heroData: HeroFullLangs = {
+    it: {
+        button: 'Scopri di più su di me',
+        description: '',
+        texts: [
+            'Ciao! Mi chiamo Diego Fois',
+            'Benvenuto nel mio portfolio!',
+            'Sono uno sviluppatore software full-stack junior in crescita',
+            'Costruisco esperienze digitali guidate dall\'automazione'
+        ]
+    },
     en: {
         button: 'Learn More About Me',
         description: '',
