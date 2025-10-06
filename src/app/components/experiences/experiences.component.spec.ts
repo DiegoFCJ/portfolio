@@ -10,8 +10,8 @@ import { TranslationService } from '../../services/translation.service';
 class MockTranslationService {
   currentLanguage$ = of<'en'>('en');
 
-  getTranslatedData<T>(data: { [key: string]: T }): T {
-    return data['en'];
+  getTranslatedData<T>(data: { [key: string]: T }) {
+    return of(data['en']);
   }
 }
 

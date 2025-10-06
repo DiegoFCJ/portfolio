@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { forkJoin, Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
 import { TranslationService } from '../../services/translation.service';
@@ -17,49 +19,53 @@ import { statsData } from '../../data/stats.data';
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss']
 })
-export class StatsComponent implements OnInit {
+export class StatsComponent implements OnInit, OnDestroy {
   stats: StatsItem = {
-    hours: "",
-    months: "",
-    projects: "",
-    mostUsed: ""
+    hours: '',
+    months: '',
+    projects: '',
+    mostUsed: ''
   };
-  statsTitle: string = "";
-  statistics: Stat[] = []
+  statsTitle: string = '';
+  statistics: Stat[] = [];
+  isLoading = true;
+
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private translationService: TranslationService) { }
 
   ngOnInit(): void {
-    this.translationService.currentLanguage$.subscribe(language => {
-      const experiences = experiencesData.en.experiences;
-      const projectList = projects.en.projects;
-      this.statsTitle = statsData[language].title;
-      this.stats = this.calculateStats(experiences, projectList);
-      this.prepareStatistics(language);
-    });
+    this.translationService.currentLanguage$
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => {
+          this.isLoading = true;
+        }),
+        switchMap(language => {
+          const experiences = experiencesData.en.experiences;
+          const projectList = projects.en.projects;
+          const computed = this.calculateStats(experiences, projectList);
+
+          return forkJoin({
+            template: this.translationService.translateContent(statsData.en, 'en', language),
+            computed: this.translationService.translateContent(computed, 'en', language)
+          });
+        })
+      )
+      .subscribe(({ template, computed }) => {
+        this.statsTitle = template.title;
+        this.stats = computed;
+        this.statistics = template.stats.map((stat, index) => ({
+          ...stat,
+          value: this.getStatValueByIndex(computed, index)
+        }));
+        this.isLoading = false;
+      });
   }
 
-  prepareStatistics(language: string): void {
-    const labels = statsData[language]?.stats;
-
-    if (labels) {
-      this.statistics = labels.map((stat, index) => {
-        switch (index) {
-          case 0:
-            return { ...stat, value: this.stats.hours };
-          case 1:
-            return { ...stat, value: this.stats.months };
-          case 2:
-            return { ...stat, value: this.stats.projects };
-          case 3:
-            return { ...stat, value: this.stats.mostUsed };
-          default:
-            return stat;
-        }
-      });
-    } else {
-      console.error(`Language ${language} not found in statsLabels.`);
-    }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   calculateStats(experiences: any[], projectList: any[]): StatsItem {
@@ -139,5 +145,20 @@ export class StatsComponent implements OnInit {
     const startDate = new Date(start);
     const endDate = new Date(end);
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
+  }
+
+  private getStatValueByIndex(stats: StatsItem, index: number): string {
+    switch (index) {
+      case 0:
+        return stats.hours;
+      case 1:
+        return stats.months;
+      case 2:
+        return stats.projects;
+      case 3:
+        return stats.mostUsed;
+      default:
+        return '';
+    }
   }
 }

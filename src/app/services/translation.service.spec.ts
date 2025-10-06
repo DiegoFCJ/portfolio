@@ -1,65 +1,77 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { PLATFORM_ID } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { TranslationService } from './translation.service';
 
 describe('TranslationService', () => {
   let service: TranslationService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+    });
     service = TestBed.inject(TranslationService);
+    httpMock = TestBed.inject(HttpTestingController);
+    window.localStorage.removeItem('translation-cache');
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should have "en" as the default language', (done: DoneFn) => {
-    service.currentLanguage$.subscribe((language) => {
-      expect(language).toBe('en');
-      done();
+  it('should have "en" as the default language', async () => {
+    const language = await firstValueFrom(service.currentLanguage$);
+    expect(language).toBe('en');
+  });
+
+  it('should update the language when setLanguage is called', () => {
+    service.setLanguage('it');
+    expect(service.getCurrentLanguage()).toBe('it');
+  });
+
+  it('should perform a translation on cache miss', () => {
+    const text = 'Hello';
+    const expectedUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=it&dt=t&q=${encodeURIComponent(text)}`;
+
+    service.translateText(text, 'en', 'it').subscribe(result => {
+      expect(result).toBe('Ciao');
     });
+
+    const req = httpMock.expectOne(expectedUrl);
+    req.flush([[['Ciao', 'Hello']]]);
   });
 
-  it('should update the language when setLanguage is called', (done: DoneFn) => {
-    service.setLanguage('it');
-    service.currentLanguage$.subscribe((language) => {
-      expect(language).toBe('it');
-      done();
+  it('should return cached translation without additional HTTP requests', () => {
+    const text = 'Hello';
+    const expectedUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=it&dt=t&q=${encodeURIComponent(text)}`;
+
+    service.translateText(text, 'en', 'it').subscribe();
+    const req = httpMock.expectOne(expectedUrl);
+    req.flush([[['Ciao', 'Hello']]]);
+
+    service.translateText(text, 'en', 'it').subscribe(result => {
+      expect(result).toBe('Ciao');
     });
+
+    httpMock.expectNone(expectedUrl);
   });
 
-  it('should support german and spanish languages', async () => {
-    service.setLanguage('de');
-    const german = await firstValueFrom(service.currentLanguage$);
-    expect(german).toBe('de');
+  it('should fall back to the original text when the HTTP call fails', () => {
+    const text = 'Hello';
+    const expectedUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=de&dt=t&q=${encodeURIComponent(text)}`;
 
-    service.setLanguage('es');
-    const spanish = await firstValueFrom(service.currentLanguage$);
-    expect(spanish).toBe('es');
-  });
+    service.translateText(text, 'en', 'de').subscribe(result => {
+      expect(result).toBe(text);
+    });
 
-  it('should return the correct translated data for the current language', () => {
-    const mockData = {
-      en: 'Hello',
-      it: 'Ciao',
-    };
-
-    // Test default language (en)
-    expect(service.getTranslatedData(mockData)).toBe('Hello');
-
-    // Change language to 'it' and test
-    service.setLanguage('it');
-    expect(service.getTranslatedData(mockData)).toBe('Ciao');
-  });
-
-  it('should handle missing keys in getTranslatedData gracefully', () => {
-    const mockData = {
-      en: 'Hello',
-    };
-
-    // Test for a missing key ('it') in the provided data
-    service.setLanguage('it');
-    expect(service.getTranslatedData(mockData)).toBeUndefined();
+    const req = httpMock.expectOne(expectedUrl);
+    req.flush('error', { status: 500, statusText: 'Server Error' });
   });
 });
