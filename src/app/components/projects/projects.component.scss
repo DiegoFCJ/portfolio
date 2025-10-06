@@ -15,6 +15,7 @@ section {
     flex-wrap: wrap;
     gap: 1.5em;
     justify-content: center;
+    align-items: stretch;
 }
 
 // Project card styles
@@ -23,12 +24,18 @@ section {
     border-radius: 10px;
     text-align: center;
     padding: 1em;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center top;
+    background-color: var(--project-card-bg, #ffffff);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
 
     // Hover effect for project card
     &:hover {
         border: none;
-        transform: translateY(-5px);
+        transform: scale(1.02);
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15);
         cursor: pointer;
     }
 
@@ -51,25 +58,61 @@ section {
         margin: 0 0 1em;
         color: #4b5563;
     }
+}
 
-    .more,
-    .less {
-        cursor: pointer;
-        text-decoration: underline;
-        display: inline-block;
-        margin-top: 5px;
+.project-description {
+    position: relative;
+    text-align: left;
+    font-size: 0.95em;
+    color: #1f2937;
+
+    p {
+        margin: 0;
     }
 
-    // Link inside project card
-    .proj-link {
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.3s;
+    &.collapsed {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+    }
+
+    &.collapsed::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2.5em;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--project-card-bg, #ffffff) 100%);
+    }
+
+    &.expanded {
+        overflow: visible;
     }
 }
 
-.project-card.expanded p {
-    overflow: visible;
+.toggle-description {
+    align-self: flex-start;
+    border: none;
+    background: none;
+    color: #2563eb;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+
+    &:focus-visible {
+        outline: 2px solid #1d4ed8;
+        outline-offset: 2px;
+    }
+}
+
+// Link inside project card
+.proj-link {
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
 }
 
 /* Mobile responsiveness */
@@ -83,6 +126,7 @@ section {
         box-shadow: none !important;
         max-width: 100%;
         padding: 1em;
+        gap: 0.75em;
 
         .proj-image {
             width: 100%;

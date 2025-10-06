@@ -8,19 +8,25 @@
         <div class="carousel-wrapper">
             <div class="carousel-item" *ngFor="let project of projects.projects; let i = index"
                 [class.active]="i === currentIndex">
-                <div class="project-card">
+                <div class="project-card" [class.expanded]="project.expanded">
                     <img class="proj-image" [src]="project.image" alt="Project Image" />
                     <h3>{{ project.title }}</h3>
                     <p class="project-status">{{ project.status }}</p>
                     <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>
 
-                    <p>
-                        {{ getTruncatedDescription(project) }}
-                        <span *ngIf="!project.expanded" class="more"
-                            (click)="toggleExpand(project)">{{projects.moreDesc}}</span>
-                        <span *ngIf="project.expanded" class="less"
-                            (click)="toggleExpand(project)">{{projects.lessDesc}}</span>
-                    </p>
+                    <div class="project-description" [ngClass]="{ 'expanded': project.expanded, 'collapsed': !project.expanded }"
+                        [attr.id]="'project-description-mobile-' + i">
+                        <p>
+                            {{ project.expanded ? project.description : project.description.length > maxChars ?
+                            (project.description | slice: 0:maxChars) + '...' : project.description }}
+                        </p>
+                    </div>
+                    <button type="button" class="toggle-description" (click)="toggleExpand(project)"
+                        [attr.aria-expanded]="project.expanded"
+                        [attr.aria-controls]="'project-description-mobile-' + i"
+                        [attr.aria-label]="(project.expanded ? projects.lessDesc : projects.moreDesc).trim()">
+                        {{ (project.expanded ? projects.lessDesc : projects.moreDesc).trim() }}
+                    </button>
 
                     <a class="proj-link" [href]="project.link" target="_blank">{{projects.button}}</a>
                 </div>
@@ -32,18 +38,25 @@
 
     <!-- Griglia per desktop -->
     <div class="project-cards" *ngIf="!isMobile">
-        <div class="project-card" *ngFor="let project of projects.projects">
+        <div class="project-card" *ngFor="let project of projects.projects; let i = index"
+            [class.expanded]="project.expanded">
             <img class="proj-image" [src]="project.image" alt="Project Image" />
             <h3>{{ project.title }}</h3>
             <p class="project-status">{{ project.status }}</p>
             <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>
 
-            <p>
-                {{ getTruncatedDescription(project) }}
-                <span *ngIf="!project.expanded" class="more"
-                    (click)="toggleExpand(project)">{{projects.moreDesc}}</span>
-                <span *ngIf="project.expanded" class="less" (click)="toggleExpand(project)">{{projects.lessDesc}}</span>
-            </p>
+            <div class="project-description" [ngClass]="{ 'expanded': project.expanded, 'collapsed': !project.expanded }"
+                [attr.id]="'project-description-' + i">
+                <p>
+                    {{ project.expanded ? project.description : project.description.length > maxChars ?
+                    (project.description | slice: 0:maxChars) + '...' : project.description }}
+                </p>
+            </div>
+            <button type="button" class="toggle-description" (click)="toggleExpand(project)"
+                [attr.aria-expanded]="project.expanded" [attr.aria-controls]="'project-description-' + i"
+                [attr.aria-label]="(project.expanded ? projects.lessDesc : projects.moreDesc).trim()">
+                {{ (project.expanded ? projects.lessDesc : projects.moreDesc).trim() }}
+            </button>
 
             <a class="proj-link" [href]="project.link" target="_blank">{{projects.button}}</a>
         </div>
