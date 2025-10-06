@@ -174,7 +174,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
   }
 
   moveToNext(): void {
-    const items = this.activePanels.length ? this.activePanels : this.sections;
+    const items = this.getCarouselItems();
     if (!items.length) {
       return;
     }
@@ -182,7 +182,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
   }
 
   moveToPrevious(): void {
-    const items = this.activePanels.length ? this.activePanels : this.sections;
+    const items = this.getCarouselItems();
     if (!items.length) {
       return;
     }
@@ -256,13 +256,14 @@ export class SkillsComponent implements OnInit, OnDestroy {
   }
 
   private resetCarouselIndex(): void {
-    const activeLength = this.activePanels.length;
-    if (!activeLength) {
+    const items = this.getCarouselItems();
+    const length = items.length;
+    if (!length) {
       this.currentIndex = 0;
       return;
     }
 
-    this.currentIndex = Math.min(this.currentIndex, activeLength - 1);
+    this.currentIndex = Math.min(this.currentIndex, length - 1);
   }
 
   private resetSection(section: SkillSection): SkillSection {
@@ -357,6 +358,14 @@ export class SkillsComponent implements OnInit, OnDestroy {
   private resolveTabLabel(id: SkillTabId): string {
     const dictionary = this.tabLabelDictionary[id];
     return dictionary[this.currentLanguage] ?? dictionary['default'];
+  }
+
+  private getCarouselItems(): Array<SpotlightPanel | SkillSection> {
+    if (this.isMobile && this.activePanels.length) {
+      return this.activePanels;
+    }
+
+    return this.sections;
   }
 
   private ensureActiveTab(): void {
