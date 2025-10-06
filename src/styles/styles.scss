@@ -8,6 +8,10 @@
 @use 'responsiveness/pc';
 @use 'responsiveness/large';
 
+:root {
+    --assistant-avatar-size-sm: 48px;
+}
+
 html,
 body {
     height: 100%;

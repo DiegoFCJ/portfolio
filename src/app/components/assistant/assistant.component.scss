@@ -1,5 +1,5 @@
 :host {
-  --assistant-avatar-size: clamp(64px, 12vw, 88px);
+  --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
   --assistant-spacing: clamp(12px, 2vw, 18px);
   --assistant-popup-width: min(320px, 82vw);
   display: block;
@@ -311,7 +311,7 @@
 
 @media (max-width: 768px) {
   :host {
-    --assistant-avatar-size: clamp(60px, 16vw, 76px);
+    --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
     --assistant-popup-width: min(92vw, 340px);
   }
 
