@@ -4,7 +4,6 @@
   --assistant-popup-width: min(320px, 82vw);
   display: block;
   position: relative;
-  width: var(--assistant-popup-width);
   max-width: 100%;
 }
 
@@ -22,6 +21,7 @@
   width: var(--assistant-avatar-size);
   height: var(--assistant-avatar-size);
   pointer-events: auto;
+  z-index: 3;
 }
 
 .assistant__avatar {
@@ -39,6 +39,7 @@
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
   transition: box-shadow 0.35s ease;
   outline: none;
+  z-index: 3;
 }
 
 .assistant__avatar:focus-visible {
@@ -88,9 +89,8 @@
 
 .assistant__popup {
   position: absolute;
-  bottom: 0;
   right: 0;
-  transform: translateY(calc(-100% - var(--assistant-spacing)));
+  bottom: calc(100% + var(--assistant-spacing));
   width: var(--assistant-popup-width);
   max-width: 100%;
   background: rgba(22, 29, 49, 0.92);

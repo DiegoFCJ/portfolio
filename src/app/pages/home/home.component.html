@@ -9,10 +9,10 @@
   <div #section><app-contact-me></app-contact-me></div>
 
   <div class="home__floating-controls" [class.home__floating-controls--assistant-open]="isAssistantOpen">
+    <app-assistant (opened)="onAssistantOpened()" (closed)="onAssistantClosed()"></app-assistant>
+
     <app-navigator [totalSections]="totalSections" [currentSectionIndex]="currentSectionIndex"
       (navigateNext)="navigateNext()" (navigatePrevious)="navigatePrevious()">
     </app-navigator>
-
-    <app-assistant (opened)="onAssistantOpened()" (closed)="onAssistantClosed()"></app-assistant>
   </div>
 </div>
