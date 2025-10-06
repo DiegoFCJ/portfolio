@@ -123,7 +123,7 @@ describe('StatsComponent', () => {
    * Ensures that changing language keeps numeric values and icons untouched.
    */
   it('should keep numeric content stable when language changes', fakeAsync(() => {
-    const translation = TestBed.inject(TranslationService) as MockTranslationService;
+    const translation = TestBed.inject(TranslationService);
 
     const initialIcons = component.statistics.map(stat => stat.icon);
     const initialValues = component.statistics.map(stat => stat.value);
