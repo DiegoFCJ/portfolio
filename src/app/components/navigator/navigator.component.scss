@@ -164,6 +164,14 @@ $navigator-themes: (
             font-weight: 600;
             color: var(--navigator-text-color);
         }
+
+        &.close-button {
+            margin-top: 4px;
+
+            mat-icon {
+                font-size: $navigator-icon-size;
+            }
+        }
     }
 
     .arrow-button {

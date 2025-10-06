@@ -67,5 +67,11 @@
         </button>
       </div>
     </div>
+
+    <button class="nav-button close-button" (click)="closeNavigator()"
+      [attr.aria-label]="getCloseButtonLabel()"
+      [matTooltip]="getCloseButtonLabel()" matTooltipPosition="left">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
 </div>

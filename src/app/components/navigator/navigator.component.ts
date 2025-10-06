@@ -62,6 +62,13 @@ export class NavigatorComponent implements OnInit {
     }
   };
 
+  closeButtonLabels: { [key: string]: string } = {
+    en: 'Close navigator',
+    it: 'Chiudi navigatore',
+    de: 'Navigator schließen',
+    es: 'Cerrar navegador'
+  };
+
   constructor(
     private translationService: TranslationService,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -128,6 +135,10 @@ export class NavigatorComponent implements OnInit {
   /** Returns the tooltip text for the given key based on current language */
   getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
     return this.tooltipTexts[this.currentLang][key];
+  }
+
+  getCloseButtonLabel(): string {
+    return this.closeButtonLabels[this.currentLang] || this.closeButtonLabels['en'];
   }
 
   private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
