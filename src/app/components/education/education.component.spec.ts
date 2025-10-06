@@ -40,30 +40,26 @@ describe('EducationComponent', () => {
   });
 
   /**
-   * Verifies that resizeConditions returns the correct CSS class based on screen size.
-   */
-  it('should return correct CSS class from resizeConditions', () => {
-    component.isLargeScreen = true;
-    const cssClass = component.resizeConditions(2, false);
-    expect(cssClass).toBe('full-height');
-
-    component.isLargeScreen = false;
-    component.is2kMoreScreen = false;
-    const cssClassLast = component.resizeConditions(1, true);
-    expect(cssClassLast).toBe('full-height');
-
-    component.is2kMoreScreen = true;
-    const cssClass2k = component.resizeConditions(0, false);
-    expect(cssClass2k).toBe('full-height');
-  });
-
-  /**
    * Verifies that the template renders the education items correctly.
    */
   it('should render education items in the template', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const items = compiled.querySelectorAll('.education-item');
+    const items = compiled.querySelectorAll('.timeline-item');
 
     expect(items.length).toBe(component.educationList.education.length);
+  });
+
+  /**
+   * Verifies that timeline cards render their headings and badges correctly.
+   */
+  it('should render timeline headings and badges', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const firstCard = compiled.querySelector('.timeline-card');
+    const firstEducation = component.educationList.education[0];
+
+    expect(firstCard).toBeTruthy();
+    expect(firstCard?.querySelector('.timeline-heading')?.textContent?.trim()).toBe(firstEducation.title);
+    expect(firstCard?.querySelector('.timeline-badge')?.textContent?.trim()).toContain(firstEducation.startDate);
+    expect(firstCard?.querySelector('.timeline-badge')?.textContent?.trim()).toContain(firstEducation.endDate);
   });
 });
