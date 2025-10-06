@@ -30,7 +30,7 @@ export const educationData: EducationFullLangs = {
                 institution: 'Liceo Scientifico A. Scorcu',
                 startDate: 'Set 2010',
                 endDate: 'Lug 2016',
-                description: 'Diploma a indirizzo scientifico con approfondimenti di matematica, fisica e laboratori, potenziando capacità analitiche e di problem solving'
+                description: 'Diploma a indirizzo scientifico con approfondimenti di matematica, fisica e laboratori, potenziando capacità analitiche e di problem solving.'
             }
         ]
     },
@@ -63,7 +63,7 @@ export const educationData: EducationFullLangs = {
                 institution: 'Liceo Scientifico A.Scorcu',
                 startDate: 'Sep 2010',
                 endDate: 'Jul 2016',
-                description: 'Scientific-track diploma with advanced mathematics, physics, and laboratory studies, strengthening analytical and problem-solving skills'
+                description: 'Scientific-track diploma with advanced mathematics, physics, and laboratory studies, strengthening analytical and problem-solving skills.'
             }
         ]
     }
