@@ -1,11 +1,41 @@
 <section class="about-section">
-  <div class="about-content" *ngIf="!isLoading; else loadingTemplate">
-    <h2 class="about-title">{{ aboutMe.title }}</h2>
-    <p class="about-description">{{ aboutMe.description }}</p>
+  <div class="about-container" [class.is-loading]="isLoading">
+    <h2 class="about-title">
+      <ng-container *ngIf="!isLoading && aboutMe.title; else titleSkeleton">
+        {{ aboutMe.title }}
+      </ng-container>
+    </h2>
+
+    <ng-container *ngIf="!isLoading; else loadingBody">
+      <div class="about-body">
+        <p
+          class="about-paragraph"
+          *ngFor="let paragraph of aboutMe.paragraphs"
+        >
+          {{ paragraph }}
+        </p>
+
+        <section class="about-highlights" *ngIf="aboutMe.highlights?.length">
+          <h3 class="about-subtitle">{{ aboutMe.highlightsTitle }}</h3>
+          <ul class="about-list">
+            <li class="about-list-item" *ngFor="let highlight of aboutMe.highlights">
+              {{ highlight }}
+            </li>
+          </ul>
+        </section>
+      </div>
+    </ng-container>
   </div>
-  <ng-template #loadingTemplate>
-    <div class="about-content">
-      <h2 class="about-title">{{ aboutMe.title }}</h2>
+
+  <ng-template #titleSkeleton>
+    <span class="about-skeleton about-skeleton__title" aria-hidden="true"></span>
+  </ng-template>
+
+  <ng-template #loadingBody>
+    <div class="about-body about-body--loading" aria-hidden="true">
+      <div class="about-skeleton about-skeleton__paragraph" *ngFor="let placeholder of placeholders"></div>
+      <div class="about-skeleton about-skeleton__subtitle"></div>
+      <div class="about-skeleton about-skeleton__list" *ngFor="let item of placeholders"></div>
     </div>
   </ng-template>
 </section>
