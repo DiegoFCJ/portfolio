@@ -5,7 +5,15 @@ import { map } from 'rxjs/operators';
 import { LanguageCode } from '../../models/language-code.type';
 import { TranslationService } from '../../services/translation.service';
 
-type AssistantAnimationPhase = 'idle' | 'wondering' | 'suggestClose';
+export type AssistantAnimationPhase =
+  | 'sleeping'
+  | 'waking'
+  | 'jumping'
+  | 'impatient';
+
+export const ASSISTANT_WAKE_DURATION_MS = 450;
+export const ASSISTANT_JUMP_DURATION_MS = 700;
+export const ASSISTANT_IMPATIENCE_DURATION_MS = 5000;
 
 interface AssistantGuideContent {
   readonly title: string;
@@ -51,9 +59,11 @@ export class AssistantComponent implements OnDestroy {
   @Output() closed = new EventEmitter<void>();
 
   isOpen = false;
-  animationPhase: AssistantAnimationPhase = 'idle';
+  animationPhase: AssistantAnimationPhase = 'sleeping';
 
-  private wonderingTimer: ReturnType<typeof setTimeout> | null = null;
+  private wakeTimer: ReturnType<typeof setTimeout> | null = null;
+  private jumpTimer: ReturnType<typeof setTimeout> | null = null;
+  private impatienceTimer: ReturnType<typeof setTimeout> | null = null;
 
   readonly guideContent$: Observable<AssistantGuideContent>;
 
@@ -64,48 +74,92 @@ export class AssistantComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.clearWonderingTimer();
+    this.clearAllTimers();
   }
 
   onAvatarClick(): void {
-    if (!this.isOpen) {
+    if (!this.isOpen && this.animationPhase === 'sleeping') {
       this.openAssistant();
     }
   }
 
   openAssistant(): void {
-    if (this.isOpen) {
+    if (this.isOpen || this.animationPhase !== 'sleeping') {
       return;
     }
 
     this.isOpen = true;
-    this.animationPhase = 'wondering';
-    this.startWonderingTimer();
+    this.animationPhase = 'waking';
+    this.startWakeSequence();
     this.opened.emit();
   }
 
   closeAssistant(): void {
-    if (!this.isOpen) {
+    if (!this.isOpen && this.animationPhase === 'sleeping') {
       return;
     }
 
+    this.goToSleep();
+  }
+
+  private startWakeSequence(): void {
+    this.clearAllTimers();
+
+    this.wakeTimer = setTimeout(() => {
+      this.wakeTimer = null;
+      this.animationPhase = 'jumping';
+
+      this.jumpTimer = setTimeout(() => {
+        this.jumpTimer = null;
+        this.animationPhase = 'impatient';
+        this.startImpatienceTimer();
+      }, ASSISTANT_JUMP_DURATION_MS);
+    }, ASSISTANT_WAKE_DURATION_MS);
+  }
+
+  private startImpatienceTimer(): void {
+    this.clearImpatienceTimer();
+    this.impatienceTimer = setTimeout(() => {
+      this.impatienceTimer = null;
+      this.goToSleep();
+    }, ASSISTANT_IMPATIENCE_DURATION_MS);
+  }
+
+  private goToSleep(): void {
+    const wasOpen = this.isOpen;
+    this.clearAllTimers();
+    this.animationPhase = 'sleeping';
     this.isOpen = false;
-    this.animationPhase = 'idle';
-    this.clearWonderingTimer();
-    this.closed.emit();
+
+    if (wasOpen) {
+      this.closed.emit();
+    }
   }
 
-  private startWonderingTimer(): void {
-    this.clearWonderingTimer();
-    this.wonderingTimer = setTimeout(() => {
-      this.animationPhase = 'suggestClose';
-    }, 5000);
+  private clearAllTimers(): void {
+    this.clearWakeTimer();
+    this.clearJumpTimer();
+    this.clearImpatienceTimer();
   }
 
-  private clearWonderingTimer(): void {
-    if (this.wonderingTimer) {
-      clearTimeout(this.wonderingTimer);
-      this.wonderingTimer = null;
+  private clearWakeTimer(): void {
+    if (this.wakeTimer) {
+      clearTimeout(this.wakeTimer);
+      this.wakeTimer = null;
+    }
+  }
+
+  private clearJumpTimer(): void {
+    if (this.jumpTimer) {
+      clearTimeout(this.jumpTimer);
+      this.jumpTimer = null;
+    }
+  }
+
+  private clearImpatienceTimer(): void {
+    if (this.impatienceTimer) {
+      clearTimeout(this.impatienceTimer);
+      this.impatienceTimer = null;
     }
   }
 }
