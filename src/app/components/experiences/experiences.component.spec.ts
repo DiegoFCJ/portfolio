@@ -32,7 +32,7 @@ describe('ExperiencesComponent', () => {
 
   // Verify the data is correctly initialized
   it('should initialize experiences data correctly', () => {
-    const expectedExperiences = experiencesData.en;
+    const expectedExperiences = experiencesData.it;
     expect(component.experiences).toEqual(expectedExperiences);
     expect(component.experiences.experiences.length).toBe(expectedExperiences.experiences.length);
     expect(component.experiences.title).toBe(expectedExperiences.title);

@@ -156,9 +156,57 @@ export class StatsComponent implements OnInit, OnDestroy {
    * @returns Number of months.
    */
   calculateMonths(start: string, end: string): number {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
+    const startDate = this.parseDate(start);
+    const endDate = this.parseDate(end);
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      return 0;
+    }
+
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
+  }
+
+  private parseDate(value: string): Date {
+    const direct = new Date(value);
+    if (!isNaN(direct.getTime())) {
+      return direct;
+    }
+
+    const monthMap: Record<string, number> = {
+      gen: 0,
+      feb: 1,
+      mar: 2,
+      apr: 3,
+      mag: 4,
+      giu: 5,
+      lug: 6,
+      ago: 7,
+      set: 8,
+      ott: 9,
+      nov: 10,
+      dic: 11,
+      jan: 0,
+      jun: 5,
+      jul: 6,
+      aug: 7,
+      sep: 8,
+      oct: 9,
+      dec: 11
+    };
+
+    const trimmed = value.trim();
+    const monthYearMatch = trimmed.match(/^([A-Za-zÀ-ÿ]+)\s+(\d{4})$/);
+    if (monthYearMatch) {
+      const monthKey = monthYearMatch[1].slice(0, 3).toLowerCase();
+      const year = Number(monthYearMatch[2]);
+      const monthIndex = monthMap[monthKey];
+
+      if (!Number.isNaN(year) && monthIndex !== undefined) {
+        return new Date(year, monthIndex, 1);
+      }
+    }
+
+    return direct;
   }
 
   private getStatValueByIndex(stats: StatsItem, index: number): string {
