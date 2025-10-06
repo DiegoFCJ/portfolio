@@ -1,50 +1,148 @@
 <section class="skills-section" *ngIf="!isLoading">
   <h2 class="skills-title">{{ skillFullTitle }}</h2>
 
-  <!-- Carousell-->
-  <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
-    <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
-    <div class="carousel-wrapper">
-      <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
-        <div class="skill-section">
-          <h3>{{ section.title }}</h3>
-          <p class="skill-subtitle" *ngIf="timelineSections[i]?.subtitle">{{ timelineSections[i].subtitle }}</p>
-          <div class="skills">
-            <div *ngFor="let skill of section.skills" class="skill-item">
-              <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
-                [ngClass]="{'clicked': skill.clicked}" />
+  <ng-container *ngIf="isMobile; else desktopLayout">
+    <nav
+      class="stack-tabs is-mobile"
+      role="tablist"
+      aria-orientation="horizontal"
+      aria-label="Skill stack selector"
+    >
+      <button
+        *ngFor="let tab of tabs"
+        type="button"
+        class="stack-tab"
+        role="tab"
+        [id]="'tab-' + tab.id"
+        [attr.aria-controls]="'panel-' + tab.id"
+        [attr.aria-selected]="tab.id === activeTabId"
+        [class.active]="tab.id === activeTabId"
+        (click)="setActiveTab(tab.id)"
+      >
+        <span class="tab-label">{{ tab.label }}</span>
+      </button>
+    </nav>
+
+    <div
+      class="carousel-container"
+      role="tabpanel"
+      [attr.id]="'panel-' + activeTabId"
+      [attr.aria-labelledby]="'tab-' + activeTabId"
+      [attr.aria-live]="activePanels.length ? 'polite' : 'off'"
+      *ngIf="activePanels.length"
+    >
+      <button class="arrow-left" type="button" (click)="moveToPrevious()" aria-label="Previous stack section">&#10094;</button>
+      <div class="carousel-wrapper" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <article
+          *ngFor="let panel of activePanels; let i = index; let last = last"
+          class="carousel-item"
+          [class.active]="i === currentIndex"
+          role="group"
+          [attr.aria-roledescription]="'slide'"
+          [attr.aria-label]="panel.title"
+        >
+          <div class="spotlight-card is-mobile" data-skill-host>
+            <div class="spotlight-rail is-mobile" [class.is-last]="last">
+              <span class="spotlight-dot" aria-hidden="true"></span>
+              <span class="spotlight-line" aria-hidden="true" [class.is-last]="last"></span>
+            </div>
+            <div class="spotlight-content">
+              <header class="spotlight-header">
+                <div class="header-text">
+                  <h3 class="spotlight-title">{{ panel.title }}</h3>
+                  <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
+                </div>
+                <span class="spotlight-badge">{{ panel.badge }}</span>
+              </header>
+              <div class="spotlight-icons" role="list">
+                <button
+                  *ngFor="let skill of panel.skills"
+                  type="button"
+                  class="skill-icon"
+                  role="listitem"
+                  data-skill-host
+                  (click)="onSkillClick($event, skill)"
+                  [class.clicked]="skill.clicked"
+                >
+                  <span class="icon-asset">
+                    <img [src]="skill.icon" [alt]="skill.name" />
+                  </span>
+                  <span class="icon-label">{{ skill.name }}</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
+      <button class="arrow-right" type="button" (click)="moveToNext()" aria-label="Next stack section">&#10095;</button>
     </div>
-    <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
-  </div>
+  </ng-container>
 
-  <!-- Desktop -->
   <ng-template #desktopLayout>
-    <div class="timeline" role="list">
-      <article class="timeline-item" role="listitem" *ngFor="let section of timelineSections; let last = last">
-        <div class="timeline-axis" aria-hidden="true">
-          <span class="timeline-dot"></span>
-          <span class="timeline-connector" [class.is-last]="last"></span>
-        </div>
-        <div class="timeline-content">
-          <header class="timeline-header">
-            <span class="timeline-subtitle" *ngIf="section.subtitle">{{ section.subtitle }}</span>
-            <h3 class="timeline-title">{{ section.title }}</h3>
-          </header>
-          <div class="skill-grid" role="list">
-            <button *ngFor="let skill of section.skills" type="button" class="skill-chip" role="listitem"
-              (click)="onSkillClick($event, skill)" [class.clicked]="skill.clicked">
-              <span class="chip-icon">
-                <img [src]="skill.icon" [alt]="skill.name" />
-              </span>
-              <span class="chip-label">{{ skill.name }}</span>
-            </button>
+    <div class="skills-grid">
+      <nav
+        class="stack-tabs"
+        role="tablist"
+        aria-orientation="vertical"
+        aria-label="Skill stack selector"
+      >
+        <button
+          *ngFor="let tab of tabs"
+          type="button"
+          class="stack-tab"
+          role="tab"
+          [id]="'tab-' + tab.id"
+          [attr.aria-controls]="'panel-' + tab.id"
+          [attr.aria-selected]="tab.id === activeTabId"
+          [class.active]="tab.id === activeTabId"
+          (click)="setActiveTab(tab.id)"
+        >
+          <span class="tab-label">{{ tab.label }}</span>
+        </button>
+      </nav>
+
+      <div
+        class="spotlight-panels"
+        role="tabpanel"
+        [attr.aria-labelledby]="'tab-' + activeTabId"
+        [attr.id]="'panel-' + activeTabId"
+      >
+        <article
+          class="spotlight-card"
+          *ngFor="let panel of activePanels; let last = last"
+          data-skill-host
+        >
+          <div class="spotlight-rail" [class.is-last]="last">
+            <span class="spotlight-dot" aria-hidden="true"></span>
+            <span class="spotlight-line" aria-hidden="true" [class.is-last]="last"></span>
           </div>
-        </div>
-      </article>
+          <div class="spotlight-content">
+            <header class="spotlight-header">
+              <div class="header-text">
+                <h3 class="spotlight-title">{{ panel.title }}</h3>
+                <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
+              </div>
+              <span class="spotlight-badge">{{ panel.badge }}</span>
+            </header>
+            <div class="spotlight-icons" role="list">
+              <button
+                *ngFor="let skill of panel.skills"
+                type="button"
+                class="skill-icon"
+                role="listitem"
+                data-skill-host
+                (click)="onSkillClick($event, skill)"
+                [class.clicked]="skill.clicked"
+              >
+                <span class="icon-asset">
+                  <img [src]="skill.icon" [alt]="skill.name" />
+                </span>
+                <span class="icon-label">{{ skill.name }}</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </ng-template>
 </section>
