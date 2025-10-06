@@ -84,6 +84,23 @@ describe('NavigatorComponent', () => {
     expect(component.showThemeOptions).toBeFalse();
   });
 
+  it('should close navigator and reset menus when close button is clicked', () => {
+    component.isOpen = true;
+    component.showLanguageOptions = true;
+    component.showThemeOptions = true;
+    fixture.detectChanges();
+
+    const closeButton: HTMLButtonElement = fixture.nativeElement.querySelector('.close-button');
+    expect(closeButton).withContext('Close button should be rendered when navigator is open').toBeTruthy();
+
+    closeButton.click();
+    fixture.detectChanges();
+
+    expect(component.isOpen).toBeFalse();
+    expect(component.showLanguageOptions).toBeFalse();
+    expect(component.showThemeOptions).toBeFalse();
+  });
+
   it('should keep the navigator open for wheel events that originate within the component', () => {
     component.isOpen = true;
     component.showLanguageOptions = true;
