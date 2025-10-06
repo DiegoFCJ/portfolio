@@ -62,6 +62,73 @@ export class NavigatorComponent implements OnInit {
     }
   };
 
+  ariaTexts: { [key: string]: { open: string; close: string; theme: string; light: string; dark: string; blue: string; green: string; prev: string; next: string; language: string; english: string; italian: string; german: string; spanish: string } } = {
+    en: {
+      open: 'Open navigator',
+      close: 'Close navigator',
+      theme: 'Theme selector',
+      light: 'Light mode',
+      dark: 'Dark mode',
+      blue: 'Blue mode',
+      green: 'Green mode',
+      prev: 'Previous section',
+      next: 'Next section',
+      language: 'Language selector',
+      english: 'English',
+      italian: 'Italian',
+      german: 'German',
+      spanish: 'Spanish'
+    },
+    it: {
+      open: 'Apri navigatore',
+      close: 'Chiudi navigatore',
+      theme: 'Selettore tema',
+      light: 'Tema chiaro',
+      dark: 'Tema scuro',
+      blue: 'Tema blu',
+      green: 'Tema verde',
+      prev: 'Sezione precedente',
+      next: 'Sezione successiva',
+      language: 'Selettore lingua',
+      english: 'Inglese',
+      italian: 'Italiano',
+      german: 'Tedesco',
+      spanish: 'Spagnolo'
+    },
+    de: {
+      open: 'Navigator öffnen',
+      close: 'Navigator schließen',
+      theme: 'Designauswahl',
+      light: 'Heller Modus',
+      dark: 'Dunkler Modus',
+      blue: 'Blauer Modus',
+      green: 'Grüner Modus',
+      prev: 'Vorheriger Abschnitt',
+      next: 'Nächster Abschnitt',
+      language: 'Sprachauswahl',
+      english: 'Englisch',
+      italian: 'Italienisch',
+      german: 'Deutsch',
+      spanish: 'Spanisch'
+    },
+    es: {
+      open: 'Abrir navegador',
+      close: 'Cerrar navegador',
+      theme: 'Selector de tema',
+      light: 'Modo claro',
+      dark: 'Modo oscuro',
+      blue: 'Modo azul',
+      green: 'Modo verde',
+      prev: 'Sección anterior',
+      next: 'Siguiente sección',
+      language: 'Selector de idioma',
+      english: 'Inglés',
+      italian: 'Italiano',
+      german: 'Alemán',
+      spanish: 'Español'
+    }
+  };
+
   constructor(
     private translationService: TranslationService,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -127,7 +194,12 @@ export class NavigatorComponent implements OnInit {
 
   /** Returns the tooltip text for the given key based on current language */
   getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
-    return this.tooltipTexts[this.currentLang][key];
+    return this.tooltipTexts[this.currentLang]?.[key] ?? this.tooltipTexts['it'][key];
+  }
+
+  getNavigatorLabel(key: 'open' | 'close' | 'theme' | 'light' | 'dark' | 'blue' | 'green' | 'prev' | 'next' | 'language' | 'english' | 'italian' | 'german' | 'spanish'): string {
+    const languageSet = this.ariaTexts[this.currentLang] ?? this.ariaTexts['it'];
+    return languageSet[key];
   }
 
   private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {

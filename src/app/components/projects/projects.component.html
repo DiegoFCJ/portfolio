@@ -3,13 +3,13 @@
 
     <!-- Carosello per mobile -->
     <div class="carousel-container" *ngIf="isMobile">
-        <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
+        <button class="arrow-left" (click)="moveToPrevious()" [attr.aria-label]="currentLabels.previous">&#10094;</button>
 
         <div class="carousel-wrapper">
             <div class="carousel-item" *ngFor="let project of projects.projects; let i = index"
                 [class.active]="i === currentIndex">
                 <div class="project-card" [class.expanded]="project.expanded">
-                    <img class="proj-image" [src]="project.image" alt="Project Image" />
+                    <img class="proj-image" [src]="project.image" [attr.alt]="currentLabels.imageAlt" />
                     <h3>{{ project.title }}</h3>
                     <p class="project-status">{{ project.status }}</p>
                     <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>
@@ -33,14 +33,14 @@
             </div>
         </div>
 
-        <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
+        <button class="arrow-right" (click)="moveToNext()" [attr.aria-label]="currentLabels.next">&#10095;</button>
     </div>
 
     <!-- Griglia per desktop -->
     <div class="project-cards" *ngIf="!isMobile">
         <div class="project-card" *ngFor="let project of projects.projects; let i = index"
             [class.expanded]="project.expanded">
-            <img class="proj-image" [src]="project.image" alt="Project Image" />
+            <img class="proj-image" [src]="project.image" [attr.alt]="currentLabels.imageAlt" />
             <h3>{{ project.title }}</h3>
             <p class="project-status">{{ project.status }}</p>
             <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>

@@ -1,9 +1,9 @@
 import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { skills as skillsData } from '../../data/skills.data';
-import { SkillFull, SkillItem, SkillSection } from '../../dtos/SkillDTO';
+import { SkillFull, SkillItem, SkillLangs, SkillSection } from '../../dtos/SkillDTO';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -37,7 +37,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
         tap(() => {
           this.isLoading = true;
         }),
-        switchMap((lang) => this.translationService.translateContent<SkillFull>(skillsData, 'en', lang))
+        switchMap((lang) => this.getSkillsByLanguage(lang))
       )
       .subscribe(translated => {
         this.skillFullTitle = translated.title;
@@ -128,6 +128,22 @@ export class SkillsComponent implements OnInit, OnDestroy {
 
     parent.appendChild(message);
     return message;
+  }
+
+  private getSkillsByLanguage(lang: string) {
+    const data: SkillLangs = skillsData;
+    const base = data.en;
+
+    if (lang === 'en') {
+      return of(base);
+    }
+
+    const existing = data[lang];
+    if (existing) {
+      return of(existing);
+    }
+
+    return this.translationService.translateContent<SkillFull>(base, 'en', lang);
   }
 
   private resetSection(section: SkillSection): SkillSection {

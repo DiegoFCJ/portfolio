@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin, of, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
@@ -44,11 +44,14 @@ export class StatsComponent implements OnInit, OnDestroy {
         switchMap(language => {
           const experiences = experiencesData.en.experiences;
           const projectList = projects.en.projects;
-          const computed = this.calculateStats(experiences, projectList);
+          const baseComputed = this.calculateStats(experiences, projectList, 'en');
+
+          const template$ = this.getTemplateByLanguage(language);
+          const computed$ = this.getComputedByLanguage(language, experiences, projectList, baseComputed);
 
           return forkJoin({
-            template: this.translationService.translateContent(statsData.en, 'en', language),
-            computed: this.translationService.translateContent(computed, 'en', language)
+            template: template$,
+            computed: computed$
           });
         })
       )
@@ -68,7 +71,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  calculateStats(experiences: any[], projectList: any[]): StatsItem {
+  calculateStats(experiences: any[], projectList: any[], language: string = 'en'): StatsItem {
     let totalHours = 0;
     let totalMonths = 0;
     let totalProjects = projectList.length;
@@ -101,6 +104,15 @@ export class StatsComponent implements OnInit, OnDestroy {
       .sort(([, a], [, b]) => b - a)
       .slice(0, 4)
       .map(([tech]) => this.formatTechnology(tech));
+
+    if (language === 'it') {
+      return {
+        hours: `${Math.round(totalHours)}+ ore di ingegneria erogate`,
+        months: `${totalMonths}+ mesi su progetti enterprise`,
+        projects: `${totalProjects} iniziative end-to-end gestite`,
+        mostUsed: sortedTechnologies.join(' · ')
+      };
+    }
 
     return {
       hours: `${Math.round(totalHours)}+ engineering hours delivered`,
@@ -160,5 +172,30 @@ export class StatsComponent implements OnInit, OnDestroy {
       default:
         return '';
     }
+  }
+
+  private getTemplateByLanguage(language: string) {
+    if (language === 'en') {
+      return of(statsData.en);
+    }
+
+    const template = statsData[language];
+    if (template) {
+      return of(template);
+    }
+
+    return this.translationService.translateContent(statsData.en, 'en', language);
+  }
+
+  private getComputedByLanguage(language: string, experiences: any[], projectList: any[], baseComputed: StatsItem) {
+    if (language === 'en') {
+      return of(baseComputed);
+    }
+
+    if (language === 'it') {
+      return of(this.calculateStats(experiences, projectList, 'it'));
+    }
+
+    return this.translationService.translateContent(baseComputed, 'en', language);
   }
 }

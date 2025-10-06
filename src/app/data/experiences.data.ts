@@ -71,5 +71,76 @@ export const experiencesData: ExperienceFullLangs = {
                 ]
             }
         ]
+    },
+    it: {
+        title: 'Esperienza',
+        experiences: [
+            {
+                position: 'Sviluppatore software',
+                location: 'Completamente da remoto',
+                startDate: 'Apr 2024',
+                endDate: 'Jun 2025',
+                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
+                responsibilities: 'Ho guidato la modernizzazione delle piattaforme interne di service management per clienti della pubblica amministrazione.',
+                responsibilityList: [
+                    'Ho automatizzato il triage AMS manuale tramite workflow in Java 21 e script Shell per accelerare la risoluzione dei ticket.',
+                    'Ho migrato le dashboard legacy in AngularJS verso Angular 18, migliorando usabilità e accessibilità per gli operatori.',
+                    'Ho coordinato stakeholder distribuiti per prioritizzare la correzione dei bug e pianificare i rilasci.'
+                ]
+            },
+            {
+                position: 'Sviluppatore software',
+                location: 'Ibrido, Torino',
+                startDate: 'Jan 2025',
+                endDate: 'Jun 2025',
+                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
+                responsibilities: 'Ho supportato programmi di integrazione enterprise per un cliente bancario.',
+                responsibilityList: [
+                    'Ho implementato pipeline di logging personalizzate su server Linux con Java e Shell per soddisfare i requisiti di audit.',
+                    'Ho automatizzato il monitoraggio quotidiano dei processi e la reportistica tramite script pianificati e dashboard.',
+                    'Ho integrato flussi Dell Boomi con servizi Spring Boot e .NET per esporre nuove funzionalità ai clienti.',
+                    'Ho facilitato sessioni di condivisione della conoscenza per allineare sviluppatori, tester e team operativi.'
+                ]
+            },
+            {
+                position: 'Sviluppatore software',
+                location: 'Completamente da remoto',
+                startDate: 'Oct 2023',
+                endDate: 'Apr 2024',
+                technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
+                responsibilities: 'Ho potenziato prodotti interni con funzionalità sicure lato back-end e front-end.',
+                responsibilityList: [
+                    'Ho implementato microservizi Spring Boot protetti con autenticazione basata su JWT e Argon2.',
+                    'Ho sviluppato moduli Angular 16 per il portale di gestione del repository.',
+                    'Ho automatizzato i flussi di deployment creando procedure di rilascio basate su Git.'
+                ]
+            },
+            {
+                position: 'Sviluppatore software',
+                location: 'Ibrido',
+                startDate: 'Feb 2023',
+                endDate: 'Oct 2023',
+                technologies: 'Java 8, Spring Boot, MySQL, Angular 7, Docker, OpenShift',
+                responsibilities: "Ho contribuito allo sviluppo e al rilascio di piattaforme interne per clienti del settore energetico.",
+                responsibilityList: [
+                    'Ho sviluppato funzionalità per applicazioni Spring Boot e Angular 7 a supporto dei servizi di monitoraggio.',
+                    'Ho containerizzato i carichi di lavoro con Docker e gestito i deployment su OpenShift.',
+                    'Ho collaborato con i team DevOps per coordinare rilasci multi-squad e hotfix.'
+                ]
+            },
+            {
+                position: 'Sviluppatore software',
+                location: 'Torino',
+                startDate: 'Jun 2022',
+                endDate: 'Jan 2023',
+                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
+                responsibilities: 'Mi sono dedicato alle attività di manutenzione e automazione per clienti enterprise del settore mobilità.',
+                responsibilityList: [
+                    'Ho esteso servizi Java a supporto dei flussi di ticketing e delle integrazioni verso i clienti finali.',
+                    'Ho industrializzato le attività AMS automatizzando i task ricorrenti con Bash e Ansible.',
+                    'Ho migliorato dashboard di monitoraggio e pipeline di analisi log utilizzate dai team di reperibilità.'
+                ]
+            }
+        ]
     }
 };

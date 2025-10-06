@@ -25,6 +25,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     projects: []
   };
 
+  currentLabels = this.resolveLabels('it');
   isMobile = false;
   currentIndex = 0;
   maxChars = 150;
@@ -41,10 +42,13 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       this.checkIfMobile();
     }
 
+    this.currentLabels = this.resolveLabels(this.translationService.getCurrentLanguage());
+
     this.translationService.currentLanguage$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
+      .subscribe((lang) => {
         this.isLoading = true;
+        this.currentLabels = this.resolveLabels(lang);
       });
 
     this.translationService.getTranslatedData<ProjectFull>(projectsData)
@@ -87,5 +91,26 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   moveToPrevious(): void {
     this.currentIndex = (this.currentIndex - 1 + this.projects.projects.length) % this.projects.projects.length;
+  }
+
+  private resolveLabels(language: string) {
+    const labels = {
+      en: {
+        imageAlt: 'Project image',
+        previous: 'Show previous project',
+        next: 'Show next project'
+      },
+      it: {
+        imageAlt: 'Immagine del progetto',
+        previous: 'Mostra il progetto precedente',
+        next: 'Mostra il progetto successivo'
+      }
+    };
+
+    if (language in labels) {
+      return labels[language as keyof typeof labels];
+    }
+
+    return labels.it;
   }
 }

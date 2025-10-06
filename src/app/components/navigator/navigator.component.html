@@ -2,7 +2,7 @@
   <!-- Toggle button always available -->
   <button class="nav-toggle-button" (click)="toggleNavigator()"
     [attr.aria-expanded]="isOpen"
-    [attr.aria-label]="isOpen ? 'Close navigator' : 'Open navigator'">
+    [attr.aria-label]="isOpen ? getNavigatorLabel('close') : getNavigatorLabel('open')">
     <mat-icon>{{ isOpen ? 'expand_more' : 'expand_less' }}</mat-icon>
   </button>
 
@@ -10,37 +10,37 @@
   <div class="modern-navigator" *ngIf="isOpen">
     <div class="arrow-container">
       <!-- Previous button -->
-      <button class="arrow-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Previous section"
+      <button class="arrow-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" [attr.aria-label]="getNavigatorLabel('prev')"
         [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
         <mat-icon>arrow_upward</mat-icon>
       </button>
 
       <!-- Next button -->
-      <button class="arrow-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Next section"
+      <button class="arrow-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" [attr.aria-label]="getNavigatorLabel('next')"
         [matTooltip]="getTooltip('next')" matTooltipPosition="left">
         <mat-icon>arrow_downward</mat-icon>
       </button>
     </div>
 
     <div class="nav-group">
-      <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Theme selector"
+      <button class="nav-button" (click)="toggleThemeOptions()" [attr.aria-label]="getNavigatorLabel('theme')"
         [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
         <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
       </button>
       <div class="option-container" *ngIf="showThemeOptions">
-        <button class="option-button" (click)="changeTheme('light')" aria-label="Light mode"
+        <button class="option-button" (click)="changeTheme('light')" [attr.aria-label]="getNavigatorLabel('light')"
           [class.selected]="currentTheme === 'light'">
           <mat-icon>light_mode</mat-icon>
         </button>
-        <button class="option-button" (click)="changeTheme('dark')" aria-label="Dark mode"
+        <button class="option-button" (click)="changeTheme('dark')" [attr.aria-label]="getNavigatorLabel('dark')"
           [class.selected]="currentTheme === 'dark'">
           <mat-icon>dark_mode</mat-icon>
         </button>
-        <button class="option-button" (click)="changeTheme('blue')" aria-label="Blue mode"
+        <button class="option-button" (click)="changeTheme('blue')" [attr.aria-label]="getNavigatorLabel('blue')"
           [class.selected]="currentTheme === 'blue'">
           <mat-icon>water_drop</mat-icon>
         </button>
-        <button class="option-button" (click)="changeTheme('green')" aria-label="Green mode"
+        <button class="option-button" (click)="changeTheme('green')" [attr.aria-label]="getNavigatorLabel('green')"
           [class.selected]="currentTheme === 'green'">
           <mat-icon>eco</mat-icon>
         </button>
@@ -49,20 +49,21 @@
 
     <div class="nav-group">
       <button class="nav-button" (click)="toggleLanguageOptions()" [matTooltip]="getTooltip('language')"
+        [attr.aria-label]="getNavigatorLabel('language')"
         matTooltipPosition="left">
         <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
       </button>
       <div class="option-container" *ngIf="showLanguageOptions">
-        <button class="option-button" (click)="changeLanguage('en')" aria-label="English">
+        <button class="option-button" (click)="changeLanguage('en')" [attr.aria-label]="getNavigatorLabel('english')">
           <span class="lang-flag">🇬🇧</span>
         </button>
-        <button class="option-button" (click)="changeLanguage('it')" aria-label="Italiano">
+        <button class="option-button" (click)="changeLanguage('it')" [attr.aria-label]="getNavigatorLabel('italian')">
           <span class="lang-flag">🇮🇹</span>
         </button>
-        <button class="option-button" (click)="changeLanguage('de')" aria-label="Deutsch">
+        <button class="option-button" (click)="changeLanguage('de')" [attr.aria-label]="getNavigatorLabel('german')">
           <span class="lang-flag">🇩🇪</span>
         </button>
-        <button class="option-button" (click)="changeLanguage('es')" aria-label="Español">
+        <button class="option-button" (click)="changeLanguage('es')" [attr.aria-label]="getNavigatorLabel('spanish')">
           <span class="lang-flag">🇪🇸</span>
         </button>
       </div>
