@@ -1,5 +1,5 @@
 :host {
-  --assistant-avatar-size: clamp(64px, 12vw, 88px);
+  --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
   --assistant-spacing: clamp(12px, 2vw, 18px);
   --assistant-popup-width: min(320px, 82vw);
   display: block;
@@ -149,7 +149,11 @@
 }
 
 .assistant--open .assistant__avatar {
-  transform: translateY(calc(-100% - var(--assistant-spacing)));
+  transform: translateY(-100%);
+}
+
+.assistant--open .assistant__popup {
+  transform: translateY(-100%);
 }
 
 .assistant--phase-idle .assistant__avatar {
@@ -207,26 +211,26 @@
 @keyframes assistant-wondering {
   0%,
   100% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(0deg);
+    transform: translateY(-100%) rotate(0deg);
   }
 
   50% {
-    transform: translateY(calc(-100% - var(--assistant-spacing) - 6px)) rotate(2deg);
+    transform: translateY(calc(-100% - 6px)) rotate(2deg);
   }
 }
 
 @keyframes assistant-suggest-close {
   0%,
   100% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(0deg);
+    transform: translateY(-100%) rotate(0deg);
   }
 
   25% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(3deg);
+    transform: translateY(-100%) rotate(3deg);
   }
 
   75% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(-3deg);
+    transform: translateY(-100%) rotate(-3deg);
   }
 }
 
@@ -243,7 +247,7 @@
 
 @media (max-width: 768px) {
   :host {
-    --assistant-avatar-size: clamp(60px, 16vw, 76px);
+    --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
     --assistant-popup-width: min(92vw, 340px);
   }
 
