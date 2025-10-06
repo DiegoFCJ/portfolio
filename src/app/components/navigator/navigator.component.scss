@@ -3,6 +3,9 @@
 $navigator-bg: #ffffff;
 $navigator-bg-dark: #1f1f1f;
 $navigator-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+$navigator-surface-shadow: 0 18px 45px rgba(15, 23, 42, 0.22);
+$navigator-border: rgba(99, 102, 241, 0.25);
+$navigator-surface-gradient: linear-gradient(145deg, rgba(99, 102, 241, 0.18), rgba(15, 23, 42, 0.55));
 $navigator-icon-size: 24px;
 $navigator-button-size: 48px;
 
@@ -89,8 +92,13 @@ $navigator-themes: (
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 12px;
+    gap: 16px;
     z-index: 9999;
+}
+
+.navigator-toggle-slot {
+    position: relative;
+    z-index: 2;
 }
 
 .nav-toggle-button {
@@ -100,17 +108,35 @@ $navigator-themes: (
     background-color: var(--navigator-background);
     box-shadow: $navigator-shadow;
     border: none;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
     animation: float 3s ease-in-out infinite;
     cursor: pointer;
-    align-self: flex-end;
 
-    mat-icon {
+    .toggle-icon-stack {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .toggle-icon {
         position: absolute;
         font-size: $navigator-icon-size;
         color: var(--navigator-icon-color);
+        opacity: 0;
+        transform: scale(0.75);
+        transition: opacity 0.2s ease, transform 0.25s ease;
+
+        &.is-active {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     &:hover {
@@ -118,33 +144,57 @@ $navigator-themes: (
     }
 }
 
+.navigator-layer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.navigator-surface {
+    pointer-events: auto;
+    padding: 18px 16px;
+    border-radius: 28px;
+    background: $navigator-surface-gradient;
+    border: 1px solid $navigator-border;
+    box-shadow: $navigator-surface-shadow;
+    backdrop-filter: blur(16px) saturate(140%);
+    max-width: min(80vw, 360px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .modern-navigator {
     display: flex;
     flex-direction: column;
     gap: 12px;
     align-items: center;
+    width: 100%;
 
     .arrow-container {
-        width: $navigator-button-size - 8;
+        width: clamp(3rem, 7vw, $navigator-button-size - 4px);
         justify-content: center;
         height: 90px;
-        padding: 4px;
-        background-color: var(--navigator-background);
+        padding: 6px;
+        background: color-mix(in srgb, var(--navigator-background) 85%, rgba(255, 255, 255, 0));
         box-shadow: $navigator-shadow;
         border-radius: $navigator-button-size;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .nav-button {
         width: $navigator-button-size;
         height: $navigator-button-size;
         border-radius: 50%;
-        background-color: var(--navigator-background);
+        background: color-mix(in srgb, var(--navigator-background) 92%, rgba(99, 102, 241, 0.08));
         box-shadow: $navigator-shadow;
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.35);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -178,6 +228,7 @@ $navigator-themes: (
         align-items: center;
         justify-content: center;
         transition: background-color 0.2s ease;
+        position: relative;
 
         &:hover {
             background-color: var(--navigator-arrow-hover-background);
@@ -208,12 +259,14 @@ $navigator-themes: (
     transform: translateY(-50%);
     display: flex;
     gap: 6px;
-    background: var(--navigator-option-background);
+    background: color-mix(in srgb, var(--navigator-option-background) 85%, rgba(255, 255, 255, 0));
     padding: 4px 6px;
     border-radius: 2rem;
     box-shadow: $navigator-shadow;
     align-items: center;
     z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
 }
 
 .option-button {

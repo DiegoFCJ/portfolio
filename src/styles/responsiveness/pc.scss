@@ -1,0 +1,16 @@
+@use '../variables' as *;
+
+@media (min-width: 1200px) {
+
+    .pc-width-limit-80 {
+        max-width: min(80vw, 1024px);
+        margin-inline: auto;
+        width: 100%;
+    }
+
+    section {
+        max-width: min(80vw, 1024px);
+        margin-inline: auto;
+        width: 100%;
+    }
+}
