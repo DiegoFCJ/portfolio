@@ -125,18 +125,18 @@ describe('NavigatorComponent', () => {
   it('should display navigation buttons based on current section index', () => {
     component.currentSectionIndex = 0;
     fixture.detectChanges();
-    let prevButton = fixture.nativeElement.querySelector('button[aria-label="Previous section"]');
+    let prevButton = fixture.nativeElement.querySelector('button[aria-label="Sezione precedente"]');
     expect(prevButton).toBeNull();  // Previous button should be hidden
 
     component.currentSectionIndex = 7;
     fixture.detectChanges();
-    let nextButton = fixture.nativeElement.querySelector('button[aria-label="Next section"]');
+    let nextButton = fixture.nativeElement.querySelector('button[aria-label="Sezione successiva"]');
     expect(nextButton).toBeNull();  // Next button should be hidden
 
     component.currentSectionIndex = 4;
     fixture.detectChanges();
-    prevButton = fixture.nativeElement.querySelector('button[aria-label="Previous section"]');
-    nextButton = fixture.nativeElement.querySelector('button[aria-label="Next section"]');
+    prevButton = fixture.nativeElement.querySelector('button[aria-label="Sezione precedente"]');
+    nextButton = fixture.nativeElement.querySelector('button[aria-label="Sezione successiva"]');
     expect(prevButton).toBeTruthy();  // Previous button should be visible
     expect(nextButton).toBeTruthy();  // Next button should be visible
   });

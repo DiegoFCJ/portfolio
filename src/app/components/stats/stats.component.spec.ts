@@ -51,8 +51,8 @@ describe('StatsComponent', () => {
    */
   it('should calculate correct stats', () => {
     const stats: StatsItem = component.calculateStats(
-      experiencesData.en.experiences,
-      projects.en.projects
+      experiencesData.it.experiences,
+      projects.it.projects
     );
 
     expect(stats.hours).toBe('7240+ ore di ingegneria erogate');
@@ -97,8 +97,8 @@ describe('StatsComponent', () => {
   it('should use computed statistics values in the rendered list', () => {
     fixture.detectChanges();
     const computedStats = component.calculateStats(
-      experiencesData.en.experiences,
-      projects.en.projects
+      experiencesData.it.experiences,
+      projects.it.projects
     );
 
     expect(component.statistics.length).toBe(4);

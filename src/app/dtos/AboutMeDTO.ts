@@ -1,6 +1,6 @@
 export interface AboutMeLangs {
     en: AboutMe;
-    it?: AboutMe;
+    it: AboutMe;
     de?: AboutMe;
     es?: AboutMe;
     [key: string]: AboutMe | undefined;

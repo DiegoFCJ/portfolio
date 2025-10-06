@@ -4,7 +4,7 @@ export const statsData: Stats = {
     it: {
         title: 'Statistiche',
         stats: [
-            { icon: 'schedule', label: 'Ore Totali', value: 'Oltre 7K ore di ingegneria' },
+            { icon: 'schedule', label: 'Ore Totali', value: 'Oltre 7K ore di ingegneria erogate' },
             { icon: 'today', label: 'Mesi di Esperienza', value: 'Oltre 44 mesi di valore progettuale' },
             { icon: 'work', label: 'Progetti Consegnati', value: '8 iniziative end-to-end' },
             { icon: 'code', label: 'Stack Principale', value: 'Spring Boot · Java · Angular · SQL Server' },
