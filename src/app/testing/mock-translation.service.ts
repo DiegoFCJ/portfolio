@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-
-type LanguageCode = 'en' | 'it' | 'de' | 'es';
+import { LanguageCode } from '../models/language-code.type';
 
 @Injectable()
 export class MockTranslationService {
-  private readonly languageSubject = new BehaviorSubject<LanguageCode>('en');
+  private readonly languageSubject = new BehaviorSubject<LanguageCode>('it');
   readonly currentLanguage$ = this.languageSubject.asObservable();
 
   setLanguage(language: LanguageCode): void {
@@ -18,7 +17,7 @@ export class MockTranslationService {
 
   translateText(
     text: string,
-    _source: LanguageCode = 'en',
+    _source: LanguageCode = 'it',
     _target?: LanguageCode
   ): Observable<string> {
     return of(text);
@@ -26,7 +25,7 @@ export class MockTranslationService {
 
   translateContent<T>(
     content: T,
-    _source: LanguageCode = 'en',
+    _source: LanguageCode = 'it',
     _target?: LanguageCode
   ): Observable<T> {
     return of(content);
@@ -34,10 +33,37 @@ export class MockTranslationService {
 
   getTranslatedData<T>(
     data: Partial<Record<LanguageCode, T>>,
-    source: LanguageCode = 'en'
+    source: LanguageCode = 'it'
   ): Observable<T> {
-    const preferred = data[source] ?? data[this.languageSubject.value];
-    const fallback = preferred ?? Object.values(data)[0];
-    return of((fallback ?? ({} as T)) as T);
+    const { content } = this.resolveSourceContent(data, source);
+    return of((content ?? ({} as T)) as T);
+  }
+
+  private resolveSourceContent<T>(
+    data: Partial<Record<LanguageCode, T>>,
+    preferred: LanguageCode
+  ): { content: T | undefined; language: LanguageCode } {
+    const preferredContent = data[preferred];
+    if (preferredContent) {
+      return { content: preferredContent, language: preferred };
+    }
+
+    const fallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es'];
+    for (const fallback of fallbackOrder) {
+      if (fallback === preferred) {
+        continue;
+      }
+      const content = data[fallback];
+      if (content) {
+        return { content, language: fallback };
+      }
+    }
+
+    const firstEntry = Object.entries(data)[0];
+    if (firstEntry) {
+      return { content: firstEntry[1] as T, language: firstEntry[0] as LanguageCode };
+    }
+
+    return { content: undefined, language: preferred };
   }
 }

@@ -3,14 +3,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-
-type LanguageCode = 'en' | 'it' | 'de' | 'es';
+import { LanguageCode } from '../models/language-code.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TranslationService {
-  private readonly currentLanguage = new BehaviorSubject<LanguageCode>('en');
+  private readonly currentLanguage = new BehaviorSubject<LanguageCode>('it');
   readonly currentLanguage$ = this.currentLanguage.asObservable();
 
   private readonly cache = new Map<string, string>();
@@ -39,7 +38,7 @@ export class TranslationService {
     return this.currentLanguage.value;
   }
 
-  translateText(text: string, source: LanguageCode = 'en', target?: LanguageCode): Observable<string> {
+  translateText(text: string, source: LanguageCode = 'it', target?: LanguageCode): Observable<string> {
     const targetLanguage = target ?? this.currentLanguage.value;
     const original = text ?? '';
 
@@ -67,15 +66,19 @@ export class TranslationService {
     );
   }
 
-  getTranslatedData<T>(data: Partial<Record<LanguageCode, T>>, source: LanguageCode = 'en'): Observable<T> {
+  getTranslatedData<T>(data: Partial<Record<LanguageCode, T>>, source: LanguageCode = 'it'): Observable<T> {
     return this.currentLanguage$.pipe(
       switchMap((targetLanguage) => {
-        const base = data[source];
+        const { content: base, language: resolvedSource } = this.resolveSourceContent(
+          data,
+          source
+        );
+
         if (!base) {
-          return of((data[targetLanguage] ?? base) as T);
+          return of(base as T);
         }
 
-        if (targetLanguage === source) {
+        if (targetLanguage === resolvedSource) {
           return of(base);
         }
 
@@ -84,12 +87,12 @@ export class TranslationService {
           return of(existing);
         }
 
-        return this.translateContent(base, source, targetLanguage);
+        return this.translateContent(base, resolvedSource, targetLanguage);
       })
     );
   }
 
-  translateContent<T>(content: T, source: LanguageCode = 'en', target?: LanguageCode): Observable<T> {
+  translateContent<T>(content: T, source: LanguageCode = 'it', target?: LanguageCode): Observable<T> {
     const targetLanguage = target ?? this.currentLanguage.value;
 
     if (targetLanguage === source) {
@@ -99,6 +102,33 @@ export class TranslationService {
     return this.translateValue(content, source, targetLanguage).pipe(
       map((translated) => translated as T)
     );
+  }
+
+  private resolveSourceContent<T>(
+    data: Partial<Record<LanguageCode, T>>,
+    preferredSource: LanguageCode
+  ): { content: T | undefined; language: LanguageCode } {
+    const preferred = data[preferredSource];
+    if (preferred) {
+      return { content: preferred, language: preferredSource };
+    }
+
+    const fallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es'];
+    const fallback = fallbackOrder
+      .filter((lang) => lang !== preferredSource)
+      .map((lang) => ({ lang, content: data[lang] }))
+      .find((entry) => Boolean(entry.content));
+
+    if (fallback) {
+      return { content: fallback.content as T, language: fallback.lang };
+    }
+
+    const firstEntry = Object.entries(data)[0];
+    if (firstEntry) {
+      return { content: firstEntry[1] as T, language: firstEntry[0] as LanguageCode };
+    }
+
+    return { content: undefined, language: preferredSource };
   }
 
   private translateValue(value: unknown, source: LanguageCode, target: LanguageCode): Observable<unknown> {

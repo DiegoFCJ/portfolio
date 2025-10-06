@@ -8,6 +8,7 @@ import { projects } from '../../data/projects.data';
 import { TranslationService } from '../../services/translation.service';
 import { Stat, StatsItem } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
+import { LanguageCode } from '../../models/language-code.type';
 
 @Component({
   selector: 'app-stats',
@@ -42,13 +43,26 @@ export class StatsComponent implements OnInit, OnDestroy {
           this.isLoading = true;
         }),
         switchMap(language => {
-          const experiences = experiencesData.en.experiences;
-          const projectList = projects.en.projects;
-          const computed = this.calculateStats(experiences, projectList);
+          const experiencesSource = this.resolveLocalizedContent(experiencesData);
+          const projectsSource = this.resolveLocalizedContent(projects);
+          const statsTemplateSource = this.resolveLocalizedContent(statsData);
+
+          const computed = this.calculateStats(
+            experiencesSource.content.experiences,
+            projectsSource.content.projects
+          );
 
           return forkJoin({
-            template: this.translationService.translateContent(statsData.en, 'en', language),
-            computed: this.translationService.translateContent(computed, 'en', language)
+            template: this.translationService.translateContent(
+              statsTemplateSource.content,
+              statsTemplateSource.language,
+              language
+            ),
+            computed: this.translationService.translateContent(
+              computed,
+              'it',
+              language
+            )
           });
         })
       )
@@ -103,9 +117,9 @@ export class StatsComponent implements OnInit, OnDestroy {
       .map(([tech]) => this.formatTechnology(tech));
 
     return {
-      hours: `${Math.round(totalHours)}+ engineering hours delivered`,
-      months: `${totalMonths}+ months across enterprise projects`,
-      projects: `${totalProjects} end-to-end initiatives led`,
+      hours: `${Math.round(totalHours)}+ ore di ingegneria erogate`,
+      months: `${totalMonths}+ mesi su progetti enterprise`,
+      projects: `${totalProjects} iniziative end-to-end guidate`,
       mostUsed: sortedTechnologies.join(' · ')
     };
   }
@@ -160,5 +174,30 @@ export class StatsComponent implements OnInit, OnDestroy {
       default:
         return '';
     }
+  }
+
+  private resolveLocalizedContent<T extends { [key: string]: any }>(
+    data: Partial<Record<LanguageCode, T>>
+  ): { content: T; language: LanguageCode } {
+    const preferred: LanguageCode = 'it';
+    const preferredContent = data[preferred];
+    if (preferredContent) {
+      return { content: preferredContent, language: preferred };
+    }
+
+    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
+    for (const fallback of fallbackOrder) {
+      const content = data[fallback];
+      if (content) {
+        return { content, language: fallback };
+      }
+    }
+
+    const firstEntry = Object.entries(data)[0];
+    if (firstEntry) {
+      return { content: firstEntry[1] as T, language: firstEntry[0] as LanguageCode };
+    }
+
+    throw new Error('No data available for statistics');
   }
 }
