@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { skills as skillsData } from '../../data/skills.data';
 import { SkillFull, SkillItem, SkillSection } from '../../dtos/SkillDTO';
+import { LanguageCode } from '../../models/language-code.type';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -37,7 +38,14 @@ export class SkillsComponent implements OnInit, OnDestroy {
         tap(() => {
           this.isLoading = true;
         }),
-        switchMap((lang) => this.translationService.translateContent<SkillFull>(skillsData, 'en', lang))
+        switchMap((lang) => {
+          const source = this.resolveLocalizedContent(skillsData);
+          return this.translationService.translateContent<SkillFull>(
+            source.content,
+            source.language,
+            lang
+          );
+        })
       )
       .subscribe(translated => {
         this.skillFullTitle = translated.title;
@@ -135,5 +143,30 @@ export class SkillsComponent implements OnInit, OnDestroy {
       ...section,
       skills: section.skills.map(skill => ({ ...skill, clicked: false }))
     };
+  }
+
+  private resolveLocalizedContent<T>(
+    data: Partial<Record<LanguageCode, T>>
+  ): { content: T; language: LanguageCode } {
+    const preferred: LanguageCode = 'it';
+    const preferredContent = data[preferred];
+    if (preferredContent) {
+      return { content: preferredContent, language: preferred };
+    }
+
+    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
+    for (const fallback of fallbackOrder) {
+      const content = data[fallback];
+      if (content) {
+        return { content, language: fallback };
+      }
+    }
+
+    const firstEntry = Object.entries(data)[0];
+    if (firstEntry) {
+      return { content: firstEntry[1] as T, language: firstEntry[0] as LanguageCode };
+    }
+
+    throw new Error('No skill data available');
   }
 }
