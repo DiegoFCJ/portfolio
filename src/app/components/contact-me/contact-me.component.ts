@@ -4,6 +4,7 @@ import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { contactMeData } from '../../data/contact-me.data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +23,7 @@ import { TranslationService } from '../../services/translation.service';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    TextFieldModule,
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './contact-me.component.html',
