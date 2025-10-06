@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProjectsComponent } from './projects.component';
-import { projects } from '../../data/projects.data';
 
 /**
  * Unit tests for ProjectsComponent.
@@ -30,36 +29,52 @@ describe('ProjectsComponent', () => {
   });
 
   /**
-   * Verifies that the description is truncated when it exceeds maxChars.
-   */
-  it('should truncate project description correctly', () => {
-    const longDescription = 'This is a long description '.repeat(10); // A long string
-    const project = { description: longDescription, expanded: false };
-
-    expect(component.getTruncatedDescription(project)).toBe(longDescription.substring(0, component.maxChars) + '...');
-  });
-
-  /**
-   * Verifies that the description is not truncated when it is expanded.
-   */
-  it('should return full description when expanded', () => {
-    const fullDescription = 'This is a full description';
-    const project = { description: fullDescription, expanded: true };
-
-    expect(component.getTruncatedDescription(project)).toBe(fullDescription);
-  });
-
-  /**
    * Verifies that toggleExpand correctly toggles the expanded state of a project.
    */
   it('should toggle expand state correctly', () => {
-    const project = { expanded: false };
+    const project = { expanded: false } as { expanded: boolean };
 
     component.toggleExpand(project);
     expect(project.expanded).toBe(true);
 
     component.toggleExpand(project);
     expect(project.expanded).toBe(false);
+  });
+
+  /**
+   * Verifies that clicking the toggle button updates the DOM state.
+   */
+  it('should update description state in the template when toggled', () => {
+    // Force desktop layout so the grid is rendered for inspection
+    component.isMobile = false;
+    fixture.detectChanges();
+
+    const firstProject = component.projects.projects[0];
+    const card: HTMLElement | null = fixture.nativeElement.querySelector('.project-card');
+    expect(card).withContext('project card should render').not.toBeNull();
+    if (!card) {
+      return;
+    }
+
+    const description = card.querySelector('.project-description');
+    const toggleButton = card.querySelector('.toggle-description') as HTMLButtonElement | null;
+
+    expect(description).withContext('description container should exist').not.toBeNull();
+    expect(toggleButton).withContext('toggle button should exist').not.toBeNull();
+
+    if (!description || !toggleButton) {
+      return;
+    }
+
+    expect(description.classList.contains('expanded')).toBeFalse();
+    expect(toggleButton.getAttribute('aria-expanded')).toBe('false');
+
+    toggleButton.click();
+    fixture.detectChanges();
+
+    expect(firstProject.expanded).toBeTrue();
+    expect(description.classList.contains('expanded')).toBeTrue();
+    expect(toggleButton.getAttribute('aria-expanded')).toBe('true');
   });
 
   /**
