@@ -69,6 +69,28 @@ This repository contains a portfolio application built with **Angular 18**. It u
 - `npm test` – execute unit tests
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
 
+### Project status levels
+The projects section shows a glassmorphism card with a status pill and optional badges. The available levels and tags are
+centralised in [`src/app/data/projects.data.ts`](src/app/data/projects.data.ts):
+
+- **`active`** – Use for production-ready or actively maintained initiatives. The UI renders the pill with a cyan gradient.
+- **`publicBeta`** – Reserve for projects that are publicly accessible but still collecting feedback. The pill uses the indigo
+  accent.
+- **`inDevelopment`** – Apply to prototypes or private work in progress. The pill switches to a warm amber gradient.
+
+Optional tags are rendered as soft badges next to the pill:
+
+- **`openSource`** – Highlights repositories that are publicly available.
+- **`release2024`** – Communicates the target release window when relevant.
+
+**Operational tips**
+
+- When adding a new status or tag, extend both the `statusLegend.levels` and `statusLegend.tags` dictionaries for every
+  language so the UI stays translated.
+- Keep `ProjectStatusLevel` and `ProjectStatusTag` in [`src/app/dtos/ProjectDTO.ts`](src/app/dtos/ProjectDTO.ts) aligned with the
+  keys used in the data file.
+- Prefer reusing existing tags; introduce new ones only if they convey user-facing meaning that appears in the UI.
+
 ### Server-side Rendering
 To run the application with SSR enabled:
 ```bash
@@ -125,6 +147,27 @@ Questo repository contiene un'applicazione portfolio sviluppata con **Angular 18
 - `npm run build` – compila il progetto
 - `npm test` – esegue i test unitari
 - `npm run serve:ssr:portfolio` – serve il bundle SSR compilato
+
+### Livelli di stato dei progetti
+La sezione progetti mostra una card con effetto glassmorphism che include un badge di stato e tag opzionali. I valori sono
+centralizzati in [`src/app/data/projects.data.ts`](src/app/data/projects.data.ts):
+
+- **`active`** – Per iniziative in produzione o con manutenzione attiva. Il badge usa un gradiente ciano.
+- **`publicBeta`** – Per progetti accessibili al pubblico ma ancora in raccolta feedback. Il badge usa l’accento indaco.
+- **`inDevelopment`** – Per prototipi o lavori in corso privati. Il badge passa a un gradiente ambrato.
+
+I tag opzionali sono visualizzati come etichette soft accanto al badge:
+
+- **`openSource`** – Evidenzia repository pubblici.
+- **`release2024`** – Comunica una finestra di rilascio quando pertinente.
+
+**Linee guida operative**
+
+- Quando aggiungi uno stato o un tag, aggiorna i dizionari `statusLegend.levels` e `statusLegend.tags` per ogni lingua per
+  mantenere la traduzione in linea con l’interfaccia.
+- Mantieni `ProjectStatusLevel` e `ProjectStatusTag` in [`src/app/dtos/ProjectDTO.ts`](src/app/dtos/ProjectDTO.ts) coerenti con
+  le chiavi del file dati.
+- Riutilizza i tag esistenti quando possibile; introdurne di nuovi solo se portano un messaggio utile per l’utente finale.
 
 ### Rendering lato server
 Per eseguire l'applicazione con il rendering lato server:
