@@ -9,72 +9,29 @@ $navigator-surface-gradient: linear-gradient(145deg, rgba(99, 102, 241, 0.18), r
 $navigator-icon-size: 24px;
 $navigator-button-size: 48px;
 
-$navigator-themes: (
-    light: (
-        selector: ':root',
-        background: $navigator-bg,
-        icon-color: #333,
-        hover-background: lighten($navigator-bg, 4%),
-        arrow-hover-background: rgba(0, 0, 0, 0.05),
-        option-background: $navigator-bg,
-        option-hover-background: rgba(0, 0, 0, 0.05),
-        option-selected-background: rgba(0, 0, 0, 0.1),
-        text-color: #333
-    ),
-    dark: (
-        selector: 'body.dark-mode',
-        background: $navigator-bg-dark,
-        icon-color: #f0f0f0,
-        hover-background: lighten($navigator-bg-dark, 5%),
-        arrow-hover-background: lighten($navigator-bg-dark, 5%),
-        option-background: $navigator-bg-dark,
-        option-hover-background: rgba(255, 255, 255, 0.1),
-        option-selected-background: rgba(255, 255, 255, 0.2),
-        text-color: #f0f0f0
-    ),
-    blue: (
-        selector: 'body.blue-mode',
-        background: $navigator-bg,
-        icon-color: #333,
-        hover-background: lighten($navigator-bg, 4%),
-        arrow-hover-background: rgba(0, 0, 0, 0.05),
-        option-background: $navigator-bg,
-        option-hover-background: rgba(0, 0, 0, 0.05),
-        option-selected-background: rgba(0, 0, 0, 0.1),
-        text-color: #333
-    ),
-    green: (
-        selector: 'body.green-mode',
-        background: $navigator-bg,
-        icon-color: #333,
-        hover-background: lighten($navigator-bg, 4%),
-        arrow-hover-background: rgba(0, 0, 0, 0.05),
-        option-background: $navigator-bg,
-        option-hover-background: rgba(0, 0, 0, 0.05),
-        option-selected-background: rgba(0, 0, 0, 0.1),
-        text-color: #333
-    )
-);
-
-@mixin apply-navigator-theme($config) {
-    #{map-get($config, selector)} {
-        --navigator-background: #{map-get($config, background)};
-        --navigator-icon-color: #{map-get($config, icon-color)};
-        --navigator-hover-background: #{map-get($config, hover-background)};
-        --navigator-arrow-hover-background: #{map-get($config, arrow-hover-background)};
-        --navigator-option-background: #{map-get($config, option-background)};
-        --navigator-option-hover-background: #{map-get($config, option-hover-background)};
-        --navigator-option-selected-background: #{map-get($config, option-selected-background)};
-        --navigator-text-color: #{map-get($config, text-color)};
-    }
+:host {
+    --navigator-background: #{$navigator-bg};
+    --navigator-icon-color: #333;
+    --navigator-hover-background: #{lighten($navigator-bg, 4%)};
+    --navigator-arrow-hover-background: rgba(0, 0, 0, 0.05);
+    --navigator-option-background: #{$navigator-bg};
+    --navigator-option-hover-background: rgba(0, 0, 0, 0.05);
+    --navigator-option-selected-background: rgba(0, 0, 0, 0.1);
+    --navigator-text-color: #333;
 }
 
-@each $theme, $config in $navigator-themes {
-    @include apply-navigator-theme($config);
+:host-context(body.dark-mode) {
+    --navigator-background: #{$navigator-bg-dark};
+    --navigator-icon-color: #f0f0f0;
+    --navigator-hover-background: #{lighten($navigator-bg-dark, 5%)};
+    --navigator-arrow-hover-background: #{lighten($navigator-bg-dark, 5%)};
+    --navigator-option-background: #{$navigator-bg-dark};
+    --navigator-option-hover-background: rgba(255, 255, 255, 0.1);
+    --navigator-option-selected-background: rgba(255, 255, 255, 0.2);
+    --navigator-text-color: #f0f0f0;
 }
 
 @keyframes float {
-
     0%,
     100% {
         transform: translateY(0);
@@ -108,9 +65,8 @@ $navigator-themes: (
     background-color: var(--navigator-background);
     box-shadow: $navigator-shadow;
     border: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-grid;
+    place-items: center;
     position: relative;
     overflow: hidden;
     animation: float 3s ease-in-out infinite;
@@ -118,11 +74,9 @@ $navigator-themes: (
 
     .toggle-icon-stack {
         position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        inset: 0;
+        display: grid;
+        place-items: center;
     }
 
     .toggle-icon {
@@ -161,44 +115,45 @@ $navigator-themes: (
     box-shadow: $navigator-surface-shadow;
     backdrop-filter: blur(16px) saturate(140%);
     max-width: min(80vw, 360px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    gap: 12px;
+    justify-items: center;
 }
 
 .modern-navigator {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 12px;
-    align-items: center;
+    justify-items: center;
     width: 100%;
 
     .arrow-container {
         width: clamp(3rem, 7vw, $navigator-button-size - 4px);
-        justify-content: center;
         height: 90px;
         padding: 6px;
         background: color-mix(in srgb, var(--navigator-background) 85%, rgba(255, 255, 255, 0));
         box-shadow: $navigator-shadow;
         border-radius: $navigator-button-size;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: grid;
         gap: 6px;
+        align-content: center;
+        justify-items: center;
         border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
-    .nav-button {
+    :where(.nav-button, .arrow-button) {
         width: $navigator-button-size;
         height: $navigator-button-size;
         border-radius: 50%;
+        border: none;
+        display: grid;
+        place-items: center;
+    }
+
+    .nav-button {
         background: color-mix(in srgb, var(--navigator-background) 92%, rgba(99, 102, 241, 0.08));
         box-shadow: $navigator-shadow;
         border: 1px solid rgba(255, 255, 255, 0.35);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        gap: 4px;
         transition: transform 0.2s ease, background-color 0.3s ease;
 
         &:hover {
@@ -219,16 +174,8 @@ $navigator-themes: (
     }
 
     .arrow-button {
-        width: $navigator-button-size;
-        height: $navigator-button-size;
-        border-radius: 50%;
-        border: none;
         background-color: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         transition: background-color 0.2s ease;
-        position: relative;
 
         &:hover {
             background-color: var(--navigator-arrow-hover-background);
@@ -237,14 +184,12 @@ $navigator-themes: (
         mat-icon {
             font-size: $navigator-icon-size;
             color: var(--navigator-icon-color);
-            position: absolute;
         }
     }
 }
 
 .lang-flag {
     font-size: 1.2rem;
-    margin-right: 8px;
     color: var(--navigator-text-color);
 }
 
@@ -257,13 +202,14 @@ $navigator-themes: (
     top: 50%;
     right: calc(100% + 8px);
     transform: translateY(-50%);
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
+    place-items: center;
     gap: 6px;
     background: color-mix(in srgb, var(--navigator-option-background) 85%, rgba(255, 255, 255, 0));
     padding: 4px 6px;
     border-radius: 2rem;
     box-shadow: $navigator-shadow;
-    align-items: center;
     z-index: 1;
     border: 1px solid rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
@@ -274,9 +220,8 @@ $navigator-themes: (
     height: 32px;
     border-radius: 50%;
     border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
     background-color: transparent;
     transition: background-color 0.2s ease;
 
@@ -285,13 +230,11 @@ $navigator-themes: (
     }
 
     mat-icon {
-        position: absolute;
         font-size: 20px;
         color: var(--navigator-icon-color);
     }
 
     .section-number {
-        position: absolute;
         font-size: 0.9rem;
         font-weight: 600;
         color: var(--navigator-text-color);
