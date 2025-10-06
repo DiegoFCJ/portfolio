@@ -202,14 +202,15 @@ export class SkillsComponent implements OnInit, OnDestroy {
       border-radius: 10px;
     `;
 
-    const parent = targetElement.parentElement;
+    const host = targetElement.closest('.skill-chip, .skill-item');
 
-    if (!parent) {
-      console.warn('Unable to attach popup message: parent element not found.');
+    if (!(host instanceof HTMLElement)) {
+      console.warn('Unable to attach popup message: host element not found.');
       return null;
     }
 
-    parent.appendChild(message);
+    host.style.position = 'relative';
+    host.appendChild(message);
     return message;
   }
 

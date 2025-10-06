@@ -25,19 +25,23 @@
   <ng-template #desktopLayout>
     <div class="timeline" role="list">
       <article class="timeline-item" role="listitem" *ngFor="let section of timelineSections; let last = last">
-        <div class="timeline-marker" [class.is-last]="last">
-          <span class="timeline-dot" aria-hidden="true"></span>
+        <div class="timeline-axis" aria-hidden="true">
+          <span class="timeline-dot"></span>
+          <span class="timeline-connector" [class.is-last]="last"></span>
         </div>
-        <div class="timeline-card">
+        <div class="timeline-content">
           <header class="timeline-header">
-            <h3 class="timeline-heading">{{ section.title }}</h3>
-            <span class="timeline-badge" *ngIf="section.subtitle">{{ section.subtitle }}</span>
+            <span class="timeline-subtitle" *ngIf="section.subtitle">{{ section.subtitle }}</span>
+            <h3 class="timeline-title">{{ section.title }}</h3>
           </header>
-          <div class="skills" role="list">
-            <div *ngFor="let skill of section.skills" class="skill-item" role="listitem">
-              <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
-                [ngClass]="{ 'clicked': skill.clicked }" />
-            </div>
+          <div class="skill-grid" role="list">
+            <button *ngFor="let skill of section.skills" type="button" class="skill-chip" role="listitem"
+              (click)="onSkillClick($event, skill)" [class.clicked]="skill.clicked">
+              <span class="chip-icon">
+                <img [src]="skill.icon" [alt]="skill.name" />
+              </span>
+              <span class="chip-label">{{ skill.name }}</span>
+            </button>
           </div>
         </div>
       </article>
