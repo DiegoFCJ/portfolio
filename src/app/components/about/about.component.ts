@@ -16,9 +16,12 @@ import { TranslationService } from '../../services/translation.service';
 export class AboutComponent implements OnInit, OnDestroy {
   aboutMe: AboutMe = {
     title: '',
-    description: ''
+    paragraphs: [],
+    highlightsTitle: '',
+    highlights: []
   };
   isLoading = true;
+  readonly placeholders = Array.from({ length: 3 });
 
   private readonly destroy$ = new Subject<void>();
 
