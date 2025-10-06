@@ -36,6 +36,9 @@ describe('AssistantComponent', () => {
     expect(component.isOpen).toBeTrue();
     expect(component.animationPhase).toBe('wondering');
     expect(openedSpy).toHaveBeenCalled();
+
+    component.closeAssistant();
+    tick();
   }));
 
   it('should transition from wondering to suggestClose after five seconds', fakeAsync(() => {
