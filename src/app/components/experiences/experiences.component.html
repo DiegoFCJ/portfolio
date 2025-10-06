@@ -1,18 +1,31 @@
 <section class="experiences-section" *ngIf="!isLoading">
-    <h2>{{ experiences.title }}</h2>
-    <div class="experiences-container">
-        <div class="experience" *ngFor="let experience of experiences.experiences">
-            <p class="experience-period"><strong>{{ experience.startDate }} - {{ experience.endDate }}</strong></p>
-            <p class="experience-title">
-                <strong>{{ experience.position }}</strong>
-                <span *ngIf="experience.company"> · {{ experience.company }}</span>
-            </p>
-            <p class="experience-location">{{ experience.location }}</p>
-            <p *ngIf="experience.technologies" class="experience-technologies">{{ experience.technologies }}</p>
-            <p *ngIf="experience.responsibilities">{{ experience.responsibilities }}</p>
-            <ul *ngIf="experience.responsibilityList?.length" class="responsibility-list">
-                <li *ngFor="let item of experience.responsibilityList">{{ item }}</li>
-            </ul>
-        </div>
-    </div>
+  <h2 class="experiences-title">{{ experiences.title }}</h2>
+  <div class="timeline" role="list">
+    <article
+      class="timeline-item"
+      role="listitem"
+      *ngFor="let experience of experiences.experiences; let last = last"
+    >
+      <div class="timeline-marker" [class.is-last]="last">
+        <span class="timeline-dot" aria-hidden="true"></span>
+      </div>
+      <div class="timeline-card">
+        <header class="timeline-header">
+          <h3 class="timeline-heading">{{ experience.position }}</h3>
+          <span class="timeline-badge">{{ experience.formattedPeriod }}</span>
+        </header>
+        <p class="timeline-company" *ngIf="experience.company">{{ experience.company }}</p>
+        <p class="timeline-location">{{ experience.location }}</p>
+        <p class="timeline-technologies" *ngIf="experience.technologies">
+          {{ experience.technologies }}
+        </p>
+        <p class="timeline-summary" *ngIf="experience.responsibilities">
+          {{ experience.responsibilities }}
+        </p>
+        <ul class="timeline-responsibilities" *ngIf="experience.responsibilityItems?.length">
+          <li *ngFor="let item of experience.responsibilityItems">{{ item }}</li>
+        </ul>
+      </div>
+    </article>
+  </div>
 </section>
