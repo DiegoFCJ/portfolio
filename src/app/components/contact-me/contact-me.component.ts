@@ -202,14 +202,14 @@ export class ContactMeComponent implements OnInit, OnDestroy {
 
   private markAllControlsAsTouched(form: NgForm): void {
     Object.values(form.controls).forEach(control => {
-      control.control?.markAsTouched();
-      control.control?.updateValueAndValidity();
+      control.markAsTouched();
+      control.updateValueAndValidity();
     });
   }
 
   private markControlAsTouched(form: NgForm, controlName: string): void {
     const control = form.controls[controlName];
-    control?.control?.markAsTouched();
-    control?.control?.updateValueAndValidity();
+    control?.markAsTouched();
+    control?.updateValueAndValidity();
   }
 }
