@@ -1,5 +1,5 @@
-<section *ngIf="!isLoading">
-  <h2>{{skillFullTitle}}</h2>
+<section class="skills-section" *ngIf="!isLoading">
+  <h2 class="skills-title">{{ skillFullTitle }}</h2>
 
   <!-- Carousell-->
   <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
@@ -8,6 +8,7 @@
       <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
         <div class="skill-section">
           <h3>{{ section.title }}</h3>
+          <p class="skill-subtitle" *ngIf="timelineSections[i]?.subtitle">{{ timelineSections[i].subtitle }}</p>
           <div class="skills">
             <div *ngFor="let skill of section.skills" class="skill-item">
               <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
@@ -22,16 +23,24 @@
 
   <!-- Desktop -->
   <ng-template #desktopLayout>
-    <div class="skill-grid">
-      <div *ngFor="let section of sections" class="skill-section">
-        <h3>{{ section.title }}</h3>
-        <div class="skills">
-          <div *ngFor="let skill of section.skills" class="skill-item">
-            <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
-              [ngClass]="{'clicked': skill.clicked}" />
+    <div class="timeline" role="list">
+      <article class="timeline-item" role="listitem" *ngFor="let section of timelineSections; let last = last">
+        <div class="timeline-marker" [class.is-last]="last">
+          <span class="timeline-dot" aria-hidden="true"></span>
+        </div>
+        <div class="timeline-card">
+          <header class="timeline-header">
+            <h3 class="timeline-heading">{{ section.title }}</h3>
+            <span class="timeline-badge" *ngIf="section.subtitle">{{ section.subtitle }}</span>
+          </header>
+          <div class="skills" role="list">
+            <div *ngFor="let skill of section.skills" class="skill-item" role="listitem">
+              <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
+                [ngClass]="{ 'clicked': skill.clicked }" />
+            </div>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </ng-template>
 </section>

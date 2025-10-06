@@ -1,85 +1,207 @@
-section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+:host {
+  --timeline-accent: #6366f1;
+  --timeline-accent-soft: rgba(99, 102, 241, 0.18);
+  --timeline-card-bg: rgba(15, 23, 42, 0.05);
+  --timeline-card-border: rgba(99, 102, 241, 0.25);
+  --timeline-text-muted: rgba(15, 23, 42, 0.65);
 }
 
-// Container della griglia delle competenze
-.skill-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    width: 100%;
-    max-width: 1200px;
+.skills-section {
+  min-height: 100vh;
+  padding: clamp(2rem, 4vw, 4.5rem) clamp(1.25rem, 3vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(160deg, rgba(99, 102, 241, 0.08), rgba(79, 70, 229, 0));
+  gap: clamp(2rem, 4vw, 3rem);
 }
 
-// Contenitore della sezione di abilità
+.skills-title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
 .skill-section {
-    border-radius: 8px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  text-align: center;
+}
 
-    .skills {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-        gap: 0.5rem;
+.skill-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--timeline-text-muted);
+}
 
-        .skill-item {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
 
-            img {
-                object-fit: contain;
-                transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-                cursor: pointer;
+.skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-                &:hover {
-                    transform: translateY(-5px);
-                }
+.skill-item img {
+  object-fit: contain;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+  cursor: pointer;
+}
 
-                &.clicked {
-                    transform: translateY(-5px) rotate(360deg);
-                }
-            }
-        }
-    }
+.skill-item img:hover,
+.skill-item img.clicked {
+  transform: translateY(-4px);
+}
+
+.timeline {
+  --timeline-gap: clamp(1.75rem, 3vw, 2.75rem);
+  width: min(80vw, 960px);
+  display: grid;
+  gap: var(--timeline-gap);
+  margin: 0 auto;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  column-gap: clamp(1.25rem, 2.5vw, 2rem);
+  align-items: start;
+}
+
+.timeline-marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.timeline-marker::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  left: calc(50% - 1.5px);
+  width: 3px;
+  bottom: calc(var(--timeline-gap) * -1);
+  background: linear-gradient(180deg, var(--timeline-accent), rgba(99, 102, 241, 0));
+  border-radius: 999px;
+}
+
+.timeline-marker.is-last::before {
+  bottom: 0;
+}
+
+.timeline-dot {
+  margin-top: 0.25rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--timeline-accent);
+  box-shadow: 0 0 0 6px var(--timeline-accent-soft), 0 10px 30px rgba(79, 70, 229, 0.18);
+}
+
+.timeline-card {
+  background: linear-gradient(135deg, var(--timeline-card-bg), rgba(99, 102, 241, 0.1));
+  border: 1px solid var(--timeline-card-border);
+  border-radius: 18px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.timeline-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.timeline-heading {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  font-weight: 600;
+}
+
+.timeline-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--timeline-accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.carousel-container {
+  width: min(90vw, 540px);
+  margin: 0 auto;
+}
+
+.carousel-container .skill-section {
+  background: linear-gradient(135deg, var(--timeline-card-bg), rgba(99, 102, 241, 0.1));
+  border: 1px solid var(--timeline-card-border);
+  border-radius: 18px;
+  padding: clamp(1.5rem, 4vw, 2rem);
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.1);
 }
 
 @media (max-width: 768px) {
-    .skill-grid {
-        display: none; // Nascondi la griglia per dispositivi mobili
-    }
+  .timeline {
+    --timeline-gap: clamp(1.5rem, 4vw, 2rem);
+  }
 
-    .carousel-container {
-        display: block;
-        padding: 1.5rem;
+  .timeline-item {
+    grid-template-columns: 2.75rem 1fr;
+  }
 
-        .skill-section {
-            padding: 1.5rem;
-        }
-    }
+  .timeline-badge {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .skills-section {
+    padding: clamp(2rem, 6vw, 3.5rem) clamp(1rem, 4vw, 2rem);
+  }
+
+  .timeline-item {
+    position: relative;
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+    padding-left: 2.5rem;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    inset: 1rem auto auto 0;
+    width: 2.5rem;
+  }
+
+  .timeline-marker::before {
+    left: calc(1.25rem - 1.5px);
+    top: 0.75rem;
+  }
+
+  .timeline-dot {
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 480px) {
-
-    .skill-grid {
-        grid-template-columns: 1fr; // Modifica per schermi molto piccoli
-    }
-
-    .carousel-container {
-
-        .arrow-left,
-        .arrow-right {
-            font-size: 1.5rem; // Riduci la dimensione delle frecce su schermi più piccoli
-        }
-    }
+  .carousel-container .arrow-left,
+  .carousel-container .arrow-right {
+    font-size: 1.5rem;
+  }
 }
