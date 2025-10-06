@@ -55,16 +55,22 @@ export class SkillsComponent implements OnInit, OnDestroy {
     backend: {
       it: 'Stack Back-end',
       en: 'Back-end Stack',
+      de: 'Back-end Stack',
+      es: 'Stack Back-end',
       default: 'Back-end'
     },
     frontend: {
       it: 'Stack Front-end',
       en: 'Front-end Stack',
+      de: 'Front-end Stack',
+      es: 'Stack Front-end',
       default: 'Front-end'
     },
     tooling: {
       it: 'Tooling & Ops',
       en: 'Tooling & Ops',
+      de: 'Tooling & Ops',
+      es: 'Tooling y Ops',
       default: 'Tooling'
     }
   };
@@ -73,16 +79,22 @@ export class SkillsComponent implements OnInit, OnDestroy {
     backend: {
       it: ['2014 → oggi', '2016 → oggi', '2018 → oggi', '2020 → oggi'],
       en: ['2014 → now', '2016 → now', '2018 → now', '2020 → now'],
+      de: ['2014 → heute', '2016 → heute', '2018 → heute', '2020 → heute'],
+      es: ['2014 → hoy', '2016 → hoy', '2018 → hoy', '2020 → hoy'],
       default: ['Ongoing expertise']
     },
     frontend: {
       it: ['2012 → oggi', '2015 → oggi', '2017 → oggi'],
       en: ['2012 → now', '2015 → now', '2017 → now'],
+      de: ['2012 → heute', '2015 → heute', '2017 → heute'],
+      es: ['2012 → hoy', '2015 → hoy', '2017 → hoy'],
       default: ['Active expertise']
     },
     tooling: {
       it: ['2013 → oggi', '2016 → oggi', '2018 → oggi', '2021 → oggi'],
       en: ['2013 → now', '2016 → now', '2018 → now', '2021 → now'],
+      de: ['2013 → heute', '2016 → heute', '2018 → heute', '2021 → heute'],
+      es: ['2013 → hoy', '2016 → hoy', '2018 → hoy', '2021 → hoy'],
       default: ['Continuous enablement']
     }
   };
