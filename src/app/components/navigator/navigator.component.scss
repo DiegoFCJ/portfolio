@@ -126,18 +126,25 @@ $navigator-button-size: 48px;
     justify-items: center;
     width: 100%;
 
+    :where(.arrow-container, .option-container) {
+        background: color-mix(
+            in srgb,
+            var(--navigator-option-background, var(--navigator-background)) 85%,
+            rgba(255, 255, 255, 0)
+        );
+        box-shadow: $navigator-shadow;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
     .arrow-container {
         width: clamp(3rem, 7vw, $navigator-button-size - 4px);
         height: 90px;
         padding: 6px;
-        background: color-mix(in srgb, var(--navigator-background) 85%, rgba(255, 255, 255, 0));
-        box-shadow: $navigator-shadow;
         border-radius: $navigator-button-size;
         display: grid;
         gap: 6px;
         align-content: center;
         justify-items: center;
-        border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     :where(.nav-button, .arrow-button) {
@@ -150,6 +157,7 @@ $navigator-button-size: 48px;
     }
 
     .nav-button {
+        font-size: $navigator-icon-size;
         background: color-mix(in srgb, var(--navigator-background) 92%, rgba(99, 102, 241, 0.08));
         box-shadow: $navigator-shadow;
         border: 1px solid rgba(255, 255, 255, 0.35);
@@ -161,11 +169,6 @@ $navigator-button-size: 48px;
             background-color: var(--navigator-hover-background);
         }
 
-        mat-icon {
-            font-size: $navigator-icon-size;
-            color: var(--navigator-icon-color);
-        }
-
         .lang-label {
             font-size: 0.9rem;
             font-weight: 600;
@@ -174,16 +177,12 @@ $navigator-button-size: 48px;
     }
 
     .arrow-button {
+        font-size: $navigator-icon-size;
         background-color: transparent;
         transition: background-color 0.2s ease;
 
         &:hover {
             background-color: var(--navigator-arrow-hover-background);
-        }
-
-        mat-icon {
-            font-size: $navigator-icon-size;
-            color: var(--navigator-icon-color);
         }
     }
 }
@@ -206,12 +205,9 @@ $navigator-button-size: 48px;
     grid-auto-flow: column;
     place-items: center;
     gap: 6px;
-    background: color-mix(in srgb, var(--navigator-option-background) 85%, rgba(255, 255, 255, 0));
     padding: 4px 6px;
     border-radius: 2rem;
-    box-shadow: $navigator-shadow;
     z-index: 1;
-    border: 1px solid rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
 }
 
@@ -223,15 +219,11 @@ $navigator-button-size: 48px;
     display: grid;
     place-items: center;
     background-color: transparent;
+    font-size: 20px;
     transition: background-color 0.2s ease;
 
     &:hover {
         background-color: var(--navigator-option-hover-background);
-    }
-
-    mat-icon {
-        font-size: 20px;
-        color: var(--navigator-icon-color);
     }
 
     .section-number {
@@ -243,4 +235,9 @@ $navigator-button-size: 48px;
     &.selected {
         background-color: var(--navigator-option-selected-background);
     }
+}
+
+.navigator-surface mat-icon {
+    font-size: 1em;
+    color: var(--navigator-icon-color);
 }
