@@ -3,7 +3,6 @@
   --skills-accent-soft: rgba(99, 102, 241, 0.18);
   --skills-card-bg: rgba(15, 23, 42, 0.05);
   --skills-card-border: rgba(99, 102, 241, 0.28);
-  --skills-badge-bg: rgba(99, 102, 241, 0.16);
   --skills-text-muted: rgba(15, 23, 42, 0.65);
   --skills-section-bg: linear-gradient(160deg, rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.04));
   --skills-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
@@ -14,7 +13,6 @@
   --skills-accent-soft: rgba(129, 140, 248, 0.24);
   --skills-card-bg: rgba(30, 31, 38, 0.7);
   --skills-card-border: rgba(129, 140, 248, 0.35);
-  --skills-badge-bg: rgba(129, 140, 248, 0.2);
   --skills-text-muted: rgba(226, 232, 240, 0.7);
   --skills-section-bg: linear-gradient(160deg, rgba(129, 140, 248, 0.16), rgba(79, 70, 229, 0.08));
   --skills-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
@@ -202,7 +200,7 @@
 .spotlight-header {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 0.75rem;
 }
@@ -233,22 +231,6 @@
   color: var(--skills-text-muted);
 }
 
-.spotlight-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.35rem 0.85rem;
-  border-radius: 999px;
-  background: var(--skills-badge-bg);
-  color: var(--skills-accent);
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-}
-
-:host-context(body.dark-mode) .spotlight-badge {
-  color: #e0e7ff;
-}
-
 .spotlight-icons {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -256,30 +238,9 @@
 }
 
 .skill-icon {
-  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.65rem;
-  border-radius: 16px;
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  background: rgba(255, 255, 255, 0.65);
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-:host-context(body.dark-mode) .skill-icon {
-  background: rgba(30, 31, 38, 0.8);
-  border-color: rgba(129, 140, 248, 0.4);
-}
-
-.skill-icon:hover,
-.skill-icon.clicked {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.25);
-  border-color: rgba(99, 102, 241, 0.6);
 }
 
 .icon-asset {
@@ -287,20 +248,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem;
 }
 
 .icon-asset img {
   width: 100%;
   max-height: 42px;
   object-fit: contain;
-}
-
-.icon-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-align: center;
-  color: var(--skills-text-muted);
 }
 
 @media (max-width: 1200px) {

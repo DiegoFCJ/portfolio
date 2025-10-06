@@ -52,23 +52,19 @@
                   <h3 class="spotlight-title">{{ panel.title }}</h3>
                   <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
                 </div>
-                <span class="spotlight-badge">{{ panel.badge }}</span>
               </header>
               <div class="spotlight-icons" role="list">
-                <button
+                <div
                   *ngFor="let skill of panel.skills"
-                  type="button"
                   class="skill-icon"
                   role="listitem"
                   data-skill-host
-                  (click)="onSkillClick($event, skill)"
-                  [class.clicked]="skill.clicked"
+                  [attr.aria-label]="skill.name"
                 >
                   <span class="icon-asset">
                     <img [src]="skill.icon" [alt]="skill.name" />
                   </span>
-                  <span class="icon-label">{{ skill.name }}</span>
-                </button>
+                </div>
               </div>
             </div>
           </div>
@@ -122,23 +118,19 @@
                 <h3 class="spotlight-title">{{ panel.title }}</h3>
                 <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
               </div>
-              <span class="spotlight-badge">{{ panel.badge }}</span>
             </header>
             <div class="spotlight-icons" role="list">
-              <button
+              <div
                 *ngFor="let skill of panel.skills"
-                type="button"
                 class="skill-icon"
                 role="listitem"
                 data-skill-host
-                (click)="onSkillClick($event, skill)"
-                [class.clicked]="skill.clicked"
+                [attr.aria-label]="skill.name"
               >
                 <span class="icon-asset">
                   <img [src]="skill.icon" [alt]="skill.name" />
                 </span>
-                <span class="icon-label">{{ skill.name }}</span>
-              </button>
+              </div>
             </div>
           </div>
         </article>

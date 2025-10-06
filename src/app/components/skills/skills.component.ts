@@ -16,7 +16,6 @@ interface SkillTab {
 
 interface SpotlightPanel extends SkillSection {
   subtitle: string;
-  badge: string;
 }
 
 @Component({
@@ -72,30 +71,6 @@ export class SkillsComponent implements OnInit, OnDestroy {
       de: 'Tooling & Ops',
       es: 'Tooling y Ops',
       default: 'Tooling'
-    }
-  };
-
-  private readonly periodBadgeDictionary: Record<SkillTabId, Record<LanguageCode | 'default', string[]>> = {
-    backend: {
-      it: ['2014 → oggi', '2016 → oggi', '2018 → oggi', '2020 → oggi'],
-      en: ['2014 → now', '2016 → now', '2018 → now', '2020 → now'],
-      de: ['2014 → heute', '2016 → heute', '2018 → heute', '2020 → heute'],
-      es: ['2014 → hoy', '2016 → hoy', '2018 → hoy', '2020 → hoy'],
-      default: ['Ongoing expertise']
-    },
-    frontend: {
-      it: ['2012 → oggi', '2015 → oggi', '2017 → oggi'],
-      en: ['2012 → now', '2015 → now', '2017 → now'],
-      de: ['2012 → heute', '2015 → heute', '2017 → heute'],
-      es: ['2012 → hoy', '2015 → hoy', '2017 → hoy'],
-      default: ['Active expertise']
-    },
-    tooling: {
-      it: ['2013 → oggi', '2016 → oggi', '2018 → oggi', '2021 → oggi'],
-      en: ['2013 → now', '2016 → now', '2018 → now', '2021 → now'],
-      de: ['2013 → heute', '2016 → heute', '2018 → heute', '2021 → heute'],
-      es: ['2013 → hoy', '2016 → hoy', '2018 → hoy', '2021 → hoy'],
-      default: ['Continuous enablement']
     }
   };
 
@@ -189,72 +164,6 @@ export class SkillsComponent implements OnInit, OnDestroy {
     this.currentIndex = (this.currentIndex - 1 + items.length) % items.length;
   }
 
-  onSkillClick(event: MouseEvent, skill: SkillItem): void {
-    if (!this.isBrowser) return;
-
-    skill.clicked = !skill.clicked;
-
-    if (!skill.clicked) {
-      return;
-    }
-
-    const resolvedTarget = (event.currentTarget ?? event.target) as EventTarget | null;
-
-    if (!(resolvedTarget instanceof Element)) {
-      console.warn('Skill click target is not an HTMLElement.');
-      return;
-    }
-
-    const message = this.createPopupMessage(resolvedTarget);
-    if (message) {
-      setTimeout(() => message.remove(), 5000);
-    }
-  }
-
-  createPopupMessage(targetElement: Element): HTMLElement | null {
-    const message = document.createElement('div');
-    message.classList.add('popup');
-    message.style.cssText = `
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.2rem;
-      font-weight: bold;
-      z-index: 10;
-      text-align: center;
-      padding: 10px;
-      border-radius: 10px;
-    `;
-
-    const host = this.resolvePopupHost(targetElement);
-
-    if (!host) {
-      console.warn('Unable to attach popup message: host element not found.');
-      return null;
-    }
-
-    if (host instanceof HTMLElement && getComputedStyle(host).position === 'static') {
-      host.style.position = 'relative';
-    }
-
-    host.appendChild(message);
-    return message;
-  }
-
-  private resolvePopupHost(targetElement: Element): Element | null {
-    const timelineHost = targetElement.closest('.skill-chip, .skill-item, [data-skill-host]');
-    if (timelineHost) {
-      return timelineHost;
-    }
-
-    if (targetElement.parentElement) {
-      return targetElement.parentElement;
-    }
-
-    return targetElement instanceof HTMLElement ? targetElement : null;
-  }
-
   private resetCarouselIndex(): void {
     const items = this.getCarouselItems();
     const length = items.length;
@@ -301,11 +210,9 @@ export class SkillsComponent implements OnInit, OnDestroy {
 
     sections.forEach(section => {
       const groupId = this.resolveGroupId(section.title);
-      const badge = this.resolveBadge(groupId, groups[groupId].length);
       const panel: SpotlightPanel = {
         ...section,
-        subtitle: section.subtitle ?? '',
-        badge
+        subtitle: section.subtitle ?? ''
       };
 
       groups[groupId].push(panel);
@@ -332,20 +239,6 @@ export class SkillsComponent implements OnInit, OnDestroy {
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
-  }
-
-  private resolveBadge(groupId: SkillTabId, index: number): string {
-    const dictionary = this.periodBadgeDictionary[groupId];
-    const localized = dictionary[this.currentLanguage] ?? dictionary['default'];
-    const safeLocalized = localized.length ? localized : dictionary['default'];
-    const resolved = safeLocalized[Math.min(index, safeLocalized.length - 1)];
-
-    if (resolved) {
-      return resolved;
-    }
-
-    const fallback = dictionary['default'];
-    return fallback[Math.min(index, fallback.length - 1)] ?? '';
   }
 
   private buildTabs(): void {
