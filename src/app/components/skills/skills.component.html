@@ -1,5 +1,5 @@
-<section class="skills-section" *ngIf="!isLoading">
-  <h2 class="skills-title">{{ skillFullTitle }}</h2>
+<section *ngIf="!isLoading">
+  <h2>{{skillFullTitle}}</h2>
 
   <!-- Carousell-->
   <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
@@ -8,7 +8,6 @@
       <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
         <div class="skill-section">
           <h3>{{ section.title }}</h3>
-          <p class="skill-subtitle" *ngIf="timelineSections[i]?.subtitle">{{ timelineSections[i].subtitle }}</p>
           <div class="skills">
             <div *ngFor="let skill of section.skills" class="skill-item">
               <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
@@ -23,28 +22,16 @@
 
   <!-- Desktop -->
   <ng-template #desktopLayout>
-    <div class="timeline" role="list">
-      <article class="timeline-item" role="listitem" *ngFor="let section of timelineSections; let last = last">
-        <div class="timeline-axis" aria-hidden="true">
-          <span class="timeline-dot"></span>
-          <span class="timeline-connector" [class.is-last]="last"></span>
-        </div>
-        <div class="timeline-content">
-          <header class="timeline-header">
-            <span class="timeline-subtitle" *ngIf="section.subtitle">{{ section.subtitle }}</span>
-            <h3 class="timeline-title">{{ section.title }}</h3>
-          </header>
-          <div class="skill-grid" role="list">
-            <button *ngFor="let skill of section.skills" type="button" class="skill-chip" role="listitem"
-              (click)="onSkillClick($event, skill)" [class.clicked]="skill.clicked">
-              <span class="chip-icon">
-                <img [src]="skill.icon" [alt]="skill.name" />
-              </span>
-              <span class="chip-label">{{ skill.name }}</span>
-            </button>
+    <div class="skill-grid">
+      <div *ngFor="let section of sections" class="skill-section">
+        <h3>{{ section.title }}</h3>
+        <div class="skills">
+          <div *ngFor="let skill of section.skills" class="skill-item">
+            <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
+              [ngClass]="{'clicked': skill.clicked}" />
           </div>
         </div>
-      </article>
+      </div>
     </div>
   </ng-template>
 </section>

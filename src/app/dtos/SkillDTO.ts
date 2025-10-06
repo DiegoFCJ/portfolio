@@ -7,7 +7,6 @@ export interface SkillFull {
 
 export interface SkillSection {
     title: string;
-    subtitle?: string;
     skills: SkillItem[];
 }
 
