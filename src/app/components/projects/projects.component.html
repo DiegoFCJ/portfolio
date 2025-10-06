@@ -39,11 +39,11 @@
                 <div class="project-status-wrapper">
                     <span class="project-status-pill">
                         <span class="status-prefix">{{ projects.statusLegend.prefix }}</span>
-                        <span class="status-level">{{ projects.statusLegend.levels[project.status.level] || project.status.level }}</span>
+                        <span class="status-level">{{ getStatusLevelLabel(project.status.level) }}</span>
                     </span>
                     <ul class="project-status-tags" *ngIf="project.status.tags?.length">
                         <li class="status-tag" *ngFor="let tag of project.status.tags">
-                            {{ projects.statusLegend.tags[tag] || tag }}
+                            {{ getStatusTagLabel(tag) }}
                         </li>
                     </ul>
                 </div>
