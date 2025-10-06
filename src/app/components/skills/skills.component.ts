@@ -1,10 +1,10 @@
 import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { of, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { skills as skillsData } from '../../data/skills.data';
 import { SkillFull, SkillItem, SkillLangs, SkillSection } from '../../dtos/SkillDTO';
-import { TranslationService } from '../../services/translation.service';
+import { LanguageCode, TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-skills',
@@ -130,7 +130,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     return message;
   }
 
-  private getSkillsByLanguage(lang: string) {
+  private getSkillsByLanguage(lang: LanguageCode): Observable<SkillFull> {
     const data: SkillLangs = skillsData;
     const base = data.en;
 

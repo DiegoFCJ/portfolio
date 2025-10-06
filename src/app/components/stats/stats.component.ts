@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { forkJoin, of, Subject } from 'rxjs';
+import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
-import { TranslationService } from '../../services/translation.service';
-import { Stat, StatsItem } from '../../dtos/StatsDTO';
+import { LanguageCode, TranslationService } from '../../services/translation.service';
+import { Stat, StatsFull, StatsItem } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
 
 @Component({
@@ -71,7 +71,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  calculateStats(experiences: any[], projectList: any[], language: string = 'en'): StatsItem {
+  calculateStats(experiences: any[], projectList: any[], language: LanguageCode = 'en'): StatsItem {
     let totalHours = 0;
     let totalMonths = 0;
     let totalProjects = projectList.length;
@@ -174,7 +174,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getTemplateByLanguage(language: string) {
+  private getTemplateByLanguage(language: LanguageCode): Observable<StatsFull> {
     if (language === 'en') {
       return of(statsData.en);
     }
@@ -184,10 +184,15 @@ export class StatsComponent implements OnInit, OnDestroy {
       return of(template);
     }
 
-    return this.translationService.translateContent(statsData.en, 'en', language);
+    return this.translationService.translateContent<StatsFull>(statsData.en, 'en', language);
   }
 
-  private getComputedByLanguage(language: string, experiences: any[], projectList: any[], baseComputed: StatsItem) {
+  private getComputedByLanguage(
+    language: LanguageCode,
+    experiences: any[],
+    projectList: any[],
+    baseComputed: StatsItem
+  ): Observable<StatsItem> {
     if (language === 'en') {
       return of(baseComputed);
     }
@@ -196,6 +201,6 @@ export class StatsComponent implements OnInit, OnDestroy {
       return of(this.calculateStats(experiences, projectList, 'it'));
     }
 
-    return this.translationService.translateContent(baseComputed, 'en', language);
+    return this.translationService.translateContent<StatsItem>(baseComputed, 'en', language);
   }
 }

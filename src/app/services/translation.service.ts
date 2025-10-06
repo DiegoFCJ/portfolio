@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-type LanguageCode = 'en' | 'it' | 'de' | 'es';
+export type LanguageCode = 'en' | 'it' | 'de' | 'es';
 
 @Injectable({
   providedIn: 'root',

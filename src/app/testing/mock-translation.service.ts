@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
-type LanguageCode = 'en' | 'it' | 'de' | 'es';
+import { LanguageCode } from '../services/translation.service';
 
 @Injectable()
 export class MockTranslationService {
