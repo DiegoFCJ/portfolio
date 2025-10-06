@@ -7,16 +7,9 @@ import { SkillFull, SkillItem, SkillSection } from '../../dtos/SkillDTO';
 import { LanguageCode } from '../../models/language-code.type';
 import { TranslationService } from '../../services/translation.service';
 
-@Component({
-  selector: 'app-skills',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.scss', './skills.carousel.component.scss']
-})
-type SkillTabId = 'backend' | 'frontend' | 'tooling';
+export type SkillTabId = 'backend' | 'frontend' | 'tooling';
 
-interface SpotlightSection extends SkillSection {
+export interface SpotlightSection extends SkillSection {
   category: SkillTabId;
   period: string;
   originalIndex: number;
@@ -33,6 +26,14 @@ interface TabBlueprint {
   label: string;
   indices: number[];
 }
+
+@Component({
+  selector: 'app-skills',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './skills.component.html',
+  styleUrls: ['./skills.component.scss', './skills.carousel.component.scss']
+})
 
 export class SkillsComponent implements OnInit, OnDestroy {
   skillFullTitle = '';

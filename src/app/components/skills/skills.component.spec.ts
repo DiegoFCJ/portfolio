@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SkillsComponent } from './skills.component';
+import { SkillsComponent, SpotlightSection } from './skills.component';
 import { CommonModule } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { TranslationService } from '../../services/translation.service';
@@ -45,43 +45,64 @@ describe('SkillsComponent', () => {
     expect(component.isMobile).toBeFalse();
   });
 
+  function arrangeSpotlightSections(): SpotlightSection[] {
+    const rawSections = skills.it?.skills ?? skills.en?.skills ?? [];
+    return rawSections.map((section, index) =>
+      (component as unknown as { decorateSection: (s: typeof section, i: number) => SpotlightSection })
+        .decorateSection(section, index)
+    );
+  }
+
+  function setActiveSections(sections: SpotlightSection[]): void {
+    component.sections = sections;
+    component.activeSections = sections;
+  }
+
   it('should correctly move to the next section in the carousel', () => {
-    component.sections = skills.it?.skills ?? skills.en?.skills ?? [];
+    const decoratedSections = arrangeSpotlightSections();
+    setActiveSections(decoratedSections);
     component.currentIndex = 0;
     component.moveToNext();
     expect(component.currentIndex).toBe(1); // Should move to the next section
   });
 
   it('should correctly move to the previous section in the carousel', () => {
-    component.sections = skills.it?.skills ?? skills.en?.skills ?? [];
+    const decoratedSections = arrangeSpotlightSections();
+    setActiveSections(decoratedSections);
     component.currentIndex = 1;
     component.moveToPrevious();
     expect(component.currentIndex).toBe(0); // Should move to the previous section
   });
 
   it('should reset to the first section when moving past the last one', () => {
-    component.sections = skills.it?.skills ?? skills.en?.skills ?? [];
-    component.currentIndex = component.sections.length - 1;
+    const decoratedSections = arrangeSpotlightSections();
+    setActiveSections(decoratedSections);
+    component.currentIndex = component.activeSections.length - 1;
     component.moveToNext();
     expect(component.currentIndex).toBe(0); // Should reset to the first section
   });
 
   it('should reset to the last section when moving before the first one', () => {
-    component.sections = skills.it?.skills ?? skills.en?.skills ?? [];
+    const decoratedSections = arrangeSpotlightSections();
+    setActiveSections(decoratedSections);
     component.currentIndex = 0;
     component.moveToPrevious();
-    expect(component.currentIndex).toBe(component.sections.length - 1); // Should reset to the last section
+    expect(component.currentIndex).toBe(component.activeSections.length - 1); // Should reset to the last section
   });
 
   it('should toggle the "clicked" state when a skill is clicked', () => {
-    const skill = component.sections[0].skills[0];
+    const decoratedSections = arrangeSpotlightSections();
+    setActiveSections(decoratedSections);
+    const skill = component.activeSections[0].skills[0];
     const initialState = skill.clicked;
     component.onSkillClick(new MouseEvent('click'), skill);
     expect(skill.clicked).toBe(!initialState); // "clicked" should toggle between true/false
   });
 
   it('should show popup message when a skill is clicked', () => {
-    const skill = component.sections[0].skills[0];
+    const decoratedSections = arrangeSpotlightSections();
+    setActiveSections(decoratedSections);
+    const skill = component.activeSections[0].skills[0];
     const parentElement = document.createElement('div');
     const targetElement = document.createElement('button');
     parentElement.appendChild(targetElement);
@@ -95,7 +116,9 @@ describe('SkillsComponent', () => {
   });
 
   it('should guard against missing event targets when creating popup', () => {
-    const skill = component.sections[0].skills[0];
+    const decoratedSections = arrangeSpotlightSections();
+    setActiveSections(decoratedSections);
+    const skill = component.activeSections[0].skills[0];
     const event = { currentTarget: null, target: null } as unknown as MouseEvent;
     const popupSpy = spyOn(component, 'createPopupMessage');
 
