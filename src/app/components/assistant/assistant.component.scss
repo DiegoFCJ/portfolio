@@ -37,7 +37,7 @@
   place-items: center;
   background: radial-gradient(circle at 30% 30%, #ffe081, #ffb347 55%, #ff8c61 100%);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: box-shadow 0.35s ease;
   outline: none;
 }
 
@@ -55,8 +55,18 @@
   fill: rgba(255, 255, 255, 0.94);
 }
 
-.assistant__avatar-eye {
+.assistant__avatar-eye-open {
   fill: #2c3e50;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.assistant__avatar-eye-closed {
+  fill: none;
+  stroke: #2c3e50;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .assistant__avatar-smile {
@@ -148,24 +158,46 @@
   line-height: 1.45;
 }
 
-.assistant--open .assistant__avatar {
-  transform: translateY(calc(-100% - var(--assistant-spacing)));
+.assistant--phase-sleeping .assistant__avatar {
+  animation: assistant-sleep 3.5s ease-in-out infinite;
 }
 
-.assistant--phase-idle .assistant__avatar {
-  animation: assistant-invite 2.5s ease-in-out infinite;
+.assistant--phase-sleeping .assistant__avatar-wave {
+  animation: assistant-sleep-wave 4s ease-in-out infinite;
+  opacity: 0.45;
 }
 
-.assistant--phase-idle .assistant__avatar-wave {
-  animation: assistant-wave 2.5s ease-in-out infinite;
+.assistant--phase-sleeping .assistant__avatar-eye-open {
+  opacity: 0;
+  transform: translateY(4px) scaleY(0.2);
 }
 
-.assistant--phase-wondering .assistant__avatar {
-  animation: assistant-wondering 3.2s ease-in-out infinite;
+.assistant--phase-sleeping .assistant__avatar-eye-closed {
+  opacity: 1;
 }
 
-.assistant--phase-suggest-close .assistant__avatar {
-  animation: assistant-suggest-close 1.8s ease-in-out infinite;
+.assistant--phase-waking .assistant__avatar {
+  animation: assistant-wake 0.6s ease-out forwards;
+}
+
+.assistant--phase-waking .assistant__avatar-eye-open {
+  transform: translateY(-2px) scaleY(1.05);
+}
+
+.assistant--phase-jumping .assistant__avatar {
+  animation: assistant-jump 0.7s cubic-bezier(0.26, 0.86, 0.32, 1.18) forwards;
+}
+
+.assistant--phase-impatient .assistant__avatar {
+  animation: assistant-impatient 1s ease-in-out infinite;
+}
+
+.assistant--phase-impatient .assistant__avatar-smile {
+  animation: assistant-impatient-smile 1s ease-in-out infinite;
+}
+
+.assistant--phase-impatient .assistant__avatar-eye-open {
+  transform: translateY(-1px) scaleY(0.95);
 }
 
 .assistant__closing {
@@ -178,7 +210,7 @@
   animation: assistant-closing-pulse 1.4s ease-in-out infinite;
 }
 
-@keyframes assistant-invite {
+@keyframes assistant-sleep {
   0%,
   100% {
     transform: translateY(0) scale(1);
@@ -186,47 +218,83 @@
   }
 
   50% {
-    transform: translateY(-6px) scale(1.05);
-    box-shadow: 0 24px 34px rgba(0, 0, 0, 0.28);
+    transform: translateY(-6px) scale(0.97);
+    box-shadow: 0 20px 32px rgba(0, 0, 0, 0.28);
   }
 }
 
-@keyframes assistant-wave {
+@keyframes assistant-sleep-wave {
   0%,
   100% {
-    opacity: 0;
-    transform: scale(0.9);
+    opacity: 0.45;
+    transform: scale(0.95);
   }
 
   50% {
-    opacity: 1;
+    opacity: 0.9;
     transform: scale(1.1);
   }
 }
 
-@keyframes assistant-wondering {
-  0%,
-  100% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(0deg);
+@keyframes assistant-wake {
+  0% {
+    transform: translateY(0) scale(1);
   }
 
-  50% {
-    transform: translateY(calc(-100% - var(--assistant-spacing) - 6px)) rotate(2deg);
+  40% {
+    transform: translateY(-18px) scale(1.08);
+  }
+
+  70% {
+    transform: translateY(6px) scale(0.96);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
   }
 }
 
-@keyframes assistant-suggest-close {
+@keyframes assistant-jump {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  40% {
+    transform: translate(-20%, -60%) scale(0.98);
+  }
+
+  70% {
+    transform: translate(-45%, -105%) scale(1.02);
+  }
+
+  100% {
+    transform: translate(-55%, -120%) scale(1);
+  }
+}
+
+@keyframes assistant-impatient {
   0%,
   100% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(0deg);
+    transform: translate(-55%, -120%) rotate(0deg) scale(1);
   }
 
-  25% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(3deg);
+  20% {
+    transform: translate(-58%, -123%) rotate(-5deg) scale(1.01);
   }
 
-  75% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(-3deg);
+  60% {
+    transform: translate(-52%, -117%) rotate(6deg) scale(1.01);
+  }
+}
+
+@keyframes assistant-impatient-smile {
+  0%,
+  100% {
+    stroke-width: 6px;
+  }
+
+  40% {
+    stroke-width: 7px;
   }
 }
 
