@@ -30,23 +30,60 @@ describe('ProjectsComponent', () => {
   });
 
   /**
-   * Verifies that the description is truncated when it exceeds maxChars.
+   * Verifies that the description in the template is truncated when it exceeds maxChars.
    */
-  it('should truncate project description correctly', () => {
-    const longDescription = 'This is a long description '.repeat(10); // A long string
-    const project = { description: longDescription, expanded: false };
+  it('should truncate project description correctly in the template', () => {
+    const longDescription = 'This is a long description '.repeat(10);
 
-    expect(component.getTruncatedDescription(project)).toBe(longDescription.substring(0, component.maxChars) + '...');
+    component.maxChars = 50;
+    component.projects = {
+      title: '',
+      button: '',
+      moreDesc: 'Mostra di più',
+      lessDesc: 'Mostra di meno',
+      projects: [{
+        title: 'Test project',
+        description: longDescription,
+        technologies: [],
+        status: '',
+        image: '',
+        link: '',
+        expanded: false
+      }]
+    };
+
+    fixture.detectChanges();
+
+    const descriptionElement: HTMLElement | null = fixture.nativeElement.querySelector('.project-description p');
+    expect(descriptionElement?.textContent?.trim()).toBe(longDescription.slice(0, component.maxChars) + '...');
   });
 
   /**
-   * Verifies that the description is not truncated when it is expanded.
+   * Verifies that the full description is shown when the project is expanded.
    */
-  it('should return full description when expanded', () => {
+  it('should show the full description when expanded', () => {
     const fullDescription = 'This is a full description';
-    const project = { description: fullDescription, expanded: true };
 
-    expect(component.getTruncatedDescription(project)).toBe(fullDescription);
+    component.projects = {
+      title: '',
+      button: '',
+      moreDesc: 'Mostra di più',
+      lessDesc: 'Mostra di meno',
+      projects: [{
+        title: 'Test project',
+        description: fullDescription,
+        technologies: [],
+        status: '',
+        image: '',
+        link: '',
+        expanded: true
+      }]
+    };
+
+    fixture.detectChanges();
+
+    const descriptionElement: HTMLElement | null = fixture.nativeElement.querySelector('.project-description p');
+    expect(descriptionElement?.textContent?.trim()).toBe(fullDescription);
   });
 
   /**
