@@ -30,6 +30,10 @@ export class NavigatorComponent implements OnInit {
   /** Controls visibility of the navigator */
   isOpen = false;
 
+  /** Tracks whether the current scroll was triggered programmatically */
+  private programmaticScroll = false;
+  private programmaticScrollTimeout: ReturnType<typeof setTimeout> | null = null;
+
   /** Tooltip translations */
   tooltipTexts: { [key: string]: { prev: string; next: string; theme: string; language: string } } = {
     en: {
@@ -80,12 +84,14 @@ export class NavigatorComponent implements OnInit {
 
   onNext(): void {
     if (this.currentSectionIndex < this.totalSections - 1) {
+      this.startProgrammaticScroll();
       this.navigateNext.emit();
     }
   }
 
   onPrevious(): void {
     if (this.currentSectionIndex > 0) {
+      this.startProgrammaticScroll();
       this.navigatePrevious.emit();
     }
   }
@@ -192,10 +198,39 @@ export class NavigatorComponent implements OnInit {
   }
 
   /** Host listener to close navigator on scroll */
-  @HostListener('window:scroll')
-  onWindowScroll(): void {
-    if (this.isOpen) {
+  @HostListener('window:wheel', ['$event'])
+  onWindowWheel(event: WheelEvent): void {
+    this.handleManualScrollEvent(event.target as HTMLElement | null);
+  }
+
+  @HostListener('window:touchmove', ['$event'])
+  onWindowTouchMove(event: TouchEvent): void {
+    this.handleManualScrollEvent(event.target as HTMLElement | null);
+  }
+
+  private handleManualScrollEvent(target: HTMLElement | null): void {
+    if (!this.isOpen || this.programmaticScroll) {
+      return;
+    }
+
+    const interactedInside = target ? this.elementRef.nativeElement.contains(target) : false;
+
+    if (!interactedInside) {
       this.closeNavigator();
     }
+  }
+
+  private startProgrammaticScroll(): void {
+    this.programmaticScroll = true;
+
+    if (this.programmaticScrollTimeout) {
+      clearTimeout(this.programmaticScrollTimeout);
+    }
+
+    // Keep the navigator open while smooth scrolling finishes
+    this.programmaticScrollTimeout = setTimeout(() => {
+      this.programmaticScroll = false;
+      this.programmaticScrollTimeout = null;
+    }, 800);
   }
 }
