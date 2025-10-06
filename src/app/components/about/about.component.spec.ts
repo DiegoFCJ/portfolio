@@ -37,23 +37,33 @@ describe('AboutComponent', () => {
   /**
    * Verifies that the aboutMe property is initialized correctly.
    */
-  it('should initialize aboutMe correctly', () => {
+  it('should initialize aboutMe correctly', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
     expect(component.aboutMe).toBeDefined();
     expect(component.aboutMe.title).toBeTruthy();
-    expect(component.aboutMe.description).toBeTruthy();
+    expect(component.aboutMe.paragraphs.length).toBeGreaterThan(0);
+    expect(component.aboutMe.highlightsTitle).toBeTruthy();
+    expect(component.aboutMe.highlights.length).toBeGreaterThan(0);
   });
 
   /**
-   * Verifies that the template renders title and description correctly.
+   * Verifies that the template renders title, paragraphs and highlights correctly.
    */
-  it('should render title and description in the template', () => {
+  it('should render title and structured content in the template', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
     const compiled = fixture.nativeElement as HTMLElement;
 
     const titleElement = compiled.querySelector('.about-title') as HTMLElement;
-    const descriptionElement = compiled.querySelector('.about-description') as HTMLElement;
+    const paragraphElements = compiled.querySelectorAll('.about-paragraph');
+    const highlightItems = compiled.querySelectorAll('.about-list-item');
 
-    expect(titleElement.textContent).toBe(component.aboutMe.title);
-    expect(descriptionElement.textContent).toBe(component.aboutMe.description);
+    expect(titleElement.textContent?.trim()).toBe(component.aboutMe.title);
+    expect(paragraphElements.length).toBe(component.aboutMe.paragraphs.length);
+    expect(highlightItems.length).toBe(component.aboutMe.highlights.length);
   });
 
   /**
@@ -62,7 +72,9 @@ describe('AboutComponent', () => {
   it('should update the template when aboutMe data changes', () => {
     const newAboutMe: AboutMe = {
       title: 'New Title',
-      description: 'Updated description for testing.'
+      paragraphs: ['Paragraph one.', 'Paragraph two.'],
+      highlightsTitle: 'Highlights',
+      highlights: ['Highlight A', 'Highlight B']
     };
 
     component.aboutMe = newAboutMe;
@@ -70,9 +82,11 @@ describe('AboutComponent', () => {
 
     const compiled = fixture.nativeElement as HTMLElement;
     const titleElement = compiled.querySelector('.about-title') as HTMLElement;
-    const descriptionElement = compiled.querySelector('.about-description') as HTMLElement;
+    const paragraphElements = compiled.querySelectorAll('.about-paragraph');
+    const highlightItems = compiled.querySelectorAll('.about-list-item');
 
-    expect(titleElement.textContent).toBe(newAboutMe.title);
-    expect(descriptionElement.textContent).toBe(newAboutMe.description);
+    expect(titleElement.textContent?.trim()).toBe(newAboutMe.title);
+    expect(paragraphElements.length).toBe(newAboutMe.paragraphs.length);
+    expect(highlightItems.length).toBe(newAboutMe.highlights.length);
   });
 });

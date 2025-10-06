@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { projects as projectsData } from '../../data/projects.data';
-import { ProjectFull } from '../../dtos/ProjectDTO';
+import { ProjectFull, Project, ProjectStatusLevel, ProjectStatusTag } from '../../dtos/ProjectDTO';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -20,14 +20,25 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   projects: ProjectFull = {
     title: '',
     button: '',
-    moreDesc: '',
-    lessDesc: '',
+    toggle: { expand: '', collapse: '' },
+    navigation: { previous: '', next: '' },
+    statusLegend: {
+      prefix: '',
+      levels: {
+        active: '',
+        publicBeta: '',
+        inDevelopment: ''
+      },
+      tags: {
+        openSource: '',
+        release2024: ''
+      }
+    },
     projects: []
   };
 
   isMobile = false;
   currentIndex = 0;
-  maxChars = 150;
   isLoading = true;
   private readonly destroy$ = new Subject<void>();
 
@@ -77,8 +88,16 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.isMobile = window.innerWidth <= 768;
   }
 
-  toggleExpand(project: any): void {
+  toggleExpand(project: Project): void {
     project.expanded = !project.expanded;
+  }
+
+  getStatusLevelLabel(level: ProjectStatusLevel): string {
+    return this.projects.statusLegend.levels[level] ?? level;
+  }
+
+  getStatusTagLabel(tag: ProjectStatusTag): string {
+    return this.projects.statusLegend.tags[tag] ?? tag;
   }
 
   moveToNext(): void {

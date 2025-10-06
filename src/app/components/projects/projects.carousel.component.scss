@@ -1,52 +1,58 @@
 // Carosello per dispositivi mobili
 .carousel-container {
-    display: flex;
+    width: min(92vw, 420px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: center;
+    gap: 0.85rem;
+}
+
+.carousel-wrapper {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    display: flex;
+    width: 100%;
+}
 
-    .carousel-wrapper {
-        display: flex;
-        transition: transform 0.3s ease;
-    }
+.carousel-item {
+    width: 100%;
+    display: none;
 
-    .carousel-item {
-        min-width: 100%;
-        display: none; // Nascondi tutte le card inizialmente
-
-        &.active {
-            display: block; // Mostra solo la card attiva
-        }
-    }
-
-    .arrow-left,
-    .arrow-right {
-        position: absolute;
-        bottom: 3px;
-        z-index: 10;
-        border: none;
-        padding-block: 2px;
-        padding-inline: 10px;
-        cursor: pointer;
-        font-size: 16px;
-        transform: translateY(-50%);
-        transition: background-color 0.3s ease;
-    }
-
-    .arrow-left {
-        left: 10px;
-    }
-
-    .arrow-right {
-        right: 10px;
+    &.active {
+        display: block;
     }
 }
 
-// Media Query per dispositivi mobili (max-width: 768px)
+.arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #0f172a;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 32px rgba(56, 189, 248, 0.2);
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgba(56, 189, 248, 0.8);
+        outline-offset: 3px;
+    }
+}
+
 @media (max-width: 768px) {
-    
     .project-cards {
-        display: none; // Nascondi la griglia per i dispositivi mobili
+        display: none;
     }
 }
