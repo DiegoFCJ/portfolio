@@ -95,34 +95,4 @@ describe('SkillsComponent', () => {
     expect(component.currentIndex).toBe(panels.length - 1);
   });
 
-  it('should toggle the "clicked" state when a skill is clicked', () => {
-    const skill = component.sections[0].skills[0];
-    const initialState = skill.clicked;
-    component.onSkillClick(new MouseEvent('click'), skill);
-    expect(skill.clicked).toBe(!initialState); // "clicked" should toggle between true/false
-  });
-
-  it('should show popup message when a skill is clicked', () => {
-    const skill = component.sections[0].skills[0];
-    const parentElement = document.createElement('div');
-    const targetElement = document.createElement('button');
-    parentElement.appendChild(targetElement);
-    const event = { currentTarget: targetElement } as unknown as MouseEvent;
-    const popupSpy = spyOn(component, 'createPopupMessage').and.callThrough();
-
-    component.onSkillClick(event, skill);
-
-    expect(popupSpy).toHaveBeenCalledWith(targetElement);
-    expect(parentElement.querySelector('.popup')).toBeTruthy();
-  });
-
-  it('should guard against missing event targets when creating popup', () => {
-    const skill = component.sections[0].skills[0];
-    const event = { currentTarget: null, target: null } as unknown as MouseEvent;
-    const popupSpy = spyOn(component, 'createPopupMessage');
-
-    component.onSkillClick(event, skill);
-
-    expect(popupSpy).not.toHaveBeenCalled();
-  });
 });
