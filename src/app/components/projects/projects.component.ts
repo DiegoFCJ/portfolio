@@ -65,14 +65,6 @@ export class ProjectsComponent implements OnInit {
     project.expanded = !project.expanded;
   }
 
-  getTruncatedDescription(project: any): string {
-    return project.expanded
-      ? project.description
-      : project.description.length > this.maxChars
-        ? project.description.substring(0, this.maxChars) + '...'
-        : project.description;
-  }
-
   moveToNext(): void {
     this.currentIndex = (this.currentIndex + 1) % this.projects.projects.length;
   }
