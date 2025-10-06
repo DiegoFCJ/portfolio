@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { StatsComponent } from './stats.component';
-import { StatsItem } from '../../dtos/StatsDTO';
+import { StatsMetrics } from '../../dtos/StatsDTO';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
+import { statsData } from '../../data/stats.data';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
 
@@ -40,25 +41,30 @@ describe('StatsComponent', () => {
   it('should prepare statistics correctly', () => {
     fixture.detectChanges();
     expect(component.statistics.length).toBe(4);
-    expect(component.statistics[0].label).toBe('Ore Totali');
-    expect(component.statistics[1].label).toBe('Mesi di Esperienza');
-    expect(component.statistics[2].label).toBe('Progetti Consegnati');
-    expect(component.statistics[3].label).toBe('Stack Principale');
+    expect(component.statistics[0].label).toBe('Ore totali');
+    expect(component.statistics[1].label).toBe('Mesi di esperienza');
+    expect(component.statistics[2].label).toBe('Progetti consegnati');
+    expect(component.statistics[3].label).toBe('Stack principale');
   });
 
   /**
    * Verifies that calculateStats computes correct statistics based on test data.
    */
   it('should calculate correct stats', () => {
-    const stats: StatsItem = component.calculateStats(
+    const stats: StatsMetrics = component.calculateStats(
       experiencesData.it.experiences,
-      projects.it.projects
+      projects.it.projects,
+      'it',
+      statsData.it
     );
 
-    expect(stats.hours).toBe('7240+ ore di ingegneria erogate');
-    expect(stats.months).toBe('45+ mesi su progetti enterprise');
-    expect(stats.projects).toBe('8 iniziative end-to-end guidate');
-    expect(stats.mostUsed).toContain('·');
+    expect(stats.hoursValue.endsWith('+')).toBeTrue();
+    expect(stats.hoursSuffix).toBe('ore di sviluppo');
+    expect(stats.monthsValue.endsWith('+')).toBeTrue();
+    expect(stats.monthsSuffix).toBe('mesi su progetti reali');
+    expect(stats.projectsValue).toBe('8');
+    expect(stats.projectsSuffix).toBe('progetti seguiti end-to-end');
+    expect(stats.mostUsedValue).toContain('·');
   });
 
   /**
@@ -98,13 +104,38 @@ describe('StatsComponent', () => {
     fixture.detectChanges();
     const computedStats = component.calculateStats(
       experiencesData.it.experiences,
-      projects.it.projects
+      projects.it.projects,
+      'it',
+      statsData.it
     );
 
     expect(component.statistics.length).toBe(4);
-    expect(component.statistics[0].value).toBe(computedStats.hours);
-    expect(component.statistics[1].value).toBe(computedStats.months);
-    expect(component.statistics[2].value).toBe(computedStats.projects);
-    expect(component.statistics[3].value).toBe(computedStats.mostUsed);
+    expect(component.statistics[0].value).toBe(computedStats.hoursValue);
+    expect(component.statistics[0].suffix).toBe(computedStats.hoursSuffix);
+    expect(component.statistics[1].value).toBe(computedStats.monthsValue);
+    expect(component.statistics[1].suffix).toBe(computedStats.monthsSuffix);
+    expect(component.statistics[2].value).toBe(computedStats.projectsValue);
+    expect(component.statistics[2].suffix).toBe(computedStats.projectsSuffix);
+    expect(component.statistics[3].value).toBe(computedStats.mostUsedValue);
   });
+
+  /**
+   * Ensures that changing language keeps numeric values and icons untouched.
+   */
+  it('should keep numeric content stable when language changes', fakeAsync(() => {
+    const translation = TestBed.inject(TranslationService) as MockTranslationService;
+
+    const initialIcons = component.statistics.map(stat => stat.icon);
+    const initialValues = component.statistics.map(stat => stat.value);
+
+    translation.setLanguage('en');
+    fixture.detectChanges();
+    tick();
+
+    const updatedIcons = component.statistics.map(stat => stat.icon);
+    const updatedValues = component.statistics.map(stat => stat.value);
+
+    expect(updatedIcons).toEqual(initialIcons);
+    expect(updatedValues).toEqual(initialValues);
+  }));
 });

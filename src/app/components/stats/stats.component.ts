@@ -1,14 +1,26 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { forkJoin, Subject } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
 import { TranslationService } from '../../services/translation.service';
-import { Stat, StatsItem } from '../../dtos/StatsDTO';
+import { Stat, StatsFull, StatsMetrics } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
 import { LanguageCode } from '../../models/language-code.type';
+
+interface DisplayStat {
+  icon: string;
+  label: string;
+  value: string;
+  suffix?: string;
+}
+
+interface TranslatableStatsTemplate {
+  title: string;
+  stats: Array<Pick<Stat, 'label' | 'valueSuffix'>>;
+}
 
 @Component({
   selector: 'app-stats',
@@ -21,14 +33,9 @@ import { LanguageCode } from '../../models/language-code.type';
   styleUrls: ['./stats.component.scss']
 })
 export class StatsComponent implements OnInit, OnDestroy {
-  stats: StatsItem = {
-    hours: '',
-    months: '',
-    projects: '',
-    mostUsed: ''
-  };
+  metrics: StatsMetrics | null = null;
   statsTitle: string = '';
-  statistics: Stat[] = [];
+  statistics: DisplayStat[] = [];
   isLoading = true;
 
   private readonly destroy$ = new Subject<void>();
@@ -46,33 +53,43 @@ export class StatsComponent implements OnInit, OnDestroy {
           const experiencesSource = this.resolveLocalizedContent(experiencesData);
           const projectsSource = this.resolveLocalizedContent(projects);
           const statsTemplateSource = this.resolveLocalizedContent(statsData);
+          const baseTemplate = statsTemplateSource.content;
 
           const computed = this.calculateStats(
             experiencesSource.content.experiences,
-            projectsSource.content.projects
+            projectsSource.content.projects,
+            language,
+            baseTemplate
           );
 
-          return forkJoin({
-            template: this.translationService.translateContent(
-              statsTemplateSource.content,
+          const translatableTemplate = this.buildTranslatableTemplate(baseTemplate);
+
+          return this.translationService
+            .translateContent<TranslatableStatsTemplate>(
+              translatableTemplate,
               statsTemplateSource.language,
               language
-            ),
-            computed: this.translationService.translateContent(
-              computed,
-              'it',
-              language
             )
-          });
+            .pipe(
+              map((translatedTemplate) => ({
+                translatedTemplate,
+                baseTemplate,
+                computed
+              }))
+            );
         })
       )
-      .subscribe(({ template, computed }) => {
-        this.statsTitle = template.title;
-        this.stats = computed;
-        this.statistics = template.stats.map((stat, index) => ({
-          ...stat,
-          value: this.getStatValueByIndex(computed, index)
-        }));
+      .subscribe(({ translatedTemplate, baseTemplate, computed }) => {
+        this.statsTitle = translatedTemplate.title;
+        this.metrics = computed;
+        this.statistics = baseTemplate.stats.map((stat, index) => {
+          const translatedStat = translatedTemplate.stats[index] ?? {
+            label: stat.label,
+            valueSuffix: stat.valueSuffix
+          };
+
+          return this.buildDisplayStat(stat.icon, translatedStat, computed, index);
+        });
         this.isLoading = false;
       });
   }
@@ -82,7 +99,12 @@ export class StatsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  calculateStats(experiences: any[], projectList: any[]): StatsItem {
+  calculateStats(
+    experiences: any[],
+    projectList: any[],
+    language: LanguageCode,
+    template: StatsFull
+  ): StatsMetrics {
     let totalHours = 0;
     let totalMonths = 0;
     let totalProjects = projectList.length;
@@ -116,11 +138,18 @@ export class StatsComponent implements OnInit, OnDestroy {
       .slice(0, 4)
       .map(([tech]) => this.formatTechnology(tech));
 
+    const locale = this.resolveLocale(language);
+    const formatter = new Intl.NumberFormat(locale);
+
     return {
-      hours: `${Math.round(totalHours)}+ ore di ingegneria erogate`,
-      months: `${totalMonths}+ mesi su progetti enterprise`,
-      projects: `${totalProjects} iniziative end-to-end guidate`,
-      mostUsed: sortedTechnologies.join(' · ')
+      hoursValue: `${formatter.format(Math.round(totalHours))}+`,
+      hoursSuffix: template.stats[0]?.valueSuffix ?? 'ore di sviluppo',
+      monthsValue: `${formatter.format(totalMonths)}+`,
+      monthsSuffix: template.stats[1]?.valueSuffix ?? 'mesi su progetti reali',
+      projectsValue: formatter.format(totalProjects),
+      projectsSuffix: template.stats[2]?.valueSuffix ?? 'progetti seguiti end-to-end',
+      mostUsedValue: sortedTechnologies.join(' · '),
+      mostUsedSuffix: template.stats[3]?.valueSuffix
     };
   }
 
@@ -209,18 +238,88 @@ export class StatsComponent implements OnInit, OnDestroy {
     return direct;
   }
 
-  private getStatValueByIndex(stats: StatsItem, index: number): string {
+  private buildDisplayStat(
+    icon: string,
+    translatedStat: Pick<Stat, 'label' | 'valueSuffix'>,
+    metrics: StatsMetrics,
+    index: number
+  ): DisplayStat {
+    const value = this.getMetricValueByIndex(metrics, index);
+    const suffix = this.getMetricSuffixByIndex(metrics, index, translatedStat.valueSuffix);
+
+    return {
+      icon,
+      label: translatedStat.label,
+      value,
+      ...(suffix ? { suffix } : {})
+    };
+  }
+
+  private getMetricValueByIndex(metrics: StatsMetrics, index: number): string {
     switch (index) {
       case 0:
-        return stats.hours;
+        return metrics.hoursValue;
       case 1:
-        return stats.months;
+        return metrics.monthsValue;
       case 2:
-        return stats.projects;
+        return metrics.projectsValue;
       case 3:
-        return stats.mostUsed;
+        return metrics.mostUsedValue;
       default:
         return '';
+    }
+  }
+
+  private getMetricSuffixByIndex(
+    metrics: StatsMetrics,
+    index: number,
+    translatedSuffix?: string
+  ): string {
+    let fallback = '';
+
+    switch (index) {
+      case 0:
+        fallback = metrics.hoursSuffix;
+        break;
+      case 1:
+        fallback = metrics.monthsSuffix;
+        break;
+      case 2:
+        fallback = metrics.projectsSuffix;
+        break;
+      case 3:
+        fallback = metrics.mostUsedSuffix ?? '';
+        break;
+    }
+
+    if (translatedSuffix && translatedSuffix.trim().length) {
+      return translatedSuffix;
+    }
+
+    return fallback ?? '';
+  }
+
+  private buildTranslatableTemplate(template: StatsFull): TranslatableStatsTemplate {
+    return {
+      title: template.title,
+      stats: template.stats.map(({ label, valueSuffix }) => ({
+        label,
+        valueSuffix: valueSuffix ?? ''
+      }))
+    };
+  }
+
+  private resolveLocale(language: LanguageCode): string {
+    switch (language) {
+      case 'en':
+        return 'en-US';
+      case 'de':
+        return 'de-DE';
+      case 'es':
+        return 'es-ES';
+      case 'it':
+      default:
+        return 'it-IT';
     }
   }
 
