@@ -1,30 +1,13 @@
 # Portfolio
 
 ## Index
-- [English](#english)
-  - [Overview](#overview)
-  - [Project Structure](#project-structure)
-  - [Getting Started](#getting-started)
-  - [Scripts](#scripts)
-  - [Server-side Rendering](#server-side-rendering)
-- [Italiano](#italiano)
-  - [Panoramica](#panoramica)
-  - [Struttura del progetto](#struttura-del-progetto)
-  - [Avvio del progetto](#avvio-del-progetto)
-  - [Script](#script)
-  - [Rendering lato server](#rendering-lato-server)
-- [Deutsch](#deutsch)
-  - [Überblick](#ueberblick)
-  - [Projektstruktur](#projektstruktur)
-  - [Erste Schritte](#erste-schritte)
-  - [Skripte](#skripte)
-  - [Serverseitiges Rendern](#serverseitiges-rendern)
-- [Español](#espanol)
-  - [Descripción general](#descripcion-general)
-  - [Estructura del proyecto](#estructura-del-proyecto)
-  - [Primeros pasos](#primeros-pasos)
-  - [Scripts](#scripts-1)
-  - [Renderizado del lado del servidor](#renderizado-del-lado-del-servidor)
+
+| Language | Sections |
+| --- | --- |
+| [English](#english) | [Overview](#overview) · [Project Structure](#project-structure) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [Scripts](#scripts) · [Server-side Rendering](#server-side-rendering) · [Deployments](#deployments) |
+| [Italiano](#italiano) | [Panoramica](#panoramica) · [Struttura del progetto](#struttura-del-progetto) · [Tecnologie](#tecnologie) · [Avvio del progetto](#avvio-del-progetto) · [Script](#script) · [Rendering lato server](#rendering-lato-server) · [Deployment](#deployment) |
+| [Deutsch](#deutsch) | [Überblick](#überblick) · [Projektstruktur](#projektstruktur) · [Technologie-Stack](#technologie-stack) · [Erste Schritte](#erste-schritte) · [Skripte](#skripte) · [Serverseitiges Rendern](#serverseitiges-rendern) · [Bereitstellungen](#bereitstellungen) |
+| [Español](#español) | [Descripción general](#descripción-general) · [Estructura del proyecto](#estructura-del-proyecto) · [Tecnologías](#tecnologías) · [Primeros pasos](#primeros-pasos) · [Scripts disponibles](#scripts-disponibles) · [Renderizado del lado del servidor](#renderizado-del-lado-del-servidor) · [Despliegues](#despliegues) |
 
 ## English
 
@@ -32,6 +15,8 @@
 This repository contains a portfolio application built with **Angular 18**. It uses **Express** to provide server-side rendering (SSR) and supports both English and Italian content. Each page section (hero, about me, projects, skills, education, experiences, statistics and contact form) is implemented as a standalone component.
 
 ### Project Structure
+> The following structure is shared across all language sections.
+
 ```
 .
 ├── server.ts                 # Express server for SSR
@@ -47,6 +32,13 @@ This repository contains a portfolio application built with **Angular 18**. It u
 │   └── styles/               # Global SCSS
 └── angular.json              # Angular CLI configuration
 ```
+
+### Tech Stack
+- **Framework:** Angular 18
+- **SSR:** Express
+- **Language:** TypeScript
+- **Styling:** SCSS
+- **Tooling:** npm, Angular CLI
 
 ### Getting Started
 1. Install dependencies:
@@ -69,6 +61,28 @@ This repository contains a portfolio application built with **Angular 18**. It u
 - `npm test` – execute unit tests
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
 
+### Project status levels
+The projects section shows a glassmorphism card with a status pill and optional badges. The available levels and tags are
+centralised in [`src/app/data/projects.data.ts`](src/app/data/projects.data.ts):
+
+- **`active`** – Use for production-ready or actively maintained initiatives. The UI renders the pill with a cyan gradient.
+- **`publicBeta`** – Reserve for projects that are publicly accessible but still collecting feedback. The pill uses the indigo
+  accent.
+- **`inDevelopment`** – Apply to prototypes or private work in progress. The pill switches to a warm amber gradient.
+
+Optional tags are rendered as soft badges next to the pill:
+
+- **`openSource`** – Highlights repositories that are publicly available.
+- **`release2024`** – Communicates the target release window when relevant.
+
+**Operational tips**
+
+- When adding a new status or tag, extend both the `statusLegend.levels` and `statusLegend.tags` dictionaries for every
+  language so the UI stays translated.
+- Keep `ProjectStatusLevel` and `ProjectStatusTag` in [`src/app/dtos/ProjectDTO.ts`](src/app/dtos/ProjectDTO.ts) aligned with the
+  keys used in the data file.
+- Prefer reusing existing tags; introduce new ones only if they convey user-facing meaning that appears in the UI.
+
 ### Server-side Rendering
 To run the application with SSR enabled:
 ```bash
@@ -89,21 +103,14 @@ The Express server listens on `http://localhost:4000` by default.
 Questo repository contiene un'applicazione portfolio sviluppata con **Angular 18** e **Express** per il rendering lato server. Ogni sezione della pagina (hero, chi sono, progetti, competenze, educazione, esperienze, statistiche e modulo contatti) è implementata come componente standalone. I contenuti sono disponibili sia in inglese che in italiano.
 
 ### Struttura del progetto
-```
-.
-├── server.ts                 # Server Express per SSR
-├── src/
-│   ├── main.ts               # Bootstrap client
-│   ├── main.server.ts        # Bootstrap server
-│   ├── app/
-│   │   ├── components/       # Componenti UI
-│   │   ├── pages/            # Pagine
-│   │   ├── services/         # Servizi (traduzione, email...)
-│   │   ├── data/             # Dati multilingua
-│   │   └── dtos/             # Interfacce TypeScript
-│   └── styles/               # SCSS globali
-└── angular.json              # Configurazione Angular CLI
-```
+La struttura del progetto è descritta nella sezione [Project Structure](#project-structure) ed è identica per tutte le lingue.
+
+### Tecnologie
+- **Framework:** Angular 18
+- **SSR:** Express
+- **Linguaggio:** TypeScript
+- **Stili:** SCSS
+- **Tooling:** npm, Angular CLI
 
 ### Avvio del progetto
 1. Installa le dipendenze:
@@ -126,6 +133,27 @@ Questo repository contiene un'applicazione portfolio sviluppata con **Angular 18
 - `npm test` – esegue i test unitari
 - `npm run serve:ssr:portfolio` – serve il bundle SSR compilato
 
+### Livelli di stato dei progetti
+La sezione progetti mostra una card con effetto glassmorphism che include un badge di stato e tag opzionali. I valori sono
+centralizzati in [`src/app/data/projects.data.ts`](src/app/data/projects.data.ts):
+
+- **`active`** – Per iniziative in produzione o con manutenzione attiva. Il badge usa un gradiente ciano.
+- **`publicBeta`** – Per progetti accessibili al pubblico ma ancora in raccolta feedback. Il badge usa l’accento indaco.
+- **`inDevelopment`** – Per prototipi o lavori in corso privati. Il badge passa a un gradiente ambrato.
+
+I tag opzionali sono visualizzati come etichette soft accanto al badge:
+
+- **`openSource`** – Evidenzia repository pubblici.
+- **`release2024`** – Comunica una finestra di rilascio quando pertinente.
+
+**Linee guida operative**
+
+- Quando aggiungi uno stato o un tag, aggiorna i dizionari `statusLegend.levels` e `statusLegend.tags` per ogni lingua per
+  mantenere la traduzione in linea con l’interfaccia.
+- Mantieni `ProjectStatusLevel` e `ProjectStatusTag` in [`src/app/dtos/ProjectDTO.ts`](src/app/dtos/ProjectDTO.ts) coerenti con
+  le chiavi del file dati.
+- Riutilizza i tag esistenti quando possibile; introdurne di nuovi solo se portano un messaggio utile per l’utente finale.
+
 ### Rendering lato server
 Per eseguire l'applicazione con il rendering lato server:
 ```bash
@@ -146,21 +174,14 @@ Il server Express è in ascolto su `http://localhost:4000`.
 Dieses Repository enthält eine Portfolio-Anwendung, die mit **Angular 18** entwickelt wurde. Sie nutzt **Express** für serverseitiges Rendering (SSR) und unterstützt Inhalte auf Englisch, Italienisch, Deutsch und Spanisch. Jeder Seitenabschnitt (Hero, Über mich, Projekte, Fähigkeiten, Ausbildung, Erfahrungen, Statistiken und Kontaktformular) ist als eigenständige Komponente umgesetzt.
 
 ### Projektstruktur
-```
-.
-├── server.ts                 # Express-Server für SSR
-├── src/
-│   ├── main.ts               # Client-Bootstrap
-│   ├── main.server.ts        # Server-Bootstrap
-│   ├── app/
-│   │   ├── components/       # UI-Komponenten
-│   │   ├── pages/            # Seiten-Komponenten
-│   │   ├── services/         # Dienste (Übersetzung, E-Mail...)
-│   │   ├── data/             # Mehrsprachige Daten
-│   │   └── dtos/             # TypeScript-Interfaces
-│   └── styles/               # Globale SCSS
-└── angular.json              # Angular-CLI-Konfiguration
-```
+Die Projektstruktur findest du in der gemeinsamen Sektion [Project Structure](#project-structure); sie gilt für alle Sprachen.
+
+### Technologie-Stack
+- **Framework:** Angular 18
+- **SSR:** Express
+- **Sprache:** TypeScript
+- **Styles:** SCSS
+- **Tooling:** npm, Angular CLI
 
 ### Erste Schritte
 1. Abhängigkeiten installieren:
@@ -203,21 +224,14 @@ Der Express-Server ist standardmäßig unter `http://localhost:4000` erreichbar.
 Este repositorio contiene una aplicación de portafolio construida con **Angular 18**. Utiliza **Express** para proporcionar renderizado del lado del servidor (SSR) y admite contenido en inglés, italiano, alemán y español. Cada sección de la página (hero, sobre mí, proyectos, habilidades, educación, experiencias, estadísticas y formulario de contacto) está implementada como un componente independiente.
 
 ### Estructura del proyecto
-```
-.
-├── server.ts                 # Servidor Express para SSR
-├── src/
-│   ├── main.ts               # Bootstrap del cliente
-│   ├── main.server.ts        # Bootstrap del servidor
-│   ├── app/
-│   │   ├── components/       # Componentes de UI
-│   │   ├── pages/            # Componentes de página
-│   │   ├── services/         # Servicios (traducción, correo...)
-│   │   ├── data/             # Datos multilingües
-│   │   └── dtos/             # Interfaces TypeScript
-│   └── styles/               # SCSS globales
-└── angular.json              # Configuración de Angular CLI
-```
+La estructura es la misma descrita en [Project Structure](#project-structure) y se comparte entre todos los idiomas.
+
+### Tecnologías
+- **Framework:** Angular 18
+- **SSR:** Express
+- **Lenguaje:** TypeScript
+- **Estilos:** SCSS
+- **Tooling:** npm, Angular CLI
 
 ### Primeros pasos
 1. Instala las dependencias:
@@ -234,7 +248,7 @@ Este repositorio contiene una aplicación de portafolio construida con **Angular
    npm test
    ```
 
-### Scripts
+### Scripts disponibles
 - `npm start` – ejecuta el servidor de desarrollo
 - `npm run build` – compila el proyecto
 - `npm test` – ejecuta las pruebas unitarias
