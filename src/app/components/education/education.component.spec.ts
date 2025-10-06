@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EducationComponent } from './education.component';
 import { educationData } from '../../data/education.data';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 /**
  * Unit tests for EducationComponent.
@@ -14,7 +16,10 @@ describe('EducationComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EducationComponent]
+      imports: [EducationComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(EducationComponent);

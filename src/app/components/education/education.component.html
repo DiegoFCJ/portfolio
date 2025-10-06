@@ -1,4 +1,4 @@
-<section class="education-section" *ngIf="educationList">
+<section class="education-section" *ngIf="!isLoading">
   <h2 class="education-title">{{ educationList.title }}</h2>
   <div class="timeline" role="list">
     <article

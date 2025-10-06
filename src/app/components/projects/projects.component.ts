@@ -1,6 +1,8 @@
-import { Component, OnInit, HostListener, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, HostListener, PLATFORM_ID, Inject, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { projects } from '../../data/projects.data';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { projects as projectsData } from '../../data/projects.data';
 import { ProjectFull } from '../../dtos/ProjectDTO';
 import { TranslationService } from '../../services/translation.service';
 
@@ -14,26 +16,20 @@ import { TranslationService } from '../../services/translation.service';
     './projects.carousel.component.scss'
   ]
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
   projects: ProjectFull = {
-    title: "",
-    button: "",
-    moreDesc: "",
-    lessDesc: "",
-    projects: [{
-      title: "",
-      description: "",
-      technologies: [],
-      status: "",
-      image: "",
-      link: "",
-      expanded: false
-    }]
+    title: '',
+    button: '',
+    moreDesc: '',
+    lessDesc: '',
+    projects: []
   };
 
   isMobile = false;
   currentIndex = 0;
   maxChars = 150;
+  isLoading = true;
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private translationService: TranslationService,
@@ -45,9 +41,29 @@ export class ProjectsComponent implements OnInit {
       this.checkIfMobile();
     }
 
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.projects = this.translationService.getTranslatedData<ProjectFull>(projects);
-    });
+    this.translationService.currentLanguage$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.isLoading = true;
+      });
+
+    this.translationService.getTranslatedData<ProjectFull>(projectsData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.projects = {
+          ...data,
+          projects: data.projects.map(project => ({
+            ...project,
+            expanded: project.expanded ?? false
+          }))
+        };
+        this.isLoading = false;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   @HostListener('window:resize', ['$event'])

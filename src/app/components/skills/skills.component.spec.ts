@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SkillsComponent } from './skills.component';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
+import { PLATFORM_ID } from '@angular/core';
+import { TranslationService } from '../../services/translation.service';
 import { skills } from '../../data/skills.data'; // Import skills data
-import { Skill } from '../../dtos/SkillDTO'; // Import Skill DTO
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 describe('SkillsComponent', () => {
   let component: SkillsComponent;
@@ -12,6 +13,10 @@ describe('SkillsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, SkillsComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService },
+        { provide: PLATFORM_ID, useValue: 'browser' }
+      ]
     });
 
     fixture = TestBed.createComponent(SkillsComponent);
@@ -24,7 +29,6 @@ describe('SkillsComponent', () => {
   });
 
   it('should initialize skill sections correctly', () => {
-    component.ngOnInit();
     expect(component.sections.length).toBeGreaterThan(0);
     expect(component.sections[0].skills.length).toBeGreaterThan(0);
   });

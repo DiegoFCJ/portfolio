@@ -1,9 +1,9 @@
 export interface ProjectsLangs {
     en: ProjectFull;
-    it: ProjectFull;
-    de: ProjectFull;
-    es: ProjectFull;
-    [key: string]: ProjectFull;
+    it?: ProjectFull;
+    de?: ProjectFull;
+    es?: ProjectFull;
+    [key: string]: ProjectFull | undefined;
 }
 
 export interface ProjectFull {

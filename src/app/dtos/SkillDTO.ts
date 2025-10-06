@@ -1,24 +1,16 @@
 export interface SkillFull {
-    title: SkillTitle;
-    skills: Skill[];
+    title: string;
+    skills: SkillSection[];
 }
 
-export interface Skill {
-    title: SkillTitle;
+export interface SkillSection {
+    title: string;
     skills: SkillItem[];
 }
 
-interface SkillTitle {
-    en: string;
-    it: string;
-    de: string;
-    es: string;
-}
-
-
-interface SkillItem {
-    name: string; 
-    icon: string, 
-    clicked: boolean 
+export interface SkillItem {
+    name: string;
+    icon: string;
+    clicked: boolean;
 }
 

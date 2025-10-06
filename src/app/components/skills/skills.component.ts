@@ -1,6 +1,9 @@
-import { Component, OnInit, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { skills } from '../../data/skills.data';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { skills as skillsData } from '../../data/skills.data';
+import { SkillFull, SkillItem, SkillSection } from '../../dtos/SkillDTO';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -10,14 +13,15 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss', './skills.carousel.component.scss']
 })
-export class SkillsComponent implements OnInit {
-  skillFull = skills;
-  skillFullTitle: string = "";
-  sections: any[] = [];
-  loading = true;
+export class SkillsComponent implements OnInit, OnDestroy {
+  skillFullTitle = '';
+  sections: SkillSection[] = [];
+  isLoading = true;
   isMobile = false;
   currentIndex = 0;
   isBrowser = false;
+
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private translationService: TranslationService,
@@ -27,19 +31,29 @@ export class SkillsComponent implements OnInit {
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
-    this.translationService.currentLanguage$.subscribe(lang => {
-      this.sections = this.skillFull.skills.map(section => ({
-        ...section,
-        title: section.title[lang],
-        skills: section.skills.map(skill => ({ ...skill, clicked: false }))
-      }));
-      this.skillFullTitle = this.skillFull.title[lang];
-      this.loading = false;
-    });
+    this.translationService.currentLanguage$
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => {
+          this.isLoading = true;
+        }),
+        switchMap((lang) => this.translationService.translateContent<SkillFull>(skillsData, 'en', lang))
+      )
+      .subscribe(translated => {
+        this.skillFullTitle = translated.title;
+        this.sections = translated.skills.map(section => this.resetSection(section));
+        this.currentIndex = 0;
+        this.isLoading = false;
+      });
 
     if (this.isBrowser) {
       this.checkIfMobile();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -54,14 +68,20 @@ export class SkillsComponent implements OnInit {
   }
 
   moveToNext(): void {
+    if (!this.sections.length) {
+      return;
+    }
     this.currentIndex = (this.currentIndex + 1) % this.sections.length;
   }
 
   moveToPrevious(): void {
+    if (!this.sections.length) {
+      return;
+    }
     this.currentIndex = (this.currentIndex - 1 + this.sections.length) % this.sections.length;
   }
 
-  onSkillClick(event: MouseEvent, skill: any): void {
+  onSkillClick(event: MouseEvent, skill: SkillItem): void {
     if (!this.isBrowser) return;
 
     skill.clicked = !skill.clicked;
@@ -108,5 +128,12 @@ export class SkillsComponent implements OnInit {
 
     parent.appendChild(message);
     return message;
+  }
+
+  private resetSection(section: SkillSection): SkillSection {
+    return {
+      ...section,
+      skills: section.skills.map(skill => ({ ...skill, clicked: false }))
+    };
   }
 }

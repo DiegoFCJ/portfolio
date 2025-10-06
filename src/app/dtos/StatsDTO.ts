@@ -1,9 +1,9 @@
 export interface Stats {
-    en: StatsFull,
-    it: StatsFull,
-    de: StatsFull,
-    es: StatsFull,
-    [key: string]: StatsFull;
+    en: StatsFull;
+    it?: StatsFull;
+    de?: StatsFull;
+    es?: StatsFull;
+    [key: string]: StatsFull | undefined;
 }
 
 export interface StatsFull {

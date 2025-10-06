@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { SocialComponent } from '../social/social.component';
 import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { contactMeData } from '../../data/contact-me.data';
@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ContactMe } from '../../dtos/ContactMeDTO';
 import { EmailService } from '../../services/email.service';
 import { TranslationService } from '../../services/translation.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact-me',
@@ -29,29 +31,47 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './contact-me.component.html',
   styleUrls: ['./contact-me.component.scss']
 })
-export class ContactMeComponent {
+export class ContactMeComponent implements OnInit, OnDestroy {
   contactMe: ContactMe = {
-    title: "",
-    name: "",
-    nameReq: "",
-    email: "",
-    emailReq: "",
-    message: "",
-    messageReq: "",
-    sendBtn: "",
+    title: '',
+    name: '',
+    nameReq: '',
+    email: '',
+    emailReq: '',
+    message: '',
+    messageReq: '',
+    sendBtn: '',
     emailMessages: [{
-      keyMess: "",
-      valueMess: ""
+      keyMess: '',
+      valueMess: ''
     }]
   };
-  
+
   popupMessage: string = '';
+  isLoading = true;
+  private readonly destroy$ = new Subject<void>();
   @ViewChild(CustomPopupComponent) customPopup: CustomPopupComponent | undefined;
 
-  constructor(private emailService: EmailService, private translationService: TranslationService) {
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.contactMe = this.translationService.getTranslatedData<ContactMe>(contactMeData);
-    });
+  constructor(private emailService: EmailService, private translationService: TranslationService) {}
+
+  ngOnInit(): void {
+    this.translationService.currentLanguage$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.isLoading = true;
+      });
+
+    this.translationService.getTranslatedData<ContactMe>(contactMeData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.contactMe = data;
+        this.isLoading = false;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**
