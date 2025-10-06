@@ -122,6 +122,10 @@ $navigator-themes: (
     gap: 12px;
     align-items: center;
 
+    &.modern-navigator--collapsed {
+        gap: 0;
+    }
+
     .arrow-container {
         width: $navigator-button-size - 8;
         justify-content: center;
@@ -157,6 +161,7 @@ $navigator-themes: (
         mat-icon {
             font-size: $navigator-icon-size;
             color: var(--navigator-icon-color);
+            transition: transform 0.25s ease;
         }
 
         .lang-label {
@@ -167,10 +172,6 @@ $navigator-themes: (
 
         &.close-button {
             margin-top: 4px;
-
-            mat-icon {
-                font-size: $navigator-icon-size;
-            }
         }
     }
 
@@ -193,6 +194,16 @@ $navigator-themes: (
             font-size: $navigator-icon-size;
             color: var(--navigator-icon-color);
             position: absolute;
+        }
+    }
+
+    &.modern-navigator--collapsed {
+        .close-button {
+            margin-top: 0;
+
+            mat-icon {
+                transform: rotate(180deg);
+            }
         }
     }
 }
