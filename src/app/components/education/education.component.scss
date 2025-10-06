@@ -4,6 +4,7 @@
   --timeline-card-bg: rgba(15, 23, 42, 0.05);
   --timeline-card-border: rgba(99, 102, 241, 0.25);
   --timeline-text-muted: rgba(15, 23, 42, 0.65);
+  --timeline-dot-size: 18px;
 }
 
 .education-section {
@@ -24,7 +25,7 @@
 
 .timeline {
   --timeline-gap: clamp(1.75rem, 3vw, 2.75rem);
-  width: min(960px, 100%);
+  width: min(80vw, 960px);
   display: grid;
   gap: var(--timeline-gap);
   margin: 0 auto;
@@ -47,7 +48,7 @@
 .timeline-marker::before {
   content: "";
   position: absolute;
-  top: 0.5rem;
+  top: calc(var(--timeline-dot-size) / 2);
   left: calc(50% - 1.5px);
   width: 3px;
   bottom: calc(var(--timeline-gap) * -1);
@@ -60,9 +61,9 @@
 }
 
 .timeline-dot {
-  margin-top: 0.25rem;
-  width: 18px;
-  height: 18px;
+  margin-top: 0;
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
   border-radius: 50%;
   background: var(--timeline-accent);
   box-shadow: 0 0 0 6px var(--timeline-accent-soft), 0 10px 30px rgba(79, 70, 229, 0.18);
@@ -85,13 +86,14 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.75rem;
-  align-items: baseline;
+  align-items: flex-start;
 }
 
 .timeline-heading {
   margin: 0;
   font-size: clamp(1.1rem, 2.4vw, 1.4rem);
   font-weight: 600;
+  text-align: left;
 }
 
 .timeline-badge {
@@ -108,17 +110,20 @@
   margin: 0;
   font-weight: 500;
   color: var(--timeline-text-muted);
+  text-align: left;
 }
 
 .timeline-description {
   margin: 0;
   line-height: 1.6;
   color: rgba(15, 23, 42, 0.8);
+  text-align: left;
 }
 
 @media (max-width: 768px) {
   .timeline {
     --timeline-gap: clamp(1.5rem, 4vw, 2rem);
+    width: 100%;
   }
 
   .timeline-item {
@@ -150,7 +155,7 @@
 
   .timeline-marker::before {
     left: calc(1.25rem - 1.5px);
-    top: 0.75rem;
+    top: calc(var(--timeline-dot-size) / 2);
   }
 
   .timeline-dot {
