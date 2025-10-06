@@ -8,5 +8,7 @@ export interface AboutMeLangs {
 
 export interface AboutMe {
     title: string;
-    description: string;
+    paragraphs: string[];
+    highlightsTitle: string;
+    highlights: string[];
 }

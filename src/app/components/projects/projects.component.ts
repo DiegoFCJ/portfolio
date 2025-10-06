@@ -89,6 +89,14 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     project.expanded = !project.expanded;
   }
 
+  getStatusLevelLabel(level: ProjectStatusLevel): string {
+    return this.projects.statusLegend.levels[level] ?? level;
+  }
+
+  getStatusTagLabel(tag: ProjectStatusTag): string {
+    return this.projects.statusLegend.tags[tag] ?? tag;
+  }
+
   moveToNext(): void {
     this.currentIndex = (this.currentIndex + 1) % this.projects.projects.length;
   }

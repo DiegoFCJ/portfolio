@@ -1,0 +1,29 @@
+.home__floating-controls {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  z-index: 9999;
+  pointer-events: none;
+
+  app-navigator,
+  app-assistant {
+    pointer-events: auto;
+  }
+}
+
+.home__floating-controls--assistant-open app-navigator {
+  transition: transform 0.35s ease;
+  transform: translateY(-6px);
+}
+
+@media (max-width: 768px) {
+  .home__floating-controls {
+    bottom: 18px;
+    right: 18px;
+    gap: 10px;
+  }
+}
