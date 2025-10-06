@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { NavigatorComponent } from './navigator.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -67,17 +67,52 @@ describe('NavigatorComponent', () => {
     expect(component.showThemeOptions).toBeFalse();
   });
 
-  it('should close navigator and reset menus on window scroll', () => {
+  it('should close navigator and reset menus on manual wheel interactions outside the component', () => {
     component.isOpen = true;
     component.showLanguageOptions = true;
     component.showThemeOptions = true;
 
-    component.onWindowScroll();
+    component.onWindowWheel({ target: null } as unknown as WheelEvent);
 
     expect(component.isOpen).toBeFalse();
     expect(component.showLanguageOptions).toBeFalse();
     expect(component.showThemeOptions).toBeFalse();
   });
+
+  it('should keep the navigator open for wheel events that originate within the component', () => {
+    component.isOpen = true;
+    component.showLanguageOptions = true;
+    component.showThemeOptions = true;
+
+    const hostElement = fixture.nativeElement as HTMLElement;
+    component.onWindowWheel({ target: hostElement } as unknown as WheelEvent);
+
+    expect(component.isOpen).toBeTrue();
+    expect(component.showLanguageOptions).toBeTrue();
+    expect(component.showThemeOptions).toBeTrue();
+  });
+
+  it('should keep the navigator open during programmatic scrolls triggered by navigation buttons', fakeAsync(() => {
+    component.isOpen = true;
+    component.showLanguageOptions = true;
+    component.showThemeOptions = true;
+
+    component.onNext();
+
+    component.onWindowWheel({ target: null } as unknown as WheelEvent);
+
+    expect(component.isOpen).toBeTrue();
+    expect(component.showLanguageOptions).toBeTrue();
+    expect(component.showThemeOptions).toBeTrue();
+
+    tick(800);
+
+    component.onWindowWheel({ target: null } as unknown as WheelEvent);
+
+    expect(component.isOpen).toBeFalse();
+    expect(component.showLanguageOptions).toBeFalse();
+    expect(component.showThemeOptions).toBeFalse();
+  }));
 
   /**
    * Verifies that the navigation buttons are displayed conditionally.
