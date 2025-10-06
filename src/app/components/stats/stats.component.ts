@@ -58,7 +58,7 @@ export class StatsComponent implements OnInit, OnDestroy {
           const computed = this.calculateStats(
             experiencesSource.content.experiences,
             projectsSource.content.projects,
-            language,
+            statsTemplateSource.language,
             baseTemplate
           );
 
