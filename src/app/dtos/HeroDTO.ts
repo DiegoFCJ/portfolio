@@ -1,6 +1,6 @@
 export interface HeroFullLangs {
     en: HeroFull;
-    it?: HeroFull;
+    it: HeroFull;
     de?: HeroFull;
     es?: HeroFull;
     [key: string]: HeroFull | undefined;

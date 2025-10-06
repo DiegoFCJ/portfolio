@@ -1,6 +1,6 @@
 export interface Stats {
     en: StatsFull;
-    it?: StatsFull;
+    it: StatsFull;
     de?: StatsFull;
     es?: StatsFull;
     [key: string]: StatsFull | undefined;

@@ -1,6 +1,27 @@
 import { ContactMeLangs } from '../dtos/ContactMeDTO';
 
 export const contactMeData: ContactMeLangs = {
+  it: {
+    title: 'Contattami',
+    name: 'Nome',
+    nameReq: 'Il nome è obbligatorio',
+    email: 'Email',
+    emailReq: "È richiesta un'email valida",
+    message: 'Messaggio',
+    messageReq: 'Il messaggio è obbligatorio',
+    sendBtn: 'Invia',
+    emailMessages: [
+      { keyMess: 'form-miss', valueMess: 'I dati del form sono mancanti.' },
+      { keyMess: 'all-field-req', valueMess: 'Tutti i campi sono obbligatori.' },
+      { keyMess: 'email-valid', valueMess: "Inserisci un indirizzo email valido." },
+      { keyMess: 'ten-char-mess', valueMess: 'Il messaggio deve contenere almeno 10 caratteri.' },
+      { keyMess: 'success', valueMess: 'Messaggio inviato con successo!' },
+      { keyMess: 'fail-retry', valueMess: 'Invio non riuscito. Riprova, per favore.' },
+      { keyMess: 'err', valueMess: 'Errore:' },
+      { keyMess: 'err-sending', valueMess: "Si è verificato un errore durante l'invio del messaggio." },
+      { keyMess: 'one-each-two', valueMess: 'Puoi inviare solo un messaggio ogni 2 ore. Riprova più tardi.' }
+    ]
+  },
   en: {
     title: 'Get in Touch',
     name: 'Name',
