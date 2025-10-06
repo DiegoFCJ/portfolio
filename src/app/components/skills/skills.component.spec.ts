@@ -1,23 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SkillsComponent } from './skills.component';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject, of } from 'rxjs';
 import { PLATFORM_ID } from '@angular/core';
 import { TranslationService } from '../../services/translation.service';
 import { skills } from '../../data/skills.data'; // Import skills data
-
-class MockTranslationService {
-  private readonly languageSubject = new BehaviorSubject<'en' | 'it' | 'de' | 'es'>('en');
-  readonly currentLanguage$ = this.languageSubject.asObservable();
-
-  translateContent<T>(content: T, _source: string, _target?: string) {
-    return of(content);
-  }
-
-  setLanguage(language: 'en' | 'it' | 'de' | 'es') {
-    this.languageSubject.next(language);
-  }
-}
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 describe('SkillsComponent', () => {
   let component: SkillsComponent;

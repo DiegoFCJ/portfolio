@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactMeComponent } from './contact-me.component';
 import { SocialComponent } from '../social/social.component';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 /**
  * Unit tests for ContactMeComponent.
@@ -15,7 +17,10 @@ describe('ContactMeComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactMeComponent, SocialComponent, NoopAnimationsModule]
+      imports: [ContactMeComponent, SocialComponent, NoopAnimationsModule],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactMeComponent);

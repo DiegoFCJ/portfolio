@@ -3,6 +3,8 @@ import { NavigatorComponent } from './navigator.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeswitchComponent } from './themeswitch/themeswitch.component';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 /**
  * Unit tests for NavigatorComponent to ensure correct functionality.
@@ -16,7 +18,10 @@ describe('NavigatorComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent]
+      imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService }
+      ]
     })
       .compileComponents();
 

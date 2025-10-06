@@ -1,20 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExperiencesComponent } from './experiences.component';
-import { of } from 'rxjs';
 import { experiencesData } from '../../data/experiences.data';
 import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 /**
  * Unit tests for ExperiencesComponent.
  */
-class MockTranslationService {
-  currentLanguage$ = of<'en'>('en');
-
-  getTranslatedData<T>(data: { [key: string]: T }) {
-    return of(data['en']);
-  }
-}
-
 describe('ExperiencesComponent', () => {
   let component: ExperiencesComponent;
   let fixture: ComponentFixture<ExperiencesComponent>;

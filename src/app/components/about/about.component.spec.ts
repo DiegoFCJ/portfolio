@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AboutComponent } from './about.component';
 import { AboutMe } from '../../dtos/AboutMeDTO';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 /**
  * Unit tests for AboutComponent.
@@ -14,7 +16,10 @@ describe('AboutComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AboutComponent]
+      imports: [AboutComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AboutComponent);

@@ -4,20 +4,7 @@ import { StatsItem } from '../../dtos/StatsDTO';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
 import { TranslationService } from '../../services/translation.service';
-import { BehaviorSubject, of } from 'rxjs';
-
-class MockTranslationService {
-  private readonly languageSubject = new BehaviorSubject<'en' | 'it' | 'de' | 'es'>('en');
-  readonly currentLanguage$ = this.languageSubject.asObservable();
-
-  translateContent<T>(content: T, _source: string, _target?: string) {
-    return of(content);
-  }
-
-  setLanguage(language: 'en' | 'it' | 'de' | 'es') {
-    this.languageSubject.next(language);
-  }
-}
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 /**
  * Unit tests for StatsComponent.
