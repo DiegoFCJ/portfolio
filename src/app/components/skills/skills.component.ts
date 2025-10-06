@@ -173,9 +173,9 @@ export class SkillsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const resolvedTarget = (event.currentTarget ?? event.target);
+    const resolvedTarget = (event.currentTarget ?? event.target) as EventTarget | null;
 
-    if (!(resolvedTarget instanceof HTMLElement)) {
+    if (!(resolvedTarget instanceof Element)) {
       console.warn('Skill click target is not an HTMLElement.');
       return;
     }
@@ -186,7 +186,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     }
   }
 
-  createPopupMessage(targetElement: HTMLElement): HTMLElement | null {
+  createPopupMessage(targetElement: Element): HTMLElement | null {
     const message = document.createElement('div');
     message.classList.add('popup');
     message.style.cssText = `
@@ -202,23 +202,32 @@ export class SkillsComponent implements OnInit, OnDestroy {
       border-radius: 10px;
     `;
 
-    let host = targetElement.closest('.skill-chip, .skill-item');
+    const host = this.resolvePopupHost(targetElement);
 
-    if (!(host instanceof HTMLElement)) {
-      host = targetElement.parentElement;
-    }
-
-    if (!(host instanceof HTMLElement)) {
+    if (!host) {
       console.warn('Unable to attach popup message: host element not found.');
       return null;
     }
 
-    if (getComputedStyle(host).position === 'static') {
+    if (host instanceof HTMLElement && getComputedStyle(host).position === 'static') {
       host.style.position = 'relative';
     }
 
     host.appendChild(message);
     return message;
+  }
+
+  private resolvePopupHost(targetElement: Element): Element | null {
+    const timelineHost = targetElement.closest('.skill-chip, .skill-item, [data-skill-host]');
+    if (timelineHost) {
+      return timelineHost;
+    }
+
+    if (targetElement.parentElement) {
+      return targetElement.parentElement;
+    }
+
+    return targetElement instanceof HTMLElement ? targetElement : null;
   }
 
   private resetSection(section: SkillSection): SkillSection {
