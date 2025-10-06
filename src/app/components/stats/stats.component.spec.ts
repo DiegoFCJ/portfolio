@@ -52,8 +52,8 @@ describe('StatsComponent', () => {
       projects.en.projects
     );
 
-    expect(stats.hours).toBe('7080+ engineering hours delivered');
-    expect(stats.months).toBe('44+ months across enterprise projects');
+    expect(stats.hours).toBe('7240+ engineering hours delivered');
+    expect(stats.months).toBe('45+ months across enterprise projects');
     expect(stats.projects).toBe('8 end-to-end initiatives led');
     expect(stats.mostUsed).toContain('·');
   });
