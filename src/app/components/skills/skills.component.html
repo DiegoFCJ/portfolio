@@ -1,40 +1,19 @@
-<section class="skills-section" *ngIf="!isLoading" [class.is-mobile]="isMobile">
+<section class="skills-section" *ngIf="!isLoading">
   <h2 class="skills-title">{{ skillFullTitle }}</h2>
 
-  <div class="skills-layout" [class.is-mobile]="isMobile">
-    <aside class="skills-tabs" [class.is-mobile]="isMobile" role="tablist" aria-label="Stack tecnologici">
-      <button
-        *ngFor="let tab of tabs"
-        class="skills-tab"
-        type="button"
-        role="tab"
-        [attr.aria-selected]="tab.id === activeTabId"
-        [class.active]="tab.id === activeTabId"
-        (click)="setActiveTab(tab.id)"
-      >
-        <span class="tab-label">{{ tab.label }}</span>
-        <span class="tab-count" aria-hidden="true">{{ tab.sections.length }}</span>
-      </button>
-    </aside>
-
-    <ng-container *ngIf="isMobile; else desktopSpotlight">
-      <div class="mobile-timeline-indicators" role="presentation">
-        <div
-          *ngFor="let section of activeSections; let i = index; trackBy: trackBySection"
-          class="mobile-indicator"
-          [class.is-active]="i === currentIndex"
-        ></div>
-      </div>
-
-      <div class="carousel-container" role="group" aria-roledescription="carousel">
-        <button class="arrow-left" type="button" (click)="moveToPrevious()" aria-label="Sezione precedente">&#10094;</button>
-        <div class="carousel-wrapper">
-          <div
-            *ngFor="let section of activeSections; let i = index; trackBy: trackBySection"
-            class="carousel-item"
-            [class.active]="i === currentIndex"
-          >
-            <ng-container *ngTemplateOutlet="spotlightCard; context: { $implicit: section }"></ng-container>
+  <!-- Carousell-->
+  <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
+    <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
+    <div class="carousel-wrapper">
+      <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
+        <div class="skill-section">
+          <h3>{{ section.title }}</h3>
+          <p class="skill-subtitle" *ngIf="timelineSections[i]?.subtitle">{{ timelineSections[i].subtitle }}</p>
+          <div class="skills">
+            <div *ngFor="let skill of section.skills" class="skill-item">
+              <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
+                [ngClass]="{'clicked': skill.clicked}" />
+            </div>
           </div>
         </div>
         <button class="arrow-right" type="button" (click)="moveToNext()" aria-label="Sezione successiva">&#10095;</button>
@@ -51,27 +30,30 @@
   </div>
 </section>
 
-<ng-template #spotlightCard let-section>
-  <article class="spotlight-card">
-    <div class="spotlight-marker" aria-hidden="true">
-      <span class="spotlight-dot"></span>
-      <span class="spotlight-line"></span>
-    </div>
-    <div class="spotlight-body">
-      <header class="spotlight-header">
-        <h3 class="spotlight-heading">{{ section.title }}</h3>
-        <span class="spotlight-badge">{{ section.period }}</span>
-      </header>
-      <div class="spotlight-skills">
-        <div *ngFor="let skill of section.skills" class="skill-item">
-          <img
-            [src]="skill.icon"
-            [alt]="skill.name"
-            (click)="onSkillClick($event, skill)"
-            [ngClass]="{ 'clicked': skill.clicked }"
-          />
+  <!-- Desktop -->
+  <ng-template #desktopLayout>
+    <div class="timeline" role="list">
+      <article class="timeline-item" role="listitem" *ngFor="let section of timelineSections; let last = last">
+        <div class="timeline-axis" aria-hidden="true">
+          <span class="timeline-dot"></span>
+          <span class="timeline-connector" [class.is-last]="last"></span>
         </div>
-      </div>
+        <div class="timeline-content">
+          <header class="timeline-header">
+            <span class="timeline-subtitle" *ngIf="section.subtitle">{{ section.subtitle }}</span>
+            <h3 class="timeline-title">{{ section.title }}</h3>
+          </header>
+          <div class="skill-grid" role="list">
+            <button *ngFor="let skill of section.skills" type="button" class="skill-chip" role="listitem"
+              (click)="onSkillClick($event, skill)" [class.clicked]="skill.clicked">
+              <span class="chip-icon">
+                <img [src]="skill.icon" [alt]="skill.name" />
+              </span>
+              <span class="chip-label">{{ skill.name }}</span>
+            </button>
+          </div>
+        </div>
+      </article>
     </div>
-  </article>
-</ng-template>
+  </ng-template>
+</section>

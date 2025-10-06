@@ -37,34 +37,85 @@ interface TabBlueprint {
 
 export class SkillsComponent implements OnInit, OnDestroy {
   skillFullTitle = '';
-  sections: SpotlightSection[] = [];
-  tabs: SkillTab[] = [];
-  activeTabId: SkillTabId | null = null;
-  activeSections: SpotlightSection[] = [];
+  sections: SkillSection[] = [];
+  timelineSections: Array<SkillSection & { subtitle: string }> = [];
   isLoading = true;
   isMobile = false;
   currentIndex = 0;
   isBrowser = false;
+  currentLanguage: LanguageCode = 'it';
 
   private readonly destroy$ = new Subject<void>();
-  private readonly tabBlueprint: TabBlueprint[] = [
-    { id: 'backend', label: 'Back-end', indices: [2, 3, 4, 5] },
-    { id: 'frontend', label: 'Front-end', indices: [0, 1] },
-    { id: 'tooling', label: 'Tooling', indices: [6, 7, 8, 9, 10] }
-  ];
+  private readonly timelineSubtitleDictionary: Record<string, Record<string, string>> = {
+    it: {
+      'Linguaggi di Programmazione': 'Fondamenta del linguaggio',
+      'Front-end e UI': 'Interfacce dinamiche',
+      'Back-end e Servizi': 'Servizi applicativi',
+      'Database': 'Gestione dei dati',
+      'Cloud e DevOps': 'DevOps e scalabilità',
+      'Integrazione e Automazione': 'Integrazione enterprise',
+      'Testing e Documentazione': 'Qualità e API',
+      'Build e CI': 'Pipeline di delivery',
+      'Version Control': 'Versionamento continuo',
+      'Collaborazione e Management': 'Collaborazione quotidiana',
+      'Sistemi Operativi': 'Ambiente operativo'
+    },
+    en: {
+      'Programming Languages': 'Foundational languages',
+      'Front-end & UI': 'User interface craftsmanship',
+      'Back-end & Services': 'Service layer tooling',
+      'Database': 'Data foundations',
+      'Cloud & DevOps': 'Platform & scalability',
+      'Integration & Automation': 'Enterprise integration',
+      'Testing & Documentation': 'Quality assurance',
+      'Build & CI': 'Delivery pipeline',
+      'Version Control': 'Source control',
+      'Collaboration & Management': 'Team collaboration',
+      'Operating Systems': 'Runtime environments'
+    },
+    default: {}
+  };
 
-  private readonly sectionPeriodMap: Record<number, string> = {
-    0: 'Dal 2013',
-    1: 'Dal 2015',
-    2: 'Dal 2014',
-    3: 'Dal 2012',
-    4: 'Dal 2016',
-    5: 'Dal 2018',
-    6: 'Dal 2017',
-    7: 'Dal 2011',
-    8: 'Dal 2010',
-    9: 'Dal 2019',
-    10: 'Dal 2009'
+  private readonly timelineStageFallbacks: Record<string, string[]> = {
+    it: [
+      'Fondamenta del linguaggio',
+      'Interfacce dinamiche',
+      'Servizi applicativi',
+      'Gestione dei dati',
+      'DevOps e scalabilità',
+      'Integrazione enterprise',
+      'Qualità e API',
+      'Pipeline di delivery',
+      'Versionamento continuo',
+      'Collaborazione quotidiana',
+      'Ambiente operativo'
+    ],
+    en: [
+      'Foundational languages',
+      'User interface craftsmanship',
+      'Service layer tooling',
+      'Data foundations',
+      'Platform & scalability',
+      'Enterprise integration',
+      'Quality assurance',
+      'Delivery pipeline',
+      'Source control',
+      'Team collaboration',
+      'Runtime environments'
+    ],
+    default: [
+      'Core foundations',
+      'Interface experiences',
+      'Application services',
+      'Data foundations',
+      'Platform & scalability',
+      'Enterprise integration',
+      'Quality assurance',
+      'Delivery pipeline',
+      'Source control',
+      'Team collaboration',
+      'Runtime environments'
+    ]
   };
 
   constructor(
@@ -82,6 +133,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
           this.isLoading = true;
         }),
         switchMap((lang) => {
+          this.currentLanguage = lang;
           const source = this.resolveLocalizedContent(skillsData);
           return this.translationService.translateContent<SkillFull>(
             source.content,
@@ -92,19 +144,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       )
       .subscribe(translated => {
         this.skillFullTitle = translated.title;
-        const previousTabId = this.activeTabId;
-        this.sections = translated.skills.map((section, index) => this.decorateSection(section, index));
-        this.tabs = this.buildTabs(this.sections);
-
-        const preferredTab = previousTabId
-          ? this.tabs.find(tab => tab.id === previousTabId && tab.sections.length)
-          : null;
-        const fallbackTab = this.tabs.find(tab => tab.sections.length) ?? null;
-
-        const resolvedTab = preferredTab ?? fallbackTab;
-
-        this.activeTabId = resolvedTab?.id ?? null;
-        this.activeSections = resolvedTab?.sections ?? [];
+        this.sections = translated.skills.map(section => this.resetSection(section));
+        this.timelineSections = this.buildTimelineSections(this.sections);
         this.currentIndex = 0;
         this.isLoading = false;
       });
@@ -153,9 +194,9 @@ export class SkillsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const resolvedTarget = (event.currentTarget ?? event.target);
+    const resolvedTarget = (event.currentTarget ?? event.target) as EventTarget | null;
 
-    if (!(resolvedTarget instanceof HTMLElement)) {
+    if (!(resolvedTarget instanceof Element)) {
       console.warn('Skill click target is not an HTMLElement.');
       return;
     }
@@ -166,7 +207,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     }
   }
 
-  createPopupMessage(targetElement: HTMLElement): HTMLElement | null {
+  createPopupMessage(targetElement: Element): HTMLElement | null {
     const message = document.createElement('div');
     message.classList.add('popup');
     message.style.cssText = `
@@ -182,39 +223,35 @@ export class SkillsComponent implements OnInit, OnDestroy {
       border-radius: 10px;
     `;
 
-    const parent = targetElement.parentElement;
+    const host = this.resolvePopupHost(targetElement);
 
-    if (!parent) {
-      console.warn('Unable to attach popup message: parent element not found.');
+    if (!host) {
+      console.warn('Unable to attach popup message: host element not found.');
       return null;
     }
 
-    parent.appendChild(message);
+    if (host instanceof HTMLElement && getComputedStyle(host).position === 'static') {
+      host.style.position = 'relative';
+    }
+
+    host.appendChild(message);
     return message;
   }
 
-  setActiveTab(tabId: SkillTabId): void {
-    if (this.activeTabId === tabId) {
-      return;
+  private resolvePopupHost(targetElement: Element): Element | null {
+    const timelineHost = targetElement.closest('.skill-chip, .skill-item, [data-skill-host]');
+    if (timelineHost) {
+      return timelineHost;
     }
 
-    const tab = this.tabs.find(item => item.id === tabId);
-    if (!tab) {
-      return;
+    if (targetElement.parentElement) {
+      return targetElement.parentElement;
     }
 
-    this.activeTabId = tabId;
-    this.activeSections = tab.sections;
-    this.currentIndex = 0;
+    return targetElement instanceof HTMLElement ? targetElement : null;
   }
 
-  trackBySection(_index: number, section: SpotlightSection): number {
-    return section.originalIndex;
-  }
-
-  private decorateSection(section: SkillSection, index: number): SpotlightSection {
-    const category = this.resolveCategory(index);
-
+  private resetSection(section: SkillSection): SkillSection {
     return {
       ...section,
       skills: section.skills.map(skill => ({ ...skill, clicked: false })),
@@ -224,19 +261,23 @@ export class SkillsComponent implements OnInit, OnDestroy {
     };
   }
 
-  private buildTabs(sections: SpotlightSection[]): SkillTab[] {
-    return this.tabBlueprint.map(blueprint => ({
-      id: blueprint.id,
-      label: blueprint.label,
-      sections: blueprint.indices
-        .map(index => sections.find(section => section.originalIndex === index))
-        .filter((section): section is SpotlightSection => Boolean(section))
-    }));
-  }
+  private buildTimelineSections(sections: SkillSection[]): Array<SkillSection & { subtitle: string }> {
+    const stageFallbacks = this.timelineStageFallbacks[this.currentLanguage] ?? this.timelineStageFallbacks['default'];
 
-  private resolveCategory(index: number): SkillTabId {
-    const blueprint = this.tabBlueprint.find(tab => tab.indices.includes(index));
-    return blueprint?.id ?? 'tooling';
+    return sections.map((section, index) => {
+      const subtitleDictionary = this.timelineSubtitleDictionary[this.currentLanguage] ?? this.timelineSubtitleDictionary['default'];
+      const subtitle = section.subtitle
+        ?? subtitleDictionary?.[section.title]
+        ?? this.timelineSubtitleDictionary['default']?.[section.title]
+        ?? stageFallbacks[index]
+        ?? stageFallbacks[stageFallbacks.length - 1]
+        ?? '';
+
+      return {
+        ...section,
+        subtitle
+      };
+    });
   }
 
   private resolveLocalizedContent<T>(
