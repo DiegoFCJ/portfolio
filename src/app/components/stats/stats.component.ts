@@ -167,11 +167,6 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
 
   private parseDate(value: string): Date {
-    const direct = new Date(value);
-    if (!isNaN(direct.getTime())) {
-      return direct;
-    }
-
     const monthMap: Record<string, number> = {
       gen: 0,
       feb: 1,
@@ -204,6 +199,11 @@ export class StatsComponent implements OnInit, OnDestroy {
       if (!Number.isNaN(year) && monthIndex !== undefined) {
         return new Date(year, monthIndex, 1);
       }
+    }
+
+    const direct = new Date(value);
+    if (!isNaN(direct.getTime())) {
+      return direct;
     }
 
     return direct;
