@@ -10,7 +10,6 @@ body.blue-mode {
 
   .project-card,
   .skill-section,
-  .statistics-card,
   .popup {
     background-color: #ffffff;
     box-shadow: $section-box-shadow;
@@ -18,5 +17,16 @@ body.blue-mode {
 
   .point-on-line {
     background-color: #2563eb;
+  }
+
+  .statistics-component {
+    --stat-bg: linear-gradient(135deg, rgba(96, 165, 250, 0.22), rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.22));
+    --stat-card-bg: rgba(255, 255, 255, 0.95);
+    --stat-card-border: rgba(59, 130, 246, 0.35);
+    --stat-icon-bg: rgba(37, 99, 235, 0.16);
+    --stat-icon-color: #1d4ed8;
+    --stat-label-color: #1f2937;
+    --stat-value-color: #102a43;
+    --stat-title-color: #0f172a;
   }
 }
