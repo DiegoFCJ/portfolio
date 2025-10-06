@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EducationFull } from '../../dtos/EducationDTO';
 import { educationData } from '../../data/education.data';
 import { TranslationService } from '../../services/translation.service';
@@ -17,31 +17,11 @@ export class EducationComponent implements OnInit {
     education: []
   };
 
-  isLargeScreen: boolean = false;
-  is2kMoreScreen: boolean = false;
-
-  constructor(private translationService: TranslationService) { }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    this.isLargeScreen = event.target.innerWidth >= 1497;
-    this.is2kMoreScreen = event.target.innerWidth >= 2224;
-  }
+  constructor(private translationService: TranslationService) {}
 
   ngOnInit(): void {
-    if (typeof window !== 'undefined') {
-      this.isLargeScreen = window.innerWidth >= 1497;
-      this.is2kMoreScreen = window.innerWidth >= 2224;
-    }
-    this.translationService.currentLanguage$.subscribe(language => {
+    this.translationService.currentLanguage$.subscribe(() => {
       this.educationList = this.translationService.getTranslatedData<EducationFull>(educationData);
     });
-  }
-
-  resizeConditions(i: number, last: boolean): string | null {
-    if ((this.isLargeScreen && (i === 2 || last)) || (!this.isLargeScreen && last) || this.is2kMoreScreen) {
-      return 'full-height';
-    }
-    return null;
   }
 }
