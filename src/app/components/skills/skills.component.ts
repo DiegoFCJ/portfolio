@@ -14,15 +14,57 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss', './skills.carousel.component.scss']
 })
+type SkillTabId = 'backend' | 'frontend' | 'tooling';
+
+interface SpotlightSection extends SkillSection {
+  category: SkillTabId;
+  period: string;
+  originalIndex: number;
+}
+
+interface SkillTab {
+  id: SkillTabId;
+  label: string;
+  sections: SpotlightSection[];
+}
+
+interface TabBlueprint {
+  id: SkillTabId;
+  label: string;
+  indices: number[];
+}
+
 export class SkillsComponent implements OnInit, OnDestroy {
   skillFullTitle = '';
-  sections: SkillSection[] = [];
+  sections: SpotlightSection[] = [];
+  tabs: SkillTab[] = [];
+  activeTabId: SkillTabId | null = null;
+  activeSections: SpotlightSection[] = [];
   isLoading = true;
   isMobile = false;
   currentIndex = 0;
   isBrowser = false;
 
   private readonly destroy$ = new Subject<void>();
+  private readonly tabBlueprint: TabBlueprint[] = [
+    { id: 'backend', label: 'Back-end', indices: [2, 3, 4, 5] },
+    { id: 'frontend', label: 'Front-end', indices: [0, 1] },
+    { id: 'tooling', label: 'Tooling', indices: [6, 7, 8, 9, 10] }
+  ];
+
+  private readonly sectionPeriodMap: Record<number, string> = {
+    0: 'Dal 2013',
+    1: 'Dal 2015',
+    2: 'Dal 2014',
+    3: 'Dal 2012',
+    4: 'Dal 2016',
+    5: 'Dal 2018',
+    6: 'Dal 2017',
+    7: 'Dal 2011',
+    8: 'Dal 2010',
+    9: 'Dal 2019',
+    10: 'Dal 2009'
+  };
 
   constructor(
     private translationService: TranslationService,
@@ -49,7 +91,19 @@ export class SkillsComponent implements OnInit, OnDestroy {
       )
       .subscribe(translated => {
         this.skillFullTitle = translated.title;
-        this.sections = translated.skills.map(section => this.resetSection(section));
+        const previousTabId = this.activeTabId;
+        this.sections = translated.skills.map((section, index) => this.decorateSection(section, index));
+        this.tabs = this.buildTabs(this.sections);
+
+        const preferredTab = previousTabId
+          ? this.tabs.find(tab => tab.id === previousTabId && tab.sections.length)
+          : null;
+        const fallbackTab = this.tabs.find(tab => tab.sections.length) ?? null;
+
+        const resolvedTab = preferredTab ?? fallbackTab;
+
+        this.activeTabId = resolvedTab?.id ?? null;
+        this.activeSections = resolvedTab?.sections ?? [];
         this.currentIndex = 0;
         this.isLoading = false;
       });
@@ -76,17 +130,17 @@ export class SkillsComponent implements OnInit, OnDestroy {
   }
 
   moveToNext(): void {
-    if (!this.sections.length) {
+    if (!this.activeSections.length) {
       return;
     }
-    this.currentIndex = (this.currentIndex + 1) % this.sections.length;
+    this.currentIndex = (this.currentIndex + 1) % this.activeSections.length;
   }
 
   moveToPrevious(): void {
-    if (!this.sections.length) {
+    if (!this.activeSections.length) {
       return;
     }
-    this.currentIndex = (this.currentIndex - 1 + this.sections.length) % this.sections.length;
+    this.currentIndex = (this.currentIndex - 1 + this.activeSections.length) % this.activeSections.length;
   }
 
   onSkillClick(event: MouseEvent, skill: SkillItem): void {
@@ -138,11 +192,50 @@ export class SkillsComponent implements OnInit, OnDestroy {
     return message;
   }
 
-  private resetSection(section: SkillSection): SkillSection {
+  setActiveTab(tabId: SkillTabId): void {
+    if (this.activeTabId === tabId) {
+      return;
+    }
+
+    const tab = this.tabs.find(item => item.id === tabId);
+    if (!tab) {
+      return;
+    }
+
+    this.activeTabId = tabId;
+    this.activeSections = tab.sections;
+    this.currentIndex = 0;
+  }
+
+  trackBySection(_index: number, section: SpotlightSection): number {
+    return section.originalIndex;
+  }
+
+  private decorateSection(section: SkillSection, index: number): SpotlightSection {
+    const category = this.resolveCategory(index);
+
     return {
       ...section,
-      skills: section.skills.map(skill => ({ ...skill, clicked: false }))
+      skills: section.skills.map(skill => ({ ...skill, clicked: false })),
+      category,
+      period: this.sectionPeriodMap[index] ?? 'Continuo',
+      originalIndex: index
     };
+  }
+
+  private buildTabs(sections: SpotlightSection[]): SkillTab[] {
+    return this.tabBlueprint.map(blueprint => ({
+      id: blueprint.id,
+      label: blueprint.label,
+      sections: blueprint.indices
+        .map(index => sections.find(section => section.originalIndex === index))
+        .filter((section): section is SpotlightSection => Boolean(section))
+    }));
+  }
+
+  private resolveCategory(index: number): SkillTabId {
+    const blueprint = this.tabBlueprint.find(tab => tab.indices.includes(index));
+    return blueprint?.id ?? 'tooling';
   }
 
   private resolveLocalizedContent<T>(

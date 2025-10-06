@@ -1,37 +1,77 @@
-<section *ngIf="!isLoading">
-  <h2>{{skillFullTitle}}</h2>
+<section class="skills-section" *ngIf="!isLoading" [class.is-mobile]="isMobile">
+  <h2 class="skills-title">{{ skillFullTitle }}</h2>
 
-  <!-- Carousell-->
-  <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
-    <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
-    <div class="carousel-wrapper">
-      <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
-        <div class="skill-section">
-          <h3>{{ section.title }}</h3>
-          <div class="skills">
-            <div *ngFor="let skill of section.skills" class="skill-item">
-              <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
-                [ngClass]="{'clicked': skill.clicked}" />
-            </div>
+  <div class="skills-layout" [class.is-mobile]="isMobile">
+    <aside class="skills-tabs" [class.is-mobile]="isMobile" role="tablist" aria-label="Stack tecnologici">
+      <button
+        *ngFor="let tab of tabs"
+        class="skills-tab"
+        type="button"
+        role="tab"
+        [attr.aria-selected]="tab.id === activeTabId"
+        [class.active]="tab.id === activeTabId"
+        (click)="setActiveTab(tab.id)"
+      >
+        <span class="tab-label">{{ tab.label }}</span>
+        <span class="tab-count" aria-hidden="true">{{ tab.sections.length }}</span>
+      </button>
+    </aside>
+
+    <ng-container *ngIf="isMobile; else desktopSpotlight">
+      <div class="mobile-timeline-indicators" role="presentation">
+        <div
+          *ngFor="let section of activeSections; let i = index; trackBy: trackBySection"
+          class="mobile-indicator"
+          [class.is-active]="i === currentIndex"
+        ></div>
+      </div>
+
+      <div class="carousel-container" role="group" aria-roledescription="carousel">
+        <button class="arrow-left" type="button" (click)="moveToPrevious()" aria-label="Sezione precedente">&#10094;</button>
+        <div class="carousel-wrapper">
+          <div
+            *ngFor="let section of activeSections; let i = index; trackBy: trackBySection"
+            class="carousel-item"
+            [class.active]="i === currentIndex"
+          >
+            <ng-container *ngTemplateOutlet="spotlightCard; context: { $implicit: section }"></ng-container>
           </div>
         </div>
+        <button class="arrow-right" type="button" (click)="moveToNext()" aria-label="Sezione successiva">&#10095;</button>
       </div>
-    </div>
-    <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
+    </ng-container>
+
+    <ng-template #desktopSpotlight>
+      <div class="spotlight-grid">
+        <ng-container *ngFor="let section of activeSections; trackBy: trackBySection">
+          <ng-container *ngTemplateOutlet="spotlightCard; context: { $implicit: section }"></ng-container>
+        </ng-container>
+      </div>
+    </ng-template>
   </div>
+</section>
 
-  <!-- Desktop -->
-  <ng-template #desktopLayout>
-    <div class="skill-grid">
-      <div *ngFor="let section of sections" class="skill-section">
-        <h3>{{ section.title }}</h3>
-        <div class="skills">
-          <div *ngFor="let skill of section.skills" class="skill-item">
-            <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
-              [ngClass]="{'clicked': skill.clicked}" />
-          </div>
+<ng-template #spotlightCard let-section>
+  <article class="spotlight-card">
+    <div class="spotlight-marker" aria-hidden="true">
+      <span class="spotlight-dot"></span>
+      <span class="spotlight-line"></span>
+    </div>
+    <div class="spotlight-body">
+      <header class="spotlight-header">
+        <h3 class="spotlight-heading">{{ section.title }}</h3>
+        <span class="spotlight-badge">{{ section.period }}</span>
+      </header>
+      <div class="spotlight-skills">
+        <div *ngFor="let skill of section.skills" class="skill-item">
+          <img
+            [src]="skill.icon"
+            [alt]="skill.name"
+            (click)="onSkillClick($event, skill)"
+            [ngClass]="{ 'clicked': skill.clicked }"
+          />
         </div>
       </div>
     </div>
-  </ng-template>
-</section>
+  </article>
+</ng-template>

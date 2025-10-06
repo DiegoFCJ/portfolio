@@ -1,64 +1,64 @@
-// Carosello per dispositivi mobili
 .carousel-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-
-    .carousel-wrapper {
-        display: flex;
-        transition: transform 0.3s ease;
-    }
-
-    .carousel-item {
-        min-width: 100%;
-        display: none; // Nascondi tutte le sezioni inizialmente
-
-        &.active {
-            display: block; // Mostra solo la sezione attiva
-        }
-    }
-
-    .arrow-left,
-    .arrow-right {
-        position: absolute;
-        top: 78px;
-        z-index: 10;
-        border: none;
-        padding-block: 2px;
-        padding-inline: 10px;
-        cursor: pointer;
-        font-size: 16px;
-        transform: translateY(-50%);
-        transition: background-color 0.3s ease;
-
-    }
-
-    .arrow-left {
-        left: 30px;
-    }
-
-    .arrow-right {
-        right: 30px;
-    }
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-inline: clamp(0.5rem, 3vw, 2rem);
 }
 
-// Media Query per dispositivi mobili (max-width: 768px)
-@media (max-width: 768px) {
-    .skill-grid {
-        display: none; // Nascondi la griglia per i dispositivi mobili
-    }
+.carousel-wrapper {
+  display: flex;
+  width: 100%;
 }
 
-// Extra small mobile devices
+.carousel-item {
+  min-width: 100%;
+  display: none;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+.arrow-left,
+.arrow-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(15, 23, 42, 0.08);
+  color: rgba(15, 23, 42, 0.75);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 15px 30px rgba(15, 23, 42, 0.08);
+}
+
+.arrow-left:hover,
+.arrow-right:hover,
+.arrow-left:focus-visible,
+.arrow-right:focus-visible {
+  outline: none;
+  background: rgba(99, 102, 241, 0.2);
+  color: #1f2937;
+}
+
+.arrow-left {
+  left: clamp(0.5rem, 3vw, 1.5rem);
+}
+
+.arrow-right {
+  right: clamp(0.5rem, 3vw, 1.5rem);
+}
+
 @media (max-width: 480px) {
-    .skill-section {
-        width: 75vw !important;
-    }
-
-    .carousel-container {
-        margin-top: 1vh;
-    }
+  .arrow-left,
+  .arrow-right {
+    font-size: 1.1rem;
+    padding: 0.3rem 0.65rem;
+  }
 }
