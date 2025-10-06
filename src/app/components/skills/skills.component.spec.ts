@@ -1,29 +1,33 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SkillsComponent } from './skills.component';
-import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { skills } from '../../data/skills.data';
 import { TranslationService } from '../../services/translation.service';
+
+class MockTranslationService {
+  currentLanguage$ = of<'en'>('en');
+
+  translateContent() {
+    return of(skills);
+  }
+}
 
 describe('SkillsComponent', () => {
   let component: SkillsComponent;
   let fixture: ComponentFixture<SkillsComponent>;
 
-  beforeEach(() => {
-    const translationServiceStub = {
-      currentLanguage$: of<'en'>('en'),
-      translateContent: () => of(skills)
-    } as Pick<TranslationService, 'currentLanguage$' | 'translateContent'>;
-
-    TestBed.configureTestingModule({
-      imports: [CommonModule, SkillsComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SkillsComponent],
       providers: [
-        { provide: TranslationService, useValue: translationServiceStub }
+        { provide: TranslationService, useClass: MockTranslationService }
       ]
-    });
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SkillsComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
+    await fixture.whenStable();
     fixture.detectChanges();
   });
 
@@ -50,28 +54,24 @@ describe('SkillsComponent', () => {
   });
 
   it('should correctly move to the next section in the carousel', () => {
-    component.sections = skills.skills; // Simulating skills data
     component.currentIndex = 0;
     component.moveToNext();
     expect(component.currentIndex).toBe(1); // Should move to the next section
   });
 
   it('should correctly move to the previous section in the carousel', () => {
-    component.sections = skills.skills; // Simulating skills data
     component.currentIndex = 1;
     component.moveToPrevious();
     expect(component.currentIndex).toBe(0); // Should move to the previous section
   });
 
   it('should reset to the first section when moving past the last one', () => {
-    component.sections = skills.skills; // Simulating skills data
     component.currentIndex = component.sections.length - 1;
     component.moveToNext();
     expect(component.currentIndex).toBe(0); // Should reset to the first section
   });
 
   it('should reset to the last section when moving before the first one', () => {
-    component.sections = skills.skills; // Simulating skills data
     component.currentIndex = 0;
     component.moveToPrevious();
     expect(component.currentIndex).toBe(component.sections.length - 1); // Should reset to the last section
