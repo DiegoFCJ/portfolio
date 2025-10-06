@@ -15,7 +15,15 @@ describe('TranslationService', () => {
     });
     service = TestBed.inject(TranslationService);
     httpMock = TestBed.inject(HttpTestingController);
-    window.localStorage.removeItem('translation-cache');
+
+    const internals = service as unknown as {
+      cache?: Map<string, string>;
+      storage?: Storage;
+    };
+
+    internals.cache?.clear();
+    internals.storage?.removeItem('translation-cache');
+    service.setLanguage('en');
   });
 
   afterEach(() => {
