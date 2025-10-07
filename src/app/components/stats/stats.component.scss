@@ -1,3 +1,8 @@
+:host {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+}
 
 .statistics-component {
     --stat-bg: linear-gradient(160deg, rgba(99, 102, 241, 0.12), rgba(79, 70, 229, 0.05));
@@ -10,7 +15,9 @@
     --stat-title-color: #0f172a;
     --stat-hover-shadow: 0 26px 60px -28px rgba(79, 70, 229, 0.4);
 
-    min-height: 100vh;
+    inline-size: 100%;
+    block-size: 100%;
+    min-block-size: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,6 +26,7 @@
     position: relative;
     background: var(--stat-bg);
     isolation: isolate;
+    overflow: auto;
 
     &::before {
         content: '';

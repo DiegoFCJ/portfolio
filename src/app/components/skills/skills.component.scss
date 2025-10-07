@@ -6,6 +6,9 @@
   --skills-text-muted: rgba(15, 23, 42, 0.65);
   --skills-section-bg: linear-gradient(160deg, rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.04));
   --skills-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 :host-context(body.dark-mode) {
@@ -19,7 +22,9 @@
 }
 
 .skills-section {
-  min-height: 100vh;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 100%;
   padding: clamp(2rem, 4vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
   display: flex;
   flex-direction: column;
@@ -28,6 +33,7 @@
   background: var(--skills-section-bg);
   width: min(100%, 70rem);
   margin-inline: auto;
+  overflow: auto;
 }
 
 .skills-title {
