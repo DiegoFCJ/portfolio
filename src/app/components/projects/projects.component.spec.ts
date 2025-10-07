@@ -36,30 +36,24 @@ describe('ProjectsComponent', () => {
   });
 
   /**
-   * Ensures translated project data is rendered and the toggle button updates expansion state.
+   * Ensures the project description is rendered without the legacy toggle button.
    */
-  it('should toggle project expansion via the template control', async () => {
+  it('should render the project description without a toggle button', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const firstProject = component.projects.projects[0];
     const toggleButton: HTMLButtonElement | null = fixture.nativeElement.querySelector('.description-toggle');
-    expect(toggleButton).withContext('toggle button should exist').not.toBeNull();
+    const descriptionRegion: HTMLElement | null = fixture.nativeElement.querySelector('.description-content');
 
-    expect(firstProject.expanded).toBeFalse();
-    expect(toggleButton?.getAttribute('aria-expanded')).toBe('false');
-
-    toggleButton?.click();
-    fixture.detectChanges();
-
-    expect(firstProject.expanded).toBeTrue();
-    expect(toggleButton?.getAttribute('aria-expanded')).toBe('true');
+    expect(toggleButton).withContext('toggle button should not be present').toBeNull();
+    expect(descriptionRegion).withContext('description content should be rendered').not.toBeNull();
+    expect(descriptionRegion?.getAttribute('tabindex')).toBe('0');
   });
 
   /**
-   * Verifies that toggleExpand correctly toggles the expanded state of a project instance.
+   * Verifies that the scroll handler updates the scroll boundary state.
    */
-  it('should toggle expand state correctly', () => {
+  it('should update scroll state when the description is scrolled', () => {
     const project: Project = {
       title: 'Sample project',
       description: 'Description',
@@ -67,14 +61,29 @@ describe('ProjectsComponent', () => {
       status: { level: 'active' },
       image: 'image.png',
       link: 'https://example.com',
-      expanded: false
+      isScrollable: true,
+      isAtEnd: false
     };
 
-    component.toggleExpand(project);
-    expect(project.expanded).toBeTrue();
+    component.onDescriptionScroll(project, {
+      target: {
+        scrollTop: 0,
+        clientHeight: 100,
+        scrollHeight: 200
+      }
+    } as unknown as Event);
 
-    component.toggleExpand(project);
-    expect(project.expanded).toBeFalse();
+    expect(project.isAtEnd).toBeFalse();
+
+    component.onDescriptionScroll(project, {
+      target: {
+        scrollTop: 110,
+        clientHeight: 100,
+        scrollHeight: 200
+      }
+    } as unknown as Event);
+
+    expect(project.isAtEnd).toBeTrue();
   });
 
   /**

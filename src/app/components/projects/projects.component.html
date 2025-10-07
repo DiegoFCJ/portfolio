@@ -23,7 +23,7 @@
     </div>
 
     <ng-template #projectCard let-project let-i="index">
-        <article class="project-card" [class.expanded]="project.expanded" [attr.data-status-level]="project.status.level">
+        <article class="project-card" [attr.data-status-level]="project.status.level">
             <div class="project-visual">
                 <img class="proj-image" [src]="project.image" [attr.alt]="'Anteprima del progetto ' + project.title" />
             </div>
@@ -45,18 +45,13 @@
 
             <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>
 
-            <div class="project-description" [class.expanded]="project.expanded">
-                <div class="description-content" [attr.id]="'project-description-' + i">
+            <div class="project-description" [class.is-scrollable]="project.isScrollable"
+                [class.is-at-end]="project.isAtEnd">
+                <div class="description-content" #descriptionContent [attr.id]="'project-description-' + i" tabindex="0"
+                    role="region" [attr.aria-label]="project.title + ' — dettagli'"
+                    (scroll)="onDescriptionScroll(project, $event)">
                     <p>{{ project.description }}</p>
                 </div>
-                <button type="button" class="description-toggle" (click)="toggleExpand(project)"
-                    [attr.aria-expanded]="project.expanded" [attr.aria-controls]="'project-description-' + i"
-                    [attr.aria-label]="(project.expanded ? projects.toggle.collapse : projects.toggle.expand).trim()">
-                    <span class="toggle-label">
-                        {{ (project.expanded ? projects.toggle.collapse : projects.toggle.expand).trim() }}
-                    </span>
-                    <span class="toggle-icon" aria-hidden="true"></span>
-                </button>
             </div>
 
             <a class="proj-link" [href]="project.link" target="_blank">{{ projects.button }}</a>
