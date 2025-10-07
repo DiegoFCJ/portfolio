@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { AssistantComponent } from './assistant.component';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
@@ -31,12 +31,12 @@ describe('AssistantComponent', () => {
     component.opened.subscribe(openedSpy);
 
     component.openAssistant();
-    tick();
 
     expect(component.isOpen).toBeTrue();
     expect(component.animationPhase).toBe('wondering');
     expect(openedSpy).toHaveBeenCalled();
 
+    flush();
     component.closeAssistant();
     tick();
   }));
