@@ -15,7 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 6rem 1.5rem;
+    padding: clamp(3rem, 8vh, 6rem) clamp(1rem, 5vw, 3rem);
     position: relative;
     background: var(--stat-bg);
     isolation: isolate;
@@ -33,11 +33,12 @@
     .statistics-section {
         position: relative;
         width: 100%;
-        max-width: 1320px;
+        max-width: 70rem;
+        margin: 0 auto;
 
         .statistics-container {
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 clamp(1rem, 4vw, 2.5rem);
         }
 
         .statistics-row {
@@ -45,6 +46,7 @@
             flex-wrap: wrap;
             gap: 24px;
             justify-content: center;
+            width: 100%;
         }
 
         .statistics-card {
@@ -127,7 +129,7 @@
     }
 
     @media (max-width: 992px) {
-        padding: 4rem 1rem;
+        padding: clamp(2.5rem, 8vw, 4rem) clamp(0.75rem, 5vw, 2rem);
 
         .statistics-section {
             .statistics-card {
@@ -139,7 +141,7 @@
     }
 
     @media (max-width: 768px) {
-        padding: 3rem 1rem;
+        padding: clamp(2.25rem, 9vw, 3rem) clamp(0.75rem, 6vw, 1.75rem);
 
         .statistics-section {
             .statistics-card {
@@ -156,11 +158,11 @@
     }
 
     @media (max-width: 480px) {
-        padding: 2.5rem 0.75rem;
+        padding: clamp(2rem, 10vw, 2.75rem) clamp(0.5rem, 6vw, 1.25rem);
 
         .statistics-section {
             .statistics-container {
-                padding: 0 1rem;
+                padding: 0 clamp(0.75rem, 6vw, 1.25rem);
             }
 
             .statistics-card {

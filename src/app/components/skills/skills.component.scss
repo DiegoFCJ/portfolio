@@ -26,7 +26,7 @@
   align-items: center;
   gap: clamp(1.75rem, 4vw, 3rem);
   background: var(--skills-section-bg);
-  width: min(95vw, 100%);
+  width: min(100%, 70rem);
   margin-inline: auto;
 }
 
@@ -39,16 +39,21 @@
 
 .mobile-layout,
 .carousel-container {
-  width: min(96vw, 540px);
+  width: min(100%, 540px);
   margin: 0 auto;
+  padding-inline: clamp(0.75rem, 5vw, 1.5rem);
+  box-sizing: border-box;
 }
 
 .skills-grid {
   width: 100%;
+  max-width: 68rem;
   display: grid;
   grid-template-columns: minmax(200px, 260px) 1fr;
   gap: clamp(1.5rem, 3vw, 2.75rem);
   align-items: start;
+  padding-inline: clamp(0.75rem, 4vw, 2rem);
+  margin: 0 auto;
 }
 
 .stack-tabs {
@@ -249,7 +254,7 @@
 
 @media (min-width: 992px) {
   .skills-section {
-    max-width: 80vw;
+    max-width: 70rem;
   }
 
   .spotlight-panels {

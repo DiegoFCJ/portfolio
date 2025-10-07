@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1.5rem, 4vh, 3rem) 0;
+  padding: clamp(1.5rem, 4vh, 3rem) clamp(1.25rem, 5vw, 3.5rem);
   margin: 0;
   box-shadow: none;
   border-radius: 0;
@@ -31,8 +31,8 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: min(82rem, calc(100% - clamp(3rem, 10vw, 8rem)));
-    max-width: 1200px;
+    width: min(80rem, calc(100% - clamp(2.5rem, 8vw, 6rem)));
+    max-width: min(80rem, 100%);
     height: clamp(54px, 12vh, 140px);
     pointer-events: none;
     z-index: 0;
@@ -61,6 +61,8 @@
 .home__section-content {
   position: relative;
   width: 100%;
+  max-width: clamp(18rem, 92vw, 70rem);
+  margin: 0 auto;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -68,6 +70,8 @@
   align-items: stretch;
   gap: clamp(1rem, 3vh, 2rem);
   z-index: 1;
+  padding-inline: clamp(0.75rem, 4vw, 2.75rem);
+  box-sizing: border-box;
 }
 
 .home__section--tall {
@@ -105,13 +109,14 @@
 
 @media (max-width: 768px) {
   .home__section {
-    padding: clamp(1.25rem, 5vh, 2.5rem) 0;
+    padding: clamp(1.25rem, 5vh, 2.5rem) clamp(1rem, 6vw, 2.5rem);
   }
 
   .home__section-content {
     width: 100%;
     min-height: 100%;
     gap: clamp(0.75rem, 3vh, 1.5rem);
+    padding-inline: clamp(0.75rem, 6vw, 2rem);
   }
 
   .home__section--tall {

@@ -25,7 +25,7 @@
   flex-direction: column;
   align-items: center;
   gap: clamp(1.75rem, 4vw, 2.75rem);
-  width: min(92vw, 100%);
+  width: min(100%, 38rem);
   text-align: center;
   background: linear-gradient(160deg, rgba(99, 102, 241, 0.08), rgba(79, 70, 229, 0));
 }
@@ -191,7 +191,7 @@ body.dark-mode .contact-me-section {
 
 @media (min-width: 768px) {
   .contact-me-section {
-    width: min(80vw, 600px);
+    width: min(85vw, 38rem);
   }
 }
 
@@ -203,6 +203,6 @@ body.dark-mode .contact-me-section {
 
 @media (max-width: 620px) {
   .contact-me-section {
-    width: min(95vw, 100%);
+    width: min(95vw, 38rem);
   }
 }
