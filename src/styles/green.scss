@@ -3,6 +3,7 @@
 body.green-mode {
   background-color: #e6fff2;
   color: #1f4033;
+  --section-transition-glow: rgba(16, 185, 129, 0.28);
 
   .bg-container {
     background: linear-gradient(135deg, #6ee7b7, #34d399, #10b981);

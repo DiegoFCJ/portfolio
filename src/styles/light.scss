@@ -4,9 +4,13 @@
     scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
+body {
+    --section-transition-glow: rgba(148, 163, 184, 0.2);
+}
+
 section {
-    box-shadow: $section-box-shadow;
-    border-radius: 1rem;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 .bg-container {
