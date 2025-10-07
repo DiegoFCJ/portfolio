@@ -49,6 +49,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     frontend: ['front-end', 'frontend', 'ui', 'linguaggi', 'programming', 'languages'],
     tooling: ['testing', 'documentazione', 'documentation', 'build', 'version', 'collaboration', 'collaborazione', 'management', 'operating', 'sistemi', 'tooling']
   };
+  private readonly skillResetTimers = new WeakMap<SkillItem, number>();
 
   private readonly tabLabelDictionary: Record<SkillTabId, Record<LanguageCode | 'default', string>> = {
     backend: {
@@ -162,6 +163,31 @@ export class SkillsComponent implements OnInit, OnDestroy {
       return;
     }
     this.currentIndex = (this.currentIndex - 1 + items.length) % items.length;
+  }
+
+  onSkillClick(skill: SkillItem): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const timer = this.skillResetTimers.get(skill);
+    if (timer !== undefined) {
+      clearTimeout(timer);
+      this.skillResetTimers.delete(skill);
+    }
+
+    skill.clicked = false;
+
+    window.requestAnimationFrame(() => {
+      skill.clicked = true;
+
+      const resetTimer = window.setTimeout(() => {
+        skill.clicked = false;
+        this.skillResetTimers.delete(skill);
+      }, 750);
+
+      this.skillResetTimers.set(skill, resetTimer);
+    });
   }
 
   private resetCarouselIndex(): void {
