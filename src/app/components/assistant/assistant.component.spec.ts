@@ -35,12 +35,12 @@ describe('AssistantComponent', () => {
     component.opened.subscribe(openedSpy);
 
     component.openAssistant();
-    tick();
 
     expect(component.isOpen).toBeTrue();
     expect(component.animationPhase).toBe('waking');
     expect(openedSpy).toHaveBeenCalled();
 
+    flush();
     component.closeAssistant();
     tick();
   }));
