@@ -1,4 +1,4 @@
-<div *ngIf="viewInitialized">
+<div *ngIf="viewInitialized" class="home">
   <section #section class="home__section">
     <div class="home__section-content">
       <app-hero (navigateNextSection)="navigateNext()"></app-hero>
@@ -19,12 +19,12 @@
       <app-skills></app-skills>
     </div>
   </section>
-  <section #section class="home__section">
+  <section #section class="home__section home__section--tall">
     <div class="home__section-content">
       <app-education></app-education>
     </div>
   </section>
-  <section #section class="home__section">
+  <section #section class="home__section home__section--tall">
     <div class="home__section-content">
       <app-experiences></app-experiences>
     </div>

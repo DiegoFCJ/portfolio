@@ -45,6 +45,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   viewInitialized = false;
   totalSections = 0;
   isAssistantOpen = false;
+  private readonly scrollSnappingClass = 'home-scroll-snapping';
   private scrollSubscription: Subscription | null = null;
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
@@ -65,6 +66,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.viewInitialized = true;
     this.cdr.detectChanges();
+    this.toggleScrollSnapping(true);
 
     setTimeout(() => {
       this.initializeScrollTracking();
@@ -72,6 +74,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.toggleScrollSnapping(false);
     this.destroyScrollTracking();
   }
 
@@ -122,6 +125,14 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       this.scrollSubscription.unsubscribe();
       this.scrollSubscription = null;
     }
+  }
+
+  private toggleScrollSnapping(activate: boolean): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    document.body.classList.toggle(this.scrollSnappingClass, activate);
   }
 
   private updateCurrentSectionFromViewport(): void {
