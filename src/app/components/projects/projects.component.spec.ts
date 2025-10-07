@@ -48,12 +48,16 @@ describe('ProjectsComponent', () => {
 
     expect(firstProject.expanded).toBeFalse();
     expect(toggleButton?.getAttribute('aria-expanded')).toBe('false');
+    expect(toggleButton?.getAttribute('aria-label')).toBe(component.projects.toggle.expand.trim());
+    expect(toggleButton?.textContent?.trim()).toContain(component.projects.toggle.expand.trim());
 
     toggleButton?.click();
     fixture.detectChanges();
 
     expect(firstProject.expanded).toBeTrue();
     expect(toggleButton?.getAttribute('aria-expanded')).toBe('true');
+    expect(toggleButton?.getAttribute('aria-label')).toBe(component.projects.toggle.collapse.trim());
+    expect(toggleButton?.textContent?.trim()).toContain(component.projects.toggle.collapse.trim());
   });
 
   /**
@@ -64,7 +68,7 @@ describe('ProjectsComponent', () => {
       title: 'Sample project',
       description: 'Description',
       technologies: ['Angular'],
-      status: { level: 'active' },
+      status: { level: 'active', tags: ['openSource'] },
       image: 'image.png',
       link: 'https://example.com',
       expanded: false
@@ -75,6 +79,20 @@ describe('ProjectsComponent', () => {
 
     component.toggleExpand(project);
     expect(project.expanded).toBeFalse();
+  });
+
+  it('should provide translated labels for status metadata', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const project = component.projects.projects[0];
+    expect(component.getStatusLevelLabel(project.status.level))
+      .toBe(component.projects.statusLegend.levels[project.status.level]);
+
+    const tag = project.status.tags?.[0];
+    if (tag) {
+      expect(component.getStatusTagLabel(tag)).toBe(component.projects.statusLegend.tags[tag]);
+    }
   });
 
   /**
