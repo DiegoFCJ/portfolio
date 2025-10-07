@@ -63,7 +63,9 @@ describe('NavigatorComponent', () => {
     component.showThemeOptions = true;
     fixture.detectChanges();
 
-    const toggleButton: HTMLButtonElement = fixture.nativeElement.querySelector('.nav-toggle-button');
+    const toggleButton: HTMLButtonElement = fixture.nativeElement.querySelector('.close-button');
+    expect(toggleButton).withContext('Integrated close/toggle button should be present when navigator is open').toBeTruthy();
+
     toggleButton.click();
     fixture.detectChanges();
 
