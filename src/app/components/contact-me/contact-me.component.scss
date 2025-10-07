@@ -1,6 +1,4 @@
 .contact-me-section {
-  --contact-marker-color: #6366f1;
-  --contact-marker-soft: rgba(99, 102, 241, 0.25);
   --contact-card-bg: linear-gradient(135deg, rgba(236, 239, 255, 0.9), rgba(219, 234, 254, 0.65));
   --contact-card-border: rgba(99, 102, 241, 0.28);
   --contact-text-muted: rgba(15, 23, 42, 0.72);
@@ -31,8 +29,6 @@
 }
 
 body.dark-mode .contact-me-section {
-  --contact-marker-color: #8b5cf6;
-  --contact-marker-soft: rgba(139, 92, 246, 0.35);
   --contact-card-bg: linear-gradient(135deg, rgba(17, 24, 39, 0.92), rgba(30, 41, 59, 0.78));
   --contact-card-border: rgba(139, 92, 246, 0.35);
   --contact-text-muted: rgba(226, 232, 240, 0.7);
@@ -61,46 +57,13 @@ body.dark-mode .contact-me-section {
 .timeline {
   --timeline-gap: clamp(1.75rem, 4vw, 2.5rem);
   width: 100%;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: var(--timeline-gap);
 }
 
 .timeline-item {
-  display: grid;
-  grid-template-columns: 3.25rem 1fr;
-  column-gap: clamp(1rem, 3vw, 1.75rem);
-  align-items: start;
-}
-
-.timeline-marker {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.timeline-marker::before {
-  content: "";
-  position: absolute;
-  top: 0.45rem;
-  left: calc(50% - 1.5px);
-  width: 3px;
-  bottom: calc(var(--timeline-gap) * -1);
-  background: linear-gradient(180deg, var(--contact-marker-color), rgba(99, 102, 241, 0));
-  border-radius: 999px;
-}
-
-.timeline-marker.is-last::before {
-  bottom: 0;
-}
-
-.timeline-dot {
-  margin-top: 0.25rem;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--contact-marker-color);
-  box-shadow: 0 0 0 6px var(--contact-marker-soft), 0 12px 36px rgba(99, 102, 241, 0.25);
+  display: block;
 }
 
 .timeline-card {
@@ -226,40 +189,8 @@ body.dark-mode .contact-me-section {
   }
 }
 
-@media (max-width: 768px) {
-  .timeline-item {
-    grid-template-columns: 2.75rem 1fr;
-  }
-
-  .timeline-marker::before {
-    top: 0.35rem;
-  }
-}
-
 @media (max-width: 620px) {
   .contact-me-section {
     width: min(95vw, 100%);
-  }
-
-  .timeline-item {
-    position: relative;
-    grid-template-columns: 1fr;
-    row-gap: 1rem;
-    padding-left: 2.5rem;
-  }
-
-  .timeline-marker {
-    position: absolute;
-    inset: 0 auto auto 0;
-    width: 2.5rem;
-  }
-
-  .timeline-marker::before {
-    left: calc(1.25rem - 1.5px);
-    bottom: -1.5rem;
-  }
-
-  .timeline-dot {
-    margin-top: 0;
   }
 }
