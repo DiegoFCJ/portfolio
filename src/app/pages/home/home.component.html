@@ -1,42 +1,58 @@
 <div *ngIf="viewInitialized" class="home">
   <section #section class="home__section">
     <div class="home__section-content">
-      <app-hero (navigateNextSection)="navigateNext()"></app-hero>
+      <div class="home__panel">
+        <app-hero (navigateNextSection)="navigateNext()"></app-hero>
+      </div>
     </div>
   </section>
   <section #section class="home__section">
     <div class="home__section-content">
-      <app-about></app-about>
+      <div class="home__panel">
+        <app-about></app-about>
+      </div>
     </div>
   </section>
   <section #section class="home__section">
     <div class="home__section-content">
-      <app-projects></app-projects>
+      <div class="home__panel">
+        <app-projects></app-projects>
+      </div>
     </div>
   </section>
   <section #section class="home__section">
     <div class="home__section-content">
-      <app-skills></app-skills>
-    </div>
-  </section>
-  <section #section class="home__section home__section--tall">
-    <div class="home__section-content">
-      <app-education></app-education>
-    </div>
-  </section>
-  <section #section class="home__section home__section--tall">
-    <div class="home__section-content">
-      <app-experiences></app-experiences>
+      <div class="home__panel">
+        <app-skills></app-skills>
+      </div>
     </div>
   </section>
   <section #section class="home__section">
     <div class="home__section-content">
-      <app-stats></app-stats>
+      <div class="home__panel">
+        <app-education></app-education>
+      </div>
     </div>
   </section>
   <section #section class="home__section">
     <div class="home__section-content">
-      <app-contact-me></app-contact-me>
+      <div class="home__panel">
+        <app-experiences></app-experiences>
+      </div>
+    </div>
+  </section>
+  <section #section class="home__section">
+    <div class="home__section-content">
+      <div class="home__panel">
+        <app-stats></app-stats>
+      </div>
+    </div>
+  </section>
+  <section #section class="home__section">
+    <div class="home__section-content">
+      <div class="home__panel">
+        <app-contact-me></app-contact-me>
+      </div>
     </div>
   </section>
 

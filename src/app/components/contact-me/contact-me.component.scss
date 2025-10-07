@@ -1,3 +1,9 @@
+:host {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
 .contact-me-section {
   --contact-card-bg: linear-gradient(135deg, rgba(236, 239, 255, 0.9), rgba(219, 234, 254, 0.65));
   --contact-card-border: rgba(99, 102, 241, 0.28);
@@ -18,16 +24,19 @@
   --contact-status-error-text: #b91c1c;
   --contact-card-padding: clamp(1.5rem, 4vw, 2.25rem);
 
-  min-height: 100vh;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 100%;
   margin: 0 auto;
   padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: clamp(1.75rem, 4vw, 2.75rem);
-  width: min(92vw, 100%);
+  width: min(100%, 38rem);
   text-align: center;
   background: linear-gradient(160deg, rgba(99, 102, 241, 0.08), rgba(79, 70, 229, 0));
+  overflow: auto;
 }
 
 body.dark-mode .contact-me-section {
@@ -191,7 +200,7 @@ body.dark-mode .contact-me-section {
 
 @media (min-width: 768px) {
   .contact-me-section {
-    width: min(80vw, 600px);
+    width: min(85vw, 38rem);
   }
 }
 
@@ -203,6 +212,6 @@ body.dark-mode .contact-me-section {
 
 @media (max-width: 620px) {
   .contact-me-section {
-    width: min(95vw, 100%);
+    width: min(95vw, 38rem);
   }
 }

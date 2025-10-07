@@ -40,7 +40,8 @@ describe('AssistantComponent', () => {
     expect(component.animationPhase).toBe('waking');
     expect(openedSpy).toHaveBeenCalled();
 
-    flush();
+    tick(ASSISTANT_WAKE_DURATION_MS + ASSISTANT_JUMP_DURATION_MS);
+
     component.closeAssistant();
     tick();
   }));

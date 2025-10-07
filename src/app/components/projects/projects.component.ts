@@ -154,11 +154,13 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getStatusLevelLabel(level: ProjectStatusLevel): string {
-    return this.projects.statusLegend.levels[level] ?? level;
+    const label = this.projects.statusLegend.levels[level];
+    return label?.trim() ? label : level;
   }
 
   getStatusTagLabel(tag: ProjectStatusTag): string {
-    return this.projects.statusLegend.tags[tag] ?? tag;
+    const label = this.projects.statusLegend.tags[tag];
+    return label?.trim() ? label : tag;
   }
 
   private triggerPeekAnimation(): void {
