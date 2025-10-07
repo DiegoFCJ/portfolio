@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import {
-  ASSISTANT_IMPATIENCE_DURATION_MS,
   ASSISTANT_JUMP_DURATION_MS,
   ASSISTANT_WAKE_DURATION_MS,
   AssistantComponent
@@ -46,27 +45,28 @@ describe('AssistantComponent', () => {
     tick();
   }));
 
-  it('should transition through jump and impatience before returning to sleep', fakeAsync(() => {
+  it('should remain open in impatience phase until closed manually', fakeAsync(() => {
     const closedSpy = jasmine.createSpy('closed');
     component.closed.subscribe(closedSpy);
 
     component.openAssistant();
     expect(component.animationPhase).toBe('waking');
 
-    tick(ASSISTANT_WAKE_DURATION_MS - 1);
-    expect(component.animationPhase).toBe('waking');
-
-    tick(1);
+    tick(ASSISTANT_WAKE_DURATION_MS);
     expect(component.animationPhase).toBe('jumping');
 
     tick(ASSISTANT_JUMP_DURATION_MS);
     expect(component.animationPhase).toBe('impatient');
     expect(component.isOpen).toBeTrue();
 
-    tick(ASSISTANT_IMPATIENCE_DURATION_MS - 1);
+    tick(10_000);
     expect(component.animationPhase).toBe('impatient');
+    expect(component.isOpen).toBeTrue();
+    expect(closedSpy).not.toHaveBeenCalled();
 
-    tick(1);
+    component.closeAssistant();
+    tick();
+
     expect(component.animationPhase).toBe('sleeping');
     expect(component.isOpen).toBeFalse();
     expect(closedSpy).toHaveBeenCalledTimes(1);
@@ -84,5 +84,22 @@ describe('AssistantComponent', () => {
     expect(component.isOpen).toBeFalse();
     expect(component.animationPhase).toBe('sleeping');
     expect(closedSpy).toHaveBeenCalled();
+  }));
+
+  it('should toggle open state when clicking the avatar twice', fakeAsync(() => {
+    spyOn(component, 'openAssistant').and.callThrough();
+    spyOn(component, 'closeAssistant').and.callThrough();
+
+    component.onAvatarClick();
+    tick();
+
+    expect(component.openAssistant).toHaveBeenCalled();
+    expect(component.isOpen).toBeTrue();
+
+    component.onAvatarClick();
+    tick();
+
+    expect(component.closeAssistant).toHaveBeenCalled();
+    expect(component.isOpen).toBeFalse();
   }));
 });
