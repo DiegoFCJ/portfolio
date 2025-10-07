@@ -8,7 +8,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Sviluppatore Software',
                 location: 'Completamente da remoto',
                 startDate: 'Apr 2024',
+                startDateValue: '2024-04-01',
                 endDate: 'Giu 2025',
+                endDateValue: '2025-06-01',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
                 responsibilities: 'Ho guidato la modernizzazione delle piattaforme interne di gestione dei servizi per clienti della pubblica amministrazione.',
                 responsibilityList: [
@@ -21,7 +23,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Sviluppatore Software',
                 location: 'Ibrido, Torino',
                 startDate: 'Gen 2025',
+                startDateValue: '2025-01-01',
                 endDate: 'Giu 2025',
+                endDateValue: '2025-06-01',
                 technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
                 responsibilities: 'Ho supportato programmi di integrazione enterprise per un cliente bancario.',
                 responsibilityList: [
@@ -35,7 +39,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Sviluppatore Software',
                 location: 'Completamente da remoto',
                 startDate: 'Ott 2023',
+                startDateValue: '2023-10-01',
                 endDate: 'Apr 2024',
+                endDateValue: '2024-04-01',
                 technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
                 responsibilities: 'Ho potenziato prodotti interni con funzionalità sicure sia lato back-end sia front-end.',
                 responsibilityList: [
@@ -48,7 +54,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Sviluppatore Software',
                 location: 'Ibrido',
                 startDate: 'Feb 2023',
+                startDateValue: '2023-02-01',
                 endDate: 'Ott 2023',
+                endDateValue: '2023-10-01',
                 technologies: 'Java 8, Spring Boot, MySQL, Angular 7, Docker, OpenShift',
                 responsibilities: "Ho contribuito allo sviluppo e al rilascio di piattaforme interne per clienti del settore dell'energia.",
                 responsibilityList: [
@@ -61,7 +69,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Sviluppatore Software',
                 location: 'Torino',
                 startDate: 'Giu 2022',
+                startDateValue: '2022-06-01',
                 endDate: 'Gen 2023',
+                endDateValue: '2023-01-01',
                 technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
                 responsibilities: 'Mi sono occupato di attività di manutenzione e automazione per clienti enterprise nel settore della mobilità.',
                 responsibilityList: [
@@ -79,7 +89,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Software Developer',
                 location: 'Full Remote',
                 startDate: 'Apr 2024',
+                startDateValue: '2024-04-01',
                 endDate: 'Jun 2025',
+                endDateValue: '2025-06-01',
                 technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
                 responsibilities: 'Led the modernization of internal service-management platforms for public administration customers.',
                 responsibilityList: [
@@ -92,7 +104,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Software Developer',
                 location: 'Hybrid, Turin',
                 startDate: 'Jan 2025',
+                startDateValue: '2025-01-01',
                 endDate: 'Jun 2025',
+                endDateValue: '2025-06-01',
                 technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
                 responsibilities: 'Supported enterprise integration programmes for a banking client.',
                 responsibilityList: [
@@ -106,7 +120,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Software Developer',
                 location: 'Full Remote',
                 startDate: 'Oct 2023',
+                startDateValue: '2023-10-01',
                 endDate: 'Apr 2024',
+                endDateValue: '2024-04-01',
                 technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
                 responsibilities: 'Enhanced internal products with secure back-end and front-end capabilities.',
                 responsibilityList: [
@@ -119,7 +135,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Software Developer',
                 location: 'Hybrid',
                 startDate: 'Feb 2023',
+                startDateValue: '2023-02-01',
                 endDate: 'Oct 2023',
+                endDateValue: '2023-10-01',
                 technologies: 'Java 8, Spring Boot, MySQL, Angular 7, Docker, OpenShift',
                 responsibilities: 'Contributed to the development and deployment of internal platforms for energy sector clients.',
                 responsibilityList: [
@@ -132,7 +150,9 @@ export const experiencesData: ExperienceFullLangs = {
                 position: 'Software Developer',
                 location: 'Turin',
                 startDate: 'Jun 2022',
+                startDateValue: '2022-06-01',
                 endDate: 'Jan 2023',
+                endDateValue: '2023-01-01',
                 technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
                 responsibilities: 'Focused on maintenance and automation activities for enterprise clients in the mobility sector.',
                 responsibilityList: [

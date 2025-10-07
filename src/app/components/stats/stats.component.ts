@@ -92,7 +92,10 @@ export class StatsComponent implements OnInit, OnDestroy {
     totalProjects += experiencesWithTechnologies.length;
 
     experiencesWithTechnologies.forEach((exp, index) => {
-      const months = this.calculateMonths(exp.startDate, exp.endDate);
+      const months = this.calculateMonths(
+        exp.startDateValue ?? exp.startDate,
+        exp.endDateValue ?? exp.endDate
+      );
       totalMonths += months;
 
       const weeks = months * 4;
