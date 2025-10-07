@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AboutComponent } from './about.component';
 import { AboutMe } from '../../dtos/AboutMeDTO';
+import { aboutMeData } from '../../data/about-me.data';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
 
@@ -56,14 +57,34 @@ describe('AboutComponent', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
+    const expectedAboutMe = aboutMeData.it;
 
     const titleElement = compiled.querySelector('.about-title') as HTMLElement;
-    const paragraphElements = compiled.querySelectorAll('.about-paragraph');
-    const highlightItems = compiled.querySelectorAll('.about-list-item');
+    const paragraphElements = Array.from(
+      compiled.querySelectorAll<HTMLParagraphElement>('.about-paragraph')
+    );
+    const highlightHeading = compiled.querySelector(
+      '.about-subtitle'
+    ) as HTMLElement;
+    const highlightItems = Array.from(
+      compiled.querySelectorAll<HTMLLIElement>('.about-list-item')
+    );
 
-    expect(titleElement.textContent?.trim()).toBe(component.aboutMe.title);
-    expect(paragraphElements.length).toBe(component.aboutMe.paragraphs.length);
-    expect(highlightItems.length).toBe(component.aboutMe.highlights.length);
+    expect(titleElement.textContent?.trim()).toBe(expectedAboutMe.title);
+    expect(paragraphElements.length).toBe(expectedAboutMe.paragraphs.length);
+    paragraphElements.forEach((paragraph, index) => {
+      expect(paragraph.textContent?.trim()).toBe(
+        expectedAboutMe.paragraphs[index]
+      );
+    });
+
+    expect(highlightHeading.textContent?.trim()).toBe(
+      expectedAboutMe.highlightsTitle
+    );
+    expect(highlightItems.length).toBe(expectedAboutMe.highlights.length);
+    highlightItems.forEach((item, index) => {
+      expect(item.textContent?.trim()).toBe(expectedAboutMe.highlights[index]);
+    });
   });
 
   /**
@@ -83,10 +104,16 @@ describe('AboutComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const titleElement = compiled.querySelector('.about-title') as HTMLElement;
     const paragraphElements = compiled.querySelectorAll('.about-paragraph');
+    const highlightHeading = compiled.querySelector(
+      '.about-subtitle'
+    ) as HTMLElement;
     const highlightItems = compiled.querySelectorAll('.about-list-item');
 
     expect(titleElement.textContent?.trim()).toBe(newAboutMe.title);
     expect(paragraphElements.length).toBe(newAboutMe.paragraphs.length);
+    expect(highlightHeading.textContent?.trim()).toBe(
+      newAboutMe.highlightsTitle
+    );
     expect(highlightItems.length).toBe(newAboutMe.highlights.length);
   });
 });
