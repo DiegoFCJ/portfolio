@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, PLATFORM_ID, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostListener, PLATFORM_ID, Inject, OnDestroy, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { TranslationService } from '../../services/translation.service';
     './projects.carousel.component.scss'
   ]
 })
-export class ProjectsComponent implements OnInit, OnDestroy {
+export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   projects: ProjectFull = {
     title: '',
     button: '',
@@ -40,17 +40,24 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   isMobile = false;
   isLoading = true;
   shouldPeek = false;
+  @ViewChildren('descriptionContent') private descriptionContents!: QueryList<ElementRef<HTMLDivElement>>;
   private peekStartTimeoutId: ReturnType<typeof setTimeout> | null = null;
   private peekStopTimeoutId: ReturnType<typeof setTimeout> | null = null;
+  private scrollComputationTimeoutId: ReturnType<typeof setTimeout> | null = null;
+  private scrollComputationPending = false;
+  private readonly isBrowser: boolean;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
     private translationService: TranslationService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.checkIfMobile();
     }
 
@@ -67,14 +74,28 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           ...data,
           projects: data.projects.map(project => ({
             ...project,
-            expanded: project.expanded ?? false
+            isScrollable: false,
+            isAtEnd: true
           }))
         };
         this.isLoading = false;
         if (this.isMobile && this.projects.projects.length > 1) {
           this.triggerPeekAnimation();
         }
+        this.scheduleScrollComputation();
       });
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    this.descriptionContents.changes
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.scheduleScrollComputation());
+
+    this.scheduleScrollComputation();
   }
 
   ngOnDestroy(): void {
@@ -86,18 +107,23 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       clearTimeout(this.peekStopTimeoutId);
       this.peekStopTimeoutId = null;
     }
+    if (this.scrollComputationTimeoutId) {
+      clearTimeout(this.scrollComputationTimeoutId);
+      this.scrollComputationTimeoutId = null;
+    }
     this.destroy$.next();
     this.destroy$.complete();
   }
 
   @HostListener('window:resize')
   onResize(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       const wasMobile = this.isMobile;
       this.checkIfMobile();
       if (!wasMobile && this.isMobile && this.projects.projects.length > 1) {
         this.triggerPeekAnimation();
       }
+      this.scheduleScrollComputation();
     }
   }
 
@@ -105,8 +131,14 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.isMobile = window.innerWidth <= 768;
   }
 
-  toggleExpand(project: Project): void {
-    project.expanded = !project.expanded;
+  onDescriptionScroll(project: Project, event: Event): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const target = event.target as HTMLElement;
+    const atEnd = target.scrollTop + target.clientHeight >= target.scrollHeight - 1;
+    project.isAtEnd = atEnd;
   }
 
   handleCarouselInteraction(): void {
@@ -134,7 +166,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   private triggerPeekAnimation(): void {
-    if (!isPlatformBrowser(this.platformId)) {
+    if (!this.isBrowser) {
       return;
     }
 
@@ -157,5 +189,48 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
       this.peekStartTimeoutId = null;
     }, 250);
+  }
+
+  private scheduleScrollComputation(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    if (this.scrollComputationPending && this.scrollComputationTimeoutId) {
+      return;
+    }
+
+    this.scrollComputationPending = true;
+    this.scrollComputationTimeoutId = setTimeout(() => {
+      this.scrollComputationPending = false;
+      this.scrollComputationTimeoutId = null;
+      this.computeScrollableStates();
+    });
+  }
+
+  private computeScrollableStates(): void {
+    if (!this.isBrowser || !this.descriptionContents) {
+      return;
+    }
+
+    const projects = this.projects.projects ?? [];
+    this.descriptionContents.forEach((ref, index) => {
+      const element = ref.nativeElement;
+      const project = projects[index];
+
+      if (!project) {
+        return;
+      }
+
+      const scrollable = element.scrollHeight - element.clientHeight > 2;
+      const atEnd = !scrollable || element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
+
+      if (project.isScrollable !== scrollable || project.isAtEnd !== atEnd) {
+        project.isScrollable = scrollable;
+        project.isAtEnd = atEnd;
+      }
+    });
+
+    this.cdr.markForCheck();
   }
 }
