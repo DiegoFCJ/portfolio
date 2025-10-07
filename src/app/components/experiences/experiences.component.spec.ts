@@ -76,8 +76,15 @@ describe('ExperiencesComponent', () => {
     expect(component.experiences.title).toBe(expectedTimeline.title);
     expect(component.experiences.experiences.length)
       .toBe(expectedTimeline.experiences.length);
-    expect(component.experiences.experiences)
-      .toEqual(expectedTimeline.experiences);
+    component.experiences.experiences.forEach((experience, index) => {
+      const expected = expectedTimeline.experiences[index];
+
+      expect(experience.position).toBe(expected.position);
+      expect(experience.location).toBe(expected.location);
+      expect(experience.formattedPeriod).toBe(expected.formattedPeriod);
+      expect(experience.responsibilityItems)
+        .toEqual(expected.responsibilityItems);
+    });
   });
 
   // Verify the template renders the experiences correctly
@@ -88,13 +95,27 @@ describe('ExperiencesComponent', () => {
   });
 
   // Verify the rendering of a specific experience field
-  it('should display the start and end dates for each experience', () => {
+  it('should display the formatted period for each experience', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const experienceElements = compiled.querySelectorAll('.timeline-item');
     experienceElements.forEach((element, index) => {
       const experience = component.experiences.experiences[index];
       const badge = element.querySelector('.timeline-badge');
       expect(badge?.textContent?.trim()).toBe(experience.formattedPeriod);
+    });
+  });
+
+  // Verify the responsibility items are rendered as list elements
+  it('should render the responsibility list items', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const responsibilitiesLists = compiled.querySelectorAll('.timeline-responsibilities');
+
+    responsibilitiesLists.forEach((listElement, index) => {
+      const renderedItems = Array.from(listElement.querySelectorAll('li'))
+        .map(item => item.textContent?.trim());
+      const experience = component.experiences.experiences[index];
+
+      expect(renderedItems.filter(Boolean)).toEqual(experience.responsibilityItems);
     });
   });
 });
