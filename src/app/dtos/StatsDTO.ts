@@ -13,13 +13,17 @@ export interface StatsFull {
 
 export interface Stat {
     icon: string;
-    value: string;
     label: string;
+    valueSuffix?: string;
 }
 
-export interface StatsItem {
-    hours: string;
-    months: string;
-    projects: string;
-    mostUsed: string;
+export interface StatsMetrics {
+    hoursValue: string;
+    hoursSuffix: string;
+    monthsValue: string;
+    monthsSuffix: string;
+    projectsValue: string;
+    projectsSuffix: string;
+    mostUsedValue: string;
+    mostUsedSuffix?: string;
 }
