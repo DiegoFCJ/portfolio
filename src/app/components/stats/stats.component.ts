@@ -19,10 +19,10 @@ import { statsData } from '../../data/stats.data';
 })
 export class StatsComponent implements OnInit {
   stats: StatsItem = {
-    hours: "",
     months: "",
     projects: "",
-    mostUsed: ""
+    automations: "",
+    coreStack: ""
   };
   statsTitle: string = "";
   statistics: Stat[] = []
@@ -43,19 +43,9 @@ export class StatsComponent implements OnInit {
     const labels = statsData[language]?.stats;
 
     if (labels) {
-      this.statistics = labels.map((stat, index) => {
-        switch (index) {
-          case 0:
-            return { ...stat, value: this.stats.hours };
-          case 1:
-            return { ...stat, value: this.stats.months };
-          case 2:
-            return { ...stat, value: this.stats.projects };
-          case 3:
-            return { ...stat, value: this.stats.mostUsed };
-          default:
-            return stat;
-        }
+      this.statistics = labels.map((stat) => {
+        const metricValue = stat.metric ? this.stats[stat.metric] : undefined;
+        return metricValue ? { ...stat, value: metricValue } : stat;
       });
     } else {
       console.error(`Language ${language} not found in statsLabels.`);
@@ -63,10 +53,10 @@ export class StatsComponent implements OnInit {
   }
 
   calculateStats(experiences: any[], projectList: any[]): StatsItem {
-    let totalHours = 0;
     let totalMonths = 0;
     let totalProjects = projectList.length;
     let technologyCount: { [key: string]: number } = {};
+    let automationCount = 0;
 
     const experiencesWithTechnologies = experiences.filter(exp => exp.technologies?.trim().length);
     totalProjects += experiencesWithTechnologies.length;
@@ -75,15 +65,9 @@ export class StatsComponent implements OnInit {
       const months = this.calculateMonths(exp.startDate, exp.endDate);
       totalMonths += months;
 
-      const weeks = months * 4;
-      const hoursWorkedPerWeek = 40;
-      let hoursWorked = weeks * hoursWorkedPerWeek;
-
-      if (index === experiencesWithTechnologies.length - 1) {
-        hoursWorked += hoursWorkedPerWeek; // add one week of hours
-      }
-
-      totalHours += hoursWorked;
+      const responsibilities = exp.responsibilities ?? "";
+      const automationMatches = responsibilities.match(/automat(?:ed|es|ing|ion)?/gi);
+      automationCount += automationMatches ? automationMatches.length : 0;
 
       const technologies = exp.technologies.split(', ').map(this.normalizeTechnology);
       technologies.forEach((tech: any) => {
@@ -97,10 +81,10 @@ export class StatsComponent implements OnInit {
       .map(([tech]) => this.formatTechnology(tech));
 
     return {
-      hours: `${Math.round(totalHours)}+ engineering hours delivered`,
-      months: `${totalMonths}+ months across enterprise projects`,
-      projects: `${totalProjects} end-to-end initiatives led`,
-      mostUsed: sortedTechnologies.join(' · ')
+      months: `${totalMonths}+ months delivering value`,
+      projects: `${totalProjects} projects delivered`,
+      automations: `${automationCount}+ processes automated`,
+      coreStack: sortedTechnologies.join(' · ')
     };
   }
 

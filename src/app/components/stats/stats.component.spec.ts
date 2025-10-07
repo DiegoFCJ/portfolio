@@ -37,9 +37,9 @@ describe('StatsComponent', () => {
   it('should prepare statistics correctly', () => {
     component.ngOnInit();
     expect(component.statistics.length).toBe(4);
-    expect(component.statistics[0].label).toBe('Total Hours');
-    expect(component.statistics[1].label).toBe('Experience Months');
-    expect(component.statistics[2].label).toBe('Projects Delivered');
+    expect(component.statistics[0].label).toBe('Total Months');
+    expect(component.statistics[1].label).toBe('Projects Delivered');
+    expect(component.statistics[2].label).toBe('Processes Automated');
     expect(component.statistics[3].label).toBe('Core Stack');
   });
 
@@ -52,10 +52,10 @@ describe('StatsComponent', () => {
       projects.en.projects
     );
 
-    expect(stats.hours).toBe('7080+ engineering hours delivered');
-    expect(stats.months).toBe('44+ months across enterprise projects');
-    expect(stats.projects).toBe('8 end-to-end initiatives led');
-    expect(stats.mostUsed).toContain('·');
+    expect(stats.months).toBe('44+ months delivering value');
+    expect(stats.projects).toBe('8 projects delivered');
+    expect(stats.automations).toBe('3+ processes automated');
+    expect(stats.coreStack).toContain('·');
   });
 
   /**
@@ -93,18 +93,18 @@ describe('StatsComponent', () => {
    */
   it('should populate statistics array', () => {
     component.stats = {
-      hours: '4000 hours',
       months: '24 months',
       projects: '12 projects',
-      mostUsed: 'Java, Angular, SQL, Node.js'
+      automations: '5 automations',
+      coreStack: 'Java, Angular, SQL, Node.js'
     };
 
     component.prepareStatistics('en');
 
     expect(component.statistics.length).toBe(4);
-    expect(component.statistics[0].value).toBe('4000 hours');
-    expect(component.statistics[1].value).toBe('24 months');
-    expect(component.statistics[2].value).toBe('12 projects');
+    expect(component.statistics[0].value).toBe('24 months');
+    expect(component.statistics[1].value).toBe('12 projects');
+    expect(component.statistics[2].value).toBe('5 automations');
     expect(component.statistics[3].value).toBe('Java, Angular, SQL, Node.js');
   });
 });

@@ -11,15 +11,19 @@ export interface StatsFull {
     stats: Stat[];
 }
 
+export type StatsMetric = 'months' | 'projects' | 'automations' | 'coreStack';
+
 export interface Stat {
     icon: string;
     value: string;
     label: string;
+    metric: StatsMetric;
 }
 
 export interface StatsItem {
-    hours: string;
     months: string;
     projects: string;
-    mostUsed: string;
+    automations: string;
+    coreStack: string;
+    [key: string]: string;
 }
