@@ -5,12 +5,14 @@
 .home {
   position: relative;
   width: 100%;
+  min-height: 100vh;
   min-height: 100dvh;
 }
 
 .home__section {
   position: relative;
   width: 100%;
+  min-height: 100vh;
   min-height: 100dvh;
   display: flex;
   align-items: center;
@@ -69,6 +71,7 @@
 }
 
 .home__section--tall {
+  min-height: max(120vh, 960px);
   min-height: max(120dvh, 960px);
   padding-bottom: clamp(3rem, 8vh, 6rem);
 }
@@ -112,6 +115,7 @@
   }
 
   .home__section--tall {
+    min-height: max(120vh, 820px);
     min-height: max(120dvh, 820px);
   }
 
