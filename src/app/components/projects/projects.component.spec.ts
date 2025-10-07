@@ -68,6 +68,8 @@ describe('ProjectsComponent', () => {
 
     expect(description.classList.contains('expanded')).toBeFalse();
     expect(toggleButton.getAttribute('aria-expanded')).toBe('false');
+    expect(toggleButton.textContent?.trim()).toBe(component.projects.moreDesc);
+    expect(toggleButton.getAttribute('aria-controls')).toBe(description.getAttribute('id'));
 
     toggleButton.click();
     fixture.detectChanges();
@@ -75,6 +77,7 @@ describe('ProjectsComponent', () => {
     expect(firstProject.expanded).toBeTrue();
     expect(description.classList.contains('expanded')).toBeTrue();
     expect(toggleButton.getAttribute('aria-expanded')).toBe('true');
+    expect(toggleButton.textContent?.trim()).toBe(component.projects.lessDesc);
   });
 
   /**
