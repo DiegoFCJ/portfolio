@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, PLATFORM_ID, Inject, OnDestroy, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, HostListener, PLATFORM_ID, Inject, OnDestroy, AfterViewInit, ElementRef, QueryList, ViewChildren, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -41,10 +41,19 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   isLoading = true;
   shouldPeek = false;
   @ViewChildren('descriptionContent') private descriptionContents!: QueryList<ElementRef<HTMLDivElement>>;
+  @ViewChild('projectsSection')
+  set projectsSectionRef(ref: ElementRef<HTMLElement> | undefined) {
+    this.projectsSection = ref ?? null;
+    this.setupPeekObserver();
+  }
   private peekStartTimeoutId: ReturnType<typeof setTimeout> | null = null;
   private peekStopTimeoutId: ReturnType<typeof setTimeout> | null = null;
   private scrollComputationTimeoutId: ReturnType<typeof setTimeout> | null = null;
   private scrollComputationPending = false;
+  private projectsSection: ElementRef<HTMLElement> | null = null;
+  private peekObserver: IntersectionObserver | null = null;
+  private lastPeekTimestamp = 0;
+  private readonly peekAnimationDuration = 2000;
   private readonly isBrowser: boolean;
   private readonly destroy$ = new Subject<void>();
 
@@ -79,10 +88,8 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
           }))
         };
         this.isLoading = false;
-        if (this.isMobile && this.projects.projects.length > 1) {
-          this.triggerPeekAnimation();
-        }
         this.scheduleScrollComputation();
+        this.setupPeekObserver();
       });
   }
 
@@ -96,20 +103,18 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(() => this.scheduleScrollComputation());
 
     this.scheduleScrollComputation();
+    this.setupPeekObserver();
   }
 
   ngOnDestroy(): void {
-    if (this.peekStartTimeoutId) {
-      clearTimeout(this.peekStartTimeoutId);
-      this.peekStartTimeoutId = null;
-    }
-    if (this.peekStopTimeoutId) {
-      clearTimeout(this.peekStopTimeoutId);
-      this.peekStopTimeoutId = null;
-    }
+    this.clearPeekTimers();
     if (this.scrollComputationTimeoutId) {
       clearTimeout(this.scrollComputationTimeoutId);
       this.scrollComputationTimeoutId = null;
+    }
+    if (this.peekObserver) {
+      this.peekObserver.disconnect();
+      this.peekObserver = null;
     }
     this.destroy$.next();
     this.destroy$.complete();
@@ -118,12 +123,9 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostListener('window:resize')
   onResize(): void {
     if (this.isBrowser) {
-      const wasMobile = this.isMobile;
       this.checkIfMobile();
-      if (!wasMobile && this.isMobile && this.projects.projects.length > 1) {
-        this.triggerPeekAnimation();
-      }
       this.scheduleScrollComputation();
+      this.setupPeekObserver();
     }
   }
 
@@ -142,19 +144,13 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   handleCarouselInteraction(): void {
-    if (this.peekStartTimeoutId) {
-      clearTimeout(this.peekStartTimeoutId);
-      this.peekStartTimeoutId = null;
-    }
-
-    if (this.peekStopTimeoutId) {
-      clearTimeout(this.peekStopTimeoutId);
-      this.peekStopTimeoutId = null;
-    }
+    this.clearPeekTimers();
 
     if (this.shouldPeek) {
       this.shouldPeek = false;
     }
+
+    this.lastPeekTimestamp = Date.now();
   }
 
   getStatusLevelLabel(level: ProjectStatusLevel): string {
@@ -166,29 +162,73 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private triggerPeekAnimation(): void {
-    if (!this.isBrowser) {
+    if (!this.isBrowser || !this.isMobile || (this.projects.projects?.length ?? 0) <= 1) {
       return;
     }
 
-    if (this.peekStartTimeoutId) {
-      clearTimeout(this.peekStartTimeoutId);
-    }
-    if (this.peekStopTimeoutId) {
-      clearTimeout(this.peekStopTimeoutId);
+    const now = Date.now();
+    if (this.shouldPeek || now - this.lastPeekTimestamp < this.peekAnimationDuration) {
+      return;
     }
 
+    this.clearPeekTimers();
     this.shouldPeek = false;
 
     this.peekStartTimeoutId = setTimeout(() => {
       this.shouldPeek = true;
+      this.lastPeekTimestamp = Date.now();
 
       this.peekStopTimeoutId = setTimeout(() => {
         this.shouldPeek = false;
         this.peekStopTimeoutId = null;
-      }, 4200);
+      }, this.peekAnimationDuration);
 
       this.peekStartTimeoutId = null;
-    }, 250);
+    }, 120);
+  }
+
+  private clearPeekTimers(): void {
+    if (this.peekStartTimeoutId) {
+      clearTimeout(this.peekStartTimeoutId);
+      this.peekStartTimeoutId = null;
+    }
+
+    if (this.peekStopTimeoutId) {
+      clearTimeout(this.peekStopTimeoutId);
+      this.peekStopTimeoutId = null;
+    }
+  }
+
+  private setupPeekObserver(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    if (this.peekObserver) {
+      this.peekObserver.disconnect();
+      this.peekObserver = null;
+    }
+
+    const sectionRef = this.projectsSection;
+    const hasMultipleProjects = (this.projects.projects?.length ?? 0) > 1;
+
+    if (!sectionRef || !this.isMobile || !hasMultipleProjects) {
+      this.clearPeekTimers();
+      if (this.shouldPeek) {
+        this.shouldPeek = false;
+      }
+      return;
+    }
+
+    this.peekObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.triggerPeekAnimation();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    this.peekObserver.observe(sectionRef.nativeElement);
   }
 
   private scheduleScrollComputation(): void {

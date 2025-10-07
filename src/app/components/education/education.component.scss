@@ -51,7 +51,7 @@
 
 .timeline {
   --timeline-gap: clamp(1.75rem, 3vw, 2.75rem);
-  width: 100%;
+  width: min(80%, 1024px);
   display: grid;
   gap: var(--timeline-gap);
   margin: 0 auto;
@@ -157,7 +157,7 @@
 @media (max-width: 768px) {
   .timeline {
     --timeline-gap: clamp(1.5rem, 4vw, 2rem);
-    width: 100%;
+    width: 90%;
   }
 
   .education-content {
@@ -180,6 +180,10 @@
 
   .education-content {
     width: 100%;
+  }
+
+  .timeline {
+    width: 90%;
   }
 
   .timeline-item {

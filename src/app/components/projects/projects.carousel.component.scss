@@ -35,7 +35,7 @@
 }
 
 .carousel-container.is-peeking .carousel-wrapper {
-    animation: peek-next 4.2s ease-in-out 1;
+    animation: peek-next 2s ease-in-out 1;
 }
 
 @keyframes peek-next {
@@ -43,7 +43,7 @@
         transform: translateX(0);
     }
 
-    20% {
+    30% {
         transform: translateX(0);
     }
 
