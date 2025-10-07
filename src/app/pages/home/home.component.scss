@@ -1,7 +1,7 @@
 .home__section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,8 +10,8 @@
 
 .home__section-content {
   position: relative;
-  width: min(80vw, 1200px);
-  min-height: 80vh;
+  width: 80vw;
+  min-height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -53,8 +53,8 @@
   }
 
   .home__section-content {
-    width: min(90vw, 640px);
-    min-height: 85vh;
+    width: 90vw;
+    min-height: 100%;
     gap: clamp(0.75rem, 3vh, 1.5rem);
   }
 
