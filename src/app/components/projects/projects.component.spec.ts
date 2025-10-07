@@ -82,43 +82,29 @@ describe('ProjectsComponent', () => {
    */
   it('should update isMobile flag on window resize', () => {
     globalThis.innerWidth = 500;
-    component.onResize(new Event('resize'));
+    component.onResize();
     expect(component.isMobile).toBeTrue();
 
     globalThis.innerWidth = 1000;
-    component.onResize(new Event('resize'));
+    component.onResize();
     expect(component.isMobile).toBeFalse();
   });
 
   /**
-   * Verifies that moveToNext correctly navigates to the next project.
+   * Ensures user interactions stop the automatic peek animation.
    */
-  it('should move to next project', async () => {
-    await fixture.whenStable();
-    fixture.detectChanges();
+  it('should stop peek animation on interaction', () => {
+    // Arrange timers so that the component has pending animation steps.
+    component['peekStartTimeoutId'] = setTimeout(() => fail('start timeout should be cleared'), 1000);
+    component['peekStopTimeoutId'] = setTimeout(() => fail('stop timeout should be cleared'), 1000);
+    component.shouldPeek = true;
 
-    component.currentIndex = 0;
-    component.moveToNext();
-    expect(component.currentIndex).toBe(1);
+    // Act - simulate user interaction with the carousel viewport.
+    component.handleCarouselInteraction();
 
-    component.currentIndex = component.projects.projects.length - 1;
-    component.moveToNext();
-    expect(component.currentIndex).toBe(0);
-  });
-
-  /**
-   * Verifies that moveToPrevious correctly navigates to the previous project.
-   */
-  it('should move to previous project', async () => {
-    await fixture.whenStable();
-    fixture.detectChanges();
-
-    component.currentIndex = 1;
-    component.moveToPrevious();
-    expect(component.currentIndex).toBe(0);
-
-    component.currentIndex = 0;
-    component.moveToPrevious();
-    expect(component.currentIndex).toBe(component.projects.projects.length - 1);
+    // Assert - timers are cleared and peek animation is disabled.
+    expect(component['peekStartTimeoutId']).toBeNull();
+    expect(component['peekStopTimeoutId']).toBeNull();
+    expect(component.shouldPeek).toBeFalse();
   });
 });

@@ -38,8 +38,10 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   };
 
   isMobile = false;
-  currentIndex = 0;
   isLoading = true;
+  shouldPeek = false;
+  private peekStartTimeoutId: ReturnType<typeof setTimeout> | null = null;
+  private peekStopTimeoutId: ReturnType<typeof setTimeout> | null = null;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -69,18 +71,33 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           }))
         };
         this.isLoading = false;
+        if (this.isMobile && this.projects.projects.length > 1) {
+          this.triggerPeekAnimation();
+        }
       });
   }
 
   ngOnDestroy(): void {
+    if (this.peekStartTimeoutId) {
+      clearTimeout(this.peekStartTimeoutId);
+      this.peekStartTimeoutId = null;
+    }
+    if (this.peekStopTimeoutId) {
+      clearTimeout(this.peekStopTimeoutId);
+      this.peekStopTimeoutId = null;
+    }
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  @HostListener('window:resize')
+  onResize(): void {
     if (isPlatformBrowser(this.platformId)) {
+      const wasMobile = this.isMobile;
       this.checkIfMobile();
+      if (!wasMobile && this.isMobile && this.projects.projects.length > 1) {
+        this.triggerPeekAnimation();
+      }
     }
   }
 
@@ -92,6 +109,22 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     project.expanded = !project.expanded;
   }
 
+  handleCarouselInteraction(): void {
+    if (this.peekStartTimeoutId) {
+      clearTimeout(this.peekStartTimeoutId);
+      this.peekStartTimeoutId = null;
+    }
+
+    if (this.peekStopTimeoutId) {
+      clearTimeout(this.peekStopTimeoutId);
+      this.peekStopTimeoutId = null;
+    }
+
+    if (this.shouldPeek) {
+      this.shouldPeek = false;
+    }
+  }
+
   getStatusLevelLabel(level: ProjectStatusLevel): string {
     return this.projects.statusLegend.levels[level] ?? level;
   }
@@ -100,11 +133,29 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     return this.projects.statusLegend.tags[tag] ?? tag;
   }
 
-  moveToNext(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.projects.projects.length;
-  }
+  private triggerPeekAnimation(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
 
-  moveToPrevious(): void {
-    this.currentIndex = (this.currentIndex - 1 + this.projects.projects.length) % this.projects.projects.length;
+    if (this.peekStartTimeoutId) {
+      clearTimeout(this.peekStartTimeoutId);
+    }
+    if (this.peekStopTimeoutId) {
+      clearTimeout(this.peekStopTimeoutId);
+    }
+
+    this.shouldPeek = false;
+
+    this.peekStartTimeoutId = setTimeout(() => {
+      this.shouldPeek = true;
+
+      this.peekStopTimeoutId = setTimeout(() => {
+        this.shouldPeek = false;
+        this.peekStopTimeoutId = null;
+      }, 4200);
+
+      this.peekStartTimeoutId = null;
+    }, 250);
   }
 }

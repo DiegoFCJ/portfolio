@@ -2,23 +2,17 @@
     <h2 class="projects-title">{{ projects.title }}</h2>
 
     <!-- Carosello per mobile -->
-    <div class="carousel-container" *ngIf="isMobile">
-        <button class="arrow arrow-left" type="button" (click)="moveToPrevious()"
-            [attr.aria-label]="projects.navigation.previous">
-            &#10094;
-        </button>
-
-        <div class="carousel-wrapper">
-            <div class="carousel-item" *ngFor="let project of projects.projects; let i = index"
-                [class.active]="i === currentIndex">
-                <ng-container *ngTemplateOutlet="projectCard; context: { $implicit: project, index: i }"></ng-container>
+    <div class="carousel-container" *ngIf="isMobile" [class.is-peeking]="shouldPeek">
+        <div class="carousel-viewport" role="listbox" tabindex="0" [attr.aria-label]="projects.title"
+            (scroll)="handleCarouselInteraction()" (touchstart)="handleCarouselInteraction()"
+            (mousedown)="handleCarouselInteraction()">
+            <div class="carousel-wrapper">
+                <div class="carousel-item" *ngFor="let project of projects.projects; let i = index" role="option"
+                    [attr.aria-label]="project.title">
+                    <ng-container *ngTemplateOutlet="projectCard; context: { $implicit: project, index: i }"></ng-container>
+                </div>
             </div>
         </div>
-
-        <button class="arrow arrow-right" type="button" (click)="moveToNext()"
-            [attr.aria-label]="projects.navigation.next">
-            &#10095;
-        </button>
     </div>
 
     <!-- Griglia per desktop -->
