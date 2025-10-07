@@ -116,10 +116,12 @@
   }
 
   .home__floating-controls {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-end;
     bottom: 18px;
     right: 18px;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
     gap: 10px;
   }
 }
