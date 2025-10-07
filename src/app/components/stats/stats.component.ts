@@ -39,6 +39,7 @@ export class StatsComponent implements OnInit, OnDestroy {
   isLoading = true;
 
   private readonly destroy$ = new Subject<void>();
+  private metricsCache: StatsMetrics | null = null;
 
   constructor(private translationService: TranslationService) { }
 
@@ -55,11 +56,13 @@ export class StatsComponent implements OnInit, OnDestroy {
           const statsTemplateSource = this.resolveLocalizedContent(statsData);
           const baseTemplate = statsTemplateSource.content;
 
-          const computed = this.calculateStats(
-            experiencesSource.content.experiences,
-            projectsSource.content.projects,
-            statsTemplateSource.language,
-            baseTemplate
+          const computed = this.metricsCache ?? (
+            this.metricsCache = this.calculateStats(
+              experiencesSource.content.experiences,
+              projectsSource.content.projects,
+              statsTemplateSource.language,
+              baseTemplate
+            )
           );
 
           const translatableTemplate = this.buildTranslatableTemplate(baseTemplate);
