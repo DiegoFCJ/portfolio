@@ -97,3 +97,8 @@ mat-error {
         bottom: 60px !important;
     }
 }
+
+// Ensure Material tooltips appear above every other UI element, including the assistant overlay
+.mat-mdc-tooltip-panel {
+    z-index: 2147483647 !important;
+}
