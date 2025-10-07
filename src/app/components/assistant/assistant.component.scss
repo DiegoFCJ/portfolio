@@ -1,8 +1,8 @@
 :host {
   --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
   --assistant-spacing: clamp(12px, 2vw, 18px);
-  --assistant-popup-width: clamp(360px, 72vw, 540px);
-  display: inline-flex;
+  --assistant-popup-width: clamp(420px, 68vw, 640px);
+  display: block;
   position: relative;
   max-width: 100%;
 }
@@ -14,6 +14,7 @@
   align-items: flex-end;
   pointer-events: none;
   min-height: var(--assistant-avatar-size);
+  min-width: min(var(--assistant-popup-width), calc(100vw - 32px));
 }
 
 .assistant__anchor {
@@ -91,8 +92,7 @@
   position: absolute;
   right: calc(var(--assistant-avatar-size) + var(--assistant-spacing));
   bottom: calc(100% + var(--assistant-spacing));
-  width: var(--assistant-popup-width);
-  max-width: 100%;
+  width: min(var(--assistant-popup-width), calc(100vw - 48px));
   background: rgba(22, 29, 49, 0.92);
   color: #f8fafc;
   border-radius: 20px;
@@ -292,10 +292,15 @@
 @media (max-width: 768px) {
   :host {
     --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
-    --assistant-popup-width: min(92vw, 340px);
+    --assistant-popup-width: min(94vw, 420px);
+  }
+
+  .assistant {
+    min-width: min(var(--assistant-popup-width), calc(100vw - 24px));
   }
 
   .assistant__popup {
     padding: 1rem 1rem 1.25rem;
+    width: min(var(--assistant-popup-width), calc(100vw - 32px));
   }
 }
