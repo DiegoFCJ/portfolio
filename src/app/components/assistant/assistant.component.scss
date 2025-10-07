@@ -2,7 +2,7 @@
   --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
   --assistant-spacing: clamp(12px, 2vw, 18px);
   --assistant-popup-width: clamp(360px, 72vw, 540px);
-  display: block;
+  display: inline-flex;
   position: relative;
   max-width: 100%;
 }
