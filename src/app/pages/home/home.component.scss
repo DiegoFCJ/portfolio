@@ -121,7 +121,13 @@
     bottom: 18px;
     right: 18px;
     justify-content: flex-end;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 10px;
+  }
+
+  .home__floating-controls.home__floating-controls--assistant-open {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
   }
 }
