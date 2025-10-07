@@ -1,47 +1,52 @@
 :host {
-  --experience-accent: #14b8a6;
-  --experience-accent-soft: rgba(20, 184, 166, 0.18);
-  --experience-card-bg: rgba(15, 23, 42, 0.05);
-  --experience-card-highlight: rgba(255, 255, 255, 0.65);
-  --experience-card-border: rgba(20, 184, 166, 0.3);
-  --experience-card-shadow: 0 22px 55px rgba(15, 23, 42, 0.14);
-  --experience-text-muted: rgba(15, 23, 42, 0.68);
-  --experience-heading-color: #0f172a;
-  --experience-summary-color: rgba(15, 23, 42, 0.85);
-  --experience-section-bg: linear-gradient(160deg, rgba(20, 184, 166, 0.12), rgba(20, 184, 166, 0));
-  --experience-badge-bg: rgba(20, 184, 166, 0.16);
+  --timeline-accent: #14b8a6;
+  --timeline-accent-soft: rgba(20, 184, 166, 0.18);
+  --timeline-accent-transparent: rgba(20, 184, 166, 0);
+  --timeline-card-bg: rgba(15, 23, 42, 0.05);
+  --timeline-card-highlight: rgba(20, 184, 166, 0.1);
+  --timeline-card-border: rgba(20, 184, 166, 0.28);
+  --timeline-badge-bg: rgba(20, 184, 166, 0.15);
+  --timeline-text-muted: rgba(15, 23, 42, 0.68);
+  --timeline-heading-color: #0f172a;
+  --timeline-description-color: rgba(15, 23, 42, 0.85);
+  --timeline-section-bg: linear-gradient(160deg, rgba(20, 184, 166, 0.12), rgba(20, 184, 166, 0));
+  --timeline-card-padding: clamp(1.25rem, 3vw, 2rem);
+  --timeline-heading-offset: clamp(0.5rem, 1.2vw, 0.65rem);
+  --timeline-dot-size: 18px;
 }
 
 :host-context(body.dark-mode) {
-  --experience-accent: #2dd4bf;
-  --experience-accent-soft: rgba(45, 212, 191, 0.24);
-  --experience-card-bg: rgba(30, 31, 38, 0.75);
-  --experience-card-highlight: rgba(13, 148, 136, 0.12);
-  --experience-card-border: rgba(45, 212, 191, 0.38);
-  --experience-card-shadow: 0 24px 55px rgba(15, 23, 42, 0.35);
-  --experience-text-muted: rgba(226, 232, 240, 0.7);
-  --experience-heading-color: #e2e8f0;
-  --experience-summary-color: rgba(226, 232, 240, 0.86);
-  --experience-section-bg: linear-gradient(160deg, rgba(45, 212, 191, 0.18), rgba(13, 148, 136, 0.08));
-  --experience-badge-bg: rgba(13, 148, 136, 0.25);
+  --timeline-accent: #2dd4bf;
+  --timeline-accent-soft: rgba(45, 212, 191, 0.24);
+  --timeline-accent-transparent: rgba(45, 212, 191, 0);
+  --timeline-card-bg: rgba(30, 31, 38, 0.7);
+  --timeline-card-highlight: rgba(45, 212, 191, 0.12);
+  --timeline-card-border: rgba(45, 212, 191, 0.38);
+  --timeline-badge-bg: rgba(45, 212, 191, 0.25);
+  --timeline-text-muted: rgba(226, 232, 240, 0.7);
+  --timeline-heading-color: #e2e8f0;
+  --timeline-description-color: rgba(226, 232, 240, 0.86);
+  --timeline-section-bg: linear-gradient(160deg, rgba(45, 212, 191, 0.18), rgba(13, 148, 136, 0.08));
 }
 
 :host-context(body.blue-mode) {
-  --experience-accent: #2563eb;
-  --experience-accent-soft: rgba(37, 99, 235, 0.22);
-  --experience-card-highlight: rgba(37, 99, 235, 0.14);
-  --experience-card-border: rgba(37, 99, 235, 0.32);
-  --experience-section-bg: linear-gradient(160deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0));
-  --experience-badge-bg: rgba(37, 99, 235, 0.18);
+  --timeline-accent: #2563eb;
+  --timeline-accent-soft: rgba(37, 99, 235, 0.22);
+  --timeline-accent-transparent: rgba(37, 99, 235, 0);
+  --timeline-card-highlight: rgba(37, 99, 235, 0.12);
+  --timeline-card-border: rgba(37, 99, 235, 0.32);
+  --timeline-badge-bg: rgba(37, 99, 235, 0.18);
+  --timeline-section-bg: linear-gradient(160deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0));
 }
 
 :host-context(body.green-mode) {
-  --experience-accent: #0f9d58;
-  --experience-accent-soft: rgba(15, 157, 88, 0.2);
-  --experience-card-highlight: rgba(15, 157, 88, 0.14);
-  --experience-card-border: rgba(15, 157, 88, 0.32);
-  --experience-section-bg: linear-gradient(160deg, rgba(15, 157, 88, 0.16), rgba(15, 157, 88, 0));
-  --experience-badge-bg: rgba(15, 157, 88, 0.2);
+  --timeline-accent: #0f9d58;
+  --timeline-accent-soft: rgba(15, 157, 88, 0.2);
+  --timeline-accent-transparent: rgba(15, 157, 88, 0);
+  --timeline-card-highlight: rgba(15, 157, 88, 0.14);
+  --timeline-card-border: rgba(15, 157, 88, 0.32);
+  --timeline-badge-bg: rgba(15, 157, 88, 0.2);
+  --timeline-section-bg: linear-gradient(160deg, rgba(15, 157, 88, 0.16), rgba(15, 157, 88, 0));
 }
 
 .experiences-section {
@@ -50,12 +55,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(95vw, 100%);
-  background: var(--experience-section-bg);
+  background: var(--timeline-section-bg);
+  width: 100%;
+}
+
+.experiences-content {
+  width: min(80vw, 1200px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .experiences-title {
-  font-size: clamp(1.8rem, 3vw, 2.35rem);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 700;
   margin-bottom: clamp(2rem, 4vw, 3rem);
   text-align: center;
@@ -64,7 +77,6 @@
 .timeline {
   --timeline-gap: clamp(1.75rem, 3vw, 2.75rem);
   width: 100%;
-  max-width: 1024px;
   display: grid;
   gap: var(--timeline-gap);
   margin: 0 auto;
@@ -72,7 +84,7 @@
 
 .timeline-item {
   display: grid;
-  grid-template-columns: 3.25rem 1fr;
+  grid-template-columns: 3.5rem 1fr;
   column-gap: clamp(1.25rem, 2.5vw, 2rem);
   align-items: start;
 }
@@ -83,94 +95,86 @@
   justify-content: center;
   align-items: flex-start;
   align-self: stretch;
-  padding-top: clamp(0.15rem, 0.35vw, 0.35rem);
+  padding-top: calc(
+    var(--timeline-card-padding) + var(--timeline-heading-offset) - var(--timeline-dot-size) / 2
+  );
 }
 
 .timeline-marker::before {
   content: "";
   position: absolute;
-  top: 0.35rem;
+  top: 0;
   left: calc(50% - 1.5px);
   width: 3px;
-  bottom: calc(var(--timeline-gap) * -1.05);
-  background: linear-gradient(180deg, var(--experience-accent), rgba(15, 23, 42, 0));
+  bottom: calc(var(--timeline-gap) * -1.1);
+  background: linear-gradient(180deg, var(--timeline-accent), var(--timeline-accent-transparent));
   border-radius: 999px;
 }
 
 .timeline-marker.is-last::before {
-  bottom: clamp(-1.25rem, -2.5vw, -0.65rem);
+  bottom: clamp(-1.5rem, -2.5vw, -1rem);
   opacity: 0.7;
 }
 
 .timeline-dot {
-  margin-top: clamp(0.25rem, 0.8vw, 0.45rem);
-  width: 18px;
-  height: 18px;
+  margin-top: 0;
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
   border-radius: 50%;
-  background: var(--experience-accent);
-  box-shadow: 0 0 0 6px var(--experience-accent-soft), 0 12px 32px rgba(15, 23, 42, 0.18);
+  background: var(--timeline-accent);
+  box-shadow: 0 0 0 6px var(--timeline-accent-soft), 0 12px 32px rgba(15, 23, 42, 0.18);
 }
 
 .timeline-card {
-  position: relative;
-  background: linear-gradient(135deg, var(--experience-card-bg), var(--experience-card-highlight));
-  border: 1px solid var(--experience-card-border);
-  border-radius: 20px;
-  padding: clamp(1.35rem, 3vw, 2.15rem);
-  box-shadow: var(--experience-card-shadow);
+  background: linear-gradient(135deg, var(--timeline-card-bg), var(--timeline-card-highlight));
+  border: 1px solid var(--timeline-card-border);
+  border-radius: 18px;
+  padding: var(--timeline-card-padding);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
   backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.75rem;
   text-align: left;
 }
 
-.timeline-card::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 5px;
-  border-radius: 20px 0 0 20px;
-  background: linear-gradient(180deg, var(--experience-accent), rgba(15, 23, 42, 0));
-}
-
 .timeline-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 0.75rem;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .timeline-heading {
   margin: 0;
   font-size: clamp(1.1rem, 2.4vw, 1.45rem);
   font-weight: 600;
-  color: var(--experience-heading-color);
+  color: var(--timeline-heading-color);
+  line-height: 1.3;
 }
 
 .timeline-badge {
-  justify-self: end;
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
-  background: var(--experience-badge-bg);
-  color: var(--experience-accent);
+  background: var(--timeline-badge-bg);
+  color: var(--timeline-accent);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  white-space: nowrap;
 }
 
 .timeline-company {
   margin: 0;
   font-weight: 600;
-  color: var(--experience-heading-color);
+  color: var(--timeline-heading-color);
 }
 
 .timeline-location,
 .timeline-technologies {
   margin: 0;
   font-weight: 500;
-  color: var(--experience-text-muted);
+  color: var(--timeline-text-muted);
 }
 
 .timeline-technologies {
@@ -179,8 +183,8 @@
 
 .timeline-summary {
   margin: 0;
-  line-height: 1.65;
-  color: var(--experience-summary-color);
+  line-height: 1.6;
+  color: var(--timeline-description-color);
 }
 
 .timeline-responsibilities {
@@ -188,7 +192,7 @@
   padding-left: 1.25rem;
   display: grid;
   gap: 0.55rem;
-  color: var(--experience-summary-color);
+  color: var(--timeline-description-color);
 }
 
 .timeline-responsibilities li {
@@ -196,16 +200,12 @@
 }
 
 @media (max-width: 992px) {
+  .experiences-content {
+    width: 100%;
+  }
+
   .timeline-item {
     grid-template-columns: 2.85rem 1fr;
-  }
-
-  .timeline-header {
-    grid-template-columns: 1fr;
-  }
-
-  .timeline-badge {
-    justify-self: flex-start;
   }
 }
 
@@ -216,40 +216,38 @@
   }
 
   .timeline-item {
-    grid-template-columns: 2.5rem 1fr;
+    grid-template-columns: 2.75rem 1fr;
+  }
+
+  .timeline-badge {
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 600px) {
   .experiences-section {
     padding: clamp(2rem, 6vw, 3.5rem) clamp(1rem, 4vw, 2rem);
-    width: 100%;
-  }
-
-  .timeline {
-    --timeline-gap: clamp(1.35rem, 4vw, 1.85rem);
   }
 
   .timeline-item {
     position: relative;
     grid-template-columns: 1fr;
-    row-gap: 1.1rem;
+    row-gap: 1rem;
     padding-left: 2.5rem;
   }
 
   .timeline-marker {
     position: absolute;
-    inset: 1rem auto auto 0;
+    inset: calc(
+        var(--timeline-card-padding) + var(--timeline-heading-offset) - var(--timeline-dot-size) / 2
+      )
+      auto auto 0;
     width: 2.5rem;
     padding-top: 0;
   }
 
   .timeline-marker::before {
     left: calc(1.25rem - 1.5px);
-    top: 0.4rem;
-  }
-
-  .timeline-dot {
-    margin-top: 0.15rem;
+    top: 0;
   }
 }
