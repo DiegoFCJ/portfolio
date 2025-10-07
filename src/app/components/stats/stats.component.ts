@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { forkJoin, Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
 import { TranslationService } from '../../services/translation.service';
 import { Stat, StatsItem } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
+import { LanguageCode } from '../../models/language-code.type';
 
 @Component({
   selector: 'app-stats',
@@ -17,49 +20,66 @@ import { statsData } from '../../data/stats.data';
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss']
 })
-export class StatsComponent implements OnInit {
+export class StatsComponent implements OnInit, OnDestroy {
   stats: StatsItem = {
-    hours: "",
-    months: "",
-    projects: "",
-    mostUsed: ""
+    hours: '',
+    months: '',
+    projects: '',
+    mostUsed: ''
   };
-  statsTitle: string = "";
-  statistics: Stat[] = []
+  statsTitle: string = '';
+  statistics: Stat[] = [];
+  isLoading = true;
+
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private translationService: TranslationService) { }
 
   ngOnInit(): void {
-    this.translationService.currentLanguage$.subscribe(language => {
-      const experiences = experiencesData.en.experiences;
-      const projectList = projects.en.projects;
-      this.statsTitle = statsData[language].title;
-      this.stats = this.calculateStats(experiences, projectList);
-      this.prepareStatistics(language);
-    });
+    this.translationService.currentLanguage$
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => {
+          this.isLoading = true;
+        }),
+        switchMap(language => {
+          const experiencesSource = this.resolveLocalizedContent(experiencesData);
+          const projectsSource = this.resolveLocalizedContent(projects);
+          const statsTemplateSource = this.resolveLocalizedContent(statsData);
+
+          const computed = this.calculateStats(
+            experiencesSource.content.experiences,
+            projectsSource.content.projects
+          );
+
+          return forkJoin({
+            template: this.translationService.translateContent(
+              statsTemplateSource.content,
+              statsTemplateSource.language,
+              language
+            ),
+            computed: this.translationService.translateContent(
+              computed,
+              'it',
+              language
+            )
+          });
+        })
+      )
+      .subscribe(({ template, computed }) => {
+        this.statsTitle = template.title;
+        this.stats = computed;
+        this.statistics = template.stats.map((stat, index) => ({
+          ...stat,
+          value: this.getStatValueByIndex(computed, index)
+        }));
+        this.isLoading = false;
+      });
   }
 
-  prepareStatistics(language: string): void {
-    const labels = statsData[language]?.stats;
-
-    if (labels) {
-      this.statistics = labels.map((stat, index) => {
-        switch (index) {
-          case 0:
-            return { ...stat, value: this.stats.hours };
-          case 1:
-            return { ...stat, value: this.stats.months };
-          case 2:
-            return { ...stat, value: this.stats.projects };
-          case 3:
-            return { ...stat, value: this.stats.mostUsed };
-          default:
-            return stat;
-        }
-      });
-    } else {
-      console.error(`Language ${language} not found in statsLabels.`);
-    }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   calculateStats(experiences: any[], projectList: any[]): StatsItem {
@@ -97,9 +117,9 @@ export class StatsComponent implements OnInit {
       .map(([tech]) => this.formatTechnology(tech));
 
     return {
-      hours: `${Math.round(totalHours)}+ engineering hours delivered`,
-      months: `${totalMonths}+ months across enterprise projects`,
-      projects: `${totalProjects} end-to-end initiatives led`,
+      hours: `${Math.round(totalHours)}+ ore di ingegneria erogate`,
+      months: `${totalMonths}+ mesi su progetti enterprise`,
+      projects: `${totalProjects} iniziative end-to-end guidate`,
       mostUsed: sortedTechnologies.join(' · ')
     };
   }
@@ -136,8 +156,96 @@ export class StatsComponent implements OnInit {
    * @returns Number of months.
    */
   calculateMonths(start: string, end: string): number {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
+    const startDate = this.parseDate(start);
+    const endDate = this.parseDate(end);
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      return 0;
+    }
+
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
+  }
+
+  private parseDate(value: string): Date {
+    const monthMap: Record<string, number> = {
+      gen: 0,
+      feb: 1,
+      mar: 2,
+      apr: 3,
+      mag: 4,
+      giu: 5,
+      lug: 6,
+      ago: 7,
+      set: 8,
+      ott: 9,
+      nov: 10,
+      dic: 11,
+      jan: 0,
+      jun: 5,
+      jul: 6,
+      aug: 7,
+      sep: 8,
+      oct: 9,
+      dec: 11
+    };
+
+    const trimmed = value.trim();
+    const monthYearMatch = trimmed.match(/^([A-Za-zÀ-ÿ]+)\s+(\d{4})$/);
+    if (monthYearMatch) {
+      const monthKey = monthYearMatch[1].slice(0, 3).toLowerCase();
+      const year = Number(monthYearMatch[2]);
+      const monthIndex = monthMap[monthKey];
+
+      if (!Number.isNaN(year) && monthIndex !== undefined) {
+        return new Date(year, monthIndex, 1);
+      }
+    }
+
+    const direct = new Date(value);
+    if (!isNaN(direct.getTime())) {
+      return direct;
+    }
+
+    return direct;
+  }
+
+  private getStatValueByIndex(stats: StatsItem, index: number): string {
+    switch (index) {
+      case 0:
+        return stats.hours;
+      case 1:
+        return stats.months;
+      case 2:
+        return stats.projects;
+      case 3:
+        return stats.mostUsed;
+      default:
+        return '';
+    }
+  }
+
+  private resolveLocalizedContent<T extends { [key: string]: any }>(
+    data: Partial<Record<LanguageCode, T>>
+  ): { content: T; language: LanguageCode } {
+    const preferred: LanguageCode = 'it';
+    const preferredContent = data[preferred];
+    if (preferredContent) {
+      return { content: preferredContent, language: preferred };
+    }
+
+    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
+    for (const fallback of fallbackOrder) {
+      const content = data[fallback];
+      if (content) {
+        return { content, language: fallback };
+      }
+    }
+
+    const firstEntry = Object.entries(data)[0];
+    if (firstEntry) {
+      return { content: firstEntry[1] as T, language: firstEntry[0] as LanguageCode };
+    }
+
+    throw new Error('No data available for statistics');
   }
 }

@@ -1,9 +1,9 @@
 export interface ExperienceFullLangs {
     en: ExperienceFull;
     it: ExperienceFull;
-    de: ExperienceFull;
-    es: ExperienceFull;
-    [key: string]: ExperienceFull;
+    de?: ExperienceFull;
+    es?: ExperienceFull;
+    [key: string]: ExperienceFull | undefined;
 }
 
 export interface ExperienceFull {

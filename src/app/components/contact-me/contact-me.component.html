@@ -1,41 +1,63 @@
-<section class="contact-me-section">
+<section class="contact-me-section" *ngIf="!isLoading">
   <h2 class="contact-me-title">{{ contactMe.title }}</h2>
 
-  <div class="popup-relativeness">
-    <app-social></app-social>
-    <app-custom-popup [message]="popupMessage" [width]="'40vw'" [top]="'-15px'"></app-custom-popup>
+  <div class="timeline" role="list">
+    <article class="timeline-item" role="listitem">
+      <div class="timeline-card">
+        <header class="card-header">
+          <div class="card-support">
+            <div class="popup-relativeness">
+              <app-social></app-social>
+              <app-custom-popup [message]="popupMessage" [width]="'40vw'" [top]="'-15px'"></app-custom-popup>
+            </div>
+          </div>
+        </header>
+
+        <div *ngIf="statusMessage" class="status-banner" [ngClass]="statusClass" role="status"
+          [attr.aria-live]="currentStatus === ContactFormStatus.Success ? 'polite' : 'assertive'">
+          {{ statusMessage }}
+        </div>
+
+        <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="contact-form" novalidate>
+          <mat-form-field appearance="outline" class="form-field"
+            [color]="getFieldColor(contactForm, 'name')"
+            [ngClass]="{ 'has-error': shouldShowError(contactForm, 'name') }">
+            <mat-label>{{ contactMe.name }}</mat-label>
+            <input matInput type="text" id="name" name="name" ngModel required>
+            <mat-error *ngIf="shouldShowError(contactForm, 'name')">
+              {{ contactMe.nameReq }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field"
+            [color]="getFieldColor(contactForm, 'email')"
+            [ngClass]="{ 'has-error': shouldShowError(contactForm, 'email') }">
+            <mat-label>{{ contactMe.email }}</mat-label>
+            <input matInput type="email" id="email" name="email" ngModel required email>
+            <mat-error *ngIf="shouldShowError(contactForm, 'email')">
+              {{ contactMe.emailReq }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field"
+            [color]="getFieldColor(contactForm, 'message')"
+            [ngClass]="{ 'has-error': shouldShowError(contactForm, 'message') }">
+            <mat-label>{{ contactMe.message }}</mat-label>
+            <textarea matInput id="message" name="message" ngModel required cdkTextareaAutosize cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="10"></textarea>
+            <mat-error *ngIf="shouldShowError(contactForm, 'message')">
+              {{ contactMe.messageReq }}
+            </mat-error>
+          </mat-form-field>
+
+          <div class="submit-btn">
+            <button mat-raised-button type="submit" [disabled]="!contactForm.valid"
+              [ngClass]="{ 'enabled': contactForm.valid, 'disabled': !contactForm.valid }">
+              {{ contactMe.sendBtn }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </article>
   </div>
-
-  <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm.value)" class="contact-form">
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ contactMe.name }}</mat-label>
-      <input matInput type="text" id="name" name="name" ngModel required>
-      <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['name']?.valid">
-        {{ contactMe.nameReq }}
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ contactMe.email }}</mat-label>
-      <input matInput type="email" id="email" name="email" ngModel required email>
-      <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['email']?.valid">
-        {{ contactMe.emailReq }}
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ contactMe.message }}</mat-label>
-      <textarea matInput id="message" name="message" ngModel required></textarea>
-      <mat-error *ngIf="contactForm.submitted && !contactForm.form.controls['message']?.valid">
-        {{ contactMe.messageReq }}
-      </mat-error>
-    </mat-form-field>
-
-    <div class="submit-btn">
-      <button mat-raised-button type="submit" [disabled]="!contactForm.form.valid"
-        [ngClass]="{ 'enabled': contactForm.form.valid, 'disabled': !contactForm.form.valid }">
-        {{ contactMe.sendBtn }}
-      </button>
-    </div>
-  </form>
 </section>

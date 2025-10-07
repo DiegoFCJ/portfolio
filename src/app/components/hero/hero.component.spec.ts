@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeroComponent } from './hero.component';
 import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { SocialComponent } from '../social/social.component';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 describe('HeroComponent', () => {
   let component: HeroComponent;
@@ -9,7 +11,10 @@ describe('HeroComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroComponent, CustomPopupComponent, SocialComponent]
+      imports: [HeroComponent, CustomPopupComponent, SocialComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroComponent);

@@ -1,36 +1,121 @@
-<section>
-  <h2>{{skillFullTitle}}</h2>
+<section class="skills-section" *ngIf="!isLoading">
+  <h2 class="skills-title">{{ skillFullTitle }}</h2>
 
-  <!-- Carousell-->
-  <div *ngIf="isMobile; else desktopLayout" class="carousel-container">
-    <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
-    <div class="carousel-wrapper">
-      <div *ngFor="let section of sections; let i = index" class="carousel-item" [class.active]="i === currentIndex">
-        <div class="skill-section">
-          <h3>{{ section.title }}</h3>
-          <div class="skills">
-            <div *ngFor="let skill of section.skills" class="skill-item">
-              <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
-                [ngClass]="{'clicked': skill.clicked}" />
+  <ng-container *ngIf="isMobile; else desktopLayout">
+    <nav
+      class="stack-tabs is-mobile"
+      role="tablist"
+      aria-orientation="horizontal"
+      aria-label="Skill stack selector"
+    >
+      <button
+        *ngFor="let tab of tabs"
+        type="button"
+        class="stack-tab"
+        role="tab"
+        [id]="'tab-' + tab.id"
+        [attr.aria-controls]="'panel-' + tab.id"
+        [attr.aria-selected]="tab.id === activeTabId"
+        [class.active]="tab.id === activeTabId"
+        (click)="setActiveTab(tab.id)"
+      >
+        <span class="tab-label">{{ tab.label }}</span>
+      </button>
+    </nav>
+
+    <div
+      class="carousel-container"
+      role="tabpanel"
+      [attr.id]="'panel-' + activeTabId"
+      [attr.aria-labelledby]="'tab-' + activeTabId"
+      [attr.aria-live]="activePanels.length ? 'polite' : 'off'"
+      *ngIf="activePanels.length"
+    >
+      <button class="arrow-left" type="button" (click)="moveToPrevious()" aria-label="Previous stack section">&#10094;</button>
+      <div class="carousel-wrapper" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <article
+          *ngFor="let panel of activePanels; let i = index"
+          class="carousel-item"
+          [class.active]="i === currentIndex"
+          role="group"
+          [attr.aria-roledescription]="'slide'"
+          [attr.aria-label]="panel.title"
+        >
+          <div class="spotlight-card is-mobile" data-skill-host>
+            <div class="spotlight-content">
+              <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
+              <div class="spotlight-icons" role="list">
+                <div
+                  *ngFor="let skill of panel.skills"
+                  class="skill-icon"
+                  role="listitem"
+                  data-skill-host
+                  [attr.aria-label]="skill.name"
+                  [class.clicked]="skill.clicked"
+                  (click)="onSkillClick(skill)"
+                >
+                  <span class="icon-asset">
+                    <img [src]="skill.icon" [alt]="skill.name" />
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
+      <button class="arrow-right" type="button" (click)="moveToNext()" aria-label="Next stack section">&#10095;</button>
     </div>
-    <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
-  </div>
+  </ng-container>
 
-  <!-- Desktop -->
   <ng-template #desktopLayout>
-    <div class="skill-grid">
-      <div *ngFor="let section of sections" class="skill-section">
-        <h3>{{ section.title }}</h3>
-        <div class="skills">
-          <div *ngFor="let skill of section.skills" class="skill-item">
-            <img [src]="skill.icon" [alt]="skill.name" (click)="onSkillClick($event, skill)"
-              [ngClass]="{'clicked': skill.clicked}" />
+    <div class="skills-grid">
+      <nav
+        class="stack-tabs"
+        role="tablist"
+        aria-orientation="vertical"
+        aria-label="Skill stack selector"
+      >
+        <button
+          *ngFor="let tab of tabs"
+          type="button"
+          class="stack-tab"
+          role="tab"
+          [id]="'tab-' + tab.id"
+          [attr.aria-controls]="'panel-' + tab.id"
+          [attr.aria-selected]="tab.id === activeTabId"
+          [class.active]="tab.id === activeTabId"
+          (click)="setActiveTab(tab.id)"
+        >
+          <span class="tab-label">{{ tab.label }}</span>
+        </button>
+      </nav>
+
+      <div
+        class="spotlight-panels"
+        role="tabpanel"
+        [attr.aria-labelledby]="'tab-' + activeTabId"
+        [attr.id]="'panel-' + activeTabId"
+      >
+        <article class="spotlight-card" *ngFor="let panel of activePanels" data-skill-host>
+          <div class="spotlight-content">
+            <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
+            <div class="spotlight-icons" role="list">
+              <div
+                *ngFor="let skill of panel.skills"
+                class="skill-icon"
+                role="listitem"
+                data-skill-host
+                [attr.aria-label]="skill.name"
+                [class.clicked]="skill.clicked"
+                (click)="onSkillClick(skill)"
+              >
+                <span class="icon-asset">
+                  <img [src]="skill.icon" [alt]="skill.name" />
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </ng-template>

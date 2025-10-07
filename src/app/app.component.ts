@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
     // Cambia il titolo dinamicamente in base alla lingua
     this.translationService.currentLanguage$.subscribe(language => {
       if (isPlatformBrowser(this.platformId)) {
-        let appTitle = APP_TITLE_en;
-        if (language === 'it') appTitle = APP_TITLE_it;
+        let appTitle = APP_TITLE_it;
+        if (language === 'en') appTitle = APP_TITLE_en;
         else if (language === 'de') appTitle = APP_TITLE_de;
         else if (language === 'es') appTitle = APP_TITLE_es;
         document.title = appTitle;

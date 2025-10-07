@@ -28,7 +28,11 @@ export class NavigatorComponent implements OnInit {
   currentTheme: 'light' | 'dark' | 'blue' | 'green' = 'light';
 
   /** Controls visibility of the navigator */
-  isOpen = false;
+  isOpen = true;
+
+  /** Tracks whether the current scroll was triggered programmatically */
+  private programmaticScroll = false;
+  private programmaticScrollTimeout: ReturnType<typeof setTimeout> | null = null;
 
   /** Tooltip translations */
   tooltipTexts: { [key: string]: { prev: string; next: string; theme: string; language: string } } = {
@@ -58,6 +62,13 @@ export class NavigatorComponent implements OnInit {
     }
   };
 
+  toggleButtonLabels: { [key: string]: { open: string; close: string } } = {
+    en: { open: 'Open navigator', close: 'Close navigator' },
+    it: { open: 'Apri navigatore', close: 'Chiudi navigatore' },
+    de: { open: 'Navigator öffnen', close: 'Navigator schließen' },
+    es: { open: 'Abrir navegador', close: 'Cerrar navegador' }
+  };
+
   constructor(
     private translationService: TranslationService,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -80,12 +91,14 @@ export class NavigatorComponent implements OnInit {
 
   onNext(): void {
     if (this.currentSectionIndex < this.totalSections - 1) {
+      this.startProgrammaticScroll();
       this.navigateNext.emit();
     }
   }
 
   onPrevious(): void {
     if (this.currentSectionIndex > 0) {
+      this.startProgrammaticScroll();
       this.navigatePrevious.emit();
     }
   }
@@ -122,6 +135,11 @@ export class NavigatorComponent implements OnInit {
   /** Returns the tooltip text for the given key based on current language */
   getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
     return this.tooltipTexts[this.currentLang][key];
+  }
+
+  getToggleButtonLabel(): string {
+    const labels = this.toggleButtonLabels[this.currentLang] || this.toggleButtonLabels['en'];
+    return this.isOpen ? labels.close : labels.open;
   }
 
   private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
@@ -192,10 +210,39 @@ export class NavigatorComponent implements OnInit {
   }
 
   /** Host listener to close navigator on scroll */
-  @HostListener('window:scroll')
-  onWindowScroll(): void {
-    if (this.isOpen) {
+  @HostListener('window:wheel', ['$event'])
+  onWindowWheel(event: WheelEvent): void {
+    this.handleManualScrollEvent(event.target as HTMLElement | null);
+  }
+
+  @HostListener('window:touchmove', ['$event'])
+  onWindowTouchMove(event: TouchEvent): void {
+    this.handleManualScrollEvent(event.target as HTMLElement | null);
+  }
+
+  private handleManualScrollEvent(target: HTMLElement | null): void {
+    if (!this.isOpen || this.programmaticScroll) {
+      return;
+    }
+
+    const interactedInside = target ? this.elementRef.nativeElement.contains(target) : false;
+
+    if (!interactedInside) {
       this.closeNavigator();
     }
+  }
+
+  private startProgrammaticScroll(): void {
+    this.programmaticScroll = true;
+
+    if (this.programmaticScrollTimeout) {
+      clearTimeout(this.programmaticScrollTimeout);
+    }
+
+    // Keep the navigator open while smooth scrolling finishes
+    this.programmaticScrollTimeout = setTimeout(() => {
+      this.programmaticScroll = false;
+      this.programmaticScrollTimeout = null;
+    }, 800);
   }
 }

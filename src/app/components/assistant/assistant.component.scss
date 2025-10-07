@@ -1,0 +1,306 @@
+:host {
+  --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
+  --assistant-spacing: clamp(12px, 2vw, 18px);
+  --assistant-popup-width: clamp(420px, 68vw, 640px);
+  display: block;
+  position: relative;
+  max-width: 100%;
+}
+
+.assistant {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  pointer-events: none;
+  min-height: var(--assistant-avatar-size);
+  min-width: min(var(--assistant-popup-width), calc(100vw - 32px));
+}
+
+.assistant__anchor {
+  position: relative;
+  width: var(--assistant-avatar-size);
+  height: var(--assistant-avatar-size);
+  pointer-events: auto;
+  z-index: 3;
+}
+
+.assistant__avatar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 30% 30%, #ffe081, #ffb347 55%, #ff8c61 100%);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.35s ease;
+  outline: none;
+  z-index: 3;
+}
+
+.assistant__avatar:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8), 0 16px 30px rgba(0, 0, 0, 0.25);
+}
+
+.assistant__avatar-face {
+  width: 72%;
+  height: 72%;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
+}
+
+.assistant__avatar-outline {
+  fill: rgba(255, 255, 255, 0.94);
+}
+
+.assistant__avatar-eye-open {
+  fill: #2c3e50;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.assistant__avatar-eye-closed {
+  fill: none;
+  stroke: #2c3e50;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.assistant__avatar-smile {
+  fill: none;
+  stroke: #ff8c61;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.assistant__avatar-wave {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.65);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.assistant__popup {
+  position: absolute;
+  right: calc(var(--assistant-avatar-size) + var(--assistant-spacing));
+  bottom: calc(100% + var(--assistant-spacing));
+  width: min(var(--assistant-popup-width), calc(100vw - 48px));
+  background: rgba(22, 29, 49, 0.92);
+  color: #f8fafc;
+  border-radius: 20px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.4);
+  pointer-events: auto;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 2;
+}
+
+.assistant__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.assistant__title {
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+
+.assistant__intro,
+.assistant__closing {
+  margin: 0;
+  line-height: 1.5;
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+}
+
+.assistant__steps {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.45rem;
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+}
+
+.assistant__steps li {
+  line-height: 1.45;
+}
+
+.assistant--phase-sleeping .assistant__avatar {
+  animation: assistant-sleep 3.5s ease-in-out infinite;
+}
+
+.assistant--phase-sleeping .assistant__avatar-wave {
+  animation: assistant-sleep-wave 4s ease-in-out infinite;
+  opacity: 0.45;
+}
+
+.assistant--phase-sleeping .assistant__avatar-eye-open {
+  opacity: 0;
+  transform: translateY(4px) scaleY(0.2);
+}
+
+.assistant--phase-sleeping .assistant__avatar-eye-closed {
+  opacity: 1;
+}
+
+.assistant--phase-waking .assistant__avatar {
+  animation: assistant-wake 0.6s ease-out forwards;
+}
+
+.assistant--phase-waking .assistant__avatar-eye-open {
+  transform: translateY(-2px) scaleY(1.05);
+}
+
+.assistant--phase-jumping .assistant__avatar {
+  animation: assistant-jump 0.7s cubic-bezier(0.26, 0.86, 0.32, 1.18) forwards;
+}
+
+.assistant--phase-impatient .assistant__avatar {
+  animation: assistant-impatient 1s ease-in-out infinite;
+}
+
+.assistant--phase-impatient .assistant__avatar-smile {
+  animation: assistant-impatient-smile 1s ease-in-out infinite;
+}
+
+.assistant--phase-impatient .assistant__avatar-eye-open {
+  transform: translateY(-1px) scaleY(0.95);
+}
+
+.assistant__closing {
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
+}
+
+.assistant__closing--active {
+  opacity: 1;
+  animation: assistant-closing-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes assistant-sleep {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  50% {
+    transform: translateY(-6px) scale(0.97);
+    box-shadow: 0 20px 32px rgba(0, 0, 0, 0.28);
+  }
+}
+
+@keyframes assistant-sleep-wave {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes assistant-wake {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  40% {
+    transform: translateY(-18px) scale(1.08);
+  }
+
+  70% {
+    transform: translateY(6px) scale(0.96);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes assistant-jump {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  40% {
+    transform: translate(-32%, -82%) scale(0.98);
+  }
+
+  70% {
+    transform: translate(-58%, -146%) scale(1.02);
+  }
+
+  100% {
+    transform: translate(-72%, -168%) scale(1);
+  }
+}
+
+@keyframes assistant-impatient {
+  0%,
+  100% {
+    transform: translate(-72%, -168%) rotate(0deg) scale(1);
+  }
+
+  20% {
+    transform: translate(-78%, -176%) rotate(-5deg) scale(1.01);
+  }
+
+  60% {
+    transform: translate(-64%, -160%) rotate(6deg) scale(1.01);
+  }
+}
+
+@keyframes assistant-impatient-smile {
+  0%,
+  100% {
+    stroke-width: 6px;
+  }
+
+  40% {
+    stroke-width: 7px;
+  }
+}
+
+@keyframes assistant-closing-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
+    --assistant-popup-width: min(94vw, 420px);
+  }
+
+  .assistant {
+    min-width: min(var(--assistant-popup-width), calc(100vw - 24px));
+  }
+
+  .assistant__popup {
+    padding: 1rem 1rem 1.25rem;
+    width: min(var(--assistant-popup-width), calc(100vw - 32px));
+  }
+}

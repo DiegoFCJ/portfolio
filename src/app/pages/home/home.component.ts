@@ -19,6 +19,7 @@ import { EducationComponent } from '../../components/education/education.compone
 import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
 import { ExperiencesComponent } from '../../components/experiences/experiences.component';
+import { AssistantComponent } from '../../components/assistant/assistant.component';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ import { ExperiencesComponent } from '../../components/experiences/experiences.c
     HeroComponent,
     SkillsComponent,
     NavigatorComponent,
+    AssistantComponent,
     EducationComponent,
     StatsComponent,
     ContactMeComponent,
@@ -42,6 +44,8 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   currentSectionIndex = 0;
   viewInitialized = false;
   totalSections = 0;
+  isAssistantOpen = false;
+  private readonly scrollSnappingClass = 'home-scroll-snapping';
   private scrollSubscription: Subscription | null = null;
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
@@ -62,6 +66,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.viewInitialized = true;
     this.cdr.detectChanges();
+    this.toggleScrollSnapping(true);
 
     setTimeout(() => {
       this.initializeScrollTracking();
@@ -69,6 +74,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.toggleScrollSnapping(false);
     this.destroyScrollTracking();
   }
 
@@ -121,6 +127,14 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  private toggleScrollSnapping(activate: boolean): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    document.body.classList.toggle(this.scrollSnappingClass, activate);
+  }
+
   private updateCurrentSectionFromViewport(): void {
     const sectionsArray = this.sections?.toArray() ?? [];
     this.totalSections = sectionsArray.length;
@@ -153,5 +167,13 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       this.currentSectionIndex = candidateIndex;
       this.cdr.markForCheck();
     }
+  }
+
+  onAssistantOpened(): void {
+    this.isAssistantOpen = true;
+  }
+
+  onAssistantClosed(): void {
+    this.isAssistantOpen = false;
   }
 }

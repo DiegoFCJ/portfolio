@@ -1,64 +1,67 @@
-// Carosello per dispositivi mobili
 .carousel-container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     width: 100%;
     overflow: hidden;
+    padding-block: 1rem;
 
     .carousel-wrapper {
         display: flex;
-        transition: transform 0.3s ease;
+        width: 100%;
+        transition: transform 0.4s ease;
     }
 
     .carousel-item {
-        min-width: 100%;
-        display: none; // Nascondi tutte le sezioni inizialmente
+        flex: 0 0 100%;
+        padding: 0 0.75rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
 
         &.active {
-            display: block; // Mostra solo la sezione attiva
+            opacity: 1;
         }
     }
 
     .arrow-left,
     .arrow-right {
         position: absolute;
-        top: 78px;
-        z-index: 10;
-        border: none;
-        padding-block: 2px;
-        padding-inline: 10px;
-        cursor: pointer;
-        font-size: 16px;
+        top: 50%;
         transform: translateY(-50%);
-        transition: background-color 0.3s ease;
-
+        border: none;
+        background: rgba(15, 23, 42, 0.08);
+        color: #0f172a;
+        padding: 0.4rem 0.75rem;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 1.35rem;
+        line-height: 1;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .arrow-left {
-        left: 30px;
+        left: 0.25rem;
     }
 
     .arrow-right {
-        right: 30px;
+        right: 0.25rem;
+    }
+
+    .arrow-left:hover,
+    .arrow-right:hover {
+        background: rgba(99, 102, 241, 0.18);
+        box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
     }
 }
 
-// Media Query per dispositivi mobili (max-width: 768px)
-@media (max-width: 768px) {
-    .skill-grid {
-        display: none; // Nascondi la griglia per i dispositivi mobili
-    }
-}
-
-// Extra small mobile devices
 @media (max-width: 480px) {
-    .skill-section {
-        width: 75vw !important;
-    }
-
     .carousel-container {
-        margin-top: 1vh;
+        padding-block: 0.5rem;
+
+        .arrow-left,
+        .arrow-right {
+            font-size: 1.1rem;
+        }
     }
 }
