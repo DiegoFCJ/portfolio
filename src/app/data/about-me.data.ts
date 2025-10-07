@@ -1,32 +1,32 @@
 import { AboutMeLangs } from '../dtos/AboutMeDTO';
 
 export const aboutMeData: AboutMeLangs = {
-    en: {
-        title: 'About Me',
-        description: `
-      I'm a 29-year-old senior full-stack software developer driven by curiosity and the craft of building reliable products.
-      From Java, Angular and Spring Boot to CI/CD pipelines and Boomi, I design automation-first solutions that streamline processes end-to-end.
-      I thrive in collaborative teams, aligning people and technology to deliver measurable impact.`
-    },
     it: {
         title: 'Chi Sono',
-        description: `
-      Sono uno sviluppatore software full-stack senior di 29 anni, spinto dalla curiosità e dalla voglia di creare prodotti affidabili.
-      Da Java, Angular e Spring Boot alle pipeline CI/CD e a Boomi, progetto soluzioni orientate all'automazione che ottimizzano i processi a 360 gradi.
-      Lavoro al meglio in team collaborativi, allineando persone e tecnologia per generare impatto concreto.`
+        paragraphs: [
+            'Sono uno sviluppatore full-stack di 29 anni che ama trasformare le idee in prodotti digitali affidabili e curati nei dettagli.',
+            'Ho esperienza con Java, Spring Boot e Angular, oltre che con l’integrazione di piattaforme come Boomi e con la gestione di pipeline CI/CD. Questo mi permette di seguire il ciclo di vita del software end-to-end, mantenendo il focus sulla qualità e sull’automazione.',
+            'Credo nella collaborazione trasparente: metto in connessione persone, processi e tecnologia per costruire soluzioni che evolvono assieme al business.'
+        ],
+        highlightsTitle: 'Cosa porto nel team',
+        highlights: [
+            'Esperienza nella progettazione di interfacce responsive e accessibili in Angular.',
+            'Competenze backend con Java e Spring Boot per servizi scalabili e ben manutenibili.',
+            'Attenzione all’automazione: CI/CD, monitoraggio e flussi DevOps che riducono i tempi di rilascio.'
+        ]
     },
-    de: {
-        title: 'Über mich',
-        description: `
-      Ich bin 29 Jahre alt, arbeite als Senior Full-Stack-Softwareentwickler und liebe es, verlässliche Produkte mit Neugier und Handwerk zu gestalten.
-      Mit Java, Angular, Spring Boot, CI/CD-Pipelines und Boomi entwickle ich Automatisierungslösungen, die Prozesse ganzheitlich verschlanken.
-      In kollaborativen Teams laufe ich zur Höchstform auf, wenn Menschen und Technologie für messbare Ergebnisse zusammenfinden.`
-    },
-    es: {
-        title: 'Sobre mí',
-        description: `
-      Soy un desarrollador de software full-stack senior de 29 años, impulsado por la curiosidad y el deseo de crear productos fiables.
-      Con Java, Angular, Spring Boot, pipelines de CI/CD y Boomi diseño soluciones centradas en la automatización que optimizan los procesos de principio a fin.
-      Disfruto trabajando en equipos colaborativos, alineando a las personas y la tecnología para lograr un impacto medible.`
+    en: {
+        title: 'About Me',
+        paragraphs: [
+            'I am a 29-year-old full-stack developer who enjoys turning ideas into reliable, well-crafted digital products.',
+            'My experience spans Java, Spring Boot and Angular, as well as integrating platforms like Boomi and managing CI/CD pipelines. This lets me support the entire software lifecycle while keeping quality and automation front and center.',
+            'I believe in transparent collaboration: I connect people, processes and technology to deliver solutions that grow alongside the business.'
+        ],
+        highlightsTitle: 'What I bring to the team',
+        highlights: [
+            'Experience designing responsive, accessible interfaces with Angular.',
+            'Backend skills in Java and Spring Boot for scalable, maintainable services.',
+            'A focus on automation—CI/CD, monitoring and DevOps flows that shorten release cycles.'
+        ]
     }
 };

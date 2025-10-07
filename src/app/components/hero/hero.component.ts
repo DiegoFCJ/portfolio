@@ -1,11 +1,13 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { LandingMaskComponent } from '../landing-mask/landing-mask.component';
 import { SocialComponent } from '../social/social.component';
 import { CommonModule } from '@angular/common';
-import { heroData } from '../../data/hero.data';
+import { heroData as heroDataSource } from '../../data/hero.data';
 import { TranslationService } from '../../services/translation.service';
 import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { HeroFull } from '../../dtos/HeroDTO';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hero',
@@ -19,8 +21,9 @@ import { HeroFull } from '../../dtos/HeroDTO';
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss']
 })
-export class HeroComponent implements OnInit {
-  heroData: HeroFull = heroData.en; 
+export class HeroComponent implements OnInit, OnDestroy {
+  heroData: HeroFull = heroDataSource.it ?? heroDataSource.en;
+  isLoading = true;
   @Output() navigateNextSection = new EventEmitter<void>();
 
   // Typing animation properties
@@ -38,17 +41,34 @@ export class HeroComponent implements OnInit {
   // Store the timeout references to be able to clear them
   timeoutIds: ReturnType<typeof setTimeout>[] = []; // This will store both browser and Node.js timeout ids
 
+  private readonly destroy$ = new Subject<void>();
+
   constructor(private translationService: TranslationService) { }
 
   ngOnInit() {
-    // Subscribe to language changes
-    this.translationService.currentLanguage$.subscribe(language => {
-      this.heroData = this.translationService.getTranslatedData(heroData);
-      this.resetAnimation();  // Reset animation before starting again
-      setTimeout(() => {
-        this.startTypingAnimation();  // Restart the animation after the reset
-      }, 100);  // Small delay to ensure view updates before animation starts
-    });
+    this.translationService.currentLanguage$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.isLoading = true;
+        this.clearTimeOuts();
+      });
+
+    this.translationService.getTranslatedData<HeroFull>(heroDataSource, 'it')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.heroData = data;
+        this.isLoading = false;
+        this.resetAnimation();  // Reset animation before starting again
+        setTimeout(() => {
+          this.startTypingAnimation();  // Restart the animation after the reset
+        }, 100);  // Small delay to ensure view updates before animation starts
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    this.clearTimeOuts();
   }
 
   // Resets animation state to start over

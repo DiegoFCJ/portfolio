@@ -2,17 +2,18 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslationService } from './services/translation.service';
 import { BehaviorSubject } from 'rxjs';
+import { LanguageCode } from './models/language-code.type';
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
-  let languageSubject: BehaviorSubject<'en' | 'it' | 'de' | 'es'>;
+  let languageSubject: BehaviorSubject<LanguageCode>;
 
   beforeEach(async () => {
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
-    languageSubject = new BehaviorSubject<'en' | 'it' | 'de' | 'es'>('en');
+    languageSubject = new BehaviorSubject<LanguageCode>('it');
     mockTranslationService = {
       currentLanguage$: languageSubject.asObservable(),
-      setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: 'en' | 'it' | 'de' | 'es') => {
+      setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: LanguageCode) => {
         languageSubject.next(language);
       }),
     };
@@ -29,17 +30,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should set the document title to "Diego\'s Portfolio" for English', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    expect(document.title).toEqual("Diego's Portfolio");
-  });
-
   it('should set the document title to "Portfolio di Diego" for Italian', () => {
-    languageSubject.next('it'); // Cambia la lingua simulata in italiano
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     expect(document.title).toEqual('Portfolio di Diego');
+  });
+
+  it('should set the document title to "Diego\'s Portfolio" for English', () => {
+    languageSubject.next('en');
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    expect(document.title).toEqual("Diego's Portfolio");
   });
 
   it('should set the document title to "Diegos Portfolio" for German', () => {

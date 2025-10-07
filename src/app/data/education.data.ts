@@ -1,6 +1,39 @@
 import { EducationFullLangs } from '../dtos/EducationDTO';
 
 export const educationData: EducationFullLangs = {
+    it: {
+        title: 'Formazione',
+        education: [
+            {
+                title: 'Sviluppo cloud-native con OpenShift e Kubernetes',
+                institution: 'Red Hat - Coursera',
+                startDate: 'Ago 2023',
+                endDate: 'Set 2023',
+                description: 'Percorso di certificazione con laboratori pratici su OpenShift e Kubernetes, focalizzato su orchestrazione dei container, automazione CI/CD e deployment resilienti in ambienti cloud.'
+            },
+            {
+                title: 'Formazione e certificazioni Boomi',
+                institution: 'Boomi',
+                startDate: 'Feb 2025',
+                endDate: 'Mar 2025',
+                description: 'Completate le certificazioni Boomi Integration Professional e API Management, progettando e governando integrazioni e API in ambienti ibridi.'
+            },
+            {
+                title: 'Junior Full Stack Developer',
+                institution: 'TNV Academy',
+                startDate: 'Feb 2022',
+                endDate: 'Dic 2022',
+                description: 'Bootcamp intensivo full-stack su C, .NET, C#, Spring Boot, Java, Angular 14, Android e Unity, con project work su sviluppo end-to-end.'
+            },
+            {
+                title: 'Diploma di Liceo Scientifico',
+                institution: 'Liceo Scientifico A. Scorcu',
+                startDate: 'Set 2010',
+                endDate: 'Lug 2016',
+                description: 'Diploma a indirizzo scientifico con approfondimenti di matematica, fisica e laboratori, potenziando capacità analitiche e di problem solving.'
+            }
+        ]
+    },
     en: {
         title: 'Education',
         education: [
@@ -31,105 +64,6 @@ export const educationData: EducationFullLangs = {
                 startDate: 'Sep 2010',
                 endDate: 'Jul 2016',
                 description: 'Scientific-track diploma with advanced mathematics, physics, and laboratory studies, strengthening analytical and problem-solving skills.'
-            }
-        ]
-    },
-    it: {
-        title: 'Formazione',
-        education: [
-            {
-                title: 'Sviluppo Cloud-Nativo con OpenShift e Kubernetes',
-                institution: 'RedHat - Coursera',
-                startDate: 'Ago 2023',
-                endDate: 'Set 2023',
-                description: 'Programma di certificazione con laboratori pratici su OpenShift e Kubernetes, focalizzato su orchestrazione di container, automazione CI/CD e deployment resiliente in ambienti cloud.'
-            },
-            {
-                title: 'Formazione e certificazioni Boomi',
-                institution: 'Boomi',
-                startDate: 'Feb 2025',
-                endDate: 'Mar 2025',
-                description: 'Completate le certificazioni Boomi Integration Professional e API Management, progettando e governando integrazioni e API in ambienti ibridi.'
-            },
-            {
-                title: 'Junior Full Stack Developer',
-                institution: 'TNV Academy',
-                startDate: 'Feb 2022',
-                endDate: 'Dic 2022',
-                description: 'Bootcamp intensivo full-stack su C, .NET, C#, Spring Boot, Java, Angular 14, Android e Unity, con progetti end-to-end di sviluppo applicativo.'
-            },
-            {
-                title: 'Diploma di Maturità Scientifica',
-                institution: 'Liceo Scientifico A.Scorcu',
-                startDate: 'Set 2010',
-                endDate: 'Lug 2016',
-                description: 'Percorso scientifico con approfondimenti in matematica, fisica e laboratori, rafforzando le capacità analitiche e di problem solving.'
-            }
-        ]
-    },
-    de: {
-        title: 'Ausbildung',
-        education: [
-            {
-                title: 'Cloud-Native-Entwicklung mit OpenShift und Kubernetes',
-                institution: 'RedHat - Coursera',
-                startDate: 'Aug 2023',
-                endDate: 'Sep 2023',
-                description: 'Zertifizierungsprogramm mit praxisnahen Labs zu OpenShift und Kubernetes, mit Fokus auf Container-Orchestrierung, CI/CD-Automatisierung und resilientem Deployment in Cloud-Umgebungen.'
-            },
-            {
-                title: 'Boomi Schulungen und Zertifizierungen',
-                institution: 'Boomi',
-                startDate: 'Feb 2025',
-                endDate: 'Mar 2025',
-                description: 'Abschluss der Zertifizierungen Boomi Integration Professional und API Management mit Schwerpunkt auf dem Design und der Steuerung von Integrationen und APIs in hybriden Landschaften.'
-            },
-            {
-                title: 'Junior Full Stack Developer',
-                institution: 'TNV Academy',
-                startDate: 'Feb 2022',
-                endDate: 'Dez 2022',
-                description: 'Intensiv-Bootcamp zu C, .NET, C#, Spring Boot, Java, Angular 14, Android und Unity mit Projektarbeit für ganzheitliche Anwendungsentwicklung.'
-            },
-            {
-                title: 'Abitur mit naturwissenschaftlichem Schwerpunkt',
-                institution: 'Liceo Scientifico A.Scorcu',
-                startDate: 'Sep 2010',
-                endDate: 'Jul 2016',
-                description: 'Naturwissenschaftlicher Bildungsgang mit vertiefter Mathematik, Physik und Laborarbeit zur Stärkung analytischer und problemlösender Fähigkeiten.'
-            }
-        ]
-    },
-    es: {
-        title: 'Educación',
-        education: [
-            {
-                title: 'Desarrollo nativo en la nube con OpenShift y Kubernetes',
-                institution: 'RedHat - Coursera',
-                startDate: 'Ago 2023',
-                endDate: 'Sep 2023',
-                description: 'Programa de certificación con laboratorios prácticos en OpenShift y Kubernetes, enfocado en orquestación de contenedores, automatización CI/CD y despliegues resilientes en la nube.'
-            },
-            {
-                title: 'Formación y certificaciones Boomi',
-                institution: 'Boomi',
-                startDate: 'Feb 2025',
-                endDate: 'Mar 2025',
-                description: 'Finalización de las certificaciones Boomi Integration Professional y API Management, diseñando y gobernando integraciones y API en entornos híbridos.'
-            },
-            {
-                title: 'Junior Full Stack Developer',
-                institution: 'TNV Academy',
-                startDate: 'Feb 2022',
-                endDate: 'Dic 2022',
-                description: 'Bootcamp intensivo full-stack sobre C, .NET, C#, Spring Boot, Java, Angular 14, Android y Unity, con proyectos integrales de desarrollo de aplicaciones.'
-            },
-            {
-                title: 'Bachillerato Científico',
-                institution: 'Liceo Scientifico A.Scorcu',
-                startDate: 'Sep 2010',
-                endDate: 'Jul 2016',
-                description: 'Itinerario científico con énfasis en matemáticas avanzadas, física y laboratorios, fortaleciendo las habilidades analíticas y de resolución de problemas.'
             }
         ]
     }

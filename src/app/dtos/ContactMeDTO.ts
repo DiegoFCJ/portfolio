@@ -1,9 +1,9 @@
-export interface ContactMeLangs{
+export interface ContactMeLangs {
     en: ContactMe;
     it: ContactMe;
-    de: ContactMe;
-    es: ContactMe;
-    [key: string]: ContactMe;
+    de?: ContactMe;
+    es?: ContactMe;
+    [key: string]: ContactMe | undefined;
 }
 
 export interface ContactMe {

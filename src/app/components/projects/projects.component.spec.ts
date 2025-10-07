@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProjectsComponent } from './projects.component';
-import { projects } from '../../data/projects.data';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
+import { Project } from '../../dtos/ProjectDTO';
 
 /**
  * Unit tests for ProjectsComponent.
@@ -14,7 +16,10 @@ describe('ProjectsComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProjectsComponent]
+      imports: [ProjectsComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectsComponent);
@@ -25,7 +30,8 @@ describe('ProjectsComponent', () => {
   /**
    * Verifies that the component is created successfully.
    */
-  it('should create', () => {
+  it('should create', async () => {
+    await fixture.whenStable();
     expect(component).toBeTruthy();
   });
 
@@ -81,61 +87,86 @@ describe('ProjectsComponent', () => {
 
     const descriptionElement: HTMLElement | null = fixture.nativeElement.querySelector('.project-description p');
     expect(descriptionElement?.textContent?.trim()).toBe(project.description);
+
+   /**
+    * Ensures the project description is rendered without the legacy toggle button.
+    */
+  it('should render the project description without a toggle button', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const toggleButton: HTMLButtonElement | null = fixture.nativeElement.querySelector('.description-toggle');
+    const descriptionRegion: HTMLElement | null = fixture.nativeElement.querySelector('.description-content');
+
+    expect(toggleButton).withContext('toggle button should not be present').toBeNull();
+    expect(descriptionRegion).withContext('description content should be rendered').not.toBeNull();
+    expect(descriptionRegion?.getAttribute('tabindex')).toBe('0');
   });
 
   /**
-   * Verifies that toggleExpand correctly toggles the expanded state of a project.
+   * Verifies that the scroll handler updates the scroll boundary state.
    */
-  it('should toggle expand state correctly', () => {
-    const project = { expanded: false };
+  it('should update scroll state when the description is scrolled', () => {
+    const project: Project = {
+      title: 'Sample project',
+      description: 'Description',
+      technologies: ['Angular'],
+      status: { level: 'active' },
+      image: 'image.png',
+      link: 'https://example.com',
+      isScrollable: true,
+      isAtEnd: false
+    };
 
-    component.toggleExpand(project);
-    expect(project.expanded).toBe(true);
+    component.onDescriptionScroll(project, {
+      target: {
+        scrollTop: 0,
+        clientHeight: 100,
+        scrollHeight: 200
+      }
+    } as unknown as Event);
 
-    component.toggleExpand(project);
-    expect(project.expanded).toBe(false);
+    expect(project.isAtEnd).toBeFalse();
+
+    component.onDescriptionScroll(project, {
+      target: {
+        scrollTop: 110,
+        clientHeight: 100,
+        scrollHeight: 200
+      }
+    } as unknown as Event);
+
+    expect(project.isAtEnd).toBeTrue();
   });
 
   /**
    * Verifies that the onResize method correctly updates the mobile view state.
    */
   it('should update isMobile flag on window resize', () => {
-    // Simulate a small screen size
     globalThis.innerWidth = 500;
-    component.onResize(new Event('resize'));
+    component.onResize();
     expect(component.isMobile).toBeTrue();
 
-    // Simulate a larger screen size
     globalThis.innerWidth = 1000;
-    component.onResize(new Event('resize'));
+    component.onResize();
     expect(component.isMobile).toBeFalse();
   });
 
   /**
-   * Verifies that moveToNext correctly navigates to the next project.
+   * Ensures user interactions stop the automatic peek animation.
    */
-  it('should move to next project', () => {
-    component.currentIndex = 0;
-    component.moveToNext();
-    expect(component.currentIndex).toBe(1);
+  it('should stop peek animation on interaction', () => {
+    // Arrange timers so that the component has pending animation steps.
+    component['peekStartTimeoutId'] = setTimeout(() => fail('start timeout should be cleared'), 1000);
+    component['peekStopTimeoutId'] = setTimeout(() => fail('stop timeout should be cleared'), 1000);
+    component.shouldPeek = true;
 
-    // Cycle back to the first project
-    component.currentIndex = component.projects.projects.length - 1;
-    component.moveToNext();
-    expect(component.currentIndex).toBe(0);
-  });
+    // Act - simulate user interaction with the carousel viewport.
+    component.handleCarouselInteraction();
 
-  /**
-   * Verifies that moveToPrevious correctly navigates to the previous project.
-   */
-  it('should move to previous project', () => {
-    component.currentIndex = 1;
-    component.moveToPrevious();
-    expect(component.currentIndex).toBe(0);
-
-    // Cycle back to the last project
-    component.currentIndex = 0;
-    component.moveToPrevious();
-    expect(component.currentIndex).toBe(component.projects.projects.length - 1);
+    // Assert - timers are cleared and peek animation is disabled.
+    expect(component['peekStartTimeoutId']).toBeNull();
+    expect(component['peekStopTimeoutId']).toBeNull();
+    expect(component.shouldPeek).toBeFalse();
   });
 });

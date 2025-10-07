@@ -1,52 +1,67 @@
 // Carosello per dispositivi mobili
 .carousel-container {
+    width: min(92vw, 420px);
+    margin: 0 auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+    flex-direction: column;
+    gap: 1.1rem;
+}
 
-    .carousel-wrapper {
-        display: flex;
-        transition: transform 0.3s ease;
-    }
+.carousel-viewport {
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 16px, rgba(0, 0, 0, 1) 56px, rgba(0, 0, 0, 1) calc(100% - 56px), rgba(0, 0, 0, 0.35) calc(100% - 16px), transparent 100%);
+    padding-block: 0.25rem;
 
-    .carousel-item {
-        min-width: 100%;
-        display: none; // Nascondi tutte le card inizialmente
-
-        &.active {
-            display: block; // Mostra solo la card attiva
-        }
-    }
-
-    .arrow-left,
-    .arrow-right {
-        position: absolute;
-        bottom: 3px;
-        z-index: 10;
-        border: none;
-        padding-block: 2px;
-        padding-inline: 10px;
-        cursor: pointer;
-        font-size: 16px;
-        transform: translateY(-50%);
-        transition: background-color 0.3s ease;
-    }
-
-    .arrow-left {
-        left: 10px;
-    }
-
-    .arrow-right {
-        right: 10px;
+    &::-webkit-scrollbar {
+        display: none;
     }
 }
 
-// Media Query per dispositivi mobili (max-width: 768px)
+.carousel-wrapper {
+    display: flex;
+    gap: 1.15rem;
+    padding-inline: 0.5rem 1.5rem;
+    transition: transform 0.6s ease;
+}
+
+.carousel-item {
+    flex: 0 0 calc(100% - 3.5rem);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+.carousel-container.is-peeking .carousel-wrapper {
+    animation: peek-next 2s ease-in-out 1;
+}
+
+@keyframes peek-next {
+    0% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(0);
+    }
+
+    55% {
+        transform: translateX(-14%);
+    }
+
+    75% {
+        transform: translateX(-14%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
 @media (max-width: 768px) {
-    
     .project-cards {
-        display: none; // Nascondi la griglia per i dispositivi mobili
+        display: none;
     }
 }

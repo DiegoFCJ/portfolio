@@ -1,7 +1,13 @@
 <div class="social-container">
     <div class="social-item" *ngFor="let social of socialsData">
-        <a [href]="social.link" target="_blank" rel="noopener noreferrer">
-            <img [src]="social.icon" alt="social media icon" />
+        <a
+            [href]="social.link"
+            target="_blank"
+            rel="noopener noreferrer"
+            [attr.aria-label]="social.label"
+            [title]="social.label"
+        >
+            <img [src]="social.icon" [alt]="'Icona ' + social.label" />
         </a>
     </div>
 </div>

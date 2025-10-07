@@ -1,16 +1,24 @@
-<section class="education-section" *ngIf="educationList">
-  <h2 class="education-title">{{ educationList.title }}</h2>
-  <div class="education-container">
-    <div class="education-item" *ngFor="let education of educationList.education; let i = index; let last = last">
-      <div class="vertical-line" [ngClass]="resizeConditions(i, last)">
-        <span class="point-on-line"></span>
-      </div>
-      <div class="restrained">
-        <p><strong>{{ education.startDate }} - {{ education.endDate }}</strong></p>
-        <h3>{{ education.title }}</h3>
-        <p>{{ education.institution }}</p>
-        <p>{{ education.description }}</p>
-      </div>
+<section class="education-section" *ngIf="!isLoading">
+  <div class="education-content">
+    <h2 class="education-title">{{ educationList.title }}</h2>
+    <div class="timeline" role="list">
+      <article
+        class="timeline-item"
+        role="listitem"
+        *ngFor="let education of educationList.education; let last = last"
+      >
+        <div class="timeline-marker" [class.is-last]="last">
+          <span class="timeline-dot" aria-hidden="true"></span>
+        </div>
+        <div class="timeline-card">
+          <header class="timeline-header">
+            <h3 class="timeline-heading">{{ education.title }}</h3>
+            <span class="timeline-badge">{{ education.startDate }} - {{ education.endDate }}</span>
+          </header>
+          <p class="timeline-institution">{{ education.institution }}</p>
+          <p class="timeline-description">{{ education.description }}</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>

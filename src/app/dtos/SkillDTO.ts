@@ -1,24 +1,21 @@
+import { LanguageCode } from '../models/language-code.type';
+
 export interface SkillFull {
-    title: SkillTitle;
-    skills: Skill[];
+    title: string;
+    skills: SkillSection[];
 }
 
-export interface Skill {
-    title: SkillTitle;
+export interface SkillSection {
+    title: string;
+    subtitle?: string;
     skills: SkillItem[];
 }
 
-interface SkillTitle {
-    en: string;
-    it: string;
-    de: string;
-    es: string;
+export interface SkillItem {
+    name: string;
+    icon: string;
+    clicked: boolean;
 }
 
-
-interface SkillItem {
-    name: string; 
-    icon: string, 
-    clicked: boolean 
-}
+export type SkillFullLangs = Partial<Record<LanguageCode, SkillFull>>;
 

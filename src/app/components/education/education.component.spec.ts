@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EducationComponent } from './education.component';
 import { educationData } from '../../data/education.data';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 /**
  * Unit tests for EducationComponent.
@@ -14,7 +16,10 @@ describe('EducationComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EducationComponent]
+      imports: [EducationComponent],
+      providers: [
+        { provide: TranslationService, useClass: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(EducationComponent);
@@ -33,28 +38,10 @@ describe('EducationComponent', () => {
    * Verifies that the education list data is initialized correctly.
    */
   it('should initialize educationList correctly', () => {
-    const expectedEducation = educationData.en;
+    const expectedEducation = educationData.it;
 
     expect(component.educationList).toEqual(expectedEducation);
-    expect(component.educationList.education.length).toBe(educationData.en.education.length);
-  });
-
-  /**
-   * Verifies that resizeConditions returns the correct CSS class based on screen size.
-   */
-  it('should return correct CSS class from resizeConditions', () => {
-    component.isLargeScreen = true;
-    const cssClass = component.resizeConditions(2, false);
-    expect(cssClass).toBe('full-height');
-
-    component.isLargeScreen = false;
-    component.is2kMoreScreen = false;
-    const cssClassLast = component.resizeConditions(1, true);
-    expect(cssClassLast).toBe('full-height');
-
-    component.is2kMoreScreen = true;
-    const cssClass2k = component.resizeConditions(0, false);
-    expect(cssClass2k).toBe('full-height');
+    expect(component.educationList.education.length).toBe(educationData.it.education.length);
   });
 
   /**
@@ -62,8 +49,22 @@ describe('EducationComponent', () => {
    */
   it('should render education items in the template', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const items = compiled.querySelectorAll('.education-item');
+    const items = compiled.querySelectorAll('.timeline-item');
 
     expect(items.length).toBe(component.educationList.education.length);
+  });
+
+  /**
+   * Verifies that timeline cards render their headings and badges correctly.
+   */
+  it('should render timeline headings and badges', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const firstCard = compiled.querySelector('.timeline-card');
+    const firstEducation = component.educationList.education[0];
+
+    expect(firstCard).toBeTruthy();
+    expect(firstCard?.querySelector('.timeline-heading')?.textContent?.trim()).toBe(firstEducation.title);
+    expect(firstCard?.querySelector('.timeline-badge')?.textContent?.trim()).toContain(firstEducation.startDate);
+    expect(firstCard?.querySelector('.timeline-badge')?.textContent?.trim()).toContain(firstEducation.endDate);
   });
 });
