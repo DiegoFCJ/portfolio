@@ -1,56 +1,208 @@
-/* General styles for the Contact Me section */
 .contact-me-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 1rem;
-    min-height: 100vh;
+  --contact-card-bg: linear-gradient(135deg, rgba(236, 239, 255, 0.9), rgba(219, 234, 254, 0.65));
+  --contact-card-border: rgba(99, 102, 241, 0.28);
+  --contact-text-muted: rgba(15, 23, 42, 0.72);
+  --contact-button-bg: #6366f1;
+  --contact-button-hover: #4f46e5;
+  --contact-button-text: #ffffff;
+  --contact-button-disabled-bg: rgba(99, 102, 241, 0.35);
+  --contact-button-disabled-text: rgba(255, 255, 255, 0.72);
+  --contact-status-success-bg: rgba(16, 185, 129, 0.16);
+  --contact-status-success-border: rgba(16, 185, 129, 0.35);
+  --contact-status-success-text: #047857;
+  --contact-status-warning-bg: rgba(251, 191, 36, 0.18);
+  --contact-status-warning-border: rgba(217, 119, 6, 0.4);
+  --contact-status-warning-text: #92400e;
+  --contact-status-error-bg: rgba(248, 113, 113, 0.16);
+  --contact-status-error-border: rgba(220, 38, 38, 0.42);
+  --contact-status-error-text: #b91c1c;
+  --contact-card-padding: clamp(1.5rem, 4vw, 2.25rem);
 
-    .contact-me-title {
-        font-size: 2.5rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-    }
-
-    .popup-relativeness{
-        position: relative;
-    }
-    
-    .contact-form {
-        width: 96vw;
-        max-width: 600px;
-        margin-top: 2rem;
-    }
-
-    .form-field {
-        width: 90vw;
-        max-width: 600px;
-        margin-bottom: 1rem;
-
-        .mdc-text-field {
-            position: static;
-        }
-
-        .mat-mdc-text-field-wrapper {
-            width: 96% !important;
-        }
-
-        .mat-form-field {
-            width: 96% !important;
-        }
-    }
-
-    .submit-btn {
-        display: flex;
-        justify-content: center;
-        margin-top: 1rem;
-    }
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+  width: min(92vw, 100%);
+  text-align: center;
+  background: linear-gradient(160deg, rgba(99, 102, 241, 0.08), rgba(79, 70, 229, 0));
 }
 
-/* Responsive design */
+body.dark-mode .contact-me-section {
+  --contact-card-bg: linear-gradient(135deg, rgba(17, 24, 39, 0.92), rgba(30, 41, 59, 0.78));
+  --contact-card-border: rgba(139, 92, 246, 0.35);
+  --contact-text-muted: rgba(226, 232, 240, 0.7);
+  --contact-button-bg: #7c3aed;
+  --contact-button-hover: #5b21b6;
+  --contact-button-text: #ede9fe;
+  --contact-button-disabled-bg: rgba(124, 58, 237, 0.28);
+  --contact-button-disabled-text: rgba(237, 233, 254, 0.65);
+  --contact-status-success-bg: rgba(16, 185, 129, 0.2);
+  --contact-status-success-border: rgba(16, 185, 129, 0.45);
+  --contact-status-success-text: #34d399;
+  --contact-status-warning-bg: rgba(245, 158, 11, 0.24);
+  --contact-status-warning-border: rgba(217, 119, 6, 0.45);
+  --contact-status-warning-text: #fbbf24;
+  --contact-status-error-bg: rgba(239, 68, 68, 0.22);
+  --contact-status-error-border: rgba(248, 113, 113, 0.5);
+  --contact-status-error-text: #fca5a5;
+  background: linear-gradient(160deg, rgba(129, 140, 248, 0.16), rgba(79, 70, 229, 0.08));
+}
+
+.contact-me-title {
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+
+.timeline {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-item {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-card {
+  background: var(--contact-card-bg);
+  border: 1px solid var(--contact-card-border);
+  border-radius: 20px;
+  padding: var(--contact-card-padding);
+  box-shadow: 0 25px 45px rgba(79, 70, 229, 0.12);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-support {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.popup-relativeness {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.status-banner {
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  text-align: left;
+  line-height: 1.4;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.status-success {
+  background: var(--contact-status-success-bg);
+  border-color: var(--contact-status-success-border);
+  color: var(--contact-status-success-text);
+}
+
+.status-warning {
+  background: var(--contact-status-warning-bg);
+  border-color: var(--contact-status-warning-border);
+  color: var(--contact-status-warning-text);
+}
+
+.status-error {
+  background: var(--contact-status-error-bg);
+  border-color: var(--contact-status-error-border);
+  color: var(--contact-status-error-text);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3vw, 1.5rem);
+}
+
+.form-field {
+  width: 100%;
+}
+
+.form-field.has-error .mat-mdc-form-field-infix {
+  color: var(--contact-status-error-text);
+}
+
+.mat-mdc-text-field-wrapper {
+  border-radius: 14px !important;
+}
+
+.mat-mdc-form-field-infix {
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  margin-top: 0.35rem;
+}
+
+.submit-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-btn button {
+  min-width: 160px;
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--contact-button-bg);
+  color: var(--contact-button-text);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 18px 36px rgba(99, 102, 241, 0.22);
+}
+
+.submit-btn button.enabled:not(:disabled):hover {
+  background: var(--contact-button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 22px 40px rgba(79, 70, 229, 0.28);
+}
+
+.submit-btn button.disabled,
+.submit-btn button:disabled {
+  background: var(--contact-button-disabled-bg) !important;
+  color: var(--contact-button-disabled-text) !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .contact-me-section {
+    width: min(80vw, 600px);
+  }
+}
+
 @media (max-width: 768px) {
-    .contact-me-title {
-        font-size: 2rem;
-    }
+  .timeline-item {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .contact-me-section {
+    width: min(95vw, 100%);
+  }
 }

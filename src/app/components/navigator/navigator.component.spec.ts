@@ -63,7 +63,9 @@ describe('NavigatorComponent', () => {
     component.showThemeOptions = true;
     fixture.detectChanges();
 
-    const toggleButton: HTMLButtonElement = fixture.nativeElement.querySelector('.nav-toggle-button');
+    const toggleButton: HTMLButtonElement = fixture.nativeElement.querySelector('.close-button');
+    expect(toggleButton).withContext('Integrated close/toggle button should be present when navigator is open').toBeTruthy();
+
     toggleButton.click();
     fixture.detectChanges();
 
@@ -78,6 +80,23 @@ describe('NavigatorComponent', () => {
     component.showThemeOptions = true;
 
     component.onWindowWheel({ target: null } as unknown as WheelEvent);
+
+    expect(component.isOpen).toBeFalse();
+    expect(component.showLanguageOptions).toBeFalse();
+    expect(component.showThemeOptions).toBeFalse();
+  });
+
+  it('should close navigator and reset menus when close button is clicked', () => {
+    component.isOpen = true;
+    component.showLanguageOptions = true;
+    component.showThemeOptions = true;
+    fixture.detectChanges();
+
+    const closeButton: HTMLButtonElement = fixture.nativeElement.querySelector('.close-button');
+    expect(closeButton).withContext('Close button should be rendered when navigator is open').toBeTruthy();
+
+    closeButton.click();
+    fixture.detectChanges();
 
     expect(component.isOpen).toBeFalse();
     expect(component.showLanguageOptions).toBeFalse();

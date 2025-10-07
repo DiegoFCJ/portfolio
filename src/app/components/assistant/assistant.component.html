@@ -1,0 +1,53 @@
+<div class="assistant"
+     [class.assistant--open]="isOpen"
+     [class.assistant--phase-sleeping]="animationPhase === 'sleeping'"
+     [class.assistant--phase-waking]="animationPhase === 'waking'"
+     [class.assistant--phase-jumping]="animationPhase === 'jumping'"
+     [class.assistant--phase-impatient]="animationPhase === 'impatient'">
+  <div class="assistant__anchor">
+    <button type="button"
+            class="assistant__avatar"
+            (click)="onAvatarClick()"
+            [attr.aria-expanded]="isOpen"
+            [attr.aria-controls]="isOpen ? 'assistant-popup' : null"
+            aria-haspopup="dialog">
+      <span class="assistant__avatar-wave" aria-hidden="true"></span>
+      <svg class="assistant__avatar-face" viewBox="0 0 120 120" role="img" aria-hidden="true">
+        <circle cx="60" cy="60" r="58" class="assistant__avatar-outline" />
+        <g class="assistant__avatar-eye assistant__avatar-eye--left">
+          <circle cx="45" cy="52" r="8" class="assistant__avatar-eye-open" />
+          <path d="M37 52 Q45 48 53 52" class="assistant__avatar-eye-closed" />
+        </g>
+        <g class="assistant__avatar-eye assistant__avatar-eye--right">
+          <circle cx="75" cy="52" r="8" class="assistant__avatar-eye-open" />
+          <path d="M67 52 Q75 48 83 52" class="assistant__avatar-eye-closed" />
+        </g>
+        <path d="M40 78 C52 92 68 92 80 78" class="assistant__avatar-smile" />
+      </svg>
+    </button>
+  </div>
+
+  <ng-container *ngIf="guideContent$ | async as guide">
+    <div *ngIf="isOpen"
+         class="assistant__popup"
+         id="assistant-popup"
+         role="dialog"
+         aria-modal="false"
+         aria-live="polite">
+      <div class="assistant__header">
+        <h3 class="assistant__title">{{ guide.title }}</h3>
+      </div>
+
+      <p class="assistant__intro">{{ guide.intro }}</p>
+
+      <ol class="assistant__steps">
+        <li *ngFor="let step of guide.steps">{{ step }}</li>
+      </ol>
+
+      <p class="assistant__closing"
+         [class.assistant__closing--active]="animationPhase === 'impatient'">
+        {{ guide.closingHint }}
+      </p>
+    </div>
+  </ng-container>
+</div>

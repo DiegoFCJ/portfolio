@@ -83,14 +83,12 @@ $navigator-themes: (
 }
 
 .navigator-wrapper {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
-    z-index: 9999;
+    z-index: 1;
 }
 
 .nav-toggle-button {
@@ -123,6 +121,10 @@ $navigator-themes: (
     flex-direction: column;
     gap: 12px;
     align-items: center;
+
+    &.modern-navigator--collapsed {
+        gap: 0;
+    }
 
     .arrow-container {
         width: $navigator-button-size - 8;
@@ -159,12 +161,17 @@ $navigator-themes: (
         mat-icon {
             font-size: $navigator-icon-size;
             color: var(--navigator-icon-color);
+            transition: transform 0.25s ease;
         }
 
         .lang-label {
             font-size: 0.9rem;
             font-weight: 600;
             color: var(--navigator-text-color);
+        }
+
+        &.close-button {
+            margin-top: 4px;
         }
     }
 
@@ -187,6 +194,16 @@ $navigator-themes: (
             font-size: $navigator-icon-size;
             color: var(--navigator-icon-color);
             position: absolute;
+        }
+    }
+
+    &.modern-navigator--collapsed {
+        .close-button {
+            margin-top: 0;
+
+            mat-icon {
+                transform: rotate(180deg);
+            }
         }
     }
 }

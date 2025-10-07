@@ -1,64 +1,60 @@
-<section *ngIf="!isLoading">
-    <h2>{{projects.title}}</h2>
+<section *ngIf="!isLoading" #projectsSection class="projects-section">
+    <h2 class="projects-title">{{ projects.title }}</h2>
 
     <!-- Carosello per mobile -->
-    <div class="carousel-container" *ngIf="isMobile">
-        <button class="arrow-left" (click)="moveToPrevious()">&#10094;</button>
-
-        <div class="carousel-wrapper">
-            <div class="carousel-item" *ngFor="let project of projects.projects; let i = index"
-                [class.active]="i === currentIndex">
-                <div class="project-card" [class.expanded]="project.expanded">
-                    <img class="proj-image" [src]="project.image" [attr.alt]="'Anteprima del progetto ' + project.title" />
-                    <h3>{{ project.title }}</h3>
-                    <p class="project-status">{{ project.status }}</p>
-                    <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>
-
-                    <div class="project-description" [ngClass]="{ 'expanded': project.expanded, 'collapsed': !project.expanded }"
-                        [attr.id]="'project-description-mobile-' + i">
-                        <p>
-                            {{ project.expanded ? project.description : project.description.length > maxChars ?
-                            (project.description | slice: 0:maxChars) + '...' : project.description }}
-                        </p>
-                    </div>
-                    <button type="button" class="toggle-description" (click)="toggleExpand(project)"
-                        [attr.aria-expanded]="project.expanded"
-                        [attr.aria-controls]="'project-description-mobile-' + i"
-                        [attr.aria-label]="(project.expanded ? projects.lessDesc : projects.moreDesc).trim()">
-                        {{ (project.expanded ? projects.lessDesc : projects.moreDesc).trim() }}
-                    </button>
-
-                    <a class="proj-link" [href]="project.link" target="_blank">{{projects.button}}</a>
+    <div class="carousel-container" *ngIf="isMobile" [class.is-peeking]="shouldPeek">
+        <div class="carousel-viewport" role="listbox" tabindex="0" [attr.aria-label]="projects.title"
+            (scroll)="handleCarouselInteraction()" (touchstart)="handleCarouselInteraction()"
+            (mousedown)="handleCarouselInteraction()">
+            <div class="carousel-wrapper">
+                <div class="carousel-item" *ngFor="let project of projects.projects; let i = index" role="option"
+                    [attr.aria-label]="project.title">
+                    <ng-container *ngTemplateOutlet="projectCard; context: { $implicit: project, index: i }"></ng-container>
                 </div>
             </div>
         </div>
-
-        <button class="arrow-right" (click)="moveToNext()">&#10095;</button>
     </div>
 
     <!-- Griglia per desktop -->
     <div class="project-cards" *ngIf="!isMobile">
-        <div class="project-card" *ngFor="let project of projects.projects; let i = index"
-            [class.expanded]="project.expanded">
-            <img class="proj-image" [src]="project.image" [attr.alt]="'Anteprima del progetto ' + project.title" />
-            <h3>{{ project.title }}</h3>
-            <p class="project-status">{{ project.status }}</p>
+        <ng-container *ngFor="let project of projects.projects; let i = index">
+            <ng-container *ngTemplateOutlet="projectCard; context: { $implicit: project, index: i }"></ng-container>
+        </ng-container>
+    </div>
+
+    <ng-template #projectCard let-project let-i="index">
+        <article class="project-card" [attr.data-status-level]="project.status.level">
+            <div class="project-visual">
+                <img class="proj-image" [src]="project.image" [attr.alt]="'Anteprima del progetto ' + project.title" />
+            </div>
+
+            <div class="project-header">
+                <h3 class="project-title">{{ project.title }}</h3>
+                <div class="project-status-wrapper">
+                    <span class="project-status-pill">
+                        <span class="status-prefix">{{ projects.statusLegend.prefix }}</span>
+                        <span class="status-level">{{ getStatusLevelLabel(project.status.level) }}</span>
+                    </span>
+                    <ul class="project-status-tags" *ngIf="project.status.tags?.length">
+                        <li class="status-tag" *ngFor="let tag of project.status.tags">
+                            {{ getStatusTagLabel(tag) }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
             <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>
 
-            <div class="project-description" [ngClass]="{ 'expanded': project.expanded, 'collapsed': !project.expanded }"
-                [attr.id]="'project-description-' + i">
-                <p>
-                    {{ project.expanded ? project.description : project.description.length > maxChars ?
-                    (project.description | slice: 0:maxChars) + '...' : project.description }}
-                </p>
+            <div class="project-description" [class.is-scrollable]="project.isScrollable"
+                [class.is-at-end]="project.isAtEnd">
+                <div class="description-content" #descriptionContent [attr.id]="'project-description-' + i" tabindex="0"
+                    role="region" [attr.aria-label]="project.title + ' — dettagli'"
+                    (scroll)="onDescriptionScroll(project, $event)">
+                    <p>{{ project.description }}</p>
+                </div>
             </div>
-            <button type="button" class="toggle-description" (click)="toggleExpand(project)"
-                [attr.aria-expanded]="project.expanded" [attr.aria-controls]="'project-description-' + i"
-                [attr.aria-label]="(project.expanded ? projects.lessDesc : projects.moreDesc).trim()">
-                {{ (project.expanded ? projects.lessDesc : projects.moreDesc).trim() }}
-            </button>
 
-            <a class="proj-link" [href]="project.link" target="_blank">{{projects.button}}</a>
-        </div>
-    </div>
+            <a class="proj-link" [href]="project.link" target="_blank">{{ projects.button }}</a>
+        </article>
+    </ng-template>
 </section>
