@@ -10,9 +10,8 @@
 
 .home__section-content {
   position: relative;
-  width: 80vw;
+  width: 100%;
   min-height: 100%;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,7 +52,7 @@
   }
 
   .home__section-content {
-    width: 90vw;
+    width: 100%;
     min-height: 100%;
     gap: clamp(0.75rem, 3vh, 1.5rem);
   }
