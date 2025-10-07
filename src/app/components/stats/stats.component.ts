@@ -145,7 +145,17 @@ export class StatsComponent implements OnInit, OnDestroy {
    */
   calculateMonths(start: string, end: string): number {
     const startDate = new Date(start);
-    const endDate = new Date(end);
+    let endDate: Date;
+
+    if (typeof end === 'string' && end.trim().toLowerCase() === 'current') {
+      endDate = new Date();
+    } else {
+      endDate = new Date(end);
+      if (Number.isNaN(endDate.getTime())) {
+        endDate = new Date();
+      }
+    }
+
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
   }
 }
