@@ -13,7 +13,6 @@ export type AssistantAnimationPhase =
 
 export const ASSISTANT_WAKE_DURATION_MS = 450;
 export const ASSISTANT_JUMP_DURATION_MS = 700;
-export const ASSISTANT_IMPATIENCE_DURATION_MS = 5000;
 
 interface AssistantGuideContent {
   readonly title: string;
@@ -63,7 +62,6 @@ export class AssistantComponent implements OnDestroy {
 
   private wakeTimer: ReturnType<typeof setTimeout> | null = null;
   private jumpTimer: ReturnType<typeof setTimeout> | null = null;
-  private impatienceTimer: ReturnType<typeof setTimeout> | null = null;
 
   readonly guideContent$: Observable<AssistantGuideContent>;
 
@@ -78,6 +76,11 @@ export class AssistantComponent implements OnDestroy {
   }
 
   onAvatarClick(): void {
+    if (this.isOpen) {
+      this.closeAssistant();
+      return;
+    }
+
     if (!this.isOpen && this.animationPhase === 'sleeping') {
       this.openAssistant();
     }
@@ -112,17 +115,8 @@ export class AssistantComponent implements OnDestroy {
       this.jumpTimer = setTimeout(() => {
         this.jumpTimer = null;
         this.animationPhase = 'impatient';
-        this.startImpatienceTimer();
       }, ASSISTANT_JUMP_DURATION_MS);
     }, ASSISTANT_WAKE_DURATION_MS);
-  }
-
-  private startImpatienceTimer(): void {
-    this.clearImpatienceTimer();
-    this.impatienceTimer = setTimeout(() => {
-      this.impatienceTimer = null;
-      this.goToSleep();
-    }, ASSISTANT_IMPATIENCE_DURATION_MS);
   }
 
   private goToSleep(): void {
@@ -139,7 +133,6 @@ export class AssistantComponent implements OnDestroy {
   private clearAllTimers(): void {
     this.clearWakeTimer();
     this.clearJumpTimer();
-    this.clearImpatienceTimer();
   }
 
   private clearWakeTimer(): void {
@@ -156,10 +149,4 @@ export class AssistantComponent implements OnDestroy {
     }
   }
 
-  private clearImpatienceTimer(): void {
-    if (this.impatienceTimer) {
-      clearTimeout(this.impatienceTimer);
-      this.impatienceTimer = null;
-    }
-  }
 }

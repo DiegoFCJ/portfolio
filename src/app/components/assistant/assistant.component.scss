@@ -1,7 +1,7 @@
 :host {
   --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
   --assistant-spacing: clamp(12px, 2vw, 18px);
-  --assistant-popup-width: min(320px, 82vw);
+  --assistant-popup-width: clamp(360px, 72vw, 540px);
   display: block;
   position: relative;
   max-width: 100%;
@@ -89,7 +89,7 @@
 
 .assistant__popup {
   position: absolute;
-  right: 0;
+  right: calc(var(--assistant-avatar-size) + var(--assistant-spacing));
   bottom: calc(100% + var(--assistant-spacing));
   width: var(--assistant-popup-width);
   max-width: 100%;
@@ -108,9 +108,8 @@
 
 .assistant__header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .assistant__title {
@@ -119,25 +118,6 @@
   margin: 0;
 }
 
-.assistant__close {
-  border: none;
-  background: transparent;
-  color: inherit;
-  font-size: 1.4rem;
-  cursor: pointer;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.assistant__close:hover,
-.assistant__close:focus-visible {
-  background-color: rgba(255, 255, 255, 0.12);
-  transform: scale(1.05);
-}
 
 .assistant__intro,
 .assistant__closing {
@@ -260,30 +240,30 @@
   }
 
   40% {
-    transform: translate(-20%, -60%) scale(0.98);
+    transform: translate(-32%, -82%) scale(0.98);
   }
 
   70% {
-    transform: translate(-45%, -105%) scale(1.02);
+    transform: translate(-58%, -146%) scale(1.02);
   }
 
   100% {
-    transform: translate(-55%, -120%) scale(1);
+    transform: translate(-72%, -168%) scale(1);
   }
 }
 
 @keyframes assistant-impatient {
   0%,
   100% {
-    transform: translate(-55%, -120%) rotate(0deg) scale(1);
+    transform: translate(-72%, -168%) rotate(0deg) scale(1);
   }
 
   20% {
-    transform: translate(-58%, -123%) rotate(-5deg) scale(1.01);
+    transform: translate(-78%, -176%) rotate(-5deg) scale(1.01);
   }
 
   60% {
-    transform: translate(-52%, -117%) rotate(6deg) scale(1.01);
+    transform: translate(-64%, -160%) rotate(6deg) scale(1.01);
   }
 }
 
