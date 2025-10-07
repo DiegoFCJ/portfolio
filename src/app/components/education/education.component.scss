@@ -5,6 +5,7 @@
   --timeline-card-border: rgba(99, 102, 241, 0.25);
   --timeline-text-muted: rgba(15, 23, 42, 0.65);
   --timeline-dot-size: 18px;
+  --timeline-dot-align: 0.125rem;
   --timeline-heading-color: #0f172a;
   --timeline-description-color: rgba(15, 23, 42, 0.82);
   --timeline-section-bg: linear-gradient(160deg, rgba(99, 102, 241, 0.08), rgba(79, 70, 229, 0));
@@ -70,7 +71,8 @@
   align-items: flex-start;
   align-self: stretch;
   padding-top: calc(
-    var(--timeline-card-padding) + var(--timeline-heading-offset) - var(--timeline-dot-size) / 2
+    var(--timeline-card-padding) + var(--timeline-heading-offset) - var(--timeline-dot-size) / 2 +
+      var(--timeline-dot-align)
   );
 }
 
@@ -190,7 +192,8 @@
   .timeline-marker {
     position: absolute;
     inset: calc(
-        var(--timeline-card-padding) + var(--timeline-heading-offset) - var(--timeline-dot-size) / 2
+        var(--timeline-card-padding) + var(--timeline-heading-offset) - var(--timeline-dot-size) / 2 +
+        var(--timeline-dot-align)
       )
       auto auto 0;
     width: 2.5rem;
