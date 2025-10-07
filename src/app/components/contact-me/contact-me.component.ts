@@ -3,7 +3,7 @@ import { SocialComponent } from '../social/social.component';
 import { CustomPopupComponent } from '../custom-popup/custom-popup.component';
 import { contactMeData } from '../../data/contact-me.data';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { AbstractControl, FormsModule, NgForm } from '@angular/forms';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -201,14 +201,17 @@ export class ContactMeComponent implements OnInit, OnDestroy {
   }
 
   private markAllControlsAsTouched(form: NgForm): void {
-    Object.values(form.controls).forEach(control => {
+    const controls = Object.values(form.controls) as AbstractControl[];
+
+    controls.forEach(control => {
       control.markAsTouched();
       control.updateValueAndValidity();
     });
   }
 
   private markControlAsTouched(form: NgForm, controlName: string): void {
-    const control = form.controls[controlName];
+    const control = form.controls[controlName] as AbstractControl | undefined;
+
     control?.markAsTouched();
     control?.updateValueAndValidity();
   }
