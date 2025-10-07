@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SocialComponent } from './social.component';
+import { firstValueFrom } from 'rxjs';
+
 import { Social } from '../../dtos/SocialDTO';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
 
 /**
  * Unit tests for SocialComponent.
@@ -14,7 +18,8 @@ describe('SocialComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SocialComponent]
+      imports: [SocialComponent],
+      providers: [{ provide: TranslationService, useClass: MockTranslationService }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SocialComponent);
@@ -32,15 +37,17 @@ describe('SocialComponent', () => {
   /**
    * Verifies that the social media data is populated correctly.
    */
-  it('should expose social media data as an array', () => {
-    expect(Array.isArray(component.socialsData)).toBeTrue();
+  it('should expose social media data as an array', async () => {
+    const socials = await firstValueFrom(component.socials$);
+    expect(Array.isArray(socials)).toBeTrue();
   });
 
   /**
    * Verifies the structure of a social media object.
    */
-  it('should contain valid social media objects', () => {
-    component.socialsData.forEach((social: Social) => {
+  it('should contain valid social media objects', async () => {
+    const socials = await firstValueFrom(component.socials$);
+    socials.forEach((social: Social) => {
       expect(social.link).toBeDefined();
       expect(social.icon).toBeDefined();
       expect(typeof social.link).toBe('string');
@@ -51,8 +58,9 @@ describe('SocialComponent', () => {
   /**
    * Verifies that the social media data contains valid objects.
    */
-  it('should contain valid social objects with link and icon properties', () => {
-    component.socialsData.forEach((social: Social) => {
+  it('should contain valid social objects with link and icon properties', async () => {
+    const socials = await firstValueFrom(component.socials$);
+    socials.forEach((social: Social) => {
       expect(social).toEqual(jasmine.objectContaining({
         link: jasmine.any(String),
         icon: jasmine.any(String)
