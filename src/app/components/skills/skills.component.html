@@ -34,7 +34,7 @@
       <button class="arrow-left" type="button" (click)="moveToPrevious()" aria-label="Previous stack section">&#10094;</button>
       <div class="carousel-wrapper" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
         <article
-          *ngFor="let panel of activePanels; let i = index; let last = last"
+          *ngFor="let panel of activePanels; let i = index"
           class="carousel-item"
           [class.active]="i === currentIndex"
           role="group"
@@ -42,17 +42,8 @@
           [attr.aria-label]="panel.title"
         >
           <div class="spotlight-card is-mobile" data-skill-host>
-            <div class="spotlight-rail is-mobile" [class.is-last]="last">
-              <span class="spotlight-dot" aria-hidden="true"></span>
-              <span class="spotlight-line" aria-hidden="true" [class.is-last]="last"></span>
-            </div>
             <div class="spotlight-content">
-              <header class="spotlight-header">
-                <div class="header-text">
-                  <h3 class="spotlight-title">{{ panel.title }}</h3>
-                  <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
-                </div>
-              </header>
+              <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
               <div class="spotlight-icons" role="list">
                 <div
                   *ngFor="let skill of panel.skills"
@@ -60,6 +51,8 @@
                   role="listitem"
                   data-skill-host
                   [attr.aria-label]="skill.name"
+                  [class.clicked]="skill.clicked"
+                  (click)="onSkillClick(skill)"
                 >
                   <span class="icon-asset">
                     <img [src]="skill.icon" [alt]="skill.name" />
@@ -103,22 +96,9 @@
         [attr.aria-labelledby]="'tab-' + activeTabId"
         [attr.id]="'panel-' + activeTabId"
       >
-        <article
-          class="spotlight-card"
-          *ngFor="let panel of activePanels; let last = last"
-          data-skill-host
-        >
-          <div class="spotlight-rail" [class.is-last]="last">
-            <span class="spotlight-dot" aria-hidden="true"></span>
-            <span class="spotlight-line" aria-hidden="true" [class.is-last]="last"></span>
-          </div>
+        <article class="spotlight-card" *ngFor="let panel of activePanels" data-skill-host>
           <div class="spotlight-content">
-            <header class="spotlight-header">
-              <div class="header-text">
-                <h3 class="spotlight-title">{{ panel.title }}</h3>
-                <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
-              </div>
-            </header>
+            <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
             <div class="spotlight-icons" role="list">
               <div
                 *ngFor="let skill of panel.skills"
@@ -126,6 +106,8 @@
                 role="listitem"
                 data-skill-host
                 [attr.aria-label]="skill.name"
+                [class.clicked]="skill.clicked"
+                (click)="onSkillClick(skill)"
               >
                 <span class="icon-asset">
                   <img [src]="skill.icon" [alt]="skill.name" />
