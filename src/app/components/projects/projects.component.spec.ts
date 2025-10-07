@@ -36,6 +36,57 @@ describe('ProjectsComponent', () => {
   });
 
   /**
+   * Verifies that the template truncates the description when the project is collapsed.
+   */
+  it('should render a truncated description when the project is collapsed', () => {
+    const longDescription = 'This is a long description '.repeat(10).trim();
+
+    component.maxChars = 50;
+    component.projects = {
+      ...component.projects,
+      projects: [{
+        title: 'Test project',
+        description: longDescription,
+        technologies: [],
+        status: '',
+        image: '',
+        link: '',
+        expanded: false
+      }]
+    };
+
+    fixture.detectChanges();
+
+    const descriptionElement: HTMLElement | null = fixture.nativeElement.querySelector('.project-description p');
+    expect(descriptionElement?.textContent?.trim()).toBe(`${longDescription.slice(0, component.maxChars)}...`);
+  });
+
+  /**
+   * Verifies that the template renders the full description when the project is expanded.
+   */
+  it('should render the full description when the project is expanded', () => {
+    const project = {
+      title: 'Test project',
+      description: 'This is a full description',
+      technologies: [],
+      status: '',
+      image: '',
+      link: '',
+      expanded: false
+    };
+
+    component.projects = {
+      ...component.projects,
+      projects: [project]
+    };
+
+    fixture.detectChanges();
+
+    component.toggleExpand(project);
+    fixture.detectChanges();
+
+    const descriptionElement: HTMLElement | null = fixture.nativeElement.querySelector('.project-description p');
+    expect(descriptionElement?.textContent?.trim()).toBe(project.description);
    * Ensures the project description is rendered without the legacy toggle button.
    */
   it('should render the project description without a toggle button', async () => {
