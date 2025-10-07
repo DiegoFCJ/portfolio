@@ -99,6 +99,6 @@ mat-error {
 }
 
 // Ensure Material tooltips appear above every other UI element, including the assistant overlay
-.mat-mdc-tooltip-panel {
+.cdk-overlay-container {
     z-index: 2147483647 !important;
 }
