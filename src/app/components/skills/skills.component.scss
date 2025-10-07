@@ -165,47 +165,37 @@
 }
 
 .spotlight-icons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
-  gap: clamp(1rem, 2.5vw, 1.75rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  align-items: center;
 }
 
 .skill-icon {
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(0.75rem, 2vw, 1.25rem);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+  height: clamp(2.75rem, 5vw, 3.5rem);
+  padding: 0;
+  border-radius: 999px;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-:host-context(body.dark-mode) .skill-icon {
-  background: rgba(30, 31, 38, 0.85);
-  border-color: rgba(129, 140, 248, 0.35);
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.45);
+  transition: transform 0.25s ease;
 }
 
 .skill-icon:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
 }
 
 .icon-asset {
-  width: clamp(3.25rem, 6vw, 4.25rem);
-  height: clamp(3.25rem, 6vw, 4.25rem);
   display: flex;
   align-items: center;
-  justify-content: center;
+  height: 100%;
 }
 
 .icon-asset img {
-  width: 100%;
-  max-height: clamp(3rem, 5.5vw, 3.75rem);
+  height: 100%;
+  width: auto;
   object-fit: contain;
 }
 
@@ -243,7 +233,7 @@
 
 @media (max-width: 768px) {
   .spotlight-icons {
-    grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+    justify-content: center;
   }
 }
 
@@ -253,7 +243,7 @@
   }
 
   .spotlight-icons {
-    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+    gap: clamp(0.6rem, 5vw, 1rem);
   }
 }
 
