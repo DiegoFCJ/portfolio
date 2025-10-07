@@ -28,7 +28,8 @@ export interface Project {
     status: ProjectStatus;
     image: string;
     link: string;
-    expanded?: boolean;
+    isScrollable?: boolean;
+    isAtEnd?: boolean;
 }
 
 export type ProjectStatusLevel = 'active' | 'publicBeta' | 'inDevelopment';

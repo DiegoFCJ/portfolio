@@ -1,8 +1,9 @@
 <div class="assistant"
      [class.assistant--open]="isOpen"
-     [class.assistant--phase-idle]="animationPhase === 'idle'"
-     [class.assistant--phase-wondering]="animationPhase === 'wondering'"
-     [class.assistant--phase-suggest-close]="animationPhase === 'suggestClose'">
+     [class.assistant--phase-sleeping]="animationPhase === 'sleeping'"
+     [class.assistant--phase-waking]="animationPhase === 'waking'"
+     [class.assistant--phase-jumping]="animationPhase === 'jumping'"
+     [class.assistant--phase-impatient]="animationPhase === 'impatient'">
   <div class="assistant__anchor">
     <button type="button"
             class="assistant__avatar"
@@ -13,8 +14,14 @@
       <span class="assistant__avatar-wave" aria-hidden="true"></span>
       <svg class="assistant__avatar-face" viewBox="0 0 120 120" role="img" aria-hidden="true">
         <circle cx="60" cy="60" r="58" class="assistant__avatar-outline" />
-        <circle cx="45" cy="52" r="8" class="assistant__avatar-eye" />
-        <circle cx="75" cy="52" r="8" class="assistant__avatar-eye" />
+        <g class="assistant__avatar-eye assistant__avatar-eye--left">
+          <circle cx="45" cy="52" r="8" class="assistant__avatar-eye-open" />
+          <path d="M37 52 Q45 48 53 52" class="assistant__avatar-eye-closed" />
+        </g>
+        <g class="assistant__avatar-eye assistant__avatar-eye--right">
+          <circle cx="75" cy="52" r="8" class="assistant__avatar-eye-open" />
+          <path d="M67 52 Q75 48 83 52" class="assistant__avatar-eye-closed" />
+        </g>
         <path d="M40 78 C52 92 68 92 80 78" class="assistant__avatar-smile" />
       </svg>
     </button>
@@ -29,12 +36,6 @@
          aria-live="polite">
       <div class="assistant__header">
         <h3 class="assistant__title">{{ guide.title }}</h3>
-        <button type="button"
-                class="assistant__close"
-                (click)="closeAssistant()"
-                aria-label="Chiudi assistente">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
 
       <p class="assistant__intro">{{ guide.intro }}</p>
@@ -44,7 +45,7 @@
       </ol>
 
       <p class="assistant__closing"
-         [class.assistant__closing--active]="animationPhase === 'suggestClose'">
+         [class.assistant__closing--active]="animationPhase === 'impatient'">
         {{ guide.closingHint }}
       </p>
     </div>

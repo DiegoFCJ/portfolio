@@ -1,10 +1,9 @@
 :host {
-  --assistant-avatar-size: clamp(64px, 12vw, 88px);
+  --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
   --assistant-spacing: clamp(12px, 2vw, 18px);
-  --assistant-popup-width: min(320px, 82vw);
+  --assistant-popup-width: clamp(420px, 68vw, 640px);
   display: block;
   position: relative;
-  width: var(--assistant-popup-width);
   max-width: 100%;
 }
 
@@ -15,6 +14,7 @@
   align-items: flex-end;
   pointer-events: none;
   min-height: var(--assistant-avatar-size);
+  min-width: min(var(--assistant-popup-width), calc(100vw - 32px));
 }
 
 .assistant__anchor {
@@ -22,6 +22,7 @@
   width: var(--assistant-avatar-size);
   height: var(--assistant-avatar-size);
   pointer-events: auto;
+  z-index: 3;
 }
 
 .assistant__avatar {
@@ -37,8 +38,9 @@
   place-items: center;
   background: radial-gradient(circle at 30% 30%, #ffe081, #ffb347 55%, #ff8c61 100%);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: box-shadow 0.35s ease;
   outline: none;
+  z-index: 3;
 }
 
 .assistant__avatar:focus-visible {
@@ -55,8 +57,18 @@
   fill: rgba(255, 255, 255, 0.94);
 }
 
-.assistant__avatar-eye {
+.assistant__avatar-eye-open {
   fill: #2c3e50;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.assistant__avatar-eye-closed {
+  fill: none;
+  stroke: #2c3e50;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .assistant__avatar-smile {
@@ -78,11 +90,9 @@
 
 .assistant__popup {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translateY(calc(-100% - var(--assistant-spacing)));
-  width: var(--assistant-popup-width);
-  max-width: 100%;
+  right: calc(var(--assistant-avatar-size) + var(--assistant-spacing));
+  bottom: calc(100% + var(--assistant-spacing));
+  width: min(var(--assistant-popup-width), calc(100vw - 48px));
   background: rgba(22, 29, 49, 0.92);
   color: #f8fafc;
   border-radius: 20px;
@@ -98,9 +108,8 @@
 
 .assistant__header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .assistant__title {
@@ -109,25 +118,6 @@
   margin: 0;
 }
 
-.assistant__close {
-  border: none;
-  background: transparent;
-  color: inherit;
-  font-size: 1.4rem;
-  cursor: pointer;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.assistant__close:hover,
-.assistant__close:focus-visible {
-  background-color: rgba(255, 255, 255, 0.12);
-  transform: scale(1.05);
-}
 
 .assistant__intro,
 .assistant__closing {
@@ -148,24 +138,46 @@
   line-height: 1.45;
 }
 
-.assistant--open .assistant__avatar {
-  transform: translateY(calc(-100% - var(--assistant-spacing)));
+.assistant--phase-sleeping .assistant__avatar {
+  animation: assistant-sleep 3.5s ease-in-out infinite;
 }
 
-.assistant--phase-idle .assistant__avatar {
-  animation: assistant-invite 2.5s ease-in-out infinite;
+.assistant--phase-sleeping .assistant__avatar-wave {
+  animation: assistant-sleep-wave 4s ease-in-out infinite;
+  opacity: 0.45;
 }
 
-.assistant--phase-idle .assistant__avatar-wave {
-  animation: assistant-wave 2.5s ease-in-out infinite;
+.assistant--phase-sleeping .assistant__avatar-eye-open {
+  opacity: 0;
+  transform: translateY(4px) scaleY(0.2);
 }
 
-.assistant--phase-wondering .assistant__avatar {
-  animation: assistant-wondering 3.2s ease-in-out infinite;
+.assistant--phase-sleeping .assistant__avatar-eye-closed {
+  opacity: 1;
 }
 
-.assistant--phase-suggest-close .assistant__avatar {
-  animation: assistant-suggest-close 1.8s ease-in-out infinite;
+.assistant--phase-waking .assistant__avatar {
+  animation: assistant-wake 0.6s ease-out forwards;
+}
+
+.assistant--phase-waking .assistant__avatar-eye-open {
+  transform: translateY(-2px) scaleY(1.05);
+}
+
+.assistant--phase-jumping .assistant__avatar {
+  animation: assistant-jump 0.7s cubic-bezier(0.26, 0.86, 0.32, 1.18) forwards;
+}
+
+.assistant--phase-impatient .assistant__avatar {
+  animation: assistant-impatient 1s ease-in-out infinite;
+}
+
+.assistant--phase-impatient .assistant__avatar-smile {
+  animation: assistant-impatient-smile 1s ease-in-out infinite;
+}
+
+.assistant--phase-impatient .assistant__avatar-eye-open {
+  transform: translateY(-1px) scaleY(0.95);
 }
 
 .assistant__closing {
@@ -178,7 +190,7 @@
   animation: assistant-closing-pulse 1.4s ease-in-out infinite;
 }
 
-@keyframes assistant-invite {
+@keyframes assistant-sleep {
   0%,
   100% {
     transform: translateY(0) scale(1);
@@ -186,47 +198,83 @@
   }
 
   50% {
-    transform: translateY(-6px) scale(1.05);
-    box-shadow: 0 24px 34px rgba(0, 0, 0, 0.28);
+    transform: translateY(-6px) scale(0.97);
+    box-shadow: 0 20px 32px rgba(0, 0, 0, 0.28);
   }
 }
 
-@keyframes assistant-wave {
+@keyframes assistant-sleep-wave {
   0%,
   100% {
-    opacity: 0;
-    transform: scale(0.9);
+    opacity: 0.45;
+    transform: scale(0.95);
   }
 
   50% {
-    opacity: 1;
+    opacity: 0.9;
     transform: scale(1.1);
   }
 }
 
-@keyframes assistant-wondering {
-  0%,
-  100% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(0deg);
+@keyframes assistant-wake {
+  0% {
+    transform: translateY(0) scale(1);
   }
 
-  50% {
-    transform: translateY(calc(-100% - var(--assistant-spacing) - 6px)) rotate(2deg);
+  40% {
+    transform: translateY(-18px) scale(1.08);
+  }
+
+  70% {
+    transform: translateY(6px) scale(0.96);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
   }
 }
 
-@keyframes assistant-suggest-close {
+@keyframes assistant-jump {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  40% {
+    transform: translate(-32%, -82%) scale(0.98);
+  }
+
+  70% {
+    transform: translate(-58%, -146%) scale(1.02);
+  }
+
+  100% {
+    transform: translate(-72%, -168%) scale(1);
+  }
+}
+
+@keyframes assistant-impatient {
   0%,
   100% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(0deg);
+    transform: translate(-72%, -168%) rotate(0deg) scale(1);
   }
 
-  25% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(3deg);
+  20% {
+    transform: translate(-78%, -176%) rotate(-5deg) scale(1.01);
   }
 
-  75% {
-    transform: translateY(calc(-100% - var(--assistant-spacing))) rotate(-3deg);
+  60% {
+    transform: translate(-64%, -160%) rotate(6deg) scale(1.01);
+  }
+}
+
+@keyframes assistant-impatient-smile {
+  0%,
+  100% {
+    stroke-width: 6px;
+  }
+
+  40% {
+    stroke-width: 7px;
   }
 }
 
@@ -243,11 +291,16 @@
 
 @media (max-width: 768px) {
   :host {
-    --assistant-avatar-size: clamp(60px, 16vw, 76px);
-    --assistant-popup-width: min(92vw, 340px);
+    --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
+    --assistant-popup-width: min(94vw, 420px);
+  }
+
+  .assistant {
+    min-width: min(var(--assistant-popup-width), calc(100vw - 24px));
   }
 
   .assistant__popup {
     padding: 1rem 1rem 1.25rem;
+    width: min(var(--assistant-popup-width), calc(100vw - 32px));
   }
 }

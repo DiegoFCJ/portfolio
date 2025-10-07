@@ -36,30 +36,75 @@ describe('ProjectsComponent', () => {
   });
 
   /**
-   * Ensures translated project data is rendered and the toggle button updates expansion state.
+   * Verifies that the template truncates the description when the project is collapsed.
    */
-  it('should toggle project expansion via the template control', async () => {
-    await fixture.whenStable();
+  it('should render a truncated description when the project is collapsed', () => {
+    const longDescription = 'This is a long description '.repeat(10).trim();
+
+    component.maxChars = 50;
+    component.projects = {
+      ...component.projects,
+      projects: [{
+        title: 'Test project',
+        description: longDescription,
+        technologies: [],
+        status: '',
+        image: '',
+        link: '',
+        expanded: false
+      }]
+    };
+
     fixture.detectChanges();
 
-    const firstProject = component.projects.projects[0];
-    const toggleButton: HTMLButtonElement | null = fixture.nativeElement.querySelector('.description-toggle');
-    expect(toggleButton).withContext('toggle button should exist').not.toBeNull();
-
-    expect(firstProject.expanded).toBeFalse();
-    expect(toggleButton?.getAttribute('aria-expanded')).toBe('false');
-
-    toggleButton?.click();
-    fixture.detectChanges();
-
-    expect(firstProject.expanded).toBeTrue();
-    expect(toggleButton?.getAttribute('aria-expanded')).toBe('true');
+    const descriptionElement: HTMLElement | null = fixture.nativeElement.querySelector('.project-description p');
+    expect(descriptionElement?.textContent?.trim()).toBe(`${longDescription.slice(0, component.maxChars)}...`);
   });
 
   /**
-   * Verifies that toggleExpand correctly toggles the expanded state of a project instance.
+   * Verifies that the template renders the full description when the project is expanded.
    */
-  it('should toggle expand state correctly', () => {
+  it('should render the full description when the project is expanded', () => {
+    const project = {
+      title: 'Test project',
+      description: 'This is a full description',
+      technologies: [],
+      status: '',
+      image: '',
+      link: '',
+      expanded: false
+    };
+
+    component.projects = {
+      ...component.projects,
+      projects: [project]
+    };
+
+    fixture.detectChanges();
+
+    component.toggleExpand(project);
+    fixture.detectChanges();
+
+    const descriptionElement: HTMLElement | null = fixture.nativeElement.querySelector('.project-description p');
+    expect(descriptionElement?.textContent?.trim()).toBe(project.description);
+   * Ensures the project description is rendered without the legacy toggle button.
+   */
+  it('should render the project description without a toggle button', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const toggleButton: HTMLButtonElement | null = fixture.nativeElement.querySelector('.description-toggle');
+    const descriptionRegion: HTMLElement | null = fixture.nativeElement.querySelector('.description-content');
+
+    expect(toggleButton).withContext('toggle button should not be present').toBeNull();
+    expect(descriptionRegion).withContext('description content should be rendered').not.toBeNull();
+    expect(descriptionRegion?.getAttribute('tabindex')).toBe('0');
+  });
+
+  /**
+   * Verifies that the scroll handler updates the scroll boundary state.
+   */
+  it('should update scroll state when the description is scrolled', () => {
     const project: Project = {
       title: 'Sample project',
       description: 'Description',
@@ -67,14 +112,29 @@ describe('ProjectsComponent', () => {
       status: { level: 'active' },
       image: 'image.png',
       link: 'https://example.com',
-      expanded: false
+      isScrollable: true,
+      isAtEnd: false
     };
 
-    component.toggleExpand(project);
-    expect(project.expanded).toBeTrue();
+    component.onDescriptionScroll(project, {
+      target: {
+        scrollTop: 0,
+        clientHeight: 100,
+        scrollHeight: 200
+      }
+    } as unknown as Event);
 
-    component.toggleExpand(project);
-    expect(project.expanded).toBeFalse();
+    expect(project.isAtEnd).toBeFalse();
+
+    component.onDescriptionScroll(project, {
+      target: {
+        scrollTop: 110,
+        clientHeight: 100,
+        scrollHeight: 200
+      }
+    } as unknown as Event);
+
+    expect(project.isAtEnd).toBeTrue();
   });
 
   /**
@@ -82,43 +142,29 @@ describe('ProjectsComponent', () => {
    */
   it('should update isMobile flag on window resize', () => {
     globalThis.innerWidth = 500;
-    component.onResize(new Event('resize'));
+    component.onResize();
     expect(component.isMobile).toBeTrue();
 
     globalThis.innerWidth = 1000;
-    component.onResize(new Event('resize'));
+    component.onResize();
     expect(component.isMobile).toBeFalse();
   });
 
   /**
-   * Verifies that moveToNext correctly navigates to the next project.
+   * Ensures user interactions stop the automatic peek animation.
    */
-  it('should move to next project', async () => {
-    await fixture.whenStable();
-    fixture.detectChanges();
+  it('should stop peek animation on interaction', () => {
+    // Arrange timers so that the component has pending animation steps.
+    component['peekStartTimeoutId'] = setTimeout(() => fail('start timeout should be cleared'), 1000);
+    component['peekStopTimeoutId'] = setTimeout(() => fail('stop timeout should be cleared'), 1000);
+    component.shouldPeek = true;
 
-    component.currentIndex = 0;
-    component.moveToNext();
-    expect(component.currentIndex).toBe(1);
+    // Act - simulate user interaction with the carousel viewport.
+    component.handleCarouselInteraction();
 
-    component.currentIndex = component.projects.projects.length - 1;
-    component.moveToNext();
-    expect(component.currentIndex).toBe(0);
-  });
-
-  /**
-   * Verifies that moveToPrevious correctly navigates to the previous project.
-   */
-  it('should move to previous project', async () => {
-    await fixture.whenStable();
-    fixture.detectChanges();
-
-    component.currentIndex = 1;
-    component.moveToPrevious();
-    expect(component.currentIndex).toBe(0);
-
-    component.currentIndex = 0;
-    component.moveToPrevious();
-    expect(component.currentIndex).toBe(component.projects.projects.length - 1);
+    // Assert - timers are cleared and peek animation is disabled.
+    expect(component['peekStartTimeoutId']).toBeNull();
+    expect(component['peekStopTimeoutId']).toBeNull();
+    expect(component.shouldPeek).toBeFalse();
   });
 });
