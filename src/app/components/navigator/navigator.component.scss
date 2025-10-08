@@ -314,7 +314,6 @@ $navigator-themes: (
 
 .lang-flag {
     font-size: 1.2rem;
-    margin-right: 8px;
     color: var(--navigator-text-color);
 }
 
@@ -328,13 +327,28 @@ $navigator-themes: (
     right: calc(100% + 8px);
     transform: translateY(-50%);
     display: flex;
-    gap: 6px;
+    gap: 10px;
     background: var(--navigator-option-background);
-    padding: 4px 6px;
+    padding: 6px 10px;
     border-radius: 2rem;
     box-shadow: $navigator-shadow;
-    align-items: center;
+    align-items: flex-end;
     z-index: 1;
+}
+
+.option-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.option-hint {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--navigator-text-color);
+    text-align: center;
+    white-space: nowrap;
 }
 
 .option-button {
@@ -342,6 +356,7 @@ $navigator-themes: (
     height: 32px;
     border-radius: 50%;
     border: none;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;

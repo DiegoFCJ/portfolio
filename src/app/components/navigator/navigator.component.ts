@@ -5,6 +5,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
 
 type ThemeKey = 'light' | 'dark' | 'blue' | 'green' | 'red';
+type LanguageKey = 'en' | 'it' | 'de' | 'es';
 
 @Component({
   selector: 'app-navigator',
@@ -28,7 +29,8 @@ export class NavigatorComponent implements OnInit {
 
   currentLang: string;
   currentTheme: ThemeKey = 'dark';
-  private readonly availableThemes: ThemeKey[] = ['light', 'dark', 'blue', 'green', 'red'];
+  readonly availableThemes: ThemeKey[] = ['light', 'dark', 'blue', 'green', 'red'];
+  readonly availableLanguages: LanguageKey[] = ['en', 'it', 'de', 'es'];
 
   /** Controls visibility of the navigator */
   isOpen = true;
@@ -70,6 +72,20 @@ export class NavigatorComponent implements OnInit {
     it: { light: 'Tema chiaro', dark: 'Tema scuro', blue: 'Tema blu', green: 'Tema verde', red: 'Tema rosso' },
     de: { light: 'Helles Thema', dark: 'Dunkles Thema', blue: 'Blaues Thema', green: 'Grünes Thema', red: 'Rotes Thema' },
     es: { light: 'Tema claro', dark: 'Tema oscuro', blue: 'Tema azul', green: 'Tema verde', red: 'Tema rojo' }
+  };
+
+  languageNames: Record<string, Record<LanguageKey, string>> = {
+    en: { en: 'English', it: 'Italian', de: 'German', es: 'Spanish' },
+    it: { en: 'Inglese', it: 'Italiano', de: 'Tedesco', es: 'Spagnolo' },
+    de: { en: 'Englisch', it: 'Italienisch', de: 'Deutsch', es: 'Spanisch' },
+    es: { en: 'Inglés', it: 'Italiano', de: 'Alemán', es: 'Español' }
+  };
+
+  private readonly languageFlags: Record<LanguageKey, string> = {
+    en: '🇬🇧',
+    it: '🇮🇹',
+    de: '🇩🇪',
+    es: '🇪🇸'
   };
 
   toggleButtonLabels: { [key: string]: { open: string; close: string } } = {
@@ -128,7 +144,7 @@ export class NavigatorComponent implements OnInit {
     }
   }
 
-  changeLanguage(language: 'en' | 'it' | 'de' | 'es'): void {
+  changeLanguage(language: LanguageKey): void {
     this.translationService.setLanguage(language);
     this.currentLang = language;
     this.showLanguageOptions = false;
@@ -191,6 +207,15 @@ export class NavigatorComponent implements OnInit {
   getThemeName(theme: ThemeKey): string {
     const names = this.themeNames[this.currentLang] || this.themeNames['en'];
     return names[theme];
+  }
+
+  getLanguageName(language: LanguageKey): string {
+    const names = this.languageNames[this.currentLang] || this.languageNames['en'];
+    return names[language];
+  }
+
+  getLanguageFlag(language: LanguageKey): string {
+    return this.languageFlags[language];
   }
 
   private isValidTheme(theme: string | null): theme is ThemeKey {
