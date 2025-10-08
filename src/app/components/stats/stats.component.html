@@ -8,10 +8,15 @@
     </header>
 
     <div class="statistics-grid" role="list">
-      <article
+      <button
         class="statistics-card"
         role="listitem"
+        type="button"
         *ngFor="let stat of statistics"
+        (click)="openStatDetail(stat, $event.currentTarget)"
+        aria-haspopup="dialog"
+        [attr.aria-expanded]="selectedStat === stat"
+        aria-controls="stat-detail-dialog"
       >
         <div class="statistics-card-glow" aria-hidden="true"></div>
         <div class="statistics-content">
@@ -24,7 +29,46 @@
           </div>
           <p class="statistics-suffix" *ngIf="stat.suffix">{{ stat.suffix }}</p>
         </div>
-      </article>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="statistics-overlay"
+    *ngIf="selectedStat as activeStat"
+    (click)="closeStatDetail($event)"
+  >
+    <div
+      class="statistics-dialog"
+      role="dialog"
+      aria-modal="true"
+      id="stat-detail-dialog"
+      [attr.aria-labelledby]="'stat-detail-title'"
+      [attr.aria-describedby]="'stat-detail-description'"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        #detailCloseButton
+        class="statistics-dialog-close"
+        type="button"
+        (click)="closeStatDetail($event)"
+        [attr.aria-label]="closeButtonLabel"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="statistics-dialog-header">
+        <div class="statistics-dialog-icon" aria-hidden="true">
+          <mat-icon>{{ activeStat.icon }}</mat-icon>
+        </div>
+        <div class="statistics-dialog-titles">
+          <h3 class="statistics-dialog-title" id="stat-detail-title">{{ activeStat.label }}</h3>
+          <p class="statistics-dialog-value">{{ activeStat.value }}</p>
+        </div>
+      </div>
+      <p class="statistics-dialog-description" id="stat-detail-description">
+        {{ activeStat.detail }}
+      </p>
+      <p class="statistics-dialog-suffix" *ngIf="activeStat.suffix">{{ activeStat.suffix }}</p>
     </div>
   </div>
 </section>

@@ -15,6 +15,7 @@ export interface Stat {
     icon: string;
     label: string;
     valueSuffix?: string;
+    detail: string;
 }
 
 export interface StatsMetrics {
