@@ -1,0 +1,44 @@
+@use 'variables' as *;
+
+body.red-mode {
+  background-color: #ffe4e6;
+  color: #3f0d12;
+  --section-transition-glow: rgba(248, 113, 113, 0.28);
+
+  .bg-container {
+    background: linear-gradient(135deg, #fbcfe8, #f87171, #fb7185);
+  }
+
+  .project-card,
+  .skill-section,
+  .popup {
+    background-color: #ffffff;
+    box-shadow: $section-box-shadow;
+  }
+
+  .point-on-line {
+    background-color: #ef4444;
+  }
+
+  .statistics-component {
+    --stat-surface: linear-gradient(140deg, rgba(255, 228, 230, 0.92), rgba(254, 226, 226, 0.9), rgba(254, 205, 211, 0.88));
+    --stat-card-bg: rgba(255, 255, 255, 0.96);
+    --stat-card-border: rgba(248, 113, 113, 0.32);
+    --stat-card-border-active: rgba(239, 68, 68, 0.55);
+    --stat-card-shadow: 0 22px 50px -28px rgba(248, 113, 113, 0.4);
+    --stat-card-hover-shadow: 0 28px 60px -26px rgba(220, 38, 38, 0.45);
+    --stat-card-glow: linear-gradient(135deg, rgba(248, 113, 113, 0.22), rgba(252, 165, 165, 0.18));
+    --stat-ornament-glow: radial-gradient(circle, rgba(251, 113, 133, 0.52), transparent 65%);
+    --stat-icon-surface: linear-gradient(150deg, rgba(252, 165, 165, 0.55), rgba(248, 113, 113, 0.5));
+    --stat-icon-ring: rgba(239, 68, 68, 0.32);
+    --stat-icon-color: #b91c1c;
+    --stat-label-color: #7f1d1d;
+    --stat-muted: rgba(127, 29, 29, 0.72);
+    --stat-value-color: #7f1d1d;
+    --stat-value-gradient: linear-gradient(120deg, #dc2626 10%, #f97316 55%, #fb7185 90%);
+    --stat-title-color: #7f1d1d;
+    --stat-accent-bar: linear-gradient(90deg, rgba(248, 113, 113, 0.95), rgba(251, 146, 60, 0.9));
+    --stat-suffix-bg: rgba(255, 241, 242, 0.94);
+    --stat-suffix-border: rgba(248, 113, 113, 0.35);
+  }
+}
