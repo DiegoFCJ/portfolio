@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#FBBF24" />
+    </linearGradient>
+    <clipPath id="wave-clip">
+      <path d="M0 420C120 390 240 430 360 410C480 390 600 320 720 330C840 340 960 420 1080 420C1140 420 1200 410 1200 410V630H0V420Z" />
+    </clipPath>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="960" cy="140" r="110" fill="url(#sun)" opacity="0.9" />
+  <g clip-path="url(#wave-clip)" opacity="0.8">
+    <rect width="1200" height="630" fill="#38BDF8" />
+    <path d="M0 360C120 340 240 380 360 360C480 340 600 270 720 280C840 290 960 360 1080 360C1140 360 1200 350 1200 350V630H0V360Z" fill="#0EA5E9" />
+    <path d="M0 300C120 280 240 320 360 300C480 280 600 220 720 230C840 240 960 300 1080 300C1140 300 1200 290 1200 290V630H0V300Z" fill="#0284C7" opacity="0.85" />
+  </g>
+  <g fill="white" opacity="0.9">
+    <path d="M180 450H240V520H180Z" opacity="0.35" />
+    <path d="M280 420H340V520H280Z" opacity="0.55" />
+    <path d="M380 460H440V520H380Z" opacity="0.4" />
+    <path d="M480 430H540V520H480Z" opacity="0.6" />
+    <path d="M580 470H640V520H580Z" opacity="0.45" />
+    <path d="M680 440H740V520H680Z" opacity="0.55" />
+  </g>
+  <g fill="white">
+    <text x="120" y="190" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="68" font-weight="600" letter-spacing="0.04em">Borgo Samarína</text>
+    <text x="120" y="260" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="30" font-weight="500" opacity="0.85">Portale turistico digitale</text>
+    <text x="120" y="325" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="22" opacity="0.75">Itinerari interattivi · Eventi stagionali · Gestione contenuti via CMS headless</text>
+  </g>
+</svg>
