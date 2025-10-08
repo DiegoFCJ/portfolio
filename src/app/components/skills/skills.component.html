@@ -69,26 +69,28 @@
 
   <ng-template #desktopLayout>
     <div class="skills-grid">
-      <nav
-        class="stack-tabs"
-        role="tablist"
-        aria-orientation="vertical"
-        aria-label="Skill stack selector"
-      >
-        <button
-          *ngFor="let tab of tabs"
-          type="button"
-          class="stack-tab"
-          role="tab"
-          [id]="'tab-' + tab.id"
-          [attr.aria-controls]="'panel-' + tab.id"
-          [attr.aria-selected]="tab.id === activeTabId"
-          [class.active]="tab.id === activeTabId"
-          (click)="setActiveTab(tab.id)"
+      <div class="nav-container">
+        <nav
+          class="stack-tabs"
+          role="tablist"
+          aria-orientation="vertical"
+          aria-label="Skill stack selector"
         >
-          <span class="tab-label">{{ tab.label }}</span>
-        </button>
-      </nav>
+          <button
+            *ngFor="let tab of tabs"
+            type="button"
+            class="stack-tab"
+            role="tab"
+            [id]="'tab-' + tab.id"
+            [attr.aria-controls]="'panel-' + tab.id"
+            [attr.aria-selected]="tab.id === activeTabId"
+            [class.active]="tab.id === activeTabId"
+            (click)="setActiveTab(tab.id)"
+          >
+            <span class="tab-label">{{ tab.label }}</span>
+          </button>
+        </nav>
+      </div>
 
       <div
         class="spotlight-panels"

@@ -49,16 +49,23 @@
   margin: 0 auto;
   padding-inline: clamp(0.75rem, 5vw, 1.5rem);
   box-sizing: border-box;
+  align-items: flex-start !important;
+}
+
+.nav-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .skills-grid {
   width: 100%;
   max-width: 68rem;
-  display: grid;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   grid-template-columns: minmax(200px, 260px) 1fr;
   gap: clamp(1.5rem, 3vw, 2.75rem);
   align-items: start;
@@ -252,6 +259,12 @@
 }
 
 @media (max-width: 600px) {
+  
+  .stack-tabs {
+    flex-wrap: wrap;
+    margin: 32px;
+  }
+
   .skills-section {
     padding: clamp(2rem, 6vw, 3.25rem) clamp(1rem, 5vw, 2.5rem);
   }
