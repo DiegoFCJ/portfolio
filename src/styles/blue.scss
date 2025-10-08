@@ -2,7 +2,7 @@
 
 body.blue-mode {
   background-color: #e0f2ff;
-  color: #102a43;
+  color: #000000;
   --section-transition-glow: rgba(96, 165, 250, 0.32);
 
   .bg-container {
@@ -14,6 +14,7 @@ body.blue-mode {
   .popup {
     background-color: #ffffff;
     box-shadow: $section-box-shadow;
+    color: #000000;
   }
 
   .point-on-line {
