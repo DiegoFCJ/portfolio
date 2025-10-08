@@ -4,7 +4,7 @@
 
 .home {
   position: relative;
-  inline-size: 100vw;
+  inline-size: 100%;
   min-block-size: 100vh;
   min-block-size: 100dvh;
   overflow-x: hidden;
@@ -13,8 +13,7 @@
 .home__section {
   position: relative;
   inline-size: 100%;
-  block-size: 100vh;
-  block-size: 100dvh;
+  block-size: auto;
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -25,7 +24,7 @@
   scroll-snap-align: start;
   scroll-snap-stop: always;
   isolation: isolate;
-  overflow: hidden;
+  overflow: visible;
 
   &::before,
   &::after {
@@ -67,7 +66,7 @@
 .home__section-content {
   position: relative;
   inline-size: 100%;
-  block-size: 100%;
+  block-size: auto;
   max-inline-size: 100%;
   margin: 0 auto;
   display: flex;
@@ -83,12 +82,13 @@
 .home__panel {
   flex: 1 1 auto;
   inline-size: 100%;
-  block-size: 100%;
+  block-size: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   padding: 0;
   margin: 0 auto;
   max-inline-size: 100%;
@@ -97,7 +97,25 @@
 
 .home__panel > * {
   inline-size: 100%;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+}
+
+.home__panel > app-hero,
+.home__panel > app-about,
+.home__panel > app-projects,
+.home__panel > app-skills,
+.home__panel > app-stats,
+.home__panel > app-contact-me {
+  flex: 1 0 auto;
+}
+
+.home__section:first-of-type {
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+}
+
+.home__section:first-of-type .home__panel {
+  min-block-size: 100%;
 }
 
 .home__floating-controls {

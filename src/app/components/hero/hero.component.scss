@@ -16,6 +16,8 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  inline-size: 100%;
+  max-inline-size: 100vw;
   block-size: 100%;
   min-block-size: 100%;
   text-align: center;
@@ -23,7 +25,7 @@ h1 {
 }
 
 .bottom-border {
-  width: 100vw;
+  width: 100%;
   height: 7px;
   position: absolute;
   bottom: 0;
