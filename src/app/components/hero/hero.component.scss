@@ -1,82 +1,77 @@
 :host {
   position: relative;
   display: block;
-  inline-size: 100%;
-  block-size: 100%;
-}
-
-h1 {
-  font-size: 2.5em !important;
 }
 
 .bg-container {
-  position: relative;
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  block-size: 100%;
-  min-block-size: 100%;
+  height: 100vh;
   text-align: center;
-  overflow: auto;
-}
 
-.bottom-border {
-  width: 100vw;
-  height: 7px;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.hero-content {
-  width: 50vw;
-  max-width: 600px;
-  z-index: 3;
-}
-
-.hero-content p {
-  margin: auto;
-}
-
-.hero-content button {
-  margin-top: 20px;
-  font-weight: bold;
-}
-
-@media (max-width: 768px) {
-  .bg-container {
-    padding: 0 1em;
-    block-size: 100%;
-    min-block-size: 100%;
-    padding-bottom: 2rem;
-  }
-
-  .hero-content {
-    width: 80vw;
-    max-width: 90%;
-    padding: 0 10px;
-  }
-
-  .hero-content button {
-    font-size: 14px;
-    padding: 10px 20px;
-  }
-
+  
   .bottom-border {
-    width: 100%;
+    width: 100vw;
+    height: 7px;
+    position: absolute;
+    bottom: 0;
   }
-}
 
-@media (max-width: 480px) {
   .hero-content {
-    width: 90vw;
+    width: 50vw;
+    z-index: 3;
+    max-width: 600px;
+    gap: 1rem;
+
+    p {
+      margin: auto;
+    }
+
+    button {
+      margin-top: 20px;
+      font-weight: bold;
+    }
   }
 
-  .hero-content button {
-    font-size: 12px;
-    padding: 8px 15px;
+  .popup-wrapper {
+    position: relative;
+  }
+
+  // Media Query per dispositivi mobili
+  @media (max-width: 768px) {
+    .bg-container {
+      padding: 0 1em; // Ridurre il padding sui dispositivi più piccoli
+      height: auto; // Permettere alla sezione di adattarsi automaticamente
+      padding-bottom: 10vh; // Aggiungere un po' di spazio sul fondo per il footer
+
+      .hero-content {
+        width: 80vw; // Rende il contenuto più largo sui dispositivi piccoli
+        max-width: 90%; // Imposta una larghezza massima per una visualizzazione ottimale
+        padding: 0 10px; // Aggiungi un po' di spazio interno
+
+        button {
+          font-size: 14px; // Ridurre la dimensione del testo per il bottone
+          padding: 10px 20px; // Diminuisci il padding per una maggiore compattezza
+        }
+      }
+    }
+
+    .bottom-border {
+      width: 100%; // Rendi la border della base più stretta sui dispositivi mobili
+    }
+  }
+
+  // Media Query per schermi molto piccoli (es. telefoni più piccoli)
+  @media (max-width: 480px) {
+    .hero-content {
+      width: 90vw; // Rende il contenuto quasi a tutta larghezza
+      button {
+        font-size: 12px; // Ancora più piccolo sui dispositivi molto piccoli
+        padding: 8px 15px; // Riduci ancora il padding
+      }
+    }
   }
 }
