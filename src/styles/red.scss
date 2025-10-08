@@ -40,5 +40,7 @@ body.red-mode {
     --stat-accent-bar: linear-gradient(90deg, rgba(248, 113, 113, 0.95), rgba(251, 146, 60, 0.9));
     --stat-suffix-bg: rgba(255, 241, 242, 0.94);
     --stat-suffix-border: rgba(248, 113, 113, 0.35);
+    --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(248, 113, 113, 0.35), transparent 55%);
+    --stat-after-glow: radial-gradient(circle at 80% 20%, rgba(251, 146, 60, 0.32), transparent 60%);
   }
 }

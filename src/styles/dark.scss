@@ -105,6 +105,8 @@ body.dark-mode {
         --stat-accent-bar: linear-gradient(90deg, rgba(129, 140, 248, 0.9), rgba(16, 185, 129, 0.9));
         --stat-suffix-bg: rgba(15, 23, 42, 0.6);
         --stat-suffix-border: rgba(94, 234, 212, 0.25);
+        --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(45, 212, 191, 0.38), transparent 55%);
+        --stat-after-glow: radial-gradient(circle at 78% 18%, rgba(56, 189, 248, 0.3), transparent 60%);
     }
 
     .social-item a img {
