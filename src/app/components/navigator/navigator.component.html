@@ -2,71 +2,75 @@
   <!-- Modern, animated, circular floating navbar -->
   <div class="modern-navigator" [class.modern-navigator--collapsed]="!isOpen">
     <ng-container *ngIf="isOpen">
-      <div class="arrow-container">
-        <!-- Previous button -->
-        <button class="arrow-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Sezione precedente"
-          [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
-          <mat-icon>arrow_upward</mat-icon>
-        </button>
+      <div class="navigator-content">
+        <div class="arrow-stack">
+          <!-- Previous button -->
+          <button class="arrow-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Sezione precedente"
+            [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
 
-        <!-- Next button -->
-        <button class="arrow-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Sezione successiva"
-          [matTooltip]="getTooltip('next')" matTooltipPosition="left">
-          <mat-icon>arrow_downward</mat-icon>
-        </button>
-      </div>
-
-      <div class="nav-group">
-        <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Selettore tema"
-          [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
-          <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
-        </button>
-        <div class="option-container" *ngIf="showThemeOptions">
-          <button class="option-button" (click)="changeTheme('light')" aria-label="Tema chiaro"
-            [class.selected]="currentTheme === 'light'" [matTooltip]="getThemeName('light')"
-            matTooltipPosition="left">
-            <mat-icon>light_mode</mat-icon>
-          </button>
-          <button class="option-button" (click)="changeTheme('dark')" aria-label="Tema scuro"
-            [class.selected]="currentTheme === 'dark'" [matTooltip]="getThemeName('dark')"
-            matTooltipPosition="left">
-            <mat-icon>dark_mode</mat-icon>
-          </button>
-          <button class="option-button" (click)="changeTheme('blue')" aria-label="Tema blu"
-            [class.selected]="currentTheme === 'blue'" [matTooltip]="getThemeName('blue')"
-            matTooltipPosition="left">
-            <mat-icon>water_drop</mat-icon>
-          </button>
-          <button class="option-button" (click)="changeTheme('green')" aria-label="Tema verde"
-            [class.selected]="currentTheme === 'green'" [matTooltip]="getThemeName('green')"
-            matTooltipPosition="left">
-            <mat-icon>eco</mat-icon>
-          </button>
-          <button class="option-button" (click)="changeTheme('red')" aria-label="Tema rosso"
-            [class.selected]="currentTheme === 'red'" [matTooltip]="getThemeName('red')" matTooltipPosition="left">
-            <mat-icon>local_fire_department</mat-icon>
+          <!-- Next button -->
+          <button class="arrow-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Sezione successiva"
+            [matTooltip]="getTooltip('next')" matTooltipPosition="left">
+            <mat-icon>arrow_downward</mat-icon>
           </button>
         </div>
-      </div>
 
-      <div class="nav-group">
-        <button class="nav-button" (click)="toggleLanguageOptions()" [matTooltip]="getTooltip('language')"
-          matTooltipPosition="left">
-          <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
-        </button>
-        <div class="option-container" *ngIf="showLanguageOptions">
-          <button class="option-button" (click)="changeLanguage('en')" aria-label="Inglese">
-            <span class="lang-flag">🇬🇧</span>
-          </button>
-          <button class="option-button" (click)="changeLanguage('it')" aria-label="Italiano">
-            <span class="lang-flag">🇮🇹</span>
-          </button>
-          <button class="option-button" (click)="changeLanguage('de')" aria-label="Tedesco">
-            <span class="lang-flag">🇩🇪</span>
-          </button>
-          <button class="option-button" (click)="changeLanguage('es')" aria-label="Spagnolo">
-            <span class="lang-flag">🇪🇸</span>
-          </button>
+        <div class="nav-groups">
+          <div class="nav-group">
+            <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Selettore tema"
+              [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
+              <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
+            </button>
+            <div class="option-container" *ngIf="showThemeOptions">
+              <button class="option-button" (click)="changeTheme('light')" aria-label="Tema chiaro"
+                [class.selected]="currentTheme === 'light'" [matTooltip]="getThemeName('light')"
+                matTooltipPosition="left">
+                <mat-icon>light_mode</mat-icon>
+              </button>
+              <button class="option-button" (click)="changeTheme('dark')" aria-label="Tema scuro"
+                [class.selected]="currentTheme === 'dark'" [matTooltip]="getThemeName('dark')"
+                matTooltipPosition="left">
+                <mat-icon>dark_mode</mat-icon>
+              </button>
+              <button class="option-button" (click)="changeTheme('blue')" aria-label="Tema blu"
+                [class.selected]="currentTheme === 'blue'" [matTooltip]="getThemeName('blue')"
+                matTooltipPosition="left">
+                <mat-icon>water_drop</mat-icon>
+              </button>
+              <button class="option-button" (click)="changeTheme('green')" aria-label="Tema verde"
+                [class.selected]="currentTheme === 'green'" [matTooltip]="getThemeName('green')"
+                matTooltipPosition="left">
+                <mat-icon>eco</mat-icon>
+              </button>
+              <button class="option-button" (click)="changeTheme('red')" aria-label="Tema rosso"
+                [class.selected]="currentTheme === 'red'" [matTooltip]="getThemeName('red')" matTooltipPosition="left">
+                <mat-icon>local_fire_department</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="nav-group">
+            <button class="nav-button" (click)="toggleLanguageOptions()" [matTooltip]="getTooltip('language')"
+              matTooltipPosition="left">
+              <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
+            </button>
+            <div class="option-container" *ngIf="showLanguageOptions">
+              <button class="option-button" (click)="changeLanguage('en')" aria-label="Inglese">
+                <span class="lang-flag">🇬🇧</span>
+              </button>
+              <button class="option-button" (click)="changeLanguage('it')" aria-label="Italiano">
+                <span class="lang-flag">🇮🇹</span>
+              </button>
+              <button class="option-button" (click)="changeLanguage('de')" aria-label="Tedesco">
+                <span class="lang-flag">🇩🇪</span>
+              </button>
+              <button class="option-button" (click)="changeLanguage('es')" aria-label="Spagnolo">
+                <span class="lang-flag">🇪🇸</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </ng-container>

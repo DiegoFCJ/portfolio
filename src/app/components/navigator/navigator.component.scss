@@ -155,8 +155,8 @@ $navigator-themes: (
         position: absolute;
         inset: 0;
         border-radius: inherit;
-        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.35), transparent 60%);
-        opacity: 0.65;
+        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.22), transparent 60%);
+        opacity: 0.45;
         transition: opacity 0.3s ease;
         pointer-events: none;
     }
@@ -167,33 +167,40 @@ $navigator-themes: (
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 18px var(--navigator-button-glow);
 
         &::after {
-            opacity: 0.85;
+            opacity: 0.7;
         }
     }
 }
 
+
 .modern-navigator {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    align-items: center;
+    gap: 16px;
+    align-items: flex-end;
 
     &.modern-navigator--collapsed {
-        gap: 0;
+        gap: 8px;
     }
 
-    .arrow-container {
-        width: $navigator-button-size - 8;
-        justify-content: center;
-        height: 90px;
-        padding: 4px;
-        background-color: var(--navigator-background);
-        box-shadow: $navigator-shadow;
-        border-radius: $navigator-button-size;
+    .navigator-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    .nav-groups {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 6px;
+        gap: 12px;
+        align-items: flex-end;
+    }
+
+    .arrow-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-right: auto;
     }
 
     .nav-button {
@@ -240,21 +247,21 @@ $navigator-themes: (
             position: absolute;
             inset: 0;
             border-radius: inherit;
-            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.35), transparent 60%);
-            opacity: 0.55;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 60%);
+            opacity: 0.4;
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
 
         &:hover::after {
-            opacity: 0.85;
+            opacity: 0.65;
         }
     }
 
     .arrow-button {
-        width: $navigator-button-size;
-        height: $navigator-button-size;
-        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        border-radius: 18px;
         border: 1px solid var(--navigator-button-border);
         background: var(--navigator-button-bg);
         display: flex;
@@ -263,11 +270,12 @@ $navigator-themes: (
         position: relative;
         overflow: hidden;
         transition: transform 0.25s ease, background 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
 
         &:hover {
             background: var(--navigator-button-hover-bg);
             transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3), 0 0 18px var(--navigator-button-glow);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28), 0 0 18px var(--navigator-button-glow);
         }
 
         mat-icon {
@@ -282,14 +290,14 @@ $navigator-themes: (
             position: absolute;
             inset: 0;
             border-radius: inherit;
-            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.3), transparent 60%);
-            opacity: 0.45;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 60%);
+            opacity: 0.35;
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
 
         &:hover::after {
-            opacity: 0.8;
+            opacity: 0.6;
         }
     }
 
