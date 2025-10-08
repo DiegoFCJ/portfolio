@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
@@ -15,11 +15,12 @@ interface DisplayStat {
   label: string;
   value: string;
   suffix?: string;
+  detail: string;
 }
 
 interface TranslatableStatsTemplate {
   title: string;
-  stats: Array<Pick<Stat, 'label' | 'valueSuffix'>>;
+  stats: Array<Pick<Stat, 'label' | 'valueSuffix' | 'detail'>>;
 }
 
 @Component({
@@ -37,9 +38,23 @@ export class StatsComponent implements OnInit, OnDestroy {
   statsTitle: string = '';
   statistics: DisplayStat[] = [];
   isLoading = true;
+  selectedStat: DisplayStat | null = null;
+  closeButtonLabel = 'Chiudi';
 
   private readonly destroy$ = new Subject<void>();
   private metricsCache: StatsMetrics | null = null;
+  private lastFocusedElement: HTMLElement | null = null;
+
+  @ViewChild('detailCloseButton')
+  set detailCloseButton(button: ElementRef<HTMLButtonElement> | undefined) {
+    if (!button) {
+      return;
+    }
+
+    setTimeout(() => {
+      button.nativeElement.focus({ preventScroll: true });
+    });
+  }
 
   constructor(private translationService: TranslationService) { }
 
@@ -77,29 +92,66 @@ export class StatsComponent implements OnInit, OnDestroy {
               map((translatedTemplate) => ({
                 translatedTemplate,
                 baseTemplate,
-                computed
+                computed,
+                targetLanguage: language
               }))
             );
         })
       )
-      .subscribe(({ translatedTemplate, baseTemplate, computed }) => {
+      .subscribe(({ translatedTemplate, baseTemplate, computed, targetLanguage }) => {
         this.statsTitle = translatedTemplate.title;
         this.metrics = computed;
         this.statistics = baseTemplate.stats.map((stat, index) => {
           const translatedStat = translatedTemplate.stats[index] ?? {
             label: stat.label,
-            valueSuffix: stat.valueSuffix
+            valueSuffix: stat.valueSuffix ?? '',
+            detail: stat.detail
           };
 
-          return this.buildDisplayStat(stat.icon, translatedStat, computed, index);
+          return this.buildDisplayStat(stat, translatedStat, computed, index);
         });
         this.isLoading = false;
+        this.closeButtonLabel = this.resolveCloseLabel(targetLanguage);
       });
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  openStatDetail(stat: DisplayStat, triggerElement?: HTMLElement | null): void {
+    if (triggerElement instanceof HTMLElement) {
+      this.lastFocusedElement = triggerElement;
+    }
+
+    this.selectedStat = stat;
+  }
+
+  closeStatDetail(event?: Event): void {
+    event?.stopPropagation();
+    event?.preventDefault();
+
+    if (!this.selectedStat) {
+      return;
+    }
+
+    this.selectedStat = null;
+
+    if (this.lastFocusedElement) {
+      this.lastFocusedElement.focus({ preventScroll: true });
+      this.lastFocusedElement = null;
+    }
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  handleEscape(event: KeyboardEvent): void {
+    if (!this.selectedStat) {
+      return;
+    }
+
+    event.preventDefault();
+    this.closeStatDetail();
   }
 
   calculateStats(
@@ -242,18 +294,22 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
 
   private buildDisplayStat(
-    icon: string,
-    translatedStat: Pick<Stat, 'label' | 'valueSuffix'>,
+    baseStat: Stat,
+    translatedStat: Pick<Stat, 'label' | 'valueSuffix' | 'detail'>,
     metrics: StatsMetrics,
     index: number
   ): DisplayStat {
     const value = this.getMetricValueByIndex(metrics, index);
     const suffix = this.getMetricSuffixByIndex(metrics, index, translatedStat.valueSuffix);
+    const detail = translatedStat.detail && translatedStat.detail.trim().length
+      ? translatedStat.detail
+      : baseStat.detail;
 
     return {
-      icon,
+      icon: baseStat.icon,
       label: translatedStat.label,
       value,
+      detail,
       ...(suffix ? { suffix } : {})
     };
   }
@@ -305,11 +361,26 @@ export class StatsComponent implements OnInit, OnDestroy {
   private buildTranslatableTemplate(template: StatsFull): TranslatableStatsTemplate {
     return {
       title: template.title,
-      stats: template.stats.map(({ label, valueSuffix }) => ({
+      stats: template.stats.map(({ label, valueSuffix, detail }) => ({
         label,
-        valueSuffix: valueSuffix ?? ''
+        valueSuffix: valueSuffix ?? '',
+        detail
       }))
     };
+  }
+
+  private resolveCloseLabel(language: LanguageCode): string {
+    switch (language) {
+      case 'en':
+        return 'Close detail';
+      case 'de':
+        return 'Detail schließen';
+      case 'es':
+        return 'Cerrar detalle';
+      case 'it':
+      default:
+        return 'Chiudi dettaglio';
+    }
   }
 
   private resolveLocale(language: LanguageCode): string {

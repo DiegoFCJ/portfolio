@@ -138,4 +138,54 @@ describe('StatsComponent', () => {
     expect(updatedIcons).toEqual(initialIcons);
     expect(updatedValues).toEqual(initialValues);
   }));
+
+  it('should expose detail text for each statistic', () => {
+    fixture.detectChanges();
+
+    expect(component.statistics.length).toBeGreaterThan(0);
+    component.statistics.forEach((stat, index) => {
+      expect(stat.detail.length).toBeGreaterThan(0);
+      expect(stat.detail).toBe(statsData.it.stats[index].detail);
+    });
+  });
+
+  it('should open and close detail popup while restoring focus', () => {
+    fixture.detectChanges();
+    const trigger = document.createElement('button');
+    spyOn(trigger, 'focus');
+
+    const stat = component.statistics[0];
+    component.openStatDetail(stat, trigger);
+
+    expect(component.selectedStat).toBe(stat);
+
+    component.closeStatDetail();
+
+    expect(component.selectedStat).toBeNull();
+    expect(trigger.focus).toHaveBeenCalled();
+  });
+
+  it('should close popup on escape key press', () => {
+    fixture.detectChanges();
+
+    const stat = component.statistics[0];
+    component.openStatDetail(stat);
+    expect(component.selectedStat).toBe(stat);
+
+    const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+    component.handleEscape(escapeEvent);
+
+    expect(component.selectedStat).toBeNull();
+  });
+
+  it('should update close button label when language changes', fakeAsync(() => {
+    fixture.detectChanges();
+    const translation = TestBed.inject(TranslationService);
+
+    translation.setLanguage('en');
+    fixture.detectChanges();
+    tick();
+
+    expect(component.closeButtonLabel).toBe('Close detail');
+  }));
 });
