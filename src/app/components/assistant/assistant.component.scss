@@ -166,7 +166,7 @@
 }
 
 .assistant--phase-jumping .assistant__avatar {
-  animation: assistant-jump 0.7s cubic-bezier(0.26, 0.86, 0.32, 1.18) forwards;
+  animation: assistant-jump 0.85s cubic-bezier(0.18, 0.78, 0.23, 1) forwards;
 }
 
 .assistant--phase-impatient .assistant__avatar {
@@ -241,28 +241,32 @@
     transform: translate(0, 0) scale(1);
   }
 
-  35% {
-    transform: translate(
-        calc(var(--assistant-jump-landing-x) * 0.35),
-        calc(var(--assistant-jump-landing-y) * 0.45)
-      )
-      scale(1.08);
+  18% {
+    transform: translate(0, 12px) scaleX(1.08) scaleY(0.9);
   }
 
-  60% {
+  32% {
     transform: translate(
-        calc(var(--assistant-jump-landing-x) * 0.85),
-        calc(var(--assistant-jump-landing-y) * 0.95)
+        calc(var(--assistant-jump-landing-x) * 0.2),
+        calc(var(--assistant-jump-landing-y) * 0.2 - 24px)
       )
-      scale(0.96);
+      scaleX(0.94) scaleY(1.05);
   }
 
-  80% {
+  58% {
     transform: translate(
-        calc(var(--assistant-jump-landing-x) * 1.05),
-        calc(var(--assistant-jump-landing-y) * 1.02)
+        calc(var(--assistant-jump-landing-x) * 0.65),
+        calc(var(--assistant-jump-landing-y) * 0.55 - 12px)
       )
       scale(1.02);
+  }
+
+  78% {
+    transform: translate(
+        calc(var(--assistant-jump-landing-x) * 0.9),
+        calc(var(--assistant-jump-landing-y) * 0.88)
+      )
+      scaleX(0.98) scaleY(1.04);
   }
 
   100% {

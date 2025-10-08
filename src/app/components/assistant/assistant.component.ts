@@ -20,7 +20,7 @@ export type AssistantAnimationPhase =
   | 'impatient';
 
 export const ASSISTANT_WAKE_DURATION_MS = 450;
-export const ASSISTANT_JUMP_DURATION_MS = 700;
+export const ASSISTANT_JUMP_DURATION_MS = 850;
 
 interface AssistantGuideContent {
   readonly title: string;
@@ -236,7 +236,7 @@ export class AssistantComponent implements OnDestroy {
     const popupRect = popupElement.getBoundingClientRect();
 
     const landingX = popupRect.right - avatarRect.right;
-    const landingY = popupRect.top - avatarRect.bottom;
+    const landingY = popupRect.top - avatarRect.bottom + 10;
 
     const hostElement = this.hostRef.nativeElement;
     hostElement.style.setProperty('--assistant-jump-landing-x', `${landingX}px`);
