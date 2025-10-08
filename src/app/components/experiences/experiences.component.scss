@@ -29,15 +29,16 @@
 
 .experiences-section {
   inline-size: 100%;
-  block-size: 100%;
+  block-size: auto;
   min-block-size: 100%;
+  box-sizing: border-box;
   padding: clamp(2rem, 4vw, 4.5rem) clamp(1.5rem, 5vw, 3.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   background: var(--timeline-section-bg);
   width: 100%;
-  overflow: auto;
+  overflow: visible;
 }
 
 .experiences-content {
