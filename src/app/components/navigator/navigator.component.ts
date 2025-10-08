@@ -27,7 +27,7 @@ export class NavigatorComponent implements OnInit {
   showThemeOptions = false;
 
   currentLang: string;
-  currentTheme: ThemeKey = 'light';
+  currentTheme: ThemeKey = 'dark';
   private readonly availableThemes: ThemeKey[] = ['light', 'dark', 'blue', 'green', 'red'];
 
   /** Controls visibility of the navigator */
@@ -94,7 +94,7 @@ export class NavigatorComponent implements OnInit {
     });
     if (isPlatformBrowser(this.platformId)) {
       const storedTheme = localStorage.getItem('theme');
-      const nextTheme: ThemeKey = this.isValidTheme(storedTheme) ? storedTheme : 'light';
+      const nextTheme: ThemeKey = this.isValidTheme(storedTheme) ? storedTheme : 'dark';
       this.currentTheme = nextTheme;
       this.applyTheme(nextTheme);
     }
@@ -155,8 +155,10 @@ export class NavigatorComponent implements OnInit {
 
   private applyTheme(theme: ThemeKey): void {
     if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.remove('dark-mode', 'blue-mode', 'green-mode', 'red-mode');
-      if (theme === 'dark') {
+      document.body.classList.remove('light-mode', 'dark-mode', 'blue-mode', 'green-mode', 'red-mode');
+      if (theme === 'light') {
+        document.body.classList.add('light-mode');
+      } else if (theme === 'dark') {
         document.body.classList.add('dark-mode');
       } else if (theme === 'blue') {
         document.body.classList.add('blue-mode');

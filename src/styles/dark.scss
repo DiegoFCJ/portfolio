@@ -85,28 +85,6 @@ body.dark-mode {
         background-color: #6c63ff;
     }
 
-    .statistics-component {
-        --stat-surface: linear-gradient(135deg, rgba(42, 23, 96, 0.65), rgba(19, 34, 95, 0.6), rgba(16, 58, 69, 0.6));
-        --stat-card-bg: rgba(32, 33, 39, 0.92);
-        --stat-card-border: rgba(148, 163, 184, 0.18);
-        --stat-card-border-active: rgba(94, 234, 212, 0.6);
-        --stat-card-shadow: 0 24px 50px -30px rgba(15, 23, 42, 0.85);
-        --stat-card-hover-shadow: 0 32px 60px -28px rgba(20, 184, 166, 0.45);
-        --stat-card-glow: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(56, 189, 248, 0.1));
-        --stat-ornament-glow: radial-gradient(circle, rgba(94, 234, 212, 0.6), transparent 65%);
-        --stat-icon-surface: linear-gradient(150deg, rgba(13, 148, 136, 0.45), rgba(56, 189, 248, 0.3));
-        --stat-icon-ring: rgba(45, 212, 191, 0.35);
-        --stat-icon-color: #5eead4;
-        --stat-label-color: #cbd5f5;
-        --stat-muted: rgba(148, 163, 184, 0.75);
-        --stat-value-color: #f8fafc;
-        --stat-value-gradient: linear-gradient(120deg, #c4b5fd 10%, #5eead4 55%, #38bdf8 90%);
-        --stat-title-color: #f9fafb;
-        --stat-accent-bar: linear-gradient(90deg, rgba(129, 140, 248, 0.9), rgba(16, 185, 129, 0.9));
-        --stat-suffix-bg: rgba(15, 23, 42, 0.6);
-        --stat-suffix-border: rgba(94, 234, 212, 0.25);
-    }
-
     .social-item a img {
         filter: drop-shadow(-4px 5px 2px rgba(108, 99, 255, 0.2)) invert(1) brightness(0.9);
     }
