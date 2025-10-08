@@ -23,7 +23,7 @@
 
 .skills-section {
   inline-size: 100%;
-  block-size: 100%;
+  block-size: 100vh;
   min-block-size: 100%;
   padding: clamp(1rem, 1vw, 1rem) clamp(1rem, 1vw, 1rem);
   display: flex;
@@ -266,6 +266,7 @@
   }
 
   .skills-section {
+    block-size: 100%;
     padding: clamp(2rem, 6vw, 3.25rem) clamp(1rem, 5vw, 2.5rem);
   }
 
