@@ -3,7 +3,7 @@
   <div class="hero-content">
     <h1>{{ displayText }}<span class="cursor">|</span></h1>
     <app-social></app-social>
-    <div style="position: relative;">
+    <div class="popup-wrapper">
       <div class="popup-container">
         <button (click)="navigateToNextSection()" [disabled]="isLoading">{{ heroData.button }}</button>
       </div>
