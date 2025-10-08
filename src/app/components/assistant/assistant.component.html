@@ -5,7 +5,8 @@
      [class.assistant--phase-jumping]="animationPhase === 'jumping'"
      [class.assistant--phase-impatient]="animationPhase === 'impatient'">
   <div class="assistant__anchor">
-    <button type="button"
+    <button #avatar
+            type="button"
             class="assistant__avatar"
             (click)="onAvatarClick()"
             [attr.aria-expanded]="isOpen"
@@ -29,6 +30,7 @@
 
   <ng-container *ngIf="guideContent$ | async as guide">
     <div *ngIf="isOpen"
+         #popup
          class="assistant__popup"
          id="assistant-popup"
          role="dialog"

@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  OnDestroy,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LanguageCode } from '../../models/language-code.type';
@@ -12,7 +20,7 @@ export type AssistantAnimationPhase =
   | 'impatient';
 
 export const ASSISTANT_WAKE_DURATION_MS = 450;
-export const ASSISTANT_JUMP_DURATION_MS = 700;
+export const ASSISTANT_JUMP_DURATION_MS = 850;
 
 interface AssistantGuideContent {
   readonly title: string;
@@ -62,16 +70,37 @@ export class AssistantComponent implements OnDestroy {
 
   private wakeTimer: ReturnType<typeof setTimeout> | null = null;
   private jumpTimer: ReturnType<typeof setTimeout> | null = null;
+  private landingUpdateFrame: number | null = null;
 
   readonly guideContent$: Observable<AssistantGuideContent>;
 
-  constructor(private readonly translationService: TranslationService) {
+  @ViewChild('avatar', { static: true })
+  private readonly avatarRef!: ElementRef<HTMLButtonElement>;
+
+  private popupRef?: ElementRef<HTMLDivElement>;
+
+  @ViewChild('popup')
+  set popupElement(value: ElementRef<HTMLDivElement> | undefined) {
+    this.popupRef = value;
+
+    if (value) {
+      this.requestLandingUpdate();
+    } else {
+      this.cancelLandingUpdate();
+    }
+  }
+
+  constructor(
+    private readonly translationService: TranslationService,
+    private readonly hostRef: ElementRef<HTMLElement>
+  ) {
     this.guideContent$ = this.translationService
       .getTranslatedData<AssistantGuideContent>(assistantGuideContent, 'it')
       .pipe(map((content) => content ?? assistantGuideContent.it!));
   }
 
   ngOnDestroy(): void {
+    this.cancelLandingUpdate();
     this.clearAllTimers();
   }
 
@@ -93,6 +122,7 @@ export class AssistantComponent implements OnDestroy {
 
     this.isOpen = true;
     this.animationPhase = 'waking';
+    this.requestLandingUpdate();
     this.startWakeSequence();
     this.opened.emit();
   }
@@ -122,11 +152,20 @@ export class AssistantComponent implements OnDestroy {
   private goToSleep(): void {
     const wasOpen = this.isOpen;
     this.clearAllTimers();
+    this.cancelLandingUpdate();
     this.animationPhase = 'sleeping';
     this.isOpen = false;
+    this.resetLandingCoordinates();
 
     if (wasOpen) {
       this.closed.emit();
+    }
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (this.isOpen) {
+      this.requestLandingUpdate();
     }
   }
 
@@ -149,4 +188,64 @@ export class AssistantComponent implements OnDestroy {
     }
   }
 
+  private requestLandingUpdate(): void {
+    if (typeof window === 'undefined' || typeof window.requestAnimationFrame !== 'function') {
+      this.updateLandingCoordinates();
+      return;
+    }
+
+    if (this.landingUpdateFrame !== null) {
+      window.cancelAnimationFrame(this.landingUpdateFrame);
+    }
+
+    this.landingUpdateFrame = window.requestAnimationFrame(() => {
+      this.landingUpdateFrame = null;
+      this.updateLandingCoordinates();
+    });
+  }
+
+  private cancelLandingUpdate(): void {
+    if (typeof window === 'undefined' || typeof window.cancelAnimationFrame !== 'function') {
+      this.landingUpdateFrame = null;
+      return;
+    }
+
+    if (this.landingUpdateFrame !== null) {
+      window.cancelAnimationFrame(this.landingUpdateFrame);
+      this.landingUpdateFrame = null;
+    }
+  }
+
+  private updateLandingCoordinates(): void {
+    if (!this.isOpen || !this.popupRef) {
+      return;
+    }
+
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const avatarElement = this.avatarRef?.nativeElement;
+    const popupElement = this.popupRef.nativeElement;
+
+    if (!avatarElement) {
+      return;
+    }
+
+    const avatarRect = avatarElement.getBoundingClientRect();
+    const popupRect = popupElement.getBoundingClientRect();
+
+    const landingX = popupRect.right - avatarRect.right;
+    const landingY = popupRect.top - avatarRect.bottom + 10;
+
+    const hostElement = this.hostRef.nativeElement;
+    hostElement.style.setProperty('--assistant-jump-landing-x', `${landingX}px`);
+    hostElement.style.setProperty('--assistant-jump-landing-y', `${landingY}px`);
+  }
+
+  private resetLandingCoordinates(): void {
+    const hostElement = this.hostRef.nativeElement;
+    hostElement.style.removeProperty('--assistant-jump-landing-x');
+    hostElement.style.removeProperty('--assistant-jump-landing-y');
+  }
 }
