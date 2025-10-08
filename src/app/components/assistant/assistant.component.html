@@ -3,7 +3,8 @@
      [class.assistant--phase-sleeping]="animationPhase === 'sleeping'"
      [class.assistant--phase-waking]="animationPhase === 'waking'"
      [class.assistant--phase-jumping]="animationPhase === 'jumping'"
-     [class.assistant--phase-impatient]="animationPhase === 'impatient'">
+     [class.assistant--phase-wondering]="animationPhase === 'wondering'"
+     [class.assistant--phase-falling]="animationPhase === 'falling'">
   <div class="assistant__anchor">
     <button #avatar
             type="button"
@@ -47,7 +48,7 @@
       </ol>
 
       <p class="assistant__closing"
-         [class.assistant__closing--active]="animationPhase === 'impatient'">
+         [class.assistant__closing--active]="animationPhase === 'wondering'">
         {{ guide.closingHint }}
       </p>
     </div>
