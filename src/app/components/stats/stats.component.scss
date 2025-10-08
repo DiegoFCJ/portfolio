@@ -114,6 +114,13 @@
                     max-width: 100%;
                     margin: 0;
                 }
+
+                .statistics-suffix {
+                    font-size: 0.95rem;
+                    color: rgba(15, 23, 42, 0.5);
+                    margin: 0;
+                    text-wrap: balance;
+                }
             }
         }
 
@@ -124,6 +131,7 @@
             text-align: center;
             margin-bottom: 3rem;
             color: var(--stat-title-color);
+            text-wrap: balance;
         }
     }
 

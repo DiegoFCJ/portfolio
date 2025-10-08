@@ -1,26 +1,23 @@
-<section class="stats-section" *ngIf="!isLoading">
-  <h2 class="stats-title">{{ statsTitle }}</h2>
-  <div class="stats-timeline" role="list">
-    <article
-      class="stats-item"
-      role="listitem"
-      *ngFor="let stat of statistics; let last = last"
-    >
-      <div class="stats-marker" [class.is-last]="last">
-        <span class="stats-dot" aria-hidden="true"></span>
-      </div>
-      <div class="stats-card">
-        <header class="stats-header">
-          <div class="stats-icon" aria-hidden="true">
-            <mat-icon>{{ stat.icon }}</mat-icon>
+<section class="statistics-component" *ngIf="!isLoading">
+  <div class="statistics-section">
+    <h2 class="statistics-section-title">{{ statsTitle }}</h2>
+    <div class="statistics-container">
+      <div class="statistics-row" role="list">
+        <article
+          class="statistics-card"
+          role="listitem"
+          *ngFor="let stat of statistics"
+        >
+          <div class="statistics-content">
+            <div class="statistics-icon" aria-hidden="true">
+              <mat-icon>{{ stat.icon }}</mat-icon>
+            </div>
+            <p class="statistics-value">{{ stat.value }}</p>
+            <p class="statistics-label">{{ stat.label }}</p>
+            <p class="statistics-suffix" *ngIf="stat.suffix">{{ stat.suffix }}</p>
           </div>
-          <p class="stats-label">{{ stat.label }}</p>
-        </header>
-        <div class="stats-value-group">
-          <span class="stats-value">{{ stat.value }}</span>
-          <span class="stats-suffix" *ngIf="stat.suffix">{{ stat.suffix }}</span>
-        </div>
+        </article>
       </div>
-    </article>
+    </div>
   </div>
 </section>
