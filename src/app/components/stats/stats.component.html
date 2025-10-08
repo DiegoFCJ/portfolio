@@ -13,7 +13,7 @@
         role="listitem"
         type="button"
         *ngFor="let stat of statistics"
-        (click)="openStatDetail(stat, $event.currentTarget as HTMLElement)"
+        (click)="openStatDetail(stat, $event.currentTarget)"
         aria-haspopup="dialog"
         [attr.aria-expanded]="selectedStat === stat"
         aria-controls="stat-detail-dialog"

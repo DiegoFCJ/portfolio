@@ -120,7 +120,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  openStatDetail(stat: DisplayStat, triggerElement?: HTMLElement | null): void {
+  openStatDetail(stat: DisplayStat, triggerElement?: EventTarget | null): void {
     if (triggerElement instanceof HTMLElement) {
       this.lastFocusedElement = triggerElement;
     }
