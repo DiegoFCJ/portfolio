@@ -1,6 +1,7 @@
 // Carosello per dispositivi mobili
 .carousel-container {
-    width: min(100%, 420px);
+    width: 100%;
+    max-width: 480px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -10,6 +11,8 @@
 }
 
 .carousel-viewport {
+    display: flex;
+    width: 100%;
     overflow-x: auto;
     overflow-y: visible;
     scroll-snap-type: x mandatory;
@@ -17,6 +20,7 @@
     scrollbar-width: none;
     mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 16px, rgba(0, 0, 0, 1) 56px, rgba(0, 0, 0, 1) calc(100% - 56px), rgba(0, 0, 0, 0.35) calc(100% - 16px), transparent 100%);
     padding-block: 0.25rem;
+    scroll-padding-inline: clamp(1rem, 7vw, 2rem);
 
     &::-webkit-scrollbar {
         display: none;
@@ -24,16 +28,20 @@
 }
 
 .carousel-wrapper {
-    display: flex;
-    gap: 1.15rem;
-    padding-inline: clamp(0.25rem, 3vw, 0.75rem) clamp(0.75rem, 6vw, 1.5rem);
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    gap: clamp(0.75rem, 4vw, 1.25rem);
+    padding-inline: clamp(1rem, 6vw, 2rem);
+    width: 100%;
     transition: transform 0.6s ease;
 }
 
 .carousel-item {
-    flex: 0 0 calc(100% - 3.5rem);
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     scroll-snap-stop: always;
+    display: flex;
+    justify-content: center;
 }
 
 .carousel-container.is-peeking .carousel-wrapper {

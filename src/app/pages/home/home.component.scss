@@ -14,6 +14,7 @@
   position: relative;
   inline-size: 100%;
   block-size: auto;
+  min-block-size: 100vh;
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -83,6 +84,7 @@
   flex: 1 1 auto;
   inline-size: 100%;
   block-size: auto;
+  min-block-size: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

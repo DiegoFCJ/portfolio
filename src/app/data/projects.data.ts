@@ -56,6 +56,16 @@ export const projects: ProjectsLangs = {
                 description: 'Template headless per e-commerce con checkout modulare, workflow di magazzino e dashboard amministrativa pronta per integrazioni ERP.',
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/E-commerce'
+            },
+            {
+                title: 'Borgo Samarína',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Portale turistico responsive per valorizzare il borgo con itinerari, galleria stagionale e copy gestito da CMS headless (codice privato).',
+                image: 'assets/projects/borgo-samarina-cover.svg',
+                link: 'https://borgosamarina-com.web.app/'
             }
         ]
     },
@@ -114,6 +124,16 @@ export const projects: ProjectsLangs = {
                 description: 'Headless commerce template with modular checkout, inventory workflows and an admin dashboard ready for ERP integrations.',
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
                 link: 'https://github.com/DiegoFCJ/E-commerce'
+            },
+            {
+                title: 'Borgo Samarína',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Responsive tourism portal celebrating the seaside village with curated itineraries, seasonal gallery and CMS-driven copy (private codebase).',
+                image: 'assets/projects/borgo-samarina-cover.svg',
+                link: 'https://borgosamarina-com.web.app/'
             }
         ]
     }
