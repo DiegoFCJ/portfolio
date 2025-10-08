@@ -20,27 +20,4 @@ body.blue-mode {
     background-color: #2563eb;
   }
 
-  .statistics-component {
-    --stat-surface: linear-gradient(135deg, rgba(148, 197, 255, 0.75), rgba(59, 130, 246, 0.78), rgba(29, 78, 216, 0.82));
-    --stat-card-bg: rgba(15, 23, 42, 0.82);
-    --stat-card-border: rgba(96, 165, 250, 0.28);
-    --stat-card-border-active: rgba(129, 140, 248, 0.55);
-    --stat-card-shadow: 0 24px 55px -30px rgba(15, 23, 42, 0.8);
-    --stat-card-hover-shadow: 0 32px 60px -26px rgba(37, 99, 235, 0.55);
-    --stat-card-glow: linear-gradient(135deg, rgba(96, 165, 250, 0.24), rgba(56, 189, 248, 0.16));
-    --stat-ornament-glow: radial-gradient(circle, rgba(129, 178, 255, 0.6), transparent 65%);
-    --stat-icon-surface: linear-gradient(150deg, rgba(37, 99, 235, 0.6), rgba(96, 165, 250, 0.5));
-    --stat-icon-ring: rgba(96, 165, 250, 0.4);
-    --stat-icon-color: #e0f2fe;
-    --stat-label-color: rgba(226, 232, 240, 0.92);
-    --stat-muted: rgba(148, 191, 233, 0.85);
-    --stat-value-color: #f8fafc;
-    --stat-value-gradient: linear-gradient(120deg, #dbeafe 15%, #93c5fd 55%, #60a5fa 90%);
-    --stat-title-color: #f8fafc;
-    --stat-accent-bar: linear-gradient(90deg, rgba(147, 197, 253, 0.95), rgba(59, 130, 246, 0.9));
-    --stat-suffix-bg: rgba(15, 23, 42, 0.7);
-    --stat-suffix-border: rgba(147, 197, 253, 0.35);
-    --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(96, 165, 250, 0.45), transparent 55%);
-    --stat-after-glow: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.38), transparent 60%);
-  }
 }

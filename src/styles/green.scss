@@ -20,27 +20,4 @@ body.green-mode {
     background-color: #10b981;
   }
 
-  .statistics-component {
-    --stat-surface: linear-gradient(140deg, rgba(236, 253, 245, 0.92), rgba(209, 250, 229, 0.88), rgba(167, 243, 208, 0.85));
-    --stat-card-bg: rgba(255, 255, 255, 0.96);
-    --stat-card-border: rgba(52, 211, 153, 0.28);
-    --stat-card-border-active: rgba(16, 185, 129, 0.5);
-    --stat-card-shadow: 0 22px 50px -28px rgba(34, 197, 94, 0.35);
-    --stat-card-hover-shadow: 0 28px 60px -26px rgba(16, 185, 129, 0.42);
-    --stat-card-glow: linear-gradient(135deg, rgba(134, 239, 172, 0.22), rgba(45, 212, 191, 0.16));
-    --stat-ornament-glow: radial-gradient(circle, rgba(134, 239, 172, 0.52), transparent 65%);
-    --stat-icon-surface: linear-gradient(150deg, rgba(45, 212, 191, 0.55), rgba(34, 197, 94, 0.5));
-    --stat-icon-ring: rgba(16, 185, 129, 0.32);
-    --stat-icon-color: #047857;
-    --stat-label-color: #1f4033;
-    --stat-muted: rgba(22, 101, 52, 0.7);
-    --stat-value-color: #064e3b;
-    --stat-value-gradient: linear-gradient(120deg, #047857 10%, #10b981 55%, #2dd4bf 90%);
-    --stat-title-color: #064e3b;
-    --stat-accent-bar: linear-gradient(90deg, rgba(34, 197, 94, 0.95), rgba(45, 212, 191, 0.9));
-    --stat-suffix-bg: rgba(236, 253, 245, 0.92);
-    --stat-suffix-border: rgba(45, 212, 191, 0.4);
-    --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.35), transparent 55%);
-    --stat-after-glow: radial-gradient(circle at 80% 20%, rgba(45, 212, 191, 0.32), transparent 60%);
-  }
 }

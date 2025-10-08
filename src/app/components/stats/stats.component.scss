@@ -4,30 +4,28 @@
 }
 
 .statistics-component {
-    --stat-surface: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.35), transparent 60%),
-        radial-gradient(circle at 90% 10%, rgba(14, 165, 233, 0.25), transparent 55%),
-        linear-gradient(160deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.78));
-    --stat-card-bg: rgba(15, 23, 42, 0.7);
-    --stat-card-border: rgba(148, 163, 184, 0.22);
-    --stat-card-border-active: rgba(99, 102, 241, 0.6);
+    --stat-surface: linear-gradient(135deg, rgba(42, 23, 96, 0.65), rgba(19, 34, 95, 0.6), rgba(16, 58, 69, 0.6));
+    --stat-card-bg: rgba(32, 33, 39, 0.92);
+    --stat-card-border: rgba(148, 163, 184, 0.18);
+    --stat-card-border-active: rgba(94, 234, 212, 0.6);
     --stat-card-shadow: 0 24px 50px -30px rgba(15, 23, 42, 0.85);
-    --stat-card-hover-shadow: 0 32px 60px -28px rgba(30, 64, 175, 0.55);
-    --stat-card-glow: linear-gradient(135deg, rgba(129, 140, 248, 0.18), rgba(56, 189, 248, 0.08));
-    --stat-ornament-glow: radial-gradient(circle, rgba(99, 102, 241, 0.6), transparent 65%);
-    --stat-icon-surface: linear-gradient(150deg, rgba(79, 70, 229, 0.35), rgba(14, 165, 233, 0.25));
-    --stat-icon-ring: rgba(129, 140, 248, 0.35);
-    --stat-icon-color: #f8fafc;
-    --stat-label-color: rgba(226, 232, 240, 0.75);
-    --stat-muted: rgba(148, 163, 184, 0.65);
+    --stat-card-hover-shadow: 0 32px 60px -28px rgba(20, 184, 166, 0.45);
+    --stat-card-glow: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(56, 189, 248, 0.1));
+    --stat-ornament-glow: radial-gradient(circle, rgba(94, 234, 212, 0.6), transparent 65%);
+    --stat-icon-surface: linear-gradient(150deg, rgba(13, 148, 136, 0.45), rgba(56, 189, 248, 0.3));
+    --stat-icon-ring: rgba(45, 212, 191, 0.35);
+    --stat-icon-color: #5eead4;
+    --stat-label-color: #cbd5f5;
+    --stat-muted: rgba(148, 163, 184, 0.75);
     --stat-value-color: #f8fafc;
-    --stat-value-gradient: linear-gradient(120deg, #e0e7ff 10%, #c4b5fd 50%, #7dd3fc 90%);
-    --stat-title-color: #f8fafc;
-    --stat-accent-bar: linear-gradient(90deg, rgba(129, 140, 248, 0.9), rgba(14, 165, 233, 0.9));
-    --stat-suffix-bg: rgba(15, 23, 42, 0.55);
-    --stat-suffix-border: rgba(148, 163, 184, 0.22);
+    --stat-value-gradient: linear-gradient(120deg, #c4b5fd 10%, #5eead4 55%, #38bdf8 90%);
+    --stat-title-color: #f9fafb;
+    --stat-accent-bar: linear-gradient(90deg, rgba(129, 140, 248, 0.9), rgba(16, 185, 129, 0.9));
+    --stat-suffix-bg: rgba(15, 23, 42, 0.6);
+    --stat-suffix-border: rgba(94, 234, 212, 0.25);
     --stat-grid-gap: clamp(1.5rem, 3vw, 2.75rem);
-    --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.35), transparent 55%);
-    --stat-after-glow: radial-gradient(circle at 80% 20%, rgba(244, 114, 182, 0.25), transparent 60%);
+    --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(45, 212, 191, 0.38), transparent 55%);
+    --stat-after-glow: radial-gradient(circle at 78% 18%, rgba(56, 189, 248, 0.3), transparent 60%);
 
     inline-size: 100%;
     min-block-size: 100vh;
@@ -270,4 +268,100 @@
             animation-duration: 0.01ms !important;
         }
     }
+}
+
+:host-context(body.light-mode) .statistics-component {
+    --stat-surface: linear-gradient(145deg, rgba(226, 242, 255, 0.9), rgba(236, 253, 245, 0.85));
+    --stat-card-bg: rgba(255, 255, 255, 0.96);
+    --stat-card-border: rgba(148, 163, 184, 0.35);
+    --stat-card-border-active: rgba(37, 99, 235, 0.45);
+    --stat-card-shadow: 0 20px 45px -28px rgba(148, 163, 184, 0.45);
+    --stat-card-hover-shadow: 0 26px 55px -30px rgba(37, 99, 235, 0.4);
+    --stat-card-glow: linear-gradient(135deg, rgba(165, 180, 252, 0.18), rgba(56, 189, 248, 0.12));
+    --stat-ornament-glow: radial-gradient(circle, rgba(165, 180, 252, 0.45), transparent 65%);
+    --stat-icon-surface: linear-gradient(150deg, rgba(196, 210, 254, 0.8), rgba(191, 219, 254, 0.78));
+    --stat-icon-ring: rgba(59, 130, 246, 0.25);
+    --stat-icon-color: #2563eb;
+    --stat-label-color: #475569;
+    --stat-muted: rgba(100, 116, 139, 0.9);
+    --stat-value-color: #1f2937;
+    --stat-value-gradient: linear-gradient(120deg, #2563eb 10%, #22d3ee 60%, #38bdf8 90%);
+    --stat-title-color: #0f172a;
+    --stat-accent-bar: linear-gradient(90deg, rgba(96, 165, 250, 0.95), rgba(45, 212, 191, 0.9));
+    --stat-suffix-bg: rgba(255, 255, 255, 0.86);
+    --stat-suffix-border: rgba(148, 163, 184, 0.35);
+    --stat-before-glow: radial-gradient(circle at 18% 82%, rgba(96, 165, 250, 0.38), transparent 58%);
+    --stat-after-glow: radial-gradient(circle at 82% 22%, rgba(45, 212, 191, 0.32), transparent 62%);
+}
+
+:host-context(body.blue-mode) .statistics-component {
+    --stat-surface: linear-gradient(135deg, rgba(148, 197, 255, 0.75), rgba(59, 130, 246, 0.78), rgba(29, 78, 216, 0.82));
+    --stat-card-bg: rgba(15, 23, 42, 0.82);
+    --stat-card-border: rgba(96, 165, 250, 0.28);
+    --stat-card-border-active: rgba(129, 140, 248, 0.55);
+    --stat-card-shadow: 0 24px 55px -30px rgba(15, 23, 42, 0.8);
+    --stat-card-hover-shadow: 0 32px 60px -26px rgba(37, 99, 235, 0.55);
+    --stat-card-glow: linear-gradient(135deg, rgba(96, 165, 250, 0.24), rgba(56, 189, 248, 0.16));
+    --stat-ornament-glow: radial-gradient(circle, rgba(129, 178, 255, 0.6), transparent 65%);
+    --stat-icon-surface: linear-gradient(150deg, rgba(37, 99, 235, 0.6), rgba(96, 165, 250, 0.5));
+    --stat-icon-ring: rgba(96, 165, 250, 0.4);
+    --stat-icon-color: #e0f2fe;
+    --stat-label-color: rgba(226, 232, 240, 0.92);
+    --stat-muted: rgba(148, 191, 233, 0.85);
+    --stat-value-color: #f8fafc;
+    --stat-value-gradient: linear-gradient(120deg, #dbeafe 15%, #93c5fd 55%, #60a5fa 90%);
+    --stat-title-color: #f8fafc;
+    --stat-accent-bar: linear-gradient(90deg, rgba(147, 197, 253, 0.95), rgba(59, 130, 246, 0.9));
+    --stat-suffix-bg: rgba(15, 23, 42, 0.7);
+    --stat-suffix-border: rgba(147, 197, 253, 0.35);
+    --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(96, 165, 250, 0.45), transparent 55%);
+    --stat-after-glow: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.38), transparent 60%);
+}
+
+:host-context(body.green-mode) .statistics-component {
+    --stat-surface: linear-gradient(140deg, rgba(236, 253, 245, 0.92), rgba(209, 250, 229, 0.88), rgba(167, 243, 208, 0.85));
+    --stat-card-bg: rgba(255, 255, 255, 0.96);
+    --stat-card-border: rgba(52, 211, 153, 0.28);
+    --stat-card-border-active: rgba(16, 185, 129, 0.5);
+    --stat-card-shadow: 0 22px 50px -28px rgba(34, 197, 94, 0.35);
+    --stat-card-hover-shadow: 0 28px 60px -26px rgba(16, 185, 129, 0.42);
+    --stat-card-glow: linear-gradient(135deg, rgba(134, 239, 172, 0.22), rgba(45, 212, 191, 0.16));
+    --stat-ornament-glow: radial-gradient(circle, rgba(134, 239, 172, 0.52), transparent 65%);
+    --stat-icon-surface: linear-gradient(150deg, rgba(45, 212, 191, 0.55), rgba(34, 197, 94, 0.5));
+    --stat-icon-ring: rgba(16, 185, 129, 0.32);
+    --stat-icon-color: #047857;
+    --stat-label-color: #1f4033;
+    --stat-muted: rgba(22, 101, 52, 0.7);
+    --stat-value-color: #064e3b;
+    --stat-value-gradient: linear-gradient(120deg, #047857 10%, #10b981 55%, #2dd4bf 90%);
+    --stat-title-color: #064e3b;
+    --stat-accent-bar: linear-gradient(90deg, rgba(34, 197, 94, 0.95), rgba(45, 212, 191, 0.9));
+    --stat-suffix-bg: rgba(236, 253, 245, 0.92);
+    --stat-suffix-border: rgba(45, 212, 191, 0.4);
+    --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.35), transparent 55%);
+    --stat-after-glow: radial-gradient(circle at 80% 20%, rgba(45, 212, 191, 0.32), transparent 60%);
+}
+
+:host-context(body.red-mode) .statistics-component {
+    --stat-surface: linear-gradient(140deg, rgba(255, 228, 230, 0.92), rgba(254, 226, 226, 0.9), rgba(254, 205, 211, 0.88));
+    --stat-card-bg: rgba(255, 255, 255, 0.96);
+    --stat-card-border: rgba(248, 113, 113, 0.32);
+    --stat-card-border-active: rgba(239, 68, 68, 0.55);
+    --stat-card-shadow: 0 22px 50px -28px rgba(248, 113, 113, 0.4);
+    --stat-card-hover-shadow: 0 28px 60px -26px rgba(220, 38, 38, 0.45);
+    --stat-card-glow: linear-gradient(135deg, rgba(248, 113, 113, 0.22), rgba(252, 165, 165, 0.18));
+    --stat-ornament-glow: radial-gradient(circle, rgba(251, 113, 133, 0.52), transparent 65%);
+    --stat-icon-surface: linear-gradient(150deg, rgba(252, 165, 165, 0.55), rgba(248, 113, 113, 0.5));
+    --stat-icon-ring: rgba(239, 68, 68, 0.32);
+    --stat-icon-color: #b91c1c;
+    --stat-label-color: #7f1d1d;
+    --stat-muted: rgba(127, 29, 29, 0.72);
+    --stat-value-color: #7f1d1d;
+    --stat-value-gradient: linear-gradient(120deg, #dc2626 10%, #f97316 55%, #fb7185 90%);
+    --stat-title-color: #7f1d1d;
+    --stat-accent-bar: linear-gradient(90deg, rgba(248, 113, 113, 0.95), rgba(251, 146, 60, 0.9));
+    --stat-suffix-bg: rgba(255, 241, 242, 0.94);
+    --stat-suffix-border: rgba(248, 113, 113, 0.35);
+    --stat-before-glow: radial-gradient(circle at 20% 80%, rgba(248, 113, 113, 0.35), transparent 55%);
+    --stat-after-glow: radial-gradient(circle at 80% 20%, rgba(251, 146, 60, 0.32), transparent 60%);
 }
