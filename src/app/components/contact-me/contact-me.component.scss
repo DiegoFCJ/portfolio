@@ -59,6 +59,42 @@ body.dark-mode .contact-me-section {
   background: linear-gradient(160deg, rgba(129, 140, 248, 0.16), rgba(79, 70, 229, 0.08));
 }
 
+body.blue-mode .contact-me-section {
+  --contact-card-bg: linear-gradient(135deg, rgba(226, 239, 255, 0.95), rgba(191, 219, 254, 0.75));
+  --contact-card-border: rgba(59, 130, 246, 0.32);
+  --contact-text-muted: rgba(30, 64, 175, 0.78);
+  --contact-button-bg: #2563eb;
+  --contact-button-hover: #1d4ed8;
+  --contact-button-text: #eff6ff;
+  --contact-button-disabled-bg: rgba(59, 130, 246, 0.35);
+  --contact-button-disabled-text: rgba(239, 246, 255, 0.78);
+  background: linear-gradient(160deg, rgba(59, 130, 246, 0.12), rgba(29, 78, 216, 0.08));
+}
+
+body.green-mode .contact-me-section {
+  --contact-card-bg: linear-gradient(135deg, rgba(232, 252, 243, 0.95), rgba(187, 247, 208, 0.75));
+  --contact-card-border: rgba(16, 185, 129, 0.32);
+  --contact-text-muted: rgba(6, 95, 70, 0.78);
+  --contact-button-bg: #10b981;
+  --contact-button-hover: #059669;
+  --contact-button-text: #f0fdf4;
+  --contact-button-disabled-bg: rgba(16, 185, 129, 0.32);
+  --contact-button-disabled-text: rgba(240, 253, 244, 0.78);
+  background: linear-gradient(160deg, rgba(74, 222, 128, 0.12), rgba(16, 185, 129, 0.08));
+}
+
+body.red-mode .contact-me-section {
+  --contact-card-bg: linear-gradient(135deg, rgba(255, 235, 238, 0.95), rgba(254, 205, 211, 0.75));
+  --contact-card-border: rgba(248, 113, 113, 0.32);
+  --contact-text-muted: rgba(127, 29, 29, 0.78);
+  --contact-button-bg: #ef4444;
+  --contact-button-hover: #dc2626;
+  --contact-button-text: #fff1f2;
+  --contact-button-disabled-bg: rgba(248, 113, 113, 0.32);
+  --contact-button-disabled-text: rgba(255, 241, 242, 0.78);
+  background: linear-gradient(160deg, rgba(251, 113, 133, 0.14), rgba(239, 68, 68, 0.08));
+}
+
 .contact-me-title {
   font-size: clamp(1.9rem, 3vw, 2.4rem);
   font-weight: 700;
