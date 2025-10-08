@@ -4,6 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
 
+type ThemeKey = 'light' | 'dark' | 'blue' | 'green' | 'red';
+
 @Component({
   selector: 'app-navigator',
   standalone: true,
@@ -25,7 +27,8 @@ export class NavigatorComponent implements OnInit {
   showThemeOptions = false;
 
   currentLang: string;
-  currentTheme: 'light' | 'dark' | 'blue' | 'green' = 'light';
+  currentTheme: ThemeKey = 'light';
+  private readonly availableThemes: ThemeKey[] = ['light', 'dark', 'blue', 'green', 'red'];
 
   /** Controls visibility of the navigator */
   isOpen = true;
@@ -62,6 +65,13 @@ export class NavigatorComponent implements OnInit {
     }
   };
 
+  themeNames: Record<string, Record<ThemeKey, string>> = {
+    en: { light: 'Light theme', dark: 'Dark theme', blue: 'Blue theme', green: 'Green theme', red: 'Red theme' },
+    it: { light: 'Tema chiaro', dark: 'Tema scuro', blue: 'Tema blu', green: 'Tema verde', red: 'Tema rosso' },
+    de: { light: 'Helles Thema', dark: 'Dunkles Thema', blue: 'Blaues Thema', green: 'Grünes Thema', red: 'Rotes Thema' },
+    es: { light: 'Tema claro', dark: 'Tema oscuro', blue: 'Tema azul', green: 'Tema verde', red: 'Tema rojo' }
+  };
+
   toggleButtonLabels: { [key: string]: { open: string; close: string } } = {
     en: { open: 'Open navigator', close: 'Close navigator' },
     it: { open: 'Apri navigatore', close: 'Chiudi navigatore' },
@@ -83,9 +93,10 @@ export class NavigatorComponent implements OnInit {
       this.currentLang = lang;
     });
     if (isPlatformBrowser(this.platformId)) {
-      const storedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'blue' | 'green') || 'light';
-      this.currentTheme = storedTheme;
-      this.applyTheme(storedTheme);
+      const storedTheme = localStorage.getItem('theme');
+      const nextTheme: ThemeKey = this.isValidTheme(storedTheme) ? storedTheme : 'light';
+      this.currentTheme = nextTheme;
+      this.applyTheme(nextTheme);
     }
   }
 
@@ -123,7 +134,7 @@ export class NavigatorComponent implements OnInit {
     this.showLanguageOptions = false;
   }
 
-  changeTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
+  changeTheme(theme: ThemeKey): void {
     this.currentTheme = theme;
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('theme', theme);
@@ -142,15 +153,17 @@ export class NavigatorComponent implements OnInit {
     return this.isOpen ? labels.close : labels.open;
   }
 
-  private applyTheme(theme: 'light' | 'dark' | 'blue' | 'green'): void {
+  private applyTheme(theme: ThemeKey): void {
     if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.remove('dark-mode', 'blue-mode', 'green-mode');
+      document.body.classList.remove('dark-mode', 'blue-mode', 'green-mode', 'red-mode');
       if (theme === 'dark') {
         document.body.classList.add('dark-mode');
       } else if (theme === 'blue') {
         document.body.classList.add('blue-mode');
       } else if (theme === 'green') {
         document.body.classList.add('green-mode');
+      } else if (theme === 'red') {
+        document.body.classList.add('red-mode');
       }
     }
   }
@@ -158,7 +171,7 @@ export class NavigatorComponent implements OnInit {
   /**
    * Returns the Material icon name corresponding to the given theme.
    */
-  getThemeIcon(theme: 'light' | 'dark' | 'blue' | 'green'): string {
+  getThemeIcon(theme: ThemeKey): string {
     switch (theme) {
       case 'dark':
         return 'dark_mode';
@@ -166,9 +179,20 @@ export class NavigatorComponent implements OnInit {
         return 'water_drop';
       case 'green':
         return 'eco';
+      case 'red':
+        return 'local_fire_department';
       default:
         return 'light_mode';
     }
+  }
+
+  getThemeName(theme: ThemeKey): string {
+    const names = this.themeNames[this.currentLang] || this.themeNames['en'];
+    return names[theme];
+  }
+
+  private isValidTheme(theme: string | null): theme is ThemeKey {
+    return !!theme && this.availableThemes.includes(theme as ThemeKey);
   }
 
   /** Toggles navigator visibility */

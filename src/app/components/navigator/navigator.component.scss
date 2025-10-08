@@ -50,6 +50,17 @@ $navigator-themes: (
         option-hover-background: rgba(0, 0, 0, 0.05),
         option-selected-background: rgba(0, 0, 0, 0.1),
         text-color: #333
+    ),
+    red: (
+        selector: 'body.red-mode',
+        background: $navigator-bg,
+        icon-color: #7f1d1d,
+        hover-background: lighten($navigator-bg, 4%),
+        arrow-hover-background: rgba(127, 29, 29, 0.08),
+        option-background: $navigator-bg,
+        option-hover-background: rgba(127, 29, 29, 0.08),
+        option-selected-background: rgba(239, 68, 68, 0.16),
+        text-color: #7f1d1d
     )
 );
 
