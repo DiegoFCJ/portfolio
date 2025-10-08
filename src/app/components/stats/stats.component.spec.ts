@@ -62,7 +62,7 @@ describe('StatsComponent', () => {
     expect(stats.hoursSuffix).toBe('ore di sviluppo');
     expect(stats.monthsValue.endsWith('+')).toBeTrue();
     expect(stats.monthsSuffix).toBe('mesi su progetti reali');
-    expect(stats.projectsValue).toBe('8');
+    expect(stats.projectsValue).toBe('9');
     expect(stats.projectsSuffix).toBe('progetti seguiti end-to-end');
     expect(stats.mostUsedValue).toContain('·');
   });
