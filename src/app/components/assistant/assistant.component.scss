@@ -3,15 +3,13 @@
   --assistant-spacing: clamp(12px, 2vw, 18px);
   --assistant-popup-width: clamp(420px, 68vw, 640px);
   display: block;
-  position: relative;
   max-width: 100%;
 }
 
 .assistant {
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  position: absolute;
+  bottom: 0;
+  left: -50px;
   pointer-events: none;
   min-height: var(--assistant-avatar-size);
   min-width: min(var(--assistant-popup-width), calc(100vw - 32px));
