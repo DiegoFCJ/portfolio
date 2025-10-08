@@ -86,9 +86,10 @@
   block-size: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
   overflow: hidden;
+  overflow-y: auto;
   padding: 0;
   margin: 0 auto;
   max-inline-size: 100%;
@@ -97,7 +98,16 @@
 
 .home__panel > * {
   inline-size: 100%;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+}
+
+.home__panel > app-hero,
+.home__panel > app-about,
+.home__panel > app-projects,
+.home__panel > app-skills,
+.home__panel > app-stats,
+.home__panel > app-contact-me {
+  flex: 1 0 auto;
 }
 
 .home__floating-controls {
