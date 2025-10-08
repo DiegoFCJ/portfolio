@@ -16,39 +16,7 @@
         </button>
       </div>
 
-      <div class="nav-group">
-        <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Selettore tema"
-          [matTooltip]="getTooltip('theme')" matTooltipPosition="above">
-          <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
-        </button>
-        <div class="option-container" *ngIf="showThemeOptions">
-          <button class="option-button" (click)="changeTheme('light')" aria-label="Tema chiaro"
-            [class.selected]="currentTheme === 'light'" [matTooltip]="getThemeName('light')"
-            matTooltipPosition="above">
-            <mat-icon>light_mode</mat-icon>
-          </button>
-          <button class="option-button" (click)="changeTheme('dark')" aria-label="Tema scuro"
-            [class.selected]="currentTheme === 'dark'" [matTooltip]="getThemeName('dark')"
-            matTooltipPosition="above">
-            <mat-icon>dark_mode</mat-icon>
-          </button>
-          <button class="option-button" (click)="changeTheme('blue')" aria-label="Tema blu"
-            [class.selected]="currentTheme === 'blue'" [matTooltip]="getThemeName('blue')"
-            matTooltipPosition="above">
-            <mat-icon>water_drop</mat-icon>
-          </button>
-          <button class="option-button" (click)="changeTheme('green')" aria-label="Tema verde"
-            [class.selected]="currentTheme === 'green'" [matTooltip]="getThemeName('green')"
-            matTooltipPosition="above">
-            <mat-icon>eco</mat-icon>
-          </button>
-          <button class="option-button" (click)="changeTheme('red')" aria-label="Tema rosso"
-            [class.selected]="currentTheme === 'red'" [matTooltip]="getThemeName('red')" matTooltipPosition="above">
-            <mat-icon>local_fire_department</mat-icon>
-          </button>
-        </div>
-
-        <div class="nav-groups">
+      <div class="nav-groups">
           <div class="nav-group">
             <button class="nav-button" (click)="toggleThemeOptions()" aria-label="Selettore tema"
               [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
