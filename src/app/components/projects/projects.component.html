@@ -23,7 +23,8 @@
     </div>
 
     <ng-template #projectCard let-project let-i="index">
-        <article class="project-card" [attr.data-status-level]="project.status.level">
+        <a class="project-card" [attr.data-status-level]="project.status.level" [href]="project.link"
+            target="_blank" rel="noopener noreferrer">
             <div class="project-visual">
                 <img class="proj-image" [src]="project.image" [attr.alt]="'Anteprima del progetto ' + project.title" />
             </div>
@@ -53,8 +54,6 @@
                     <p>{{ project.description }}</p>
                 </div>
             </div>
-
-            <a class="proj-link" [href]="project.link" target="_blank">{{ projects.button }}</a>
-        </article>
+        </a>
     </ng-template>
 </section>
