@@ -4,7 +4,7 @@
 
 .home {
   position: relative;
-  inline-size: 100vw;
+  inline-size: 100%;
   min-block-size: 100vh;
   min-block-size: 100dvh;
   overflow-x: hidden;
@@ -15,7 +15,6 @@
   inline-size: 100%;
   block-size: auto;
   min-block-size: 100vh;
-  min-block-size: 100dvh;
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -68,7 +67,7 @@
 .home__section-content {
   position: relative;
   inline-size: 100%;
-  block-size: 100%;
+  block-size: auto;
   max-inline-size: 100%;
   margin: 0 auto;
   display: flex;
@@ -110,6 +109,15 @@
 .home__panel > app-stats,
 .home__panel > app-contact-me {
   flex: 1 0 auto;
+}
+
+.home__section:first-of-type {
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+}
+
+.home__section:first-of-type .home__panel {
+  min-block-size: 100%;
 }
 
 .home__floating-controls {
