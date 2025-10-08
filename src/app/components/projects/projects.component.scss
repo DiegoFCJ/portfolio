@@ -4,6 +4,7 @@
     --projects-section-bg: linear-gradient(160deg, rgba(99, 102, 241, 0.08), rgba(79, 70, 229, 0));
     --projects-card-surface: linear-gradient(135deg, rgba(15, 23, 42, 0.05), rgba(99, 102, 241, 0.1));
     --projects-card-border: rgba(99, 102, 241, 0.25);
+    --projects-card-hover-border: rgba(99, 102, 241, 0.45);
     --projects-card-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
     --projects-card-hover-shadow: 0 28px 60px rgba(79, 70, 229, 0.18);
     --projects-visual-bg: rgba(255, 255, 255, 0.7);
@@ -17,6 +18,12 @@
     --projects-status-active: linear-gradient(135deg, rgba(99, 102, 241, 0.45), rgba(79, 70, 229, 0.75));
     --projects-status-publicBeta: linear-gradient(135deg, rgba(129, 140, 248, 0.45), rgba(99, 102, 241, 0.7));
     --projects-status-inDevelopment: linear-gradient(135deg, rgba(196, 181, 253, 0.45), rgba(167, 139, 250, 0.75));
+    --projects-card-focus-ring: rgba(99, 102, 241, 0.55);
+    --projects-status-shadow: 0 15px 35px rgba(99, 102, 241, 0.2);
+    --projects-tag-bg: rgba(99, 102, 241, 0.15);
+    --projects-tag-border: rgba(99, 102, 241, 0.25);
+    --projects-status-publicBeta-shadow: 0 15px 35px rgba(129, 140, 248, 0.2);
+    --projects-status-inDevelopment-shadow: 0 15px 35px rgba(167, 139, 250, 0.22);
     display: block;
     inline-size: 100%;
     block-size: 100%;
@@ -28,6 +35,7 @@
     --projects-section-bg: linear-gradient(160deg, rgba(129, 140, 248, 0.16), rgba(79, 70, 229, 0.08));
     --projects-card-surface: linear-gradient(135deg, rgba(30, 31, 38, 0.7), rgba(67, 56, 202, 0.35));
     --projects-card-border: rgba(129, 140, 248, 0.35);
+    --projects-card-hover-border: rgba(129, 140, 248, 0.45);
     --projects-card-shadow: 0 24px 55px rgba(15, 23, 42, 0.5);
     --projects-card-hover-shadow: 0 32px 65px rgba(67, 56, 202, 0.62);
     --projects-visual-bg: rgba(31, 33, 55, 0.6);
@@ -41,6 +49,96 @@
     --projects-status-active: linear-gradient(135deg, rgba(129, 140, 248, 0.56), rgba(99, 102, 241, 0.82));
     --projects-status-publicBeta: linear-gradient(135deg, rgba(165, 180, 252, 0.52), rgba(129, 140, 248, 0.78));
     --projects-status-inDevelopment: linear-gradient(135deg, rgba(196, 181, 253, 0.5), rgba(167, 139, 250, 0.78));
+    --projects-card-focus-ring: rgba(129, 140, 248, 0.65);
+    --projects-status-shadow: 0 15px 35px rgba(67, 56, 202, 0.35);
+    --projects-tag-bg: rgba(129, 140, 248, 0.18);
+    --projects-tag-border: rgba(129, 140, 248, 0.4);
+    --projects-status-publicBeta-shadow: 0 15px 35px rgba(129, 140, 248, 0.32);
+    --projects-status-inDevelopment-shadow: 0 15px 35px rgba(167, 139, 250, 0.35);
+}
+
+:host-context(body.blue-mode) {
+    --projects-accent: #2563eb;
+    --projects-accent-soft: rgba(37, 99, 235, 0.2);
+    --projects-section-bg: linear-gradient(160deg, rgba(59, 130, 246, 0.12), rgba(29, 78, 216, 0.06));
+    --projects-card-surface: linear-gradient(135deg, rgba(226, 239, 255, 0.92), rgba(59, 130, 246, 0.12));
+    --projects-card-border: rgba(59, 130, 246, 0.28);
+    --projects-card-hover-border: rgba(37, 99, 235, 0.45);
+    --projects-card-shadow: 0 20px 45px rgba(37, 99, 235, 0.15);
+    --projects-card-hover-shadow: 0 26px 60px rgba(37, 99, 235, 0.28);
+    --projects-visual-bg: rgba(255, 255, 255, 0.85);
+    --projects-visual-border: rgba(59, 130, 246, 0.28);
+    --projects-description-surface: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(59, 130, 246, 0.14));
+    --projects-description-border: rgba(59, 130, 246, 0.28);
+    --projects-description-fade: linear-gradient(180deg, rgba(37, 99, 235, 0), rgba(37, 99, 235, 0.22));
+    --projects-text-primary: #0f172a;
+    --projects-text-muted: rgba(15, 23, 42, 0.7);
+    --projects-status-text: #0f172a;
+    --projects-status-active: linear-gradient(135deg, rgba(59, 130, 246, 0.42), rgba(37, 99, 235, 0.72));
+    --projects-status-publicBeta: linear-gradient(135deg, rgba(96, 165, 250, 0.4), rgba(59, 130, 246, 0.68));
+    --projects-status-inDevelopment: linear-gradient(135deg, rgba(129, 140, 248, 0.45), rgba(59, 130, 246, 0.62));
+    --projects-card-focus-ring: rgba(37, 99, 235, 0.55);
+    --projects-status-shadow: 0 15px 35px rgba(37, 99, 235, 0.24);
+    --projects-tag-bg: rgba(59, 130, 246, 0.16);
+    --projects-tag-border: rgba(59, 130, 246, 0.32);
+    --projects-status-publicBeta-shadow: 0 15px 35px rgba(96, 165, 250, 0.24);
+    --projects-status-inDevelopment-shadow: 0 15px 35px rgba(129, 140, 248, 0.26);
+}
+
+:host-context(body.green-mode) {
+    --projects-accent: #10b981;
+    --projects-accent-soft: rgba(16, 185, 129, 0.24);
+    --projects-section-bg: linear-gradient(160deg, rgba(45, 212, 191, 0.12), rgba(16, 185, 129, 0.08));
+    --projects-card-surface: linear-gradient(135deg, rgba(232, 252, 243, 0.9), rgba(16, 185, 129, 0.12));
+    --projects-card-border: rgba(16, 185, 129, 0.28);
+    --projects-card-hover-border: rgba(16, 185, 129, 0.5);
+    --projects-card-shadow: 0 20px 45px rgba(16, 185, 129, 0.15);
+    --projects-card-hover-shadow: 0 26px 60px rgba(13, 148, 136, 0.3);
+    --projects-visual-bg: rgba(255, 255, 255, 0.85);
+    --projects-visual-border: rgba(45, 212, 191, 0.28);
+    --projects-description-surface: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(16, 185, 129, 0.12));
+    --projects-description-border: rgba(45, 212, 191, 0.28);
+    --projects-description-fade: linear-gradient(180deg, rgba(16, 185, 129, 0), rgba(16, 185, 129, 0.2));
+    --projects-text-primary: #064e3b;
+    --projects-text-muted: rgba(6, 95, 70, 0.78);
+    --projects-status-text: #064e3b;
+    --projects-status-active: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(5, 150, 105, 0.7));
+    --projects-status-publicBeta: linear-gradient(135deg, rgba(52, 211, 153, 0.38), rgba(13, 148, 136, 0.65));
+    --projects-status-inDevelopment: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(45, 212, 191, 0.55));
+    --projects-card-focus-ring: rgba(16, 185, 129, 0.55);
+    --projects-status-shadow: 0 15px 35px rgba(16, 185, 129, 0.24);
+    --projects-tag-bg: rgba(45, 212, 191, 0.16);
+    --projects-tag-border: rgba(16, 185, 129, 0.32);
+    --projects-status-publicBeta-shadow: 0 15px 35px rgba(45, 212, 191, 0.25);
+    --projects-status-inDevelopment-shadow: 0 15px 35px rgba(16, 185, 129, 0.28);
+}
+
+:host-context(body.red-mode) {
+    --projects-accent: #ef4444;
+    --projects-accent-soft: rgba(239, 68, 68, 0.24);
+    --projects-section-bg: linear-gradient(160deg, rgba(248, 113, 113, 0.14), rgba(239, 68, 68, 0.08));
+    --projects-card-surface: linear-gradient(135deg, rgba(255, 235, 238, 0.9), rgba(239, 68, 68, 0.12));
+    --projects-card-border: rgba(248, 113, 113, 0.3);
+    --projects-card-hover-border: rgba(239, 68, 68, 0.48);
+    --projects-card-shadow: 0 20px 45px rgba(239, 68, 68, 0.16);
+    --projects-card-hover-shadow: 0 26px 60px rgba(239, 68, 68, 0.3);
+    --projects-visual-bg: rgba(255, 255, 255, 0.88);
+    --projects-visual-border: rgba(248, 113, 113, 0.32);
+    --projects-description-surface: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(239, 68, 68, 0.12));
+    --projects-description-border: rgba(248, 113, 113, 0.32);
+    --projects-description-fade: linear-gradient(180deg, rgba(239, 68, 68, 0), rgba(249, 115, 22, 0.22));
+    --projects-text-primary: #7f1d1d;
+    --projects-text-muted: rgba(127, 29, 29, 0.78);
+    --projects-status-text: #7f1d1d;
+    --projects-status-active: linear-gradient(135deg, rgba(239, 68, 68, 0.45), rgba(220, 38, 38, 0.7));
+    --projects-status-publicBeta: linear-gradient(135deg, rgba(248, 113, 113, 0.45), rgba(251, 146, 60, 0.65));
+    --projects-status-inDevelopment: linear-gradient(135deg, rgba(244, 114, 182, 0.4), rgba(251, 113, 133, 0.68));
+    --projects-card-focus-ring: rgba(239, 68, 68, 0.6);
+    --projects-status-shadow: 0 15px 35px rgba(239, 68, 68, 0.26);
+    --projects-tag-bg: rgba(248, 113, 113, 0.18);
+    --projects-tag-border: rgba(248, 113, 113, 0.35);
+    --projects-status-publicBeta-shadow: 0 15px 35px rgba(248, 113, 113, 0.26);
+    --projects-status-inDevelopment-shadow: 0 15px 35px rgba(251, 146, 60, 0.28);
 }
 
 .projects-section {
@@ -97,11 +195,11 @@
     &:hover {
         transform: translateY(-6px);
         box-shadow: var(--projects-card-hover-shadow);
-        border-color: rgba(99, 102, 241, 0.45);
+        border-color: var(--projects-card-hover-border);
     }
 
     &:focus-visible {
-        outline: 3px solid rgba(99, 102, 241, 0.55);
+        outline: 3px solid var(--projects-card-focus-ring);
         outline-offset: 4px;
     }
 }
@@ -160,17 +258,17 @@
     letter-spacing: 0.02em;
     text-transform: uppercase;
     font-size: 0.78rem;
-    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.2);
+    box-shadow: var(--projects-status-shadow);
 }
 
 .project-card[data-status-level="publicBeta"] .project-status-pill {
     background: var(--projects-status-publicBeta);
-    box-shadow: 0 15px 35px rgba(129, 140, 248, 0.2);
+    box-shadow: var(--projects-status-publicBeta-shadow);
 }
 
 .project-card[data-status-level="inDevelopment"] .project-status-pill {
     background: var(--projects-status-inDevelopment);
-    box-shadow: 0 15px 35px rgba(167, 139, 250, 0.22);
+    box-shadow: var(--projects-status-inDevelopment-shadow);
 }
 
 .status-prefix {
@@ -190,8 +288,8 @@
 .status-tag {
     padding: 0.35rem 0.75rem;
     border-radius: 999px;
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.25);
+    background: var(--projects-tag-bg);
+    border: 1px solid var(--projects-tag-border);
     color: var(--projects-accent);
     font-size: 0.8rem;
     font-weight: 600;

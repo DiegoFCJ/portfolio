@@ -39,8 +39,8 @@
         bottom: 0;
         transform: translateY(-50%);
         border: none;
-        background: rgba(15, 23, 42, 0.08);
-        color: #0f172a;
+        background: var(--skills-carousel-arrow-bg);
+        color: var(--skills-carousel-arrow-color);
         padding: 1rem 1.25rem;
         border-radius: 999px;
         cursor: pointer;
@@ -60,8 +60,8 @@
 
     .arrow-left:hover,
     .arrow-right:hover {
-        background: rgba(99, 102, 241, 0.18);
-        box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
+        background: var(--skills-carousel-arrow-hover-bg);
+        box-shadow: var(--skills-carousel-arrow-hover-shadow);
     }
 }
 
