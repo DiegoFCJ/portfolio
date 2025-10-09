@@ -24,10 +24,10 @@
           </button>
           <div class="option-container" *ngIf="showThemeOptions">
             <div class="option-item" *ngFor="let theme of availableThemes">
-              <span class="option-hint">{{ getThemeName(theme) }}</span>
+              <span class="option-hint" [id]="'theme-option-hint-' + theme">{{ getThemeName(theme) }}</span>
               <button class="option-button" (click)="changeTheme(theme)" [attr.aria-label]="getThemeName(theme)"
-                [class.selected]="currentTheme === theme" [matTooltip]="getThemeName(theme)"
-                matTooltipPosition="left">
+                [class.selected]="currentTheme === theme"
+                [attr.aria-describedby]="'theme-option-hint-' + theme">
                 <mat-icon>{{ getThemeIcon(theme) }}</mat-icon>
               </button>
             </div>
@@ -41,10 +41,10 @@
           </button>
           <div class="option-container" *ngIf="showLanguageOptions">
             <div class="option-item" *ngFor="let language of availableLanguages">
-              <span class="option-hint">{{ getLanguageName(language) }}</span>
+              <span class="option-hint" [id]="'language-option-hint-' + language">{{ getLanguageName(language) }}</span>
               <button class="option-button" (click)="changeLanguage(language)"
-                [attr.aria-label]="getLanguageName(language)" [matTooltip]="getLanguageName(language)"
-                matTooltipPosition="left">
+                [attr.aria-label]="getLanguageName(language)"
+                [attr.aria-describedby]="'language-option-hint-' + language">
                 <img class="lang-flag" [src]="getLanguageFlag(language)" [alt]="getLanguageName(language)" />
               </button>
             </div>
