@@ -23,11 +23,10 @@
             <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
           </button>
           <div class="option-container" *ngIf="showThemeOptions">
-            <div class="option-item" *ngFor="let theme of availableThemes">
-              <span class="option-hint">{{ getThemeName(theme) }}</span>
+            <div class="option-item" *ngFor="let theme of availableThemes; let i = index">
+              <span class="option-hint" [attr.id]="'theme-option-hint-' + i">{{ getThemeName(theme) }}</span>
               <button class="option-button" (click)="changeTheme(theme)" [attr.aria-label]="getThemeName(theme)"
-                [class.selected]="currentTheme === theme" [matTooltip]="getThemeName(theme)"
-                matTooltipPosition="left">
+                [class.selected]="currentTheme === theme" [attr.aria-describedby]="'theme-option-hint-' + i">
                 <mat-icon>{{ getThemeIcon(theme) }}</mat-icon>
               </button>
             </div>
@@ -40,11 +39,10 @@
             <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
           </button>
           <div class="option-container" *ngIf="showLanguageOptions">
-            <div class="option-item" *ngFor="let language of availableLanguages">
-              <span class="option-hint">{{ getLanguageName(language) }}</span>
+            <div class="option-item" *ngFor="let language of availableLanguages; let i = index">
+              <span class="option-hint" [attr.id]="'language-option-hint-' + i">{{ getLanguageName(language) }}</span>
               <button class="option-button" (click)="changeLanguage(language)"
-                [attr.aria-label]="getLanguageName(language)" [matTooltip]="getLanguageName(language)"
-                matTooltipPosition="left">
+                [attr.aria-label]="getLanguageName(language)" [attr.aria-describedby]="'language-option-hint-' + i">
                 <span class="lang-flag">{{ getLanguageFlag(language) }}</span>
               </button>
             </div>
