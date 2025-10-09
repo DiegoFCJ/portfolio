@@ -3,6 +3,7 @@ import {
   ASSISTANT_FALL_DURATION_MS,
   ASSISTANT_JUMP_DURATION_MS,
   ASSISTANT_WAKE_DURATION_MS,
+  ASSISTANT_WONDERING_DURATION_MS,
   AssistantComponent
 } from './assistant.component';
 import { TranslationService } from '../../services/translation.service';
@@ -41,7 +42,7 @@ describe('AssistantComponent', () => {
     expect(component.animationPhase).toBe('waking');
     expect(openedSpy).toHaveBeenCalled();
 
-    tick(ASSISTANT_WAKE_DURATION_MS + ASSISTANT_JUMP_DURATION_MS);
+    tick(ASSISTANT_WAKE_DURATION_MS + ASSISTANT_JUMP_DURATION_MS + ASSISTANT_WONDERING_DURATION_MS);
 
     component.closeAssistant();
     tick(ASSISTANT_FALL_DURATION_MS);
@@ -61,8 +62,12 @@ describe('AssistantComponent', () => {
     expect(component.animationPhase).toBe('wondering');
     expect(component.isOpen).toBeTrue();
 
-    tick(10_000);
-    expect(component.animationPhase).toBe('wondering');
+    tick(ASSISTANT_WONDERING_DURATION_MS);
+    expect(component.animationPhase).toBe('perched');
+    expect(component.isOpen).toBeTrue();
+
+    tick(1000);
+    expect(component.animationPhase).toBe('perched');
     expect(component.isOpen).toBeTrue();
     expect(closedSpy).not.toHaveBeenCalled();
 

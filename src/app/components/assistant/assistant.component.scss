@@ -5,7 +5,7 @@
   --assistant-popup-offset-right: 590px;
   --assistant-jump-landing-x: -72%;
   --assistant-jump-landing-y: -168%;
-  --assistant-wondering-bounce-height: clamp(14px, 1.6vw, 22px);
+  --assistant-wondering-bounce-height: clamp(10px, 1.2vw, 16px);
   --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #ffe081, #ffb347 55%, #ff8c61 100%);
   --assistant-avatar-shadow-rest: 0 16px 30px rgba(0, 0, 0, 0.25);
   --assistant-avatar-shadow-active: 0 20px 32px rgba(0, 0, 0, 0.28);
@@ -308,20 +308,20 @@
 }
 
 .assistant--phase-jumping .assistant__avatar {
-  animation: assistant-jump 0.9s cubic-bezier(0.22, 0.72, 0.28, 1) forwards;
+  animation: assistant-jump 1.4s cubic-bezier(0.18, 0.54, 0.26, 1) forwards;
 }
 
 .assistant--phase-jumping .assistant__avatar::after {
-  animation: assistant-shadow-jump 0.9s cubic-bezier(0.22, 0.72, 0.28, 1) forwards;
+  animation: assistant-shadow-jump 1.4s cubic-bezier(0.18, 0.54, 0.26, 1) forwards;
 }
 
 .assistant--phase-wondering .assistant__avatar {
   transform: translate3d(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y), 0);
-  animation: assistant-wondering 1.2s ease-in-out infinite;
+  animation: assistant-wondering 1.6s ease-in-out infinite;
 }
 
 .assistant--phase-wondering .assistant__avatar-smile {
-  animation: assistant-wondering-smile 1.2s ease-in-out infinite;
+  animation: assistant-wondering-smile 1.6s ease-in-out infinite;
 }
 
 .assistant--phase-wondering .assistant__avatar-eye-open {
@@ -329,15 +329,25 @@
 }
 
 .assistant--phase-wondering .assistant__avatar::after {
-  animation: assistant-shadow-wondering 1.2s ease-in-out infinite;
+  animation: assistant-shadow-wondering 1.6s ease-in-out infinite;
+}
+
+.assistant--phase-perched .assistant__avatar {
+  transform: translate3d(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y), 0) scale(1);
+  box-shadow: var(--assistant-avatar-shadow-active);
+}
+
+.assistant--phase-perched .assistant__avatar::after {
+  opacity: 0.45;
+  transform: translateX(-50%) scale(0.98) translateZ(0);
 }
 
 .assistant--phase-falling .assistant__avatar {
-  animation: assistant-fall 0.72s cubic-bezier(0.3, 0.75, 0.35, 1) forwards;
+  animation: assistant-fall 0.98s cubic-bezier(0.12, 0.02, 0.32, 1) forwards;
 }
 
 .assistant--phase-falling .assistant__avatar::after {
-  animation: assistant-shadow-fall 0.72s cubic-bezier(0.3, 0.75, 0.35, 1) forwards;
+  animation: assistant-shadow-fall 0.98s cubic-bezier(0.12, 0.02, 0.32, 1) forwards;
 }
 
 .assistant__closing {
@@ -401,32 +411,40 @@
   }
 
   12% {
-    transform: translate3d(-6px, 10px, 0) scaleX(1.14) scaleY(0.88);
+    transform: translate3d(-10px, 16px, 0) scaleX(1.18) scaleY(0.84);
     box-shadow: var(--assistant-avatar-shadow-active);
   }
 
-  38% {
+  32% {
     transform: translate3d(
-        calc(var(--assistant-jump-landing-x) * 0.55),
-        calc(var(--assistant-jump-landing-y) * 0.55 - 28px)
+        calc(var(--assistant-jump-landing-x) * 0.35),
+        calc(var(--assistant-jump-landing-y) * 0.18 - 110px)
       ),
-      scaleX(0.9) scaleY(1.08);
+      scaleX(0.88) scaleY(1.12);
   }
 
-  64% {
+  55% {
     transform: translate3d(
-        calc(var(--assistant-jump-landing-x) * 0.9),
-        calc(var(--assistant-jump-landing-y) * 0.82 + 6px)
+        calc(var(--assistant-jump-landing-x) * 0.78),
+        calc(var(--assistant-jump-landing-y) * 0.72 - 28px)
       ),
-      scaleX(1.06) scaleY(0.94);
+      scaleX(0.92) scaleY(1.08);
   }
 
-  82% {
+  78% {
     transform: translate3d(
         calc(var(--assistant-jump-landing-x) * 1.04),
-        calc(var(--assistant-jump-landing-y) * 1.02)
+        calc(var(--assistant-jump-landing-y) * 1.02 + 10px)
       ),
-      scaleX(0.96) scaleY(1.04);
+      scaleX(1.1) scaleY(0.9);
+  }
+
+  92% {
+    transform: translate3d(
+        calc(var(--assistant-jump-landing-x) * 0.96),
+        calc(var(--assistant-jump-landing-y) * 0.96 - 12px)
+      ),
+      scaleX(0.95) scaleY(1.05);
   }
 
   100% {
@@ -461,9 +479,9 @@
   75% {
     transform: translate3d(
         var(--assistant-jump-landing-x),
-        calc(var(--assistant-jump-landing-y) - (var(--assistant-wondering-bounce-height) * 0.65))
+        calc(var(--assistant-jump-landing-y) - (var(--assistant-wondering-bounce-height) * 0.45))
       ),
-      scaleX(0.96) scaleY(1.05);
+      scaleX(0.97) scaleY(1.04);
   }
 }
 
@@ -489,24 +507,32 @@
     box-shadow: var(--assistant-avatar-shadow-active);
   }
 
-  30% {
+  20% {
     transform: translate3d(
-        calc(var(--assistant-jump-landing-x) * 0.55),
-        calc(var(--assistant-jump-landing-y) * 0.55 + 22px)
+        calc(var(--assistant-jump-landing-x) * 0.94),
+        calc(var(--assistant-jump-landing-y) * 0.94 + 8px)
       ),
-      scaleX(1.12) scaleY(0.88);
+      scaleX(1.08) scaleY(0.92);
   }
 
-  55% {
+  40% {
     transform: translate3d(
-        calc(var(--assistant-jump-landing-x) * 0.18),
-        calc(var(--assistant-jump-landing-y) * 0.18 + 34px)
+        calc(var(--assistant-jump-landing-x) * 0.75),
+        calc(var(--assistant-jump-landing-y) * 0.75 + 26px)
       ),
-      scaleX(0.9) scaleY(1.1);
+      scaleX(1.04) scaleY(0.96);
   }
 
-  78% {
-    transform: translate3d(0, 12px, 0) scaleX(1.14) scaleY(0.86);
+  65% {
+    transform: translate3d(
+        calc(var(--assistant-jump-landing-x) * 0.35),
+        calc(var(--assistant-jump-landing-y) * 0.35 + 52px)
+      ),
+      scaleX(0.92) scaleY(1.08);
+  }
+
+  88% {
+    transform: translate3d(0, 18px, 0) scaleX(1.16) scaleY(0.86);
   }
 
   100% {
@@ -540,27 +566,47 @@
 
   12% {
     opacity: 0.24;
-    transform: translateX(-50%) scale(0.65) translateZ(0);
+    transform: translateX(-50%) scale(0.62) translateZ(0);
   }
 
-  38% {
-    opacity: 0.14;
+  32% {
+    opacity: 0.12;
     transform: translate3d(
         calc(-50% + (var(--assistant-jump-landing-x) * 0.35)),
         0,
         0
       )
-      scale(0.45) translateZ(0);
+      scale(0.38) translateZ(0);
   }
 
-  64% {
-    opacity: 0.42;
+  55% {
+    opacity: 0.4;
     transform: translate3d(
         calc(-50% + (var(--assistant-jump-landing-x) * 0.75)),
         0,
         0
       )
       scale(1) translateZ(0);
+  }
+
+  78% {
+    opacity: 0.48;
+    transform: translate3d(
+        calc(-50% + (var(--assistant-jump-landing-x) * 1.04)),
+        0,
+        0
+      )
+      scale(1.12) translateZ(0);
+  }
+
+  92% {
+    opacity: 0.36;
+    transform: translate3d(
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.96)),
+        0,
+        0
+      )
+      scale(0.86) translateZ(0);
   }
 
   100% {
@@ -587,33 +633,33 @@
   }
 
   25% {
-    opacity: 0.2;
+    opacity: 0.24;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x)),
         0,
         0
       )
-      scale(0.7) translateZ(0);
+      scale(0.76) translateZ(0);
   }
 
   55% {
-    opacity: 0.42;
+    opacity: 0.4;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x)),
         0,
         0
       )
-      scale(1.05) translateZ(0);
+      scale(1) translateZ(0);
   }
 
   75% {
-    opacity: 0.28;
+    opacity: 0.32;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x)),
         0,
         0
       )
-      scale(0.82) translateZ(0);
+      scale(0.86) translateZ(0);
   }
 }
 
@@ -628,34 +674,44 @@
       scale(0.92) translateZ(0);
   }
 
-  30% {
-    opacity: 0.5;
+  20% {
+    opacity: 0.48;
     transform: translate3d(
-        calc(-50% + (var(--assistant-jump-landing-x) * 0.55)),
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.94)),
         0,
         0
       )
-      scale(1.2) translateZ(0);
+      scale(1.12) translateZ(0);
   }
 
-  55% {
-    opacity: 0.28;
+  40% {
+    opacity: 0.3;
     transform: translate3d(
-        calc(-50% + (var(--assistant-jump-landing-x) * 0.18)),
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.75)),
         0,
         0
       )
-      scale(0.7) translateZ(0);
+      scale(0.82) translateZ(0);
   }
 
-  78% {
+  65% {
     opacity: 0.46;
-    transform: translate3d(-50%, 0, 0) scale(1.1) translateZ(0);
+    transform: translate3d(
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.35)),
+        0,
+        0
+      )
+      scale(1.08) translateZ(0);
+  }
+
+  88% {
+    opacity: 0.36;
+    transform: translate3d(-50%, 0, 0) scale(0.9) translateZ(0);
   }
 
   100% {
     opacity: 0.32;
-    transform: translate3d(-50%, 0, 0) scale(0.82) translateZ(0);
+    transform: translate3d(-50%, 0, 0) scale(0.8) translateZ(0);
   }
 }
 

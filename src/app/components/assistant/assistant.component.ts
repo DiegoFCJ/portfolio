@@ -18,11 +18,13 @@ export type AssistantAnimationPhase =
   | 'waking'
   | 'jumping'
   | 'wondering'
+  | 'perched'
   | 'falling';
 
 export const ASSISTANT_WAKE_DURATION_MS = 450;
-export const ASSISTANT_JUMP_DURATION_MS = 850;
-export const ASSISTANT_FALL_DURATION_MS = 720;
+export const ASSISTANT_JUMP_DURATION_MS = 1400;
+export const ASSISTANT_WONDERING_DURATION_MS = 5000;
+export const ASSISTANT_FALL_DURATION_MS = 980;
 
 interface AssistantGuideContent {
   readonly title: string;
@@ -73,6 +75,7 @@ export class AssistantComponent implements OnDestroy {
   private wakeTimer: ReturnType<typeof setTimeout> | null = null;
   private jumpTimer: ReturnType<typeof setTimeout> | null = null;
   private fallTimer: ReturnType<typeof setTimeout> | null = null;
+  private wonderingTimer: ReturnType<typeof setTimeout> | null = null;
   private landingUpdateFrame: number | null = null;
 
   readonly guideContent$: Observable<AssistantGuideContent>;
@@ -147,7 +150,7 @@ export class AssistantComponent implements OnDestroy {
 
       this.jumpTimer = setTimeout(() => {
         this.jumpTimer = null;
-        this.animationPhase = 'wondering';
+        this.startWonderingPhase();
       }, ASSISTANT_JUMP_DURATION_MS);
     }, ASSISTANT_WAKE_DURATION_MS);
   }
@@ -173,6 +176,7 @@ export class AssistantComponent implements OnDestroy {
     this.clearWakeTimer();
     this.clearJumpTimer();
     this.clearFallTimer();
+    this.clearWonderingTimer();
   }
 
   private clearWakeTimer(): void {
@@ -193,6 +197,13 @@ export class AssistantComponent implements OnDestroy {
     if (this.fallTimer) {
       clearTimeout(this.fallTimer);
       this.fallTimer = null;
+    }
+  }
+
+  private clearWonderingTimer(): void {
+    if (this.wonderingTimer) {
+      clearTimeout(this.wonderingTimer);
+      this.wonderingTimer = null;
     }
   }
 
@@ -261,6 +272,7 @@ export class AssistantComponent implements OnDestroy {
     this.clearWakeTimer();
     this.clearJumpTimer();
     this.clearFallTimer();
+    this.clearWonderingTimer();
 
     this.cancelLandingUpdate();
 
@@ -276,5 +288,18 @@ export class AssistantComponent implements OnDestroy {
         this.closed.emit();
       }
     }, ASSISTANT_FALL_DURATION_MS);
+  }
+
+  private startWonderingPhase(): void {
+    this.clearWonderingTimer();
+    this.animationPhase = 'wondering';
+
+    this.wonderingTimer = setTimeout(() => {
+      this.wonderingTimer = null;
+
+      if (this.isOpen && this.animationPhase === 'wondering') {
+        this.animationPhase = 'perched';
+      }
+    }, ASSISTANT_WONDERING_DURATION_MS);
   }
 }
