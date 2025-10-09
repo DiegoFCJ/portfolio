@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import {
+  ASSISTANT_FALL_DURATION_MS,
   ASSISTANT_JUMP_DURATION_MS,
   ASSISTANT_WAKE_DURATION_MS,
   AssistantComponent
@@ -43,10 +44,10 @@ describe('AssistantComponent', () => {
     tick(ASSISTANT_WAKE_DURATION_MS + ASSISTANT_JUMP_DURATION_MS);
 
     component.closeAssistant();
-    tick();
+    tick(ASSISTANT_FALL_DURATION_MS);
   }));
 
-  it('should remain open in impatience phase until closed manually', fakeAsync(() => {
+  it('should remain open in wondering phase until closed manually', fakeAsync(() => {
     const closedSpy = jasmine.createSpy('closed');
     component.closed.subscribe(closedSpy);
 
@@ -57,16 +58,16 @@ describe('AssistantComponent', () => {
     expect(component.animationPhase).toBe('jumping');
 
     tick(ASSISTANT_JUMP_DURATION_MS);
-    expect(component.animationPhase).toBe('impatient');
+    expect(component.animationPhase).toBe('wondering');
     expect(component.isOpen).toBeTrue();
 
     tick(10_000);
-    expect(component.animationPhase).toBe('impatient');
+    expect(component.animationPhase).toBe('wondering');
     expect(component.isOpen).toBeTrue();
     expect(closedSpy).not.toHaveBeenCalled();
 
     component.closeAssistant();
-    tick();
+    tick(ASSISTANT_FALL_DURATION_MS);
 
     expect(component.animationPhase).toBe('sleeping');
     expect(component.isOpen).toBeFalse();
@@ -80,7 +81,7 @@ describe('AssistantComponent', () => {
     component.openAssistant();
     tick(ASSISTANT_WAKE_DURATION_MS + 50);
     component.closeAssistant();
-    tick();
+    tick(ASSISTANT_FALL_DURATION_MS);
 
     expect(component.isOpen).toBeFalse();
     expect(component.animationPhase).toBe('sleeping');
@@ -98,7 +99,7 @@ describe('AssistantComponent', () => {
     expect(component.isOpen).toBeTrue();
 
     component.onAvatarClick();
-    tick();
+    tick(ASSISTANT_FALL_DURATION_MS);
 
     expect(component.closeAssistant).toHaveBeenCalled();
     expect(component.isOpen).toBeFalse();
