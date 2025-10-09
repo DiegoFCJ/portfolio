@@ -15,14 +15,6 @@ $default-hint-background: rgba(255, 255, 255, 0.95);
 $default-hint-color: #333333;
 
 
-@function navigator-icon-contrast($background) {
-    @if (type-of($background) == 'color' and lightness($background) > 60) {
-        @return #111111;
-    }
-
-    @return #f7f7f7;
-}
-
 $dark-option-background: #1f1f1f;
 $light-option-background: #ffffff;
 
@@ -31,7 +23,7 @@ $navigator-themes: (
         selectors: (':host', 'body.light-mode'),
         background: $navigator-bg,
         option-background: $light-option-background,
-        icon-color: navigator-icon-contrast($light-option-background),
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-hover-background: rgba(0, 0, 0, 0.05),
@@ -48,7 +40,7 @@ $navigator-themes: (
         selectors: 'body.dark-mode',
         background: $navigator-bg-dark,
         option-background: $dark-option-background,
-        icon-color: navigator-icon-contrast($dark-option-background),
+        icon-color: #f7f7f7,
         hover-background: lighten($navigator-bg-dark, 5%),
         arrow-hover-background: lighten($navigator-bg-dark, 5%),
         option-hover-background: rgba(255, 255, 255, 0.1),
@@ -65,7 +57,7 @@ $navigator-themes: (
         selectors: 'body.blue-mode',
         background: $navigator-bg,
         option-background: $light-option-background,
-        icon-color: navigator-icon-contrast($light-option-background),
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-hover-background: rgba(0, 0, 0, 0.05),
@@ -82,7 +74,7 @@ $navigator-themes: (
         selectors: 'body.green-mode',
         background: $navigator-bg,
         option-background: $light-option-background,
-        icon-color: navigator-icon-contrast($light-option-background),
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-hover-background: rgba(0, 0, 0, 0.05),
@@ -99,7 +91,7 @@ $navigator-themes: (
         selectors: 'body.red-mode',
         background: $navigator-bg,
         option-background: $light-option-background,
-        icon-color: navigator-icon-contrast($light-option-background),
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(127, 29, 29, 0.08),
         option-hover-background: rgba(127, 29, 29, 0.08),
@@ -200,7 +192,7 @@ $navigator-themes: (
     mat-icon {
         position: absolute;
         font-size: $navigator-icon-size;
-        color: var(--navigator-icon-color);
+        color: var(--navigator-icon-color, #111111);
         z-index: 1;
     }
 
@@ -280,7 +272,7 @@ $navigator-themes: (
 
         mat-icon {
             font-size: $navigator-icon-size;
-            color: var(--navigator-icon-color);
+            color: var(--navigator-icon-color, #111111);
             transition: transform 0.25s ease;
             z-index: 1;
         }
@@ -334,7 +326,7 @@ $navigator-themes: (
 
         mat-icon {
             font-size: $navigator-icon-size;
-            color: var(--navigator-icon-color);
+            color: var(--navigator-icon-color, #111111);
             position: absolute;
             z-index: 1;
         }
@@ -440,7 +432,7 @@ $navigator-themes: (
     mat-icon {
         position: absolute;
         font-size: 20px;
-        color: var(--navigator-icon-color);
+        color: var(--navigator-icon-color, #111111);
     }
 
     .section-number {
