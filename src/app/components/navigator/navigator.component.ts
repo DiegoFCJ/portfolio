@@ -169,6 +169,14 @@ export class NavigatorComponent implements OnInit {
     return this.isOpen ? labels.close : labels.open;
   }
 
+  getThemeOptionHintId(index: number): string {
+    return `theme-option-hint-${index}`;
+  }
+
+  getLanguageOptionHintId(index: number): string {
+    return `language-option-hint-${index}`;
+  }
+
   private applyTheme(theme: ThemeKey): void {
     if (isPlatformBrowser(this.platformId)) {
       document.body.classList.remove('light-mode', 'dark-mode', 'blue-mode', 'green-mode', 'red-mode');
