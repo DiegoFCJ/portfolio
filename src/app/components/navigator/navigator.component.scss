@@ -5,6 +5,12 @@ $navigator-bg-dark: #1f1f1f;
 $navigator-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 $navigator-icon-size: 24px;
 $navigator-button-size: 48px;
+$default-button-bg: linear-gradient(145deg, #f8f9ff, #e7e9ff);
+$default-button-border: #a855f7;
+$default-button-glow: rgba(168, 85, 247, 0.45);
+$default-option-bg: #ffffff;
+$default-option-hover-bg: rgba(0, 0, 0, 0.05);
+$default-option-selected-bg: rgba(0, 0, 0, 0.1);
 
 $navigator-themes: (
     light: (
@@ -130,9 +136,9 @@ $navigator-themes: (
     width: $navigator-button-size;
     height: $navigator-button-size;
     border-radius: 50%;
-    background: var(--navigator-button-bg);
-    border: 1px solid var(--navigator-button-border);
-    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow);
+    background: var(--navigator-button-bg, $default-button-bg);
+    border: 1px solid var(--navigator-button-border, $default-button-border);
+    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,8 +169,8 @@ $navigator-themes: (
 
     &:hover {
         transform: translateY(-2px) scale(1.05);
-        background: var(--navigator-button-hover-bg);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 18px var(--navigator-button-glow);
+        background: var(--navigator-button-hover-bg, $default-button-bg);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 18px var(--navigator-button-glow, $default-button-glow);
 
         &::after {
             opacity: 0.7;
@@ -207,9 +213,9 @@ $navigator-themes: (
         width: $navigator-button-size;
         height: $navigator-button-size;
         border-radius: 50%;
-        background: var(--navigator-button-bg);
-        border: 1px solid var(--navigator-button-border);
-        box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow);
+        background: var(--navigator-button-bg, $default-button-bg);
+        border: 1px solid var(--navigator-button-border, $default-button-border);
+        box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -220,8 +226,8 @@ $navigator-themes: (
 
         &:hover {
             transform: scale(1.08) translateY(-2px);
-            background: var(--navigator-button-hover-bg);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px var(--navigator-button-glow);
+            background: var(--navigator-button-hover-bg, $default-button-bg);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px var(--navigator-button-glow, $default-button-glow);
         }
 
         mat-icon {
@@ -262,8 +268,8 @@ $navigator-themes: (
         width: 44px;
         height: 44px;
         border-radius: 18px;
-        border: 1px solid var(--navigator-button-border);
-        background: var(--navigator-button-bg);
+        border: 1px solid var(--navigator-button-border, $default-button-border);
+        background: var(--navigator-button-bg, $default-button-bg);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -273,9 +279,9 @@ $navigator-themes: (
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
 
         &:hover {
-            background: var(--navigator-button-hover-bg);
+            background: var(--navigator-button-hover-bg, $default-button-bg);
             transform: translateY(-2px);
-            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28), 0 0 18px var(--navigator-button-glow);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28), 0 0 18px var(--navigator-button-glow, $default-button-glow);
         }
 
         mat-icon {
@@ -328,11 +334,11 @@ $navigator-themes: (
     transform: translateY(-50%);
     display: flex;
     gap: 10px;
-    background: var(--navigator-option-background);
+    background: var(--navigator-option-background, $default-option-bg);
     padding: 6px 10px;
     border-radius: 2rem;
     box-shadow: $navigator-shadow;
-    align-items: flex-end;
+    align-items: flex-start;
     z-index: 1;
 }
 
@@ -340,7 +346,7 @@ $navigator-themes: (
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
 }
 
 .option-hint {
@@ -349,22 +355,24 @@ $navigator-themes: (
     color: var(--navigator-text-color);
     text-align: center;
     white-space: nowrap;
+    margin-bottom: 2px;
 }
 
 .option-button {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: none;
+    border: 1px solid transparent;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
-    transition: background-color 0.2s ease;
+    background-color: var(--navigator-option-background, $default-option-bg);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 
     &:hover {
-        background-color: var(--navigator-option-hover-background);
+        background-color: var(--navigator-option-hover-background, $default-option-hover-bg);
+        border-color: var(--navigator-button-border, $default-button-border);
     }
 
     mat-icon {
@@ -381,6 +389,7 @@ $navigator-themes: (
     }
 
     &.selected {
-        background-color: var(--navigator-option-selected-background);
+        background-color: var(--navigator-option-selected-background, $default-option-selected-bg);
+        border-color: var(--navigator-button-border, $default-button-border);
     }
 }
