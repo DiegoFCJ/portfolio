@@ -45,7 +45,7 @@
               <button class="option-button" (click)="changeLanguage(language)"
                 [attr.aria-label]="getLanguageName(language)" [matTooltip]="getLanguageName(language)"
                 matTooltipPosition="left">
-                <span class="lang-flag">{{ getLanguageFlag(language) }}</span>
+                <img class="lang-flag" [src]="getLanguageFlag(language)" [alt]="getLanguageName(language)" />
               </button>
             </div>
           </div>
