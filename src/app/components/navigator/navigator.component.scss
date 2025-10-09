@@ -327,7 +327,7 @@ $navigator-themes: (
     right: calc(100% + 8px);
     transform: translateY(-50%);
     display: flex;
-    gap: 10px;
+    gap: 12px;
     background: var(--navigator-option-background);
     padding: 6px 10px;
     border-radius: 2rem;
@@ -352,19 +352,22 @@ $navigator-themes: (
 }
 
 .option-button {
-    width: 32px;
-    height: 32px;
+    width: $navigator-button-size;
+    height: $navigator-button-size;
     border-radius: 50%;
-    border: none;
+    border: 1px solid var(--navigator-button-border);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    transition: background-color 0.2s ease;
+    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow);
+    padding: 0;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
         background-color: var(--navigator-option-hover-background);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px var(--navigator-button-glow);
     }
 
     mat-icon {
