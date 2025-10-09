@@ -17,10 +17,14 @@ export type AssistantAnimationPhase =
   | 'sleeping'
   | 'waking'
   | 'jumping'
-  | 'impatient';
+  | 'wondering'
+  | 'perched'
+  | 'falling';
 
 export const ASSISTANT_WAKE_DURATION_MS = 450;
-export const ASSISTANT_JUMP_DURATION_MS = 850;
+export const ASSISTANT_JUMP_DURATION_MS = 1400;
+export const ASSISTANT_WONDERING_DURATION_MS = 5000;
+export const ASSISTANT_FALL_DURATION_MS = 980;
 
 interface AssistantGuideContent {
   readonly title: string;
@@ -70,6 +74,8 @@ export class AssistantComponent implements OnDestroy {
 
   private wakeTimer: ReturnType<typeof setTimeout> | null = null;
   private jumpTimer: ReturnType<typeof setTimeout> | null = null;
+  private fallTimer: ReturnType<typeof setTimeout> | null = null;
+  private wonderingTimer: ReturnType<typeof setTimeout> | null = null;
   private landingUpdateFrame: number | null = null;
 
   readonly guideContent$: Observable<AssistantGuideContent>;
@@ -144,22 +150,19 @@ export class AssistantComponent implements OnDestroy {
 
       this.jumpTimer = setTimeout(() => {
         this.jumpTimer = null;
-        this.animationPhase = 'impatient';
+        this.startWonderingPhase();
       }, ASSISTANT_JUMP_DURATION_MS);
     }, ASSISTANT_WAKE_DURATION_MS);
   }
 
   private goToSleep(): void {
     const wasOpen = this.isOpen;
-    this.clearAllTimers();
-    this.cancelLandingUpdate();
-    this.animationPhase = 'sleeping';
-    this.isOpen = false;
-    this.resetLandingCoordinates();
 
-    if (wasOpen) {
-      this.closed.emit();
+    if (this.animationPhase === 'sleeping' || this.animationPhase === 'falling') {
+      return;
     }
+
+    this.startFallSequence(wasOpen);
   }
 
   @HostListener('window:resize')
@@ -172,6 +175,8 @@ export class AssistantComponent implements OnDestroy {
   private clearAllTimers(): void {
     this.clearWakeTimer();
     this.clearJumpTimer();
+    this.clearFallTimer();
+    this.clearWonderingTimer();
   }
 
   private clearWakeTimer(): void {
@@ -185,6 +190,20 @@ export class AssistantComponent implements OnDestroy {
     if (this.jumpTimer) {
       clearTimeout(this.jumpTimer);
       this.jumpTimer = null;
+    }
+  }
+
+  private clearFallTimer(): void {
+    if (this.fallTimer) {
+      clearTimeout(this.fallTimer);
+      this.fallTimer = null;
+    }
+  }
+
+  private clearWonderingTimer(): void {
+    if (this.wonderingTimer) {
+      clearTimeout(this.wonderingTimer);
+      this.wonderingTimer = null;
     }
   }
 
@@ -247,5 +266,40 @@ export class AssistantComponent implements OnDestroy {
     const hostElement = this.hostRef.nativeElement;
     hostElement.style.removeProperty('--assistant-jump-landing-x');
     hostElement.style.removeProperty('--assistant-jump-landing-y');
+  }
+
+  private startFallSequence(wasOpen: boolean): void {
+    this.clearWakeTimer();
+    this.clearJumpTimer();
+    this.clearFallTimer();
+    this.clearWonderingTimer();
+
+    this.cancelLandingUpdate();
+
+    this.animationPhase = 'falling';
+    this.isOpen = false;
+
+    this.fallTimer = setTimeout(() => {
+      this.fallTimer = null;
+      this.resetLandingCoordinates();
+      this.animationPhase = 'sleeping';
+
+      if (wasOpen) {
+        this.closed.emit();
+      }
+    }, ASSISTANT_FALL_DURATION_MS);
+  }
+
+  private startWonderingPhase(): void {
+    this.clearWonderingTimer();
+    this.animationPhase = 'wondering';
+
+    this.wonderingTimer = setTimeout(() => {
+      this.wonderingTimer = null;
+
+      if (this.isOpen && this.animationPhase === 'wondering') {
+        this.animationPhase = 'perched';
+      }
+    }, ASSISTANT_WONDERING_DURATION_MS);
   }
 }
