@@ -9,6 +9,9 @@
   --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #ffe081, #ffb347 55%, #ff8c61 100%);
   --assistant-avatar-shadow-rest: 0 16px 30px rgba(0, 0, 0, 0.25);
   --assistant-avatar-shadow-active: 0 20px 32px rgba(0, 0, 0, 0.28);
+  --assistant-floor-shadow-color: rgba(15, 23, 42, 0.35);
+  --assistant-floor-shadow-color-strong: rgba(15, 23, 42, 0.45);
+  --assistant-floor-shadow-size: clamp(28px, 7vw, 42px);
   --assistant-avatar-focus-ring: rgba(255, 255, 255, 0.8);
   --assistant-avatar-face-shadow: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
   --assistant-avatar-outline-fill: rgba(255, 255, 255, 0.94);
@@ -27,6 +30,8 @@
   --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #fff4d6, #facc15 55%, #f97316 100%);
   --assistant-avatar-shadow-rest: 0 16px 28px rgba(15, 23, 42, 0.15);
   --assistant-avatar-shadow-active: 0 22px 36px rgba(15, 23, 42, 0.18);
+  --assistant-floor-shadow-color: rgba(15, 23, 42, 0.18);
+  --assistant-floor-shadow-color-strong: rgba(15, 23, 42, 0.32);
   --assistant-avatar-focus-ring: rgba(15, 23, 42, 0.2);
   --assistant-avatar-face-shadow: drop-shadow(0 4px 6px rgba(15, 23, 42, 0.2));
   --assistant-avatar-outline-fill: rgba(255, 255, 255, 0.98);
@@ -43,6 +48,8 @@
   --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #e0f2ff, #60a5fa 55%, #2563eb 100%);
   --assistant-avatar-shadow-rest: 0 16px 28px rgba(30, 64, 175, 0.3);
   --assistant-avatar-shadow-active: 0 22px 36px rgba(30, 64, 175, 0.32);
+  --assistant-floor-shadow-color: rgba(30, 64, 175, 0.3);
+  --assistant-floor-shadow-color-strong: rgba(30, 64, 175, 0.5);
   --assistant-avatar-focus-ring: rgba(59, 130, 246, 0.45);
   --assistant-avatar-face-shadow: drop-shadow(0 4px 6px rgba(30, 64, 175, 0.25));
   --assistant-avatar-outline-fill: rgba(255, 255, 255, 0.98);
@@ -59,6 +66,8 @@
   --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #dcfce7, #4ade80 55%, #15803d 100%);
   --assistant-avatar-shadow-rest: 0 16px 28px rgba(22, 101, 52, 0.26);
   --assistant-avatar-shadow-active: 0 22px 36px rgba(22, 101, 52, 0.3);
+  --assistant-floor-shadow-color: rgba(22, 101, 52, 0.28);
+  --assistant-floor-shadow-color-strong: rgba(22, 101, 52, 0.46);
   --assistant-avatar-focus-ring: rgba(34, 197, 94, 0.35);
   --assistant-avatar-face-shadow: drop-shadow(0 4px 6px rgba(22, 101, 52, 0.22));
   --assistant-avatar-outline-fill: rgba(255, 255, 255, 0.98);
@@ -75,6 +84,8 @@
   --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #fee2e2, #f87171 55%, #b91c1c 100%);
   --assistant-avatar-shadow-rest: 0 16px 28px rgba(153, 27, 27, 0.28);
   --assistant-avatar-shadow-active: 0 22px 36px rgba(153, 27, 27, 0.32);
+  --assistant-floor-shadow-color: rgba(153, 27, 27, 0.28);
+  --assistant-floor-shadow-color-strong: rgba(153, 27, 27, 0.46);
   --assistant-avatar-focus-ring: rgba(239, 68, 68, 0.4);
   --assistant-avatar-face-shadow: drop-shadow(0 4px 6px rgba(153, 27, 27, 0.28));
   --assistant-avatar-outline-fill: rgba(255, 255, 255, 0.98);
@@ -91,6 +102,8 @@
   --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #fde68a, #f59e0b 55%, #fb923c 100%);
   --assistant-avatar-shadow-rest: 0 18px 34px rgba(15, 23, 42, 0.45);
   --assistant-avatar-shadow-active: 0 22px 40px rgba(15, 23, 42, 0.5);
+  --assistant-floor-shadow-color: rgba(15, 23, 42, 0.45);
+  --assistant-floor-shadow-color-strong: rgba(15, 23, 42, 0.62);
   --assistant-avatar-focus-ring: rgba(148, 163, 184, 0.4);
   --assistant-avatar-face-shadow: drop-shadow(0 4px 6px rgba(15, 23, 42, 0.35));
   --assistant-avatar-outline-fill: rgba(255, 255, 255, 0.92);
@@ -136,10 +149,34 @@
   transition: box-shadow 0.35s ease;
   outline: none;
   z-index: 3;
+  will-change: transform;
 }
 
 .assistant__avatar:focus-visible {
   box-shadow: 0 0 0 3px var(--assistant-avatar-focus-ring), var(--assistant-avatar-shadow-rest);
+}
+
+.assistant__avatar::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-end: -18px;
+  width: var(--assistant-floor-shadow-size);
+  max-width: 160%;
+  aspect-ratio: 3 / 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    var(--assistant-floor-shadow-color-strong) 0%,
+    var(--assistant-floor-shadow-color) 55%,
+    transparent 80%
+  );
+  transform: translateX(-50%) scale(0.8) translateZ(0);
+  opacity: 0.35;
+  filter: blur(0.5px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .assistant__avatar-face {
@@ -253,6 +290,11 @@
   opacity: 1;
 }
 
+.assistant--phase-sleeping .assistant__avatar::after {
+  opacity: 0.28;
+  transform: translateX(-50%) scale(0.7) translateZ(0);
+}
+
 .assistant--phase-waking .assistant__avatar {
   animation: assistant-wake 0.6s ease-out forwards;
 }
@@ -261,12 +303,20 @@
   transform: translateY(-2px) scaleY(1.05);
 }
 
+.assistant--phase-waking .assistant__avatar::after {
+  animation: assistant-shadow-wake 0.6s ease-out forwards;
+}
+
 .assistant--phase-jumping .assistant__avatar {
   animation: assistant-jump 0.9s cubic-bezier(0.22, 0.72, 0.28, 1) forwards;
 }
 
+.assistant--phase-jumping .assistant__avatar::after {
+  animation: assistant-shadow-jump 0.9s cubic-bezier(0.22, 0.72, 0.28, 1) forwards;
+}
+
 .assistant--phase-wondering .assistant__avatar {
-  transform: translate(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y));
+  transform: translate3d(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y), 0);
   animation: assistant-wondering 1.2s ease-in-out infinite;
 }
 
@@ -278,8 +328,16 @@
   transform: translateY(-3px) scaleY(1.02);
 }
 
+.assistant--phase-wondering .assistant__avatar::after {
+  animation: assistant-shadow-wondering 1.2s ease-in-out infinite;
+}
+
 .assistant--phase-falling .assistant__avatar {
   animation: assistant-fall 0.72s cubic-bezier(0.3, 0.75, 0.35, 1) forwards;
+}
+
+.assistant--phase-falling .assistant__avatar::after {
+  animation: assistant-shadow-fall 0.72s cubic-bezier(0.3, 0.75, 0.35, 1) forwards;
 }
 
 .assistant__closing {
@@ -338,41 +396,41 @@
 
 @keyframes assistant-jump {
   0% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
     box-shadow: var(--assistant-avatar-shadow-rest);
   }
 
   12% {
-    transform: translate(-6px, 10px) scaleX(1.14) scaleY(0.88);
+    transform: translate3d(-6px, 10px, 0) scaleX(1.14) scaleY(0.88);
     box-shadow: var(--assistant-avatar-shadow-active);
   }
 
   38% {
-    transform: translate(
+    transform: translate3d(
         calc(var(--assistant-jump-landing-x) * 0.55),
         calc(var(--assistant-jump-landing-y) * 0.55 - 28px)
-      )
+      ),
       scaleX(0.9) scaleY(1.08);
   }
 
   64% {
-    transform: translate(
+    transform: translate3d(
         calc(var(--assistant-jump-landing-x) * 0.9),
         calc(var(--assistant-jump-landing-y) * 0.82 + 6px)
-      )
+      ),
       scaleX(1.06) scaleY(0.94);
   }
 
   82% {
-    transform: translate(
+    transform: translate3d(
         calc(var(--assistant-jump-landing-x) * 1.04),
         calc(var(--assistant-jump-landing-y) * 1.02)
-      )
+      ),
       scaleX(0.96) scaleY(1.04);
   }
 
   100% {
-    transform: translate(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y)) scale(1);
+    transform: translate3d(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y), 0) scale(1);
     box-shadow: var(--assistant-avatar-shadow-active);
   }
 }
@@ -380,31 +438,31 @@
 @keyframes assistant-wondering {
   0%,
   100% {
-    transform: translate(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y)) scale(1);
+    transform: translate3d(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y), 0) scale(1);
     box-shadow: var(--assistant-avatar-shadow-active);
   }
 
   25% {
-    transform: translate(
+    transform: translate3d(
         var(--assistant-jump-landing-x),
         calc(var(--assistant-jump-landing-y) - var(--assistant-wondering-bounce-height))
-      )
+      ),
       scaleX(0.94) scaleY(1.08);
   }
 
   55% {
-    transform: translate(
+    transform: translate3d(
         var(--assistant-jump-landing-x),
         calc(var(--assistant-jump-landing-y) + (var(--assistant-wondering-bounce-height) * 0.35))
-      )
+      ),
       scaleX(1.08) scaleY(0.92);
   }
 
   75% {
-    transform: translate(
+    transform: translate3d(
         var(--assistant-jump-landing-x),
         calc(var(--assistant-jump-landing-y) - (var(--assistant-wondering-bounce-height) * 0.65))
-      )
+      ),
       scaleX(0.96) scaleY(1.05);
   }
 }
@@ -422,34 +480,182 @@
 
 @keyframes assistant-fall {
   0% {
-    transform: translate(var(--assistant-jump-landing-x), var(--assistant-jump-landing-y)) scaleX(0.96)
-      scaleY(1.04);
+    transform: translate3d(
+        var(--assistant-jump-landing-x),
+        var(--assistant-jump-landing-y),
+        0
+      )
+      scaleX(0.96) scaleY(1.04);
     box-shadow: var(--assistant-avatar-shadow-active);
   }
 
   30% {
-    transform: translate(
+    transform: translate3d(
         calc(var(--assistant-jump-landing-x) * 0.55),
         calc(var(--assistant-jump-landing-y) * 0.55 + 22px)
-      )
+      ),
       scaleX(1.12) scaleY(0.88);
   }
 
   55% {
-    transform: translate(
+    transform: translate3d(
         calc(var(--assistant-jump-landing-x) * 0.18),
         calc(var(--assistant-jump-landing-y) * 0.18 + 34px)
-      )
+      ),
       scaleX(0.9) scaleY(1.1);
   }
 
   78% {
-    transform: translate(0, 12px) scaleX(1.14) scaleY(0.86);
+    transform: translate3d(0, 12px, 0) scaleX(1.14) scaleY(0.86);
   }
 
   100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
     box-shadow: var(--assistant-avatar-shadow-rest);
+  }
+}
+
+@keyframes assistant-shadow-wake {
+  0% {
+    opacity: 0.28;
+    transform: translateX(-50%) scale(0.7) translateZ(0);
+  }
+
+  50% {
+    opacity: 0.18;
+    transform: translateX(-50%) scale(0.6) translateZ(0);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scale(0.75) translateZ(0);
+  }
+}
+
+@keyframes assistant-shadow-jump {
+  0% {
+    opacity: 0.3;
+    transform: translateX(-50%) scale(0.75) translateZ(0);
+  }
+
+  12% {
+    opacity: 0.24;
+    transform: translateX(-50%) scale(0.65) translateZ(0);
+  }
+
+  38% {
+    opacity: 0.14;
+    transform: translate3d(
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.35)),
+        0,
+        0
+      )
+      scale(0.45) translateZ(0);
+  }
+
+  64% {
+    opacity: 0.42;
+    transform: translate3d(
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.75)),
+        0,
+        0
+      )
+      scale(1) translateZ(0);
+  }
+
+  100% {
+    opacity: 0.38;
+    transform: translate3d(
+        calc(-50% + var(--assistant-jump-landing-x)),
+        0,
+        0
+      )
+      scale(0.9) translateZ(0);
+  }
+}
+
+@keyframes assistant-shadow-wondering {
+  0%,
+  100% {
+    opacity: 0.36;
+    transform: translate3d(
+        calc(-50% + var(--assistant-jump-landing-x)),
+        0,
+        0
+      )
+      scale(0.9) translateZ(0);
+  }
+
+  25% {
+    opacity: 0.2;
+    transform: translate3d(
+        calc(-50% + var(--assistant-jump-landing-x)),
+        0,
+        0
+      )
+      scale(0.7) translateZ(0);
+  }
+
+  55% {
+    opacity: 0.42;
+    transform: translate3d(
+        calc(-50% + var(--assistant-jump-landing-x)),
+        0,
+        0
+      )
+      scale(1.05) translateZ(0);
+  }
+
+  75% {
+    opacity: 0.28;
+    transform: translate3d(
+        calc(-50% + var(--assistant-jump-landing-x)),
+        0,
+        0
+      )
+      scale(0.82) translateZ(0);
+  }
+}
+
+@keyframes assistant-shadow-fall {
+  0% {
+    opacity: 0.36;
+    transform: translate3d(
+        calc(-50% + var(--assistant-jump-landing-x)),
+        0,
+        0
+      )
+      scale(0.92) translateZ(0);
+  }
+
+  30% {
+    opacity: 0.5;
+    transform: translate3d(
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.55)),
+        0,
+        0
+      )
+      scale(1.2) translateZ(0);
+  }
+
+  55% {
+    opacity: 0.28;
+    transform: translate3d(
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.18)),
+        0,
+        0
+      )
+      scale(0.7) translateZ(0);
+  }
+
+  78% {
+    opacity: 0.46;
+    transform: translate3d(-50%, 0, 0) scale(1.1) translateZ(0);
+  }
+
+  100% {
+    opacity: 0.32;
+    transform: translate3d(-50%, 0, 0) scale(0.82) translateZ(0);
   }
 }
 
