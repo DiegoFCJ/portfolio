@@ -18,7 +18,7 @@ $navigator-themes: (
     light: (
         selector: ':root',
         background: $navigator-bg,
-        icon-color: #333,
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-background: $navigator-bg,
@@ -35,7 +35,7 @@ $navigator-themes: (
     dark: (
         selector: 'body.dark-mode',
         background: $navigator-bg-dark,
-        icon-color: #f0f0f0,
+        icon-color: #f7f7f7,
         hover-background: lighten($navigator-bg-dark, 5%),
         arrow-hover-background: lighten($navigator-bg-dark, 5%),
         option-background: $navigator-bg-dark,
@@ -52,7 +52,7 @@ $navigator-themes: (
     blue: (
         selector: 'body.blue-mode',
         background: $navigator-bg,
-        icon-color: #333,
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-background: $navigator-bg,
@@ -69,7 +69,7 @@ $navigator-themes: (
     green: (
         selector: 'body.green-mode',
         background: $navigator-bg,
-        icon-color: #333,
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-background: $navigator-bg,
@@ -86,7 +86,7 @@ $navigator-themes: (
     red: (
         selector: 'body.red-mode',
         background: $navigator-bg,
-        icon-color: #7f1d1d,
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(127, 29, 29, 0.08),
         option-background: $navigator-bg,
