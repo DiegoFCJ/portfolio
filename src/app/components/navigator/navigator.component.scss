@@ -351,28 +351,30 @@ $navigator-themes: (
     white-space: nowrap;
 }
 
+
 .option-button {
     width: $navigator-button-size;
     height: $navigator-button-size;
     border-radius: 50%;
     border: 1px solid var(--navigator-button-border);
+    background: var(--navigator-button-bg);
+    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
-    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow);
     padding: 0;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
 
     &:hover {
-        background-color: var(--navigator-option-hover-background);
+        background: var(--navigator-button-hover-bg);
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px var(--navigator-button-glow);
+        transform: translateY(-2px);
     }
 
     mat-icon {
         position: absolute;
-        font-size: 20px;
+        font-size: $navigator-icon-size;
         color: var(--navigator-icon-color);
     }
 
