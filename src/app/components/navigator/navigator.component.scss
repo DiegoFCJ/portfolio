@@ -14,14 +14,26 @@ $default-option-selected-bg: rgba(0, 0, 0, 0.1);
 $default-hint-background: rgba(255, 255, 255, 0.95);
 $default-hint-color: #333333;
 
+
+@function navigator-icon-contrast($background) {
+    @if (type-of($background) == 'color' and lightness($background) > 60) {
+        @return #111111;
+    }
+
+    @return #f7f7f7;
+}
+
+$dark-option-background: #1f1f1f;
+$light-option-background: #ffffff;
+
 $navigator-themes: (
     light: (
-        selector: ':root',
+        selectors: (':host', 'body.light-mode'),
         background: $navigator-bg,
-        icon-color: #111111,
+        option-background: $light-option-background,
+        icon-color: navigator-icon-contrast($light-option-background),
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
-        option-background: $navigator-bg,
         option-hover-background: rgba(0, 0, 0, 0.05),
         option-selected-background: rgba(0, 0, 0, 0.1),
         text-color: #333,
@@ -33,12 +45,12 @@ $navigator-themes: (
         hint-color: #333
     ),
     dark: (
-        selector: 'body.dark-mode',
+        selectors: 'body.dark-mode',
         background: $navigator-bg-dark,
-        icon-color: #f7f7f7,
+        option-background: $dark-option-background,
+        icon-color: navigator-icon-contrast($dark-option-background),
         hover-background: lighten($navigator-bg-dark, 5%),
         arrow-hover-background: lighten($navigator-bg-dark, 5%),
-        option-background: $navigator-bg-dark,
         option-hover-background: rgba(255, 255, 255, 0.1),
         option-selected-background: rgba(255, 255, 255, 0.2),
         text-color: #f0f0f0,
@@ -50,12 +62,12 @@ $navigator-themes: (
         hint-color: #f9fafb
     ),
     blue: (
-        selector: 'body.blue-mode',
+        selectors: 'body.blue-mode',
         background: $navigator-bg,
-        icon-color: #111111,
+        option-background: $light-option-background,
+        icon-color: navigator-icon-contrast($light-option-background),
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
-        option-background: $navigator-bg,
         option-hover-background: rgba(0, 0, 0, 0.05),
         option-selected-background: rgba(0, 0, 0, 0.1),
         text-color: #333,
@@ -67,12 +79,12 @@ $navigator-themes: (
         hint-color: #f0f9ff
     ),
     green: (
-        selector: 'body.green-mode',
+        selectors: 'body.green-mode',
         background: $navigator-bg,
-        icon-color: #111111,
+        option-background: $light-option-background,
+        icon-color: navigator-icon-contrast($light-option-background),
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
-        option-background: $navigator-bg,
         option-hover-background: rgba(0, 0, 0, 0.05),
         option-selected-background: rgba(0, 0, 0, 0.1),
         text-color: #333,
@@ -84,12 +96,12 @@ $navigator-themes: (
         hint-color: #f0fdf4
     ),
     red: (
-        selector: 'body.red-mode',
+        selectors: 'body.red-mode',
         background: $navigator-bg,
-        icon-color: #111111,
+        option-background: $light-option-background,
+        icon-color: navigator-icon-contrast($light-option-background),
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(127, 29, 29, 0.08),
-        option-background: $navigator-bg,
         option-hover-background: rgba(127, 29, 29, 0.08),
         option-selected-background: rgba(239, 68, 68, 0.16),
         text-color: #7f1d1d,
@@ -102,22 +114,44 @@ $navigator-themes: (
     )
 );
 
+@mixin assign-navigator-vars($config) {
+    --navigator-background: #{map-get($config, background)};
+    --navigator-icon-color: #{map-get($config, icon-color)};
+    --navigator-hover-background: #{map-get($config, hover-background)};
+    --navigator-arrow-hover-background: #{map-get($config, arrow-hover-background)};
+    --navigator-option-background: #{map-get($config, option-background)};
+    --navigator-option-hover-background: #{map-get($config, option-hover-background)};
+    --navigator-option-selected-background: #{map-get($config, option-selected-background)};
+    --navigator-text-color: #{map-get($config, text-color)};
+    --navigator-button-bg: #{map-get($config, button-bg)};
+    --navigator-button-hover-bg: #{map-get($config, button-hover-bg)};
+    --navigator-button-border: #{map-get($config, button-border)};
+    --navigator-button-glow: #{map-get($config, button-glow)};
+    --navigator-hint-background: #{map-get($config, hint-background)};
+    --navigator-hint-color: #{map-get($config, hint-color)};
+}
+
 @mixin apply-navigator-theme($config) {
-    #{map-get($config, selector)} {
-        --navigator-background: #{map-get($config, background)};
-        --navigator-icon-color: #{map-get($config, icon-color)};
-        --navigator-hover-background: #{map-get($config, hover-background)};
-        --navigator-arrow-hover-background: #{map-get($config, arrow-hover-background)};
-        --navigator-option-background: #{map-get($config, option-background)};
-        --navigator-option-hover-background: #{map-get($config, option-hover-background)};
-        --navigator-option-selected-background: #{map-get($config, option-selected-background)};
-        --navigator-text-color: #{map-get($config, text-color)};
-        --navigator-button-bg: #{map-get($config, button-bg)};
-        --navigator-button-hover-bg: #{map-get($config, button-hover-bg)};
-        --navigator-button-border: #{map-get($config, button-border)};
-        --navigator-button-glow: #{map-get($config, button-glow)};
-        --navigator-hint-background: #{map-get($config, hint-background)};
-        --navigator-hint-color: #{map-get($config, hint-color)};
+    $selectors: map-get($config, selectors);
+
+    @if (type-of($selectors) == 'list') {
+        @each $selector in $selectors {
+            @include apply-navigator-theme-for-selector($selector, $config);
+        }
+    } @else {
+        @include apply-navigator-theme-for-selector($selectors, $config);
+    }
+}
+
+@mixin apply-navigator-theme-for-selector($selector, $config) {
+    @if $selector == ':host' {
+        :host {
+            @include assign-navigator-vars($config);
+        }
+    } @else {
+        :host-context(#{$selector}) {
+            @include assign-navigator-vars($config);
+        }
     }
 }
 
