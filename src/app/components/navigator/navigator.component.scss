@@ -10,7 +10,7 @@ $navigator-themes: (
     light: (
         selector: ':root',
         background: $navigator-bg,
-        icon-color: #333,
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-background: $navigator-bg,
@@ -25,7 +25,7 @@ $navigator-themes: (
     dark: (
         selector: 'body.dark-mode',
         background: $navigator-bg-dark,
-        icon-color: #f0f0f0,
+        icon-color: #f7f7f7,
         hover-background: lighten($navigator-bg-dark, 5%),
         arrow-hover-background: lighten($navigator-bg-dark, 5%),
         option-background: $navigator-bg-dark,
@@ -40,47 +40,47 @@ $navigator-themes: (
     blue: (
         selector: 'body.blue-mode',
         background: $navigator-bg,
-        icon-color: #333,
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-background: $navigator-bg,
         option-hover-background: rgba(0, 0, 0, 0.05),
         option-selected-background: rgba(0, 0, 0, 0.1),
         text-color: #333,
-        button-bg: linear-gradient(145deg, #0f67c9, #0ea5e9),
-        button-hover-bg: linear-gradient(145deg, #1783ff, #38bdf8),
-        button-border: #0ea5e9,
-        button-glow: rgba(56, 189, 248, 0.5)
+        button-bg: linear-gradient(145deg, #3b82f6, #60a5fa),
+        button-hover-bg: linear-gradient(145deg, #60a5fa, #93c5fd),
+        button-border: #60a5fa,
+        button-glow: rgba(96, 165, 250, 0.45)
     ),
     green: (
         selector: 'body.green-mode',
         background: $navigator-bg,
-        icon-color: #333,
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(0, 0, 0, 0.05),
         option-background: $navigator-bg,
         option-hover-background: rgba(0, 0, 0, 0.05),
         option-selected-background: rgba(0, 0, 0, 0.1),
         text-color: #333,
-        button-bg: linear-gradient(145deg, #0f5132, #16a34a),
-        button-hover-bg: linear-gradient(145deg, #137a45, #22c55e),
-        button-border: #22c55e,
-        button-glow: rgba(34, 197, 94, 0.45)
+        button-bg: linear-gradient(145deg, #22c55e, #4ade80),
+        button-hover-bg: linear-gradient(145deg, #34d399, #86efac),
+        button-border: #4ade80,
+        button-glow: rgba(52, 211, 153, 0.45)
     ),
     red: (
         selector: 'body.red-mode',
         background: $navigator-bg,
-        icon-color: #7f1d1d,
+        icon-color: #111111,
         hover-background: lighten($navigator-bg, 4%),
         arrow-hover-background: rgba(127, 29, 29, 0.08),
         option-background: $navigator-bg,
         option-hover-background: rgba(127, 29, 29, 0.08),
         option-selected-background: rgba(239, 68, 68, 0.16),
         text-color: #7f1d1d,
-        button-bg: linear-gradient(145deg, #7f1d1d, #ef4444),
-        button-hover-bg: linear-gradient(145deg, #9f1f1f, #f87171),
-        button-border: #f87171,
-        button-glow: rgba(248, 113, 113, 0.5)
+        button-bg: linear-gradient(145deg, #ef4444, #f87171),
+        button-hover-bg: linear-gradient(145deg, #f87171, #fca5a5),
+        button-border: #fca5a5,
+        button-glow: rgba(248, 113, 113, 0.45)
     )
 );
 
