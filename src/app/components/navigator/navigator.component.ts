@@ -82,10 +82,10 @@ export class NavigatorComponent implements OnInit {
   };
 
   private readonly languageFlags: Record<LanguageKey, string> = {
-    en: '🇬🇧',
-    it: '🇮🇹',
-    de: '🇩🇪',
-    es: '🇪🇸'
+    en: 'assets/flags/en.svg',
+    it: 'assets/flags/it.svg',
+    de: 'assets/flags/de.svg',
+    es: 'assets/flags/es.svg'
   };
 
   toggleButtonLabels: { [key: string]: { open: string; close: string } } = {
@@ -215,7 +215,7 @@ export class NavigatorComponent implements OnInit {
   }
 
   getLanguageFlag(language: LanguageKey): string {
-    return this.languageFlags[language];
+    return this.languageFlags[language] ?? this.languageFlags['en'];
   }
 
   private isValidTheme(theme: string | null): theme is ThemeKey {
