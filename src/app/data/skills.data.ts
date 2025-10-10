@@ -5,212 +5,507 @@ export const skills: SkillFullLangs = {
         title: 'Stack Tecnologico',
         skills: [
             {
-                title: 'Linguaggi di Programmazione',
+                title: 'Back-end & API',
+                subtitle: 'Linguaggi, framework e database per servizi scalabili',
                 skills: [
-                    { name: 'Java', icon: 'https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white', clicked: false },
-                    { name: 'JavaScript', icon: 'https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E', clicked: false },
-                    { name: 'TypeScript', icon: 'https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white', clicked: false },
-                    { name: 'Python', icon: 'https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54', clicked: false },
-                    { name: 'Bash', icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white', clicked: false }
-                ]
+                    {
+                        name: 'Java',
+                        icon: 'https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Python',
+                        icon: 'https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Node.js',
+                        icon: 'https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Spring Framework',
+                        icon: 'https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Spring Boot',
+                        icon: 'https://img.shields.io/badge/Spring%20Boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Hibernate',
+                        icon: 'https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: '.NET',
+                        icon: 'https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'JWT',
+                        icon: 'https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'MySQL',
+                        icon: 'https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'PostgreSQL',
+                        icon: 'https://img.shields.io/badge/postgreSQL-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Oracle Database',
+                        icon: 'https://img.shields.io/badge/OracleDB-F80000.svg?style=for-the-badge&logo=oracle&logoColor=white',
+                        clicked: false,
+                    },
+                ],
             },
             {
-                title: 'Front-end e UI',
+                title: 'Front-end & UI',
+                subtitle: 'Framework e tecnologie per interfacce dinamiche',
                 skills: [
-                    { name: 'Angular', icon: 'https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white', clicked: false },
-                    { name: 'AngularJS', icon: 'https://img.shields.io/badge/AngularJS-E23237?style=for-the-badge&logo=angularjs&logoColor=white', clicked: false },
-                    { name: 'React', icon: 'https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB', clicked: false },
-                    { name: 'Next.js', icon: 'https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white', clicked: false },
-                    { name: 'HTML5', icon: 'https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white', clicked: false },
-                    { name: 'CSS', icon: 'https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white', clicked: false },
-                    { name: 'SCSS', icon: 'https://img.shields.io/badge/SCSS-hotpink.svg?style=for-the-badge&logo=sass&logoColor=white', clicked: false },
-                    { name: 'Bootstrap', icon: 'https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white', clicked: false }
-                ]
+                    {
+                        name: 'JavaScript',
+                        icon: 'https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E',
+                        clicked: false,
+                    },
+                    {
+                        name: 'TypeScript',
+                        icon: 'https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Angular',
+                        icon: 'https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'AngularJS',
+                        icon: 'https://img.shields.io/badge/AngularJS-E23237?style=for-the-badge&logo=angularjs&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'React',
+                        icon: 'https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Next.js',
+                        icon: 'https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'HTML5',
+                        icon: 'https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'CSS3',
+                        icon: 'https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'SCSS',
+                        icon: 'https://img.shields.io/badge/SCSS-hotpink.svg?style=for-the-badge&logo=sass&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Bootstrap',
+                        icon: 'https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'JavaFX',
+                        icon: 'https://img.shields.io/badge/JavaFX-3D8E9C?style=for-the-badge&logo=openjdk&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'JSP',
+                        icon: 'https://img.shields.io/badge/JSP-007396?style=for-the-badge&logo=java&logoColor=white',
+                        clicked: false,
+                    },
+                ],
             },
             {
-                title: 'Back-end e Servizi',
+                title: 'DevOps & Tooling',
+                subtitle: 'Pipeline, automazione e strumenti di collaborazione',
                 skills: [
-                    { name: 'Spring', icon: 'https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white', clicked: false },
-                    { name: 'Spring Boot', icon: 'https://img.shields.io/badge/Spring%20Boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white', clicked: false },
-                    { name: 'Hibernate', icon: 'https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white', clicked: false },
-                    { name: '.NET', icon: 'https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white', clicked: false },
-                    { name: 'Node.js', icon: 'https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white', clicked: false },
-                    { name: 'JavaFX', icon: 'https://img.shields.io/badge/JavaFX-3D8E9C?style=for-the-badge&logo=openjdk&logoColor=white', clicked: false },
-                    { name: 'JSP', icon: 'https://img.shields.io/badge/JSP-007396?style=for-the-badge&logo=java&logoColor=white', clicked: false },
-                    { name: 'JWT', icon: 'https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white', clicked: false }
-                ]
+                    {
+                        name: 'Docker',
+                        icon: 'https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Kubernetes',
+                        icon: 'https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'OpenShift',
+                        icon: 'https://img.shields.io/badge/OpenShift-EE0000.svg?style=for-the-badge&logo=redhatopenshift&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'YAML',
+                        icon: 'https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Gradle',
+                        icon: 'https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Apache Maven',
+                        icon: 'https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Git',
+                        icon: 'https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'GitHub',
+                        icon: 'https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'GitLab',
+                        icon: 'https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Bitbucket',
+                        icon: 'https://img.shields.io/badge/Bitbucket-%230047B3.svg?style=for-the-badge&logo=bitbucket&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Swagger',
+                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Postman',
+                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Boomi',
+                        icon: 'https://img.shields.io/badge/Boomi-1E90FF?style=for-the-badge&logo=boomi&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Salesforce',
+                        icon: 'https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Elastic Stack',
+                        icon: 'https://img.shields.io/badge/Elastic-005571?style=for-the-badge&logo=elastic&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Bash',
+                        icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Trello',
+                        icon: 'https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Jira',
+                        icon: 'https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Notion',
+                        icon: 'https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Fedora',
+                        icon: 'https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Ubuntu',
+                        icon: 'https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Windows',
+                        icon: 'https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Linux',
+                        icon: 'https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black',
+                        clicked: false,
+                    },
+                ],
             },
-            {
-                title: 'Database',
-                skills: [
-                    { name: 'MySQL', icon: 'https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white', clicked: false },
-                    { name: 'PostgreSQL', icon: 'https://img.shields.io/badge/postgreSQL-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white', clicked: false },
-                    { name: 'OracleDB', icon: 'https://img.shields.io/badge/OracleDB-F80000.svg?style=for-the-badge&logo=oracle&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Cloud e DevOps',
-                skills: [
-                    { name: 'Docker', icon: 'https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white', clicked: false },
-                    { name: 'Kubernetes', icon: 'https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white', clicked: false },
-                    { name: 'OpenShift', icon: 'https://img.shields.io/badge/OpenShift-EE0000.svg?style=for-the-badge&logo=redhatopenshift&logoColor=white', clicked: false },
-                    { name: 'YAML', icon: 'https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Integrazione e Automazione',
-                skills: [
-                    { name: 'Boomi', icon: 'https://img.shields.io/badge/Boomi-1E90FF?style=for-the-badge&logo=boomi&logoColor=white', clicked: false },
-                    { name: 'Salesforce', icon: 'https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white', clicked: false },
-                    { name: 'Elastic', icon: 'https://img.shields.io/badge/Elastic-005571?style=for-the-badge&logo=elastic&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Testing e Documentazione',
-                skills: [
-                    { name: 'Swagger', icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black', clicked: false },
-                    { name: 'Postman', icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Build e CI',
-                skills: [
-                    { name: 'Gradle', icon: 'https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white', clicked: false },
-                    { name: 'Apache Maven', icon: 'https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Version Control',
-                skills: [
-                    { name: 'Git', icon: 'https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white', clicked: false },
-                    { name: 'GitHub', icon: 'https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white', clicked: false },
-                    { name: 'GitLab', icon: 'https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white', clicked: false },
-                    { name: 'Bitbucket', icon: 'https://img.shields.io/badge/Bitbucket-%230047B3.svg?style=for-the-badge&logo=bitbucket&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Collaborazione e Management',
-                skills: [
-                    { name: 'Trello', icon: 'https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white', clicked: false },
-                    { name: 'Jira', icon: 'https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white', clicked: false },
-                    { name: 'Notion', icon: 'https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Sistemi Operativi',
-                skills: [
-                    { name: 'Fedora', icon: 'https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white', clicked: false },
-                    { name: 'Ubuntu', icon: 'https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white', clicked: false },
-                    { name: 'Windows', icon: 'https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white', clicked: false },
-                    { name: 'Linux', icon: 'https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black', clicked: false }
-                ]
-            }
-        ]
+        ],
     },
     en: {
         title: 'Tech Stack',
         skills: [
             {
-                title: 'Programming Languages',
+                title: 'Back-end & APIs',
+                subtitle: 'Languages, frameworks, and databases for scalable services',
                 skills: [
-                    { name: 'Java', icon: 'https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white', clicked: false },
-                    { name: 'JavaScript', icon: 'https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E', clicked: false },
-                    { name: 'TypeScript', icon: 'https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white', clicked: false },
-                    { name: 'Python', icon: 'https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54', clicked: false },
-                    { name: 'Bash', icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white', clicked: false }
-                ]
+                    {
+                        name: 'Java',
+                        icon: 'https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Python',
+                        icon: 'https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Node.js',
+                        icon: 'https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Spring Framework',
+                        icon: 'https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Spring Boot',
+                        icon: 'https://img.shields.io/badge/Spring%20Boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Hibernate',
+                        icon: 'https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: '.NET',
+                        icon: 'https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'JWT',
+                        icon: 'https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'MySQL',
+                        icon: 'https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'PostgreSQL',
+                        icon: 'https://img.shields.io/badge/postgreSQL-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Oracle Database',
+                        icon: 'https://img.shields.io/badge/OracleDB-F80000.svg?style=for-the-badge&logo=oracle&logoColor=white',
+                        clicked: false,
+                    },
+                ],
             },
             {
                 title: 'Front-end & UI',
+                subtitle: 'Frameworks and technologies for dynamic interfaces',
                 skills: [
-                    { name: 'Angular', icon: 'https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white', clicked: false },
-                    { name: 'AngularJS', icon: 'https://img.shields.io/badge/AngularJS-E23237?style=for-the-badge&logo=angularjs&logoColor=white', clicked: false },
-                    { name: 'React', icon: 'https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB', clicked: false },
-                    { name: 'Next.js', icon: 'https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white', clicked: false },
-                    { name: 'HTML5', icon: 'https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white', clicked: false },
-                    { name: 'CSS', icon: 'https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white', clicked: false },
-                    { name: 'SCSS', icon: 'https://img.shields.io/badge/SCSS-hotpink.svg?style=for-the-badge&logo=sass&logoColor=white', clicked: false },
-                    { name: 'Bootstrap', icon: 'https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white', clicked: false }
-                ]
+                    {
+                        name: 'JavaScript',
+                        icon: 'https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E',
+                        clicked: false,
+                    },
+                    {
+                        name: 'TypeScript',
+                        icon: 'https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Angular',
+                        icon: 'https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'AngularJS',
+                        icon: 'https://img.shields.io/badge/AngularJS-E23237?style=for-the-badge&logo=angularjs&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'React',
+                        icon: 'https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Next.js',
+                        icon: 'https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'HTML5',
+                        icon: 'https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'CSS3',
+                        icon: 'https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'SCSS',
+                        icon: 'https://img.shields.io/badge/SCSS-hotpink.svg?style=for-the-badge&logo=sass&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Bootstrap',
+                        icon: 'https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'JavaFX',
+                        icon: 'https://img.shields.io/badge/JavaFX-3D8E9C?style=for-the-badge&logo=openjdk&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'JSP',
+                        icon: 'https://img.shields.io/badge/JSP-007396?style=for-the-badge&logo=java&logoColor=white',
+                        clicked: false,
+                    },
+                ],
             },
             {
-                title: 'Back-end & Services',
+                title: 'DevOps & Tooling',
+                subtitle: 'Automation, delivery pipelines, and collaboration platforms',
                 skills: [
-                    { name: 'Spring', icon: 'https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white', clicked: false },
-                    { name: 'Spring Boot', icon: 'https://img.shields.io/badge/Spring%20Boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white', clicked: false },
-                    { name: 'Hibernate', icon: 'https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white', clicked: false },
-                    { name: '.NET', icon: 'https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white', clicked: false },
-                    { name: 'Node.js', icon: 'https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white', clicked: false },
-                    { name: 'JavaFX', icon: 'https://img.shields.io/badge/JavaFX-3D8E9C?style=for-the-badge&logo=openjdk&logoColor=white', clicked: false },
-                    { name: 'JSP', icon: 'https://img.shields.io/badge/JSP-007396?style=for-the-badge&logo=java&logoColor=white', clicked: false },
-                    { name: 'JWT', icon: 'https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white', clicked: false }
-                ]
+                    {
+                        name: 'Docker',
+                        icon: 'https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Kubernetes',
+                        icon: 'https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'OpenShift',
+                        icon: 'https://img.shields.io/badge/OpenShift-EE0000.svg?style=for-the-badge&logo=redhatopenshift&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'YAML',
+                        icon: 'https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Gradle',
+                        icon: 'https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Apache Maven',
+                        icon: 'https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Git',
+                        icon: 'https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'GitHub',
+                        icon: 'https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'GitLab',
+                        icon: 'https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Bitbucket',
+                        icon: 'https://img.shields.io/badge/Bitbucket-%230047B3.svg?style=for-the-badge&logo=bitbucket&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Swagger',
+                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Postman',
+                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Boomi',
+                        icon: 'https://img.shields.io/badge/Boomi-1E90FF?style=for-the-badge&logo=boomi&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Salesforce',
+                        icon: 'https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Elastic Stack',
+                        icon: 'https://img.shields.io/badge/Elastic-005571?style=for-the-badge&logo=elastic&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Bash',
+                        icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Trello',
+                        icon: 'https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Jira',
+                        icon: 'https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Notion',
+                        icon: 'https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Fedora',
+                        icon: 'https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Ubuntu',
+                        icon: 'https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Windows',
+                        icon: 'https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Linux',
+                        icon: 'https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black',
+                        clicked: false,
+                    },
+                ],
             },
-            {
-                title: 'Database',
-                skills: [
-                    { name: 'MySQL', icon: 'https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white', clicked: false },
-                    { name: 'PostgreSQL', icon: 'https://img.shields.io/badge/postgreSQL-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white', clicked: false },
-                    { name: 'OracleDB', icon: 'https://img.shields.io/badge/OracleDB-F80000.svg?style=for-the-badge&logo=oracle&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Cloud & DevOps',
-                skills: [
-                    { name: 'Docker', icon: 'https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white', clicked: false },
-                    { name: 'Kubernetes', icon: 'https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white', clicked: false },
-                    { name: 'OpenShift', icon: 'https://img.shields.io/badge/OpenShift-EE0000.svg?style=for-the-badge&logo=redhatopenshift&logoColor=white', clicked: false },
-                    { name: 'YAML', icon: 'https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Integration & Automation',
-                skills: [
-                    { name: 'Boomi', icon: 'https://img.shields.io/badge/Boomi-1E90FF?style=for-the-badge&logo=boomi&logoColor=white', clicked: false },
-                    { name: 'Salesforce', icon: 'https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white', clicked: false },
-                    { name: 'Elastic', icon: 'https://img.shields.io/badge/Elastic-005571?style=for-the-badge&logo=elastic&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Testing & Documentation',
-                skills: [
-                    { name: 'Swagger', icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black', clicked: false },
-                    { name: 'Postman', icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Build & CI',
-                skills: [
-                    { name: 'Gradle', icon: 'https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white', clicked: false },
-                    { name: 'Apache Maven', icon: 'https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Version Control',
-                skills: [
-                    { name: 'Git', icon: 'https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white', clicked: false },
-                    { name: 'GitHub', icon: 'https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white', clicked: false },
-                    { name: 'GitLab', icon: 'https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white', clicked: false },
-                    { name: 'Bitbucket', icon: 'https://img.shields.io/badge/Bitbucket-%230047B3.svg?style=for-the-badge&logo=bitbucket&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Collaboration & Management',
-                skills: [
-                    { name: 'Trello', icon: 'https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white', clicked: false },
-                    { name: 'Jira', icon: 'https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white', clicked: false },
-                    { name: 'Notion', icon: 'https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white', clicked: false }
-                ]
-            },
-            {
-                title: 'Operating Systems',
-                skills: [
-                    { name: 'Fedora', icon: 'https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white', clicked: false },
-                    { name: 'Ubuntu', icon: 'https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white', clicked: false },
-                    { name: 'Windows', icon: 'https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white', clicked: false },
-                    { name: 'Linux', icon: 'https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black', clicked: false }
-                ]
-            }
-        ]
-    }
+        ],
+    },
 };
+
