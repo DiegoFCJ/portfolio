@@ -1,36 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0F172A" />
-      <stop offset="100%" stop-color="#1D4ED8" />
+    <linearGradient id="hero-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#173B6B" />
+      <stop offset="45%" stop-color="#1B4F8D" />
+      <stop offset="100%" stop-color="#0C1F3C" />
     </linearGradient>
-    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#F59E0B" />
-      <stop offset="100%" stop-color="#FBBF24" />
+    <linearGradient id="sunset" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FDBA74" />
+      <stop offset="100%" stop-color="#F97316" />
     </linearGradient>
-    <clipPath id="wave-clip">
-      <path d="M0 420C120 390 240 430 360 410C480 390 600 320 720 330C840 340 960 420 1080 420C1140 420 1200 410 1200 410V630H0V420Z" />
-    </clipPath>
+    <linearGradient id="cta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(15, 23, 42, 0.75)" />
+      <stop offset="100%" stop-color="rgba(15, 23, 42, 0.55)" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="24" stdDeviation="32" flood-color="rgba(15, 23, 42, 0.35)" />
+    </filter>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)" />
-  <circle cx="960" cy="140" r="110" fill="url(#sun)" opacity="0.9" />
-  <g clip-path="url(#wave-clip)" opacity="0.8">
-    <rect width="1200" height="630" fill="#38BDF8" />
-    <path d="M0 360C120 340 240 380 360 360C480 340 600 270 720 280C840 290 960 360 1080 360C1140 360 1200 350 1200 350V630H0V360Z" fill="#0EA5E9" />
-    <path d="M0 300C120 280 240 320 360 300C480 280 600 220 720 230C840 240 960 300 1080 300C1140 300 1200 290 1200 290V630H0V300Z" fill="#0284C7" opacity="0.85" />
+  <rect width="1440" height="900" fill="url(#hero-bg)" />
+
+  <rect x="72" y="48" width="1296" height="72" rx="18" fill="rgba(15, 23, 42, 0.65)" stroke="rgba(148, 163, 184, 0.25)" />
+  <circle cx="136" cy="84" r="16" fill="#E2E8F0" />
+  <text x="168" y="92" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="24" font-weight="600" fill="#F8FAFC">Borgo Samarína</text>
+  <text x="380" y="92" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="18" fill="rgba(226, 232, 240, 0.78)">
+    Itinerari
+    · Esperienze
+    · Stagioni
+  </text>
+  <rect x="1168" y="64" width="152" height="40" rx="20" fill="rgba(56, 189, 248, 0.18)" stroke="rgba(56, 189, 248, 0.45)" />
+  <text x="1194" y="91" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="18" font-weight="600" fill="#F0F9FF">Prenota</text>
+
+  <g filter="url(#shadow)">
+    <path d="M0 0H1440V620C1260 602 1066 592 896 620C792 638 678 676 576 676C372 676 288 590 120 620C62 630 0 656 0 656V0Z" fill="url(#panel)" />
   </g>
-  <g fill="white" opacity="0.9">
-    <path d="M180 450H240V520H180Z" opacity="0.35" />
-    <path d="M280 420H340V520H280Z" opacity="0.55" />
-    <path d="M380 460H440V520H380Z" opacity="0.4" />
-    <path d="M480 430H540V520H480Z" opacity="0.6" />
-    <path d="M580 470H640V520H580Z" opacity="0.45" />
-    <path d="M680 440H740V520H680Z" opacity="0.55" />
+
+  <circle cx="1120" cy="210" r="120" fill="url(#sunset)" opacity="0.85" />
+  <g opacity="0.45" fill="#60A5FA">
+    <path d="M180 520C260 488 360 488 440 456C520 424 620 356 720 360C820 364 920 432 1000 432C1080 432 1160 388 1240 388C1300 388 1360 404 1440 428V540H0V520Z" />
   </g>
-  <g fill="white">
-    <text x="120" y="190" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="68" font-weight="600" letter-spacing="0.04em">Borgo Samarína</text>
-    <text x="120" y="260" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="30" font-weight="500" opacity="0.85">Portale turistico digitale</text>
-    <text x="120" y="325" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="22" opacity="0.75">Itinerari interattivi · Eventi stagionali · Gestione contenuti via CMS headless</text>
+  <g opacity="0.65" fill="#2563EB">
+    <path d="M0 548C90 520 210 528 320 500C430 472 540 404 650 404C760 404 870 460 980 472C1090 484 1200 452 1310 456C1365 458 1405 466 1440 474V630H0V548Z" />
+  </g>
+
+  <rect x="96" y="180" width="540" height="360" rx="28" fill="rgba(15, 23, 42, 0.55)" stroke="rgba(148, 163, 184, 0.3)" />
+  <text x="132" y="260" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="54" font-weight="600" letter-spacing="0.03em" fill="#F8FAFC">Scopri la marina</text>
+  <text x="132" y="316" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="26" fill="rgba(241, 245, 249, 0.78)">Esperienze autentiche tra mare e tradizione</text>
+  <text x="132" y="364" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="20" fill="rgba(241, 245, 249, 0.64)">
+    Percorsi guidati, botteghe locali e gastronomia stagionale.
+    Prenota tour personalizzati direttamente dal portale.
+  </text>
+  <rect x="132" y="392" width="216" height="56" rx="28" fill="url(#cta)" />
+  <text x="156" y="426" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="20" font-weight="600" fill="#0C1F3C">Esplora gli itinerari</text>
+  <text x="132" y="472" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="18" fill="rgba(148, 163, 184, 0.78)">Aggiornato con eventi e stagioni in tempo reale</text>
+
+  <rect x="696" y="220" width="608" height="392" rx="32" fill="rgba(15, 23, 42, 0.35)" stroke="rgba(148, 163, 184, 0.25)" />
+  <rect x="724" y="248" width="552" height="240" rx="24" fill="rgba(255, 255, 255, 0.08)" />
+  <rect x="724" y="508" width="552" height="72" rx="18" fill="rgba(15, 23, 42, 0.55)" />
+
+  <text x="748" y="288" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="22" font-weight="600" fill="#F8FAFC">Estate 2024</text>
+  <text x="748" y="326" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="18" fill="rgba(226, 232, 240, 0.78)">Festival della tonnara · Tour in barca · Tramonti guidati</text>
+
+  <g transform="translate(744, 346)">
+    <rect width="164" height="116" rx="18" fill="rgba(56, 189, 248, 0.22)" />
+    <rect x="188" width="164" height="116" rx="18" fill="rgba(59, 130, 246, 0.22)" />
+    <rect x="376" width="164" height="116" rx="18" fill="rgba(37, 99, 235, 0.2)" />
+    <text x="24" y="48" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="18" font-weight="600" fill="#0F172A">Esperienze</text>
+    <text x="212" y="48" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="18" font-weight="600" fill="#0F172A">Stagioni</text>
+    <text x="400" y="48" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="18" font-weight="600" fill="#0F172A">Galleria</text>
+  </g>
+
+  <g transform="translate(744, 528)">
+    <circle cx="36" cy="36" r="18" fill="#38BDF8" />
+    <text x="72" y="44" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="18" fill="#E0F2FE">CMS headless per copy dinamici</text>
   </g>
 </svg>

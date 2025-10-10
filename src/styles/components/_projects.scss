@@ -24,6 +24,17 @@ app-projects {
     --projects-tag-border: rgba(99, 102, 241, 0.25);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(129, 140, 248, 0.2);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(167, 139, 250, 0.22);
+    --projects-link-bg: rgba(99, 102, 241, 0.16);
+    --projects-link-hover-bg: rgba(99, 102, 241, 0.26);
+    --projects-link-border: rgba(99, 102, 241, 0.26);
+    --projects-link-shadow: 0 12px 28px rgba(79, 70, 229, 0.18);
+    --projects-link-hover-shadow: 0 18px 36px rgba(79, 70, 229, 0.24);
+    --projects-link-focus: rgba(99, 102, 241, 0.55);
+    --projects-link-text: #0f172a;
+    --projects-chip-bg: rgba(255, 255, 255, 0.7);
+    --projects-chip-border: rgba(99, 102, 241, 0.25);
+    --projects-chip-text: #0f172a;
+    --projects-chip-subtle-border: rgba(99, 102, 241, 0.18);
     display: block;
     inline-size: 100%;
     block-size: 100%;
@@ -55,6 +66,17 @@ body.dark-mode app-projects {
     --projects-tag-border: rgba(129, 140, 248, 0.4);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(129, 140, 248, 0.32);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(167, 139, 250, 0.35);
+    --projects-link-bg: rgba(67, 56, 202, 0.32);
+    --projects-link-hover-bg: rgba(99, 102, 241, 0.42);
+    --projects-link-border: rgba(129, 140, 248, 0.4);
+    --projects-link-shadow: 0 15px 32px rgba(67, 56, 202, 0.45);
+    --projects-link-hover-shadow: 0 20px 42px rgba(99, 102, 241, 0.5);
+    --projects-link-focus: rgba(129, 140, 248, 0.75);
+    --projects-link-text: rgba(226, 232, 240, 0.95);
+    --projects-chip-bg: rgba(67, 56, 202, 0.35);
+    --projects-chip-border: rgba(129, 140, 248, 0.45);
+    --projects-chip-text: rgba(226, 232, 240, 0.9);
+    --projects-chip-subtle-border: rgba(148, 163, 184, 0.35);
 }
 
 body.blue-mode app-projects {
@@ -83,6 +105,17 @@ body.blue-mode app-projects {
     --projects-tag-border: rgba(59, 130, 246, 0.32);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(96, 165, 250, 0.24);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(129, 140, 248, 0.26);
+    --projects-link-bg: rgba(59, 130, 246, 0.16);
+    --projects-link-hover-bg: rgba(37, 99, 235, 0.26);
+    --projects-link-border: rgba(59, 130, 246, 0.3);
+    --projects-link-shadow: 0 12px 28px rgba(37, 99, 235, 0.2);
+    --projects-link-hover-shadow: 0 18px 36px rgba(37, 99, 235, 0.28);
+    --projects-link-focus: rgba(37, 99, 235, 0.55);
+    --projects-link-text: #0f172a;
+    --projects-chip-bg: rgba(255, 255, 255, 0.85);
+    --projects-chip-border: rgba(59, 130, 246, 0.3);
+    --projects-chip-text: #0f172a;
+    --projects-chip-subtle-border: rgba(59, 130, 246, 0.22);
 }
 
 body.green-mode app-projects {
@@ -111,6 +144,17 @@ body.green-mode app-projects {
     --projects-tag-border: rgba(16, 185, 129, 0.32);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(45, 212, 191, 0.25);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(16, 185, 129, 0.28);
+    --projects-link-bg: rgba(16, 185, 129, 0.18);
+    --projects-link-hover-bg: rgba(5, 150, 105, 0.28);
+    --projects-link-border: rgba(16, 185, 129, 0.32);
+    --projects-link-shadow: 0 12px 28px rgba(16, 185, 129, 0.2);
+    --projects-link-hover-shadow: 0 18px 36px rgba(16, 185, 129, 0.28);
+    --projects-link-focus: rgba(16, 185, 129, 0.55);
+    --projects-link-text: #0f172a;
+    --projects-chip-bg: rgba(255, 255, 255, 0.88);
+    --projects-chip-border: rgba(16, 185, 129, 0.32);
+    --projects-chip-text: #0f172a;
+    --projects-chip-subtle-border: rgba(16, 185, 129, 0.22);
 }
 
 body.red-mode app-projects {
@@ -139,6 +183,17 @@ body.red-mode app-projects {
     --projects-tag-border: rgba(248, 113, 113, 0.35);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(248, 113, 113, 0.26);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(251, 146, 60, 0.28);
+    --projects-link-bg: rgba(239, 68, 68, 0.2);
+    --projects-link-hover-bg: rgba(220, 38, 38, 0.3);
+    --projects-link-border: rgba(239, 68, 68, 0.32);
+    --projects-link-shadow: 0 12px 28px rgba(239, 68, 68, 0.24);
+    --projects-link-hover-shadow: 0 18px 36px rgba(239, 68, 68, 0.3);
+    --projects-link-focus: rgba(239, 68, 68, 0.6);
+    --projects-link-text: #111827;
+    --projects-chip-bg: rgba(255, 255, 255, 0.88);
+    --projects-chip-border: rgba(239, 68, 68, 0.32);
+    --projects-chip-text: #111827;
+    --projects-chip-subtle-border: rgba(239, 68, 68, 0.24);
 }
 
 app-projects .projects-section {
@@ -190,7 +245,7 @@ app-projects .project-card {
     transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
     text-decoration: none;
     color: var(--projects-text-primary);
-    cursor: pointer;
+    cursor: default;
 
     &:hover {
         transform: translateY(-6px);
@@ -307,6 +362,69 @@ app-projects .project-technologies {
     margin: 0;
     font-size: 0.92rem;
     color: var(--projects-text-muted);
+}
+
+app-projects .project-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+app-projects .project-link {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+app-projects .project-link-anchor {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.05rem;
+    border-radius: 999px;
+    background: var(--projects-link-bg);
+    border: 1px solid var(--projects-link-border);
+    color: var(--projects-link-text);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    box-shadow: var(--projects-link-shadow);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+app-projects .project-link-anchor:hover {
+    transform: translateY(-1px);
+    background: var(--projects-link-hover-bg);
+    box-shadow: var(--projects-link-hover-shadow);
+}
+
+app-projects .project-link-anchor:focus-visible {
+    outline: 2px solid var(--projects-link-focus);
+    outline-offset: 3px;
+}
+
+app-projects .project-link-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: var(--projects-chip-bg);
+    border: 1px solid var(--projects-chip-border);
+    color: var(--projects-chip-text);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    font-size: 0.85rem;
+    backdrop-filter: blur(6px);
+}
+
+app-projects .project-link-chip.is-subtle {
+    background: transparent;
+    border-color: var(--projects-chip-subtle-border);
+    color: var(--projects-text-muted);
+    backdrop-filter: none;
 }
 
 app-projects .project-description {

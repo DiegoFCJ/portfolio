@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { projects as projectsData } from '../../data/projects.data';
-import { ProjectFull, Project, ProjectStatusLevel, ProjectStatusTag } from '../../dtos/ProjectDTO';
+import { ProjectFull, Project, ProjectLinkDetail, ProjectStatusLevel, ProjectStatusTag } from '../../dtos/ProjectDTO';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -32,6 +32,19 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
       tags: {
         openSource: '',
         release2024: ''
+      }
+    },
+    linksLegend: {
+      code: {
+        label: '',
+        privateLabel: '',
+        comingSoonLabel: '',
+        unavailableLabel: ''
+      },
+      preview: {
+        label: '',
+        comingSoonLabel: '',
+        unavailableLabel: ''
       }
     },
     projects: []
@@ -199,6 +212,25 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
       clearTimeout(this.peekStopTimeoutId);
       this.peekStopTimeoutId = null;
     }
+  }
+
+  isLinkAvailable(link?: ProjectLinkDetail | null): boolean {
+    return !!link?.url;
+  }
+
+  isLinkPrivate(link?: ProjectLinkDetail | null): boolean {
+    return !!link?.isPrivate;
+  }
+
+  isLinkComingSoon(link?: ProjectLinkDetail | null): boolean {
+    return !!link?.isComingSoon;
+  }
+
+  isLinkUnavailable(link?: ProjectLinkDetail | null): boolean {
+    if (!link) {
+      return true;
+    }
+    return !link.url && !link.isPrivate && !link.isComingSoon;
   }
 
   private setupPeekObserver(): void {

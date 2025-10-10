@@ -36,7 +36,11 @@ describe('ProjectsComponent', () => {
       technologies: ['Angular'],
       status: { level: 'active' },
       image: 'image.png',
-      link: 'https://example.com',
+      links: {
+        preview: {
+          url: 'https://example.com'
+        }
+      },
       isScrollable: true,
       isAtEnd: false
     };

@@ -24,6 +24,19 @@ export const projects: ProjectsLangs = {
                 release2024: 'Lancio 2024'
             }
         },
+        linksLegend: {
+            code: {
+                label: 'Codice sorgente',
+                privateLabel: 'Codice privato',
+                comingSoonLabel: 'Disponibile a breve',
+                unavailableLabel: 'Non disponibile'
+            },
+            preview: {
+                label: 'Visita il sito',
+                comingSoonLabel: 'In arrivo',
+                unavailableLabel: 'Non disponibile'
+            }
+        },
         projects: [
             {
                 title: 'Borgo Samarína',
@@ -33,7 +46,14 @@ export const projects: ProjectsLangs = {
                 technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
                 description: 'Portale turistico responsive per valorizzare il borgo con itinerari, galleria stagionale e copy gestito da CMS headless (codice privato).',
                 image: 'assets/projects/borgo-samarina-cover.svg',
-                link: 'https://borgosamarina-com.web.app/'
+                links: {
+                    code: {
+                        isPrivate: true
+                    },
+                    preview: {
+                        url: 'https://borgosamarina-com.web.app/'
+                    }
+                }
             },
             {
                 title: 'Micro Games',
@@ -44,7 +64,14 @@ export const projects: ProjectsLangs = {
                 technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
                 description: 'Suite modulare di mini-giochi casual con core condiviso, profili giocatore e leaderboard mobile-ready per sessioni rapide.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
-                link: 'https://github.com/DiegoFCJ/MicroGames'
+                links: {
+                    code: {
+                        isComingSoon: true
+                    },
+                    preview: {
+                        isComingSoon: true
+                    }
+                }
             },
             {
                 title: 'Self',
@@ -55,7 +82,14 @@ export const projects: ProjectsLangs = {
                 technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
                 description: 'Hub di produttività che traccia abitudini, espone un marketplace di plugin e sincronizza obiettivi con promemoria su calendario multi-dispositivo.',
                 image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
-                link: 'https://github.com/DiegoFCJ/self'
+                links: {
+                    code: {
+                        isComingSoon: true
+                    },
+                    preview: {
+                        isComingSoon: true
+                    }
+                }
             },
             {
                 title: 'E-commerce',
@@ -65,7 +99,14 @@ export const projects: ProjectsLangs = {
                 technologies: ['Spring Boot 3', 'Angular 17', 'MySQL', 'Keycloak', 'Docker'],
                 description: 'Template headless per e-commerce con checkout modulare, workflow di magazzino e dashboard amministrativa pronta per integrazioni ERP.',
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
-                link: 'https://github.com/DiegoFCJ/E-commerce'
+                links: {
+                    code: {
+                        url: 'https://github.com/DiegoFCJ/E-commerce'
+                    },
+                    preview: {
+                        isComingSoon: true
+                    }
+                }
             }
         ]
     },
@@ -92,6 +133,19 @@ export const projects: ProjectsLangs = {
                 release2024: '2024 launch'
             }
         },
+        linksLegend: {
+            code: {
+                label: 'Source code',
+                privateLabel: 'Private repository',
+                comingSoonLabel: 'Available soon',
+                unavailableLabel: 'Unavailable'
+            },
+            preview: {
+                label: 'Live preview',
+                comingSoonLabel: 'Coming soon',
+                unavailableLabel: 'Unavailable'
+            }
+        },
         projects: [
             {
                 title: 'Borgo Samarína',
@@ -101,7 +155,14 @@ export const projects: ProjectsLangs = {
                 technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
                 description: 'Responsive tourism portal celebrating the seaside village with curated itineraries, seasonal gallery and CMS-driven copy (private codebase).',
                 image: 'assets/projects/borgo-samarina-cover.svg',
-                link: 'https://borgosamarina-com.web.app/'
+                links: {
+                    code: {
+                        isPrivate: true
+                    },
+                    preview: {
+                        url: 'https://borgosamarina-com.web.app/'
+                    }
+                }
             },
             {
                 title: 'Micro Games',
@@ -112,7 +173,14 @@ export const projects: ProjectsLangs = {
                 technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
                 description: 'Modular suite of casual mini-games with shared core, player profiles and a mobile-ready leaderboard for quick sessions.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
-                link: 'https://github.com/DiegoFCJ/MicroGames'
+                links: {
+                    code: {
+                        isComingSoon: true
+                    },
+                    preview: {
+                        isComingSoon: true
+                    }
+                }
             },
             {
                 title: 'Self',
@@ -123,7 +191,14 @@ export const projects: ProjectsLangs = {
                 technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
                 description: 'Productivity hub that tracks habits, exposes a plugin marketplace and syncs goals with calendar reminders across devices.',
                 image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
-                link: 'https://github.com/DiegoFCJ/self'
+                links: {
+                    code: {
+                        isComingSoon: true
+                    },
+                    preview: {
+                        isComingSoon: true
+                    }
+                }
             },
             {
                 title: 'E-commerce',
@@ -133,7 +208,14 @@ export const projects: ProjectsLangs = {
                 technologies: ['Spring Boot 3', 'Angular 17', 'MySQL', 'Keycloak', 'Docker'],
                 description: 'Headless commerce template with modular checkout, inventory workflows and an admin dashboard ready for ERP integrations.',
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
-                link: 'https://github.com/DiegoFCJ/E-commerce'
+                links: {
+                    code: {
+                        url: 'https://github.com/DiegoFCJ/E-commerce'
+                    },
+                    preview: {
+                        isComingSoon: true
+                    }
+                }
             }
         ]
     }

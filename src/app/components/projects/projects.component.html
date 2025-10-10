@@ -23,8 +23,7 @@
     </div>
 
     <ng-template #projectCard let-project let-i="index">
-        <a class="project-card" [attr.data-status-level]="project.status.level" [href]="project.link"
-            target="_blank" rel="noopener noreferrer">
+        <article class="project-card" [attr.data-status-level]="project.status.level">
             <div class="project-visual">
                 <img class="proj-image" [src]="project.image" [attr.alt]="'Anteprima del progetto ' + project.title" />
             </div>
@@ -46,6 +45,37 @@
 
             <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>
 
+            <div class="project-links" *ngIf="project.links as links">
+                <div class="project-link" *ngIf="links.code as codeLink">
+                    <a *ngIf="isLinkAvailable(codeLink)" class="project-link-anchor" [href]="codeLink.url"
+                        target="_blank" rel="noopener noreferrer">
+                        {{ projects.linksLegend.code.label }}
+                    </a>
+                    <span *ngIf="isLinkPrivate(codeLink)" class="project-link-chip">
+                        {{ projects.linksLegend.code.privateLabel }}
+                    </span>
+                    <span *ngIf="isLinkComingSoon(codeLink)" class="project-link-chip is-subtle">
+                        {{ projects.linksLegend.code.comingSoonLabel }}
+                    </span>
+                    <span *ngIf="isLinkUnavailable(codeLink)" class="project-link-chip is-subtle">
+                        {{ projects.linksLegend.code.unavailableLabel }}
+                    </span>
+                </div>
+
+                <div class="project-link" *ngIf="links.preview as previewLink">
+                    <a *ngIf="isLinkAvailable(previewLink)" class="project-link-anchor" [href]="previewLink.url"
+                        target="_blank" rel="noopener noreferrer">
+                        {{ projects.linksLegend.preview.label }}
+                    </a>
+                    <span *ngIf="isLinkComingSoon(previewLink)" class="project-link-chip is-subtle">
+                        {{ projects.linksLegend.preview.comingSoonLabel }}
+                    </span>
+                    <span *ngIf="isLinkUnavailable(previewLink)" class="project-link-chip is-subtle">
+                        {{ projects.linksLegend.preview.unavailableLabel }}
+                    </span>
+                </div>
+            </div>
+
             <div class="project-description" [class.is-scrollable]="project.isScrollable"
                 [class.is-at-end]="project.isAtEnd">
                 <div class="description-content" #descriptionContent [attr.id]="'project-description-' + i" tabindex="0"
@@ -54,6 +84,6 @@
                     <p>{{ project.description }}</p>
                 </div>
             </div>
-        </a>
+        </article>
     </ng-template>
 </section>
