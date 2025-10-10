@@ -10,7 +10,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, fromEvent, merge, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { LanguageCode } from '../../models/language-code.type';
 import { TranslationService } from '../../services/translation.service';
@@ -120,6 +120,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private readonly isMobileSubject = new BehaviorSubject<boolean>(false);
   private isMobile = false;
   private readonly isBrowser: boolean;
+  private visualViewportSubscription?: Subscription;
 
   readonly guideContent$: Observable<AssistantGuideVariant & {
     readonly title: string;
@@ -188,6 +189,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.isBrowser) {
       this.updateMobileState();
+      this.registerVisualViewportListeners();
     }
   }
 
@@ -196,6 +198,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.cancelGuideScrollEvaluation();
     this.clearAllTimers();
     this.isMobileSubject.complete();
+    this.clearMobileViewportMetrics();
+    this.visualViewportSubscription?.unsubscribe();
   }
 
   onAvatarClick(): void {
@@ -216,6 +220,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
     this.isOpen = true;
     this.animationPhase = 'waking';
+    this.updateMobileViewportMetrics();
     this.requestLandingUpdate();
     this.requestGuideScrollEvaluation();
     this.startWakeSequence();
@@ -279,6 +284,12 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
     this.isMobile = isMobile;
     this.isMobileSubject.next(isMobile);
+
+    if (isMobile) {
+      this.updateMobileViewportMetrics();
+    } else {
+      this.clearMobileViewportMetrics();
+    }
 
     if (!isMobile) {
       this.resetGuideScrollState();
@@ -484,5 +495,88 @@ export class AssistantComponent implements OnInit, OnDestroy {
       isScrollable: false,
       isAtEnd: true
     };
+  }
+
+  private registerVisualViewportListeners(): void {
+    if (!this.isBrowser || typeof window.visualViewport === 'undefined') {
+      return;
+    }
+
+    const viewport = window.visualViewport;
+    const resize$ = fromEvent(viewport, 'resize');
+    const scroll$ = fromEvent(viewport, 'scroll');
+
+    this.visualViewportSubscription = merge(resize$, scroll$).subscribe(() => {
+      this.updateMobileViewportMetrics();
+
+      if (this.isOpen) {
+        this.requestLandingUpdate();
+        this.requestGuideScrollEvaluation();
+      }
+    });
+  }
+
+  private updateMobileViewportMetrics(): void {
+    if (!this.isBrowser || !this.isMobile) {
+      return;
+    }
+
+    const viewportHeight = this.getViewportHeight();
+    const anchorFootprint = this.getAnchorFootprint();
+    const safeAreaBottom = this.getSafeAreaInsetBottom();
+    const hostElement = this.hostRef.nativeElement;
+
+    hostElement.style.setProperty('--assistant-mobile-viewport-height', `${viewportHeight}px`);
+    hostElement.style.setProperty('--assistant-mobile-anchor-footprint', `${anchorFootprint}px`);
+    hostElement.style.setProperty('--assistant-mobile-safe-area-bottom', `${safeAreaBottom}px`);
+  }
+
+  private clearMobileViewportMetrics(): void {
+    const hostElement = this.hostRef.nativeElement;
+    hostElement.style.removeProperty('--assistant-mobile-viewport-height');
+    hostElement.style.removeProperty('--assistant-mobile-anchor-footprint');
+    hostElement.style.removeProperty('--assistant-mobile-safe-area-bottom');
+  }
+
+  private getViewportHeight(): number {
+    if (!this.isBrowser) {
+      return 0;
+    }
+
+    const viewport = window.visualViewport;
+    return viewport?.height ?? window.innerHeight;
+  }
+
+  private getAnchorFootprint(): number {
+    if (!this.isBrowser) {
+      return 0;
+    }
+
+    const avatarHeight = this.avatarRef?.nativeElement.offsetHeight ?? 0;
+    const spacing = this.getAssistantSpacing();
+
+    return avatarHeight + spacing;
+  }
+
+  private getAssistantSpacing(): number {
+    if (!this.isBrowser) {
+      return 0;
+    }
+
+    const computed = window.getComputedStyle(this.hostRef.nativeElement);
+    const spacingValue = parseFloat(computed.getPropertyValue('--assistant-spacing'));
+
+    return Number.isFinite(spacingValue) ? spacingValue : 0;
+  }
+
+  private getSafeAreaInsetBottom(): number {
+    if (!this.isBrowser) {
+      return 0;
+    }
+
+    const rootComputed = window.getComputedStyle(document.documentElement);
+    const value = parseFloat(rootComputed.getPropertyValue('--assistant-safe-area-bottom'));
+
+    return Number.isFinite(value) ? value : 0;
   }
 }

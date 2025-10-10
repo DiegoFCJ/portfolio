@@ -224,8 +224,38 @@ app-assistant .assistant__steps li {
 }
 
 @media (max-width: 768px) {
+  app-assistant {
+    --assistant-mobile-viewport-height: 100vh;
+    --assistant-mobile-anchor-footprint: 148px;
+    --assistant-mobile-safe-area-bottom: var(--assistant-safe-area-bottom, 0px);
+    --assistant-mobile-viewport-buffer: clamp(20px, 6vh, 36px);
+  }
+
+  @supports (height: 100dvh) {
+    app-assistant {
+      --assistant-mobile-viewport-height: 100dvh;
+    }
+  }
+
+  @supports (height: 100svh) {
+    app-assistant {
+      --assistant-mobile-viewport-height: 100svh;
+    }
+  }
+
   app-assistant .assistant__content {
-    max-height: min(60vh, 420px);
+    max-height: min(
+      420px,
+      max(
+        180px,
+        calc(
+          var(--assistant-mobile-viewport-height, 100vh) -
+            var(--assistant-mobile-anchor-footprint, 148px) -
+            var(--assistant-mobile-safe-area-bottom, 0px) -
+            var(--assistant-mobile-viewport-buffer, 24px)
+        )
+      )
+    );
     overflow: hidden;
   }
 
@@ -237,6 +267,7 @@ app-assistant .assistant__steps li {
     -ms-overflow-style: none;
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
+    padding-bottom: calc(0.75rem + var(--assistant-mobile-safe-area-bottom, 0px));
   }
 
   app-assistant .assistant__content-scroll::-webkit-scrollbar {
