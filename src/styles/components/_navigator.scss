@@ -1,0 +1,457 @@
+@use '../variables' as *;
+
+$navigator-bg: #ffffff;
+$navigator-bg-dark: #1f1f1f;
+$navigator-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+$navigator-icon-size: 24px;
+$navigator-button-size: 48px;
+$default-button-bg: linear-gradient(145deg, #f8f9ff, #e7e9ff);
+$default-button-border: #a855f7;
+$default-button-glow: rgba(168, 85, 247, 0.45);
+$default-option-bg: #ffffff;
+$default-option-hover-bg: rgba(0, 0, 0, 0.05);
+$default-option-selected-bg: rgba(0, 0, 0, 0.1);
+$default-hint-background: rgba(255, 255, 255, 0.95);
+$default-hint-color: #333333;
+
+
+$dark-option-background: #1f1f1f;
+$light-option-background: #ffffff;
+
+$navigator-themes: (
+    light: (
+        selectors: ('app-navigator', 'body.light-mode'),
+        background: $navigator-bg,
+        option-background: $light-option-background,
+        icon-color: #111111,
+        hover-background: lighten($navigator-bg, 4%),
+        arrow-hover-background: rgba(0, 0, 0, 0.05),
+        option-hover-background: rgba(0, 0, 0, 0.05),
+        option-selected-background: rgba(0, 0, 0, 0.1),
+        text-color: #333,
+        button-bg: linear-gradient(145deg, #f8f9ff, #e7e9ff),
+        button-hover-bg: linear-gradient(145deg, #ffffff, #e4e7ff),
+        button-border: #a855f7,
+        button-glow: rgba(168, 85, 247, 0.45),
+        hint-background: rgba(255, 255, 255, 0.95),
+        hint-color: #333
+    ),
+    dark: (
+        selectors: 'body.dark-mode',
+        background: $navigator-bg-dark,
+        option-background: $dark-option-background,
+        icon-color: #f7f7f7,
+        hover-background: lighten($navigator-bg-dark, 5%),
+        arrow-hover-background: lighten($navigator-bg-dark, 5%),
+        option-hover-background: rgba(255, 255, 255, 0.1),
+        option-selected-background: rgba(255, 255, 255, 0.2),
+        text-color: #f0f0f0,
+        button-bg: linear-gradient(145deg, #1f2933, #0f172a),
+        button-hover-bg: linear-gradient(145deg, #273445, #111c31),
+        button-border: #60a5fa,
+        button-glow: rgba(96, 165, 250, 0.45),
+        hint-background: rgba(15, 23, 42, 0.92),
+        hint-color: #f9fafb
+    ),
+    blue: (
+        selectors: 'body.blue-mode',
+        background: $navigator-bg,
+        option-background: $light-option-background,
+        icon-color: #111111,
+        hover-background: lighten($navigator-bg, 4%),
+        arrow-hover-background: rgba(0, 0, 0, 0.05),
+        option-hover-background: rgba(0, 0, 0, 0.05),
+        option-selected-background: rgba(0, 0, 0, 0.1),
+        text-color: #333,
+        button-bg: linear-gradient(145deg, #0f67c9, #0ea5e9),
+        button-hover-bg: linear-gradient(145deg, #1783ff, #38bdf8),
+        button-border: #0ea5e9,
+        button-glow: rgba(56, 189, 248, 0.5),
+        hint-background: rgba(255, 255, 255, 0.95),
+        hint-color: #333
+    ),
+    green: (
+        selectors: 'body.green-mode',
+        background: $navigator-bg,
+        option-background: $light-option-background,
+        icon-color: #111111,
+        hover-background: lighten($navigator-bg, 4%),
+        arrow-hover-background: rgba(0, 0, 0, 0.05),
+        option-hover-background: rgba(0, 0, 0, 0.05),
+        option-selected-background: rgba(0, 0, 0, 0.1),
+        text-color: #333,
+        button-bg: linear-gradient(145deg, #0f5132, #16a34a),
+        button-hover-bg: linear-gradient(145deg, #137a45, #22c55e),
+        button-border: #22c55e,
+        button-glow: rgba(34, 197, 94, 0.45),
+        hint-background: rgba(255, 255, 255, 0.95),
+        hint-color: #333
+    ),
+    red: (
+        selectors: 'body.red-mode',
+        background: $navigator-bg,
+        option-background: $light-option-background,
+        icon-color: #111111,
+        hover-background: lighten($navigator-bg, 4%),
+        arrow-hover-background: rgba(127, 29, 29, 0.08),
+        option-hover-background: rgba(127, 29, 29, 0.08),
+        option-selected-background: rgba(239, 68, 68, 0.16),
+        text-color: #333,
+        button-bg: linear-gradient(145deg, #7f1d1d, #ef4444),
+        button-hover-bg: linear-gradient(145deg, #9f1f1f, #f87171),
+        button-border: #f87171,
+        button-glow: rgba(248, 113, 113, 0.5),
+        hint-background: rgba(255, 255, 255, 0.95),
+        hint-color: #333
+    )
+);
+
+@mixin assign-navigator-vars($config) {
+    --navigator-background: #{map-get($config, background)};
+    --navigator-icon-color: #{map-get($config, icon-color)};
+    --navigator-hover-background: #{map-get($config, hover-background)};
+    --navigator-arrow-hover-background: #{map-get($config, arrow-hover-background)};
+    --navigator-option-background: #{map-get($config, option-background)};
+    --navigator-option-hover-background: #{map-get($config, option-hover-background)};
+    --navigator-option-selected-background: #{map-get($config, option-selected-background)};
+    --navigator-text-color: #{map-get($config, text-color)};
+    --navigator-button-bg: #{map-get($config, button-bg)};
+    --navigator-button-hover-bg: #{map-get($config, button-hover-bg)};
+    --navigator-button-border: #{map-get($config, button-border)};
+    --navigator-button-glow: #{map-get($config, button-glow)};
+    --navigator-hint-background: #{map-get($config, hint-background)};
+    --navigator-hint-color: #{map-get($config, hint-color)};
+}
+
+@mixin apply-navigator-theme($config) {
+    $selectors: map-get($config, selectors);
+
+    @if (type-of($selectors) == 'list') {
+        @each $selector in $selectors {
+            @include apply-navigator-theme-for-selector($selector, $config);
+        }
+    } @else {
+        @include apply-navigator-theme-for-selector($selectors, $config);
+    }
+}
+
+@mixin apply-navigator-theme-for-selector($selector, $config) {
+    @if $selector == 'app-navigator' {
+        app-navigator {
+            @include assign-navigator-vars($config);
+        }
+    } @else {
+        app-navigator-context(#{$selector}) {
+            @include assign-navigator-vars($config);
+        }
+    }
+}
+
+@each $theme, $config in $navigator-themes {
+    @include apply-navigator-theme($config);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+app-navigator .navigator-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    z-index: 1;
+}
+
+app-navigator .nav-toggle-button {
+    width: $navigator-button-size;
+    height: $navigator-button-size;
+    border-radius: 50%;
+    background: var(--navigator-button-bg, $default-button-bg);
+    border: 1px solid var(--navigator-button-border, $default-button-border);
+    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 3s ease-in-out infinite;
+    cursor: pointer;
+    align-self: flex-end;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.4s ease, background 0.4s ease;
+
+    mat-icon {
+        position: absolute;
+        font-size: $navigator-icon-size;
+        color: var(--navigator-icon-color, #111111);
+        z-index: 1;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.22), transparent 60%);
+        opacity: 0.45;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    &:hover {
+        transform: translateY(-2px) scale(1.05);
+        background: var(--navigator-button-hover-bg, $default-button-bg);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 18px var(--navigator-button-glow, $default-button-glow);
+
+        &::after {
+            opacity: 0.7;
+        }
+    }
+}
+
+
+app-navigator .modern-navigator {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-end;
+
+    &.modern-navigator--collapsed {
+        gap: 8px;
+    }
+
+    app-navigator .navigator-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    app-navigator .nav-groups {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-end;
+    }
+
+    app-navigator .arrow-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-right: auto;
+    }
+
+    app-navigator .nav-button {
+        width: $navigator-button-size;
+        height: $navigator-button-size;
+        border-radius: 50%;
+        background: var(--navigator-button-bg, $default-button-bg);
+        border: 1px solid var(--navigator-button-border, $default-button-border);
+        box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
+
+        &:hover {
+            transform: scale(1.08) translateY(-2px);
+            background: var(--navigator-button-hover-bg, $default-button-bg);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px var(--navigator-button-glow, $default-button-glow);
+        }
+
+        mat-icon {
+            font-size: $navigator-icon-size;
+            color: var(--navigator-icon-color, #111111);
+            transition: transform 0.25s ease;
+            z-index: 1;
+        }
+
+        app-navigator .lang-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--navigator-text-color);
+            z-index: 1;
+        }
+
+        &.close-button {
+            margin-top: 4px;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 60%);
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        &:hover::after {
+            opacity: 0.65;
+        }
+    }
+
+    app-navigator .arrow-button {
+        width: 44px;
+        height: 44px;
+        border-radius: 18px;
+        border: 1px solid var(--navigator-button-border, $default-button-border);
+        background: var(--navigator-button-bg, $default-button-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.25s ease, background 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+
+        &:hover {
+            background: var(--navigator-button-hover-bg, $default-button-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28), 0 0 18px var(--navigator-button-glow, $default-button-glow);
+        }
+
+        mat-icon {
+            font-size: $navigator-icon-size;
+            color: var(--navigator-icon-color, #111111);
+            position: absolute;
+            z-index: 1;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 60%);
+            opacity: 0.35;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        &:hover::after {
+            opacity: 0.6;
+        }
+    }
+
+    &.modern-navigator--collapsed {
+        app-navigator .close-button {
+            margin-top: 0;
+
+            mat-icon {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
+app-navigator .lang-flag {
+    width: 24px;
+    height: 16px;
+    display: block;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+app-navigator .nav-group {
+    position: relative;
+}
+
+app-navigator .option-container {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 8px);
+    transform: translateY(-50%);
+    display: flex;
+    gap: 12px;
+    background: transparent;
+    padding: 0;
+    border-radius: 2rem;
+    box-shadow: none;
+    align-items: flex-start;
+    z-index: 1;
+}
+
+app-navigator .option-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+app-navigator .option-hint {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translate(-50%, 6px);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--navigator-hint-color, $default-hint-color);
+    background: var(--navigator-hint-background, $default-hint-background);
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+app-navigator .option-button {
+    width: $navigator-button-size;
+    height: $navigator-button-size;
+    border-radius: 50%;
+    border: 1px solid var(--navigator-button-border, $default-button-border);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
+    background-color: var(--navigator-option-background, $default-option-bg);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+        background-color: var(--navigator-option-hover-background, $default-option-hover-bg);
+        border-color: var(--navigator-button-border, $default-button-border);
+    }
+
+    mat-icon {
+        position: absolute;
+        font-size: 20px;
+        color: var(--navigator-icon-color, #111111);
+    }
+
+    app-navigator .section-number {
+        position: absolute;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--navigator-text-color);
+    }
+
+    &.selected {
+        background-color: var(--navigator-option-selected-background, $default-option-selected-bg);
+        border-color: var(--navigator-button-border, $default-button-border);
+    }
+}
+
+app-navigator .option-item:hover .option-hint,
+app-navigator .option-item:focus-within .option-hint {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}

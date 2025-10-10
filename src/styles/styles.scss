@@ -6,6 +6,15 @@
 @use 'red';
 @use 'themes/assistant';
 @use 'themes/stats';
+@use 'components/assistant';
+@use 'components/about';
+@use 'components/projects';
+@use 'components/education';
+@use 'components/skills';
+@use 'components/navigator';
+@use 'components/stats';
+@use 'components/contact-me';
+@use 'components/experiences';
 @use 'responsiveness/mobile';
 @use 'responsiveness/tablet';
 @use 'responsiveness/pc';
