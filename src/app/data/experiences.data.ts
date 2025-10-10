@@ -9,13 +9,13 @@ export const experiencesData: ExperienceFullLangs = {
                 location: 'Bit S.P.A. · Torino (ibrido)',
                 startDate: 'Gen 2025',
                 endDate: 'Giu 2025',
-                technologies: 'Java, Spring Boot, Linux, Shell Script, Dell Boomi',
-                responsibilities: 'Supporto allo sviluppo per Euronics come consulente Bit S.P.A.',
+                technologies: 'Java, Spring Boot, Linux, Script Bash, Dell Boomi',
+                responsibilities: 'Consulenza Bit S.P.A. per il team IT di Euronics.',
                 responsibilityList: [
-                    'Sviluppo e implementazione di un sistema di custom logging dei processi su server Linux.',
-                    'Monitoraggio giornaliero dei processi e automazione delle operazioni ricorrenti.',
-                    'Attività di bug fixing e ottimizzazione delle prestazioni applicative.',
-                    'Integrazione di nuove funzionalità di sviluppo con Boomi.'
+                    'Affiancamento allo sviluppo e alla manutenzione di un sistema di logging personalizzato su server Linux.',
+                    'Monitoraggio giornaliero dei processi con piccoli script per automatizzare le attività ricorrenti.',
+                    'Supporto al bug fixing e a ottimizzazioni puntuali delle prestazioni.',
+                    'Integrazione di aggiornamenti concordati con il team tramite Boomi.'
                 ]
             },
             {
@@ -24,11 +24,24 @@ export const experiencesData: ExperienceFullLangs = {
                 startDate: 'Apr 2024',
                 endDate: 'Ott 2024',
                 technologies: 'Spring Boot, JSP, AngularJS, Java, AMS',
-                responsibilities: 'Sviluppo in consulenza per i clienti Stellantis e ISP.',
+                responsibilities: 'Consulenza Bit S.P.A. per Stellantis e ISP.',
                 responsibilityList: [
-                    'Sviluppo di nuove funzionalità per un progetto basato su Spring Boot e JSP.',
-                    'Risoluzione di bug critici e analisi delle problematiche tecniche in ambiente AngularJS e Spring Boot.',
-                    'Automazione delle attività quotidiane di AMS tramite Java.'
+                    'Collaborazione allo sviluppo di funzionalità su un progetto Spring Boot e JSP.',
+                    'Analisi e risoluzione di bug con il supporto del team in stack AngularJS e Spring Boot.',
+                    'Automazione delle attività quotidiane di AMS attraverso script in Java.'
+                ]
+            },
+            {
+                position: 'Sviluppatore Software (volontariato)',
+                location: 'Empowerely · Full remote',
+                startDate: 'Apr 2024',
+                endDate: 'In corso',
+                technologies: 'Java 24, Spring Boot, Next.js, MySQL, Dataiku',
+                responsibilities: 'Collaborazione volontaria sul prodotto Empowerely.',
+                responsibilityList: [
+                    'Sviluppo di piccole evolutive full-stack in affiancamento al team.',
+                    'Integrazione con pipeline Dataiku per preparazione e training dei modelli AI.',
+                    'Aggiornamento dell’interfaccia Next.js per mostrare i dati elaborati.'
                 ]
             },
             {
@@ -93,13 +106,13 @@ export const experiencesData: ExperienceFullLangs = {
                 location: 'Bit S.P.A. · Turin (hybrid)',
                 startDate: 'Jan 2025',
                 endDate: 'Jun 2025',
-                technologies: 'Java, Spring Boot, Linux, Shell scripting, Dell Boomi',
-                responsibilities: 'Development support for Euronics as a consultant for Bit S.P.A.',
+                technologies: 'Java, Spring Boot, Linux, Bash scripts, Dell Boomi',
+                responsibilities: 'Consultant supporting the Euronics IT team for Bit S.P.A.',
                 responsibilityList: [
-                    'Developed and implemented a custom process logging system on Linux servers.',
-                    'Handled daily process monitoring and automated recurring operations.',
-                    'Delivered bug fixing and performance optimisation on existing solutions.',
-                    'Integrated new development features with Boomi.'
+                    'Assisted with the development and maintenance of a custom logging system on Linux servers.',
+                    'Monitored processes daily and wrote small scripts to automate recurring tasks.',
+                    'Helped the team with bug fixing and focused performance improvements.',
+                    'Integrated agreed updates using Boomi alongside senior developers.'
                 ]
             },
             {
@@ -110,9 +123,22 @@ export const experiencesData: ExperienceFullLangs = {
                 technologies: 'Spring Boot, JSP, AngularJS, Java, AMS',
                 responsibilities: 'Consultancy work for Stellantis and ISP.',
                 responsibilityList: [
-                    'Developed new features for a Spring Boot and JSP based project.',
-                    'Resolved critical bugs and analysed technical issues in AngularJS and Spring Boot environments.',
-                    'Automated daily AMS activities through Java scripts.'
+                    'Collaborated on new features for a Spring Boot and JSP project.',
+                    'Investigated and fixed bugs together with the team across AngularJS and Spring Boot.',
+                    'Automated routine AMS activities through Java scripts.'
+                ]
+            },
+            {
+                position: 'Software Developer (volunteer)',
+                location: 'Empowerely · Fully remote',
+                startDate: 'Apr 2024',
+                endDate: 'Present',
+                technologies: 'Java 24, Spring Boot, Next.js, MySQL, Dataiku',
+                responsibilities: 'Volunteer contributor on the Empowerely product.',
+                responsibilityList: [
+                    'Delivered small full-stack enhancements alongside the core team.',
+                    'Integrated Dataiku pipelines to prepare and train AI models.',
+                    'Updated the Next.js interface to present processed data.'
                 ]
             },
             {
