@@ -141,6 +141,10 @@ $navigator-themes: (
             @include assign-navigator-vars($config);
         }
     } @else {
+        #{$selector} {
+            @include assign-navigator-vars($config);
+        }
+
         #{$selector} app-navigator {
             @include assign-navigator-vars($config);
         }
