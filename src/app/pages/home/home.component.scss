@@ -127,19 +127,63 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  gap: 12px;
+  --floating-controls-gap: clamp(14px, 2.4vw, 22px);
+  row-gap: var(--floating-controls-gap);
   z-index: 9999;
   pointer-events: none;
 
   app-navigator,
-  app-assistant {
+  app-assistant,
+  .home__stack-carousel-controls {
     pointer-events: auto;
   }
+}
+
+.home__floating-controls > *:not(:first-child) {
+  margin-inline-start: calc(var(--floating-controls-gap) / 2);
 }
 
 .home__floating-controls--assistant-open app-navigator {
   transition: transform 0.35s ease;
   transform: translateY(-6px);
+}
+
+.home__floating-controls.home__floating-controls--assistant-open > *:not(:first-child) {
+  margin-inline-start: 0;
+  margin-block-start: var(--floating-controls-gap);
+}
+
+.home__stack-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--floating-controls-gap);
+  margin-inline-start: calc(var(--floating-controls-gap) / 2);
+}
+
+.home__stack-carousel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navigator-icon-color, #111111);
+}
+
+.home__stack-carousel-button--previous mat-icon,
+.home__stack-carousel-button--next mat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--navigator-icon-color, #111111);
+  position: absolute;
+  z-index: 1;
+}
+
+.home__stack-carousel-button--previous mat-icon {
+  transform: rotate(-90deg);
+}
+
+.home__stack-carousel-button--next mat-icon {
+  transform: rotate(270deg);
 }
 
 @media (max-width: 768px) {
@@ -159,12 +203,17 @@
     right: 18px;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 10px;
+    row-gap: var(--floating-controls-gap);
   }
 
   .home__floating-controls.home__floating-controls--assistant-open {
     flex-direction: column;
     align-items: flex-end;
-    gap: 12px;
+    row-gap: var(--floating-controls-gap);
+  }
+
+  .home__stack-carousel-controls {
+    order: 0;
+    margin-inline-end: 0;
   }
 }

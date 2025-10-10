@@ -57,6 +57,24 @@
   </section>
 
   <div class="home__floating-controls" [class.home__floating-controls--assistant-open]="isAssistantOpen">
+    <div class="home__stack-carousel-controls" *ngIf="showStackCarouselControls">
+      <button
+        type="button"
+        class="home__stack-carousel-button home__stack-carousel-button--previous navigator-circle-button"
+        aria-label="Stack precedente"
+        (click)="onStackCarouselPrevious()"
+      >
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button
+        type="button"
+        class="home__stack-carousel-button home__stack-carousel-button--next navigator-circle-button"
+        aria-label="Stack successivo"
+        (click)="onStackCarouselNext()"
+      >
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </div>
     <app-assistant (opened)="onAssistantOpened()" (closed)="onAssistantClosed()"></app-assistant>
 
     <app-navigator [totalSections]="totalSections" [currentSectionIndex]="currentSectionIndex"
