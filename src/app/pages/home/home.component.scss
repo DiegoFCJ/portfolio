@@ -127,7 +127,8 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  gap: 12px;
+  --floating-controls-gap: clamp(12px, 2vw, 18px);
+  gap: var(--floating-controls-gap);
   z-index: 9999;
   pointer-events: none;
 
@@ -146,8 +147,7 @@
 .home__stack-carousel-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-inline-end: 8px;
+  gap: var(--floating-controls-gap);
 }
 
 .home__stack-carousel-button {
@@ -173,18 +173,18 @@
     right: 18px;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--floating-controls-gap);
   }
 
   .home__floating-controls.home__floating-controls--assistant-open {
     flex-direction: column;
     align-items: flex-end;
-    gap: 12px;
+    gap: var(--floating-controls-gap);
   }
 
   .home__stack-carousel-controls {
     order: 0;
     margin-inline-end: 0;
-    margin-block-end: 8px;
+    margin-block-end: var(--floating-controls-gap);
   }
 }
