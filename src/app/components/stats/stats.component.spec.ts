@@ -43,7 +43,7 @@ describe('StatsComponent', () => {
     expect(component.statistics.length).toBe(4);
     expect(component.statistics[0].label).toBe('Ore totali');
     expect(component.statistics[1].label).toBe('Mesi di esperienza');
-    expect(component.statistics[2].label).toBe('Progetti consegnati');
+    expect(component.statistics[2].label).toBe('Progetti a cui ho contribuito');
     expect(component.statistics[3].label).toBe('Stack principale');
   });
 
@@ -58,12 +58,89 @@ describe('StatsComponent', () => {
       statsData.it
     );
 
-    expect(stats.hoursValue.endsWith('+')).toBeTrue();
+    const formatter = new Intl.NumberFormat('it-IT');
+    const professionalExperiences = experiencesData.it.experiences.filter(exp => {
+      const hasTechnologies = Boolean(exp.technologies?.trim().length);
+      const role = (exp.position ?? '').toLowerCase();
+      const isTechRole = /(sviluppatore|developer)/.test(role);
+      return hasTechnologies && isTechRole;
+    });
+
+    const activeMonths = new Set<string>();
+    const monthMap: Record<string, number> = {
+      gen: 0,
+      feb: 1,
+      mar: 2,
+      apr: 3,
+      mag: 4,
+      giu: 5,
+      lug: 6,
+      ago: 7,
+      set: 8,
+      ott: 9,
+      nov: 10,
+      dic: 11,
+      jan: 0,
+      may: 4,
+      jun: 5,
+      jul: 6,
+      aug: 7,
+      sep: 8,
+      oct: 9,
+      dec: 11
+    };
+
+    const parseDate = (value: string): Date => {
+      const trimmed = value.trim();
+      const monthYearMatch = trimmed.match(/^([A-Za-zÀ-ÿ]+)\s+(\d{4})$/);
+      if (monthYearMatch) {
+        const monthKey = monthYearMatch[1].slice(0, 3).toLowerCase();
+        const year = Number(monthYearMatch[2]);
+        const monthIndex = monthMap[monthKey];
+
+        if (!Number.isNaN(year) && monthIndex !== undefined) {
+          return new Date(year, monthIndex, 1);
+        }
+      }
+
+      const direct = new Date(value);
+      return direct;
+    };
+
+    const enumerateMonths = (start: string, end: string): string[] => {
+      const startDate = parseDate(start);
+      const endDate = parseDate(end);
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || startDate > endDate) {
+        return [];
+      }
+
+      const current = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+      const limit = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+      const months: string[] = [];
+
+      while (current <= limit) {
+        months.push(`${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, '0')}`);
+        current.setMonth(current.getMonth() + 1);
+      }
+
+      return months;
+    };
+
+    professionalExperiences.forEach(exp => {
+      enumerateMonths(exp.startDate, exp.endDate).forEach(month => activeMonths.add(month));
+    });
+
+    const expectedMonths = activeMonths.size;
+    const expectedHours = expectedMonths * 160;
+    const expectedProjects = projects.it.projects.length + professionalExperiences.length;
+
+    expect(stats.hoursValue).toBe(expectedHours > 0 ? `${formatter.format(expectedHours)}+` : '0');
     expect(stats.hoursSuffix).toBe('ore di sviluppo');
-    expect(stats.monthsValue.endsWith('+')).toBeTrue();
+    expect(stats.monthsValue).toBe(expectedMonths > 0 ? `${formatter.format(expectedMonths)}+` : '0');
     expect(stats.monthsSuffix).toBe('mesi su progetti reali');
-    expect(stats.projectsValue).toBe('9');
-    expect(stats.projectsSuffix).toBe('progetti seguiti end-to-end');
+    expect(stats.projectsValue).toBe(formatter.format(expectedProjects));
+    expect(stats.projectsSuffix).toBe('contributi end-to-end');
     expect(stats.mostUsedValue).toContain('·');
   });
 

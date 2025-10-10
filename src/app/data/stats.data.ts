@@ -18,9 +18,9 @@ export const statsData: Stats = {
             },
             {
                 icon: 'work',
-                label: 'Progetti consegnati',
-                valueSuffix: 'progetti seguiti end-to-end',
-                detail: "Include applicazioni web, strumenti interni e MVP consegnati dall'analisi iniziale al rilascio e supporto."
+                label: 'Progetti a cui ho contribuito',
+                valueSuffix: 'contributi end-to-end',
+                detail: 'Somma di progetti interni, consulenze e iniziative personali in cui ho seguito il ciclo completo dalla discovery al rilascio.'
             },
             {
                 icon: 'code',
@@ -46,9 +46,9 @@ export const statsData: Stats = {
             },
             {
                 icon: 'work',
-                label: 'Projects shipped',
-                valueSuffix: 'end-to-end builds',
-                detail: 'Covers web apps, internal tools and MVPs delivered from early discovery through release and support.'
+                label: 'Projects contributed to',
+                valueSuffix: 'end-to-end contributions',
+                detail: 'Sum of internal products, consulting work and personal initiatives followed from discovery to release.'
             },
             {
                 icon: 'code',

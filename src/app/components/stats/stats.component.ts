@@ -160,33 +160,31 @@ export class StatsComponent implements OnInit, OnDestroy {
     language: LanguageCode,
     template: StatsFull
   ): StatsMetrics {
-    let totalHours = 0;
-    let totalMonths = 0;
-    let totalProjects = projectList.length;
-    let technologyCount: { [key: string]: number } = {};
+    const activeMonthKeys = new Set<string>();
+    const hoursPerMonth = 160;
+    const technologyCount: { [key: string]: number } = {};
 
-    const experiencesWithTechnologies = experiences.filter(exp => exp.technologies?.trim().length);
-    totalProjects += experiencesWithTechnologies.length;
+    const professionalExperiences = experiences.filter(exp => {
+      const hasTechnologies = exp.technologies?.trim().length;
+      const role = (exp.position ?? '').toLowerCase();
+      const isTechRole = /(sviluppatore|developer)/.test(role);
+      return Boolean(hasTechnologies && isTechRole);
+    });
 
-    experiencesWithTechnologies.forEach((exp, index) => {
-      const months = this.calculateMonths(exp.startDate, exp.endDate);
-      totalMonths += months;
+    const totalContributions = projectList.length + professionalExperiences.length;
 
-      const weeks = months * 4;
-      const hoursWorkedPerWeek = 40;
-      let hoursWorked = weeks * hoursWorkedPerWeek;
-
-      if (index === experiencesWithTechnologies.length - 1) {
-        hoursWorked += hoursWorkedPerWeek; // add one week of hours
-      }
-
-      totalHours += hoursWorked;
+    professionalExperiences.forEach((exp) => {
+      const monthRange = this.collectMonthKeys(exp.startDate, exp.endDate);
+      monthRange.forEach(key => activeMonthKeys.add(key));
 
       const technologies = exp.technologies.split(', ').map(this.normalizeTechnology);
       technologies.forEach((tech: any) => {
         technologyCount[tech] = (technologyCount[tech] || 0) + 1;
       });
     });
+
+    const totalMonths = activeMonthKeys.size;
+    const totalHours = totalMonths * hoursPerMonth;
 
     const sortedTechnologies = Object.entries(technologyCount)
       .sort(([, a], [, b]) => b - a)
@@ -196,16 +194,40 @@ export class StatsComponent implements OnInit, OnDestroy {
     const locale = this.resolveLocale(language);
     const formatter = new Intl.NumberFormat(locale);
 
+    const formattedHours = totalHours > 0 ? `${formatter.format(Math.round(totalHours))}+` : '0';
+    const formattedMonths = totalMonths > 0 ? `${formatter.format(totalMonths)}+` : '0';
+
     return {
-      hoursValue: `${formatter.format(Math.round(totalHours))}+`,
+      hoursValue: formattedHours,
       hoursSuffix: template.stats[0]?.valueSuffix ?? 'ore di sviluppo',
-      monthsValue: `${formatter.format(totalMonths)}+`,
+      monthsValue: formattedMonths,
       monthsSuffix: template.stats[1]?.valueSuffix ?? 'mesi su progetti reali',
-      projectsValue: formatter.format(totalProjects),
-      projectsSuffix: template.stats[2]?.valueSuffix ?? 'progetti seguiti end-to-end',
+      projectsValue: formatter.format(totalContributions),
+      projectsSuffix: template.stats[2]?.valueSuffix ?? 'contributi end-to-end',
       mostUsedValue: sortedTechnologies.join(' · '),
       mostUsedSuffix: template.stats[3]?.valueSuffix
     };
+  }
+
+  private collectMonthKeys(start: string, end: string): string[] {
+    const startDate = this.parseDate(start);
+    const endDate = this.parseDate(end);
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || startDate > endDate) {
+      return [];
+    }
+
+    const current = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+    const limit = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+    const months: string[] = [];
+
+    while (current <= limit) {
+      const key = `${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, '0')}`;
+      months.push(key);
+      current.setMonth(current.getMonth() + 1);
+    }
+
+    return months;
   }
 
   /**
