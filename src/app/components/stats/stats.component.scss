@@ -317,6 +317,8 @@
         background: var(--stat-overlay-bg);
         backdrop-filter: blur(12px);
         z-index: 20;
+        overflow-y: auto;
+        overscroll-behavior: contain;
     }
 
     .statistics-dialog {
@@ -450,9 +452,29 @@
             font-size: clamp(1.35rem, 9vw, 1.7rem);
         }
 
+        .statistics-overlay {
+            align-items: flex-end;
+            justify-content: center;
+            padding: clamp(0.75rem, 4vw, 1.25rem);
+        }
+
         .statistics-dialog {
-            inline-size: min(28rem, 100%);
-            padding: clamp(1.6rem, 6vw, 2.1rem);
+            inline-size: 100%;
+            border-radius: clamp(1.25rem, 5vw, 1.75rem) clamp(1.25rem, 5vw, 1.75rem) 0 0;
+            padding: clamp(1.45rem, 5vw, 1.9rem);
+            max-block-size: min(86vh, 520px);
+            overflow-y: auto;
+            box-shadow: 0 -18px 42px -30px rgba(15, 23, 42, 0.45);
+            margin-inline: auto;
+        }
+
+        .statistics-dialog-header {
+            align-items: flex-start;
+        }
+
+        .statistics-dialog-close {
+            top: clamp(0.6rem, 3vw, 0.9rem);
+            inset-inline-end: clamp(0.6rem, 3vw, 0.9rem);
         }
     }
 
