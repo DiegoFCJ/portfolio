@@ -115,8 +115,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private jumpTimer: ReturnType<typeof setTimeout> | null = null;
   private fallTimer: ReturnType<typeof setTimeout> | null = null;
   private wonderingTimer: ReturnType<typeof setTimeout> | null = null;
-  private landingUpdateFrame: number | null = null;
-  private guideScrollEvaluationFrame: number | null = null;
+  private landingUpdateTimeout: ReturnType<typeof setTimeout> | null = null;
+  private guideScrollEvaluationTimeout: ReturnType<typeof setTimeout> | null = null;
   private readonly isMobileSubject = new BehaviorSubject<boolean>(false);
   private isMobile = false;
   private readonly isBrowser: boolean;
@@ -327,30 +327,30 @@ export class AssistantComponent implements OnInit, OnDestroy {
   }
 
   private requestLandingUpdate(): void {
-    if (typeof window === 'undefined' || typeof window.requestAnimationFrame !== 'function') {
+    if (!this.isBrowser) {
       this.updateLandingCoordinates();
       return;
     }
 
-    if (this.landingUpdateFrame !== null) {
-      window.cancelAnimationFrame(this.landingUpdateFrame);
+    if (this.landingUpdateTimeout !== null) {
+      clearTimeout(this.landingUpdateTimeout);
     }
 
-    this.landingUpdateFrame = window.requestAnimationFrame(() => {
-      this.landingUpdateFrame = null;
+    this.landingUpdateTimeout = setTimeout(() => {
+      this.landingUpdateTimeout = null;
       this.updateLandingCoordinates();
-    });
+    }, 16);
   }
 
   private cancelLandingUpdate(): void {
-    if (typeof window === 'undefined' || typeof window.cancelAnimationFrame !== 'function') {
-      this.landingUpdateFrame = null;
+    if (!this.isBrowser) {
+      this.landingUpdateTimeout = null;
       return;
     }
 
-    if (this.landingUpdateFrame !== null) {
-      window.cancelAnimationFrame(this.landingUpdateFrame);
-      this.landingUpdateFrame = null;
+    if (this.landingUpdateTimeout !== null) {
+      clearTimeout(this.landingUpdateTimeout);
+      this.landingUpdateTimeout = null;
     }
   }
 
@@ -445,30 +445,20 @@ export class AssistantComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (typeof window.requestAnimationFrame !== 'function') {
-      this.evaluateGuideScrollState();
-      return;
+    if (this.guideScrollEvaluationTimeout !== null) {
+      clearTimeout(this.guideScrollEvaluationTimeout);
     }
 
-    if (this.guideScrollEvaluationFrame !== null) {
-      window.cancelAnimationFrame(this.guideScrollEvaluationFrame);
-    }
-
-    this.guideScrollEvaluationFrame = window.requestAnimationFrame(() => {
-      this.guideScrollEvaluationFrame = null;
+    this.guideScrollEvaluationTimeout = setTimeout(() => {
+      this.guideScrollEvaluationTimeout = null;
       this.evaluateGuideScrollState();
-    });
+    }, 16);
   }
 
   private cancelGuideScrollEvaluation(): void {
-    if (!this.isBrowser || typeof window.cancelAnimationFrame !== 'function') {
-      this.guideScrollEvaluationFrame = null;
-      return;
-    }
-
-    if (this.guideScrollEvaluationFrame !== null) {
-      window.cancelAnimationFrame(this.guideScrollEvaluationFrame);
-      this.guideScrollEvaluationFrame = null;
+    if (this.guideScrollEvaluationTimeout !== null) {
+      clearTimeout(this.guideScrollEvaluationTimeout);
+      this.guideScrollEvaluationTimeout = null;
     }
   }
 
