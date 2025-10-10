@@ -1,0 +1,371 @@
+app-skills {
+  --skills-accent: #6366f1;
+  --skills-accent-soft: rgba(99, 102, 241, 0.18);
+  --skills-card-bg: rgba(15, 23, 42, 0.05);
+  --skills-card-border: rgba(99, 102, 241, 0.28);
+  --skills-text-muted: rgba(15, 23, 42, 0.65);
+  --skills-section-bg: linear-gradient(160deg, rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.04));
+  --skills-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  --skills-tabs-bg: linear-gradient(140deg, rgba(148, 163, 253, 0.2), rgba(59, 130, 246, 0.12));
+  --skills-tabs-mobile-bg: linear-gradient(140deg, rgba(148, 163, 253, 0.25), rgba(59, 130, 246, 0.18));
+  --skills-tab-active-text: #0f172a;
+  --skills-tab-active-bg: rgba(99, 102, 241, 0.18);
+  --skills-tab-active-border: rgba(99, 102, 241, 0.45);
+  --skills-tab-active-shadow: 0 12px 30px rgba(99, 102, 241, 0.18);
+  --skills-card-overlay: rgba(99, 102, 241, 0.12);
+  --skills-card-sheen: rgba(99, 102, 241, 0.16);
+  --skills-subtitle-color: #0f172a;
+  --skills-carousel-arrow-bg: rgba(15, 23, 42, 0.08);
+  --skills-carousel-arrow-color: #0f172a;
+  --skills-carousel-arrow-hover-bg: rgba(99, 102, 241, 0.18);
+  --skills-carousel-arrow-hover-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+body.dark-mode app-skills {
+  --skills-accent: #818cf8;
+  --skills-accent-soft: rgba(129, 140, 248, 0.24);
+  --skills-card-bg: rgba(30, 31, 38, 0.7);
+  --skills-card-border: rgba(129, 140, 248, 0.35);
+  --skills-text-muted: rgba(226, 232, 240, 0.7);
+  --skills-section-bg: linear-gradient(160deg, rgba(129, 140, 248, 0.16), rgba(79, 70, 229, 0.08));
+  --skills-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+  --skills-tabs-bg: linear-gradient(140deg, rgba(99, 102, 241, 0.22), rgba(59, 130, 246, 0.18));
+  --skills-tabs-mobile-bg: linear-gradient(140deg, rgba(99, 102, 241, 0.28), rgba(59, 130, 246, 0.22));
+  --skills-tab-active-text: #f8fafc;
+  --skills-tab-active-bg: rgba(129, 140, 248, 0.24);
+  --skills-tab-active-border: rgba(129, 140, 248, 0.6);
+  --skills-tab-active-shadow: 0 12px 30px rgba(129, 140, 248, 0.25);
+  --skills-card-overlay: rgba(129, 140, 248, 0.18);
+  --skills-card-sheen: rgba(129, 140, 248, 0.24);
+  --skills-subtitle-color: #f8fafc;
+  --skills-carousel-arrow-bg: rgba(255, 255, 255, 0.08);
+  --skills-carousel-arrow-color: #f8fafc;
+  --skills-carousel-arrow-hover-bg: rgba(129, 140, 248, 0.24);
+  --skills-carousel-arrow-hover-shadow: 0 12px 30px rgba(129, 140, 248, 0.28);
+}
+
+body.blue-mode app-skills {
+  --skills-accent: #2563eb;
+  --skills-accent-soft: rgba(37, 99, 235, 0.2);
+  --skills-card-bg: rgba(226, 239, 255, 0.92);
+  --skills-card-border: rgba(59, 130, 246, 0.3);
+  --skills-text-muted: rgba(17, 24, 39, 0.7);
+  --skills-section-bg: linear-gradient(160deg, rgba(59, 130, 246, 0.12), rgba(29, 78, 216, 0.06));
+  --skills-shadow: 0 20px 45px rgba(37, 99, 235, 0.18);
+  --skills-tabs-bg: linear-gradient(140deg, rgba(191, 219, 254, 0.28), rgba(59, 130, 246, 0.18));
+  --skills-tabs-mobile-bg: linear-gradient(140deg, rgba(191, 219, 254, 0.3), rgba(37, 99, 235, 0.22));
+  --skills-tab-active-text: #111827;
+  --skills-tab-active-bg: rgba(59, 130, 246, 0.18);
+  --skills-tab-active-border: rgba(37, 99, 235, 0.45);
+  --skills-tab-active-shadow: 0 12px 30px rgba(37, 99, 235, 0.22);
+  --skills-card-overlay: rgba(59, 130, 246, 0.16);
+  --skills-card-sheen: rgba(59, 130, 246, 0.2);
+  --skills-subtitle-color: #111827;
+  --skills-carousel-arrow-bg: rgba(15, 23, 42, 0.08);
+  --skills-carousel-arrow-color: #111827;
+  --skills-carousel-arrow-hover-bg: rgba(59, 130, 246, 0.2);
+  --skills-carousel-arrow-hover-shadow: 0 12px 30px rgba(37, 99, 235, 0.24);
+}
+
+body.green-mode app-skills {
+  --skills-accent: #10b981;
+  --skills-accent-soft: rgba(16, 185, 129, 0.22);
+  --skills-card-bg: rgba(232, 252, 243, 0.9);
+  --skills-card-border: rgba(16, 185, 129, 0.28);
+  --skills-text-muted: rgba(17, 24, 39, 0.7);
+  --skills-section-bg: linear-gradient(160deg, rgba(74, 222, 128, 0.12), rgba(16, 185, 129, 0.08));
+  --skills-shadow: 0 20px 45px rgba(16, 185, 129, 0.18);
+  --skills-tabs-bg: linear-gradient(140deg, rgba(167, 243, 208, 0.28), rgba(16, 185, 129, 0.14));
+  --skills-tabs-mobile-bg: linear-gradient(140deg, rgba(167, 243, 208, 0.32), rgba(16, 185, 129, 0.18));
+  --skills-tab-active-text: #111827;
+  --skills-tab-active-bg: rgba(45, 212, 191, 0.2);
+  --skills-tab-active-border: rgba(16, 185, 129, 0.45);
+  --skills-tab-active-shadow: 0 12px 30px rgba(16, 185, 129, 0.22);
+  --skills-card-overlay: rgba(45, 212, 191, 0.16);
+  --skills-card-sheen: rgba(16, 185, 129, 0.18);
+  --skills-subtitle-color: #111827;
+  --skills-carousel-arrow-bg: rgba(17, 24, 39, 0.08);
+  --skills-carousel-arrow-color: #111827;
+  --skills-carousel-arrow-hover-bg: rgba(16, 185, 129, 0.2);
+  --skills-carousel-arrow-hover-shadow: 0 12px 30px rgba(16, 185, 129, 0.24);
+}
+
+body.red-mode app-skills {
+  --skills-accent: #ef4444;
+  --skills-accent-soft: rgba(239, 68, 68, 0.24);
+  --skills-card-bg: rgba(255, 235, 238, 0.9);
+  --skills-card-border: rgba(248, 113, 113, 0.32);
+  --skills-text-muted: rgba(17, 24, 39, 0.7);
+  --skills-section-bg: linear-gradient(160deg, rgba(252, 165, 165, 0.14), rgba(239, 68, 68, 0.08));
+  --skills-shadow: 0 20px 45px rgba(239, 68, 68, 0.2);
+  --skills-tabs-bg: linear-gradient(140deg, rgba(254, 205, 211, 0.3), rgba(248, 113, 113, 0.16));
+  --skills-tabs-mobile-bg: linear-gradient(140deg, rgba(254, 205, 211, 0.34), rgba(239, 68, 68, 0.2));
+  --skills-tab-active-text: #111827;
+  --skills-tab-active-bg: rgba(248, 113, 113, 0.2);
+  --skills-tab-active-border: rgba(239, 68, 68, 0.45);
+  --skills-tab-active-shadow: 0 12px 30px rgba(239, 68, 68, 0.24);
+  --skills-card-overlay: rgba(248, 113, 113, 0.16);
+  --skills-card-sheen: rgba(251, 146, 60, 0.2);
+  --skills-subtitle-color: #111827;
+  --skills-carousel-arrow-bg: rgba(17, 24, 39, 0.08);
+  --skills-carousel-arrow-color: #111827;
+  --skills-carousel-arrow-hover-bg: rgba(248, 113, 113, 0.22);
+  --skills-carousel-arrow-hover-shadow: 0 12px 30px rgba(239, 68, 68, 0.26);
+}
+
+app-skills .skills-section {
+  inline-size: 100%;
+  block-size: 100vh;
+  min-block-size: 100%;
+  padding: clamp(1rem, 1vw, 1rem) clamp(1rem, 1vw, 1rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.75rem, 4vw, 3rem);
+  background: var(--skills-section-bg);
+  width: 100%;
+  max-width: 100% !important;
+  overflow: auto;
+}
+
+app-skills .skills-title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+}
+
+app-skills .mobile-layout,
+app-skills .carousel-container {
+  width: min(100%, 540px);
+  margin: 0 auto;
+  padding-inline: clamp(0.75rem, 5vw, 1.5rem);
+  box-sizing: border-box;
+  align-items: flex-start !important;
+}
+
+app-skills .nav-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+app-skills .skills-grid {
+  width: 100%;
+  max-width: 68rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  grid-template-columns: minmax(200px, 260px) 1fr;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  align-items: start;
+  padding-inline: clamp(0.75rem, 4vw, 2rem);
+}
+
+app-skills .stack-tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  background: var(--skills-tabs-bg);
+  border: 1px solid var(--skills-card-border);
+  border-radius: 20px;
+  box-shadow: var(--skills-shadow);
+}
+
+app-skills .stack-tabs.is-mobile {
+  flex-direction: row;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 20px;
+  background: var(--skills-tabs-mobile-bg);
+}
+
+app-skills .stack-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--skills-text-muted);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+body.dark-mode app-skills .stack-tab {
+  background: rgba(15, 23, 42, 0.7);
+  color: rgba(226, 232, 240, 0.75);
+}
+
+app-skills .stack-tab.active {
+  color: var(--skills-tab-active-text);
+  background: var(--skills-tab-active-bg);
+  border-color: var(--skills-tab-active-border);
+  box-shadow: var(--skills-tab-active-shadow);
+}
+
+app-skills .tab-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+app-skills .spotlight-panels {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+app-skills .spotlight-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 1vw, 1rem);
+  padding: clamp(1rem, 1vw, 1rem);
+  background: linear-gradient(135deg, var(--skills-card-bg), var(--skills-card-overlay));
+  border: 1px solid var(--skills-card-border);
+  border-radius: 24px;
+  box-shadow: var(--skills-shadow);
+  isolation: isolate;
+}
+
+app-skills .spotlight-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, var(--skills-card-sheen), transparent 60%);
+  z-index: -1;
+  opacity: 0.6;
+}
+
+app-skills .spotlight-card.is-mobile {
+  padding: clamp(1.5rem, 5.5vw, 2.5rem);
+  border-radius: 22px;
+}
+
+app-skills .spotlight-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+app-skills .spotlight-subtitle {
+  margin: 0;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--skills-subtitle-color);
+}
+
+app-skills .spotlight-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 0.5vw, 0.5rem);
+  align-items: center;
+}
+
+app-skills .skill-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(2rem, 5vw, 2rem);
+  padding: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+app-skills .skill-icon:hover {
+  transform: translateY(-4px);
+}
+
+app-skills .icon-asset {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+app-skills .icon-asset img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+app-skills .skill-icon.clicked .icon-asset img {
+  animation: skill-spin 0.7s ease;
+}
+
+@keyframes skill-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1200px) {
+  app-skills .skills-grid {
+    grid-template-columns: minmax(180px, 220px) 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  app-skills .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  app-skills .stack-tabs {
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 999px;
+  }
+}
+
+@media (max-width: 768px) {
+  app-skills .spotlight-icons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  
+  app-skills .stack-tabs {
+    flex-wrap: wrap;
+    margin: 32px;
+  }
+
+  app-skills .skills-section {
+    block-size: 100%;
+    padding: clamp(2rem, 6vw, 3.25rem) clamp(1rem, 5vw, 2.5rem);
+  }
+
+  app-skills .spotlight-icons {
+    gap: clamp(0.6rem, 5vw, 1rem);
+  }
+}
+
+@media (min-width: 992px) {
+  app-skills .skills-section {
+    max-width: 70rem;
+  }
+
+  app-skills .spotlight-panels {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

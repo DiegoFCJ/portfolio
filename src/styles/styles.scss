@@ -4,6 +4,17 @@
 @use 'blue';
 @use 'green';
 @use 'red';
+@use 'themes/assistant' as assistant_theme;
+@use 'themes/stats' as stats_theme;
+@use 'components/assistant' as assistant_component;
+@use 'components/about';
+@use 'components/projects';
+@use 'components/education';
+@use 'components/skills';
+@use 'components/navigator';
+@use 'components/stats' as stats_component;
+@use 'components/contact-me';
+@use 'components/experiences';
 @use 'responsiveness/mobile';
 @use 'responsiveness/tablet';
 @use 'responsiveness/pc';
