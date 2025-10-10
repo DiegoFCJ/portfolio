@@ -172,12 +172,7 @@ export class StatsComponent implements OnInit, OnDestroy {
       return Boolean(hasTechnologies && isTechRole);
     });
 
-    const deliverableExperiences = professionalExperiences.filter(exp => {
-      const end = (exp.endDate ?? '').trim().toLowerCase();
-      return end.length > 0 && !/(in corso|present)/.test(end);
-    });
-
-    totalProjects += deliverableExperiences.length;
+    totalProjects += professionalExperiences.length;
 
     professionalExperiences.forEach((exp, index) => {
       const months = this.calculateMonths(exp.startDate, exp.endDate);
