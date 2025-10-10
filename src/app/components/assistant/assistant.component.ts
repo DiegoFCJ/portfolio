@@ -493,6 +493,11 @@ export class AssistantComponent implements OnInit, OnDestroy {
     }
 
     const viewport = window.visualViewport;
+
+    if (!viewport) {
+      return;
+    }
+
     const resize$ = fromEvent(viewport, 'resize');
     const scroll$ = fromEvent(viewport, 'scroll');
 
