@@ -1,0 +1,44 @@
+@use 'sass:map';
+
+/// Applies CSS custom property definitions for a component using its prefix.
+///
+/// @param {string} $component - The base name for CSS custom properties.
+/// @param {map} $vars - The map of property keys to CSS values.
+@mixin apply-vars($component, $vars) {
+  @each $key, $value in $vars {
+    --#{$component}-#{$key}: #{$value};
+  }
+}
+
+/// Emits theme specific CSS custom properties for a component based on a map
+/// structured as `(base: (..default vars..), theme-a: (..vars..), ...)`.
+/// The default `base` map should be emitted separately via `apply-vars` inside
+/// the component selector. This mixin handles the themed overrides.
+///
+/// @param {string} $component - Component variable prefix.
+/// @param {map} $themes - Map containing a `base` entry and theme overrides.
+@mixin emit-theme-overrides($component, $themes) {
+  @each $theme, $vars in map.remove($themes, base) {
+    :host-context(body.#{$theme}-mode) {
+      @include apply-vars($component, $vars);
+    }
+  }
+}
+
+/// Emits theme variables on the body element so that multiple components can
+/// consume the same set of CSS custom properties without redefining them in
+/// each local stylesheet.
+///
+/// @param {string} $component - Component variable prefix.
+/// @param {map} $themes - Map containing a `base` entry and theme overrides.
+@mixin emit-body-theme-vars($component, $themes) {
+  body {
+    @include apply-vars($component, map.get($themes, base));
+  }
+
+  @each $theme, $vars in map.remove($themes, base) {
+    body.#{$theme}-mode {
+      @include apply-vars($component, $vars);
+    }
+  }
+}

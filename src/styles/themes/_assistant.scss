@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use '../_theme-utils' as theme;
+@use 'assistant/base';
+@use 'assistant/light';
+@use 'assistant/blue';
+@use 'assistant/green';
+@use 'assistant/red';
+@use 'assistant/dark';
+
+$assistant-theme-vars: map.deep-merge(base.$vars, light.$vars);
+$assistant-theme-vars: map.deep-merge($assistant-theme-vars, blue.$vars);
+$assistant-theme-vars: map.deep-merge($assistant-theme-vars, green.$vars);
+$assistant-theme-vars: map.deep-merge($assistant-theme-vars, red.$vars);
+$assistant-theme-vars: map.deep-merge($assistant-theme-vars, dark.$vars);
+
+@include theme.emit-body-theme-vars('assistant', $assistant-theme-vars);

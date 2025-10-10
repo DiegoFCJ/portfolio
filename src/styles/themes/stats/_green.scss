@@ -1,0 +1,11 @@
+$vars: (
+  green: (
+    surface: linear-gradient(150deg, #ecfdf5, #d1fae5),
+    card-glow: linear-gradient(135deg, rgba(134, 239, 172, 0.36), rgba(148, 163, 184, 0.2)),
+    icon-surface: linear-gradient(150deg, rgba(167, 243, 208, 0.75), rgba(134, 239, 172, 0.55)),
+    icon-color: #1f2937,
+    accent-bar: linear-gradient(90deg, #0f766e, #10b981),
+    before-glow: radial-gradient(circle at 18% 82%, rgba(74, 222, 128, 0.16), transparent 60%),
+    after-glow: radial-gradient(circle at 78% 18%, rgba(16, 185, 129, 0.16), transparent 60%),
+  )
+);

@@ -1,0 +1,24 @@
+$vars: (
+  green: (
+    accent: #10b981,
+    accent-soft: rgba(16, 185, 129, 0.22),
+    card-bg: rgba(232, 252, 243, 0.9),
+    card-border: rgba(16, 185, 129, 0.28),
+    text-muted: rgba(4, 120, 87, 0.72),
+    section-bg: linear-gradient(160deg, rgba(74, 222, 128, 0.12), rgba(16, 185, 129, 0.08)),
+    shadow: 0 20px 45px rgba(16, 185, 129, 0.18),
+    tabs-bg: linear-gradient(140deg, rgba(167, 243, 208, 0.28), rgba(16, 185, 129, 0.14)),
+    tabs-mobile-bg: linear-gradient(140deg, rgba(167, 243, 208, 0.32), rgba(16, 185, 129, 0.18)),
+    tab-active-text: #064e3b,
+    tab-active-bg: rgba(45, 212, 191, 0.2),
+    tab-active-border: rgba(16, 185, 129, 0.45),
+    tab-active-shadow: 0 12px 30px rgba(16, 185, 129, 0.22),
+    card-overlay: rgba(45, 212, 191, 0.16),
+    card-sheen: rgba(16, 185, 129, 0.18),
+    subtitle-color: #064e3b,
+    carousel-arrow-bg: rgba(6, 78, 59, 0.08),
+    carousel-arrow-color: #064e3b,
+    carousel-arrow-hover-bg: rgba(16, 185, 129, 0.2),
+    carousel-arrow-hover-shadow: 0 12px 30px rgba(16, 185, 129, 0.24),
+  )
+);

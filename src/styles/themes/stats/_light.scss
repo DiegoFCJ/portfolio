@@ -1,0 +1,9 @@
+$vars: (
+  light: (
+    surface: linear-gradient(160deg, #ffffff, #f3f4f6),
+    card-shadow: 0 20px 42px -28px rgba(15, 23, 42, 0.18),
+    card-hover-shadow: 0 30px 54px -28px rgba(148, 163, 184, 0.32),
+    card-glow: linear-gradient(135deg, rgba(148, 163, 184, 0.16), rgba(226, 232, 240, 0.32)),
+    accent-bar: linear-gradient(90deg, #6c63ff, #3b82f6),
+  )
+);

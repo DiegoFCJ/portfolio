@@ -1,0 +1,19 @@
+$vars: (
+  blue: (
+    avatar-bg: radial-gradient(circle at 30% 30%, #e0f2ff, #60a5fa 55%, #2563eb 100%),
+    avatar-shadow-rest: 0 16px 28px #1e40af4d,
+    avatar-shadow-active: 0 22px 36px #1e40af52,
+    floor-shadow-color: #1e40af4d,
+    floor-shadow-color-strong: #1e40af80,
+    avatar-focus-ring: #3b82f673,
+    avatar-face-shadow: drop-shadow(0 4px 6px #1e40af40),
+    avatar-outline-fill: #fffffffa,
+    avatar-eye-color: #0f172a,
+    avatar-smile-color: #2563eb,
+    avatar-wave-border: #2563eb59,
+    popup-bg: #fffffff5,
+    popup-color: #0f172a,
+    popup-shadow: 0 22px 48px #2563eb47,
+    popup-border: 1px solid #2563eb26,
+  )
+);

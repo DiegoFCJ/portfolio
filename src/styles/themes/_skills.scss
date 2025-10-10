@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use '../_theme-utils' as theme;
+@use 'skills/base';
+@use 'skills/dark';
+@use 'skills/blue';
+@use 'skills/green';
+@use 'skills/red';
+
+$skills-theme-vars: map.deep-merge(base.$vars, dark.$vars);
+$skills-theme-vars: map.deep-merge($skills-theme-vars, blue.$vars);
+$skills-theme-vars: map.deep-merge($skills-theme-vars, green.$vars);
+$skills-theme-vars: map.deep-merge($skills-theme-vars, red.$vars);
+
+@include theme.emit-body-theme-vars('skills', $skills-theme-vars);

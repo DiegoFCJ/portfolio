@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use '../_theme-utils' as theme;
+@use 'stats/base';
+@use 'stats/light';
+@use 'stats/blue';
+@use 'stats/green';
+@use 'stats/red';
+@use 'stats/dark';
+
+$stats-theme-vars: map.deep-merge(base.$vars, light.$vars);
+$stats-theme-vars: map.deep-merge($stats-theme-vars, blue.$vars);
+$stats-theme-vars: map.deep-merge($stats-theme-vars, green.$vars);
+$stats-theme-vars: map.deep-merge($stats-theme-vars, red.$vars);
+$stats-theme-vars: map.deep-merge($stats-theme-vars, dark.$vars);
+
+@include theme.emit-body-theme-vars('stat', $stats-theme-vars);

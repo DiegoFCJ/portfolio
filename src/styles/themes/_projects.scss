@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use '../_theme-utils' as theme;
+@use 'projects/base';
+@use 'projects/dark';
+@use 'projects/blue';
+@use 'projects/green';
+@use 'projects/red';
+
+$projects-theme-vars: map.deep-merge(base.$vars, dark.$vars);
+$projects-theme-vars: map.deep-merge($projects-theme-vars, blue.$vars);
+$projects-theme-vars: map.deep-merge($projects-theme-vars, green.$vars);
+$projects-theme-vars: map.deep-merge($projects-theme-vars, red.$vars);
+
+@include theme.emit-body-theme-vars('projects', $projects-theme-vars);
