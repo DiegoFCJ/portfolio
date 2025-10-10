@@ -1,3 +1,4 @@
+
 import { SkillFullLangs } from '../dtos/SkillDTO';
 
 export const skills: SkillFullLangs = {
@@ -5,8 +6,8 @@ export const skills: SkillFullLangs = {
         title: 'Stack Tecnologico',
         skills: [
             {
-                title: 'Back-end & API',
-                subtitle: 'Linguaggi, framework e database per servizi scalabili',
+                title: 'Back-end · Linguaggi',
+                subtitle: 'Linguaggi e runtime per servizi server-side',
                 skills: [
                     {
                         name: 'Java',
@@ -23,6 +24,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Back-end · Framework e Librerie',
+                subtitle: 'Framework enterprise, ORM e piattaforme applicative',
+                skills: [
                     {
                         name: 'Spring Framework',
                         icon: 'https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white',
@@ -43,11 +50,44 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Back-end · API e Sicurezza',
+                subtitle: 'Autenticazione e contratti orientati ai servizi',
+                skills: [
                     {
                         name: 'JWT',
                         icon: 'https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Back-end · Integrazione e Automazione',
+                subtitle: 'Piattaforme di integrazione, CRM e osservabilità',
+                skills: [
+                    {
+                        name: 'Boomi',
+                        icon: 'https://img.shields.io/badge/Boomi-1E90FF?style=for-the-badge&logo=boomi&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Salesforce',
+                        icon: 'https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Elastic Stack',
+                        icon: 'https://img.shields.io/badge/Elastic-005571?style=for-the-badge&logo=elastic&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Back-end · Database',
+                subtitle: 'RDBMS per applicazioni mission-critical',
+                skills: [
                     {
                         name: 'MySQL',
                         icon: 'https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white',
@@ -66,8 +106,8 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Front-end & UI',
-                subtitle: 'Framework e tecnologie per interfacce dinamiche',
+                title: 'Front-end · Linguaggi e Fondamenta',
+                subtitle: 'Linguaggi e markup per esperienze web',
                 skills: [
                     {
                         name: 'JavaScript',
@@ -79,6 +119,22 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white',
                         clicked: false,
                     },
+                    {
+                        name: 'HTML5',
+                        icon: 'https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'CSS3',
+                        icon: 'https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Front-end · Framework e Librerie',
+                subtitle: 'Framework moderni per interfacce reactive',
+                skills: [
                     {
                         name: 'Angular',
                         icon: 'https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white',
@@ -99,16 +155,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white',
                         clicked: false,
                     },
-                    {
-                        name: 'HTML5',
-                        icon: 'https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'CSS3',
-                        icon: 'https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white',
-                        clicked: false,
-                    },
+                ],
+            },
+            {
+                title: 'Front-end · UI e Styling',
+                subtitle: 'Componenti e strumenti per design responsive',
+                skills: [
                     {
                         name: 'SCSS',
                         icon: 'https://img.shields.io/badge/SCSS-hotpink.svg?style=for-the-badge&logo=sass&logoColor=white',
@@ -119,6 +171,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Front-end · UI Java',
+                subtitle: 'Tecnologie Java per interfacce grafiche',
+                skills: [
                     {
                         name: 'JavaFX',
                         icon: 'https://img.shields.io/badge/JavaFX-3D8E9C?style=for-the-badge&logo=openjdk&logoColor=white',
@@ -132,8 +190,8 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'DevOps & Tooling',
-                subtitle: 'Pipeline, automazione e strumenti di collaborazione',
+                title: 'Tooling · DevOps e Container',
+                subtitle: 'Containerizzazione e orchestrazione',
                 skills: [
                     {
                         name: 'Docker',
@@ -150,11 +208,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/OpenShift-EE0000.svg?style=for-the-badge&logo=redhatopenshift&logoColor=white',
                         clicked: false,
                     },
-                    {
-                        name: 'YAML',
-                        icon: 'https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white',
-                        clicked: false,
-                    },
+                ],
+            },
+            {
+                title: 'Tooling · Build e CI/CD',
+                subtitle: 'Automazione delle build e pipeline di delivery',
+                skills: [
                     {
                         name: 'Gradle',
                         icon: 'https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white',
@@ -165,6 +224,44 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Tooling · Testing e API',
+                subtitle: 'Validazione, mock e documentazione dei servizi',
+                skills: [
+                    {
+                        name: 'Swagger',
+                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Postman',
+                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Tooling · Configurazione e Script',
+                subtitle: 'Definizioni infrastrutturali e automazioni',
+                skills: [
+                    {
+                        name: 'YAML',
+                        icon: 'https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Bash',
+                        icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Tooling · Version Control',
+                subtitle: 'Gestione del codice sorgente e repository',
+                skills: [
                     {
                         name: 'Git',
                         icon: 'https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white',
@@ -185,36 +282,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Bitbucket-%230047B3.svg?style=for-the-badge&logo=bitbucket&logoColor=white',
                         clicked: false,
                     },
-                    {
-                        name: 'Swagger',
-                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Postman',
-                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Boomi',
-                        icon: 'https://img.shields.io/badge/Boomi-1E90FF?style=for-the-badge&logo=boomi&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Salesforce',
-                        icon: 'https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Elastic Stack',
-                        icon: 'https://img.shields.io/badge/Elastic-005571?style=for-the-badge&logo=elastic&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Bash',
-                        icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white',
-                        clicked: false,
-                    },
+                ],
+            },
+            {
+                title: 'Tooling · Collaborazione',
+                subtitle: 'Pianificazione, ticketing e knowledge sharing',
+                skills: [
                     {
                         name: 'Trello',
                         icon: 'https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white',
@@ -230,6 +303,38 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Tooling · Produttività e Design',
+                subtitle: 'Suite creative e strumenti d’ufficio',
+                skills: [
+                    {
+                        name: 'Adobe Photoshop',
+                        icon: 'https://img.shields.io/badge/Adobe%20Photoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Adobe Illustrator',
+                        icon: 'https://img.shields.io/badge/Adobe%20Illustrator-FF9A00?style=for-the-badge&logo=adobeillustrator&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Microsoft Office',
+                        icon: 'https://img.shields.io/badge/Microsoft%20Office-D83B01?style=for-the-badge&logo=microsoftoffice&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Microsoft Excel',
+                        icon: 'https://img.shields.io/badge/Microsoft%20Excel-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Tooling · Sistemi Operativi',
+                subtitle: 'Ambienti quotidiani di sviluppo e delivery',
+                skills: [
                     {
                         name: 'Fedora',
                         icon: 'https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white',
@@ -258,8 +363,8 @@ export const skills: SkillFullLangs = {
         title: 'Tech Stack',
         skills: [
             {
-                title: 'Back-end & APIs',
-                subtitle: 'Languages, frameworks, and databases for scalable services',
+                title: 'Back-end · Languages',
+                subtitle: 'Languages and runtimes for server-side services',
                 skills: [
                     {
                         name: 'Java',
@@ -276,6 +381,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Back-end · Frameworks & Libraries',
+                subtitle: 'Enterprise frameworks, ORM, and application platforms',
+                skills: [
                     {
                         name: 'Spring Framework',
                         icon: 'https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white',
@@ -296,11 +407,44 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Back-end · APIs & Security',
+                subtitle: 'Service contracts and authentication workflows',
+                skills: [
                     {
                         name: 'JWT',
                         icon: 'https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Back-end · Integration & Automation',
+                subtitle: 'Integration platforms, CRM, and observability',
+                skills: [
+                    {
+                        name: 'Boomi',
+                        icon: 'https://img.shields.io/badge/Boomi-1E90FF?style=for-the-badge&logo=boomi&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Salesforce',
+                        icon: 'https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Elastic Stack',
+                        icon: 'https://img.shields.io/badge/Elastic-005571?style=for-the-badge&logo=elastic&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Back-end · Databases',
+                subtitle: 'Relational database platforms',
+                skills: [
                     {
                         name: 'MySQL',
                         icon: 'https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white',
@@ -319,8 +463,8 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Front-end & UI',
-                subtitle: 'Frameworks and technologies for dynamic interfaces',
+                title: 'Front-end · Languages & Foundations',
+                subtitle: 'Web languages, markup, and styling basics',
                 skills: [
                     {
                         name: 'JavaScript',
@@ -332,6 +476,22 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white',
                         clicked: false,
                     },
+                    {
+                        name: 'HTML5',
+                        icon: 'https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'CSS3',
+                        icon: 'https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Front-end · Frameworks & Libraries',
+                subtitle: 'Modern frameworks for SPA development',
+                skills: [
                     {
                         name: 'Angular',
                         icon: 'https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white',
@@ -352,16 +512,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white',
                         clicked: false,
                     },
-                    {
-                        name: 'HTML5',
-                        icon: 'https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'CSS3',
-                        icon: 'https://img.shields.io/badge/CSS-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white',
-                        clicked: false,
-                    },
+                ],
+            },
+            {
+                title: 'Front-end · UI & Styling',
+                subtitle: 'Styling utilities and component systems',
+                skills: [
                     {
                         name: 'SCSS',
                         icon: 'https://img.shields.io/badge/SCSS-hotpink.svg?style=for-the-badge&logo=sass&logoColor=white',
@@ -372,6 +528,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Front-end · Java UI',
+                subtitle: 'Java technologies for desktop and web UIs',
+                skills: [
                     {
                         name: 'JavaFX',
                         icon: 'https://img.shields.io/badge/JavaFX-3D8E9C?style=for-the-badge&logo=openjdk&logoColor=white',
@@ -385,8 +547,8 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'DevOps & Tooling',
-                subtitle: 'Automation, delivery pipelines, and collaboration platforms',
+                title: 'Tooling · DevOps & Containers',
+                subtitle: 'Containerization and orchestration platforms',
                 skills: [
                     {
                         name: 'Docker',
@@ -403,11 +565,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/OpenShift-EE0000.svg?style=for-the-badge&logo=redhatopenshift&logoColor=white',
                         clicked: false,
                     },
-                    {
-                        name: 'YAML',
-                        icon: 'https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white',
-                        clicked: false,
-                    },
+                ],
+            },
+            {
+                title: 'Tooling · Build & CI/CD',
+                subtitle: 'Build automation and continuous delivery pipelines',
+                skills: [
                     {
                         name: 'Gradle',
                         icon: 'https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white',
@@ -418,6 +581,44 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Tooling · Testing & APIs',
+                subtitle: 'API testing, mocking, and documentation',
+                skills: [
+                    {
+                        name: 'Swagger',
+                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Postman',
+                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Tooling · Configuration & Scripting',
+                subtitle: 'Infrastructure definitions and automation scripts',
+                skills: [
+                    {
+                        name: 'YAML',
+                        icon: 'https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Bash',
+                        icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Tooling · Version Control',
+                subtitle: 'Source control platforms and repositories',
+                skills: [
                     {
                         name: 'Git',
                         icon: 'https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white',
@@ -438,36 +639,12 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Bitbucket-%230047B3.svg?style=for-the-badge&logo=bitbucket&logoColor=white',
                         clicked: false,
                     },
-                    {
-                        name: 'Swagger',
-                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Postman',
-                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Boomi',
-                        icon: 'https://img.shields.io/badge/Boomi-1E90FF?style=for-the-badge&logo=boomi&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Salesforce',
-                        icon: 'https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=salesforce&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Elastic Stack',
-                        icon: 'https://img.shields.io/badge/Elastic-005571?style=for-the-badge&logo=elastic&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Bash',
-                        icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white',
-                        clicked: false,
-                    },
+                ],
+            },
+            {
+                title: 'Tooling · Collaboration',
+                subtitle: 'Planning, ticketing, and knowledge sharing',
+                skills: [
                     {
                         name: 'Trello',
                         icon: 'https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white',
@@ -483,6 +660,38 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white',
                         clicked: false,
                     },
+                ],
+            },
+            {
+                title: 'Tooling · Productivity & Design',
+                subtitle: 'Creative suites and office tooling',
+                skills: [
+                    {
+                        name: 'Adobe Photoshop',
+                        icon: 'https://img.shields.io/badge/Adobe%20Photoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Adobe Illustrator',
+                        icon: 'https://img.shields.io/badge/Adobe%20Illustrator-FF9A00?style=for-the-badge&logo=adobeillustrator&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Microsoft Office',
+                        icon: 'https://img.shields.io/badge/Microsoft%20Office-D83B01?style=for-the-badge&logo=microsoftoffice&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Microsoft Excel',
+                        icon: 'https://img.shields.io/badge/Microsoft%20Excel-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Tooling · Operating Systems',
+                subtitle: 'Daily development and delivery environments',
+                skills: [
                     {
                         name: 'Fedora',
                         icon: 'https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white',
@@ -508,4 +717,3 @@ export const skills: SkillFullLangs = {
         ],
     },
 };
-
