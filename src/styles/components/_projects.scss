@@ -355,11 +355,17 @@ app-projects .description-content {
     margin-right: -0.35rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    text-align: left;
 
     p {
         margin: 0;
         line-height: 1.55;
         color: var(--projects-text-muted);
+    }
+
+    ul,
+    li {
+        text-align: left;
     }
 }
 

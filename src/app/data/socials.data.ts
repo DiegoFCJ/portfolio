@@ -12,8 +12,13 @@ export const socials: Social[] = [
         label: 'Profilo GitHub'
     },
     {
-        link: 'https://discord.com/users/diegofcj',
-        icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg',
-        label: 'Profilo Discord'
+        link: 'mailto:diegoeffe96@gmail.com',
+        icon: 'assets/icons/mail.svg',
+        label: 'Invia una email a diegoeffe96@gmail.com'
+    },
+    {
+        link: 'tel:+393200877601',
+        icon: 'assets/icons/phone.svg',
+        label: 'Chiama +39 320 087 7601'
     }
 ];

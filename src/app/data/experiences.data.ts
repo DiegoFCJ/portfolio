@@ -6,68 +6,81 @@ export const experiencesData: ExperienceFullLangs = {
         experiences: [
             {
                 position: 'Sviluppatore Software',
-                location: 'Completamente da remoto',
-                startDate: 'Apr 2024',
-                endDate: 'Giu 2025',
-                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Ho guidato la modernizzazione delle piattaforme interne di gestione dei servizi per clienti della pubblica amministrazione.',
-                responsibilityList: [
-                    'Ho automatizzato il triage AMS manuale tramite workflow in Java 21 e script Shell per accelerare la risoluzione dei ticket.',
-                    'Ho migrato le dashboard legacy da AngularJS ad Angular 18, migliorando usabilità e accessibilità per gli operatori.',
-                    'Ho coordinato stakeholder distribuiti per definire le priorità di bug fixing e pianificare i rilasci.'
-                ]
-            },
-            {
-                position: 'Sviluppatore Software',
-                location: 'Ibrido, Torino',
+                location: 'Bit S.P.A. · Torino (ibrido)',
                 startDate: 'Gen 2025',
                 endDate: 'Giu 2025',
-                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
-                responsibilities: 'Ho supportato programmi di integrazione enterprise per un cliente bancario.',
+                technologies: 'Java, Spring Boot, Linux, Shell Script, Dell Boomi',
+                responsibilities: 'Supporto allo sviluppo per Euronics come consulente Bit S.P.A.',
                 responsibilityList: [
-                    'Ho implementato pipeline di logging personalizzate su server Linux con Java e Shell per soddisfare i requisiti di audit.',
-                    'Ho automatizzato il monitoraggio quotidiano dei processi e la reportistica tramite script pianificati e dashboard.',
-                    'Ho integrato i flussi Dell Boomi con servizi Spring Boot e .NET per esporre nuove funzionalità ai clienti.',
-                    'Ho facilitato sessioni di condivisione della conoscenza per allineare sviluppatori, tester e team operativi.'
+                    'Sviluppo e implementazione di un sistema di custom logging dei processi su server Linux.',
+                    'Monitoraggio giornaliero dei processi e automazione delle operazioni ricorrenti.',
+                    'Attività di bug fixing e ottimizzazione delle prestazioni applicative.',
+                    'Integrazione di nuove funzionalità di sviluppo con Boomi.'
                 ]
             },
             {
                 position: 'Sviluppatore Software',
-                location: 'Completamente da remoto',
+                location: 'Bit S.P.A. · Full remote',
+                startDate: 'Apr 2024',
+                endDate: 'Ott 2024',
+                technologies: 'Spring Boot, JSP, AngularJS, Java, AMS',
+                responsibilities: 'Sviluppo in consulenza per i clienti Stellantis e ISP.',
+                responsibilityList: [
+                    'Sviluppo di nuove funzionalità per un progetto basato su Spring Boot e JSP.',
+                    'Risoluzione di bug critici e analisi delle problematiche tecniche in ambiente AngularJS e Spring Boot.',
+                    'Automazione delle attività quotidiane di AMS tramite Java.'
+                ]
+            },
+            {
+                position: 'Sviluppatore Software (progetto e-commerce)',
+                location: 'Freelance · Full remote',
                 startDate: 'Ott 2023',
                 endDate: 'Apr 2024',
-                technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
-                responsibilities: 'Ho potenziato prodotti interni con funzionalità sicure sia lato back-end sia front-end.',
+                technologies: 'Spring Boot, Angular, MySQL, Git, Deployment automation',
+                responsibilities: 'Gestione autonoma di un progetto e-commerce per clienti freelance.',
                 responsibilityList: [
-                    'Ho implementato microservizi Spring Boot protetti con autenticazione basata su JWT e Argon2.',
-                    'Ho sviluppato moduli Angular 16 per il portale di gestione dei repository.',
-                    'Ho automatizzato i flussi di deployment scriptando le procedure di rilascio basate su Git.'
+                    'Gestione del ciclo di vita del progetto, del repository e delle attività di deployment.',
+                    'Coordinamento del team di sviluppo e distribuzione delle attività.',
+                    'Implementazione e documentazione di nuove funzionalità per progetti cliente.'
                 ]
             },
             {
                 position: 'Sviluppatore Software',
-                location: 'Ibrido',
+                location: 'Contrader · Benevento (ibrido)',
                 startDate: 'Feb 2023',
                 endDate: 'Ott 2023',
-                technologies: 'Java 8, Spring Boot, MySQL, Angular 7, Docker, OpenShift',
-                responsibilities: "Ho contribuito allo sviluppo e al rilascio di piattaforme interne per clienti del settore dell'energia.",
+                technologies: 'Java, Spring Boot, MySQL, Angular, DevOps basics',
+                responsibilities: 'Consulenza per progetti interni e formazione DevOps.',
                 responsibilityList: [
-                    'Ho sviluppato funzionalità per applicazioni Spring Boot e Angular 7 a supporto dei servizi di monitoraggio.',
-                    'Ho containerizzato i workload con Docker e orchestrato i deployment su OpenShift.',
-                    'Ho collaborato con i team DevOps per coordinare rilasci multi-squad e hotfix.'
+                    'Sviluppo di soluzioni backend e frontend per progetti interni all’azienda.',
+                    'Attività di bug fixing e manutenzione del codice.',
+                    'Partecipazione a un corso interno di DevOps e Amministrazione di Sistemi (networking, VM, Linux, Docker, OpenShift, CI/CD, monitoraggio e logging).'
                 ]
             },
             {
-                position: 'Sviluppatore Software',
-                location: 'Torino',
-                startDate: 'Giu 2022',
-                endDate: 'Gen 2023',
-                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
-                responsibilities: 'Mi sono occupato di attività di manutenzione e automazione per clienti enterprise nel settore della mobilità.',
+                position: 'Head Waiter',
+                location: 'Londra · German Gymnasium / 68 & Boston / The Gun',
+                startDate: 'Dic 2018',
+                endDate: 'Mar 2020',
+                technologies: 'Customer service, Team coordination',
+                responsibilities: 'Gestione di sala e supporto al servizio in contesti ad alto ritmo.',
                 responsibilityList: [
-                    'Ho esteso servizi Java a supporto dei flussi di ticketing e delle integrazioni rivolte ai clienti.',
-                    'Ho industrializzato le attività AMS automatizzando le operazioni ricorrenti con script Bash e Ansible.',
-                    'Ho migliorato dashboard di monitoraggio e pipeline di analisi dei log utilizzate dai team di reperibilità.'
+                    'Coordinamento del personale di sala durante eventi e turni serali.',
+                    'Accoglienza clienti e gestione delle richieste in lingua inglese.',
+                    'Supporto alle attività operative quotidiane garantendo standard elevati.'
+                ]
+            },
+            {
+                position: 'Servizio Civile Nazionale',
+                location: 'ANPAS – Croce Azzurra Lotzorai',
+                startDate: 'Ott 2017',
+                endDate: 'Ott 2018',
+                technologies: 'Volontariato, Supporto sanitario',
+                responsibilities: 'Attività di volontariato per il servizio civile.',
+                responsibilityList: [
+                    'Supporto logistico e assistenza durante servizi di emergenza locale.',
+                    'Gestione delle comunicazioni di base con il personale sanitario.',
+                    'Partecipazione a iniziative di sensibilizzazione sul territorio.'
                 ]
             }
         ]
@@ -77,68 +90,81 @@ export const experiencesData: ExperienceFullLangs = {
         experiences: [
             {
                 position: 'Software Developer',
-                location: 'Full Remote',
-                startDate: 'Apr 2024',
-                endDate: 'Jun 2025',
-                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Led the modernization of internal service-management platforms for public administration customers.',
-                responsibilityList: [
-                    'Automated manual AMS triage through Java 21 workflows and Shell scripts to accelerate ticket resolution.',
-                    'Migrated legacy AngularJS dashboards to Angular 18, improving usability and accessibility for operators.',
-                    'Coordinated with distributed stakeholders to prioritise bug fixing and schedule releases.'
-                ]
-            },
-            {
-                position: 'Software Developer',
-                location: 'Hybrid, Turin',
+                location: 'Bit S.P.A. · Turin (hybrid)',
                 startDate: 'Jan 2025',
                 endDate: 'Jun 2025',
-                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
-                responsibilities: 'Supported enterprise integration programmes for a banking client.',
+                technologies: 'Java, Spring Boot, Linux, Shell scripting, Dell Boomi',
+                responsibilities: 'Development support for Euronics as a consultant for Bit S.P.A.',
                 responsibilityList: [
-                    'Implemented custom logging pipelines on Linux servers with Java and Shell to satisfy audit requirements.',
-                    'Automated daily process monitoring and reporting through scheduled scripts and dashboards.',
-                    'Integrated Dell Boomi flows with Spring Boot and .NET services to expose new customer features.',
-                    'Facilitated knowledge-sharing sessions to align developers, testers, and operations teams.'
+                    'Developed and implemented a custom process logging system on Linux servers.',
+                    'Handled daily process monitoring and automated recurring operations.',
+                    'Delivered bug fixing and performance optimisation on existing solutions.',
+                    'Integrated new development features with Boomi.'
                 ]
             },
             {
                 position: 'Software Developer',
-                location: 'Full Remote',
+                location: 'Bit S.P.A. · Fully remote',
+                startDate: 'Apr 2024',
+                endDate: 'Oct 2024',
+                technologies: 'Spring Boot, JSP, AngularJS, Java, AMS',
+                responsibilities: 'Consultancy work for Stellantis and ISP.',
+                responsibilityList: [
+                    'Developed new features for a Spring Boot and JSP based project.',
+                    'Resolved critical bugs and analysed technical issues in AngularJS and Spring Boot environments.',
+                    'Automated daily AMS activities through Java scripts.'
+                ]
+            },
+            {
+                position: 'Software Developer (e-commerce project)',
+                location: 'Freelance · Fully remote',
                 startDate: 'Oct 2023',
                 endDate: 'Apr 2024',
-                technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
-                responsibilities: 'Enhanced internal products with secure back-end and front-end capabilities.',
+                technologies: 'Spring Boot, Angular, MySQL, Git, Deployment automation',
+                responsibilities: 'Independent management of an e-commerce project for freelance clients.',
                 responsibilityList: [
-                    'Implemented Spring Boot microservices secured with JWT and Argon2-based authentication.',
-                    'Developed Angular 16 modules for the repository management portal.',
-                    'Automated deployment workflows by scripting Git-based release procedures.'
+                    'Oversaw the project lifecycle, repository and deployment activities.',
+                    'Coordinated the development team and distributed tasks.',
+                    'Implemented and documented new features for client projects.'
                 ]
             },
             {
                 position: 'Software Developer',
-                location: 'Hybrid',
+                location: 'Contrader · Benevento (hybrid)',
                 startDate: 'Feb 2023',
                 endDate: 'Oct 2023',
-                technologies: 'Java 8, Spring Boot, MySQL, Angular 7, Docker, OpenShift',
-                responsibilities: 'Contributed to the development and deployment of internal platforms for energy sector clients.',
+                technologies: 'Java, Spring Boot, MySQL, Angular, DevOps basics',
+                responsibilities: 'Consultancy on internal projects and DevOps training.',
                 responsibilityList: [
-                    'Developed features for Spring Boot and Angular 7 applications supporting monitoring services.',
-                    'Containerised workloads with Docker and orchestrated deployments on OpenShift.',
-                    'Collaborated with DevOps teams to coordinate multi-squad releases and hotfixes.'
+                    'Developed back-end and front-end solutions for company projects.',
+                    'Handled bug fixing and code maintenance tasks.',
+                    'Attended an internal DevOps and systems administration course (networking, VMs, Linux, Docker, OpenShift, CI/CD, monitoring and logging).'
                 ]
             },
             {
-                position: 'Software Developer',
-                location: 'Turin',
-                startDate: 'Jun 2022',
-                endDate: 'Jan 2023',
-                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
-                responsibilities: 'Focused on maintenance and automation activities for enterprise clients in the mobility sector.',
+                position: 'Head Waiter',
+                location: 'London · German Gymnasium / 68 & Boston / The Gun',
+                startDate: 'Dec 2018',
+                endDate: 'Mar 2020',
+                technologies: 'Customer service, Team coordination',
+                responsibilities: 'Front-of-house management in high-paced hospitality venues.',
                 responsibilityList: [
-                    'Extended Java services powering ticketing workflows and customer-facing integrations.',
-                    'Industrialised AMS activities by scripting routine tasks with Bash and Ansible.',
-                    'Improved monitoring dashboards and log analysis pipelines used by on-call teams.'
+                    'Coordinated floor staff during events and evening shifts.',
+                    'Welcomed guests and handled requests in English.',
+                    'Supported day-to-day operations while maintaining high service standards.'
+                ]
+            },
+            {
+                position: 'National Civil Service Volunteer',
+                location: 'ANPAS – Croce Azzurra Lotzorai',
+                startDate: 'Oct 2017',
+                endDate: 'Oct 2018',
+                technologies: 'Volunteering, Basic medical support',
+                responsibilities: 'Volunteer activities for the national civil service programme.',
+                responsibilityList: [
+                    'Provided logistical support and assistance during local emergency services.',
+                    'Handled basic communication with healthcare staff.',
+                    'Took part in community awareness initiatives.'
                 ]
             }
         ]
