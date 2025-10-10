@@ -23,8 +23,7 @@
     </div>
 
     <ng-template #projectCard let-project let-i="index">
-        <a class="project-card" [attr.data-status-level]="project.status.level" [href]="project.link"
-            target="_blank" rel="noopener noreferrer">
+        <article class="project-card" [attr.data-status-level]="project.status.level">
             <div class="project-visual">
                 <img class="proj-image" [src]="project.image" [attr.alt]="'Anteprima del progetto ' + project.title" />
             </div>
@@ -54,6 +53,45 @@
                     <p>{{ project.description }}</p>
                 </div>
             </div>
-        </a>
+
+            <div class="project-details-bar">
+                <div class="project-detail">
+                    <ng-container [ngSwitch]="getCodeState(project.links)">
+                        <a *ngSwitchCase="'available'" class="project-detail-anchor"
+                            [href]="getCodeUrl(project.links)" target="_blank" rel="noopener noreferrer">
+                            {{ projects.linksLegend.code.availableLabel }}
+                        </a>
+                        <span *ngSwitchCase="'private'" class="project-detail-label">
+                            {{ projects.linksLegend.code.privateLabel }}
+                        </span>
+                        <span *ngSwitchDefault class="project-detail-label is-muted">
+                            {{ projects.linksLegend.code.unavailableLabel }}
+                        </span>
+                    </ng-container>
+                </div>
+
+                <div class="project-detail">
+                    <ng-container *ngIf="hasAvailableSite(project.links); else checkDemo">
+                        <a class="project-detail-anchor" [href]="getSiteUrl(project.links)" target="_blank"
+                            rel="noopener noreferrer">
+                            {{ projects.linksLegend.preview.siteLabel }}
+                        </a>
+                    </ng-container>
+                    <ng-template #checkDemo>
+                        <ng-container *ngIf="hasAvailableDemo(project.links); else previewUnavailable">
+                            <a class="project-detail-anchor" [href]="getDemoUrl(project.links)" target="_blank"
+                                rel="noopener noreferrer">
+                                {{ projects.linksLegend.preview.demoLabel }}
+                            </a>
+                        </ng-container>
+                    </ng-template>
+                    <ng-template #previewUnavailable>
+                        <span class="project-detail-label is-muted">
+                            {{ projects.linksLegend.preview.unavailableLabel }}
+                        </span>
+                    </ng-template>
+                </div>
+            </div>
+        </article>
     </ng-template>
 </section>

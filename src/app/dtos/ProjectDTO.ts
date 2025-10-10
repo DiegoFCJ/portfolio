@@ -18,6 +18,7 @@ export interface ProjectFull {
         next: string;
     };
     statusLegend: ProjectStatusLegend;
+    linksLegend: ProjectLinksLegend;
     projects: Project[];
 }
 
@@ -27,10 +28,23 @@ export interface Project {
     technologies: string[];
     status: ProjectStatus;
     image: string;
-    link: string;
+    links?: ProjectLinks;
     isScrollable?: boolean;
     isAtEnd?: boolean;
 }
+
+export interface ProjectLinks {
+    code?: ProjectLinkDetail;
+    site?: ProjectLinkDetail;
+    demo?: ProjectLinkDetail;
+}
+
+export interface ProjectLinkDetail {
+    state: ProjectLinkState;
+    url?: string;
+}
+
+export type ProjectLinkState = 'available' | 'private' | 'unavailable';
 
 export type ProjectStatusLevel = 'active' | 'publicBeta' | 'inDevelopment';
 
@@ -45,4 +59,21 @@ export interface ProjectStatusLegend {
     prefix: string;
     levels: Record<ProjectStatusLevel, string>;
     tags: Record<ProjectStatusTag, string>;
+}
+
+export interface ProjectLinksLegend {
+    code: ProjectCodeLinkLegend;
+    preview: ProjectPreviewLinkLegend;
+}
+
+export interface ProjectCodeLinkLegend {
+    availableLabel: string;
+    privateLabel: string;
+    unavailableLabel: string;
+}
+
+export interface ProjectPreviewLinkLegend {
+    siteLabel: string;
+    demoLabel: string;
+    unavailableLabel: string;
 }

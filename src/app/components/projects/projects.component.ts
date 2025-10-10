@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { projects as projectsData } from '../../data/projects.data';
-import { ProjectFull, Project, ProjectStatusLevel, ProjectStatusTag } from '../../dtos/ProjectDTO';
+import { ProjectFull, Project, ProjectLinkState, ProjectStatusLevel, ProjectStatusTag } from '../../dtos/ProjectDTO';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -32,6 +32,18 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
       tags: {
         openSource: '',
         release2024: ''
+      }
+    },
+    linksLegend: {
+      code: {
+        availableLabel: '',
+        privateLabel: '',
+        unavailableLabel: ''
+      },
+      preview: {
+        siteLabel: '',
+        demoLabel: '',
+        unavailableLabel: ''
       }
     },
     projects: []
@@ -199,6 +211,42 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
       clearTimeout(this.peekStopTimeoutId);
       this.peekStopTimeoutId = null;
     }
+  }
+
+  getCodeState(links?: Project['links']): ProjectLinkState {
+    const code = links?.code;
+    if (!code) {
+      return 'unavailable';
+    }
+
+    if (code.state === 'available' && !code.url) {
+      return 'unavailable';
+    }
+
+    return code.state;
+  }
+
+  getCodeUrl(links?: Project['links']): string | undefined {
+    const code = links?.code;
+    return code?.state === 'available' && code.url ? code.url : undefined;
+  }
+
+  hasAvailableSite(links?: Project['links']): boolean {
+    const site = links?.site;
+    return !!site && site.state === 'available' && !!site.url;
+  }
+
+  getSiteUrl(links?: Project['links']): string | undefined {
+    return this.hasAvailableSite(links) ? links?.site?.url : undefined;
+  }
+
+  hasAvailableDemo(links?: Project['links']): boolean {
+    const demo = links?.demo;
+    return !!demo && demo.state === 'available' && !!demo.url;
+  }
+
+  getDemoUrl(links?: Project['links']): string | undefined {
+    return this.hasAvailableDemo(links) ? links?.demo?.url : undefined;
   }
 
   private setupPeekObserver(): void {

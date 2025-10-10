@@ -24,6 +24,11 @@ app-projects {
     --projects-tag-border: rgba(99, 102, 241, 0.25);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(129, 140, 248, 0.2);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(167, 139, 250, 0.22);
+    --projects-detail-bg: rgba(255, 255, 255, 0.85);
+    --projects-detail-border: rgba(99, 102, 241, 0.24);
+    --projects-detail-hover-bg: rgba(99, 102, 241, 0.12);
+    --projects-detail-text: #0f172a;
+    --projects-detail-muted: rgba(15, 23, 42, 0.65);
     display: block;
     inline-size: 100%;
     block-size: 100%;
@@ -55,6 +60,11 @@ body.dark-mode app-projects {
     --projects-tag-border: rgba(129, 140, 248, 0.4);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(129, 140, 248, 0.32);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(167, 139, 250, 0.35);
+    --projects-detail-bg: rgba(31, 33, 55, 0.7);
+    --projects-detail-border: rgba(129, 140, 248, 0.45);
+    --projects-detail-hover-bg: rgba(129, 140, 248, 0.2);
+    --projects-detail-text: rgba(226, 232, 240, 0.92);
+    --projects-detail-muted: rgba(148, 163, 184, 0.78);
 }
 
 body.blue-mode app-projects {
@@ -83,6 +93,11 @@ body.blue-mode app-projects {
     --projects-tag-border: rgba(59, 130, 246, 0.32);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(96, 165, 250, 0.24);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(129, 140, 248, 0.26);
+    --projects-detail-bg: rgba(255, 255, 255, 0.88);
+    --projects-detail-border: rgba(59, 130, 246, 0.3);
+    --projects-detail-hover-bg: rgba(37, 99, 235, 0.18);
+    --projects-detail-text: #0f172a;
+    --projects-detail-muted: rgba(17, 24, 39, 0.62);
 }
 
 body.green-mode app-projects {
@@ -111,6 +126,11 @@ body.green-mode app-projects {
     --projects-tag-border: rgba(16, 185, 129, 0.32);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(45, 212, 191, 0.25);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(16, 185, 129, 0.28);
+    --projects-detail-bg: rgba(255, 255, 255, 0.9);
+    --projects-detail-border: rgba(16, 185, 129, 0.32);
+    --projects-detail-hover-bg: rgba(16, 185, 129, 0.16);
+    --projects-detail-text: #0f172a;
+    --projects-detail-muted: rgba(17, 24, 39, 0.6);
 }
 
 body.red-mode app-projects {
@@ -139,6 +159,11 @@ body.red-mode app-projects {
     --projects-tag-border: rgba(248, 113, 113, 0.35);
     --projects-status-publicBeta-shadow: 0 15px 35px rgba(248, 113, 113, 0.26);
     --projects-status-inDevelopment-shadow: 0 15px 35px rgba(251, 146, 60, 0.28);
+    --projects-detail-bg: rgba(255, 255, 255, 0.92);
+    --projects-detail-border: rgba(239, 68, 68, 0.35);
+    --projects-detail-hover-bg: rgba(239, 68, 68, 0.18);
+    --projects-detail-text: #111827;
+    --projects-detail-muted: rgba(17, 24, 39, 0.6);
 }
 
 app-projects .projects-section {
@@ -190,7 +215,8 @@ app-projects .project-card {
     transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
     text-decoration: none;
     color: var(--projects-text-primary);
-    cursor: pointer;
+    cursor: default;
+    min-height: 100%;
 
     &:hover {
         transform: translateY(-6px);
@@ -309,6 +335,58 @@ app-projects .project-technologies {
     color: var(--projects-text-muted);
 }
 
+app-projects .project-details-bar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: 16px;
+    background: var(--projects-detail-bg);
+    border: 1px solid var(--projects-detail-border);
+    margin-top: auto;
+}
+
+app-projects .project-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+}
+
+app-projects .project-detail-anchor {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1.1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--projects-detail-text);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+app-projects .project-detail-anchor:hover {
+    transform: translateY(-1px);
+    background: var(--projects-detail-hover-bg);
+}
+
+app-projects .project-detail-anchor:focus-visible {
+    outline: 2px solid var(--projects-detail-border);
+    outline-offset: 2px;
+}
+
+app-projects .project-detail-label {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--projects-detail-text);
+}
+
+app-projects .project-detail-label.is-muted {
+    color: var(--projects-detail-muted);
+}
+
 app-projects .project-description {
     position: relative;
     display: flex;
@@ -320,6 +398,8 @@ app-projects .project-description {
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
     overflow: hidden;
     transition: border-color 0.35s ease, background 0.35s ease;
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 body.dark-mode app-projects .project-description {
