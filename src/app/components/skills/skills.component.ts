@@ -7,7 +7,7 @@ import { SkillFull, SkillItem, SkillSection } from '../../dtos/SkillDTO';
 import { LanguageCode } from '../../models/language-code.type';
 import { TranslationService } from '../../services/translation.service';
 
-type SkillTabId = 'backend' | 'frontend' | 'tooling';
+type SkillTabId = 'backend' | 'frontend' | 'tooling' | 'devops';
 
 interface SkillTab {
   id: SkillTabId;
@@ -39,39 +39,48 @@ export class SkillsComponent implements OnInit, OnDestroy {
   spotlightGroups: Record<SkillTabId, SpotlightPanel[]> = {
     backend: [],
     frontend: [],
-    tooling: []
+    tooling: [],
+    devops: []
   };
 
   private readonly destroy$ = new Subject<void>();
-  private readonly stackOrder: SkillTabId[] = ['backend', 'frontend', 'tooling'];
+  private readonly stackOrder: SkillTabId[] = ['backend', 'frontend', 'tooling', 'devops'];
   private readonly stackKeywords: Record<SkillTabId, string[]> = {
-    backend: ['back-end', 'backend', 'servizi', 'services', 'database', 'cloud', 'devops', 'integrazione', 'integration', 'automation', 'automazione'],
+    backend: ['back-end', 'backend', 'database', 'integrazione', 'integration', 'automation', 'automazione', 'autenticazione', 'authentication', 'api'],
     frontend: ['front-end', 'frontend', 'ui', 'linguaggi', 'programming', 'languages'],
-    tooling: ['testing', 'documentazione', 'documentation', 'build', 'version', 'collaboration', 'collaborazione', 'management', 'operating', 'sistemi', 'tooling']
+    tooling: ['planning', 'pianificazione', 'productivity', 'produttivita', 'design', 'tooling', 'office'],
+    devops: ['devops', 'container', 'containerizzazione', 'orchestrazione', 'ci/cd', 'cicd', 'platform', 'scripting', 'configuration', 'configurazione', 'script', 'versioning', 'operating systems', 'sistemi operativi']
   };
   private readonly skillResetTimers = new WeakMap<SkillItem, number>();
 
   private readonly tabLabelDictionary: Record<SkillTabId, Record<LanguageCode | 'default', string>> = {
     backend: {
-      it: 'Stack Back-end',
-      en: 'Back-end Stack',
-      de: 'Back-end Stack',
-      es: 'Stack Back-end',
+      it: 'Back-end',
+      en: 'Back-end',
+      de: 'Back-end',
+      es: 'Back-end',
       default: 'Back-end'
     },
     frontend: {
-      it: 'Stack Front-end',
-      en: 'Front-end Stack',
-      de: 'Front-end Stack',
-      es: 'Stack Front-end',
+      it: 'Front-end',
+      en: 'Front-end',
+      de: 'Front-end',
+      es: 'Front-end',
       default: 'Front-end'
     },
     tooling: {
-      it: 'Tooling & Ops',
-      en: 'Tooling & Ops',
-      de: 'Tooling & Ops',
-      es: 'Tooling y Ops',
+      it: 'Tooling',
+      en: 'Tooling',
+      de: 'Tooling',
+      es: 'Tooling',
       default: 'Tooling'
+    },
+    devops: {
+      it: 'DevOps',
+      en: 'DevOps',
+      de: 'DevOps',
+      es: 'DevOps',
+      default: 'DevOps'
     }
   };
 
@@ -231,7 +240,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
     const groups: Record<SkillTabId, SpotlightPanel[]> = {
       backend: [],
       frontend: [],
-      tooling: []
+      tooling: [],
+      devops: []
     };
 
     sections.forEach(section => {

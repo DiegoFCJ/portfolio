@@ -198,11 +198,6 @@ export const skills: SkillFullLangs = {
                         clicked: false,
                     },
                     {
-                        name: 'Material UI',
-                        icon: 'https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white',
-                        clicked: false,
-                    },
-                    {
                         name: 'SweetAlert2',
                         icon: 'https://img.shields.io/badge/SweetAlert2-3085d6?style=for-the-badge&logoColor=white',
                         clicked: false,
@@ -593,11 +588,6 @@ export const skills: SkillFullLangs = {
                     {
                         name: 'Tailwind CSS',
                         icon: 'https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white',
-                        clicked: false,
-                    },
-                    {
-                        name: 'Material UI',
-                        icon: 'https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white',
                         clicked: false,
                     },
                     {
