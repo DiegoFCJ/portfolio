@@ -37,8 +37,15 @@ describe('ProjectsComponent', () => {
       status: { level: 'active' },
       image: 'image.png',
       links: {
-        preview: {
+        site: {
+          state: 'available',
           url: 'https://example.com'
+        },
+        code: {
+          state: 'unavailable'
+        },
+        demo: {
+          state: 'unavailable'
         }
       },
       isScrollable: true,

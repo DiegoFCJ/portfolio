@@ -26,15 +26,14 @@ export const projects: ProjectsLangs = {
         },
         linksLegend: {
             code: {
-                label: 'Codice sorgente',
+                availableLabel: 'Codice sorgente',
                 privateLabel: 'Codice privato',
-                comingSoonLabel: 'Disponibile a breve',
-                unavailableLabel: 'Non disponibile'
+                unavailableLabel: 'Codice non disponibile'
             },
             preview: {
-                label: 'Visita il sito',
-                comingSoonLabel: 'In arrivo',
-                unavailableLabel: 'Non disponibile'
+                siteLabel: 'Visita il sito',
+                demoLabel: 'Visita demo',
+                unavailableLabel: 'Demo non disponibile'
             }
         },
         projects: [
@@ -48,10 +47,14 @@ export const projects: ProjectsLangs = {
                 image: 'assets/projects/borgo-samarina-cover.svg',
                 links: {
                     code: {
-                        isPrivate: true
+                        state: 'private'
                     },
-                    preview: {
+                    site: {
+                        state: 'available',
                         url: 'https://borgosamarina-com.web.app/'
+                    },
+                    demo: {
+                        state: 'unavailable'
                     }
                 }
             },
@@ -66,10 +69,13 @@ export const projects: ProjectsLangs = {
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 links: {
                     code: {
-                        isComingSoon: true
+                        state: 'unavailable'
                     },
-                    preview: {
-                        isComingSoon: true
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
                     }
                 }
             },
@@ -84,10 +90,13 @@ export const projects: ProjectsLangs = {
                 image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
                 links: {
                     code: {
-                        isComingSoon: true
+                        state: 'unavailable'
                     },
-                    preview: {
-                        isComingSoon: true
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
                     }
                 }
             },
@@ -101,10 +110,14 @@ export const projects: ProjectsLangs = {
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
                 links: {
                     code: {
+                        state: 'available',
                         url: 'https://github.com/DiegoFCJ/E-commerce'
                     },
-                    preview: {
-                        isComingSoon: true
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
                     }
                 }
             }
@@ -135,15 +148,14 @@ export const projects: ProjectsLangs = {
         },
         linksLegend: {
             code: {
-                label: 'Source code',
-                privateLabel: 'Private repository',
-                comingSoonLabel: 'Available soon',
-                unavailableLabel: 'Unavailable'
+                availableLabel: 'Source code',
+                privateLabel: 'Private codebase',
+                unavailableLabel: 'Code unavailable'
             },
             preview: {
-                label: 'Live preview',
-                comingSoonLabel: 'Coming soon',
-                unavailableLabel: 'Unavailable'
+                siteLabel: 'Visit site',
+                demoLabel: 'View demo',
+                unavailableLabel: 'Demo unavailable'
             }
         },
         projects: [
@@ -157,10 +169,14 @@ export const projects: ProjectsLangs = {
                 image: 'assets/projects/borgo-samarina-cover.svg',
                 links: {
                     code: {
-                        isPrivate: true
+                        state: 'private'
                     },
-                    preview: {
+                    site: {
+                        state: 'available',
                         url: 'https://borgosamarina-com.web.app/'
+                    },
+                    demo: {
+                        state: 'unavailable'
                     }
                 }
             },
@@ -175,10 +191,13 @@ export const projects: ProjectsLangs = {
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 links: {
                     code: {
-                        isComingSoon: true
+                        state: 'unavailable'
                     },
-                    preview: {
-                        isComingSoon: true
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
                     }
                 }
             },
@@ -193,10 +212,13 @@ export const projects: ProjectsLangs = {
                 image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
                 links: {
                     code: {
-                        isComingSoon: true
+                        state: 'unavailable'
                     },
-                    preview: {
-                        isComingSoon: true
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
                     }
                 }
             },
@@ -210,10 +232,14 @@ export const projects: ProjectsLangs = {
                 image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
                 links: {
                     code: {
+                        state: 'available',
                         url: 'https://github.com/DiegoFCJ/E-commerce'
                     },
-                    preview: {
-                        isComingSoon: true
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
                     }
                 }
             }

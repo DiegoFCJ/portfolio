@@ -45,43 +45,51 @@
 
             <p class="project-technologies">{{ project.technologies.join(' · ') }}</p>
 
-            <div class="project-links" *ngIf="project.links as links">
-                <div class="project-link" *ngIf="links.code as codeLink">
-                    <a *ngIf="isLinkAvailable(codeLink)" class="project-link-anchor" [href]="codeLink.url"
-                        target="_blank" rel="noopener noreferrer">
-                        {{ projects.linksLegend.code.label }}
-                    </a>
-                    <span *ngIf="isLinkPrivate(codeLink)" class="project-link-chip">
-                        {{ projects.linksLegend.code.privateLabel }}
-                    </span>
-                    <span *ngIf="isLinkComingSoon(codeLink)" class="project-link-chip is-subtle">
-                        {{ projects.linksLegend.code.comingSoonLabel }}
-                    </span>
-                    <span *ngIf="isLinkUnavailable(codeLink)" class="project-link-chip is-subtle">
-                        {{ projects.linksLegend.code.unavailableLabel }}
-                    </span>
-                </div>
-
-                <div class="project-link" *ngIf="links.preview as previewLink">
-                    <a *ngIf="isLinkAvailable(previewLink)" class="project-link-anchor" [href]="previewLink.url"
-                        target="_blank" rel="noopener noreferrer">
-                        {{ projects.linksLegend.preview.label }}
-                    </a>
-                    <span *ngIf="isLinkComingSoon(previewLink)" class="project-link-chip is-subtle">
-                        {{ projects.linksLegend.preview.comingSoonLabel }}
-                    </span>
-                    <span *ngIf="isLinkUnavailable(previewLink)" class="project-link-chip is-subtle">
-                        {{ projects.linksLegend.preview.unavailableLabel }}
-                    </span>
-                </div>
-            </div>
-
             <div class="project-description" [class.is-scrollable]="project.isScrollable"
                 [class.is-at-end]="project.isAtEnd">
                 <div class="description-content" #descriptionContent [attr.id]="'project-description-' + i" tabindex="0"
                     role="region" [attr.aria-label]="project.title + ' — dettagli'"
                     (scroll)="onDescriptionScroll(project, $event)">
                     <p>{{ project.description }}</p>
+                </div>
+            </div>
+
+            <div class="project-details-bar">
+                <div class="project-detail">
+                    <ng-container [ngSwitch]="getCodeState(project.links)">
+                        <a *ngSwitchCase="'available'" class="project-detail-anchor"
+                            [href]="getCodeUrl(project.links)" target="_blank" rel="noopener noreferrer">
+                            {{ projects.linksLegend.code.availableLabel }}
+                        </a>
+                        <span *ngSwitchCase="'private'" class="project-detail-label">
+                            {{ projects.linksLegend.code.privateLabel }}
+                        </span>
+                        <span *ngSwitchDefault class="project-detail-label is-muted">
+                            {{ projects.linksLegend.code.unavailableLabel }}
+                        </span>
+                    </ng-container>
+                </div>
+
+                <div class="project-detail">
+                    <ng-container *ngIf="hasAvailableSite(project.links); else checkDemo">
+                        <a class="project-detail-anchor" [href]="getSiteUrl(project.links)" target="_blank"
+                            rel="noopener noreferrer">
+                            {{ projects.linksLegend.preview.siteLabel }}
+                        </a>
+                    </ng-container>
+                    <ng-template #checkDemo>
+                        <ng-container *ngIf="hasAvailableDemo(project.links); else previewUnavailable">
+                            <a class="project-detail-anchor" [href]="getDemoUrl(project.links)" target="_blank"
+                                rel="noopener noreferrer">
+                                {{ projects.linksLegend.preview.demoLabel }}
+                            </a>
+                        </ng-container>
+                    </ng-template>
+                    <ng-template #previewUnavailable>
+                        <span class="project-detail-label is-muted">
+                            {{ projects.linksLegend.preview.unavailableLabel }}
+                        </span>
+                    </ng-template>
                 </div>
             </div>
         </article>

@@ -35,14 +35,16 @@ export interface Project {
 
 export interface ProjectLinks {
     code?: ProjectLinkDetail;
-    preview?: ProjectLinkDetail;
+    site?: ProjectLinkDetail;
+    demo?: ProjectLinkDetail;
 }
 
 export interface ProjectLinkDetail {
+    state: ProjectLinkState;
     url?: string;
-    isPrivate?: boolean;
-    isComingSoon?: boolean;
 }
+
+export type ProjectLinkState = 'available' | 'private' | 'unavailable';
 
 export type ProjectStatusLevel = 'active' | 'publicBeta' | 'inDevelopment';
 
@@ -60,13 +62,18 @@ export interface ProjectStatusLegend {
 }
 
 export interface ProjectLinksLegend {
-    code: ProjectLinkLegend;
-    preview: ProjectLinkLegend;
+    code: ProjectCodeLinkLegend;
+    preview: ProjectPreviewLinkLegend;
 }
 
-export interface ProjectLinkLegend {
-    label: string;
-    privateLabel?: string;
-    comingSoonLabel: string;
+export interface ProjectCodeLinkLegend {
+    availableLabel: string;
+    privateLabel: string;
+    unavailableLabel: string;
+}
+
+export interface ProjectPreviewLinkLegend {
+    siteLabel: string;
+    demoLabel: string;
     unavailableLabel: string;
 }
