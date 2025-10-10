@@ -165,10 +165,21 @@ export class StatsComponent implements OnInit, OnDestroy {
     let totalProjects = projectList.length;
     let technologyCount: { [key: string]: number } = {};
 
-    const experiencesWithTechnologies = experiences.filter(exp => exp.technologies?.trim().length);
-    totalProjects += experiencesWithTechnologies.length;
+    const professionalExperiences = experiences.filter(exp => {
+      const hasTechnologies = exp.technologies?.trim().length;
+      const role = (exp.position ?? '').toLowerCase();
+      const isTechRole = /(sviluppatore|developer)/.test(role);
+      return Boolean(hasTechnologies && isTechRole);
+    });
 
-    experiencesWithTechnologies.forEach((exp, index) => {
+    const deliverableExperiences = professionalExperiences.filter(exp => {
+      const end = (exp.endDate ?? '').trim().toLowerCase();
+      return end.length > 0 && !/(in corso|present)/.test(end);
+    });
+
+    totalProjects += deliverableExperiences.length;
+
+    professionalExperiences.forEach((exp, index) => {
       const months = this.calculateMonths(exp.startDate, exp.endDate);
       totalMonths += months;
 
@@ -176,7 +187,7 @@ export class StatsComponent implements OnInit, OnDestroy {
       const hoursWorkedPerWeek = 40;
       let hoursWorked = weeks * hoursWorkedPerWeek;
 
-      if (index === experiencesWithTechnologies.length - 1) {
+      if (index === professionalExperiences.length - 1) {
         hoursWorked += hoursWorkedPerWeek; // add one week of hours
       }
 
