@@ -26,8 +26,8 @@
           <div class="statistics-meta">
             <p class="statistics-value">{{ stat.value }}</p>
             <p class="statistics-label">{{ stat.label }}</p>
+            <p class="statistics-suffix" *ngIf="stat.suffix">{{ stat.suffix }}</p>
           </div>
-          <p class="statistics-suffix" *ngIf="stat.suffix">{{ stat.suffix }}</p>
         </div>
       </button>
     </div>
@@ -54,7 +54,7 @@
         (click)="closeStatDetail($event)"
         [attr.aria-label]="closeButtonLabel"
       >
-        <span aria-hidden="true">&times;</span>
+        <mat-icon aria-hidden="true">close</mat-icon>
       </button>
       <div class="statistics-dialog-header">
         <div class="statistics-dialog-icon" aria-hidden="true">
