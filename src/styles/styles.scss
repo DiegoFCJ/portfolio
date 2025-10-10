@@ -38,6 +38,19 @@ svg {
 
 :root {
     --assistant-avatar-size-sm: 48px;
+    --assistant-safe-area-bottom: 0px;
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+    :root {
+        --assistant-safe-area-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+@supports (padding: constant(safe-area-inset-bottom)) {
+    :root {
+        --assistant-safe-area-bottom: constant(safe-area-inset-bottom);
+    }
 }
 
 html,

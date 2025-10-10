@@ -42,16 +42,24 @@
         <h3 class="assistant__title">{{ guide.title }}</h3>
       </div>
 
-      <p class="assistant__intro">{{ guide.intro }}</p>
+      <div class="assistant__content"
+           [class.assistant__content--scrollable]="guideScrollState.isScrollable"
+           [class.assistant__content--at-end]="guideScrollState.isAtEnd">
+        <div #guideScrollArea
+             class="assistant__content-scroll"
+             (scroll)="onGuideContentScroll()">
+          <p class="assistant__intro">{{ guide.intro }}</p>
 
-      <ol class="assistant__steps">
-        <li *ngFor="let step of guide.steps">{{ step }}</li>
-      </ol>
+          <ol class="assistant__steps">
+            <li *ngFor="let step of guide.steps">{{ step }}</li>
+          </ol>
 
-      <p class="assistant__closing"
-         [class.assistant__closing--active]="animationPhase === 'wondering'">
-        {{ guide.closingHint }}
-      </p>
+          <p class="assistant__closing"
+             [class.assistant__closing--active]="animationPhase === 'wondering'">
+            {{ guide.closingHint }}
+          </p>
+        </div>
+      </div>
     </div>
   </ng-container>
 </div>

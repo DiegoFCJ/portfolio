@@ -164,6 +164,39 @@ app-assistant .assistant__header {
   justify-content: flex-start;
 }
 
+app-assistant .assistant__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+app-assistant .assistant__content::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3rem;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(22, 29, 49, 0) 0%, var(--assistant-popup-bg) 88%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+app-assistant .assistant__content--scrollable::after {
+  opacity: 0.85;
+}
+
+app-assistant .assistant__content--scrollable.assistant__content--at-end::after {
+  opacity: 0;
+}
+
+app-assistant .assistant__content-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 app-assistant .assistant__title {
   font-size: clamp(1.05rem, 1.5vw, 1.2rem);
   font-weight: 600;
@@ -188,6 +221,58 @@ app-assistant .assistant__steps {
 
 app-assistant .assistant__steps li {
   line-height: 1.45;
+}
+
+@media (max-width: 768px) {
+  app-assistant {
+    --assistant-mobile-viewport-height: 100vh;
+    --assistant-mobile-anchor-footprint: 148px;
+    --assistant-mobile-safe-area-bottom: var(--assistant-safe-area-bottom, 0px);
+    --assistant-mobile-viewport-buffer: clamp(20px, 6vh, 36px);
+  }
+
+  @supports (height: 100dvh) {
+    app-assistant {
+      --assistant-mobile-viewport-height: 100dvh;
+    }
+  }
+
+  @supports (height: 100svh) {
+    app-assistant {
+      --assistant-mobile-viewport-height: 100svh;
+    }
+  }
+
+  app-assistant .assistant__content {
+    max-height: min(
+      420px,
+      max(
+        180px,
+        calc(
+          var(--assistant-mobile-viewport-height, 100vh) -
+            var(--assistant-mobile-anchor-footprint, 148px) -
+            var(--assistant-mobile-safe-area-bottom, 0px) -
+            var(--assistant-mobile-viewport-buffer, 24px)
+        )
+      )
+    );
+    overflow: hidden;
+  }
+
+  app-assistant .assistant__content-scroll {
+    overflow-y: auto;
+    padding-right: 0.45rem;
+    margin-right: -0.45rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: calc(0.75rem + var(--assistant-mobile-safe-area-bottom, 0px));
+  }
+
+  app-assistant .assistant__content-scroll::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 app-assistant .assistant--phase-sleeping .assistant__avatar {
