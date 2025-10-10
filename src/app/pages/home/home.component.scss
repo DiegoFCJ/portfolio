@@ -128,7 +128,7 @@
   flex-direction: row;
   align-items: flex-end;
   --floating-controls-gap: clamp(14px, 2.4vw, 22px);
-  gap: var(--floating-controls-gap);
+  row-gap: var(--floating-controls-gap);
   z-index: 9999;
   pointer-events: none;
 
@@ -139,9 +139,18 @@
   }
 }
 
+.home__floating-controls > *:not(:first-child) {
+  margin-inline-start: var(--floating-controls-gap);
+}
+
 .home__floating-controls--assistant-open app-navigator {
   transition: transform 0.35s ease;
   transform: translateY(-6px);
+}
+
+.home__floating-controls.home__floating-controls--assistant-open > *:not(:first-child) {
+  margin-inline-start: 0;
+  margin-block-start: var(--floating-controls-gap);
 }
 
 .home__stack-carousel-controls {
@@ -180,13 +189,13 @@
     right: 18px;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: var(--floating-controls-gap);
+    row-gap: var(--floating-controls-gap);
   }
 
   .home__floating-controls.home__floating-controls--assistant-open {
     flex-direction: column;
     align-items: flex-end;
-    gap: var(--floating-controls-gap);
+    row-gap: var(--floating-controls-gap);
   }
 
   .home__stack-carousel-controls {
