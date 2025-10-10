@@ -62,7 +62,17 @@ describe('StatsComponent', () => {
     expect(stats.hoursSuffix).toBe('ore di sviluppo');
     expect(stats.monthsValue.endsWith('+')).toBeTrue();
     expect(stats.monthsSuffix).toBe('mesi su progetti reali');
-    expect(stats.projectsValue).toBe('9');
+    const expectedProjectTotal = (
+      projects.it.projects.length +
+      experiencesData.it.experiences.filter(exp => {
+        const hasTechnologies = Boolean(exp.technologies?.trim().length);
+        const role = (exp.position ?? '').toLowerCase();
+        const isTechRole = /(sviluppatore|developer)/.test(role);
+        return hasTechnologies && isTechRole;
+      }).length
+    ).toString();
+
+    expect(stats.projectsValue).toBe(expectedProjectTotal);
     expect(stats.projectsSuffix).toBe('progetti seguiti end-to-end');
     expect(stats.mostUsedValue).toContain('·');
   });

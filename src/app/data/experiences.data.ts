@@ -6,68 +6,81 @@ export const experiencesData: ExperienceFullLangs = {
         experiences: [
             {
                 position: 'Sviluppatore Software',
-                location: 'Completamente da remoto',
-                startDate: 'Apr 2024',
-                endDate: 'Giu 2025',
-                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Ho guidato la modernizzazione delle piattaforme interne di gestione dei servizi per clienti della pubblica amministrazione.',
+                location: 'Progetto Next.js · Remoto',
+                startDate: 'Giu 2025',
+                endDate: 'Set 2025',
+                technologies: 'Next.js, TypeScript, Google Analytics, Deploy Aruba',
+                responsibilities: 'Rinnovo e migrazione di un sito vetrina da un hosting legacy a un’app Next.js.',
                 responsibilityList: [
-                    'Ho automatizzato il triage AMS manuale tramite workflow in Java 21 e script Shell per accelerare la risoluzione dei ticket.',
-                    'Ho migrato le dashboard legacy da AngularJS ad Angular 18, migliorando usabilità e accessibilità per gli operatori.',
-                    'Ho coordinato stakeholder distribuiti per definire le priorità di bug fixing e pianificare i rilasci.'
+                    'Analisi del sito esistente in PHP e pianificazione della migrazione su stack moderno.',
+                    'Sviluppo della nuova interfaccia Next.js con contenuti multilingua e componenti personalizzati.',
+                    'Gestione del deploy statico su Aruba, configurazione DNS e monitoraggio con Google Analytics.'
                 ]
             },
             {
                 position: 'Sviluppatore Software',
-                location: 'Ibrido, Torino',
+                location: 'Piattaforma Empowerely · Full remote',
+                startDate: 'Apr 2025',
+                endDate: 'Ago 2025',
+                technologies: 'Java 24, Spring Boot, Next.js, MySQL, Dataiku',
+                responsibilities: 'Contributo su evolutive full-stack e integrazioni dati per Empowerely.',
+                responsibilityList: [
+                    'Sviluppo di funzionalità mirate in affiancamento al team prodotto.',
+                    'Allineamento delle API Spring Boot con i flussi di preparazione dati in Dataiku.',
+                    'Aggiornamento dell’interfaccia Next.js per la visualizzazione interattiva dei nuovi insight.'
+                ]
+            },
+            {
+                position: 'Sviluppatore Software',
+                location: 'Settore retail · Torino (ibrido)',
                 startDate: 'Gen 2025',
                 endDate: 'Giu 2025',
-                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
-                responsibilities: 'Ho supportato programmi di integrazione enterprise per un cliente bancario.',
+                technologies: 'Java, Spring Boot, Linux, Script Bash, Dell Boomi',
+                responsibilities: 'Supporto al team IT su sistemi di logging e automazione dei processi.',
                 responsibilityList: [
-                    'Ho implementato pipeline di logging personalizzate su server Linux con Java e Shell per soddisfare i requisiti di audit.',
-                    'Ho automatizzato il monitoraggio quotidiano dei processi e la reportistica tramite script pianificati e dashboard.',
-                    'Ho integrato i flussi Dell Boomi con servizi Spring Boot e .NET per esporre nuove funzionalità ai clienti.',
-                    'Ho facilitato sessioni di condivisione della conoscenza per allineare sviluppatori, tester e team operativi.'
+                    'Manutenzione e ottimizzazione di un sistema di logging personalizzato su server Linux.',
+                    'Monitoraggio giornaliero dei processi e automazione delle attività ricorrenti tramite script.',
+                    'Collaborazione al bug fixing e a miglioramenti prestazionali mirati.',
+                    'Integrazione di aggiornamenti applicativi attraverso pipeline Boomi.'
                 ]
             },
             {
                 position: 'Sviluppatore Software',
-                location: 'Completamente da remoto',
+                location: 'Settori automotive e bancario · Full remote',
+                startDate: 'Apr 2024',
+                endDate: 'Ott 2024',
+                technologies: 'Spring Boot, JSP, AngularJS, Java, AMS',
+                responsibilities: 'Consulenza su piattaforme enterprise con focus su manutenzione ed evolutive.',
+                responsibilityList: [
+                    'Collaborazione allo sviluppo di funzionalità su un progetto Spring Boot e JSP.',
+                    'Analisi e risoluzione di bug in stack AngularJS e Spring Boot insieme al team.',
+                    'Automazione delle attività quotidiane AMS con script Java per ridurre gli interventi manuali.'
+                ]
+            },
+            {
+                position: 'Sviluppatore Software',
+                location: 'Freelance · Full remote',
                 startDate: 'Ott 2023',
                 endDate: 'Apr 2024',
-                technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
-                responsibilities: 'Ho potenziato prodotti interni con funzionalità sicure sia lato back-end sia front-end.',
+                technologies: 'Spring Boot, Angular, MySQL, Git, Deployment automation',
+                responsibilities: 'Gestione autonoma di un progetto e-commerce per clienti freelance.',
                 responsibilityList: [
-                    'Ho implementato microservizi Spring Boot protetti con autenticazione basata su JWT e Argon2.',
-                    'Ho sviluppato moduli Angular 16 per il portale di gestione dei repository.',
-                    'Ho automatizzato i flussi di deployment scriptando le procedure di rilascio basate su Git.'
+                    'Gestione del ciclo di vita del progetto, del repository e delle attività di deployment.',
+                    'Coordinamento del team di sviluppo e distribuzione delle attività.',
+                    'Implementazione e documentazione di nuove funzionalità per progetti cliente.'
                 ]
             },
             {
                 position: 'Sviluppatore Software',
-                location: 'Ibrido',
+                location: 'Benevento (ibrido)',
                 startDate: 'Feb 2023',
                 endDate: 'Ott 2023',
-                technologies: 'Java 8, Spring Boot, MySQL, Angular 7, Docker, OpenShift',
-                responsibilities: "Ho contribuito allo sviluppo e al rilascio di piattaforme interne per clienti del settore dell'energia.",
+                technologies: 'Java, Spring Boot, MySQL, Angular, DevOps basics',
+                responsibilities: 'Supporto a progetti interni e percorso formativo DevOps.',
                 responsibilityList: [
-                    'Ho sviluppato funzionalità per applicazioni Spring Boot e Angular 7 a supporto dei servizi di monitoraggio.',
-                    'Ho containerizzato i workload con Docker e orchestrato i deployment su OpenShift.',
-                    'Ho collaborato con i team DevOps per coordinare rilasci multi-squad e hotfix.'
-                ]
-            },
-            {
-                position: 'Sviluppatore Software',
-                location: 'Torino',
-                startDate: 'Giu 2022',
-                endDate: 'Gen 2023',
-                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
-                responsibilities: 'Mi sono occupato di attività di manutenzione e automazione per clienti enterprise nel settore della mobilità.',
-                responsibilityList: [
-                    'Ho esteso servizi Java a supporto dei flussi di ticketing e delle integrazioni rivolte ai clienti.',
-                    'Ho industrializzato le attività AMS automatizzando le operazioni ricorrenti con script Bash e Ansible.',
-                    'Ho migliorato dashboard di monitoraggio e pipeline di analisi dei log utilizzate dai team di reperibilità.'
+                    'Sviluppo di soluzioni backend e frontend per iniziative interne.',
+                    'Attività di bug fixing e manutenzione del codice.',
+                    'Partecipazione a un corso interno su networking, VM, Linux, Docker, OpenShift, CI/CD, monitoraggio e logging.'
                 ]
             }
         ]
@@ -77,68 +90,81 @@ export const experiencesData: ExperienceFullLangs = {
         experiences: [
             {
                 position: 'Software Developer',
-                location: 'Full Remote',
-                startDate: 'Apr 2024',
-                endDate: 'Jun 2025',
-                technologies: 'Spring Boot (3.0), Java 21, JavaFX, Angular (18), Shell, YAML, AngularJS, Python',
-                responsibilities: 'Led the modernization of internal service-management platforms for public administration customers.',
+                location: 'Next.js project · Remote',
+                startDate: 'Jun 2025',
+                endDate: 'Sep 2025',
+                technologies: 'Next.js, TypeScript, Google Analytics, Aruba deployment',
+                responsibilities: 'Website rebuild and migration from a legacy PHP hosting to a modern Next.js app.',
                 responsibilityList: [
-                    'Automated manual AMS triage through Java 21 workflows and Shell scripts to accelerate ticket resolution.',
-                    'Migrated legacy AngularJS dashboards to Angular 18, improving usability and accessibility for operators.',
-                    'Coordinated with distributed stakeholders to prioritise bug fixing and schedule releases.'
+                    'Audited the existing PHP site and planned the migration towards a modern stack.',
+                    'Implemented the new multilingual Next.js interface with tailored components.',
+                    'Handled static deployment on Aruba, DNS configuration and monitoring through Google Analytics.'
                 ]
             },
             {
                 position: 'Software Developer',
-                location: 'Hybrid, Turin',
+                location: 'Empowerely platform · Fully remote',
+                startDate: 'Apr 2025',
+                endDate: 'Aug 2025',
+                technologies: 'Java 24, Spring Boot, Next.js, MySQL, Dataiku',
+                responsibilities: 'Full-stack enhancements and data integrations for Empowerely.',
+                responsibilityList: [
+                    'Delivered focused features alongside the product team.',
+                    'Aligned Spring Boot APIs with Dataiku data preparation pipelines.',
+                    'Updated the Next.js interface to surface the new interactive insights.'
+                ]
+            },
+            {
+                position: 'Software Developer',
+                location: 'Retail sector · Turin (hybrid)',
                 startDate: 'Jan 2025',
                 endDate: 'Jun 2025',
-                technologies: 'Spring Boot, .NET, Node.js, MySQL, Angular 14',
-                responsibilities: 'Supported enterprise integration programmes for a banking client.',
+                technologies: 'Java, Spring Boot, Linux, Bash scripts, Dell Boomi',
+                responsibilities: 'Support for IT operations on logging systems and process automation.',
                 responsibilityList: [
-                    'Implemented custom logging pipelines on Linux servers with Java and Shell to satisfy audit requirements.',
-                    'Automated daily process monitoring and reporting through scheduled scripts and dashboards.',
-                    'Integrated Dell Boomi flows with Spring Boot and .NET services to expose new customer features.',
-                    'Facilitated knowledge-sharing sessions to align developers, testers, and operations teams.'
+                    'Maintained and optimised a custom logging platform on Linux servers.',
+                    'Monitored processes daily and automated recurring tasks with scripts.',
+                    'Collaborated on bug fixes and targeted performance improvements.',
+                    'Integrated application updates through Boomi pipelines.'
                 ]
             },
             {
                 position: 'Software Developer',
-                location: 'Full Remote',
+                location: 'Automotive & banking sectors · Fully remote',
+                startDate: 'Apr 2024',
+                endDate: 'Oct 2024',
+                technologies: 'Spring Boot, JSP, AngularJS, Java, AMS',
+                responsibilities: 'Consultancy across enterprise platforms with a focus on maintenance and evolutions.',
+                responsibilityList: [
+                    'Contributed new features to a Spring Boot and JSP solution.',
+                    'Investigated and resolved defects together with the team across AngularJS and Spring Boot.',
+                    'Automated recurring AMS activities through Java scripts to reduce manual effort.'
+                ]
+            },
+            {
+                position: 'Software Developer',
+                location: 'Freelance · Fully remote',
                 startDate: 'Oct 2023',
                 endDate: 'Apr 2024',
-                technologies: 'Spring Boot (3.1.7), Java 17, Angular 16, JWT, Argon2, MySQL, Git',
-                responsibilities: 'Enhanced internal products with secure back-end and front-end capabilities.',
+                technologies: 'Spring Boot, Angular, MySQL, Git, Deployment automation',
+                responsibilities: 'Independent delivery of an e-commerce project for freelance clients.',
                 responsibilityList: [
-                    'Implemented Spring Boot microservices secured with JWT and Argon2-based authentication.',
-                    'Developed Angular 16 modules for the repository management portal.',
-                    'Automated deployment workflows by scripting Git-based release procedures.'
+                    'Oversaw the full project lifecycle, repository management and deployments.',
+                    'Coordinated the development team and distributed tasks.',
+                    'Implemented and documented new features for client projects.'
                 ]
             },
             {
                 position: 'Software Developer',
-                location: 'Hybrid',
+                location: 'Benevento (hybrid)',
                 startDate: 'Feb 2023',
                 endDate: 'Oct 2023',
-                technologies: 'Java 8, Spring Boot, MySQL, Angular 7, Docker, OpenShift',
-                responsibilities: 'Contributed to the development and deployment of internal platforms for energy sector clients.',
+                technologies: 'Java, Spring Boot, MySQL, Angular, DevOps basics',
+                responsibilities: 'Support on internal initiatives and participation in a DevOps training path.',
                 responsibilityList: [
-                    'Developed features for Spring Boot and Angular 7 applications supporting monitoring services.',
-                    'Containerised workloads with Docker and orchestrated deployments on OpenShift.',
-                    'Collaborated with DevOps teams to coordinate multi-squad releases and hotfixes.'
-                ]
-            },
-            {
-                position: 'Software Developer',
-                location: 'Turin',
-                startDate: 'Jun 2022',
-                endDate: 'Jan 2023',
-                technologies: 'Java, Spring, Bash, Ansible, Oracle DB',
-                responsibilities: 'Focused on maintenance and automation activities for enterprise clients in the mobility sector.',
-                responsibilityList: [
-                    'Extended Java services powering ticketing workflows and customer-facing integrations.',
-                    'Industrialised AMS activities by scripting routine tasks with Bash and Ansible.',
-                    'Improved monitoring dashboards and log analysis pipelines used by on-call teams.'
+                    'Built back-end and front-end solutions for internal initiatives.',
+                    'Handled bug fixing and code maintenance tasks.',
+                    'Completed an internal course covering networking, VMs, Linux, Docker, OpenShift, CI/CD, monitoring and logging.'
                 ]
             }
         ]
