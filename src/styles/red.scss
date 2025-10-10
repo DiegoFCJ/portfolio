@@ -1,12 +1,12 @@
 @use 'variables' as *;
 
 body.red-mode {
-  background-color: #ffe4e6;
-  color: #000000;
+  background-color: #fdf5f6;
+  color: #111827;
   --section-transition-glow: rgba(248, 113, 113, 0.28);
 
   .bg-container {
-    background: linear-gradient(135deg, #fbcfe8, #f87171, #fb7185);
+    background: linear-gradient(135deg, #ffffff, #fff5f6, #fee2e2);
   }
 
   .project-card,
@@ -14,7 +14,7 @@ body.red-mode {
   .popup {
     background-color: #ffffff;
     box-shadow: $section-box-shadow;
-    color: #000000;
+    color: #111827;
   }
 
   .point-on-line {
