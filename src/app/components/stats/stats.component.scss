@@ -16,7 +16,7 @@
     --stat-label-color: #4b5563;
     --stat-muted: rgba(71, 85, 105, 0.82);
     --stat-value-color: #111827;
-    --stat-title-color: #0f172a;
+    --stat-title-color: #111827;
     --stat-accent-bar: linear-gradient(90deg, #3b82f6, #6c63ff);
     --stat-suffix-bg: rgba(241, 245, 249, 0.85);
     --stat-suffix-border: rgba(148, 163, 184, 0.42);
@@ -28,6 +28,8 @@
     --stat-dialog-shadow: 0 38px 64px -32px rgba(15, 23, 42, 0.24);
     --stat-dialog-text: #111827;
     --stat-dialog-muted: rgba(71, 85, 105, 0.88);
+    --stat-glow-blend-mode: screen;
+    --stat-glow-opacity: 0.4;
 }
 
 :host-context(.light-mode) {
@@ -46,6 +48,8 @@
     --stat-accent-bar: linear-gradient(90deg, #2563eb, #3b82f6);
     --stat-before-glow: radial-gradient(circle at 18% 82%, rgba(96, 165, 250, 0.16), transparent 60%);
     --stat-after-glow: radial-gradient(circle at 78% 18%, rgba(59, 130, 246, 0.16), transparent 60%);
+    --stat-glow-blend-mode: normal;
+    --stat-glow-opacity: 0.25;
 }
 
 :host-context(.green-mode) {
@@ -56,6 +60,8 @@
     --stat-accent-bar: linear-gradient(90deg, #0f766e, #10b981);
     --stat-before-glow: radial-gradient(circle at 18% 82%, rgba(74, 222, 128, 0.16), transparent 60%);
     --stat-after-glow: radial-gradient(circle at 78% 18%, rgba(16, 185, 129, 0.16), transparent 60%);
+    --stat-glow-blend-mode: normal;
+    --stat-glow-opacity: 0.25;
 }
 
 :host-context(.red-mode) {
@@ -66,6 +72,8 @@
     --stat-accent-bar: linear-gradient(90deg, #b91c1c, #f87171);
     --stat-before-glow: radial-gradient(circle at 18% 82%, rgba(248, 113, 113, 0.16), transparent 60%);
     --stat-after-glow: radial-gradient(circle at 78% 18%, rgba(244, 63, 94, 0.16), transparent 60%);
+    --stat-glow-blend-mode: normal;
+    --stat-glow-opacity: 0.25;
 }
 
 :host-context(.dark-mode) {
@@ -116,8 +124,8 @@
         content: '';
         position: absolute;
         inset: 0;
-        mix-blend-mode: screen;
-        opacity: 0.4;
+        mix-blend-mode: var(--stat-glow-blend-mode);
+        opacity: var(--stat-glow-opacity);
         z-index: -2;
     }
 
