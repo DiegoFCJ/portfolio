@@ -11,7 +11,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { LanguageCode } from '../../models/language-code.type';
 import { TranslationService } from '../../services/translation.service';
 import { PLATFORM_ID } from '@angular/core';
@@ -116,7 +116,9 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private fallTimer: ReturnType<typeof setTimeout> | null = null;
   private wonderingTimer: ReturnType<typeof setTimeout> | null = null;
   private landingUpdateFrame: number | null = null;
+  private guideScrollEvaluationFrame: number | null = null;
   private readonly isMobileSubject = new BehaviorSubject<boolean>(false);
+  private isMobile = false;
   private readonly isBrowser: boolean;
 
   readonly guideContent$: Observable<AssistantGuideVariant & {
@@ -124,10 +126,16 @@ export class AssistantComponent implements OnInit, OnDestroy {
     readonly closingHint: string;
   }>;
 
+  guideScrollState = {
+    isScrollable: false,
+    isAtEnd: true
+  };
+
   @ViewChild('avatar', { static: true })
   private readonly avatarRef!: ElementRef<HTMLButtonElement>;
 
   private popupRef?: ElementRef<HTMLDivElement>;
+  private guideScrollAreaRef?: ElementRef<HTMLDivElement>;
 
   @ViewChild('popup')
   set popupElement(value: ElementRef<HTMLDivElement> | undefined) {
@@ -137,6 +145,18 @@ export class AssistantComponent implements OnInit, OnDestroy {
       this.requestLandingUpdate();
     } else {
       this.cancelLandingUpdate();
+    }
+  }
+
+  @ViewChild('guideScrollArea')
+  set guideScrollArea(element: ElementRef<HTMLDivElement> | undefined) {
+    this.guideScrollAreaRef = element;
+
+    if (element) {
+      this.requestGuideScrollEvaluation();
+    } else {
+      this.cancelGuideScrollEvaluation();
+      this.resetGuideScrollState();
     }
   }
 
@@ -160,7 +180,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
           intro: variant.intro,
           steps: variant.steps
         };
-      })
+      }),
+      tap(() => this.requestGuideScrollEvaluation())
     );
   }
 
@@ -172,6 +193,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.cancelLandingUpdate();
+    this.cancelGuideScrollEvaluation();
     this.clearAllTimers();
     this.isMobileSubject.complete();
   }
@@ -195,6 +217,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.isOpen = true;
     this.animationPhase = 'waking';
     this.requestLandingUpdate();
+    this.requestGuideScrollEvaluation();
     this.startWakeSequence();
     this.opened.emit();
   }
@@ -240,6 +263,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
     if (this.isBrowser) {
       this.updateMobileState();
     }
+
+    this.requestGuideScrollEvaluation();
   }
 
   private clearAllTimers(): void {
@@ -250,7 +275,16 @@ export class AssistantComponent implements OnInit, OnDestroy {
   }
 
   private updateMobileState(): void {
-    this.isMobileSubject.next(window.innerWidth <= 768);
+    const isMobile = window.innerWidth <= 768;
+
+    this.isMobile = isMobile;
+    this.isMobileSubject.next(isMobile);
+
+    if (!isMobile) {
+      this.resetGuideScrollState();
+    }
+
+    this.requestGuideScrollEvaluation();
   }
 
   private clearWakeTimer(): void {
@@ -349,6 +383,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.clearWonderingTimer();
 
     this.cancelLandingUpdate();
+    this.cancelGuideScrollEvaluation();
+    this.resetGuideScrollState();
 
     this.animationPhase = 'falling';
     this.isOpen = false;
@@ -375,5 +411,78 @@ export class AssistantComponent implements OnInit, OnDestroy {
         this.animationPhase = 'perched';
       }
     }, ASSISTANT_WONDERING_DURATION_MS);
+  }
+
+  onGuideContentScroll(): void {
+    if (!this.guideScrollAreaRef) {
+      return;
+    }
+
+    const element = this.guideScrollAreaRef.nativeElement;
+    const isAtEnd = Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight - 1;
+
+    if (this.guideScrollState.isAtEnd !== isAtEnd) {
+      this.guideScrollState = {
+        ...this.guideScrollState,
+        isAtEnd
+      };
+    }
+  }
+
+  private requestGuideScrollEvaluation(): void {
+    if (!this.isBrowser || !this.isOpen || !this.isMobile) {
+      return;
+    }
+
+    if (typeof window.requestAnimationFrame !== 'function') {
+      this.evaluateGuideScrollState();
+      return;
+    }
+
+    if (this.guideScrollEvaluationFrame !== null) {
+      window.cancelAnimationFrame(this.guideScrollEvaluationFrame);
+    }
+
+    this.guideScrollEvaluationFrame = window.requestAnimationFrame(() => {
+      this.guideScrollEvaluationFrame = null;
+      this.evaluateGuideScrollState();
+    });
+  }
+
+  private cancelGuideScrollEvaluation(): void {
+    if (!this.isBrowser || typeof window.cancelAnimationFrame !== 'function') {
+      this.guideScrollEvaluationFrame = null;
+      return;
+    }
+
+    if (this.guideScrollEvaluationFrame !== null) {
+      window.cancelAnimationFrame(this.guideScrollEvaluationFrame);
+      this.guideScrollEvaluationFrame = null;
+    }
+  }
+
+  private evaluateGuideScrollState(): void {
+    if (!this.guideScrollAreaRef || !this.isMobile) {
+      this.resetGuideScrollState();
+      return;
+    }
+
+    const element = this.guideScrollAreaRef.nativeElement;
+    const isScrollable = element.scrollHeight - element.clientHeight > 1;
+    const isAtEnd = !isScrollable
+      ? true
+      : Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight - 1;
+
+    this.guideScrollState = {
+      isScrollable,
+      isAtEnd
+    };
+  }
+
+  private resetGuideScrollState(): void {
+    this.guideScrollState = {
+      isScrollable: false,
+      isAtEnd: true
+    };
   }
 }
