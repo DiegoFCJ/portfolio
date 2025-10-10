@@ -1,0 +1,30 @@
+@use 'sass:map';
+
+/// Applies CSS custom properties with an optional prefix to the provided selector.
+///
+/// @param {string} $selector - Selector where variables should be emitted.
+/// @param {map} $vars - Map of variable keys to values.
+/// @param {string} $prefix - Optional prefix that will be injected after the leading `--`.
+@mixin apply-theme-vars($selector, $vars, $prefix: '') {
+  #{$selector} {
+    @each $name, $value in $vars {
+      --#{$prefix}#{$name}: #{$value};
+    }
+  }
+}
+
+/// Generates `body` selectors for each variant described in the configuration map.
+///
+/// The map must contain a `base` entry used for the naked `body` selector, while
+/// the remaining keys will be appended as `.#{key}` classes on `body`.
+@mixin body-theme-variants($config, $prefix: '') {
+  @if map.has-key($config, base) {
+    @include apply-theme-vars('body', map.get($config, base), $prefix);
+  }
+
+  @each $variant, $vars in $config {
+    @if $variant != base {
+      @include apply-theme-vars('body.#{$variant}', $vars, $prefix);
+    }
+  }
+}

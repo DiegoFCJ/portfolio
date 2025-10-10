@@ -11,114 +11,27 @@
   --assistant-hop-horizontal-big: clamp(28px, 3.6vw, 38px);
   --assistant-hop-horizontal-medium: clamp(20px, 2.8vw, 28px);
   --assistant-hop-horizontal-small: clamp(12px, 2vw, 20px);
-  --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #ffe081, #ffb347 55%, #ff8c61 100%);
-  --assistant-avatar-shadow-rest: 0 16px 30px #00000040;
-  --assistant-avatar-shadow-active: 0 20px 32px #00000047;
-  --assistant-floor-shadow-color: #0f172a59;
-  --assistant-floor-shadow-color-strong: #0f172a73;
+  --assistant-avatar-bg: var(
+    --assistant-theme-avatar-bg,
+    radial-gradient(circle at 30% 30%, #ffe081, #ffb347 55%, #ff8c61 100%)
+  );
+  --assistant-avatar-shadow-rest: var(--assistant-theme-avatar-shadow-rest, 0 16px 30px #00000040);
+  --assistant-avatar-shadow-active: var(--assistant-theme-avatar-shadow-active, 0 20px 32px #00000047);
+  --assistant-floor-shadow-color: var(--assistant-theme-floor-shadow-color, #0f172a59);
+  --assistant-floor-shadow-color-strong: var(--assistant-theme-floor-shadow-color-strong, #0f172a73);
   --assistant-floor-shadow-size: clamp(28px, 7vw, 42px);
-  --assistant-avatar-focus-ring: #ffffffcc;
-  --assistant-avatar-face-shadow: drop-shadow(0 4px 6px #00000040);
-  --assistant-avatar-outline-fill: #fffffff0;
-  --assistant-avatar-eye-color: #2c3e50;
-  --assistant-avatar-smile-color: #ff8c61;
-  --assistant-avatar-wave-border: #ffffffa6;
-  --assistant-popup-bg: #161d31eb;
-  --assistant-popup-color: #f8fafc;
-  --assistant-popup-shadow: 0 18px 42px #0f172a66;
-  --assistant-popup-border: 1px solid transparent;
+  --assistant-avatar-focus-ring: var(--assistant-theme-avatar-focus-ring, #ffffffcc);
+  --assistant-avatar-face-shadow: var(--assistant-theme-avatar-face-shadow, drop-shadow(0 4px 6px #00000040));
+  --assistant-avatar-outline-fill: var(--assistant-theme-avatar-outline-fill, #fffffff0);
+  --assistant-avatar-eye-color: var(--assistant-theme-avatar-eye-color, #2c3e50);
+  --assistant-avatar-smile-color: var(--assistant-theme-avatar-smile-color, #ff8c61);
+  --assistant-avatar-wave-border: var(--assistant-theme-avatar-wave-border, #ffffffa6);
+  --assistant-popup-bg: var(--assistant-theme-popup-bg, #161d31eb);
+  --assistant-popup-color: var(--assistant-theme-popup-color, #f8fafc);
+  --assistant-popup-shadow: var(--assistant-theme-popup-shadow, 0 18px 42px #0f172a66);
+  --assistant-popup-border: var(--assistant-theme-popup-border, 1px solid transparent);
   display: block;
   max-width: 100%;
-}
-
-:host-context(body.light-mode) {
-  --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #fff4d6, #facc15 55%, #f97316 100%);
-  --assistant-avatar-shadow-rest: 0 16px 28px #0f172a26;
-  --assistant-avatar-shadow-active: 0 22px 36px #0f172a2e;
-  --assistant-floor-shadow-color: #0f172a2e;
-  --assistant-floor-shadow-color-strong: #0f172a52;
-  --assistant-avatar-focus-ring: #0f172a33;
-  --assistant-avatar-face-shadow: drop-shadow(0 4px 6px #0f172a33);
-  --assistant-avatar-outline-fill: #fffffffa;
-  --assistant-avatar-eye-color: #0f172a;
-  --assistant-avatar-smile-color: #ea580c;
-  --assistant-avatar-wave-border: #0f172a2e;
-  --assistant-popup-bg: #fffffff5;
-  --assistant-popup-color: #0f172a;
-  --assistant-popup-shadow: 0 20px 45px #0f172a26;
-  --assistant-popup-border: 1px solid #0f172a1a;
-}
-
-:host-context(body.blue-mode) {
-  --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #e0f2ff, #60a5fa 55%, #2563eb 100%);
-  --assistant-avatar-shadow-rest: 0 16px 28px #1e40af4d;
-  --assistant-avatar-shadow-active: 0 22px 36px #1e40af52;
-  --assistant-floor-shadow-color: #1e40af4d;
-  --assistant-floor-shadow-color-strong: #1e40af80;
-  --assistant-avatar-focus-ring: #3b82f673;
-  --assistant-avatar-face-shadow: drop-shadow(0 4px 6px #1e40af40);
-  --assistant-avatar-outline-fill: #fffffffa;
-  --assistant-avatar-eye-color: #0f172a;
-  --assistant-avatar-smile-color: #2563eb;
-  --assistant-avatar-wave-border: #2563eb59;
-  --assistant-popup-bg: #fffffff5;
-  --assistant-popup-color: #111827;
-  --assistant-popup-shadow: 0 22px 48px #2563eb47;
-  --assistant-popup-border: 1px solid #2563eb26;
-}
-
-:host-context(body.green-mode) {
-  --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #dcfce7, #4ade80 55%, #15803d 100%);
-  --assistant-avatar-shadow-rest: 0 16px 28px #16653442;
-  --assistant-avatar-shadow-active: 0 22px 36px #1665344d;
-  --assistant-floor-shadow-color: #16653447;
-  --assistant-floor-shadow-color-strong: #16653475;
-  --assistant-avatar-focus-ring: #22c55a59;
-  --assistant-avatar-face-shadow: drop-shadow(0 4px 6px #16653438);
-  --assistant-avatar-outline-fill: #fffffffa;
-  --assistant-avatar-eye-color: #0f172a;
-  --assistant-avatar-smile-color: #16a34a;
-  --assistant-avatar-wave-border: #22c55a59;
-  --assistant-popup-bg: #fffffff5;
-  --assistant-popup-color: #111827;
-  --assistant-popup-shadow: 0 20px 45px #15803d40;
-  --assistant-popup-border: 1px solid #22c55a2e;
-}
-
-:host-context(body.red-mode) {
-  --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #fee2e2, #f87171 55%, #b91c1c 100%);
-  --assistant-avatar-shadow-rest: 0 16px 28px #991b1b47;
-  --assistant-avatar-shadow-active: 0 22px 36px #991b1b52;
-  --assistant-floor-shadow-color: #991b1b47;
-  --assistant-floor-shadow-color-strong: #991b1b75;
-  --assistant-avatar-focus-ring: #ef444466;
-  --assistant-avatar-face-shadow: drop-shadow(0 4px 6px #991b1b47);
-  --assistant-avatar-outline-fill: #fffffffa;
-  --assistant-avatar-eye-color: #111827;
-  --assistant-avatar-smile-color: #ef4444;
-  --assistant-avatar-wave-border: #ef444452;
-  --assistant-popup-bg: #fffffff5;
-  --assistant-popup-color: #111827;
-  --assistant-popup-shadow: 0 22px 48px #b91c1b42;
-  --assistant-popup-border: 1px solid #ef44442e;
-}
-
-:host-context(body.dark-mode) {
-  --assistant-avatar-bg: radial-gradient(circle at 30% 30%, #fde68a, #f59e0b 55%, #fb923c 100%);
-  --assistant-avatar-shadow-rest: 0 18px 34px #0f172a73;
-  --assistant-avatar-shadow-active: 0 22px 40px #0f172a80;
-  --assistant-floor-shadow-color: #0f172a73;
-  --assistant-floor-shadow-color-strong: #0f172a9e;
-  --assistant-avatar-focus-ring: #94a3b866;
-  --assistant-avatar-face-shadow: drop-shadow(0 4px 6px #0f172a59);
-  --assistant-avatar-outline-fill: #ffffffeb;
-  --assistant-avatar-eye-color: #e2e8f0;
-  --assistant-avatar-smile-color: #fb923c;
-  --assistant-avatar-wave-border: #ffffff80;
-  --assistant-popup-bg: #111827eb;
-  --assistant-popup-color: #f8fafc;
-  --assistant-popup-shadow: 0 22px 48px #0f172a8c;
-  --assistant-popup-border: 1px solid #94a3b838;
 }
 
 .assistant {
