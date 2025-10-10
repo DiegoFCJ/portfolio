@@ -8,19 +8,19 @@ export const statsData: Stats = {
                 icon: 'schedule',
                 label: 'Ore totali',
                 valueSuffix: 'ore di sviluppo',
-                detail: 'Somma delle ore di sviluppo stimate sulle esperienze documentate, con media di 40 ore settimanali e un margine per attività correnti.'
+                detail: 'Somma stimata delle ore di sviluppo sulle esperienze documentate, calcolata su 40 ore settimanali senza duplicare periodi sovrapposti e con margine per attività correnti.'
             },
             {
                 icon: 'today',
                 label: 'Mesi di esperienza',
                 valueSuffix: 'mesi su progetti reali',
-                detail: 'Numero di mesi effettivi passati su progetti reali, considerando sovrapposizioni e responsabilità parallele.'
+                detail: 'Numero di mesi effettivi trascorsi su progetti reali, conteggiati senza sovrapporre periodi paralleli e legati ad attività concrete.'
             },
             {
                 icon: 'work',
-                label: 'Progetti consegnati',
-                valueSuffix: 'progetti seguiti end-to-end',
-                detail: "Include applicazioni web, strumenti interni e MVP consegnati dall'analisi iniziale al rilascio e supporto."
+                label: 'Progetti supportati',
+                valueSuffix: 'iniziative con contributo diretto',
+                detail: 'Include applicazioni web, strumenti interni e MVP in cui ho contribuito dalle fasi iniziali fino al supporto post-rilascio.'
             },
             {
                 icon: 'code',
@@ -36,19 +36,19 @@ export const statsData: Stats = {
                 icon: 'schedule',
                 label: 'Total hours',
                 valueSuffix: 'engineering hours',
-                detail: 'Estimated development hours across documented engagements, using a 40-hour weekly average plus a buffer for ongoing work.'
+                detail: 'Estimated development hours across documented engagements, based on a 40-hour weekly average without double-counting overlapping assignments and with a buffer for ongoing work.'
             },
             {
                 icon: 'today',
                 label: 'Experience months',
                 valueSuffix: 'months on real projects',
-                detail: 'Total active months on real-world projects, accounting for overlapping assignments and parallel responsibilities.'
+                detail: 'Total active months on real-world projects, counted without double-counting overlapping assignments and focused on hands-on responsibilities.'
             },
             {
                 icon: 'work',
-                label: 'Projects shipped',
-                valueSuffix: 'end-to-end builds',
-                detail: 'Covers web apps, internal tools and MVPs delivered from early discovery through release and support.'
+                label: 'Projects contributed to',
+                valueSuffix: 'initiatives with direct impact',
+                detail: 'Covers web apps, internal tools and MVPs where I contributed from early discovery through release and ongoing support.'
             },
             {
                 icon: 'code',
