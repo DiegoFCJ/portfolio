@@ -73,7 +73,8 @@ describe('StatsComponent', () => {
     ).toString();
 
     expect(stats.projectsValue).toBe(expectedProjectTotal);
-    expect(stats.projectsSuffix).toBe(statsData.it.stats[2].valueSuffix);
+    const expectedProjectsSuffix = statsData.it.stats[2].valueSuffix ?? 'iniziative con contributo diretto';
+    expect(stats.projectsSuffix).toBe(expectedProjectsSuffix);
     expect(stats.mostUsedValue).toContain('·');
   });
 
