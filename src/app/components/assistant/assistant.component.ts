@@ -23,7 +23,7 @@ export type AssistantAnimationPhase =
 
 export const ASSISTANT_WAKE_DURATION_MS = 450;
 export const ASSISTANT_JUMP_DURATION_MS = 1400;
-export const ASSISTANT_WONDERING_DURATION_MS = 5000;
+export const ASSISTANT_WONDERING_DURATION_MS = 2400;
 export const ASSISTANT_FALL_DURATION_MS = 980;
 
 interface AssistantGuideContent {
