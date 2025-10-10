@@ -10,6 +10,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { fromEvent, Subscription } from 'rxjs';
 import { ProjectsComponent } from '../../components/projects/projects.component';
 import { AboutComponent } from '../../components/about/about.component';
@@ -36,7 +37,8 @@ import { AssistantComponent } from '../../components/assistant/assistant.compone
     EducationComponent,
     StatsComponent,
     ContactMeComponent,
-    ExperiencesComponent
+    ExperiencesComponent,
+    MatIconModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

@@ -166,12 +166,6 @@
   color: var(--navigator-icon-color, #111111);
 }
 
-.home__stack-carousel-icon {
-  inline-size: 24px;
-  block-size: 24px;
-  fill: currentColor;
-}
-
 @media (max-width: 768px) {
   .home__section-content {
     gap: clamp(0.75rem, 3vh, 1.5rem);
