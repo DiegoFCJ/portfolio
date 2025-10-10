@@ -45,6 +45,13 @@ This repository contains a portfolio application built with **Angular 18**. It u
    ```bash
    npm install
    ```
+   If the installation fails with a `403 Forbidden` error caused by a proxy configuration,
+   clear the inherited npm proxy variables and retry:
+   ```bash
+   unset npm_config_http_proxy
+   unset npm_config_https_proxy
+   npm install
+   ```
 2. Start the development server:
    ```bash
    npm start
@@ -115,6 +122,13 @@ La struttura del progetto è descritta nella sezione [Project Structure](#projec
 ### Avvio del progetto
 1. Installa le dipendenze:
    ```bash
+   npm install
+   ```
+   Se l'installazione restituisce l'errore `403 Forbidden` a causa di una configurazione
+   di proxy, azzera le variabili proxy ereditate da npm e riprova:
+   ```bash
+   unset npm_config_http_proxy
+   unset npm_config_https_proxy
    npm install
    ```
 2. Avvia il server di sviluppo:
