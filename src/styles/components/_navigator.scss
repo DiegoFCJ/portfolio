@@ -141,7 +141,7 @@ $navigator-themes: (
             @include assign-navigator-vars($config);
         }
     } @else {
-        app-navigator-context(#{$selector}) {
+        #{$selector} app-navigator {
             @include assign-navigator-vars($config);
         }
     }
