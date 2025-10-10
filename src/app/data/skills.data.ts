@@ -7,7 +7,7 @@ export const skills: SkillFullLangs = {
         skills: [
             {
                 title: 'Back-end · Linguaggi',
-                subtitle: 'Linguaggi e runtime per servizi server-side',
+                subtitle: 'Linguaggi',
                 skills: [
                     {
                         name: 'Java',
@@ -28,7 +28,7 @@ export const skills: SkillFullLangs = {
             },
             {
                 title: 'Back-end · Framework e Librerie',
-                subtitle: 'Framework enterprise, ORM e piattaforme applicative',
+                subtitle: 'Framework',
                 skills: [
                     {
                         name: 'Spring Framework',
@@ -53,12 +53,17 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Back-end · API e Sicurezza',
-                subtitle: 'Autenticazione e contratti orientati ai servizi',
+                title: 'Back-end · Autenticazione',
+                subtitle: 'Autenticazione',
                 skills: [
                     {
                         name: 'JWT',
                         icon: 'https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Argon2',
+                        icon: 'https://img.shields.io/badge/Argon2-4B275F?style=for-the-badge&logoColor=white',
                         clicked: false,
                     },
                 ],
@@ -86,7 +91,7 @@ export const skills: SkillFullLangs = {
             },
             {
                 title: 'Back-end · Database',
-                subtitle: 'RDBMS per applicazioni mission-critical',
+                subtitle: 'Database',
                 skills: [
                     {
                         name: 'MySQL',
@@ -106,8 +111,24 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
+                title: 'Back-end · Test API',
+                subtitle: 'Test, mock e documentazione dei servizi',
+                skills: [
+                    {
+                        name: 'Swagger',
+                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Postman',
+                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
                 title: 'Front-end · Linguaggi e Fondamenta',
-                subtitle: 'Linguaggi e markup per esperienze web',
+                subtitle: 'Linguaggi e markup',
                 skills: [
                     {
                         name: 'JavaScript',
@@ -133,7 +154,7 @@ export const skills: SkillFullLangs = {
             },
             {
                 title: 'Front-end · Framework e Librerie',
-                subtitle: 'Framework moderni per interfacce reactive',
+                subtitle: 'Framework',
                 skills: [
                     {
                         name: 'Angular',
@@ -171,6 +192,21 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white',
                         clicked: false,
                     },
+                    {
+                        name: 'Tailwind CSS',
+                        icon: 'https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Material UI',
+                        icon: 'https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'SweetAlert2',
+                        icon: 'https://img.shields.io/badge/SweetAlert2-3085d6?style=for-the-badge&logoColor=white',
+                        clicked: false,
+                    },
                 ],
             },
             {
@@ -190,7 +226,7 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · DevOps e Container',
+                title: 'DevOps · Containerizzazione',
                 subtitle: 'Containerizzazione e orchestrazione',
                 skills: [
                     {
@@ -211,7 +247,7 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · Build e CI/CD',
+                title: 'DevOps · CI/CD',
                 subtitle: 'Automazione delle build e pipeline di delivery',
                 skills: [
                     {
@@ -227,24 +263,24 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · Testing e API',
-                subtitle: 'Validazione, mock e documentazione dei servizi',
+                title: 'DevOps · Platform Services',
+                subtitle: 'Hosting PaaS e BaaS gestiti',
                 skills: [
                     {
-                        name: 'Swagger',
-                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
+                        name: 'Heroku',
+                        icon: 'https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white',
                         clicked: false,
                     },
                     {
-                        name: 'Postman',
-                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
+                        name: 'Firebase',
+                        icon: 'https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black',
                         clicked: false,
                     },
                 ],
             },
             {
-                title: 'Tooling · Configurazione e Script',
-                subtitle: 'Definizioni infrastrutturali e automazioni',
+                title: 'DevOps · Script e Configurazione',
+                subtitle: 'Automazione infrastrutturale e shell script',
                 skills: [
                     {
                         name: 'YAML',
@@ -256,11 +292,16 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white',
                         clicked: false,
                     },
+                    {
+                        name: 'Shell Script (.sh)',
+                        icon: 'https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white',
+                        clicked: false,
+                    },
                 ],
             },
             {
-                title: 'Tooling · Version Control',
-                subtitle: 'Gestione del codice sorgente e repository',
+                title: 'DevOps · Versioning',
+                subtitle: 'Versioning distribuito e repository',
                 skills: [
                     {
                         name: 'Git',
@@ -285,8 +326,8 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · Collaborazione',
-                subtitle: 'Pianificazione, ticketing e knowledge sharing',
+                title: 'Tooling · Pianificazione',
+                subtitle: 'Pianificazione',
                 skills: [
                     {
                         name: 'Trello',
@@ -332,8 +373,8 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · Sistemi Operativi',
-                subtitle: 'Ambienti quotidiani di sviluppo e delivery',
+                title: 'DevOps · Sistemi Operativi',
+                subtitle: 'Sistemi Operativi',
                 skills: [
                     {
                         name: 'Fedora',
@@ -364,7 +405,7 @@ export const skills: SkillFullLangs = {
         skills: [
             {
                 title: 'Back-end · Languages',
-                subtitle: 'Languages and runtimes for server-side services',
+                subtitle: 'Languages',
                 skills: [
                     {
                         name: 'Java',
@@ -385,7 +426,7 @@ export const skills: SkillFullLangs = {
             },
             {
                 title: 'Back-end · Frameworks & Libraries',
-                subtitle: 'Enterprise frameworks, ORM, and application platforms',
+                subtitle: 'Frameworks',
                 skills: [
                     {
                         name: 'Spring Framework',
@@ -410,12 +451,17 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Back-end · APIs & Security',
-                subtitle: 'Service contracts and authentication workflows',
+                title: 'Back-end · Authentication',
+                subtitle: 'Authentication',
                 skills: [
                     {
                         name: 'JWT',
                         icon: 'https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Argon2',
+                        icon: 'https://img.shields.io/badge/Argon2-4B275F?style=for-the-badge&logoColor=white',
                         clicked: false,
                     },
                 ],
@@ -443,7 +489,7 @@ export const skills: SkillFullLangs = {
             },
             {
                 title: 'Back-end · Databases',
-                subtitle: 'Relational database platforms',
+                subtitle: 'Databases',
                 skills: [
                     {
                         name: 'MySQL',
@@ -463,8 +509,24 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Front-end · Languages & Foundations',
-                subtitle: 'Web languages, markup, and styling basics',
+                title: 'Back-end · API Testing',
+                subtitle: 'Testing, mocking, and documenting services',
+                skills: [
+                    {
+                        name: 'Swagger',
+                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Postman',
+                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
+                        clicked: false,
+                    },
+                ],
+            },
+            {
+                title: 'Front-end · Languages & Fundamentals',
+                subtitle: 'Languages & Markup',
                 skills: [
                     {
                         name: 'JavaScript',
@@ -490,7 +552,7 @@ export const skills: SkillFullLangs = {
             },
             {
                 title: 'Front-end · Frameworks & Libraries',
-                subtitle: 'Modern frameworks for SPA development',
+                subtitle: 'Frameworks',
                 skills: [
                     {
                         name: 'Angular',
@@ -528,6 +590,21 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white',
                         clicked: false,
                     },
+                    {
+                        name: 'Tailwind CSS',
+                        icon: 'https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'Material UI',
+                        icon: 'https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white',
+                        clicked: false,
+                    },
+                    {
+                        name: 'SweetAlert2',
+                        icon: 'https://img.shields.io/badge/SweetAlert2-3085d6?style=for-the-badge&logoColor=white',
+                        clicked: false,
+                    },
                 ],
             },
             {
@@ -547,7 +624,7 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · DevOps & Containers',
+                title: 'DevOps · Containerization',
                 subtitle: 'Containerization and orchestration platforms',
                 skills: [
                     {
@@ -568,7 +645,7 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · Build & CI/CD',
+                title: 'DevOps · CI/CD',
                 subtitle: 'Build automation and continuous delivery pipelines',
                 skills: [
                     {
@@ -584,24 +661,24 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · Testing & APIs',
-                subtitle: 'API testing, mocking, and documentation',
+                title: 'DevOps · Platform Services',
+                subtitle: 'Managed PaaS and BaaS hosting',
                 skills: [
                     {
-                        name: 'Swagger',
-                        icon: 'https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black',
+                        name: 'Heroku',
+                        icon: 'https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white',
                         clicked: false,
                     },
                     {
-                        name: 'Postman',
-                        icon: 'https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white',
+                        name: 'Firebase',
+                        icon: 'https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black',
                         clicked: false,
                     },
                 ],
             },
             {
-                title: 'Tooling · Configuration & Scripting',
-                subtitle: 'Infrastructure definitions and automation scripts',
+                title: 'DevOps · Scripting & Configuration',
+                subtitle: 'Infrastructure automation and shell scripting',
                 skills: [
                     {
                         name: 'YAML',
@@ -613,11 +690,16 @@ export const skills: SkillFullLangs = {
                         icon: 'https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white',
                         clicked: false,
                     },
+                    {
+                        name: 'Shell Script (.sh)',
+                        icon: 'https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white',
+                        clicked: false,
+                    },
                 ],
             },
             {
-                title: 'Tooling · Version Control',
-                subtitle: 'Source control platforms and repositories',
+                title: 'DevOps · Versioning',
+                subtitle: 'Distributed version control and repositories',
                 skills: [
                     {
                         name: 'Git',
@@ -642,8 +724,8 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · Collaboration',
-                subtitle: 'Planning, ticketing, and knowledge sharing',
+                title: 'Tooling · Planning',
+                subtitle: 'Planning',
                 skills: [
                     {
                         name: 'Trello',
@@ -689,8 +771,8 @@ export const skills: SkillFullLangs = {
                 ],
             },
             {
-                title: 'Tooling · Operating Systems',
-                subtitle: 'Daily development and delivery environments',
+                title: 'DevOps · Operating Systems',
+                subtitle: 'Operating Systems',
                 skills: [
                     {
                         name: 'Fedora',
