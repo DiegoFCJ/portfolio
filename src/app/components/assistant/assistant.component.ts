@@ -1,17 +1,20 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
   EventEmitter,
   HostListener,
+  Inject,
   OnDestroy,
+  OnInit,
   Output,
   ViewChild
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LanguageCode } from '../../models/language-code.type';
 import { TranslationService } from '../../services/translation.service';
+import { PLATFORM_ID } from '@angular/core';
 
 export type AssistantAnimationPhase =
   | 'sleeping'
@@ -26,35 +29,71 @@ export const ASSISTANT_JUMP_DURATION_MS = 1400;
 export const ASSISTANT_WONDERING_DURATION_MS = 2400;
 export const ASSISTANT_FALL_DURATION_MS = 980;
 
-interface AssistantGuideContent {
-  readonly title: string;
+interface AssistantGuideVariant {
   readonly intro: string;
   readonly steps: readonly string[];
+}
+
+interface AssistantGuideContent {
+  readonly title: string;
   readonly closingHint: string;
+  readonly desktop: AssistantGuideVariant;
+  readonly mobile: AssistantGuideVariant;
 }
 
 const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>> = {
   it: {
     title: 'Guida rapida al portfolio',
-    intro:
-      'Sono qui per aiutarti a esplorare il portfolio: segui questi passaggi per non perderti nulla.',
-    steps: [
-      'Usa le frecce del navigatore per spostarti rapidamente tra le sezioni.',
-      'Nel navigatore puoi cambiare tema e lingua in qualsiasi momento.',
-      'Scorri con calma ogni sezione: troverai progetti, esperienze e contatti utili.'
-    ],
-    closingHint: 'Quando hai finito, puoi richiudermi: rimango sempre a portata di click.'
+    closingHint: 'Quando hai finito, puoi richiudermi: rimango sempre a portata di click.',
+    desktop: {
+      intro:
+        'Se stai usando il portfolio da PC, ecco come sfruttare al meglio ogni controllo.',
+      steps: [
+        'Apri la barra di navigazione con il pulsante con il chevron verso il basso in basso a destra dello schermo.',
+        'Naviga tra le sezioni con le frecce su e giù della navbar; in alternativa puoi scorrere anche con la rotella del mouse.',
+        'Passando il mouse sopra i pulsanti compare un suggerimento che descrive la loro azione.',
+        'I pulsanti del tema e della lingua aprono sottomenu orizzontali a sinistra per scegliere impostazioni personalizzate.',
+        'Nella sezione Numeri chiave ogni card è cliccabile e apre un dialog con dettagli sul calcolo del numero corrispondente.'
+      ]
+    },
+    mobile: {
+      intro:
+        'Da smartphone il portfolio offre comandi dedicati al tocco: segui questi passaggi rapidi.',
+      steps: [
+        'Apri la barra di navigazione con il pulsante con il chevron verso il basso in basso a destra dello schermo.',
+        'Muoviti tra le sezioni con le frecce su e giù della navbar; se preferisci puoi anche scorrere con le dita.',
+        'Tieni premuto un pulsante per mostrare il suggerimento che spiega la sua funzione.',
+        'I pulsanti del tema e della lingua aprono sottomenu orizzontali a sinistra per modificare rapidamente le impostazioni.',
+        'Nella sezione Stack tecnologico scegli tra back, front e tooling: si apre un carosello che aggiunge le frecce sinistra e destra alla navbar per esplorare le card di competenze.',
+        'Nella sezione Numeri chiave ogni card è cliccabile e apre un dialog con dettagli sul calcolo del numero corrispondente.'
+      ]
+    }
   },
   en: {
     title: 'Quick guide to the portfolio',
-    intro:
-      "I'm here to guide you through the portfolio—follow these tips to discover every highlight.",
-    steps: [
-      'Use the navigator arrows to jump between sections without losing your place.',
-      'Switch theme and language from the navigator whenever you like.',
-      'Take your time in each section to explore projects, experience and contact details.'
-    ],
-    closingHint: 'Close me once you are ready—your guide will stay one click away.'
+    closingHint: 'Close me once you are ready—your guide will stay one click away.',
+    desktop: {
+      intro:
+        "Browsing from a desktop? Here's how to make the most of every control.",
+      steps: [
+        'Open the navigation bar with the chevron-down button in the lower-right corner.',
+        'Move between sections with the navbar up and down arrows; you can also scroll with the mouse wheel if you prefer.',
+        'Hover any button to reveal a tooltip that explains what it does.',
+        'Theme and language buttons open horizontal submenus on the left so you can adjust your preferences.',
+        'In the Key numbers section each card is clickable and opens a dialog with insights on how that number is calculated.'
+      ]
+    },
+    mobile: {
+      intro: "On mobile you get touch-friendly controls—follow these quick steps.",
+      steps: [
+        'Open the navigation bar with the chevron-down button in the lower-right corner.',
+        'Use the navbar up and down arrows to switch sections, or swipe with your fingers if you like.',
+        'Long-press a button to display a hint describing its action.',
+        'Theme and language buttons open horizontal submenus on the left so you can switch settings instantly.',
+        'In the Tech stack section choose between back, front and tooling: a carousel appears and adds left and right arrows to the navbar to browse the skill cards.',
+        'In the Key numbers section each card is clickable and opens a dialog with insights on how that number is calculated.'
+      ]
+    }
   }
 };
 
@@ -65,7 +104,7 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
   templateUrl: './assistant.component.html',
   styleUrls: ['./assistant.component.scss']
 })
-export class AssistantComponent implements OnDestroy {
+export class AssistantComponent implements OnInit, OnDestroy {
   @Output() opened = new EventEmitter<void>();
   @Output() closed = new EventEmitter<void>();
 
@@ -77,8 +116,13 @@ export class AssistantComponent implements OnDestroy {
   private fallTimer: ReturnType<typeof setTimeout> | null = null;
   private wonderingTimer: ReturnType<typeof setTimeout> | null = null;
   private landingUpdateFrame: number | null = null;
+  private readonly isMobileSubject = new BehaviorSubject<boolean>(false);
+  private readonly isBrowser: boolean;
 
-  readonly guideContent$: Observable<AssistantGuideContent>;
+  readonly guideContent$: Observable<AssistantGuideVariant & {
+    readonly title: string;
+    readonly closingHint: string;
+  }>;
 
   @ViewChild('avatar', { static: true })
   private readonly avatarRef!: ElementRef<HTMLButtonElement>;
@@ -98,16 +142,38 @@ export class AssistantComponent implements OnDestroy {
 
   constructor(
     private readonly translationService: TranslationService,
-    private readonly hostRef: ElementRef<HTMLElement>
+    private readonly hostRef: ElementRef<HTMLElement>,
+    @Inject(PLATFORM_ID) platformId: Object
   ) {
-    this.guideContent$ = this.translationService
+    this.isBrowser = isPlatformBrowser(platformId);
+
+    const content$ = this.translationService
       .getTranslatedData<AssistantGuideContent>(assistantGuideContent, 'it')
       .pipe(map((content) => content ?? assistantGuideContent.it!));
+
+    this.guideContent$ = combineLatest([content$, this.isMobileSubject.asObservable()]).pipe(
+      map(([content, isMobile]) => {
+        const variant = isMobile ? content.mobile : content.desktop;
+        return {
+          title: content.title,
+          closingHint: content.closingHint,
+          intro: variant.intro,
+          steps: variant.steps
+        };
+      })
+    );
+  }
+
+  ngOnInit(): void {
+    if (this.isBrowser) {
+      this.updateMobileState();
+    }
   }
 
   ngOnDestroy(): void {
     this.cancelLandingUpdate();
     this.clearAllTimers();
+    this.isMobileSubject.complete();
   }
 
   onAvatarClick(): void {
@@ -170,6 +236,10 @@ export class AssistantComponent implements OnDestroy {
     if (this.isOpen) {
       this.requestLandingUpdate();
     }
+
+    if (this.isBrowser) {
+      this.updateMobileState();
+    }
   }
 
   private clearAllTimers(): void {
@@ -177,6 +247,10 @@ export class AssistantComponent implements OnDestroy {
     this.clearJumpTimer();
     this.clearFallTimer();
     this.clearWonderingTimer();
+  }
+
+  private updateMobileState(): void {
+    this.isMobileSubject.next(window.innerWidth <= 768);
   }
 
   private clearWakeTimer(): void {
