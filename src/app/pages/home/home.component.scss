@@ -147,53 +147,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  pointer-events: auto;
 }
 
 .home__stack-carousel-button {
-  inline-size: 48px;
-  block-size: 48px;
-  border-radius: 50%;
-  border: 1px solid var(--navigator-button-border, #a855f7);
-  background: var(--navigator-button-bg, linear-gradient(145deg, #f8f9ff, #e7e9ff));
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 0 14px var(--navigator-button-glow, rgba(168, 85, 247, 0.45));
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
-  touch-action: manipulation;
-
-  mat-icon {
-    font-size: 24px;
-    color: var(--navigator-icon-color, #111111);
-    z-index: 1;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 60%);
-    opacity: 0.45;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  &:hover,
-  &:focus-visible {
-    outline: none;
-    transform: scale(1.08) translateY(-2px);
-    background: var(--navigator-button-hover-bg, linear-gradient(145deg, #ffffff, #e4e7ff));
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px var(--navigator-button-glow, rgba(168, 85, 247, 0.45));
-
-    &::after {
-      opacity: 0.7;
-    }
-  }
 }
 
 @media (max-width: 768px) {
@@ -224,11 +183,5 @@
 
   .home__stack-carousel-controls {
     order: 0;
-    flex: 0 0 auto;
-  }
-
-  .home__stack-carousel-button {
-    inline-size: 46px;
-    block-size: 46px;
   }
 }
