@@ -363,7 +363,12 @@ app-projects .description-content {
         color: var(--projects-text-muted);
     }
 
-    ul,
+    ul {
+        padding-inline-start: 1.25rem;
+        margin: 0;
+        text-align: left;
+    }
+
     li {
         text-align: left;
     }
