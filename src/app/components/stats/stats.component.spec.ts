@@ -41,10 +41,10 @@ describe('StatsComponent', () => {
   it('should prepare statistics correctly', () => {
     fixture.detectChanges();
     expect(component.statistics.length).toBe(4);
-    expect(component.statistics[0].label).toBe('Ore totali');
-    expect(component.statistics[1].label).toBe('Mesi di esperienza');
-    expect(component.statistics[2].label).toBe('Progetti consegnati');
-    expect(component.statistics[3].label).toBe('Stack principale');
+    expect(component.statistics[0].label).toBe(statsData.it.stats[0].label);
+    expect(component.statistics[1].label).toBe(statsData.it.stats[1].label);
+    expect(component.statistics[2].label).toBe(statsData.it.stats[2].label);
+    expect(component.statistics[3].label).toBe(statsData.it.stats[3].label);
   });
 
   /**
@@ -73,7 +73,8 @@ describe('StatsComponent', () => {
     ).toString();
 
     expect(stats.projectsValue).toBe(expectedProjectTotal);
-    expect(stats.projectsSuffix).toBe('progetti seguiti end-to-end');
+    const expectedProjectsSuffix = statsData.it.stats[2].valueSuffix ?? 'iniziative con contributo diretto';
+    expect(stats.projectsSuffix).toBe(expectedProjectsSuffix);
     expect(stats.mostUsedValue).toContain('·');
   });
 

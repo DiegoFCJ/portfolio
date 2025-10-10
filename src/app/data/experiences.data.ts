@@ -23,7 +23,7 @@ export const experiencesData: ExperienceFullLangs = {
                 startDate: 'Apr 2025',
                 endDate: 'Ago 2025',
                 technologies: 'Java 24, Spring Boot, Next.js, MySQL, Dataiku',
-                responsibilities: 'Contributo su evolutive full-stack e integrazioni dati per Empowerely.',
+                responsibilities: 'Contributo su evolutive full-stack e integrazioni dati per una piattaforma edtech.',
                 responsibilityList: [
                     'Sviluppo di funzionalità mirate in affiancamento al team prodotto.',
                     'Allineamento delle API Spring Boot con i flussi di preparazione dati in Dataiku.',
@@ -107,7 +107,7 @@ export const experiencesData: ExperienceFullLangs = {
                 startDate: 'Apr 2025',
                 endDate: 'Aug 2025',
                 technologies: 'Java 24, Spring Boot, Next.js, MySQL, Dataiku',
-                responsibilities: 'Full-stack enhancements and data integrations for Empowerely.',
+                responsibilities: 'Full-stack enhancements and data integrations for an edtech platform.',
                 responsibilityList: [
                     'Delivered focused features alongside the product team.',
                     'Aligned Spring Boot APIs with Dataiku data preparation pipelines.',
