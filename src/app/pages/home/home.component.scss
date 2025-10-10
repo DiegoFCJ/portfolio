@@ -132,7 +132,8 @@
   pointer-events: none;
 
   app-navigator,
-  app-assistant {
+  app-assistant,
+  .home__stack-carousel-controls {
     pointer-events: auto;
   }
 }
@@ -140,6 +141,44 @@
 .home__floating-controls--assistant-open app-navigator {
   transition: transform 0.35s ease;
   transform: translateY(-6px);
+}
+
+.home__stack-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.home__stack-carousel-button {
+  inline-size: 46px;
+  block-size: 46px;
+  border: none;
+  border-radius: 999px;
+  background: var(--skills-carousel-arrow-bg);
+  color: var(--skills-carousel-arrow-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: none;
+  touch-action: manipulation;
+}
+
+.home__stack-carousel-button:hover,
+.home__stack-carousel-button:focus-visible {
+  background: var(--skills-carousel-arrow-hover-bg);
+  box-shadow: var(--skills-carousel-arrow-hover-shadow);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.home__stack-carousel-button span {
+  display: block;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
@@ -166,5 +205,16 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
+  }
+
+  .home__stack-carousel-controls {
+    order: 0;
+    flex: 0 0 auto;
+  }
+
+  .home__stack-carousel-button {
+    inline-size: 44px;
+    block-size: 44px;
+    font-size: 1.2rem;
   }
 }

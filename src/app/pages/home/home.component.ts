@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  ViewChild,
   ViewChildren,
   QueryList,
   AfterViewInit,
@@ -45,10 +46,14 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   viewInitialized = false;
   totalSections = 0;
   isAssistantOpen = false;
+  isMobileViewport = false;
+  private skillsSectionIndex = -1;
   private readonly scrollSnappingClass = 'home-scroll-snapping';
   private scrollSubscription: Subscription | null = null;
+  private sectionsChangeSubscription: Subscription | null = null;
 
   @ViewChildren('section') sections!: QueryList<ElementRef>;
+  @ViewChild(SkillsComponent) skillsComponent?: SkillsComponent;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -69,13 +74,22 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     this.toggleScrollSnapping(true);
 
     setTimeout(() => {
+      this.resolveSkillsSectionIndex();
+      this.updateViewportMode();
       this.initializeScrollTracking();
+      this.sectionsChangeSubscription = this.sections?.changes.subscribe(() => {
+        this.resolveSkillsSectionIndex();
+      }) ?? null;
     });
   }
 
   ngOnDestroy(): void {
     this.toggleScrollSnapping(false);
     this.destroyScrollTracking();
+    if (this.sectionsChangeSubscription) {
+      this.sectionsChangeSubscription.unsubscribe();
+      this.sectionsChangeSubscription = null;
+    }
   }
 
   navigateNext(): void {
@@ -111,6 +125,11 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     section.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  @HostListener('window:resize')
+  onResize(): void {
+    this.updateViewportMode();
+  }
+
   private initializeScrollTracking(): void {
     this.destroyScrollTracking();
     this.updateCurrentSectionFromViewport();
@@ -133,6 +152,32 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     }
 
     document.body.classList.toggle(this.scrollSnappingClass, activate);
+  }
+
+  private resolveSkillsSectionIndex(): void {
+    const sectionsArray = this.sections?.toArray() ?? [];
+    const nextIndex = sectionsArray.findIndex(section =>
+      !!section.nativeElement.querySelector('app-skills')
+    );
+
+    if (this.skillsSectionIndex !== nextIndex) {
+      this.skillsSectionIndex = nextIndex;
+      this.cdr.markForCheck();
+    }
+  }
+
+  private updateViewportMode(): void {
+    if (typeof window === 'undefined') {
+      this.isMobileViewport = false;
+      return;
+    }
+
+    const previous = this.isMobileViewport;
+    this.isMobileViewport = window.innerWidth <= 768;
+
+    if (previous !== this.isMobileViewport) {
+      this.cdr.markForCheck();
+    }
   }
 
   private updateCurrentSectionFromViewport(): void {
@@ -175,5 +220,20 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   onAssistantClosed(): void {
     this.isAssistantOpen = false;
+  }
+
+  get showStackCarouselControls(): boolean {
+    return this.isMobileViewport
+      && this.skillsSectionIndex !== -1
+      && this.currentSectionIndex === this.skillsSectionIndex
+      && !!this.skillsComponent;
+  }
+
+  onStackCarouselPrevious(): void {
+    this.skillsComponent?.moveToPrevious();
+  }
+
+  onStackCarouselNext(): void {
+    this.skillsComponent?.moveToNext();
   }
 }

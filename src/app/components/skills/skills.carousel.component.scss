@@ -25,53 +25,10 @@
         }
     }
 
-    .arrow-right {
-        right: 124px !important;
-    }
-
-    .arrow-left {
-        left: 124px !important;
-    }
-
-    .arrow-left,
-    .arrow-right {
-        position: absolute;
-        bottom: 0;
-        transform: translateY(-50%);
-        border: none;
-        background: var(--skills-carousel-arrow-bg);
-        color: var(--skills-carousel-arrow-color);
-        padding: 1rem 1.25rem;
-        border-radius: 999px;
-        cursor: pointer;
-        font-size: 1.35rem;
-        line-height: 1;
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        z-index: 20;
-    }
-
-    .arrow-left {
-        left: 0.25rem;
-    }
-
-    .arrow-right {
-        right: 0.25rem;
-    }
-
-    .arrow-left:hover,
-    .arrow-right:hover {
-        background: var(--skills-carousel-arrow-hover-bg);
-        box-shadow: var(--skills-carousel-arrow-hover-shadow);
-    }
 }
 
 @media (max-width: 480px) {
     .carousel-container {
         padding-block: 0.5rem;
-
-        .arrow-left,
-        .arrow-right {
-            font-size: 1.1rem;
-        }
     }
 }

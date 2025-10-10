@@ -31,7 +31,6 @@
       [attr.aria-live]="activePanels.length ? 'polite' : 'off'"
       *ngIf="activePanels.length"
     >
-      <button class="arrow-left" type="button" (click)="moveToPrevious()" aria-label="Previous stack section">&#10094;</button>
       <div class="carousel-wrapper" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
         <article
           *ngFor="let panel of activePanels; let i = index"
@@ -63,7 +62,6 @@
           </div>
         </article>
       </div>
-      <button class="arrow-right" type="button" (click)="moveToNext()" aria-label="Next stack section">&#10095;</button>
     </div>
   </ng-container>
 
