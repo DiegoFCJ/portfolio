@@ -208,7 +208,7 @@ export class StatsComponent implements OnInit, OnDestroy {
       monthsValue: `${formatter.format(totalMonths)}+`,
       monthsSuffix: template.stats[1]?.valueSuffix ?? 'mesi su progetti reali',
       projectsValue: formatter.format(totalProjects),
-      projectsSuffix: template.stats[2]?.valueSuffix ?? 'progetti seguiti end-to-end',
+      projectsSuffix: template.stats[2]?.valueSuffix ?? 'iniziative con contributo diretto',
       mostUsedValue: sortedTechnologies.join(' · '),
       mostUsedSuffix: template.stats[3]?.valueSuffix
     };
