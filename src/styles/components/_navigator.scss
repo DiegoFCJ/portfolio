@@ -313,6 +313,10 @@ app-navigator {
           color: var(--navigator-icon-color, #111111);
 
           mat-icon {
+              font-size: 24px;
+              color: var(--navigator-icon-color, #111111);
+              position: absolute;
+              z-index: 1;
               transition: transform 0.25s ease;
           }
 

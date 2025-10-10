@@ -106,6 +106,7 @@ button {
     mat-icon {
         font-size: 24px;
         color: var(--navigator-icon-color, #111111);
+        position: absolute;
         z-index: 1;
     }
 
