@@ -147,17 +147,20 @@
 .home__stack-carousel-controls {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 1.6vw, 18px);
+  gap: var(--floating-controls-gap);
 }
 
 .home__stack-carousel-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: var(--navigator-icon-color, #111111);
 }
 
-.home__stack-carousel-controls + app-assistant {
-  margin-inline-start: var(--floating-controls-gap);
+.home__stack-carousel-icon {
+  inline-size: 24px;
+  block-size: 24px;
+  fill: currentColor;
 }
 
 @media (max-width: 768px) {
@@ -189,10 +192,5 @@
   .home__stack-carousel-controls {
     order: 0;
     margin-inline-end: 0;
-    margin-block-end: var(--floating-controls-gap);
-  }
-
-  .home__stack-carousel-controls + app-assistant {
-    margin-inline-start: 0;
   }
 }

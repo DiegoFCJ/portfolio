@@ -101,10 +101,18 @@ button {
     cursor: pointer;
     transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
     touch-action: manipulation;
+    color: var(--navigator-icon-color, #111111);
 
     mat-icon {
         font-size: 24px;
         color: var(--navigator-icon-color, #111111);
+        z-index: 1;
+    }
+
+    svg {
+        inline-size: 24px;
+        block-size: 24px;
+        fill: currentColor;
         z-index: 1;
     }
 

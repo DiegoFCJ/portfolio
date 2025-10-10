@@ -64,7 +64,9 @@
         aria-label="Stack precedente"
         (click)="onStackCarouselPrevious()"
       >
-        <mat-icon aria-hidden="true">chevron_left</mat-icon>
+        <svg class="home__stack-carousel-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+        </svg>
       </button>
       <button
         type="button"
@@ -72,7 +74,9 @@
         aria-label="Stack successivo"
         (click)="onStackCarouselNext()"
       >
-        <mat-icon aria-hidden="true">chevron_right</mat-icon>
+        <svg class="home__stack-carousel-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"></path>
+        </svg>
       </button>
     </div>
     <app-assistant (opened)="onAssistantOpened()" (closed)="onAssistantClosed()"></app-assistant>
