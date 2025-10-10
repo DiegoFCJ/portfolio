@@ -60,19 +60,19 @@
     <div class="home__stack-carousel-controls" *ngIf="showStackCarouselControls">
       <button
         type="button"
-        class="home__stack-carousel-button navigator-arrow-button"
+        class="home__stack-carousel-button navigator-circle-button"
         aria-label="Stack precedente"
         (click)="onStackCarouselPrevious()"
       >
-        <mat-icon aria-hidden="true">arrow_back</mat-icon>
+        <mat-icon aria-hidden="true">chevron_left</mat-icon>
       </button>
       <button
         type="button"
-        class="home__stack-carousel-button navigator-arrow-button"
+        class="home__stack-carousel-button navigator-circle-button"
         aria-label="Stack successivo"
         (click)="onStackCarouselNext()"
       >
-        <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+        <mat-icon aria-hidden="true">chevron_right</mat-icon>
       </button>
     </div>
     <app-assistant (opened)="onAssistantOpened()" (closed)="onAssistantClosed()"></app-assistant>
