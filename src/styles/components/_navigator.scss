@@ -163,295 +163,297 @@ $navigator-themes: (
     }
 }
 
-app-navigator .navigator-wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-    z-index: 1;
-}
+app-navigator {
+  .navigator-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      z-index: 1;
+  }
 
-app-navigator .nav-toggle-button {
-    width: $navigator-button-size;
-    height: $navigator-button-size;
-    border-radius: 50%;
-    background: var(--navigator-button-bg, $default-button-bg);
-    border: 1px solid var(--navigator-button-border, $default-button-border);
-    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: float 3s ease-in-out infinite;
-    cursor: pointer;
-    align-self: flex-end;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.4s ease, background 0.4s ease;
+  .nav-toggle-button {
+      width: $navigator-button-size;
+      height: $navigator-button-size;
+      border-radius: 50%;
+      background: var(--navigator-button-bg, $default-button-bg);
+      border: 1px solid var(--navigator-button-border, $default-button-border);
+      box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: float 3s ease-in-out infinite;
+      cursor: pointer;
+      align-self: flex-end;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.4s ease, background 0.4s ease;
 
-    mat-icon {
-        position: absolute;
-        font-size: $navigator-icon-size;
-        color: var(--navigator-icon-color, #111111);
-        z-index: 1;
-    }
+      mat-icon {
+          position: absolute;
+          font-size: $navigator-icon-size;
+          color: var(--navigator-icon-color, #111111);
+          z-index: 1;
+      }
 
-    &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.22), transparent 60%);
-        opacity: 0.45;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-    }
+      &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: radial-gradient(circle at top, rgba(255, 255, 255, 0.22), transparent 60%);
+          opacity: 0.45;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+      }
 
-    &:hover {
-        transform: translateY(-2px) scale(1.05);
-        background: var(--navigator-button-hover-bg, $default-button-bg);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 18px var(--navigator-button-glow, $default-button-glow);
+      &:hover {
+          transform: translateY(-2px) scale(1.05);
+          background: var(--navigator-button-hover-bg, $default-button-bg);
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 18px var(--navigator-button-glow, $default-button-glow);
 
-        &::after {
-            opacity: 0.7;
-        }
-    }
-}
+          &::after {
+              opacity: 0.7;
+          }
+      }
+  }
 
 
-app-navigator .modern-navigator {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-end;
+  .modern-navigator {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-end;
 
-    &.modern-navigator--collapsed {
-        gap: 8px;
-    }
+      &.modern-navigator--collapsed {
+          gap: 8px;
+      }
 
-    app-navigator .navigator-content {
-        display: flex;
-        align-items: flex-start;
-        gap: 18px;
-    }
+      .navigator-content {
+          display: flex;
+          align-items: flex-start;
+          gap: 18px;
+      }
 
-    app-navigator .nav-groups {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-end;
-    }
+      .nav-groups {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          align-items: flex-end;
+      }
 
-    app-navigator .arrow-stack {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-right: auto;
-    }
+      .arrow-stack {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-right: auto;
+      }
 
-    app-navigator .nav-button {
-        width: $navigator-button-size;
-        height: $navigator-button-size;
-        border-radius: 50%;
-        background: var(--navigator-button-bg, $default-button-bg);
-        border: 1px solid var(--navigator-button-border, $default-button-border);
-        box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
+      .nav-button {
+          width: $navigator-button-size;
+          height: $navigator-button-size;
+          border-radius: 50%;
+          background: var(--navigator-button-bg, $default-button-bg);
+          border: 1px solid var(--navigator-button-border, $default-button-border);
+          box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+          transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
 
-        &:hover {
-            transform: scale(1.08) translateY(-2px);
-            background: var(--navigator-button-hover-bg, $default-button-bg);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px var(--navigator-button-glow, $default-button-glow);
-        }
+          &:hover {
+              transform: scale(1.08) translateY(-2px);
+              background: var(--navigator-button-hover-bg, $default-button-bg);
+              box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px var(--navigator-button-glow, $default-button-glow);
+          }
 
-        mat-icon {
-            font-size: $navigator-icon-size;
-            color: var(--navigator-icon-color, #111111);
-            transition: transform 0.25s ease;
-            z-index: 1;
-        }
+          mat-icon {
+              font-size: $navigator-icon-size;
+              color: var(--navigator-icon-color, #111111);
+              transition: transform 0.25s ease;
+              z-index: 1;
+          }
 
-        app-navigator .lang-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--navigator-text-color);
-            z-index: 1;
-        }
+          .lang-label {
+              font-size: 0.9rem;
+              font-weight: 600;
+              color: var(--navigator-text-color);
+              z-index: 1;
+          }
 
-        &.close-button {
-            margin-top: 4px;
-        }
+          &.close-button {
+              margin-top: 4px;
+          }
 
-        &::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 60%);
-            opacity: 0.4;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
+          &::after {
+              content: '';
+              position: absolute;
+              inset: 0;
+              border-radius: inherit;
+              background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 60%);
+              opacity: 0.4;
+              transition: opacity 0.3s ease;
+              pointer-events: none;
+          }
 
-        &:hover::after {
-            opacity: 0.65;
-        }
-    }
+          &:hover::after {
+              opacity: 0.65;
+          }
+      }
 
-    app-navigator .arrow-button {
-        width: 44px;
-        height: 44px;
-        border-radius: 18px;
-        border: 1px solid var(--navigator-button-border, $default-button-border);
-        background: var(--navigator-button-bg, $default-button-bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.25s ease, background 0.4s ease, box-shadow 0.4s ease;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+      .arrow-button {
+          width: 44px;
+          height: 44px;
+          border-radius: 18px;
+          border: 1px solid var(--navigator-button-border, $default-button-border);
+          background: var(--navigator-button-bg, $default-button-bg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+          transition: transform 0.25s ease, background 0.4s ease, box-shadow 0.4s ease;
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
 
-        &:hover {
-            background: var(--navigator-button-hover-bg, $default-button-bg);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28), 0 0 18px var(--navigator-button-glow, $default-button-glow);
-        }
+          &:hover {
+              background: var(--navigator-button-hover-bg, $default-button-bg);
+              transform: translateY(-2px);
+              box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28), 0 0 18px var(--navigator-button-glow, $default-button-glow);
+          }
 
-        mat-icon {
-            font-size: $navigator-icon-size;
-            color: var(--navigator-icon-color, #111111);
-            position: absolute;
-            z-index: 1;
-        }
+          mat-icon {
+              font-size: $navigator-icon-size;
+              color: var(--navigator-icon-color, #111111);
+              position: absolute;
+              z-index: 1;
+          }
 
-        &::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 60%);
-            opacity: 0.35;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
+          &::after {
+              content: '';
+              position: absolute;
+              inset: 0;
+              border-radius: inherit;
+              background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 60%);
+              opacity: 0.35;
+              transition: opacity 0.3s ease;
+              pointer-events: none;
+          }
 
-        &:hover::after {
-            opacity: 0.6;
-        }
-    }
+          &:hover::after {
+              opacity: 0.6;
+          }
+      }
 
-    &.modern-navigator--collapsed {
-        app-navigator .close-button {
-            margin-top: 0;
+      &.modern-navigator--collapsed {
+          .close-button {
+              margin-top: 0;
 
-            mat-icon {
-                transform: rotate(180deg);
-            }
-        }
-    }
-}
+              mat-icon {
+                  transform: rotate(180deg);
+              }
+          }
+      }
+  }
 
-app-navigator .lang-flag {
-    width: 24px;
-    height: 16px;
-    display: block;
-    border-radius: 3px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-    object-fit: cover;
-}
+  .lang-flag {
+      width: 24px;
+      height: 16px;
+      display: block;
+      border-radius: 3px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+      object-fit: cover;
+  }
 
-app-navigator .nav-group {
-    position: relative;
-}
+  .nav-group {
+      position: relative;
+  }
 
-app-navigator .option-container {
-    position: absolute;
-    top: 50%;
-    right: calc(100% + 8px);
-    transform: translateY(-50%);
-    display: flex;
-    gap: 12px;
-    background: transparent;
-    padding: 0;
-    border-radius: 2rem;
-    box-shadow: none;
-    align-items: flex-start;
-    z-index: 1;
-}
+  .option-container {
+      position: absolute;
+      top: 50%;
+      right: calc(100% + 8px);
+      transform: translateY(-50%);
+      display: flex;
+      gap: 12px;
+      background: transparent;
+      padding: 0;
+      border-radius: 2rem;
+      box-shadow: none;
+      align-items: flex-start;
+      z-index: 1;
+  }
 
-app-navigator .option-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
+  .option-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+  }
 
-app-navigator .option-hint {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translate(-50%, 6px);
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: var(--navigator-hint-color, $default-hint-color);
-    background: var(--navigator-hint-background, $default-hint-background);
-    text-align: center;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
+  .option-hint {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translate(-50%, 6px);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--navigator-hint-color, $default-hint-color);
+      background: var(--navigator-hint-background, $default-hint-background);
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+  }
 
-app-navigator .option-button {
-    width: $navigator-button-size;
-    height: $navigator-button-size;
-    border-radius: 50%;
-    border: 1px solid var(--navigator-button-border, $default-button-border);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
-    background-color: var(--navigator-option-background, $default-option-bg);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+  .option-button {
+      width: $navigator-button-size;
+      height: $navigator-button-size;
+      border-radius: 50%;
+      border: 1px solid var(--navigator-button-border, $default-button-border);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      box-shadow: $navigator-shadow, 0 0 14px var(--navigator-button-glow, $default-button-glow);
+      background-color: var(--navigator-option-background, $default-option-bg);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
 
-    &:hover {
-        background-color: var(--navigator-option-hover-background, $default-option-hover-bg);
-        border-color: var(--navigator-button-border, $default-button-border);
-    }
+      &:hover {
+          background-color: var(--navigator-option-hover-background, $default-option-hover-bg);
+          border-color: var(--navigator-button-border, $default-button-border);
+      }
 
-    mat-icon {
-        position: absolute;
-        font-size: 20px;
-        color: var(--navigator-icon-color, #111111);
-    }
+      mat-icon {
+          position: absolute;
+          font-size: 20px;
+          color: var(--navigator-icon-color, #111111);
+      }
 
-    app-navigator .section-number {
-        position: absolute;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--navigator-text-color);
-    }
+      .section-number {
+          position: absolute;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: var(--navigator-text-color);
+      }
 
-    &.selected {
-        background-color: var(--navigator-option-selected-background, $default-option-selected-bg);
-        border-color: var(--navigator-button-border, $default-button-border);
-    }
-}
+      &.selected {
+          background-color: var(--navigator-option-selected-background, $default-option-selected-bg);
+          border-color: var(--navigator-button-border, $default-button-border);
+      }
+  }
 
-app-navigator .option-item:hover .option-hint,
-app-navigator .option-item:focus-within .option-hint {
-    opacity: 1;
-    transform: translate(-50%, 0);
+  .option-item:hover .option-hint,
+  .option-item:focus-within .option-hint {
+      opacity: 1;
+      transform: translate(-50%, 0);
+  }
 }
