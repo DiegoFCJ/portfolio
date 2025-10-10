@@ -21,6 +21,7 @@ import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
 import { ExperiencesComponent } from '../../components/experiences/experiences.component';
 import { AssistantComponent } from '../../components/assistant/assistant.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,8 @@ import { AssistantComponent } from '../../components/assistant/assistant.compone
     EducationComponent,
     StatsComponent,
     ContactMeComponent,
-    ExperiencesComponent
+    ExperiencesComponent,
+    MatIconModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
