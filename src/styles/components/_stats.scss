@@ -298,7 +298,7 @@ app-stats {
         .statistics-dialog-close {
             position: absolute;
             top: clamp(0.75rem, 2vw, 1rem);
-            inset-inline-end: clamp(0.75rem, 2vw, 1rem);
+            inset-inline-end: clamp(-1rem, 2vw, 0rem);
             inline-size: clamp(2.4rem, 6vw, 2.9rem);
             aspect-ratio: 1 / 1;
             border-radius: 999px;

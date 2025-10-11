@@ -38,13 +38,13 @@ export const projects: ProjectsLangs = {
         },
         projects: [
             {
-                title: 'Borgo Samarína',
+                title: 'Borgo Samarina',
                 status: {
                     level: 'active'
                 },
                 technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
                 description: 'Portale turistico responsive per valorizzare il borgo con itinerari, galleria stagionale e copy gestito da CMS headless (codice privato).',
-                image: 'assets/projects/borgo-samarina-cover.svg',
+                image: 'assets/projects/borgo-samarina-cover.png',
                 links: {
                     code: {
                         state: 'private'
@@ -160,13 +160,13 @@ export const projects: ProjectsLangs = {
         },
         projects: [
             {
-                title: 'Borgo Samarína',
+                title: 'Borgo Samarina',
                 status: {
                     level: 'active'
                 },
                 technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
                 description: 'Responsive tourism portal celebrating the seaside village with curated itineraries, seasonal gallery and CMS-driven copy (private codebase).',
-                image: 'assets/projects/borgo-samarina-cover.svg',
+                image: 'assets/projects/borgo-samarina-cover.png',
                 links: {
                     code: {
                         state: 'private'
