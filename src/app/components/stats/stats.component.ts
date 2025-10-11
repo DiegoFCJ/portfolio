@@ -41,10 +41,13 @@ export class StatsComponent implements OnInit, OnDestroy {
   isLoading = true;
   selectedStat: DisplayStat | null = null;
   closeButtonLabel = 'Chiudi';
+  dialogScrollable = false;
+  dialogAtEnd = false;
 
   private readonly destroy$ = new Subject<void>();
   private metricsCache: StatsMetrics | null = null;
   private lastFocusedElement: HTMLElement | null = null;
+  private dialogBodyRef?: ElementRef<HTMLDivElement>;
 
   @ViewChild('detailCloseButton')
   set detailCloseButton(button: ElementRef<HTMLButtonElement> | undefined) {
@@ -55,6 +58,15 @@ export class StatsComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       button.nativeElement.focus({ preventScroll: true });
     });
+  }
+
+  @ViewChild('dialogBody')
+  set dialogBody(body: ElementRef<HTMLDivElement> | undefined) {
+    this.dialogBodyRef = body;
+
+    if (body) {
+      setTimeout(() => this.evaluateDialogScrollState());
+    }
   }
 
   constructor(private translationService: TranslationService) { }
@@ -128,6 +140,10 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
 
     this.selectedStat = stat;
+    this.dialogScrollable = false;
+    this.dialogAtEnd = false;
+
+    setTimeout(() => this.evaluateDialogScrollState());
   }
 
   closeStatDetail(event?: Event): void {
@@ -139,6 +155,8 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
 
     this.selectedStat = null;
+    this.dialogScrollable = false;
+    this.dialogAtEnd = false;
 
     if (this.lastFocusedElement) {
       this.lastFocusedElement.focus({ preventScroll: true });
@@ -154,6 +172,15 @@ export class StatsComponent implements OnInit, OnDestroy {
 
     event.preventDefault();
     this.closeStatDetail();
+  }
+
+  @HostListener('window:resize')
+  handleWindowResize(): void {
+    if (!this.selectedStat) {
+      return;
+    }
+
+    this.evaluateDialogScrollState();
   }
 
   calculateStats(
@@ -277,14 +304,12 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
 
   private formatExperienceContribution(experience: any): string {
-    const role = (experience.position ?? '').trim();
     const location = (experience.location ?? '').trim();
-    const range = this.formatDateRange(experience.startDate, experience.endDate);
+    const locationPrimary = location.split('·')[0]?.trim() ?? '';
+    const role = (experience.position ?? '').trim();
+    const rolePrimary = role.split('·')[0]?.trim() ?? '';
 
-    const headline = [role, location].filter(Boolean).join(' · ');
-    const withRange = [headline, range ? `(${range})` : ''].filter(Boolean);
-
-    return withRange.join(' ');
+    return locationPrimary || rolePrimary;
   }
 
   private formatProjectContribution(project: any): string {
@@ -300,23 +325,30 @@ export class StatsComponent implements OnInit, OnDestroy {
     return title;
   }
 
-  private formatDateRange(start?: string, end?: string): string {
-    const normalizedStart = (start ?? '').trim();
-    const normalizedEnd = (end ?? '').trim();
-
-    if (!normalizedStart && !normalizedEnd) {
-      return '';
+  onDialogScroll(event: Event): void {
+    if (!(event.target instanceof HTMLElement)) {
+      return;
     }
 
-    if (!normalizedEnd || normalizedStart === normalizedEnd) {
-      return normalizedStart || normalizedEnd;
+    this.updateDialogEdgeState(event.target);
+  }
+
+  private evaluateDialogScrollState(): void {
+    const element = this.dialogBodyRef?.nativeElement;
+    if (!element) {
+      this.dialogScrollable = false;
+      this.dialogAtEnd = false;
+      return;
     }
 
-    if (!normalizedStart) {
-      return normalizedEnd;
-    }
+    const scrollable = element.scrollHeight - element.clientHeight > 1;
+    this.dialogScrollable = scrollable;
+    this.updateDialogEdgeState(element);
+  }
 
-    return `${normalizedStart} – ${normalizedEnd}`;
+  private updateDialogEdgeState(element: HTMLElement): void {
+    const isAtEnd = Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight;
+    this.dialogAtEnd = isAtEnd || !this.dialogScrollable;
   }
 
   private parseDate(value: string): Date {
