@@ -16,6 +16,7 @@ export interface Stat {
     label: string;
     valueSuffix?: string;
     detail: string;
+    detailItems?: string[];
 }
 
 export interface StatsMetrics {
@@ -27,4 +28,10 @@ export interface StatsMetrics {
     projectsSuffix: string;
     mostUsedValue: string;
     mostUsedSuffix?: string;
+    detailItems: {
+        hours: string[];
+        months: string[];
+        projects: string[];
+        stack: string[];
+    };
 }

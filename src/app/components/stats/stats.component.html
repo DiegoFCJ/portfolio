@@ -68,6 +68,9 @@
       <p class="statistics-dialog-description" id="stat-detail-description">
         {{ activeStat.detail }}
       </p>
+      <ul class="statistics-dialog-list" *ngIf="activeStat.items?.length">
+        <li *ngFor="let item of activeStat.items">{{ item }}</li>
+      </ul>
       <p class="statistics-dialog-suffix" *ngIf="activeStat.suffix">{{ activeStat.suffix }}</p>
     </div>
   </div>
