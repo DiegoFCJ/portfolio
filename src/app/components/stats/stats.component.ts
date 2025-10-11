@@ -16,11 +16,12 @@ interface DisplayStat {
   value: string;
   suffix?: string;
   detail: string;
+  items?: string[];
 }
 
 interface TranslatableStatsTemplate {
   title: string;
-  stats: Array<Pick<Stat, 'label' | 'valueSuffix' | 'detail'>>;
+  stats: Array<Pick<Stat, 'label' | 'valueSuffix' | 'detail' | 'detailItems'>>;
 }
 
 @Component({
@@ -40,10 +41,13 @@ export class StatsComponent implements OnInit, OnDestroy {
   isLoading = true;
   selectedStat: DisplayStat | null = null;
   closeButtonLabel = 'Chiudi';
+  dialogScrollable = false;
+  dialogAtEnd = false;
 
   private readonly destroy$ = new Subject<void>();
   private metricsCache: StatsMetrics | null = null;
   private lastFocusedElement: HTMLElement | null = null;
+  private dialogBodyRef?: ElementRef<HTMLDivElement>;
 
   @ViewChild('detailCloseButton')
   set detailCloseButton(button: ElementRef<HTMLButtonElement> | undefined) {
@@ -54,6 +58,15 @@ export class StatsComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       button.nativeElement.focus({ preventScroll: true });
     });
+  }
+
+  @ViewChild('dialogBody')
+  set dialogBody(body: ElementRef<HTMLDivElement> | undefined) {
+    this.dialogBodyRef = body;
+
+    if (body) {
+      setTimeout(() => this.evaluateDialogScrollState());
+    }
   }
 
   constructor(private translationService: TranslationService) { }
@@ -80,7 +93,7 @@ export class StatsComponent implements OnInit, OnDestroy {
             )
           );
 
-          const translatableTemplate = this.buildTranslatableTemplate(baseTemplate);
+          const translatableTemplate = this.buildTranslatableTemplate(baseTemplate, computed);
 
           return this.translationService
             .translateContent<TranslatableStatsTemplate>(
@@ -105,7 +118,8 @@ export class StatsComponent implements OnInit, OnDestroy {
           const translatedStat = translatedTemplate.stats[index] ?? {
             label: stat.label,
             valueSuffix: stat.valueSuffix ?? '',
-            detail: stat.detail
+            detail: stat.detail,
+            detailItems: stat.detailItems ?? []
           };
 
           return this.buildDisplayStat(stat, translatedStat, computed, index);
@@ -126,6 +140,10 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
 
     this.selectedStat = stat;
+    this.dialogScrollable = false;
+    this.dialogAtEnd = false;
+
+    setTimeout(() => this.evaluateDialogScrollState());
   }
 
   closeStatDetail(event?: Event): void {
@@ -137,6 +155,8 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
 
     this.selectedStat = null;
+    this.dialogScrollable = false;
+    this.dialogAtEnd = false;
 
     if (this.lastFocusedElement) {
       this.lastFocusedElement.focus({ preventScroll: true });
@@ -152,6 +172,15 @@ export class StatsComponent implements OnInit, OnDestroy {
 
     event.preventDefault();
     this.closeStatDetail();
+  }
+
+  @HostListener('window:resize')
+  handleWindowResize(): void {
+    if (!this.selectedStat) {
+      return;
+    }
+
+    this.evaluateDialogScrollState();
   }
 
   calculateStats(
@@ -174,6 +203,8 @@ export class StatsComponent implements OnInit, OnDestroy {
 
     totalProjects += professionalExperiences.length;
 
+    const experienceItems: string[] = [];
+
     professionalExperiences.forEach((exp, index) => {
       const months = this.calculateMonths(exp.startDate, exp.endDate);
       totalMonths += months;
@@ -192,12 +223,22 @@ export class StatsComponent implements OnInit, OnDestroy {
       technologies.forEach((tech: any) => {
         technologyCount[tech] = (technologyCount[tech] || 0) + 1;
       });
+
+      const contribution = this.formatExperienceContribution(exp);
+      if (contribution.trim().length) {
+        experienceItems.push(contribution);
+      }
     });
 
     const sortedTechnologies = Object.entries(technologyCount)
       .sort(([, a], [, b]) => b - a)
       .slice(0, 4)
       .map(([tech]) => this.formatTechnology(tech));
+
+    const projectItems = [
+      ...projectList.map((project) => this.formatProjectContribution(project)),
+      ...experienceItems
+    ].filter((item): item is string => Boolean(item && item.trim().length));
 
     const locale = this.resolveLocale(language);
     const formatter = new Intl.NumberFormat(locale);
@@ -210,7 +251,13 @@ export class StatsComponent implements OnInit, OnDestroy {
       projectsValue: formatter.format(totalProjects),
       projectsSuffix: template.stats[2]?.valueSuffix ?? 'iniziative con contributo diretto',
       mostUsedValue: sortedTechnologies.join(' · '),
-      mostUsedSuffix: template.stats[3]?.valueSuffix
+      mostUsedSuffix: template.stats[3]?.valueSuffix,
+      detailItems: {
+        hours: experienceItems,
+        months: experienceItems,
+        projects: projectItems,
+        stack: sortedTechnologies
+      }
     };
   }
 
@@ -254,6 +301,54 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
 
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
+  }
+
+  private formatExperienceContribution(experience: any): string {
+    const location = (experience.location ?? '').trim();
+    const locationPrimary = location.split('·')[0]?.trim() ?? '';
+    const role = (experience.position ?? '').trim();
+    const rolePrimary = role.split('·')[0]?.trim() ?? '';
+
+    return locationPrimary || rolePrimary;
+  }
+
+  private formatProjectContribution(project: any): string {
+    if (!project) {
+      return '';
+    }
+
+    const title = (project.title ?? '').trim();
+    if (!title) {
+      return '';
+    }
+
+    return title;
+  }
+
+  onDialogScroll(event: Event): void {
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
+
+    this.updateDialogEdgeState(event.target);
+  }
+
+  private evaluateDialogScrollState(): void {
+    const element = this.dialogBodyRef?.nativeElement;
+    if (!element) {
+      this.dialogScrollable = false;
+      this.dialogAtEnd = false;
+      return;
+    }
+
+    const scrollable = element.scrollHeight - element.clientHeight > 1;
+    this.dialogScrollable = scrollable;
+    this.updateDialogEdgeState(element);
+  }
+
+  private updateDialogEdgeState(element: HTMLElement): void {
+    const isAtEnd = Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight;
+    this.dialogAtEnd = isAtEnd || !this.dialogScrollable;
   }
 
   private parseDate(value: string): Date {
@@ -301,7 +396,7 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   private buildDisplayStat(
     baseStat: Stat,
-    translatedStat: Pick<Stat, 'label' | 'valueSuffix' | 'detail'>,
+    translatedStat: Pick<Stat, 'label' | 'valueSuffix' | 'detail' | 'detailItems'>,
     metrics: StatsMetrics,
     index: number
   ): DisplayStat {
@@ -310,13 +405,15 @@ export class StatsComponent implements OnInit, OnDestroy {
     const detail = translatedStat.detail && translatedStat.detail.trim().length
       ? translatedStat.detail
       : baseStat.detail;
+    const detailItems = this.getDetailItemsByIndex(metrics, index, translatedStat.detailItems);
 
     return {
       icon: baseStat.icon,
       label: translatedStat.label,
       value,
       detail,
-      ...(suffix ? { suffix } : {})
+      ...(suffix ? { suffix } : {}),
+      ...(detailItems.length ? { items: detailItems } : {})
     };
   }
 
@@ -364,13 +461,52 @@ export class StatsComponent implements OnInit, OnDestroy {
     return fallback ?? '';
   }
 
-  private buildTranslatableTemplate(template: StatsFull): TranslatableStatsTemplate {
+  private getDetailItemsByIndex(
+    metrics: StatsMetrics,
+    index: number,
+    translatedItems?: string[]
+  ): string[] {
+    const sanitizedTranslated = this.sanitizeDetailItems(translatedItems);
+    if (sanitizedTranslated.length) {
+      return sanitizedTranslated;
+    }
+
+    return this.getMetricDetailItems(metrics, index);
+  }
+
+  private getMetricDetailItems(metrics: StatsMetrics, index: number): string[] {
+    switch (index) {
+      case 0:
+        return metrics.detailItems.hours;
+      case 1:
+        return metrics.detailItems.months;
+      case 2:
+        return metrics.detailItems.projects;
+      case 3:
+        return metrics.detailItems.stack;
+      default:
+        return [];
+    }
+  }
+
+  private sanitizeDetailItems(items?: string[]): string[] {
+    if (!items) {
+      return [];
+    }
+
+    return items
+      .map(item => (item ?? '').trim())
+      .filter((item): item is string => Boolean(item.length));
+  }
+
+  private buildTranslatableTemplate(template: StatsFull, metrics: StatsMetrics): TranslatableStatsTemplate {
     return {
       title: template.title,
-      stats: template.stats.map(({ label, valueSuffix, detail }) => ({
+      stats: template.stats.map(({ label, valueSuffix, detail }, index) => ({
         label,
         valueSuffix: valueSuffix ?? '',
-        detail
+        detail,
+        detailItems: this.getMetricDetailItems(metrics, index)
       }))
     };
   }
