@@ -1,11 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 import { EmailService } from './email.service';
+import { APP_ENVIRONMENT } from '../tokens/environment.token';
+import { EnvironmentConfig } from '../../environments/environment';
 
 describe('EmailService', () => {
   let service: EmailService;
 
+  const environmentStub: EnvironmentConfig = {
+    production: false,
+    gaTrackingId: 'G-1234567890',
+    formspreeEndpoint: 'https://formspree.io/f/xrbgldjz',
+    enableAnalytics: true,
+    enableErrorTracking: true,
+    sentryDsn: 'https://example@sentry.test/1',
+    sentryTracesSampleRate: 1,
+  };
+
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [{ provide: APP_ENVIRONMENT, useValue: environmentStub }],
+    });
     service = TestBed.inject(EmailService);
     localStorage.clear();
   });
