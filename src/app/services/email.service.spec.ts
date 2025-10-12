@@ -1,13 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 import { EmailService } from './email.service';
+import { environment } from '../../environments/environment';
 
 describe('EmailService', () => {
   let service: EmailService;
+  const originalEndpoint = environment.formspreeEndpoint;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(EmailService);
     localStorage.clear();
+    environment.formspreeEndpoint = 'https://formspree.io/f/xrbgldjz';
+  });
+
+  afterEach(() => {
+    environment.formspreeEndpoint = originalEndpoint;
   });
 
   it('should be created', () => {
