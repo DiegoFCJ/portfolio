@@ -1,0 +1,10 @@
+<footer class="legal-footer" role="contentinfo">
+  <div class="legal-footer__links" aria-label="Legal navigation">
+    <a routerLink="/privacy-policy" class="legal-footer__link">{{ copy.privacy }}</a>
+    <a routerLink="/terms" class="legal-footer__link">{{ copy.terms }}</a>
+    <button type="button" class="legal-footer__button" (click)="openPreferences()">
+      {{ copy.manageCookies }}
+    </button>
+  </div>
+  <p class="legal-footer__notice">{{ copy.notice }}</p>
+</footer>

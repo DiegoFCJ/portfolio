@@ -1,0 +1,51 @@
+@use '../privacy-policy/privacy-policy.component.scss' as privacy;
+
+.legal-page {
+  @extend privacy.legal-page;
+}
+
+.legal-page__header {
+  @extend privacy.legal-page__header;
+}
+
+.legal-page__title {
+  @extend privacy.legal-page__title;
+}
+
+.legal-page__meta {
+  @extend privacy.legal-page__meta;
+}
+
+.legal-page__paragraph {
+  @extend privacy.legal-page__paragraph;
+}
+
+.legal-page__section {
+  @extend privacy.legal-page__section;
+}
+
+.legal-page__section-title {
+  @extend privacy.legal-page__section-title;
+}
+
+.legal-page__list {
+  @extend privacy.legal-page__list;
+}
+
+.legal-page__list--nested {
+  @extend privacy.legal-page__list--nested;
+}
+
+.legal-page__list-item {
+  @extend privacy.legal-page__list-item;
+}
+
+.legal-page__subsection-title {
+  @extend privacy.legal-page__subsection-title;
+}
+
+@media (max-width: 768px) {
+  .legal-page {
+    @extend privacy.legal-page;
+  }
+}

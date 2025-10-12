@@ -5,12 +5,16 @@ import { BehaviorSubject } from 'rxjs';
 import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
 import { AnalyticsService } from './services/analytics.service';
+import { CookieConsentService, ConsentStatus } from './services/cookie-consent.service';
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
   let languageSubject: BehaviorSubject<LanguageCode>;
   let metaService: Meta;
   let analyticsService: jasmine.SpyObj<AnalyticsService>;
+  let consentStatusSubject: BehaviorSubject<ConsentStatus>;
+  let bannerVisibleSubject: BehaviorSubject<boolean>;
+  let cookieConsentService: Partial<CookieConsentService>;
 
   beforeEach(async () => {
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
@@ -22,13 +26,25 @@ describe('AppComponent', () => {
       }),
     };
 
-    analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView']);
+    analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView', 'destroy']);
+
+    consentStatusSubject = new BehaviorSubject<ConsentStatus>('accepted');
+    bannerVisibleSubject = new BehaviorSubject<boolean>(false);
+    cookieConsentService = {
+      consentStatus$: consentStatusSubject.asObservable(),
+      bannerVisible$: bannerVisibleSubject.asObservable(),
+      acceptAnalytics: jasmine.createSpy('acceptAnalytics'),
+      declineAnalytics: jasmine.createSpy('declineAnalytics'),
+      openPreferences: jasmine.createSpy('openPreferences'),
+      hideBanner: jasmine.createSpy('hideBanner'),
+    };
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
         { provide: TranslationService, useValue: mockTranslationService },
         { provide: AnalyticsService, useValue: analyticsService },
+        { provide: CookieConsentService, useValue: cookieConsentService },
       ],
     }).compileComponents();
 
@@ -45,6 +61,13 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     expect(analyticsService.initialize).toHaveBeenCalled();
+  });
+
+  it('should destroy analytics when consent becomes declined', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    consentStatusSubject.next('declined');
+    expect(analyticsService.destroy).toHaveBeenCalled();
   });
 
   it('should set the document title to "Portfolio di Diego" for Italian', () => {

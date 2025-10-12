@@ -30,6 +30,7 @@ export class AnalyticsService {
       return;
     }
 
+    (win as Record<string, unknown>)[`ga-disable-${trackingId}`] = false;
     this.appendAnalyticsScript(trackingId);
 
     win.dataLayer = win.dataLayer || [];
@@ -42,6 +43,40 @@ export class AnalyticsService {
     win.gtag('config', trackingId);
 
     this.isBootstrapped = true;
+  }
+
+  destroy(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const trackingId = this.environment.gaTrackingId;
+    const win = this.documentRef.defaultView as AnalyticsWindow | null;
+    const disableKey = `ga-disable-${trackingId}`;
+
+    if (win) {
+      (win as Record<string, unknown>)[disableKey] = true;
+
+      try {
+        delete (win as Record<string, unknown>).gtag;
+      } catch {
+        (win as Record<string, unknown>).gtag = undefined;
+      }
+
+      if (Array.isArray(win.dataLayer)) {
+        win.dataLayer.length = 0;
+      }
+    }
+
+    const head = this.documentRef.head;
+    if (head && trackingId) {
+      const existing = head.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${trackingId}"]`);
+      if (existing) {
+        head.removeChild(existing);
+      }
+    }
+
+    this.isBootstrapped = false;
   }
 
   trackPageView(url: string): void {

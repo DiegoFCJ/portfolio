@@ -1,0 +1,36 @@
+<div
+  *ngIf="visible$ | async"
+  class="cookie-banner"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Cookie preferences"
+>
+  <div class="cookie-banner__content">
+    <h2 class="cookie-banner__title">{{ copy.title }}</h2>
+    <p class="cookie-banner__message">{{ copy.message }}</p>
+    <p class="cookie-banner__review" *ngIf="reviewMode$ | async">{{ copy.reviewMessage }}</p>
+    <a
+      routerLink="/privacy-policy"
+      fragment="cookies"
+      class="cookie-banner__link"
+    >
+      {{ copy.linkLabel }}
+    </a>
+  </div>
+  <div class="cookie-banner__actions">
+    <button
+      type="button"
+      class="cookie-banner__button cookie-banner__button--secondary"
+      (click)="decline()"
+    >
+      {{ copy.decline }}
+    </button>
+    <button
+      type="button"
+      class="cookie-banner__button cookie-banner__button--primary"
+      (click)="accept()"
+    >
+      {{ copy.accept }}
+    </button>
+  </div>
+</div>

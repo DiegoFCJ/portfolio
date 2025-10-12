@@ -1,0 +1,102 @@
+.cookie-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  width: min(640px, 92vw);
+  background: rgba(18, 18, 18, 0.92);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  border-radius: 1.5rem;
+  padding: 1.75rem 2rem;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 1200;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cookie-banner__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.cookie-banner__message,
+.cookie-banner__review {
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.cookie-banner__review {
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+}
+
+.cookie-banner__link {
+  display: inline-block;
+  color: #8ab4ff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cookie-banner__link:hover,
+.cookie-banner__link:focus {
+  text-decoration: underline;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.cookie-banner__button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.5rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cookie-banner__button:focus {
+  outline: 2px solid rgba(138, 180, 255, 0.8);
+  outline-offset: 2px;
+}
+
+.cookie-banner__button--primary {
+  background: linear-gradient(135deg, #5a67d8, #7f9cf5);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(90, 103, 216, 0.35);
+}
+
+.cookie-banner__button--secondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+.cookie-banner__button:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .cookie-banner {
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    bottom: 1rem;
+  }
+
+  .cookie-banner__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cookie-banner__button {
+    width: 100%;
+  }
+}

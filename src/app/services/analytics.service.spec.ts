@@ -87,6 +87,22 @@ describe('AnalyticsService', () => {
     expect(script).not.toBeNull();
   });
 
+  it('should remove the analytics script when destroy is called', () => {
+    spyOn(window.localStorage, 'getItem').and.returnValue('granted');
+
+    const analyticsService = getService();
+    analyticsService.initialize();
+
+    const doc = getDocument();
+    expect(doc.head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]')).not.toBeNull();
+
+    analyticsService.destroy();
+
+    expect(doc.head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]')).toBeNull();
+    const win = doc.defaultView as Window & { [key: string]: unknown };
+    expect(win['ga-disable-G-TEST123']).toBeTrue();
+  });
+
   it('should send page views after initialization', () => {
     spyOn(window.localStorage, 'getItem').and.returnValue('granted');
     const analyticsService = getService();

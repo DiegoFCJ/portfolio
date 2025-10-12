@@ -9,12 +9,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
 import { LANGUAGE_META_CONFIGURATION } from './constants/meta.const';
 import { AnalyticsService } from './services/analytics.service';
+import { CookieConsentService } from './services/cookie-consent.service';
+import { CookieConsentBannerComponent } from './components/cookie-consent-banner/cookie-consent-banner.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: '<router-outlet />',
+  imports: [RouterOutlet, CookieConsentBannerComponent],
+  template: `
+    <app-cookie-consent-banner></app-cookie-consent-banner>
+    <router-outlet />
+  `,
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -26,6 +31,7 @@ export class AppComponent implements OnInit {
     @Inject(DOCUMENT) private readonly document: Document,
     private readonly destroyRef: DestroyRef,
     private readonly analyticsService: AnalyticsService,
+    private readonly cookieConsentService: CookieConsentService,
   ) { }
 
   ngOnInit() {
@@ -38,7 +44,17 @@ export class AppComponent implements OnInit {
       });
 
     if (isPlatformBrowser(this.platformId)) {
-      this.analyticsService.initialize();
+      this.cookieConsentService.consentStatus$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((status) => {
+          if (status === 'accepted') {
+            this.analyticsService.initialize();
+          }
+
+          if (status === 'declined') {
+            this.analyticsService.destroy();
+          }
+        });
 
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),

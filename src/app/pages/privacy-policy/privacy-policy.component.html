@@ -1,0 +1,42 @@
+<section class="legal-page">
+  <header class="legal-page__header">
+    <h1 class="legal-page__title">{{ content.title }}</h1>
+    <p class="legal-page__meta">{{ content.lastUpdated }}</p>
+  </header>
+
+  <div class="legal-page__intro">
+    <p *ngFor="let paragraph of content.intro" class="legal-page__paragraph">
+      {{ paragraph }}
+    </p>
+  </div>
+
+  <article
+    *ngFor="let section of content.sections; trackBy: trackBySection"
+    class="legal-page__section"
+    [attr.id]="section.id"
+  >
+    <h2 class="legal-page__section-title">{{ section.title }}</h2>
+    <p *ngFor="let paragraph of section.paragraphs" class="legal-page__paragraph">
+      {{ paragraph }}
+    </p>
+
+    <ul *ngIf="section.list?.length" class="legal-page__list">
+      <li *ngFor="let item of section.list" class="legal-page__list-item">{{ item }}</li>
+    </ul>
+
+    <ng-container *ngIf="section.subSections?.length">
+      <section
+        *ngFor="let subSection of section.subSections"
+        class="legal-page__subsection"
+      >
+        <h3 class="legal-page__subsection-title">{{ subSection.title }}</h3>
+        <p *ngFor="let paragraph of subSection.paragraphs" class="legal-page__paragraph">
+          {{ paragraph }}
+        </p>
+        <ul *ngIf="subSection.list?.length" class="legal-page__list legal-page__list--nested">
+          <li *ngFor="let item of subSection.list" class="legal-page__list-item">{{ item }}</li>
+        </ul>
+      </section>
+    </ng-container>
+  </article>
+</section>
