@@ -3,6 +3,8 @@ import { HomeComponent } from './home.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
+import { APP_ENVIRONMENT } from '../../tokens/environment.token';
+import { EnvironmentConfig } from '../../../environments/environment';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -12,7 +14,19 @@ describe('HomeComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HomeComponent, NoopAnimationsModule],
       providers: [
-        { provide: TranslationService, useClass: MockTranslationService }
+        { provide: TranslationService, useClass: MockTranslationService },
+        {
+          provide: APP_ENVIRONMENT,
+          useValue: {
+            production: false,
+            gaTrackingId: 'test-tracking-id',
+            formspreeEndpoint: '',
+            enableAnalytics: false,
+            enableErrorTracking: false,
+            sentryDsn: '',
+            sentryTracesSampleRate: 0,
+          } satisfies EnvironmentConfig,
+        },
       ]
     }).compileComponents();
 

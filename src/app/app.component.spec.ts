@@ -4,11 +4,13 @@ import { TranslationService } from './services/translation.service';
 import { BehaviorSubject } from 'rxjs';
 import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
+import { AnalyticsService } from './services/analytics.service';
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
   let languageSubject: BehaviorSubject<LanguageCode>;
   let metaService: Meta;
+  let analyticsService: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(async () => {
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
@@ -20,9 +22,14 @@ describe('AppComponent', () => {
       }),
     };
 
+    analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView']);
+
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [{ provide: TranslationService, useValue: mockTranslationService }],
+      providers: [
+        { provide: TranslationService, useValue: mockTranslationService },
+        { provide: AnalyticsService, useValue: analyticsService },
+      ],
     }).compileComponents();
 
     metaService = TestBed.inject(Meta);
@@ -32,6 +39,12 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  it('should initialize analytics on bootstrap', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    expect(analyticsService.initialize).toHaveBeenCalled();
   });
 
   it('should set the document title to "Portfolio di Diego" for Italian', () => {
