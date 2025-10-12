@@ -1,0 +1,49 @@
+<section class="policy" *ngIf="policy$ | async as policy">
+  <div class="policy__container">
+    <header class="policy__header">
+      <h1 class="policy__title">{{ policy.pageTitle }}</h1>
+      <p class="policy__meta">{{ policy.lastUpdatedLabel }} {{ policy.lastUpdatedDate }}</p>
+    </header>
+
+    <div class="policy__intro">
+      <p *ngFor="let paragraph of policy.intro">{{ paragraph }}</p>
+    </div>
+
+    <article class="policy__section" *ngFor="let section of policy.sections">
+      <h2 class="policy__section-title">{{ section.title }}</h2>
+      <p *ngFor="let paragraph of section.paragraphs || []">{{ paragraph }}</p>
+      <ul *ngIf="section.list?.length" class="policy__list">
+        <li *ngFor="let item of section.list">{{ item }}</li>
+      </ul>
+    </article>
+
+    <section class="policy__section">
+      <h2 class="policy__section-title">{{ policy.rightsTitle }}</h2>
+      <p>{{ policy.rightsDescription }}</p>
+      <ul class="policy__list">
+        <li *ngFor="let right of policy.rightsList">{{ right }}</li>
+      </ul>
+    </section>
+
+    <section class="policy__section">
+      <h2 class="policy__section-title">{{ policy.thirdPartyTitle }}</h2>
+      <p *ngFor="let paragraph of policy.thirdPartyIntro">{{ paragraph }}</p>
+      <div class="policy__provider" *ngFor="let provider of policy.thirdPartyProviders">
+        <h3 class="policy__provider-name">{{ provider.name }}</h3>
+        <p class="policy__provider-detail">{{ provider.purpose }}</p>
+        <p class="policy__provider-detail"><strong>{{ provider.data }}</strong></p>
+        <a class="policy__provider-link" [href]="provider.policyUrl" target="_blank" rel="noopener noreferrer">
+          {{ provider.policyLabel }}
+        </a>
+      </div>
+    </section>
+
+    <section class="policy__section">
+      <h2 class="policy__section-title">{{ policy.contact.title }}</h2>
+      <p *ngFor="let paragraph of policy.contact.paragraphs">{{ paragraph }}</p>
+      <a class="policy__contact" [href]="'mailto:' + policy.contact.email">
+        {{ policy.contact.emailLabel }} {{ policy.contact.email }}
+      </a>
+    </section>
+  </div>
+</section>

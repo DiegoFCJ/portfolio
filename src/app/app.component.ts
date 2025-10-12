@@ -8,14 +8,20 @@ import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
 import { LANGUAGE_META_CONFIGURATION } from './constants/meta.const';
-
-declare var gtag: Function | undefined;
+import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.component';
+import { SiteFooterComponent } from './components/site-footer/site-footer.component';
+import { ConsentService, ConsentStatus } from './services/consent.service';
+import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: '<router-outlet />',
+  imports: [RouterOutlet, CookieBannerComponent, SiteFooterComponent],
+  template: `
+    <router-outlet />
+    <app-cookie-banner></app-cookie-banner>
+    <app-site-footer></app-site-footer>
+  `,
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -25,7 +31,9 @@ export class AppComponent implements OnInit {
     private readonly titleService: Title,
     private readonly metaService: Meta,
     @Inject(DOCUMENT) private readonly document: Document,
-    private readonly destroyRef: DestroyRef
+    private readonly destroyRef: DestroyRef,
+    private readonly consentService: ConsentService,
+    private readonly analyticsService: AnalyticsService,
   ) { }
 
   ngOnInit() {
@@ -37,18 +45,37 @@ export class AppComponent implements OnInit {
         this.updateSeoTags(language);
       });
 
-    // Google Analytics configurazione
     if (isPlatformBrowser(this.platformId)) {
+      this.observeConsentStatus();
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
       ).subscribe((event: NavigationEnd) => {
-        if (typeof gtag === 'function') {
-          gtag('config', 'G-5ZF8RBY109', {
-            page_path: event.urlAfterRedirects,
-          });
+        if (this.consentService.hasConsented()) {
+          this.analyticsService.trackPageView(event.urlAfterRedirects);
         }
       });
     }
+  }
+
+  private observeConsentStatus(): void {
+    let isFirstEmission = true;
+
+    this.consentService.consentStatus$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((status: ConsentStatus) => {
+        if (status === 'accepted') {
+          this.analyticsService.enableAnalytics();
+
+          if (!isFirstEmission) {
+            this.analyticsService.trackPageView(this.router.url);
+          }
+        } else {
+          this.analyticsService.disableAnalytics();
+        }
+
+        isFirstEmission = false;
+      });
   }
 
   private updatePageTitle(language: LanguageCode): void {

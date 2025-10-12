@@ -1,28 +1,63 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslationService } from './services/translation.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ConsentService, ConsentStatus } from './services/consent.service';
+import { AnalyticsService } from './services/analytics.service';
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
   let languageSubject: BehaviorSubject<LanguageCode>;
   let metaService: Meta;
+  let consentStatusSubject: BehaviorSubject<ConsentStatus>;
+
+  class MockConsentService {
+    consentStatus$ = consentStatusSubject.asObservable();
+    acceptConsent(): void {
+      consentStatusSubject.next('accepted');
+    }
+    declineConsent(): void {
+      consentStatusSubject.next('declined');
+    }
+    revokeConsent(): void {
+      consentStatusSubject.next('pending');
+    }
+    hasConsented(): boolean {
+      return consentStatusSubject.value === 'accepted';
+    }
+  }
+
+  class MockAnalyticsService {
+    enableAnalytics = jasmine.createSpy('enableAnalytics');
+    disableAnalytics = jasmine.createSpy('disableAnalytics');
+    trackPageView = jasmine.createSpy('trackPageView');
+  }
 
   beforeEach(async () => {
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
     languageSubject = new BehaviorSubject<LanguageCode>('it');
+    consentStatusSubject = new BehaviorSubject<ConsentStatus>('pending');
     mockTranslationService = {
       currentLanguage$: languageSubject.asObservable(),
       setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: LanguageCode) => {
         languageSubject.next(language);
       }),
+      getTranslatedData: jasmine.createSpy('getTranslatedData').and.callFake((data: any) => {
+        const translated = data?.it ?? Object.values(data ?? {})[0];
+        return of(translated);
+      }),
     };
 
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
-      providers: [{ provide: TranslationService, useValue: mockTranslationService }],
+      imports: [AppComponent, RouterTestingModule],
+      providers: [
+        { provide: TranslationService, useValue: mockTranslationService },
+        { provide: ConsentService, useClass: MockConsentService },
+        { provide: AnalyticsService, useClass: MockAnalyticsService },
+      ],
     }).compileComponents();
 
     metaService = TestBed.inject(Meta);

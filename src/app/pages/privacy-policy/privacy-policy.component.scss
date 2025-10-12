@@ -1,0 +1,103 @@
+.policy {
+  display: flex;
+  justify-content: center;
+  padding: 6rem 1.5rem 4rem;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.95) 100%);
+  color: #e2e8f0;
+}
+
+.policy__container {
+  width: min(960px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.policy__header {
+  text-align: center;
+}
+
+.policy__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0;
+}
+
+.policy__meta {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: #cbd5f5;
+}
+
+.policy__intro p {
+  margin: 0 0 1rem;
+  line-height: 1.7;
+}
+
+.policy__section {
+  background: rgba(15, 23, 42, 0.65);
+  padding: 1.75rem;
+  border-radius: 18px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.35);
+}
+
+.policy__section-title {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+  color: #f8fafc;
+}
+
+.policy__section p {
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+}
+
+.policy__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.policy__provider {
+  border-top: 1px solid rgba(148, 163, 184, 0.4);
+  padding-top: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.policy__provider:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.policy__provider-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #e0f2fe;
+}
+
+.policy__provider-detail {
+  margin: 0 0 0.5rem;
+}
+
+.policy__provider-link {
+  color: #90cdf4;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.policy__contact {
+  color: #63b3ed;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .policy {
+    padding-top: 4.5rem;
+  }
+
+  .policy__section {
+    padding: 1.5rem;
+  }
+}

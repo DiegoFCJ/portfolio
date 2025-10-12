@@ -1,0 +1,10 @@
+<footer class="site-footer" *ngIf="content$ | async as content">
+  <div class="site-footer__links">
+    <a class="site-footer__link" [routerLink]="'/privacy-policy'">{{ content.privacyLabel }}</a>
+    <a class="site-footer__link" [routerLink]="'/terms'">{{ content.termsLabel }}</a>
+    <button type="button" class="site-footer__link-button" (click)="onManageCookies()">
+      {{ content.cookieSettingsLabel }}
+    </button>
+  </div>
+  <p class="site-footer__copy">© {{ currentYear }} {{ content.owner }}</p>
+</footer>
