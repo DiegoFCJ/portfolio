@@ -4,6 +4,8 @@ import { ContactMeComponent } from './contact-me.component';
 import { SocialComponent } from '../social/social.component';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
+import { APP_ENVIRONMENT } from '../../tokens/environment.token';
+import { EnvironmentConfig } from '../../../environments/environment';
 
 /**
  * Unit tests for ContactMeComponent.
@@ -12,6 +14,16 @@ describe('ContactMeComponent', () => {
   let component: ContactMeComponent;
   let fixture: ComponentFixture<ContactMeComponent>;
 
+  const environmentStub: EnvironmentConfig = {
+    production: false,
+    gaTrackingId: '',
+    formspreeEndpoint: '',
+    enableAnalytics: false,
+    enableErrorTracking: false,
+    sentryDsn: '',
+    sentryTracesSampleRate: 0,
+  };
+
   /**
    * Sets up the testing module and initializes the component.
    */
@@ -19,7 +31,8 @@ describe('ContactMeComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ContactMeComponent, SocialComponent, NoopAnimationsModule],
       providers: [
-        { provide: TranslationService, useClass: MockTranslationService }
+        { provide: TranslationService, useClass: MockTranslationService },
+        { provide: APP_ENVIRONMENT, useValue: environmentStub }
       ]
     }).compileComponents();
 

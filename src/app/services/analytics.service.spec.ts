@@ -16,17 +16,20 @@ describe('AnalyticsService', () => {
     sentryTracesSampleRate: 0,
   };
 
-  let service: AnalyticsService;
-  let documentRef: Document;
+  let service: AnalyticsService | undefined;
+  let documentRef: Document | undefined;
 
-  const cleanupScripts = () => {
-    const head = documentRef.head;
+  const cleanupScripts = (doc?: Document) => {
+    if (!doc) {
+      return;
+    }
+    const head = doc.head;
     head.querySelectorAll('script').forEach(script => {
       if (script.src.includes('googletagmanager.com/gtag/js?id=')) {
         head.removeChild(script);
       }
     });
-    const win = documentRef.defaultView as Window & { gtag?: unknown; dataLayer?: unknown } | null;
+    const win = doc.defaultView as Window & { gtag?: unknown; dataLayer?: unknown } | null;
     if (win) {
       delete win.gtag;
       delete win.dataLayer;
@@ -41,54 +44,70 @@ describe('AnalyticsService', () => {
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
     });
-
-    documentRef = TestBed.inject(DOCUMENT);
-    service = TestBed.inject(AnalyticsService);
   });
 
   afterEach(() => {
-    cleanupScripts();
+    cleanupScripts(documentRef);
+    service = undefined;
+    documentRef = undefined;
     TestBed.resetTestingModule();
   });
+
+  const getDocument = (): Document => {
+    if (!documentRef) {
+      documentRef = TestBed.inject(DOCUMENT);
+    }
+    return documentRef;
+  };
+
+  const getService = (): AnalyticsService => {
+    if (!service) {
+      service = TestBed.inject(AnalyticsService);
+    }
+    return service;
+  };
 
   it('should not inject the analytics script when consent is missing', () => {
     spyOn(window.localStorage, 'getItem').and.returnValue(null);
 
-    service.initialize();
+    const analyticsService = getService();
+    analyticsService.initialize();
 
-    const script = documentRef.head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]');
+    const script = getDocument().head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]');
     expect(script).toBeNull();
   });
 
   it('should inject the analytics script when consent is granted', () => {
     spyOn(window.localStorage, 'getItem').and.returnValue('granted');
 
-    service.initialize();
+    const analyticsService = getService();
+    analyticsService.initialize();
 
-    const script = documentRef.head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]');
+    const script = getDocument().head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]');
     expect(script).not.toBeNull();
   });
 
   it('should send page views after initialization', () => {
     spyOn(window.localStorage, 'getItem').and.returnValue('granted');
-    service.initialize();
+    const analyticsService = getService();
+    analyticsService.initialize();
 
-    const win = documentRef.defaultView as Window & { gtag?: jasmine.Spy };
+    const win = getDocument().defaultView as Window & { gtag?: jasmine.Spy };
     win.gtag = jasmine.createSpy('gtag');
 
-    service.trackPageView('/home');
+    analyticsService.trackPageView('/home');
 
     expect(win.gtag).toHaveBeenCalledWith('config', 'G-TEST123', { page_path: '/home' });
   });
 
   it('should skip initialization when analytics are disabled', () => {
     TestBed.overrideProvider(APP_ENVIRONMENT, { useValue: { ...baseEnvironment, enableAnalytics: false } });
-    service = TestBed.inject(AnalyticsService);
+    const analyticsService = getService();
     spyOn(window.localStorage, 'getItem').and.returnValue('granted');
 
-    service.initialize();
+    analyticsService.initialize();
 
-    const script = documentRef.head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]');
+    const script = getDocument().head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]');
     expect(script).toBeNull();
   });
 });
