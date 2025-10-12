@@ -38,3 +38,77 @@ jobs:
           folder: dist/portfolio/browser
           force: true
           clean: true
+
+      - name: Extract changelog entry
+        id: changelog
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+import os
+import re
+
+tag = os.environ['TAG']
+version = tag.lstrip('v')
+with open('CHANGELOG.md', 'r', encoding='utf-8') as fh:
+    changelog = fh.read()
+
+pattern = re.compile(rf"^## \[{re.escape(version)}\].*?(?=^## \[|\Z)", re.MULTILINE | re.DOTALL)
+match = pattern.search(changelog)
+if not match:
+    raise SystemExit(f"No changelog entry found for version {version}")
+
+entry = match.group().strip()
+
+with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
+    out.write('content<<EOF\n')
+    out.write(entry)
+    out.write('\nEOF\n')
+PY
+
+      - name: Publish release notes
+        uses: actions/github-script@v7
+        env:
+          TAG: ${{ github.ref_name }}
+          CHANGELOG_ENTRY: ${{ steps.changelog.outputs.content }}
+        with:
+          script: |
+            const tag = process.env.TAG;
+            const body = process.env.CHANGELOG_ENTRY;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            async function upsertRelease() {
+              try {
+                const existing = await github.rest.repos.getReleaseByTag({
+                  owner,
+                  repo,
+                  tag
+                });
+
+                await github.rest.repos.updateRelease({
+                  owner,
+                  repo,
+                  release_id: existing.data.id,
+                  body,
+                  name: tag
+                });
+              } catch (error) {
+                if (error.status === 404) {
+                  await github.rest.repos.createRelease({
+                    owner,
+                    repo,
+                    tag_name: tag,
+                    name: tag,
+                    body,
+                    draft: false,
+                    prerelease: false
+                  });
+                } else {
+                  throw error;
+                }
+              }
+            }
+
+            await upsertRelease();

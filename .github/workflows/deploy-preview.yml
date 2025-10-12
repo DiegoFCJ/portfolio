@@ -54,6 +54,12 @@ jobs:
       - name: Verify browser build output
         run: ls dist/portfolio/browser
 
+      - name: Upload changelog
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog
+          path: CHANGELOG.md
+
       - name: Publish preview to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
