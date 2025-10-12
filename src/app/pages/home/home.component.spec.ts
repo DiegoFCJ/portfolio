@@ -3,6 +3,8 @@ import { HomeComponent } from './home.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
+import { CookieConsentService } from '../../services/cookie-consent.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -10,9 +12,16 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomeComponent, NoopAnimationsModule],
+      imports: [HomeComponent, NoopAnimationsModule, RouterTestingModule],
       providers: [
-        { provide: TranslationService, useClass: MockTranslationService }
+        { provide: TranslationService, useClass: MockTranslationService },
+        {
+          provide: CookieConsentService,
+          useValue: {
+            openPreferences: jasmine.createSpy('openPreferences'),
+            revokeConsent: jasmine.createSpy('revokeConsent'),
+          },
+        },
       ]
     }).compileComponents();
 
