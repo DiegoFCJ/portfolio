@@ -5,6 +5,22 @@ import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { LanguageCode } from '../models/language-code.type';
 
+type GoogleTranslateSegment = [string, string, ...unknown[]];
+type GoogleTranslateResponse = [GoogleTranslateSegment[], ...unknown[]];
+
+const isGoogleTranslateResponse = (value: unknown): value is GoogleTranslateResponse => {
+  if (!Array.isArray(value) || value.length === 0) {
+    return false;
+  }
+
+  const [segments] = value;
+  if (!Array.isArray(segments)) {
+    return false;
+  }
+
+  return segments.every((segment) => Array.isArray(segment) && typeof segment[0] === 'string');
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +34,7 @@ export class TranslationService {
 
   constructor(
     private readonly http: HttpClient,
-    @Inject(PLATFORM_ID) private readonly platformId: Object
+    @Inject(PLATFORM_ID) private readonly platformId: object
   ) {
     if (isPlatformBrowser(this.platformId)) {
       try {
@@ -55,10 +71,13 @@ export class TranslationService {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${source}&tl=${targetLanguage}&dt=t&q=${encodeURIComponent(original)}`;
 
     return this.http.get<unknown>(url).pipe(
-      map((response: any) => {
-        const translated = Array.isArray(response?.[0])
-          ? response[0].map((item: any[]) => item[0]).join('')
-          : original;
+      map((response) => {
+        if (!isGoogleTranslateResponse(response)) {
+          return original;
+        }
+
+        const segments = response[0] ?? [];
+        const translated = segments.map(([segment]) => segment).join('');
         this.setCache(cacheKey, translated);
         return translated;
       }),
@@ -133,7 +152,7 @@ export class TranslationService {
 
   private translateValue(value: unknown, source: LanguageCode, target: LanguageCode): Observable<unknown> {
     if (value === null || value === undefined) {
-      return of(value as unknown);
+      return of(value);
     }
 
     if (typeof value === 'string') {

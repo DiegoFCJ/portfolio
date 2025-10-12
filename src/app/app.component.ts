@@ -9,7 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
 import { LANGUAGE_META_CONFIGURATION } from './constants/meta.const';
 
-declare var gtag: Function | undefined;
+declare const gtag: ((...args: unknown[]) => void) | undefined;
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,7 @@ declare var gtag: Function | undefined;
 })
 export class AppComponent implements OnInit {
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private router: Router,
     private translationService: TranslationService, // Servizio di traduzione
     private readonly titleService: Title,
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     private readonly destroyRef: DestroyRef
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Cambia il titolo dinamicamente in base alla lingua
     this.translationService.currentLanguage$
       .pipe(takeUntilDestroyed(this.destroyRef))

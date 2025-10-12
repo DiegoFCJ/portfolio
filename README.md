@@ -78,6 +78,7 @@ This repository contains a portfolio application built with **Angular 18**. It u
 - `npm start` – run the dev server
 - `npm run build` – build the project
 - `npm test` – execute unit tests
+- `npm run lint` – run ESLint against the application sources
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
 - `npm run generate:sitemap` – regenerate `robots.txt` and `sitemap.xml` (set `SITE_BASE_URL` before running)
 
@@ -175,6 +176,7 @@ La struttura del progetto è descritta nella sezione [Project Structure](#projec
 - `npm start` – avvia il server di sviluppo
 - `npm run build` – compila il progetto
 - `npm test` – esegue i test unitari
+- `npm run lint` – esegue ESLint sul codice dell'applicazione
 - `npm run serve:ssr:portfolio` – serve il bundle SSR compilato
 - `npm run generate:sitemap` – rigenera `robots.txt` e `sitemap.xml` (imposta `SITE_BASE_URL` prima di eseguirlo)
 
@@ -333,6 +335,7 @@ La estructura es la misma descrita en [Project Structure](#project-structure) y 
 - `npm start` – ejecuta el servidor de desarrollo
 - `npm run build` – compila el proyecto
 - `npm test` – ejecuta las pruebas unitarias
+- `npm run lint` – ejecuta ESLint sobre el código de la aplicación
 - `npm run serve:ssr:portfolio` – sirve el paquete SSR compilado
 - `npm run generate:sitemap` – regenera `robots.txt` y `sitemap.xml` (define `SITE_BASE_URL` antes de ejecutarlo)
 

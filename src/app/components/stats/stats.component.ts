@@ -9,6 +9,8 @@ import { TranslationService } from '../../services/translation.service';
 import { Stat, StatsFull, StatsMetrics } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
 import { LanguageCode } from '../../models/language-code.type';
+import { Experience } from '../../dtos/ExperienceDTO';
+import { Project } from '../../dtos/ProjectDTO';
 
 interface DisplayStat {
   icon: string;
@@ -23,6 +25,11 @@ interface TranslatableStatsTemplate {
   title: string;
   stats: Array<Pick<Stat, 'label' | 'valueSuffix' | 'detail' | 'detailItems'>>;
 }
+
+const SUPPORTED_LANGUAGES: LanguageCode[] = ['it', 'en', 'de', 'es'];
+
+const isLanguageCode = (value: string): value is LanguageCode =>
+  SUPPORTED_LANGUAGES.includes(value as LanguageCode);
 
 @Component({
   selector: 'app-stats',
@@ -184,15 +191,15 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
 
   calculateStats(
-    experiences: any[],
-    projectList: any[],
+    experiences: Experience[],
+    projectList: Project[],
     language: LanguageCode,
     template: StatsFull
   ): StatsMetrics {
     let totalHours = 0;
     let totalMonths = 0;
     let totalProjects = projectList.length;
-    let technologyCount: { [key: string]: number } = {};
+    const technologyCount: Record<string, number> = {};
 
     const professionalExperiences = experiences.filter(exp => {
       const hasTechnologies = exp.technologies?.trim().length;
@@ -220,7 +227,7 @@ export class StatsComponent implements OnInit, OnDestroy {
       totalHours += hoursWorked;
 
       const technologies = exp.technologies.split(', ').map(this.normalizeTechnology);
-      technologies.forEach((tech: any) => {
+      technologies.forEach((tech) => {
         technologyCount[tech] = (technologyCount[tech] || 0) + 1;
       });
 
@@ -303,7 +310,11 @@ export class StatsComponent implements OnInit, OnDestroy {
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
   }
 
-  private formatExperienceContribution(experience: any): string {
+  private formatExperienceContribution(experience: Experience | undefined): string {
+    if (!experience) {
+      return '';
+    }
+
     const location = (experience.location ?? '').trim();
     const locationPrimary = location.split('·')[0]?.trim() ?? '';
     const role = (experience.position ?? '').trim();
@@ -312,7 +323,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     return locationPrimary || rolePrimary;
   }
 
-  private formatProjectContribution(project: any): string {
+  private formatProjectContribution(project: Project | undefined): string {
     if (!project) {
       return '';
     }
@@ -539,26 +550,24 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private resolveLocalizedContent<T extends { [key: string]: any }>(
-    data: Partial<Record<LanguageCode, T>>
-  ): { content: T; language: LanguageCode } {
-    const preferred: LanguageCode = 'it';
-    const preferredContent = data[preferred];
-    if (preferredContent) {
-      return { content: preferredContent, language: preferred };
-    }
-
-    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
-    for (const fallback of fallbackOrder) {
-      const content = data[fallback];
+  private resolveLocalizedContent<T>(data: Record<string, T | undefined>): {
+    content: T;
+    language: LanguageCode;
+  } {
+    for (const language of SUPPORTED_LANGUAGES) {
+      const content = data[language];
       if (content) {
-        return { content, language: fallback };
+        return { content, language };
       }
     }
 
-    const firstEntry = Object.entries(data)[0];
-    if (firstEntry) {
-      return { content: firstEntry[1] as T, language: firstEntry[0] as LanguageCode };
+    for (const [languageKey, content] of Object.entries(data)) {
+      if (content) {
+        return {
+          content,
+          language: isLanguageCode(languageKey) ? languageKey : 'it'
+        };
+      }
     }
 
     throw new Error('No data available for statistics');
