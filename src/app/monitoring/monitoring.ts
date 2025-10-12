@@ -201,18 +201,18 @@ function parseStack(stack?: string): { frames: Array<Record<string, unknown>> } 
       const withAt = line.startsWith('at ') ? line.slice(3) : line;
       const [func, location] = withAt.split(' (');
       if (location) {
-        frame.function = func;
+        frame['function'] = func;
         const cleaned = location.replace(/\)$/g, '');
         const locationMatch = cleaned.match(/^(.*):(\d+):(\d+)$/);
         if (locationMatch) {
-          frame.filename = locationMatch[1];
-          frame.lineno = Number(locationMatch[2]);
-          frame.colno = Number(locationMatch[3]);
+          frame['filename'] = locationMatch[1];
+          frame['lineno'] = Number(locationMatch[2]);
+          frame['colno'] = Number(locationMatch[3]);
         } else {
-          frame.filename = cleaned;
+          frame['filename'] = cleaned;
         }
       } else {
-        frame.function = withAt;
+        frame['function'] = withAt;
       }
       return frame;
     })
