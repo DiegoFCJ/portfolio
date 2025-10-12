@@ -71,7 +71,7 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private translationService: TranslationService,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private cdr: ChangeDetectorRef
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -142,6 +142,10 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   checkIfMobile(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
     this.isMobile = window.innerWidth <= 768;
   }
 
@@ -150,7 +154,11 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    const target = event.target as HTMLElement;
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
     const atEnd = target.scrollTop + target.clientHeight >= target.scrollHeight - 1;
     project.isAtEnd = atEnd;
   }

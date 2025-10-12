@@ -16,7 +16,7 @@ export class AnalyticsService {
   constructor(
     @Inject(APP_ENVIRONMENT) private readonly environment: EnvironmentConfig,
     @Inject(DOCUMENT) private readonly documentRef: Document,
-    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    @Inject(PLATFORM_ID) private readonly platformId: object,
   ) { }
 
   initialize(): void {

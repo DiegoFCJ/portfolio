@@ -43,7 +43,7 @@ export class LandingMaskComponent implements OnInit, AfterViewInit, OnDestroy {
   initialAnimation = true;
   panels: PanelData[] = [];
 
-  @ViewChildren('panelElement') panelElements!: QueryList<ElementRef>;
+  @ViewChildren('panelElement') panelElements!: QueryList<ElementRef<HTMLDivElement>>;
 
   private animationFrameId?: number;
   private rotationAngles: number[] = [];
@@ -53,20 +53,24 @@ export class LandingMaskComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private renderer: Renderer2,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit(): void {
-    if (!this.isBrowser) return;
+    if (!this.isBrowser) {
+      return;
+    }
 
     this.generatePanels();
     this.rotationAngles = new Array(this.panels.length).fill(0);
   }
 
   ngAfterViewInit(): void {
-    if (!this.isBrowser) return;
+    if (!this.isBrowser) {
+      return;
+    }
 
     setTimeout(() => {
       this.initialAnimation = false;
@@ -161,13 +165,15 @@ export class LandingMaskComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    if (!this.isBrowser) return;
+  onMouseMove(event: MouseEvent): void {
+    if (!this.isBrowser) {
+      return;
+    }
     this.mouseX = (event.clientX / window.innerWidth - 0.5) * 4;
     this.mouseY = (event.clientY / window.innerHeight - 0.5) * 4;
   }
 
-  animate = () => {
+  animate = (): void => {
     this.panelElements.forEach((elRef, i) => {
       const p = this.panels[i];
       this.rotationAngles[i] += 0.4;

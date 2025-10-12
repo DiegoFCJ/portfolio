@@ -108,6 +108,7 @@ Store `GA_TRACKING_ID`, `FORMSPREE_ENDPOINT` and `SENTRY_DSN` as repository or o
 ### Scripts
 - `npm start` – run the dev server
 - `npm run build` – build the project
+- `npm run lint` – run ESLint across the Angular workspace
 - `npm test` – execute unit tests
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
 - `npm run generate:sitemap` – regenerate `robots.txt` and `sitemap.xml` (set `SITE_BASE_URL` before running)
@@ -456,6 +457,7 @@ Guarda `GA_TRACKING_ID`, `FORMSPREE_ENDPOINT` y `SENTRY_DSN` como secretos del r
 ### Scripts disponibles
 - `npm start` – ejecuta el servidor de desarrollo
 - `npm run build` – compila el proyecto
+- `npm run lint` – ejecuta ESLint sobre el código de la aplicación
 - `npm test` – ejecuta las pruebas unitarias
 - `npm run serve:ssr:portfolio` – sirve el paquete SSR compilado
 - `npm run generate:sitemap` – regenera `robots.txt` y `sitemap.xml` (define `SITE_BASE_URL` antes de ejecutarlo)

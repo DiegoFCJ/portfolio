@@ -6,6 +6,8 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { experiencesData } from '../../data/experiences.data';
 import { projects } from '../../data/projects.data';
 import { TranslationService } from '../../services/translation.service';
+import { Experience } from '../../dtos/ExperienceDTO';
+import { Project } from '../../dtos/ProjectDTO';
 import { Stat, StatsFull, StatsMetrics } from '../../dtos/StatsDTO';
 import { statsData } from '../../data/stats.data';
 import { LanguageCode } from '../../models/language-code.type';
@@ -184,15 +186,15 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
 
   calculateStats(
-    experiences: any[],
-    projectList: any[],
+    experiences: Experience[],
+    projectList: Project[],
     language: LanguageCode,
     template: StatsFull
   ): StatsMetrics {
     let totalHours = 0;
     let totalMonths = 0;
     let totalProjects = projectList.length;
-    let technologyCount: { [key: string]: number } = {};
+    const technologyCount: Record<string, number> = {};
 
     const professionalExperiences = experiences.filter(exp => {
       const hasTechnologies = exp.technologies?.trim().length;
@@ -219,8 +221,8 @@ export class StatsComponent implements OnInit, OnDestroy {
 
       totalHours += hoursWorked;
 
-      const technologies = exp.technologies.split(', ').map(this.normalizeTechnology);
-      technologies.forEach((tech: any) => {
+      const technologies = this.extractTechnologies(exp.technologies);
+      technologies.forEach(tech => {
         technologyCount[tech] = (technologyCount[tech] || 0) + 1;
       });
 
@@ -303,7 +305,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
   }
 
-  private formatExperienceContribution(experience: any): string {
+  private formatExperienceContribution(experience: Experience): string {
     const location = (experience.location ?? '').trim();
     const locationPrimary = location.split('·')[0]?.trim() ?? '';
     const role = (experience.position ?? '').trim();
@@ -312,7 +314,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     return locationPrimary || rolePrimary;
   }
 
-  private formatProjectContribution(project: any): string {
+  private formatProjectContribution(project: Project | undefined): string {
     if (!project) {
       return '';
     }
@@ -539,7 +541,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private resolveLocalizedContent<T extends { [key: string]: any }>(
+  private resolveLocalizedContent<T extends Record<string, unknown>>(
     data: Partial<Record<LanguageCode, T>>
   ): { content: T; language: LanguageCode } {
     const preferred: LanguageCode = 'it';
@@ -562,5 +564,17 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
 
     throw new Error('No data available for statistics');
+  }
+
+  private extractTechnologies(value?: string): string[] {
+    if (!value) {
+      return [];
+    }
+
+    return value
+      .split(',')
+      .map(tech => tech.trim())
+      .filter((tech): tech is string => tech.length > 0)
+      .map(tech => this.normalizeTechnology(tech));
   }
 }

@@ -97,7 +97,7 @@ export class NavigatorComponent implements OnInit {
 
   constructor(
     private translationService: TranslationService,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private elementRef: ElementRef
   ) {
     this.currentLang = this.translationService.getCurrentLanguage();

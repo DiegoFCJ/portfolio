@@ -18,7 +18,7 @@ export class TranslationService {
 
   constructor(
     private readonly http: HttpClient,
-    @Inject(PLATFORM_ID) private readonly platformId: Object
+    @Inject(PLATFORM_ID) private readonly platformId: object
   ) {
     if (isPlatformBrowser(this.platformId)) {
       try {
@@ -55,10 +55,8 @@ export class TranslationService {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${source}&tl=${targetLanguage}&dt=t&q=${encodeURIComponent(original)}`;
 
     return this.http.get<unknown>(url).pipe(
-      map((response: any) => {
-        const translated = Array.isArray(response?.[0])
-          ? response[0].map((item: any[]) => item[0]).join('')
-          : original;
+      map((response) => {
+        const translated = this.extractTranslatedText(response, original);
         this.setCache(cacheKey, translated);
         return translated;
       }),
@@ -212,5 +210,23 @@ export class TranslationService {
     } catch {
       // ignore persistence errors
     }
+  }
+
+  private extractTranslatedText(response: unknown, fallback: string): string {
+    if (!Array.isArray(response)) {
+      return fallback;
+    }
+
+    const firstEntry = response[0];
+    if (!Array.isArray(firstEntry)) {
+      return fallback;
+    }
+
+    const segments = firstEntry
+      .filter((segment): segment is [string, ...unknown[]] => Array.isArray(segment) && typeof segment[0] === 'string')
+      .map(segment => segment[0])
+      .join('');
+
+    return segments || fallback;
   }
 }

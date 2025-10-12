@@ -18,7 +18,7 @@ import { AnalyticsService } from './services/analytics.service';
 })
 export class AppComponent implements OnInit {
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private readonly platformId: object,
     private router: Router,
     private translationService: TranslationService, // Servizio di traduzione
     private readonly titleService: Title,
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     private readonly analyticsService: AnalyticsService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Cambia il titolo dinamicamente in base alla lingua
     this.translationService.currentLanguage$
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -40,11 +40,14 @@ export class AppComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.analyticsService.initialize();
 
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd),
-      ).subscribe((event: NavigationEnd) => {
-        this.analyticsService.trackPageView(event.urlAfterRedirects);
-      });
+      this.router.events
+        .pipe(
+          filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+          takeUntilDestroyed(this.destroyRef)
+        )
+        .subscribe(event => {
+          this.analyticsService.trackPageView(event.urlAfterRedirects);
+        });
     }
   }
 

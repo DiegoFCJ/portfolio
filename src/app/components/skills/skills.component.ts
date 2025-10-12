@@ -51,7 +51,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     tooling: ['planning', 'pianificazione', 'productivity', 'produttivita', 'design', 'tooling', 'office'],
     devops: ['devops', 'container', 'containerizzazione', 'orchestrazione', 'ci/cd', 'cicd', 'platform', 'scripting', 'configuration', 'configurazione', 'script', 'versioning', 'operating systems', 'sistemi operativi']
   };
-  private readonly skillResetTimers = new WeakMap<SkillItem, number>();
+  private readonly skillResetTimers = new WeakMap<SkillItem, ReturnType<typeof window.setTimeout>>();
 
   private readonly tabLabelDictionary: Record<SkillTabId, Record<LanguageCode | 'default', string>> = {
     backend: {
@@ -86,7 +86,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
 
   constructor(
     private translationService: TranslationService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.buildTabs();
   }
@@ -144,6 +144,10 @@ export class SkillsComponent implements OnInit, OnDestroy {
   }
 
   checkIfMobile(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
     this.isMobile = window.innerWidth <= 768;
     this.resetCarouselIndex();
   }

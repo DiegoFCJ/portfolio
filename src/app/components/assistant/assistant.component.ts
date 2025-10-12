@@ -164,7 +164,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
   constructor(
     private readonly translationService: TranslationService,
     private readonly hostRef: ElementRef<HTMLElement>,
-    @Inject(PLATFORM_ID) platformId: Object
+    @Inject(PLATFORM_ID) platformId: object
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
 
