@@ -4,10 +4,10 @@
 
 | Language | Sections |
 | --- | --- |
-| [English](#english) | [Overview](#overview) · [Project Structure](#project-structure) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [Scripts](#scripts) · [Server-side Rendering](#server-side-rendering) · [Deployments](#deployments) |
-| [Italiano](#italiano) | [Panoramica](#panoramica) · [Struttura del progetto](#struttura-del-progetto) · [Tecnologie](#tecnologie) · [Avvio del progetto](#avvio-del-progetto) · [Script](#script) · [Rendering lato server](#rendering-lato-server) · [Deployment](#deployment) |
-| [Deutsch](#deutsch) | [Überblick](#überblick) · [Projektstruktur](#projektstruktur) · [Technologie-Stack](#technologie-stack) · [Erste Schritte](#erste-schritte) · [Skripte](#skripte) · [Serverseitiges Rendern](#serverseitiges-rendern) · [Bereitstellungen](#bereitstellungen) |
-| [Español](#español) | [Descripción general](#descripción-general) · [Estructura del proyecto](#estructura-del-proyecto) · [Tecnologías](#tecnologías) · [Primeros pasos](#primeros-pasos) · [Scripts disponibles](#scripts-disponibles) · [Renderizado del lado del servidor](#renderizado-del-lado-del-servidor) · [Despliegues](#despliegues) |
+| [English](#english) | [Overview](#overview) · [Project Structure](#project-structure) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [Scripts](#scripts) · [Server-side Rendering](#server-side-rendering) · [Deployments](#deployments) · [License](#license) |
+| [Italiano](#italiano) | [Panoramica](#panoramica) · [Struttura del progetto](#struttura-del-progetto) · [Tecnologie](#tecnologie) · [Avvio del progetto](#avvio-del-progetto) · [Script](#script) · [Rendering lato server](#rendering-lato-server) · [Deployment](#deployment) · [Licenza](#licenza) |
+| [Deutsch](#deutsch) | [Überblick](#überblick) · [Projektstruktur](#projektstruktur) · [Technologie-Stack](#technologie-stack) · [Erste Schritte](#erste-schritte) · [Skripte](#skripte) · [Serverseitiges Rendern](#serverseitiges-rendern) · [Bereitstellungen](#bereitstellungen) · [Lizenz](#lizenz) |
+| [Español](#español) | [Descripción general](#descripción-general) · [Estructura del proyecto](#estructura-del-proyecto) · [Tecnologías](#tecnologías) · [Primeros pasos](#primeros-pasos) · [Scripts disponibles](#scripts-disponibles) · [Renderizado del lado del servidor](#renderizado-del-lado-del-servidor) · [Despliegues](#despliegues) · [Licencia](#licencia) |
 
 ## English
 
@@ -102,6 +102,9 @@ The Express server listens on `http://localhost:4000` by default.
 - **Production** – Tag the commit you want to publish with a prefix `v` (for example `v1.3.0`) and push the tag. The GitHub Actions workflow will build the project and update the `gh-pages` branch automatically.
 - **Pull Request preview** – Each open PR gets its own preview at `https://<github-username>.github.io/portfolio/previews/pr-<PR_NUMBER>/`. Once the `Deploy Preview to GitHub Pages / build-and-deploy` job succeeds, the same URL is shown in the PR environments panel.
 
+### License
+This repository is distributed under the [MIT License](LICENSE). Key dependencies such as Angular and Express also adopt the MIT terms, ensuring the stack remains permissively licensed.
+
 ---
 
 ## Italiano
@@ -180,6 +183,9 @@ Il server Express è in ascolto su `http://localhost:4000`.
 - **Produzione** – Aggiungi un tag con prefisso `v` (es. `v1.3.0`) al commit da pubblicare e pushalo. Il workflow di GitHub Actions compilerà il progetto e aggiornerà automaticamente il branch `gh-pages`.
 - **Anteprima delle Pull Request** – Ogni PR aperta pubblica un'anteprima su `https://<github-username>.github.io/portfolio/previews/pr-<NUMERO_PR>/`. Quando il job `Deploy Preview to GitHub Pages / build-and-deploy` va a buon fine, lo stesso link compare anche nel pannello degli ambienti della PR.
 
+### Licenza
+Questo repository è distribuito con [licenza MIT](LICENSE). Anche dipendenze principali come Angular ed Express adottano condizioni MIT, mantenendo l'intero stack con una licenza permissiva.
+
 ---
 
 ## Deutsch
@@ -230,6 +236,9 @@ Der Express-Server ist standardmäßig unter `http://localhost:4000` erreichbar.
 - **Produktion** – Versioniere den gewünschten Commit mit einem Tag, das mit `v` beginnt (z. B. `v1.3.0`), und pushe das Tag. Das GitHub-Actions-Workflow baut das Projekt und aktualisiert den `gh-pages`-Branch automatisch.
 - **Pull-Request-Vorschau** – Für jede offene PR wird eine Vorschau unter `https://<github-username>.github.io/portfolio/previews/pr-<PR_NUMMER>/` veröffentlicht. Nachdem der Job `Deploy Preview to GitHub Pages / build-and-deploy` erfolgreich war, erscheint derselbe Link im Umgebungsbereich der PR.
 
+### Lizenz
+Dieses Repository steht unter der [MIT-Lizenz](LICENSE). Zentrale Abhängigkeiten wie Angular und Express verwenden ebenfalls MIT-Bedingungen, sodass der gesamte Stack permissiv lizenziert bleibt.
+
 ---
 
 ## Español
@@ -279,3 +288,6 @@ El servidor Express escucha en `http://localhost:4000` por defecto.
 ### Despliegues
 - **Producción** – Etiqueta el commit que quieres publicar con un prefijo `v` (por ejemplo, `v1.3.0`) y sube la etiqueta. El workflow de GitHub Actions compilará el proyecto y actualizará automáticamente la rama `gh-pages`.
 - **Vista previa de Pull Request** – Cada PR abierta publica una vista previa en `https://<github-username>.github.io/portfolio/previews/pr-<NÚMERO_PR>/`. Cuando el job `Deploy Preview to GitHub Pages / build-and-deploy` finaliza correctamente, el mismo enlace aparece en el panel de entornos de la PR.
+
+### Licencia
+Este repositorio se distribuye bajo la [licencia MIT](LICENSE). Dependencias clave como Angular y Express también utilizan términos MIT, manteniendo una licencia permisiva en todo el stack.
