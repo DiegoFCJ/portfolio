@@ -237,19 +237,23 @@ app-education .timeline-description {
 
 @media (max-width: 600px) {
   app-education .education-section {
-    padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 5vw, 2.5rem);
+    padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem);
   }
 
   app-education .education-content {
     width: 100%;
-    padding-inline: clamp(1rem, 6vw, 2.25rem);
+    padding-inline: clamp(0.75rem, 5vw, 1.75rem);
+  }
+
+  app-education .education-title {
+    margin-bottom: clamp(1.5rem, 5vw, 2.25rem);
   }
 
   app-education .timeline-item {
     position: relative;
     grid-template-columns: 1fr;
     row-gap: 1rem;
-    padding-left: 2.5rem;
+    padding-left: 2rem;
   }
 
   app-education .timeline-marker {
