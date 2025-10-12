@@ -2,7 +2,7 @@
   <div class="site-footer__container">
     <section class="site-footer__legal" aria-labelledby="legal-links">
       <h2 class="site-footer__title" id="legal-links">{{ content.legalTitle }}</h2>
-      <nav class="site-footer__nav" aria-label="{{ content.legalTitle }}">
+      <nav class="site-footer__nav" [attr.aria-label]="content.legalTitle">
         <a routerLink="/privacy-policy" class="site-footer__link">{{ content.privacyLabel }}</a>
         <a routerLink="/terms" class="site-footer__link">{{ content.termsLabel }}</a>
         <button type="button" class="site-footer__link site-footer__button" (click)="manageCookies()">
