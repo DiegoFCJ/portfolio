@@ -1,0 +1,11 @@
+import { EnvironmentConfig } from './environment';
+
+export const environment: EnvironmentConfig = {
+  production: true,
+  gaTrackingId: 'G-XXXXXXXXXX',
+  formspreeEndpoint: 'https://formspree.io/f/your-production-id',
+  enableAnalytics: true,
+  enableErrorTracking: true,
+  sentryDsn: 'https://examplePublicKey@o0.ingest.sentry.io/0',
+  sentryTracesSampleRate: 1.0,
+};

@@ -74,6 +74,37 @@ This repository contains a portfolio application built with **Angular 18**. It u
    npm test
    ```
 
+### Environment configuration
+Analytics, the contact form and error tracking are configured through the Angular environment files under [`src/environments/`](src/environments/).
+Update the following keys before publishing:
+
+- `gaTrackingId` – Google Analytics 4 tracking code.
+- `formspreeEndpoint` – Formspree project endpoint used by `EmailService`.
+- `enableAnalytics` / `enableErrorTracking` – Toggle for loading the external scripts.
+- `sentryDsn` and `sentryTracesSampleRate` – Sentry credentials and sampling rate.
+
+Keep the production file (`environment.prod.ts`) free from secrets inside the repository. Instead, write the configuration during the CI build using encrypted secrets. A GitHub Actions step can look like this:
+
+```yaml
+- name: Write production environment file
+  run: |
+    cat <<'EOF' > src/environments/environment.prod.ts
+    import { EnvironmentConfig } from './environment';
+
+    export const environment: EnvironmentConfig = {
+      production: true,
+      gaTrackingId: '${{ secrets.GA_TRACKING_ID }}',
+      formspreeEndpoint: '${{ secrets.FORMSPREE_ENDPOINT }}',
+      enableAnalytics: true,
+      enableErrorTracking: true,
+      sentryDsn: '${{ secrets.SENTRY_DSN }}',
+      sentryTracesSampleRate: 0.5,
+    };
+    EOF
+```
+
+Store `GA_TRACKING_ID`, `FORMSPREE_ENDPOINT` and `SENTRY_DSN` as repository or organisation secrets. Refer to [docs/environment-configuration.md](docs/environment-configuration.md) for a more detailed checklist.
+
 ### Scripts
 - `npm start` – run the dev server
 - `npm run build` – build the project
@@ -171,6 +202,37 @@ La struttura del progetto è descritta nella sezione [Project Structure](#projec
    npm test
    ```
 
+### Configurazione dell'ambiente
+Le impostazioni di analytics, del modulo contatti e del monitoraggio errori sono definite nei file Angular in [`src/environments/`](src/environments/).
+Aggiorna le seguenti chiavi prima di pubblicare:
+
+- `gaTrackingId` – codice di tracciamento di Google Analytics 4.
+- `formspreeEndpoint` – endpoint Formspree utilizzato da `EmailService`.
+- `enableAnalytics` / `enableErrorTracking` – flag per caricare gli script esterni.
+- `sentryDsn` e `sentryTracesSampleRate` – credenziali di Sentry e frequenza di campionamento.
+
+Mantieni il file di produzione (`environment.prod.ts`) privo di segreti nel repository. Scrivi invece la configurazione durante la build CI utilizzando secret cifrati. Esempio di step GitHub Actions:
+
+```yaml
+- name: Write production environment file
+  run: |
+    cat <<'EOF' > src/environments/environment.prod.ts
+    import { EnvironmentConfig } from './environment';
+
+    export const environment: EnvironmentConfig = {
+      production: true,
+      gaTrackingId: '${{ secrets.GA_TRACKING_ID }}',
+      formspreeEndpoint: '${{ secrets.FORMSPREE_ENDPOINT }}',
+      enableAnalytics: true,
+      enableErrorTracking: true,
+      sentryDsn: '${{ secrets.SENTRY_DSN }}',
+      sentryTracesSampleRate: 0.5,
+    };
+    EOF
+```
+
+Memorizza `GA_TRACKING_ID`, `FORMSPREE_ENDPOINT` e `SENTRY_DSN` tra i secret del repository o dell'organizzazione. Consulta [docs/environment-configuration.md](docs/environment-configuration.md) per una checklist dettagliata.
+
 ### Script
 - `npm start` – avvia il server di sviluppo
 - `npm run build` – compila il progetto
@@ -260,6 +322,37 @@ Die Projektstruktur findest du in der gemeinsamen Sektion [Project Structure](#p
    npm test
    ```
 
+### Umgebungsvariablen
+Analytics, Kontaktformular und Fehlüberwachung werden über die Angular-Umgebungsdateien unter [`src/environments/`](src/environments/) gesteuert.
+Aktualisiere vor einer Veröffentlichung folgende Schlüssel:
+
+- `gaTrackingId` – Google-Analytics-4-Tracking-ID.
+- `formspreeEndpoint` – Formspree-Endpunkt, den `EmailService` verwendet.
+- `enableAnalytics` / `enableErrorTracking` – Schalter zum Laden der externen Skripte.
+- `sentryDsn` und `sentryTracesSampleRate` – Sentry-Zugangsdaten und Sampling-Rate.
+
+Halte die Produktionsdatei (`environment.prod.ts`) frei von Geheimnissen im Repository. Schreibe die Konfiguration stattdessen während des CI-Builds mithilfe verschlüsselter Secrets. Beispielschritt für GitHub Actions:
+
+```yaml
+- name: Write production environment file
+  run: |
+    cat <<'EOF' > src/environments/environment.prod.ts
+    import { EnvironmentConfig } from './environment';
+
+    export const environment: EnvironmentConfig = {
+      production: true,
+      gaTrackingId: '${{ secrets.GA_TRACKING_ID }}',
+      formspreeEndpoint: '${{ secrets.FORMSPREE_ENDPOINT }}',
+      enableAnalytics: true,
+      enableErrorTracking: true,
+      sentryDsn: '${{ secrets.SENTRY_DSN }}',
+      sentryTracesSampleRate: 0.5,
+    };
+    EOF
+```
+
+Lege `GA_TRACKING_ID`, `FORMSPREE_ENDPOINT` und `SENTRY_DSN` als Repository- oder Organisations-Secrets an. Weitere Details findest du in [docs/environment-configuration.md](docs/environment-configuration.md).
+
 ### Skripte
 - `npm start` – startet den Entwicklungsserver
 - `npm run build` – baut das Projekt
@@ -328,6 +421,37 @@ La estructura es la misma descrita en [Project Structure](#project-structure) y 
    ```bash
    npm test
    ```
+
+### Configuración de entorno
+La analítica, el formulario de contacto y el seguimiento de errores se controlan mediante los archivos de entorno de Angular que se encuentran en [`src/environments/`](src/environments/).
+Actualiza las siguientes claves antes de desplegar:
+
+- `gaTrackingId` – identificador de seguimiento de Google Analytics 4.
+- `formspreeEndpoint` – endpoint de Formspree usado por `EmailService`.
+- `enableAnalytics` / `enableErrorTracking` – interruptores para cargar los scripts externos.
+- `sentryDsn` y `sentryTracesSampleRate` – credenciales de Sentry y tasa de muestreo.
+
+Mantén el archivo de producción (`environment.prod.ts`) sin secretos en el repositorio. Escribe la configuración durante la compilación en CI usando secretos cifrados. Ejemplo de paso en GitHub Actions:
+
+```yaml
+- name: Write production environment file
+  run: |
+    cat <<'EOF' > src/environments/environment.prod.ts
+    import { EnvironmentConfig } from './environment';
+
+    export const environment: EnvironmentConfig = {
+      production: true,
+      gaTrackingId: '${{ secrets.GA_TRACKING_ID }}',
+      formspreeEndpoint: '${{ secrets.FORMSPREE_ENDPOINT }}',
+      enableAnalytics: true,
+      enableErrorTracking: true,
+      sentryDsn: '${{ secrets.SENTRY_DSN }}',
+      sentryTracesSampleRate: 0.5,
+    };
+    EOF
+```
+
+Guarda `GA_TRACKING_ID`, `FORMSPREE_ENDPOINT` y `SENTRY_DSN` como secretos del repositorio u organización. Consulta [docs/environment-configuration.md](docs/environment-configuration.md) para un listado detallado.
 
 ### Scripts disponibles
 - `npm start` – ejecuta el servidor de desarrollo

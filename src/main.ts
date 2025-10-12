@@ -1,6 +1,10 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { environment } from './environments/environment';
+import { configureErrorTracking } from './app/services/error-tracking.config';
+
+configureErrorTracking(environment);
 
 bootstrapApplication(AppComponent, appConfig)
-    .catch((err) => console.error(err));
+  .catch((err) => console.error(err));
