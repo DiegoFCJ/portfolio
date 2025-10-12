@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Observable } from 'rxjs';
 
 import { TranslationService } from '../../services/translation.service';
 import { termsContent } from '../../data/terms.data';
@@ -14,9 +15,11 @@ import { LegalContentSection, LegalPageContent } from '../../models/legal-conten
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TermsComponent {
-  readonly content$ = this.translationService.getTranslatedData<LegalPageContent>(termsContent, 'it');
+  readonly content$: Observable<LegalPageContent>;
 
-  constructor(private readonly translationService: TranslationService) {}
+  constructor(private readonly translationService: TranslationService) {
+    this.content$ = this.translationService.getTranslatedData<LegalPageContent>(termsContent, 'it');
+  }
 
   trackBySection(_: number, section: LegalContentSection): string {
     return section.id;
