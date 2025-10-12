@@ -81,6 +81,17 @@ This repository contains a portfolio application built with **Angular 18**. It u
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
 - `npm run generate:sitemap` – regenerate `robots.txt` and `sitemap.xml` (set `SITE_BASE_URL` before running)
 
+### SEO metadata
+- Default Open Graph and Twitter cards live in [`src/app/constants/meta.const.ts`](src/app/constants/meta.const.ts). Update the
+  relevant language block to change titles, descriptions, keywords or preview images.
+- `AppComponent` listens to `TranslationService` updates and applies the correct tags on both the server and the browser.
+- Keep the Italian fallbacks in [`src/index.html`](src/index.html) aligned with the default language served by the static HTML
+  shell.
+- When adding a new language, extend `LANGUAGE_META_CONFIGURATION` with the new locale information and provide the translated
+  notes in this README section.
+- Future multi-page flows can inject a route resolver that merges page-specific data into the `Meta` service before navigation
+  finishes so every view exposes dedicated tags.
+
 ### Project status levels
 The projects section shows a glassmorphism card with a status pill and optional badges. The available levels and tags are
 centralised in [`src/app/data/projects.data.ts`](src/app/data/projects.data.ts):
@@ -167,6 +178,17 @@ La struttura del progetto è descritta nella sezione [Project Structure](#projec
 - `npm run serve:ssr:portfolio` – serve il bundle SSR compilato
 - `npm run generate:sitemap` – rigenera `robots.txt` e `sitemap.xml` (imposta `SITE_BASE_URL` prima di eseguirlo)
 
+### Metadati SEO
+- I metadati predefiniti per Open Graph e Twitter sono centralizzati in [`src/app/constants/meta.const.ts`](src/app/constants/meta.const.ts).
+  Aggiorna il blocco della lingua interessata per modificare titoli, descrizioni, parole chiave o immagini di anteprima.
+- `AppComponent` ascolta gli aggiornamenti del `TranslationService` e applica i tag corretti sia sul server sia nel browser.
+- Mantieni gli eventuali fallback italiani in [`src/index.html`](src/index.html) coerenti con la lingua servita dallo shell HTML
+  statico.
+- Quando aggiungi una nuova lingua, estendi `LANGUAGE_META_CONFIGURATION` con le informazioni locali e ricorda di aggiornare
+  questa sezione del README con le istruzioni tradotte.
+- Per eventuali pagine dedicate puoi collegare un resolver di rotta che aggiorni il servizio `Meta` con contenuti specifici
+  prima del completamento della navigazione, così ogni vista espone i tag corretti.
+
 ### Livelli di stato dei progetti
 La sezione progetti mostra una card con effetto glassmorphism che include un badge di stato e tag opzionali. I valori sono
 centralizzati in [`src/app/data/projects.data.ts`](src/app/data/projects.data.ts):
@@ -245,6 +267,18 @@ Die Projektstruktur findest du in der gemeinsamen Sektion [Project Structure](#p
 - `npm run serve:ssr:portfolio` – dient das gebaute SSR-Bundle
 - `npm run generate:sitemap` – generiert `robots.txt` und `sitemap.xml` neu (setze `SITE_BASE_URL` vor dem Ausführen)
 
+### SEO-Metadaten
+- Die Standardwerte für Open Graph und Twitter Cards befinden sich in [`src/app/constants/meta.const.ts`](src/app/constants/meta.const.ts).
+  Aktualisiere den entsprechenden Sprachblock, um Titel, Beschreibungen, Keywords oder Vorschaubilder anzupassen.
+- `AppComponent` reagiert auf Änderungen des `TranslationService` und setzt die Tags sowohl beim Server-Rendering als auch im
+  Browser.
+- Halte die italienischen Fallbacks in [`src/index.html`](src/index.html) synchron mit der Standardsprache, die vom statischen
+  HTML-Shell ausgeliefert wird.
+- Wenn du eine neue Sprache ergänzt, erweitere `LANGUAGE_META_CONFIGURATION` um die Lokalisierungsdaten und ergänze eine
+  Übersetzung dieser Hinweise im README.
+- Für zukünftige Unterseiten kannst du einen Routen-Resolver registrieren, der vor Abschluss der Navigation seitenspezifische
+  Informationen in den `Meta`-Service einspielt.
+
 ### Serverseitiges Rendern
 Um die Anwendung mit aktiviertem SSR auszuführen:
 ```bash
@@ -301,6 +335,18 @@ La estructura es la misma descrita en [Project Structure](#project-structure) y 
 - `npm test` – ejecuta las pruebas unitarias
 - `npm run serve:ssr:portfolio` – sirve el paquete SSR compilado
 - `npm run generate:sitemap` – regenera `robots.txt` y `sitemap.xml` (define `SITE_BASE_URL` antes de ejecutarlo)
+
+### Metadatos SEO
+- Los valores por defecto de Open Graph y Twitter están centralizados en [`src/app/constants/meta.const.ts`](src/app/constants/meta.const.ts).
+  Actualiza el bloque del idioma correspondiente para modificar títulos, descripciones, palabras clave o imágenes de vista previa.
+- `AppComponent` escucha al `TranslationService` y aplica las etiquetas correctas tanto en el renderizado del servidor como en el
+  del navegador.
+- Mantén los metadatos italianos de respaldo en [`src/index.html`](src/index.html) alineados con el idioma predeterminado del shell
+  HTML estático.
+- Al añadir un nuevo idioma, amplía `LANGUAGE_META_CONFIGURATION` con la nueva configuración regional y añade una nota traducida
+  en esta sección del README.
+- Para futuras páginas adicionales puedes utilizar un resolver de ruta que inyecte datos específicos en el servicio `Meta` antes
+  de completar la navegación, garantizando etiquetas dedicadas por vista.
 
 ### Renderizado del lado del servidor
 Para ejecutar la aplicación con SSR habilitado:
