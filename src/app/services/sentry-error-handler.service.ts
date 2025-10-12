@@ -59,7 +59,7 @@ export class SentryErrorHandler extends ErrorHandler {
     };
 
     if (eventId) {
-      payload.event_id = eventId;
+      payload['event_id'] = eventId;
     }
 
     return payload;

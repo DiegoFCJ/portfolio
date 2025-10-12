@@ -1,12 +1,4 @@
-export interface EnvironmentConfig {
-  production: boolean;
-  gaTrackingId: string;
-  formspreeEndpoint: string;
-  enableAnalytics: boolean;
-  enableErrorTracking: boolean;
-  sentryDsn: string;
-  sentryTracesSampleRate: number;
-}
+import { EnvironmentConfig } from './environment.config';
 
 export const environment: EnvironmentConfig = {
   production: false,
@@ -17,3 +9,5 @@ export const environment: EnvironmentConfig = {
   sentryDsn: '',
   sentryTracesSampleRate: 0,
 };
+
+export type { EnvironmentConfig } from './environment.config';
