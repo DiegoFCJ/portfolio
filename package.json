@@ -56,7 +56,14 @@
     "three": "^0.177.0",
     "typescript": "~5.5.2",
     "@inquirer/prompts": "^7.0.0",
-    "@angular-eslint/builder": "file:tools/offline-lint/angular-eslint-builder"
+    "@angular-eslint/builder": "^18.4.3",
+    "@angular-eslint/eslint-plugin": "^18.4.3",
+    "@angular-eslint/eslint-plugin-template": "^18.4.3",
+    "@angular-eslint/schematics": "^18.4.3",
+    "@angular-eslint/template-parser": "^18.4.3",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "eslint": "^9.37.0"
   },
   "overrides": {
     "esbuild": "^0.25.0",

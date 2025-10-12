@@ -1,9 +1,0 @@
-{
-  "builders": {
-    "lint": {
-      "implementation": "./src/lint.js",
-      "schema": "./src/lint.schema.json",
-      "description": "Runs the offline TypeScript-powered linter."
-    }
-  }
-}
