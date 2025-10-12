@@ -49,16 +49,18 @@ interface FooterViewModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LegalFooterComponent {
-  readonly viewModel$: Observable<FooterViewModel> = this.translationService.currentLanguage$.pipe(
-    map((language) => ({
-      labels: FOOTER_LABELS[language] ?? FOOTER_LABELS.it
-    }))
-  );
+  readonly viewModel$: Observable<FooterViewModel>;
 
   constructor(
     private readonly translationService: TranslationService,
     private readonly cookieConsentService: CookieConsentService
-  ) {}
+  ) {
+    this.viewModel$ = this.translationService.currentLanguage$.pipe(
+      map((language) => ({
+        labels: FOOTER_LABELS[language] ?? FOOTER_LABELS.it
+      }))
+    );
+  }
 
   onManageCookies(): void {
     this.cookieConsentService.openPreferences();

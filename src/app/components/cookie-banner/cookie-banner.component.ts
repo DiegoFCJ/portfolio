@@ -55,20 +55,22 @@ interface CookieBannerViewModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CookieBannerComponent {
-  readonly viewModel$: Observable<CookieBannerViewModel> = combineLatest([
-    this.cookieConsentService.bannerVisibilityChanges,
-    this.translationService.currentLanguage$
-  ]).pipe(
-    map(([visible, language]) => ({
-      visible,
-      content: BANNER_TEXT[language] ?? BANNER_TEXT.it
-    }))
-  );
+  readonly viewModel$: Observable<CookieBannerViewModel>;
 
   constructor(
     private readonly cookieConsentService: CookieConsentService,
     private readonly translationService: TranslationService
-  ) {}
+  ) {
+    this.viewModel$ = combineLatest([
+      this.cookieConsentService.bannerVisibilityChanges,
+      this.translationService.currentLanguage$
+    ]).pipe(
+      map(([visible, language]) => ({
+        visible,
+        content: BANNER_TEXT[language] ?? BANNER_TEXT.it
+      }))
+    );
+  }
 
   onAccept(): void {
     this.cookieConsentService.acceptAnalytics();
