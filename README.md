@@ -66,6 +66,7 @@ This repository contains a portfolio application built with **Angular 18**. It u
 - `npm start` – run the dev server
 - `npm run build` – build the project
 - `npm test` – execute unit tests
+- `npm run lint` – run ESLint across the workspace
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
 
 ### Project status levels
@@ -266,6 +267,7 @@ La estructura es la misma descrita en [Project Structure](#project-structure) y 
 - `npm start` – ejecuta el servidor de desarrollo
 - `npm run build` – compila el proyecto
 - `npm test` – ejecuta las pruebas unitarias
+- `npm run lint` – ejecuta ESLint en todo el workspace
 - `npm run serve:ssr:portfolio` – sirve el paquete SSR compilado
 
 ### Renderizado del lado del servidor

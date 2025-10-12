@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ElementRef, QueryList } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslationService } from '../../services/translation.service';
@@ -48,24 +49,31 @@ describe('HomeComponent', () => {
     };
   };
 
+  const triggerViewportUpdate = (instance: HomeComponent) =>
+    (instance as unknown as { updateCurrentSectionFromViewport(): void }).updateCurrentSectionFromViewport();
+
+  const setSections = (sections: Array<ReturnType<typeof mockSection>>) => {
+    component.sections = {
+      toArray: () => sections
+    } as unknown as QueryList<ElementRef<HTMLElement>>;
+  };
+
   it('should identify the section containing the viewport center', () => {
     const firstSection = mockSection(0, 600);
     const secondSection = mockSection(600, 600);
 
-    component.sections = {
-      toArray: () => [firstSection, secondSection]
-    } as any;
+    setSections([firstSection, secondSection]);
 
     spyOnProperty(window, 'innerHeight', 'get').and.returnValue(1000);
 
-    (component as any).updateCurrentSectionFromViewport();
+    triggerViewportUpdate(component);
 
     expect(component.currentSectionIndex).toBe(0);
 
     firstSection.update(-500);
     secondSection.update(100);
 
-    (component as any).updateCurrentSectionFromViewport();
+    triggerViewportUpdate(component);
 
     expect(component.currentSectionIndex).toBe(1);
   });
@@ -75,13 +83,11 @@ describe('HomeComponent', () => {
     const secondSection = mockSection(-300, 400);
     const thirdSection = mockSection(200, 400);
 
-    component.sections = {
-      toArray: () => [firstSection, secondSection, thirdSection]
-    } as any;
+    setSections([firstSection, secondSection, thirdSection]);
 
     spyOnProperty(window, 'innerHeight', 'get').and.returnValue(600);
 
-    (component as any).updateCurrentSectionFromViewport();
+    triggerViewportUpdate(component);
 
     expect(component.currentSectionIndex).toBe(2);
   });
@@ -90,11 +96,9 @@ describe('HomeComponent', () => {
     const firstSection = mockSection(0, 400);
     const secondSection = mockSection(400, 400);
 
-    component.sections = {
-      toArray: () => [firstSection, secondSection]
-    } as any;
+    setSections([firstSection, secondSection]);
 
-    (component as any).updateCurrentSectionFromViewport();
+    triggerViewportUpdate(component);
 
     expect(component.totalSections).toBe(2);
   });

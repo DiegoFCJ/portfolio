@@ -55,10 +55,16 @@ export class TranslationService {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${source}&tl=${targetLanguage}&dt=t&q=${encodeURIComponent(original)}`;
 
     return this.http.get<unknown>(url).pipe(
-      map((response: any) => {
-        const translated = Array.isArray(response?.[0])
-          ? response[0].map((item: any[]) => item[0]).join('')
-          : original;
+      map((response) => {
+        let translated = original;
+
+        if (Array.isArray(response) && Array.isArray(response[0])) {
+          const segments = response[0] as unknown[];
+          translated = segments
+            .map((item) => (Array.isArray(item) && typeof item[0] === 'string' ? item[0] : ''))
+            .join('');
+        }
+
         this.setCache(cacheKey, translated);
         return translated;
       }),
@@ -123,9 +129,10 @@ export class TranslationService {
       return { content: fallback.content as T, language: fallback.lang };
     }
 
-    const firstEntry = Object.entries(data)[0];
-    if (firstEntry) {
-      return { content: firstEntry[1] as T, language: firstEntry[0] as LanguageCode };
+    for (const [language, content] of Object.entries(data)) {
+      if (content) {
+        return { content: content as T, language: language as LanguageCode };
+      }
     }
 
     return { content: undefined, language: preferredSource };
