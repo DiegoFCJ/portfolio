@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+router-outlet {
+  flex: 1 1 auto;
+  display: block;
+}

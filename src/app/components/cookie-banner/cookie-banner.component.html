@@ -1,0 +1,19 @@
+<ng-container *ngIf="viewModel$ | async as vm">
+  <div class="cookie-banner" [class.cookie-banner--visible]="vm.visible" role="dialog" aria-live="polite"
+    aria-label="Cookie consent banner">
+    <div class="cookie-banner__text">
+      <p class="cookie-banner__message">{{ vm.content.message }}</p>
+      <a class="cookie-banner__link" [routerLink]="['/privacy-policy']" fragment="cookies">
+        {{ vm.content.privacyLinkLabel }}
+      </a>
+    </div>
+    <div class="cookie-banner__actions">
+      <button type="button" class="cookie-banner__button cookie-banner__button--decline" (click)="onDecline()">
+        {{ vm.content.declineLabel }}
+      </button>
+      <button type="button" class="cookie-banner__button cookie-banner__button--accept" (click)="onAccept()">
+        {{ vm.content.acceptLabel }}
+      </button>
+    </div>
+  </div>
+</ng-container>

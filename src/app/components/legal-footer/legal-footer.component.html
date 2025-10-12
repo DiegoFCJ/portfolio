@@ -1,0 +1,9 @@
+<footer class="legal-footer" *ngIf="viewModel$ | async as vm">
+  <nav class="legal-footer__nav" aria-label="Legal links">
+    <a class="legal-footer__link" [routerLink]="['/privacy-policy']">{{ vm.labels.privacy }}</a>
+    <a class="legal-footer__link" [routerLink]="['/terms']">{{ vm.labels.terms }}</a>
+    <button type="button" class="legal-footer__manage" (click)="onManageCookies()">
+      {{ vm.labels.manageCookies }}
+    </button>
+  </nav>
+</footer>

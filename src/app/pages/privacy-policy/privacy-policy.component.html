@@ -1,0 +1,27 @@
+<ng-container *ngIf="content$ | async as content">
+  <section class="legal-page">
+    <header class="legal-page__header">
+      <h1 class="legal-page__title">{{ content.title }}</h1>
+      <p class="legal-page__updated">{{ content.lastUpdatedLabel }}</p>
+    </header>
+
+    <div class="legal-page__intro">
+      <p class="legal-page__paragraph" *ngFor="let paragraph of content.intro; trackBy: trackByParagraph">
+        {{ paragraph }}
+      </p>
+    </div>
+
+    <article class="legal-page__section" *ngFor="let section of content.sections; trackBy: trackBySection" [attr.id]="section.id">
+      <h2 class="legal-page__section-title">{{ section.title }}</h2>
+      <p class="legal-page__paragraph" *ngIf="section.description">{{ section.description }}</p>
+      <p class="legal-page__paragraph" *ngFor="let paragraph of section.paragraphs ?? []; trackBy: trackByParagraph">
+        {{ paragraph }}
+      </p>
+      <ul class="legal-page__list" *ngIf="section.bulletPoints?.length">
+        <li class="legal-page__list-item" *ngFor="let item of section.bulletPoints; trackBy: trackByParagraph">
+          {{ item }}
+        </li>
+      </ul>
+    </article>
+  </section>
+</ng-container>
