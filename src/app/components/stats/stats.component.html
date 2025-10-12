@@ -46,6 +46,8 @@
       [attr.aria-labelledby]="'stat-detail-title'"
       [attr.aria-describedby]="'stat-detail-description'"
       (click)="$event.stopPropagation()"
+      [class.is-scrollable]="dialogScrollable"
+      [class.is-at-end]="dialogAtEnd"
     >
       <button
         #detailCloseButton
@@ -65,10 +67,19 @@
           <p class="statistics-dialog-value">{{ activeStat.value }}</p>
         </div>
       </div>
-      <p class="statistics-dialog-description" id="stat-detail-description">
-        {{ activeStat.detail }}
-      </p>
-      <p class="statistics-dialog-suffix" *ngIf="activeStat.suffix">{{ activeStat.suffix }}</p>
+      <div
+        class="statistics-dialog-body"
+        #dialogBody
+        (scroll)="onDialogScroll($event)"
+      >
+        <p class="statistics-dialog-description" id="stat-detail-description">
+          {{ activeStat.detail }}
+        </p>
+        <ul class="statistics-dialog-list" *ngIf="activeStat.items?.length">
+          <li *ngFor="let item of activeStat.items">{{ item }}</li>
+        </ul>
+        <p class="statistics-dialog-suffix" *ngIf="activeStat.suffix">{{ activeStat.suffix }}</p>
+      </div>
     </div>
   </div>
 </section>

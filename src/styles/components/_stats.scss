@@ -49,6 +49,10 @@ app-stats {
     );
     --stat-dialog-text: var(--stat-theme-dialog-text, #111827);
     --stat-dialog-muted: var(--stat-theme-dialog-muted, rgba(71, 85, 105, 0.88));
+    --stat-dialog-fade: var(
+        --stat-theme-dialog-fade,
+        linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(148, 163, 184, 0.22))
+    );
     --stat-glow-blend-mode: var(--stat-theme-glow-blend-mode, screen);
     --stat-glow-opacity: var(--stat-theme-glow-opacity, 0.4);
 
@@ -290,9 +294,28 @@ app-stats {
             gap: clamp(1rem, 2vw, 1.5rem);
             isolation: isolate;
             max-block-size: min(90vh, 32rem);
-            overflow-y: auto;
-            overscroll-behavior: contain;
-            scrollbar-gutter: stable both-edges;
+            overflow: hidden;
+        }
+
+        .statistics-dialog::after {
+            content: '';
+            position: absolute;
+            inset-inline: clamp(1.4rem, 4vw, 1.75rem);
+            inset-block-end: clamp(0.75rem, 2vw, 1rem);
+            block-size: clamp(1.8rem, 4vw, 2.4rem);
+            pointer-events: none;
+            background: var(--stat-dialog-fade);
+            filter: blur(0.25px);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .statistics-dialog.is-scrollable::after {
+            opacity: 0.85;
+        }
+
+        .statistics-dialog.is-scrollable.is-at-end::after {
+            opacity: 0;
         }
 
         .statistics-dialog-close {
@@ -387,6 +410,54 @@ app-stats {
             line-height: 1.65;
             color: var(--stat-dialog-text);
             text-wrap: balance;
+            text-align: start;
+        }
+
+        .statistics-dialog-body {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.85rem, 2vw, 1.1rem);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding-inline-end: clamp(0.4rem, 2vw, 0.65rem);
+            margin-inline-end: calc(clamp(0.4rem, 2vw, 0.65rem) * -1);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .statistics-dialog-body::-webkit-scrollbar {
+            display: none;
+        }
+
+        .statistics-dialog-list {
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: clamp(0.35rem, 1.5vw, 0.6rem);
+            font-size: clamp(0.9rem, 3vw, 1.02rem);
+            line-height: 1.6;
+            color: var(--stat-dialog-text);
+            list-style: none;
+        }
+
+        .statistics-dialog-list li {
+            margin: 0;
+            text-wrap: balance;
+            position: relative;
+            padding-inline-start: 1.1rem;
+            text-align: start;
+        }
+
+        .statistics-dialog-list li::before {
+            content: '–';
+            position: absolute;
+            inset-inline-start: 0;
+            color: var(--stat-dialog-muted);
+        }
+
+        .statistics-dialog-body > *:last-child {
+            margin-block-end: clamp(0.2rem, 1vw, 0.4rem);
         }
 
         .statistics-dialog-suffix {
@@ -395,6 +466,7 @@ app-stats {
             font-size: clamp(0.85rem, 3vw, 0.95rem);
             color: var(--stat-dialog-muted);
             text-wrap: balance;
+            text-align: start;
         }
 
         @media (max-width: 900px) {
