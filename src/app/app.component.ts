@@ -8,16 +8,23 @@ import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
 import { LANGUAGE_META_CONFIGURATION } from './constants/meta.const';
-
-declare var gtag: Function | undefined;
+import { CookieConsentService } from './services/cookie-consent.service';
+import { AnalyticsService } from './services/analytics.service';
+import { CookieConsentBannerComponent } from './components/cookie-consent-banner/cookie-consent-banner.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: '<router-outlet />',
+  imports: [RouterOutlet, CookieConsentBannerComponent],
+  template: `
+    <app-cookie-consent-banner></app-cookie-consent-banner>
+    <router-outlet />
+  `,
 })
 export class AppComponent implements OnInit {
+  private readonly isBrowser: boolean;
+  private analyticsEnabled = false;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
@@ -25,8 +32,12 @@ export class AppComponent implements OnInit {
     private readonly titleService: Title,
     private readonly metaService: Meta,
     @Inject(DOCUMENT) private readonly document: Document,
-    private readonly destroyRef: DestroyRef
-  ) { }
+    private readonly destroyRef: DestroyRef,
+    private readonly cookieConsentService: CookieConsentService,
+    private readonly analyticsService: AnalyticsService,
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit() {
     // Cambia il titolo dinamicamente in base alla lingua
@@ -37,15 +48,28 @@ export class AppComponent implements OnInit {
         this.updateSeoTags(language);
       });
 
+    this.cookieConsentService.consent$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((state) => {
+        if (state.status === 'granted' && state.analytics) {
+          this.analyticsEnabled = true;
+          this.analyticsService.enableAnalytics();
+          if (this.isBrowser) {
+            this.analyticsService.trackPageView(this.router.url ?? '/');
+          }
+        } else {
+          this.analyticsEnabled = false;
+          this.analyticsService.disableAnalytics();
+        }
+      });
+
     // Google Analytics configurazione
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
       ).subscribe((event: NavigationEnd) => {
-        if (typeof gtag === 'function') {
-          gtag('config', 'G-5ZF8RBY109', {
-            page_path: event.urlAfterRedirects,
-          });
+        if (this.analyticsEnabled) {
+          this.analyticsService.trackPageView(event.urlAfterRedirects);
         }
       });
     }

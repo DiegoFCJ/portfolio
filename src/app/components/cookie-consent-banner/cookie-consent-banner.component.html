@@ -1,0 +1,21 @@
+<div class="cookie-banner" *ngIf="isVisible && content">
+  <div class="cookie-banner__inner" role="dialog" aria-live="polite" [attr.aria-label]="content.heading">
+    <div class="cookie-banner__text">
+      <h2 class="cookie-banner__title">{{ content.heading }}</h2>
+      <p class="cookie-banner__message">
+        {{ content.message }}
+        <a routerLink="/privacy-policy" class="cookie-banner__link">{{ content.policyLinkLabel }}</a>
+      </p>
+    </div>
+
+    <div class="cookie-banner__actions">
+      <button type="button" class="cookie-banner__button cookie-banner__button--secondary" (click)="reject()">
+        {{ content.rejectLabel }}
+      </button>
+      <button type="button" class="cookie-banner__button cookie-banner__button--primary" (click)="accept()">
+        {{ content.acceptLabel }}
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,21 @@
+<ng-container *ngIf="content as terms">
+  <main class="legal-page" aria-labelledby="terms-title">
+    <header class="legal-page__header">
+      <a routerLink="/" class="legal-page__back-link">&larr; Home</a>
+      <h1 class="legal-page__title" id="terms-title">{{ terms.title }}</h1>
+      <p class="legal-page__updated">{{ terms.updatedOn }}</p>
+      <p class="legal-page__intro" *ngIf="terms.intro">{{ terms.intro }}</p>
+    </header>
+
+    <section *ngFor="let section of terms.sections" class="legal-page__section">
+      <h2 class="legal-page__section-title">{{ section.title }}</h2>
+      <p *ngFor="let paragraph of section.paragraphs" class="legal-page__paragraph">{{ paragraph }}</p>
+      <ul *ngIf="section.listItems?.length" class="legal-page__list">
+        <li *ngFor="let item of section.listItems" class="legal-page__list-item">{{ item }}</li>
+      </ul>
+    </section>
+  </main>
+
+  <app-site-footer></app-site-footer>
+</ng-container>
+

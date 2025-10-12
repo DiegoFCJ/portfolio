@@ -1,28 +1,52 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslationService } from './services/translation.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
+import { CookieConsentService, CookieConsentState } from './services/cookie-consent.service';
+import { AnalyticsService } from './services/analytics.service';
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
   let languageSubject: BehaviorSubject<LanguageCode>;
   let metaService: Meta;
+  let consentSubject: BehaviorSubject<CookieConsentState>;
+  let mockAnalytics: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(async () => {
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
     languageSubject = new BehaviorSubject<LanguageCode>('it');
+    consentSubject = new BehaviorSubject<CookieConsentState>({ status: 'denied', analytics: false });
     mockTranslationService = {
       currentLanguage$: languageSubject.asObservable(),
       setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: LanguageCode) => {
         languageSubject.next(language);
       }),
+      getTranslatedData: jasmine.createSpy('getTranslatedData').and.callFake((data: any) => {
+        const fallback = data['it'] ?? data['en'] ?? {};
+        return of(fallback);
+      }),
     };
+
+    const mockCookieConsentService: Partial<CookieConsentService> = {
+      consent$: consentSubject.asObservable(),
+      bannerVisible$: of(false),
+      acceptAnalytics: jasmine.createSpy('acceptAnalytics'),
+      rejectAnalytics: jasmine.createSpy('rejectAnalytics'),
+      openPreferences: jasmine.createSpy('openPreferences'),
+      revokeConsent: jasmine.createSpy('revokeConsent'),
+    };
+
+    mockAnalytics = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['enableAnalytics', 'disableAnalytics', 'trackPageView']);
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [{ provide: TranslationService, useValue: mockTranslationService }],
+      providers: [
+        { provide: TranslationService, useValue: mockTranslationService },
+        { provide: CookieConsentService, useValue: mockCookieConsentService },
+        { provide: AnalyticsService, useValue: mockAnalytics },
+      ],
     }).compileComponents();
 
     metaService = TestBed.inject(Meta);
