@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, DestroyRef } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { TranslationService } from './services/translation.service'; // Servizio per gestire la lingua
@@ -24,13 +24,14 @@ export class AppComponent implements OnInit {
     private translationService: TranslationService, // Servizio di traduzione
     private readonly titleService: Title,
     private readonly metaService: Meta,
-    @Inject(DOCUMENT) private readonly document: Document
+    @Inject(DOCUMENT) private readonly document: Document,
+    private readonly destroyRef: DestroyRef
   ) { }
 
   ngOnInit() {
     // Cambia il titolo dinamicamente in base alla lingua
     this.translationService.currentLanguage$
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(language => {
         this.updatePageTitle(language);
         this.updateSeoTags(language);
