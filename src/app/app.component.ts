@@ -8,8 +8,7 @@ import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
 import { LANGUAGE_META_CONFIGURATION } from './constants/meta.const';
-
-declare var gtag: Function | undefined;
+import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +24,8 @@ export class AppComponent implements OnInit {
     private readonly titleService: Title,
     private readonly metaService: Meta,
     @Inject(DOCUMENT) private readonly document: Document,
-    private readonly destroyRef: DestroyRef
+    private readonly destroyRef: DestroyRef,
+    private readonly analyticsService: AnalyticsService,
   ) { }
 
   ngOnInit() {
@@ -37,16 +37,13 @@ export class AppComponent implements OnInit {
         this.updateSeoTags(language);
       });
 
-    // Google Analytics configurazione
     if (isPlatformBrowser(this.platformId)) {
+      this.analyticsService.initialize();
+
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
       ).subscribe((event: NavigationEnd) => {
-        if (typeof gtag === 'function') {
-          gtag('config', 'G-5ZF8RBY109', {
-            page_path: event.urlAfterRedirects,
-          });
-        }
+        this.analyticsService.trackPageView(event.urlAfterRedirects);
       });
     }
   }

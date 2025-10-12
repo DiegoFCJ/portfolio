@@ -1,5 +1,7 @@
 // src/services/email.service.ts
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { APP_ENVIRONMENT } from '../tokens/environment.token';
+import { EnvironmentConfig } from '../../environments/environment';
 
 /**
  * Service responsible for handling email-related operations.
@@ -10,8 +12,11 @@ import { Injectable } from '@angular/core';
 export class EmailService {
   private readonly lastSubmissionKey = 'lastSubmissionTimestamp'; // Key to store in localStorage
   private readonly cooldownPeriod = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+  private readonly endpoint: string;
 
-  constructor() {}
+  constructor(@Inject(APP_ENVIRONMENT) private readonly environment: EnvironmentConfig) {
+    this.endpoint = environment.formspreeEndpoint;
+  }
 
   /**
    * Angular-aligned email validation regex (mirrors Validators.email behaviour).
@@ -65,8 +70,17 @@ export class EmailService {
    * @param formData The form data to send.
    * @returns A promise with the result of the email sending operation.
    */
-  sendEmail(formData: { name: string; email: string; message: string }) {
-    return fetch('https://formspree.io/f/xrbgldjz', {
+  sendEmail(formData: { name: string; email: string; message: string }): Promise<Response> {
+    if (!this.endpoint) {
+      console.info('[EmailService] Formspree endpoint not configured. Payload:', formData);
+      return Promise.resolve(new Response(JSON.stringify({ simulated: true }), {
+        status: 200,
+        statusText: 'Simulated submission',
+        headers: { 'Content-Type': 'application/json' },
+      }));
+    }
+
+    return fetch(this.endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
