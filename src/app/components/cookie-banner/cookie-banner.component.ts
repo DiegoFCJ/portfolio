@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { CookieBannerContent } from '../../dtos/CookieBannerDTO';
@@ -15,16 +15,14 @@ import { TranslationService } from '../../services/translation.service';
   styleUrls: ['./cookie-banner.component.scss']
 })
 export class CookieBannerComponent {
+  private readonly consentService = inject(ConsentService);
+  private readonly translationService = inject(TranslationService);
+
   readonly content$: Observable<CookieBannerContent> = this.translationService
     .getTranslatedData<CookieBannerContent>(cookieBannerData);
 
   readonly visible$: Observable<boolean> = this.consentService.consentStatus$
     .pipe(map((status: ConsentStatus) => status === 'pending'));
-
-  constructor(
-    private readonly consentService: ConsentService,
-    private readonly translationService: TranslationService,
-  ) {}
 
   onAccept(): void {
     this.consentService.acceptConsent();

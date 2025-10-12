@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FooterContent } from '../../dtos/FooterDTO';
@@ -15,14 +15,12 @@ import { TranslationService } from '../../services/translation.service';
   styleUrls: ['./site-footer.component.scss']
 })
 export class SiteFooterComponent {
+  private readonly consentService = inject(ConsentService);
+  private readonly translationService = inject(TranslationService);
+
   readonly currentYear = new Date().getFullYear();
   readonly content$: Observable<FooterContent> = this.translationService
     .getTranslatedData<FooterContent>(footerData);
-
-  constructor(
-    private readonly consentService: ConsentService,
-    private readonly translationService: TranslationService,
-  ) {}
 
   onManageCookies(): void {
     this.consentService.revokeConsent();
