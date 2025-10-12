@@ -67,6 +67,7 @@ This repository contains a portfolio application built with **Angular 18**. It u
 - `npm run build` – build the project
 - `npm test` – execute unit tests
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
+- `npm run generate:sitemap` – regenerate `robots.txt` and `sitemap.xml` (set `SITE_BASE_URL` before running)
 
 ### Project status levels
 The projects section shows a glassmorphism card with a status pill and optional badges. The available levels and tags are
@@ -146,6 +147,7 @@ La struttura del progetto è descritta nella sezione [Project Structure](#projec
 - `npm run build` – compila il progetto
 - `npm test` – esegue i test unitari
 - `npm run serve:ssr:portfolio` – serve il bundle SSR compilato
+- `npm run generate:sitemap` – rigenera `robots.txt` e `sitemap.xml` (imposta `SITE_BASE_URL` prima di eseguirlo)
 
 ### Livelli di stato dei progetti
 La sezione progetti mostra una card con effetto glassmorphism che include un badge di stato e tag opzionali. I valori sono
@@ -217,6 +219,7 @@ Die Projektstruktur findest du in der gemeinsamen Sektion [Project Structure](#p
 - `npm run build` – baut das Projekt
 - `npm test` – führt Unit-Tests aus
 - `npm run serve:ssr:portfolio` – dient das gebaute SSR-Bundle
+- `npm run generate:sitemap` – generiert `robots.txt` und `sitemap.xml` neu (setze `SITE_BASE_URL` vor dem Ausführen)
 
 ### Serverseitiges Rendern
 Um die Anwendung mit aktiviertem SSR auszuführen:
@@ -267,6 +270,7 @@ La estructura es la misma descrita en [Project Structure](#project-structure) y 
 - `npm run build` – compila el proyecto
 - `npm test` – ejecuta las pruebas unitarias
 - `npm run serve:ssr:portfolio` – sirve el paquete SSR compilado
+- `npm run generate:sitemap` – regenera `robots.txt` y `sitemap.xml` (define `SITE_BASE_URL` antes de ejecutarlo)
 
 ### Renderizado del lado del servidor
 Para ejecutar la aplicación con SSR habilitado:

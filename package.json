@@ -5,11 +5,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssr=false --prerender=false",
+    "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "CHROME_BIN=\"$(node -p \\\"require('puppeteer').executablePath()\\\")\" ng test --watch=false --browsers=ChromeHeadlessPuppeteer",
-    "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs"
+    "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@angular/animations": "^18.2.0",
