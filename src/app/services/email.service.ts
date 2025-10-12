@@ -1,5 +1,6 @@
 // src/services/email.service.ts
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 /**
  * Service responsible for handling email-related operations.
@@ -65,11 +66,36 @@ export class EmailService {
    * @param formData The form data to send.
    * @returns A promise with the result of the email sending operation.
    */
-  sendEmail(formData: { name: string; email: string; message: string }) {
-    return fetch('https://formspree.io/f/xrbgldjz', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+  async sendEmail(formData: { name: string; email: string; message: string }) {
+    const endpoint = environment.formspreeEndpoint;
+
+    if (!endpoint) {
+      this.logFallback('Formspree endpoint non configurato: messaggio non inviato.', formData);
+      return new Response(null, { status: 204, statusText: 'No endpoint configured' });
+    }
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        this.logFallback(`Invio email fallito con status ${response.status}`, formData);
+      }
+
+      return response;
+    } catch (error) {
+      this.logFallback('Errore di rete durante l\'invio del messaggio.', { ...formData, error });
+      throw error;
+    }
+  }
+
+  private logFallback(message: string, payload: unknown): void {
+    if (!environment.production) {
+      // eslint-disable-next-line no-console
+      console.info(`[EmailService] ${message}`, payload);
+    }
   }
 }

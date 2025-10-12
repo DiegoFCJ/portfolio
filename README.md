@@ -62,6 +62,14 @@ This repository contains a portfolio application built with **Angular 18**. It u
    npm test
    ```
 
+### Environment configuration
+- `src/environments/environment.ts` – local defaults used by `ng serve`. Set:
+  - `formspreeEndpoint` for development webhooks or leave blank to rely on console logging.
+  - `analytics.enabled`, `analytics.gaTrackingId`, `analytics.cookieConsentKey` and `analytics.requireConsent` to toggle Google Analytics loading after consent.
+  - `monitoring.enabled`, `monitoring.sentryDsn` and `monitoring.tracesSampleRate` to drive error reporting.
+- `src/environments/environment.prod.ts` – production values injected automatically when running `ng build --configuration production`.
+- CI pipelines should write secrets (GA IDs, Formspree tokens, Sentry DSN) before building, for example with a script step that rewrites `environment.prod.ts` using repository secrets.
+
 ### Scripts
 - `npm start` – run the dev server
 - `npm run build` – build the project
@@ -141,6 +149,14 @@ La struttura del progetto è descritta nella sezione [Project Structure](#projec
    npm test
    ```
 
+### Configurazione dell'ambiente
+- `src/environments/environment.ts` – valori di sviluppo usati da `ng serve`. Imposta:
+  - `formspreeEndpoint` per i webhook di test oppure lascialo vuoto per usare il log in console.
+  - `analytics.enabled`, `analytics.gaTrackingId`, `analytics.cookieConsentKey` e `analytics.requireConsent` per controllare il caricamento di Google Analytics dopo il consenso.
+  - `monitoring.enabled`, `monitoring.sentryDsn` e `monitoring.tracesSampleRate` per la raccolta degli errori.
+- `src/environments/environment.prod.ts` – valori di produzione utilizzati automaticamente con `ng build --configuration production`.
+- Nei workflow CI scrivi i segreti (ID GA, token Formspree, DSN Sentry) prima della build, ad esempio tramite uno script che riscrive `environment.prod.ts` usando i secret del repository.
+
 ### Script
 - `npm start` – avvia il server di sviluppo
 - `npm run build` – compila il progetto
@@ -212,6 +228,14 @@ Die Projektstruktur findest du in der gemeinsamen Sektion [Project Structure](#p
    npm test
    ```
 
+### Konfiguration der Umgebung
+- `src/environments/environment.ts` – lokale Standardwerte für `ng serve`. Setze:
+  - `formspreeEndpoint` für einen Test-Webhook oder lasse das Feld leer, um nur die Konsolen-Logs zu verwenden.
+  - `analytics.enabled`, `analytics.gaTrackingId`, `analytics.cookieConsentKey` und `analytics.requireConsent`, um Google Analytics nach der Zustimmung zu laden.
+  - `monitoring.enabled`, `monitoring.sentryDsn` und `monitoring.tracesSampleRate` zur Steuerung des Error-Trackings.
+- `src/environments/environment.prod.ts` – Produktionswerte, die automatisch bei `ng build --configuration production` eingebunden werden.
+- In CI-Workflows sollten die Secrets (GA-ID, Formspree-Token, Sentry-DSN) vor dem Build gesetzt werden, z. B. über ein Skript, das `environment.prod.ts` mit den Repository-Secrets überschreibt.
+
 ### Skripte
 - `npm start` – startet den Entwicklungsserver
 - `npm run build` – baut das Projekt
@@ -261,6 +285,14 @@ La estructura es la misma descrita en [Project Structure](#project-structure) y 
    ```bash
    npm test
    ```
+
+### Configuración del entorno
+- `src/environments/environment.ts` – valores por defecto locales usados por `ng serve`. Configura:
+  - `formspreeEndpoint` para los webhooks de pruebas o déjalo vacío para registrar en consola.
+  - `analytics.enabled`, `analytics.gaTrackingId`, `analytics.cookieConsentKey` y `analytics.requireConsent` para controlar la carga de Google Analytics tras el consentimiento.
+  - `monitoring.enabled`, `monitoring.sentryDsn` y `monitoring.tracesSampleRate` para el seguimiento de errores.
+- `src/environments/environment.prod.ts` – valores de producción aplicados automáticamente al ejecutar `ng build --configuration production`.
+- En los flujos de CI escribe los secretos (ID de GA, token de Formspree, DSN de Sentry) antes de la compilación, por ejemplo con un script que reemplace `environment.prod.ts` usando los secretos del repositorio.
 
 ### Scripts disponibles
 - `npm start` – ejecuta el servidor de desarrollo

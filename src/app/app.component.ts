@@ -4,8 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { TranslationService } from './services/translation.service'; // Servizio per gestire la lingua
 import { APP_TITLE_en, APP_TITLE_it, APP_TITLE_de, APP_TITLE_es } from './constants/general.const';
 import { filter } from 'rxjs/operators';
-
-declare var gtag: Function | undefined;
+import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
-    private translationService: TranslationService // Servizio di traduzione
+    private translationService: TranslationService, // Servizio di traduzione
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -34,14 +34,11 @@ export class AppComponent implements OnInit {
 
     // Google Analytics configurazione
     if (isPlatformBrowser(this.platformId)) {
+      this.analyticsService.init();
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
       ).subscribe((event: NavigationEnd) => {
-        if (typeof gtag === 'function') {
-          gtag('config', 'G-5ZF8RBY109', {
-            page_path: event.urlAfterRedirects,
-          });
-        }
+        this.analyticsService.trackPageView(event.urlAfterRedirects);
       });
     }
   }
