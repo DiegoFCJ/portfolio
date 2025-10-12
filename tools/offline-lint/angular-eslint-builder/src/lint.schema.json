@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "title": "Offline Lint Builder Options",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "lintFilePatterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Glob patterns describing the files to lint.",
+      "default": []
+    },
+    "configPath": {
+      "type": "string",
+      "description": "Path to the linter configuration file.",
+      "default": ".eslintrc.json"
+    }
+  }
+}

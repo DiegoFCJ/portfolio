@@ -66,8 +66,18 @@ This repository contains a portfolio application built with **Angular 18**. It u
 - `npm start` – run the dev server
 - `npm run build` – build the project
 - `npm test` – execute unit tests
-- `npm run lint` – run ESLint across the workspace
+- `npm run lint` – execute the offline TypeScript-based linter across the workspace
+  - checks for explicit `any` usage in TypeScript files and accidental `console.log` statements in both TypeScript and HTML templates
 - `npm run serve:ssr:portfolio` – serve the built SSR bundle
+
+#### Offline linting
+
+The custom lint builder runs without downloading external npm packages. It reads `.eslintrc.json` for its small rule set and currently enforces two checks:
+
+1. Block explicit `any` annotations in TypeScript sources.
+2. Prevent `console.log` statements in both TypeScript and HTML templates.
+
+Extend the `rules` object in `.eslintrc.json` to toggle these checks per project needs.
 
 ### Project status levels
 The projects section shows a glassmorphism card with a status pill and optional badges. The available levels and tags are
@@ -267,8 +277,18 @@ La estructura es la misma descrita en [Project Structure](#project-structure) y 
 - `npm start` – ejecuta el servidor de desarrollo
 - `npm run build` – compila el proyecto
 - `npm test` – ejecuta las pruebas unitarias
-- `npm run lint` – ejecuta ESLint en todo el workspace
+- `npm run lint` – ejecuta el linter sin conexión basado en TypeScript en todo el workspace
+  - comprueba que no existan tipos `any` explícitos en los archivos TypeScript ni llamadas accidentales a `console.log` en TypeScript o plantillas HTML
 - `npm run serve:ssr:portfolio` – sirve el paquete SSR compilado
+
+#### Linter sin conexión
+
+El constructor de lint personalizado funciona sin descargar paquetes externos. Lee `.eslintrc.json` para aplicar su conjunto reducido de reglas y actualmente verifica:
+
+1. Evitar anotaciones explícitas `any` en archivos TypeScript.
+2. Impedir llamadas a `console.log` tanto en TypeScript como en plantillas HTML.
+
+Puedes extender el objeto `rules` en `.eslintrc.json` para activar o desactivar estas comprobaciones según las necesidades del proyecto.
 
 ### Renderizado del lado del servidor
 Para ejecutar la aplicación con SSR habilitado:
