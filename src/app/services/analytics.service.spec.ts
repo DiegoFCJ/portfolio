@@ -106,8 +106,8 @@ describe('AnalyticsService', () => {
       return;
     }
 
-    const indexedWin = win as Window & { [key: string]: unknown };
-    expect(indexedWin['ga-disable-G-TEST123']).toBeTrue();
+    const disableFlag = (win as unknown as { [key: string]: unknown })['ga-disable-G-TEST123'];
+    expect(disableFlag).toBeTrue();
   });
 
   it('should send page views after initialization', () => {
