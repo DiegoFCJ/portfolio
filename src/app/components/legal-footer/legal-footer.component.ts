@@ -22,7 +22,7 @@ interface LegalFooterCopy {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LegalFooterComponent {
-  copy: LegalFooterCopy = this.copyMap.it;
+  copy: LegalFooterCopy;
 
   private readonly copyMap: Record<LanguageCode, LegalFooterCopy> = {
     it: {
@@ -56,6 +56,7 @@ export class LegalFooterComponent {
     private readonly cookieConsentService: CookieConsentService,
     private readonly destroyRef: DestroyRef,
   ) {
+    this.copy = this.copyMap.it;
     this.translationService.currentLanguage$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((language) => {

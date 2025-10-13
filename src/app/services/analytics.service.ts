@@ -8,6 +8,8 @@ interface AnalyticsWindow extends Window {
   gtag?: (...args: unknown[]) => void;
 }
 
+type AnalyticsWindowWithIndex = AnalyticsWindow & { [key: string]: unknown };
+
 @Injectable({ providedIn: 'root' })
 export class AnalyticsService {
   private readonly consentKeys = ['analytics-consent', 'cookie-consent', 'cookie_consent'];
@@ -30,7 +32,7 @@ export class AnalyticsService {
       return;
     }
 
-    (win as Record<string, unknown>)[`ga-disable-${trackingId}`] = false;
+    (win as AnalyticsWindowWithIndex)[`ga-disable-${trackingId}`] = false;
     this.appendAnalyticsScript(trackingId);
 
     win.dataLayer = win.dataLayer || [];
@@ -55,12 +57,13 @@ export class AnalyticsService {
     const disableKey = `ga-disable-${trackingId}`;
 
     if (win) {
-      (win as Record<string, unknown>)[disableKey] = true;
+      const indexedWin = win as AnalyticsWindowWithIndex;
+      indexedWin[disableKey] = true;
 
       try {
-        delete (win as Record<string, unknown>).gtag;
+        delete indexedWin['gtag'];
       } catch {
-        (win as Record<string, unknown>).gtag = undefined;
+        indexedWin['gtag'] = undefined;
       }
 
       if (Array.isArray(win.dataLayer)) {

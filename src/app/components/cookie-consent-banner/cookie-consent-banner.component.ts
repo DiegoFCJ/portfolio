@@ -25,13 +25,10 @@ interface CookieBannerCopy {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CookieConsentBannerComponent {
-  readonly visible$ = this.cookieConsentService.bannerVisible$;
-  readonly reviewMode$: Observable<boolean> = combineLatest([
-    this.visible$,
-    this.cookieConsentService.consentStatus$,
-  ]).pipe(map(([visible, status]) => visible && status === 'accepted'));
+  readonly visible$: Observable<boolean>;
+  readonly reviewMode$: Observable<boolean>;
 
-  copy: CookieBannerCopy = this.copyMap.it;
+  copy: CookieBannerCopy;
 
   private readonly copyMap: Record<LanguageCode, CookieBannerCopy> = {
     it: {
@@ -81,6 +78,13 @@ export class CookieConsentBannerComponent {
     private readonly translationService: TranslationService,
     private readonly destroyRef: DestroyRef,
   ) {
+    this.visible$ = this.cookieConsentService.bannerVisible$;
+    this.reviewMode$ = combineLatest([
+      this.visible$,
+      this.cookieConsentService.consentStatus$,
+    ]).pipe(map(([visible, status]) => visible && status === 'accepted'));
+
+    this.copy = this.copyMap.it;
     this.translationService.currentLanguage$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((language) => {

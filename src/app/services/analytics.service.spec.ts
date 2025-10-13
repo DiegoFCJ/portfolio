@@ -29,10 +29,11 @@ describe('AnalyticsService', () => {
         head.removeChild(script);
       }
     });
-    const win = doc.defaultView as Window & { gtag?: unknown; dataLayer?: unknown } | null;
+    const win = doc.defaultView;
     if (win) {
-      delete win.gtag;
-      delete win.dataLayer;
+      const indexedWin = win as Window & { gtag?: unknown; dataLayer?: unknown };
+      delete indexedWin.gtag;
+      delete indexedWin.dataLayer;
     }
   };
 
@@ -99,8 +100,14 @@ describe('AnalyticsService', () => {
     analyticsService.destroy();
 
     expect(doc.head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]')).toBeNull();
-    const win = doc.defaultView as Window & { [key: string]: unknown };
-    expect(win['ga-disable-G-TEST123']).toBeTrue();
+    const win = doc.defaultView;
+    if (!win) {
+      fail('Expected a window object to be available');
+      return;
+    }
+
+    const indexedWin = win as Window & { [key: string]: unknown };
+    expect(indexedWin['ga-disable-G-TEST123']).toBeTrue();
   });
 
   it('should send page views after initialization', () => {
