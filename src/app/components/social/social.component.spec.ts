@@ -19,12 +19,15 @@ describe('SocialComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SocialComponent],
-      providers: [{ provide: TranslationService, useClass: MockTranslationService }]
+      providers: [
+        MockTranslationService,
+        { provide: TranslationService, useExisting: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SocialComponent);
     component = fixture.componentInstance;
-    translationService = TestBed.inject(TranslationService) as MockTranslationService;
+    translationService = TestBed.inject(MockTranslationService);
     fixture.detectChanges();
   });
 

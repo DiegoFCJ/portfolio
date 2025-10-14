@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { map } from 'rxjs';
+import { Component, inject } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { Social } from '../../dtos/SocialDTO';
 import { socialsByLanguage } from '../../data/socials.data';
 import { CommonModule } from '@angular/common';
@@ -17,11 +17,11 @@ import { LanguageCode } from '../../models/language-code.type';
   styleUrls: ['./social.component.scss']
 })
 export class SocialComponent {
-  readonly socials$ = this.translationService.currentLanguage$.pipe(
+  private readonly translationService = inject(TranslationService);
+
+  readonly socials$: Observable<Social[]> = this.translationService.currentLanguage$.pipe(
     map((language) => this.resolveSocials(language))
   );
-
-  constructor(private readonly translationService: TranslationService) { }
 
   private resolveSocials(language: LanguageCode): Social[] {
     return (
