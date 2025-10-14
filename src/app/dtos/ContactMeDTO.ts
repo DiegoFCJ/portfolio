@@ -1,10 +1,6 @@
-export interface ContactMeLangs {
-    en: ContactMe;
-    it: ContactMe;
-    de?: ContactMe;
-    es?: ContactMe;
-    [key: string]: ContactMe | undefined;
-}
+import { LanguageCode } from '../models/language-code.type';
+
+export type ContactMeLangs = Partial<Record<LanguageCode, ContactMe>>;
 
 export interface ContactMe {
     title: string;

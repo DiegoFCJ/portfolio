@@ -19,7 +19,7 @@ export interface LanguageMetaConfig {
 export const SOCIAL_PREVIEW_IMAGE = 'https://diegofois.github.io/portfolio/assets/projects/borgo-samarina-cover.png';
 export const SITE_URL = 'https://diegofois.github.io/portfolio/';
 
-export const LANGUAGE_META_CONFIGURATION: Record<LanguageCode, LanguageMetaConfig> = {
+export const LANGUAGE_META_CONFIGURATION: Partial<Record<LanguageCode, LanguageMetaConfig>> = {
   it: {
     lang: 'it',
     direction: 'ltr',

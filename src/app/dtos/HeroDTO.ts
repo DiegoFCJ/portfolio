@@ -1,10 +1,6 @@
-export interface HeroFullLangs {
-    en: HeroFull;
-    it: HeroFull;
-    de?: HeroFull;
-    es?: HeroFull;
-    [key: string]: HeroFull | undefined;
-}
+import { LanguageCode } from '../models/language-code.type';
+
+export type HeroFullLangs = Partial<Record<LanguageCode, HeroFull>>;
 
 export interface HeroFull {
     button: string;

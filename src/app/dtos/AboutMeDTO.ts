@@ -1,10 +1,6 @@
-export interface AboutMeLangs {
-    en: AboutMe;
-    it: AboutMe;
-    de?: AboutMe;
-    es?: AboutMe;
-    [key: string]: AboutMe | undefined;
-}
+import { LanguageCode } from '../models/language-code.type';
+
+export type AboutMeLangs = Partial<Record<LanguageCode, AboutMe>>;
 
 export interface AboutMe {
     title: string;

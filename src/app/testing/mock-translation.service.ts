@@ -48,14 +48,21 @@ export class MockTranslationService {
       return { content: preferredContent, language: preferred };
     }
 
-    const fallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es'];
-    for (const fallback of fallbackOrder) {
-      if (fallback === preferred) {
+    const fallbackCandidates = Array.from(
+      new Set<LanguageCode>([
+        ...(['it', 'en'] as LanguageCode[]),
+        ...(Object.keys(data) as LanguageCode[]),
+      ])
+    );
+
+    for (const candidate of fallbackCandidates) {
+      if (candidate === preferred) {
         continue;
       }
-      const content = data[fallback];
+
+      const content = data[candidate];
       if (content) {
-        return { content, language: fallback };
+        return { content, language: candidate };
       }
     }
 

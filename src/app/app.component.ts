@@ -2,12 +2,11 @@ import { Component, OnInit, Inject, PLATFORM_ID, DestroyRef } from '@angular/cor
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { TranslationService } from './services/translation.service'; // Servizio per gestire la lingua
-import { APP_TITLE_en, APP_TITLE_it, APP_TITLE_de, APP_TITLE_es } from './constants/general.const';
 import { filter } from 'rxjs/operators';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
-import { LANGUAGE_META_CONFIGURATION } from './constants/meta.const';
+import { LANGUAGE_META_CONFIGURATION, LanguageMetaConfig } from './constants/meta.const';
 import { AnalyticsService } from './services/analytics.service';
 
 @Component({
@@ -49,16 +48,12 @@ export class AppComponent implements OnInit {
   }
 
   private updatePageTitle(language: LanguageCode): void {
-    let appTitle = APP_TITLE_it;
-    if (language === 'en') appTitle = APP_TITLE_en;
-    else if (language === 'de') appTitle = APP_TITLE_de;
-    else if (language === 'es') appTitle = APP_TITLE_es;
-
-    this.titleService.setTitle(appTitle);
+    const configuration = this.resolveMetaConfiguration(language);
+    this.titleService.setTitle(configuration.title);
   }
 
   private updateSeoTags(language: LanguageCode): void {
-    const configuration = LANGUAGE_META_CONFIGURATION[language] ?? LANGUAGE_META_CONFIGURATION['it'];
+    const configuration = this.resolveMetaConfiguration(language);
 
     this.setDocumentLanguage(configuration.lang, configuration.direction ?? 'ltr');
 
@@ -102,5 +97,30 @@ export class AppComponent implements OnInit {
 
     root.setAttribute('lang', lang);
     root.setAttribute('dir', direction);
+  }
+
+  private resolveMetaConfiguration(language: LanguageCode): LanguageMetaConfig {
+    const directMatch = LANGUAGE_META_CONFIGURATION[language];
+    if (directMatch) {
+      return directMatch;
+    }
+
+    const fallbackOrder: LanguageCode[] = ['it', 'en'];
+    for (const fallback of fallbackOrder) {
+      const configuration = LANGUAGE_META_CONFIGURATION[fallback];
+      if (configuration) {
+        return configuration;
+      }
+    }
+
+    const firstAvailable = Object.values(LANGUAGE_META_CONFIGURATION).find(
+      (config): config is LanguageMetaConfig => Boolean(config)
+    );
+
+    if (!firstAvailable) {
+      throw new Error('Missing language meta configuration');
+    }
+
+    return firstAvailable;
   }
 }

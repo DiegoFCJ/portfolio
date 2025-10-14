@@ -1,10 +1,6 @@
-export interface ExperienceFullLangs {
-    en: ExperienceFull;
-    it: ExperienceFull;
-    de?: ExperienceFull;
-    es?: ExperienceFull;
-    [key: string]: ExperienceFull | undefined;
-}
+import { LanguageCode } from '../models/language-code.type';
+
+export type ExperienceFullLangs = Partial<Record<LanguageCode, ExperienceFull>>;
 
 export interface ExperienceFull {
     title: string;
@@ -21,3 +17,4 @@ export interface Experience {
     responsibilities?: string;
     responsibilityList?: string[];
 }
+

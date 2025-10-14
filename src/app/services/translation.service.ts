@@ -113,14 +113,22 @@ export class TranslationService {
       return { content: preferred, language: preferredSource };
     }
 
-    const fallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es'];
-    const fallback = fallbackOrder
-      .filter((lang) => lang !== preferredSource)
-      .map((lang) => ({ lang, content: data[lang] }))
-      .find((entry) => Boolean(entry.content));
+    const fallbackCandidates = Array.from(
+      new Set<LanguageCode>([
+        ...(['it', 'en'] as LanguageCode[]),
+        ...(Object.keys(data) as LanguageCode[]),
+      ])
+    );
 
-    if (fallback) {
-      return { content: fallback.content as T, language: fallback.lang };
+    for (const candidate of fallbackCandidates) {
+      if (candidate === preferredSource) {
+        continue;
+      }
+
+      const content = data[candidate];
+      if (content) {
+        return { content, language: candidate };
+      }
     }
 
     const firstEntry = Object.entries(data)[0];

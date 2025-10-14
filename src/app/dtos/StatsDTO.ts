@@ -1,10 +1,6 @@
-export interface Stats {
-    en: StatsFull;
-    it: StatsFull;
-    de?: StatsFull;
-    es?: StatsFull;
-    [key: string]: StatsFull | undefined;
-}
+import { LanguageCode } from '../models/language-code.type';
+
+export type Stats = Partial<Record<LanguageCode, StatsFull>>;
 
 export interface StatsFull {
     title: string;
@@ -35,3 +31,4 @@ export interface StatsMetrics {
         stack: string[];
     };
 }
+

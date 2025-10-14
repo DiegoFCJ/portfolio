@@ -1,10 +1,6 @@
-export interface EducationFullLangs {
-    en: EducationFull;
-    it: EducationFull;
-    de?: EducationFull;
-    es?: EducationFull;
-    [key: string]: EducationFull | undefined;
-}
+import { LanguageCode } from '../models/language-code.type';
+
+export type EducationFullLangs = Partial<Record<LanguageCode, EducationFull>>;
 
 export interface EducationFull {
     title: string;

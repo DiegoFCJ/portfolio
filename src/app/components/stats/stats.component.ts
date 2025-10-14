@@ -511,32 +511,30 @@ export class StatsComponent implements OnInit, OnDestroy {
     };
   }
 
+  private readonly closeLabelDictionary: Partial<Record<LanguageCode, string>> = {
+    it: 'Chiudi dettaglio',
+    en: 'Close detail',
+    de: 'Detail schließen',
+    es: 'Cerrar detalle',
+    no: 'Lukk detalj',
+    ru: 'Закрыть детали',
+  };
+
+  private readonly localeDictionary: Partial<Record<LanguageCode, string>> = {
+    it: 'it-IT',
+    en: 'en-US',
+    de: 'de-DE',
+    es: 'es-ES',
+    no: 'nb-NO',
+    ru: 'ru-RU',
+  };
+
   private resolveCloseLabel(language: LanguageCode): string {
-    switch (language) {
-      case 'en':
-        return 'Close detail';
-      case 'de':
-        return 'Detail schließen';
-      case 'es':
-        return 'Cerrar detalle';
-      case 'it':
-      default:
-        return 'Chiudi dettaglio';
-    }
+    return this.closeLabelDictionary[language] ?? this.closeLabelDictionary.it ?? 'Close detail';
   }
 
   private resolveLocale(language: LanguageCode): string {
-    switch (language) {
-      case 'en':
-        return 'en-US';
-      case 'de':
-        return 'de-DE';
-      case 'es':
-        return 'es-ES';
-      case 'it':
-      default:
-        return 'it-IT';
-    }
+    return this.localeDictionary[language] ?? this.localeDictionary.it ?? 'en-US';
   }
 
   private resolveLocalizedContent<T extends { [key: string]: any }>(
@@ -548,11 +546,21 @@ export class StatsComponent implements OnInit, OnDestroy {
       return { content: preferredContent, language: preferred };
     }
 
-    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
-    for (const fallback of fallbackOrder) {
-      const content = data[fallback];
+    const fallbackCandidates = Array.from(
+      new Set<LanguageCode>([
+        ...(['en'] as LanguageCode[]),
+        ...(Object.keys(data) as LanguageCode[]),
+      ])
+    );
+
+    for (const candidate of fallbackCandidates) {
+      if (candidate === preferred) {
+        continue;
+      }
+
+      const content = data[candidate];
       if (content) {
-        return { content, language: fallback };
+        return { content, language: candidate };
       }
     }
 

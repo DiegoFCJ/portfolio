@@ -1,10 +1,6 @@
-export interface ProjectsLangs {
-    en: ProjectFull;
-    it: ProjectFull;
-    de?: ProjectFull;
-    es?: ProjectFull;
-    [key: string]: ProjectFull | undefined;
-}
+import { LanguageCode } from '../models/language-code.type';
+
+export type ProjectsLangs = Partial<Record<LanguageCode, ProjectFull>>;
 
 export interface ProjectFull {
     title: string;
@@ -77,3 +73,4 @@ export interface ProjectPreviewLinkLegend {
     demoLabel: string;
     unavailableLabel: string;
 }
+
