@@ -67,6 +67,72 @@ export const educationData: EducationFullLangs = {
             }
         ]
     },
+    de: {
+        title: 'Ausbildung',
+        education: [
+            {
+                title: 'Boomi-Schulungen und Zertifizierungen',
+                institution: 'Boomi',
+                startDate: 'Feb. 2025',
+                endDate: 'Mär. 2025',
+                description: 'Absolvierte die Zertifizierungen Integration Professional, API Management und API Design mit Schwerpunkt auf der Gestaltung hybrider Integrationen und API-Governance.'
+            },
+            {
+                title: 'Cloud-native Entwicklung mit OpenShift und Kubernetes',
+                institution: 'Red Hat - Coursera',
+                startDate: 'Aug. 2023',
+                endDate: 'Sep. 2023',
+                description: 'Praxisnaher Kurs zu Container-Orchestrierung, OpenShift-Anwendungsmanagement und Einführung in CI/CD-Pipelines.'
+            },
+            {
+                title: 'Junior Full-Stack-Entwickler',
+                institution: 'TNV Academy',
+                startDate: 'Feb. 2022',
+                endDate: 'Dez. 2022',
+                description: 'Junior-Full-Stack-Bootcamp zu C, C#, .NET, Java, Spring Boot, Angular, React, Node.js, Android und Unity mit Abschlussprojekt.'
+            },
+            {
+                title: 'Abitur mit naturwissenschaftlichem Schwerpunkt',
+                institution: 'Liceo Scientifico A. Scorcu',
+                startDate: 'Sep. 2010',
+                endDate: 'Jul. 2016',
+                description: 'Gymnasialabschluss mit Schwerpunkt auf Mathematik, Physik und Laborübungen, der analytische Fähigkeiten vertiefte.'
+            }
+        ]
+    },
+    es: {
+        title: 'Formación',
+        education: [
+            {
+                title: 'Formación y certificaciones de Boomi',
+                institution: 'Boomi',
+                startDate: 'Feb. 2025',
+                endDate: 'Mar. 2025',
+                description: 'Certificaciones Integration Professional, API Management y API Design con foco en diseñar integraciones híbridas y la gobernanza de APIs.'
+            },
+            {
+                title: 'Desarrollo cloud-native con OpenShift y Kubernetes',
+                institution: 'Red Hat - Coursera',
+                startDate: 'Ago. 2023',
+                endDate: 'Sep. 2023',
+                description: 'Curso práctico sobre orquestación de contenedores, gestión de aplicaciones en OpenShift e introducción a pipelines de CI/CD.'
+            },
+            {
+                title: 'Desarrollador Full Stack Junior',
+                institution: 'TNV Academy',
+                startDate: 'Feb. 2022',
+                endDate: 'Dic. 2022',
+                description: 'Bootcamp full-stack junior que abarcó C, C#, .NET, Java, Spring Boot, Angular, React, Node.js, Android y Unity, finalizado con un proyecto integrador.'
+            },
+            {
+                title: 'Bachillerato científico',
+                institution: 'Liceo Scientifico A. Scorcu',
+                startDate: 'Sep. 2010',
+                endDate: 'Jul. 2016',
+                description: 'Bachillerato con énfasis en matemáticas, física y laboratorios que fortaleció las habilidades analíticas.'
+            }
+        ]
+    },
     no: {
         title: 'Utdanning',
         education: [

@@ -57,6 +57,62 @@ export const statsData: Stats = {
             },
         ]
     },
+    de: {
+        title: 'Kennzahlen',
+        stats: [
+            {
+                icon: 'schedule',
+                label: 'Gesamtstunden',
+                valueSuffix: 'Stunden Entwicklung',
+                detail: 'Geschätzte Entwicklungszeit über dokumentierte Einsätze, berechnet auf Basis einer 40-Stunden-Woche ohne doppelte Anrechnung überlappender Zeiträume und mit Puffer für laufende Arbeit.'
+            },
+            {
+                icon: 'today',
+                label: 'Erfahrungsmonate',
+                valueSuffix: 'Monate in realen Projekten',
+                detail: 'Summe der aktiven Monate in realen Projekten, gezählt ohne doppelte Berücksichtigung paralleler Einsätze und mit Fokus auf praktische Verantwortung.'
+            },
+            {
+                icon: 'work',
+                label: 'Unterstützte Projekte',
+                valueSuffix: 'Initiativen mit direktem Beitrag',
+                detail: 'Umfasst Webanwendungen, interne Tools und MVPs, bei denen ich von der frühen Exploration bis zum Release und zur fortlaufenden Betreuung mitgewirkt habe.'
+            },
+            {
+                icon: 'code',
+                label: 'Kernstack',
+                detail: 'Haupttechnologien, die ich täglich einsetze, um Oberflächen zu gestalten und Full-Stack-Anwendungen zu orchestrieren.'
+            },
+        ]
+    },
+    es: {
+        title: 'Cifras clave',
+        stats: [
+            {
+                icon: 'schedule',
+                label: 'Horas totales',
+                valueSuffix: 'horas de desarrollo',
+                detail: 'Estimación de horas de desarrollo a lo largo de los proyectos documentados, basada en una media semanal de 40 horas sin duplicar periodos solapados y con margen para el trabajo en curso.'
+            },
+            {
+                icon: 'today',
+                label: 'Meses de experiencia',
+                valueSuffix: 'meses en proyectos reales',
+                detail: 'Total de meses activos en proyectos reales, contados sin duplicar asignaciones simultáneas y centrados en responsabilidades prácticas.'
+            },
+            {
+                icon: 'work',
+                label: 'Proyectos con aporte',
+                valueSuffix: 'iniciativas con impacto directo',
+                detail: 'Incluye aplicaciones web, herramientas internas y MVP en los que participé desde la fase inicial hasta el lanzamiento y el soporte posterior.'
+            },
+            {
+                icon: 'code',
+                label: 'Stack principal',
+                detail: 'Stack tecnológico principal que aplico a diario para diseñar interfaces y orquestar aplicaciones full-stack.'
+            },
+        ]
+    },
     no: {
         title: 'Nøkkeltall',
         stats: [
