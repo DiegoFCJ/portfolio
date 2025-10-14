@@ -96,7 +96,7 @@ describe('EmailService', () => {
       await service.sendEmail(mockFormData);
       expect(window.fetch).toHaveBeenCalledWith('https://formspree.io/f/xrbgldjz', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(mockFormData),
       });
     });

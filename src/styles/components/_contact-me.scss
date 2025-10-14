@@ -36,6 +36,7 @@ app-contact-me .contact-me-section {
   text-align: center;
   background: linear-gradient(160deg, rgba(99, 102, 241, 0.08), rgba(79, 70, 229, 0));
   overflow: auto;
+  color: #0f172a;
 }
 
 body.dark-mode app-contact-me .contact-me-section {
@@ -57,6 +58,23 @@ body.dark-mode app-contact-me .contact-me-section {
   --contact-status-error-border: rgba(248, 113, 113, 0.5);
   --contact-status-error-text: #fca5a5;
   background: linear-gradient(160deg, rgba(129, 140, 248, 0.16), rgba(79, 70, 229, 0.08));
+  color: #f8fafc;
+}
+
+body.dark-mode app-contact-me .contact-me-title {
+  color: #f8fafc;
+}
+
+body.dark-mode app-contact-me .mat-mdc-input-element,
+body.dark-mode app-contact-me .mat-mdc-form-field .mdc-floating-label,
+body.dark-mode app-contact-me .mat-mdc-form-field .mat-mdc-floating-label,
+body.dark-mode app-contact-me .mat-mdc-form-field-subscript-wrapper,
+body.dark-mode app-contact-me .mat-mdc-form-field-error {
+  color: rgba(248, 250, 252, 0.92);
+}
+
+body.dark-mode app-contact-me .mat-mdc-input-element::placeholder {
+  color: rgba(248, 250, 252, 0.64);
 }
 
 body.blue-mode app-contact-me .contact-me-section {
