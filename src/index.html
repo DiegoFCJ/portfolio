@@ -24,6 +24,23 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    (function restorePreviewRoute() {
+      try {
+        var storageKey = 'portfolio:redirect';
+        var redirectPath = sessionStorage.getItem(storageKey);
+        if (!redirectPath) {
+          return;
+        }
+
+        sessionStorage.removeItem(storageKey);
+        var targetUrl = new URL(redirectPath, window.location.origin);
+        history.replaceState(null, '', targetUrl.pathname + targetUrl.search + targetUrl.hash);
+      } catch (error) {
+        console.warn('Unable to restore preview route', error);
+      }
+    })();
+  </script>
 </head>
 
 <body>

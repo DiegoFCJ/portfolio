@@ -43,6 +43,8 @@ This repository contains a portfolio application built with **Angular 18**. It u
 │   │   └── dtos/             # TypeScript interfaces
 │   └── styles/               # Global SCSS
 ├── public/                   # Static files copied verbatim into the build output
+│   ├── 404.html              # SPA redirect so GitHub Pages previews can deep-link without 404s
+│   └── .nojekyll             # Disable Jekyll processing on GitHub Pages environments
 └── angular.json              # Angular CLI configuration
 ```
 
