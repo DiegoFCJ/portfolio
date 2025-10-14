@@ -43,6 +43,48 @@ export const contactMeData: ContactMeLangs = {
       { keyMess: 'one-each-two', valueMess: 'You can only send one message every 2 hours. Please try again later.' }
     ]
   },
+  de: {
+    title: 'Kontakt aufnehmen',
+    name: 'Name',
+    nameReq: 'Name ist erforderlich',
+    email: 'E-Mail',
+    emailReq: 'Eine gültige E-Mail-Adresse ist erforderlich',
+    message: 'Nachricht',
+    messageReq: 'Nachricht ist erforderlich',
+    sendBtn: 'Senden',
+    emailMessages: [
+      { keyMess: 'form-miss', valueMess: 'Formulardaten fehlen.' },
+      { keyMess: 'all-field-req', valueMess: 'Alle Felder sind erforderlich.' },
+      { keyMess: 'email-valid', valueMess: 'Bitte gib eine gültige E-Mail-Adresse ein.' },
+      { keyMess: 'ten-char-mess', valueMess: 'Die Nachricht muss mindestens 10 Zeichen enthalten.' },
+      { keyMess: 'success', valueMess: 'Nachricht erfolgreich gesendet!' },
+      { keyMess: 'fail-retry', valueMess: 'Senden fehlgeschlagen. Bitte versuche es erneut.' },
+      { keyMess: 'err', valueMess: 'Fehler:' },
+      { keyMess: 'err-sending', valueMess: 'Beim Senden der Nachricht ist ein Fehler aufgetreten.' },
+      { keyMess: 'one-each-two', valueMess: 'Du kannst nur alle 2 Stunden eine Nachricht senden. Bitte versuche es später noch einmal.' }
+    ]
+  },
+  es: {
+    title: 'Ponte en contacto',
+    name: 'Nombre',
+    nameReq: 'El nombre es obligatorio',
+    email: 'Correo electrónico',
+    emailReq: 'Se requiere un correo electrónico válido',
+    message: 'Mensaje',
+    messageReq: 'El mensaje es obligatorio',
+    sendBtn: 'Enviar',
+    emailMessages: [
+      { keyMess: 'form-miss', valueMess: 'Faltan los datos del formulario.' },
+      { keyMess: 'all-field-req', valueMess: 'Todos los campos son obligatorios.' },
+      { keyMess: 'email-valid', valueMess: 'Introduce una dirección de correo válida.' },
+      { keyMess: 'ten-char-mess', valueMess: 'El mensaje debe tener al menos 10 caracteres.' },
+      { keyMess: 'success', valueMess: '¡Mensaje enviado con éxito!' },
+      { keyMess: 'fail-retry', valueMess: 'No se pudo enviar el mensaje. Inténtalo de nuevo.' },
+      { keyMess: 'err', valueMess: 'Error:' },
+      { keyMess: 'err-sending', valueMess: 'Se produjo un error al enviar el mensaje.' },
+      { keyMess: 'one-each-two', valueMess: 'Solo puedes enviar un mensaje cada 2 horas. Inténtalo más tarde.' }
+    ]
+  },
   no: {
     title: 'Ta kontakt',
     name: 'Navn',

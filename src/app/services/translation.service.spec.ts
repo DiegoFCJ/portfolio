@@ -82,4 +82,30 @@ describe('TranslationService', () => {
     const req = httpMock.expectOne(expectedUrl);
     req.flush('error', { status: 500, statusText: 'Server Error' });
   });
+
+  it('should return handcrafted German content without requesting auto-translation', async () => {
+    service.setLanguage('de');
+    const data = {
+      en: { message: 'Hello' },
+      de: { message: 'Hallo' }
+    };
+
+    const result = await firstValueFrom(service.getTranslatedData(data, 'en'));
+
+    expect(result).toEqual(data.de);
+    httpMock.expectNone(() => true);
+  });
+
+  it('should return handcrafted Spanish content without requesting auto-translation', async () => {
+    service.setLanguage('es');
+    const data = {
+      it: { message: 'Ciao' },
+      es: { message: 'Hola' }
+    };
+
+    const result = await firstValueFrom(service.getTranslatedData(data, 'it'));
+
+    expect(result).toEqual(data.es);
+    httpMock.expectNone(() => true);
+  });
 });

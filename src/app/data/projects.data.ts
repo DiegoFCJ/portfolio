@@ -245,6 +245,250 @@ export const projects: ProjectsLangs = {
             }
         ]
     },
+    de: {
+        title: 'Ausgewählte Projekte',
+        button: 'Projekt ansehen',
+        toggle: {
+            expand: 'Details anzeigen',
+            collapse: 'Details ausblenden'
+        },
+        navigation: {
+            previous: 'Vorheriges Projekt',
+            next: 'Nächstes Projekt'
+        },
+        statusLegend: {
+            prefix: 'Status',
+            levels: {
+                active: 'Aktiv',
+                publicBeta: 'Öffentliche Beta',
+                inDevelopment: 'In Entwicklung'
+            },
+            tags: {
+                openSource: 'Open Source',
+                release2024: 'Release 2024'
+            }
+        },
+        linksLegend: {
+            code: {
+                availableLabel: 'Quellcode',
+                privateLabel: 'Private Codebasis',
+                unavailableLabel: 'Code nicht verfügbar'
+            },
+            preview: {
+                siteLabel: 'Website besuchen',
+                demoLabel: 'Demo ansehen',
+                unavailableLabel: 'Demo nicht verfügbar'
+            }
+        },
+        projects: [
+            {
+                title: 'Borgo Samarina',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Responsives Tourismusportal, das das Küstendorf mit kuratierten Routen, saisonaler Galerie und CMS-verwaltetem Text hervorhebt (private Codebasis).',
+                image: 'assets/projects/borgo-samarina-cover.png',
+                links: {
+                    code: {
+                        state: 'private'
+                    },
+                    site: {
+                        state: 'available',
+                        url: 'https://borgosamarina-com.web.app/'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Micro Games',
+                status: {
+                    level: 'active',
+                    tags: ['openSource']
+                },
+                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
+                description: 'Modulare Suite lässiger Minispiele mit gemeinsamem Kern, Spielerprofilen und einer mobiloptimierten Bestenliste für kurze Sessions.',
+                image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
+                links: {
+                    code: {
+                        state: 'unavailable'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Self',
+                status: {
+                    level: 'publicBeta',
+                    tags: ['release2024']
+                },
+                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
+                description: 'Produktivitätshub, der Gewohnheiten verfolgt, einen Plugin-Marktplatz anbietet und Ziele mit geräteübergreifenden Kalendererinnerungen synchronisiert.',
+                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                links: {
+                    code: {
+                        state: 'unavailable'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'E-commerce',
+                status: {
+                    level: 'inDevelopment'
+                },
+                technologies: ['Spring Boot 3', 'Angular 17', 'MySQL', 'Keycloak', 'Docker'],
+                description: 'Headless-E-Commerce-Template mit modularem Checkout, Lager-Workflows und Administrationsdashboard, bereit für ERP-Integrationen.',
+                image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
+                links: {
+                    code: {
+                        state: 'available',
+                        url: 'https://github.com/DiegoFCJ/E-commerce'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            }
+        ]
+    },
+    es: {
+        title: 'Proyectos destacados',
+        button: 'Ver proyecto',
+        toggle: {
+            expand: 'Mostrar detalles',
+            collapse: 'Ocultar detalles'
+        },
+        navigation: {
+            previous: 'Proyecto anterior',
+            next: 'Siguiente proyecto'
+        },
+        statusLegend: {
+            prefix: 'Estado',
+            levels: {
+                active: 'Activo',
+                publicBeta: 'Beta pública',
+                inDevelopment: 'En desarrollo'
+            },
+            tags: {
+                openSource: 'Código abierto',
+                release2024: 'Lanzamiento 2024'
+            }
+        },
+        linksLegend: {
+            code: {
+                availableLabel: 'Código fuente',
+                privateLabel: 'Código privado',
+                unavailableLabel: 'Código no disponible'
+            },
+            preview: {
+                siteLabel: 'Visitar sitio',
+                demoLabel: 'Ver demo',
+                unavailableLabel: 'Demo no disponible'
+            }
+        },
+        projects: [
+            {
+                title: 'Borgo Samarina',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Portal turístico responsive que destaca el pueblo costero con itinerarios curados, galería estacional y textos gestionados desde un CMS headless (código privado).',
+                image: 'assets/projects/borgo-samarina-cover.png',
+                links: {
+                    code: {
+                        state: 'private'
+                    },
+                    site: {
+                        state: 'available',
+                        url: 'https://borgosamarina-com.web.app/'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Micro Games',
+                status: {
+                    level: 'active',
+                    tags: ['openSource']
+                },
+                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
+                description: 'Suite modular de minijuegos casuales con núcleo compartido, perfiles de jugador y clasificación preparada para móviles para partidas rápidas.',
+                image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
+                links: {
+                    code: {
+                        state: 'unavailable'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Self',
+                status: {
+                    level: 'publicBeta',
+                    tags: ['release2024']
+                },
+                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
+                description: 'Centro de productividad que registra hábitos, ofrece un mercado de plugins y sincroniza objetivos con recordatorios en calendario multiplataforma.',
+                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                links: {
+                    code: {
+                        state: 'unavailable'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'E-commerce',
+                status: {
+                    level: 'inDevelopment'
+                },
+                technologies: ['Spring Boot 3', 'Angular 17', 'MySQL', 'Keycloak', 'Docker'],
+                description: 'Plantilla headless para comercio electrónico con checkout modular, flujos de almacén y panel administrativo listo para integraciones ERP.',
+                image: 'https://github.com/DiegoFCJ/E-commerce/blob/master/overview/homeSideDash.png?raw=true',
+                links: {
+                    code: {
+                        state: 'available',
+                        url: 'https://github.com/DiegoFCJ/E-commerce'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            }
+        ]
+    },
     no: {
         title: 'Utvalgte prosjekter',
         button: 'Åpne prosjektet',

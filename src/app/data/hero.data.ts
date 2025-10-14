@@ -21,6 +21,26 @@ export const heroData: HeroFullLangs = {
             "I enjoy building tools that support people and teams"
         ]
     },
+    de: {
+        button: 'Mehr über mich erfahren',
+        description: 'Junior-Softwareentwickler mit Fokus auf intuitiv nutzbare Full-Stack-Lösungen.',
+        texts: [
+            'Hallo! Mein Name ist Diego Fois',
+            'Willkommen in meinem Portfolio!',
+            'Ich bin ein Junior-Full-Stack-Softwareentwickler',
+            'Ich entwickle gern Tools, die Menschen und Teams unterstützen'
+        ]
+    },
+    es: {
+        button: 'Conoce más sobre mí',
+        description: 'Desarrollador de software junior centrado en crear soluciones full-stack accesibles.',
+        texts: [
+            '¡Hola! Me llamo Diego Fois',
+            '¡Bienvenido a mi portafolio!',
+            'Soy un desarrollador de software full-stack junior',
+            'Disfruto creando herramientas que acompañan a personas y equipos'
+        ]
+    },
     no: {
         button: 'Lær mer om meg',
         description: 'Junior programvareutvikler med fokus på å bygge brukervennlige fullstack-løsninger.',

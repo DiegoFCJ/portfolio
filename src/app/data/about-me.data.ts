@@ -29,6 +29,34 @@ export const aboutMeData: AboutMeLangs = {
             'Team collaboration backed by clear documentation and knowledge sharing.'
         ]
     },
+    de: {
+        title: 'Über mich',
+        paragraphs: [
+            'Ich bin ein motivierter Junior-Softwareentwickler mit Erfahrung in Full-Stack-Entwicklung und Prozessautomatisierung.',
+            'In jüngsten Projekten habe ich Enterprise- und Freelance-Teams mit Java, Spring Boot, Angular und Next.js in hybriden sowie vollständig remote Setups unterstützt.',
+            'Ich lerne schnell, arbeite eng mit Kolleginnen und Kollegen zusammen und konzentriere mich auf skalierbare Lösungen, die einfach zu nutzen bleiben.'
+        ],
+        highlightsTitle: 'Was ich ins Team einbringe',
+        highlights: [
+            'Full-Stack-Entwicklung mit Java/Spring Boot und Frontend-Arbeit in Angular oder React.',
+            'Automatisierung wiederkehrender Aufgaben unter Linux mit Skripten und Boomi-Integrationen.',
+            'Teamarbeit gestützt durch klare Dokumentation und Wissensaustausch.'
+        ]
+    },
+    es: {
+        title: 'Sobre mí',
+        paragraphs: [
+            'Soy un desarrollador de software junior motivado con experiencia en desarrollo full-stack y automatización de procesos.',
+            'En los proyectos más recientes he apoyado a equipos empresariales y freelance trabajando con Java, Spring Boot, Angular y Next.js en entornos híbridos y totalmente remotos.',
+            'Aprendo rápido, colaboro de cerca con mis compañeros y me enfoco en soluciones escalables que se mantengan fáciles de usar.'
+        ],
+        highlightsTitle: 'Lo que aporto al equipo',
+        highlights: [
+            'Desarrollo full-stack con Java/Spring Boot y trabajo de front-end en Angular o React.',
+            'Automatización de tareas recurrentes en Linux mediante scripts e integraciones con Boomi.',
+            'Colaboración en equipo respaldada por documentación clara y compartición de conocimiento.'
+        ]
+    },
     no: {
         title: 'Om meg',
         paragraphs: [
