@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SocialComponent } from './social.component';
-import { Social } from '../../dtos/SocialDTO';
+import { TranslationService } from '../../services/translation.service';
+import { MockTranslationService } from '../../testing/mock-translation.service';
+import { By } from '@angular/platform-browser';
 
 /**
  * Unit tests for SocialComponent.
@@ -12,13 +14,20 @@ describe('SocialComponent', () => {
   /**
    * Sets up the testing module and initializes the component.
    */
+  let translationService: MockTranslationService;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SocialComponent]
+      imports: [SocialComponent],
+      providers: [
+        MockTranslationService,
+        { provide: TranslationService, useExisting: MockTranslationService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SocialComponent);
     component = fixture.componentInstance;
+    translationService = TestBed.inject(MockTranslationService);
     fixture.detectChanges();
   });
 
@@ -32,31 +41,24 @@ describe('SocialComponent', () => {
   /**
    * Verifies that the social media data is populated correctly.
    */
-  it('should expose social media data as an array', () => {
-    expect(Array.isArray(component.socialsData)).toBeTrue();
-  });
+  it('should render localized labels based on the current language', () => {
+    fixture.detectChanges();
 
-  /**
-   * Verifies the structure of a social media object.
-   */
-  it('should contain valid social media objects', () => {
-    component.socialsData.forEach((social: Social) => {
-      expect(social.link).toBeDefined();
-      expect(social.icon).toBeDefined();
-      expect(typeof social.link).toBe('string');
-      expect(typeof social.icon).toBe('string');
-    });
-  });
+    const italianAnchor = fixture.debugElement.queryAll(By.css('a'))[0];
+    const italianImg = fixture.debugElement.queryAll(By.css('img'))[0];
 
-  /**
-   * Verifies that the social media data contains valid objects.
-   */
-  it('should contain valid social objects with link and icon properties', () => {
-    component.socialsData.forEach((social: Social) => {
-      expect(social).toEqual(jasmine.objectContaining({
-        link: jasmine.any(String),
-        icon: jasmine.any(String)
-      }));
-    });
+    expect(italianAnchor.attributes['aria-label']).toBe('Profilo LinkedIn');
+    expect(italianAnchor.attributes['title']).toBe('Profilo LinkedIn');
+    expect(italianImg.attributes['alt']).toBe('Profilo LinkedIn');
+
+    translationService.setLanguage('en');
+    fixture.detectChanges();
+
+    const englishAnchor = fixture.debugElement.queryAll(By.css('a'))[0];
+    const englishImg = fixture.debugElement.queryAll(By.css('img'))[0];
+
+    expect(englishAnchor.attributes['aria-label']).toBe('LinkedIn Profile');
+    expect(englishAnchor.attributes['title']).toBe('LinkedIn Profile');
+    expect(englishImg.attributes['alt']).toBe('LinkedIn Profile');
   });
 });
