@@ -7,6 +7,33 @@ import { statsData } from '../../data/stats.data';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
 
+const getExperiencesIt = () => {
+  const experiencesIt = experiencesData.it;
+  if (!experiencesIt) {
+    fail('experiencesData.it is not defined');
+    throw new Error('experiencesData.it is not defined');
+  }
+  return experiencesIt;
+};
+
+const getProjectsIt = () => {
+  const projectsIt = projects.it;
+  if (!projectsIt) {
+    fail('projects.it is not defined');
+    throw new Error('projects.it is not defined');
+  }
+  return projectsIt;
+};
+
+const getStatsIt = () => {
+  const statsIt = statsData.it;
+  if (!statsIt) {
+    fail('statsData.it is not defined');
+    throw new Error('statsData.it is not defined');
+  }
+  return statsIt;
+};
+
 /**
  * Unit tests for StatsComponent.
  */
@@ -39,23 +66,27 @@ describe('StatsComponent', () => {
    * Verifies that statistics are correctly prepared after initialization.
    */
   it('should prepare statistics correctly', () => {
+    const statsIt = getStatsIt();
     fixture.detectChanges();
     expect(component.statistics.length).toBe(4);
-    expect(component.statistics[0].label).toBe(statsData.it.stats[0].label);
-    expect(component.statistics[1].label).toBe(statsData.it.stats[1].label);
-    expect(component.statistics[2].label).toBe(statsData.it.stats[2].label);
-    expect(component.statistics[3].label).toBe(statsData.it.stats[3].label);
+    expect(component.statistics[0].label).toBe(statsIt.stats[0].label);
+    expect(component.statistics[1].label).toBe(statsIt.stats[1].label);
+    expect(component.statistics[2].label).toBe(statsIt.stats[2].label);
+    expect(component.statistics[3].label).toBe(statsIt.stats[3].label);
   });
 
   /**
    * Verifies that calculateStats computes correct statistics based on test data.
    */
   it('should calculate correct stats', () => {
+    const experiencesIt = getExperiencesIt();
+    const projectsIt = getProjectsIt();
+    const statsIt = getStatsIt();
     const stats: StatsMetrics = component.calculateStats(
-      experiencesData.it.experiences,
-      projects.it.projects,
+      experiencesIt.experiences,
+      projectsIt.projects,
       'it',
-      statsData.it
+      statsIt
     );
 
     expect(stats.hoursValue.endsWith('+')).toBeTrue();
@@ -63,8 +94,8 @@ describe('StatsComponent', () => {
     expect(stats.monthsValue.endsWith('+')).toBeTrue();
     expect(stats.monthsSuffix).toBe('mesi su progetti reali');
     const expectedProjectTotal = (
-      projects.it.projects.length +
-      experiencesData.it.experiences.filter(exp => {
+      projectsIt.projects.length +
+      experiencesIt.experiences.filter(exp => {
         const hasTechnologies = Boolean(exp.technologies?.trim().length);
         const role = (exp.position ?? '').toLowerCase();
         const isTechRole = /(sviluppatore|developer)/.test(role);
@@ -73,7 +104,7 @@ describe('StatsComponent', () => {
     ).toString();
 
     expect(stats.projectsValue).toBe(expectedProjectTotal);
-    const expectedProjectsSuffix = statsData.it.stats[2].valueSuffix ?? 'iniziative con contributo diretto';
+    const expectedProjectsSuffix = statsIt.stats[2].valueSuffix ?? 'iniziative con contributo diretto';
     expect(stats.projectsSuffix).toBe(expectedProjectsSuffix);
     expect(stats.mostUsedValue).toContain('·');
   });
@@ -112,12 +143,15 @@ describe('StatsComponent', () => {
    * Ensures that prepareStatistics populates the statistics array correctly.
    */
   it('should use computed statistics values in the rendered list', () => {
+    const experiencesIt = getExperiencesIt();
+    const projectsIt = getProjectsIt();
+    const statsIt = getStatsIt();
     fixture.detectChanges();
     const computedStats = component.calculateStats(
-      experiencesData.it.experiences,
-      projects.it.projects,
+      experiencesIt.experiences,
+      projectsIt.projects,
       'it',
-      statsData.it
+      statsIt
     );
 
     expect(component.statistics.length).toBe(4);
@@ -152,11 +186,12 @@ describe('StatsComponent', () => {
 
   it('should expose detail text for each statistic', () => {
     fixture.detectChanges();
+    const statsIt = getStatsIt();
 
     expect(component.statistics.length).toBeGreaterThan(0);
     component.statistics.forEach((stat, index) => {
       expect(stat.detail.length).toBeGreaterThan(0);
-      expect(stat.detail).toBe(statsData.it.stats[index].detail);
+      expect(stat.detail).toBe(statsIt.stats[index].detail);
     });
   });
 
