@@ -59,6 +59,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'Back-end',
       de: 'Back-end',
       es: 'Back-end',
+      no: 'Back-end',
+      ru: 'Back-end',
       default: 'Back-end'
     },
     frontend: {
@@ -66,6 +68,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'Front-end',
       de: 'Front-end',
       es: 'Front-end',
+      no: 'Front-end',
+      ru: 'Front-end',
       default: 'Front-end'
     },
     tooling: {
@@ -73,6 +77,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'Tooling',
       de: 'Tooling',
       es: 'Tooling',
+      no: 'Verktøy',
+      ru: 'Инструменты',
       default: 'Tooling'
     },
     devops: {
@@ -80,6 +86,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'DevOps',
       de: 'DevOps',
       es: 'DevOps',
+      no: 'DevOps',
+      ru: 'DevOps',
       default: 'DevOps'
     }
   };
