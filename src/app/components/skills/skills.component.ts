@@ -54,13 +54,14 @@ export class SkillsComponent implements OnInit, OnDestroy {
   private readonly skillResetTimers = new WeakMap<SkillItem, number>();
 
   private readonly tabLabelDictionary: Record<SkillTabId, Record<LanguageCode | 'default', string>> = {
+    // TODO(content): Provide bespoke tab labels for Norwegian and Russian if desired.
     backend: {
       it: 'Back-end',
       en: 'Back-end',
       de: 'Back-end',
       es: 'Back-end',
       no: 'Back-end',
-      ru: 'Бэкенд',
+      ru: 'Back-end',
       default: 'Back-end'
     },
     frontend: {
@@ -69,7 +70,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
       de: 'Front-end',
       es: 'Front-end',
       no: 'Front-end',
-      ru: 'Фронтенд',
+      ru: 'Front-end',
       default: 'Front-end'
     },
     tooling: {
@@ -77,8 +78,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'Tooling',
       de: 'Tooling',
       es: 'Tooling',
-      no: 'Verktøy',
-      ru: 'Инструменты',
+      no: 'Tooling',
+      ru: 'Tooling',
       default: 'Tooling'
     },
     devops: {
