@@ -5,7 +5,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
 
 type ThemeKey = 'light' | 'dark' | 'blue' | 'green' | 'red';
-type LanguageKey = 'en' | 'it' | 'de' | 'es';
+type LanguageKey = 'en' | 'it' | 'de' | 'es' | 'no' | 'ru';
 
 @Component({
   selector: 'app-navigator',
@@ -30,7 +30,7 @@ export class NavigatorComponent implements OnInit {
   currentLang: string;
   currentTheme: ThemeKey = 'dark';
   readonly availableThemes: ThemeKey[] = ['light', 'dark', 'blue', 'green', 'red'];
-  readonly availableLanguages: LanguageKey[] = ['en', 'it', 'de', 'es'];
+  readonly availableLanguages: LanguageKey[] = ['en', 'it', 'de', 'es', 'no', 'ru'];
 
   /** Controls visibility of the navigator */
   isOpen = true;
@@ -64,6 +64,18 @@ export class NavigatorComponent implements OnInit {
       next: 'Siguiente sección',
       theme: 'Tema',
       language: 'Idioma'
+    },
+    no: {
+      prev: 'Forrige seksjon',
+      next: 'Neste seksjon',
+      theme: 'Tema',
+      language: 'Språk'
+    },
+    ru: {
+      prev: 'Предыдущий раздел',
+      next: 'Следующий раздел',
+      theme: 'Тема',
+      language: 'Язык'
     }
   };
 
@@ -71,28 +83,36 @@ export class NavigatorComponent implements OnInit {
     en: { light: 'Light theme', dark: 'Dark theme', blue: 'Blue theme', green: 'Green theme', red: 'Red theme' },
     it: { light: 'Tema chiaro', dark: 'Tema scuro', blue: 'Tema blu', green: 'Tema verde', red: 'Tema rosso' },
     de: { light: 'Helles Thema', dark: 'Dunkles Thema', blue: 'Blaues Thema', green: 'Grünes Thema', red: 'Rotes Thema' },
-    es: { light: 'Tema claro', dark: 'Tema oscuro', blue: 'Tema azul', green: 'Tema verde', red: 'Tema rojo' }
+    es: { light: 'Tema claro', dark: 'Tema oscuro', blue: 'Tema azul', green: 'Tema verde', red: 'Tema rojo' },
+    no: { light: 'Lyst tema', dark: 'Mørkt tema', blue: 'Blått tema', green: 'Grønt tema', red: 'Rødt tema' },
+    ru: { light: 'Светлая тема', dark: 'Тёмная тема', blue: 'Синяя тема', green: 'Зелёная тема', red: 'Красная тема' }
   };
 
   languageNames: Record<string, Record<LanguageKey, string>> = {
-    en: { en: 'English', it: 'Italian', de: 'German', es: 'Spanish' },
-    it: { en: 'Inglese', it: 'Italiano', de: 'Tedesco', es: 'Spagnolo' },
-    de: { en: 'Englisch', it: 'Italienisch', de: 'Deutsch', es: 'Spanisch' },
-    es: { en: 'Inglés', it: 'Italiano', de: 'Alemán', es: 'Español' }
+    en: { en: 'English', it: 'Italian', de: 'German', es: 'Spanish', no: 'Norwegian', ru: 'Russian' },
+    it: { en: 'Inglese', it: 'Italiano', de: 'Tedesco', es: 'Spagnolo', no: 'Norvegese', ru: 'Russo' },
+    de: { en: 'Englisch', it: 'Italienisch', de: 'Deutsch', es: 'Spanisch', no: 'Norwegisch', ru: 'Russisch' },
+    es: { en: 'Inglés', it: 'Italiano', de: 'Alemán', es: 'Español', no: 'Noruego', ru: 'Ruso' },
+    no: { en: 'Engelsk', it: 'Italiensk', de: 'Tysk', es: 'Spansk', no: 'Norsk', ru: 'Russisk' },
+    ru: { en: 'Английский', it: 'Итальянский', de: 'Немецкий', es: 'Испанский', no: 'Норвежский', ru: 'Русский' }
   };
 
   private readonly languageFlags: Record<LanguageKey, string> = {
     en: 'assets/flags/en.svg',
     it: 'assets/flags/it.svg',
     de: 'assets/flags/de.svg',
-    es: 'assets/flags/es.svg'
+    es: 'assets/flags/es.svg',
+    no: 'assets/flags/no.svg',
+    ru: 'assets/flags/ru.svg'
   };
 
   toggleButtonLabels: { [key: string]: { open: string; close: string } } = {
     en: { open: 'Open navigator', close: 'Close navigator' },
     it: { open: 'Apri navigatore', close: 'Chiudi navigatore' },
     de: { open: 'Navigator öffnen', close: 'Navigator schließen' },
-    es: { open: 'Abrir navegador', close: 'Cerrar navegador' }
+    es: { open: 'Abrir navegador', close: 'Cerrar navegador' },
+    no: { open: 'Åpne navigator', close: 'Lukk navigator' },
+    ru: { open: 'Открыть навигатор', close: 'Закрыть навигатор' }
   };
 
   constructor(
