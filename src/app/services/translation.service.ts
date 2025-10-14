@@ -113,7 +113,7 @@ export class TranslationService {
       return { content: preferred, language: preferredSource };
     }
 
-    const fallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es'];
+    const fallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es', 'no', 'ru'];
     const fallback = fallbackOrder
       .filter((lang) => lang !== preferredSource)
       .map((lang) => ({ lang, content: data[lang] }))

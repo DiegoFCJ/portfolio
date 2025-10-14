@@ -59,6 +59,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'Back-end',
       de: 'Back-end',
       es: 'Back-end',
+      no: 'Back-end',
+      ru: 'Бэкенд',
       default: 'Back-end'
     },
     frontend: {
@@ -66,6 +68,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'Front-end',
       de: 'Front-end',
       es: 'Front-end',
+      no: 'Front-end',
+      ru: 'Фронтенд',
       default: 'Front-end'
     },
     tooling: {
@@ -73,6 +77,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'Tooling',
       de: 'Tooling',
       es: 'Tooling',
+      no: 'Verktøy',
+      ru: 'Инструменты',
       default: 'Tooling'
     },
     devops: {
@@ -80,6 +86,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
       en: 'DevOps',
       de: 'DevOps',
       es: 'DevOps',
+      no: 'DevOps',
+      ru: 'DevOps',
       default: 'DevOps'
     }
   };
@@ -324,7 +332,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
       return { content: preferredContent, language: preferred };
     }
 
-    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
+    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es', 'no', 'ru'];
     for (const fallback of fallbackOrder) {
       const content = data[fallback];
       if (content) {
@@ -367,6 +375,50 @@ export class SkillsComponent implements OnInit, OnDestroy {
       'Collaboration & Management': 'Team collaboration',
       'Operating Systems': 'Runtime environments'
     },
+    no: {
+      'Linguaggi di Programmazione': 'Språkfundament',
+      'Front-end e UI': 'Dynamiske grensesnitt',
+      'Back-end e Servizi': 'Applikasjonstjenester',
+      'Database': 'Datahåndtering',
+      'Cloud e DevOps': 'DevOps og skalerbarhet',
+      'Integrazione e Automazione': 'Enterprise-integrasjon',
+      'Testing e Documentazione': 'Kvalitet og API-er',
+      'Build e CI': 'Leveringspipeline',
+      'Version Control': 'Versjonskontroll',
+      'Collaborazione e Management': 'Daglig samarbeid',
+      'Sistemi Operativi': 'Kjøremiljøer',
+      'Programming Languages': 'Språkfundament',
+      'Front-end & UI': 'Dynamiske grensesnitt',
+      'Back-end & Services': 'Applikasjonstjenester',
+      'Cloud & DevOps': 'DevOps og skalerbarhet',
+      'Integration & Automation': 'Enterprise-integrasjon',
+      'Testing & Documentation': 'Kvalitet og API-er',
+      'Build & CI': 'Leveringspipeline',
+      'Collaboration & Management': 'Daglig samarbeid',
+      'Operating Systems': 'Kjøremiljøer'
+    },
+    ru: {
+      'Linguaggi di Programmazione': 'Основы языков',
+      'Front-end e UI': 'Динамичные интерфейсы',
+      'Back-end e Servizi': 'Прикладные сервисы',
+      'Database': 'Управление данными',
+      'Cloud e DevOps': 'DevOps и масштабирование',
+      'Integrazione e Automazione': 'Корпоративная интеграция',
+      'Testing e Documentazione': 'Качество и API',
+      'Build e CI': 'Конвейер поставки',
+      'Version Control': 'Контроль версий',
+      'Collaborazione e Management': 'Ежедневное сотрудничество',
+      'Sistemi Operativi': 'Рабочие среды',
+      'Programming Languages': 'Основы языков',
+      'Front-end & UI': 'Динамичные интерфейсы',
+      'Back-end & Services': 'Прикладные сервисы',
+      'Cloud & DevOps': 'DevOps и масштабирование',
+      'Integration & Automation': 'Корпоративная интеграция',
+      'Testing & Documentation': 'Качество и API',
+      'Build & CI': 'Конвейер поставки',
+      'Collaboration & Management': 'Ежедневное сотрудничество',
+      'Operating Systems': 'Рабочие среды'
+    },
     default: {}
   };
 
@@ -396,6 +448,32 @@ export class SkillsComponent implements OnInit, OnDestroy {
       'Source control',
       'Team collaboration',
       'Runtime environments'
+    ],
+    no: [
+      'Språkfundament',
+      'Dynamiske grensesnitt',
+      'Applikasjonstjenester',
+      'Datahåndtering',
+      'DevOps og skalerbarhet',
+      'Enterprise-integrasjon',
+      'Kvalitet og API-er',
+      'Leveringspipeline',
+      'Versjonskontroll',
+      'Daglig samarbeid',
+      'Kjøremiljøer'
+    ],
+    ru: [
+      'Основы языков',
+      'Динамичные интерфейсы',
+      'Прикладные сервисы',
+      'Управление данными',
+      'DevOps и масштабирование',
+      'Корпоративная интеграция',
+      'Качество и API',
+      'Конвейер поставки',
+      'Контроль версий',
+      'Ежедневное сотрудничество',
+      'Рабочие среды'
     ],
     default: [
       'Core foundations',
