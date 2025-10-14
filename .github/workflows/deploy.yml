@@ -11,6 +11,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      SITE_BASE_URL: https://diegofois.github.io/portfolio
 
     steps:
       - name: Checkout repository
