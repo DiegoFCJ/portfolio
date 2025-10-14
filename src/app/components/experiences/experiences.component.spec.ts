@@ -71,7 +71,13 @@ describe('ExperiencesComponent', () => {
 
   // Verify the data is correctly initialized
   it('should initialize experiences data correctly', () => {
-    const expectedTimeline = buildExpectedTimeline(experiencesData.it);
+    const experiencesIt = experiencesData.it;
+    if (!experiencesIt) {
+      fail('experiencesData.it is not defined');
+      return;
+    }
+
+    const expectedTimeline = buildExpectedTimeline(experiencesIt);
 
     expect(component.experiences.title).toBe(expectedTimeline.title);
     expect(component.experiences.experiences.length)
