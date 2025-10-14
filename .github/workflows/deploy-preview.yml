@@ -48,6 +48,39 @@ jobs:
       - name: Run unit tests
         run: npm test -- --watch=false --browsers=ChromeHeadless
 
+      - name: Configure production environment
+        run: |
+          set -euo pipefail
+          GA_TRACKING_ID="${{ secrets.GA_TRACKING_ID }}"
+          FORMSPREE_ENDPOINT="${{ secrets.FORMSPREE_ENDPOINT }}"
+          SENTRY_DSN="${{ secrets.SENTRY_DSN }}"
+
+          ENABLE_ANALYTICS="false"
+          if [ -n "${GA_TRACKING_ID}" ]; then
+            ENABLE_ANALYTICS="true"
+          fi
+
+          ENABLE_ERROR_TRACKING="false"
+          if [ -n "${SENTRY_DSN}" ]; then
+            ENABLE_ERROR_TRACKING="true"
+          fi
+
+          cat <<EOF > src/environments/environment.prod.ts
+import { EnvironmentConfig } from './environment.config';
+
+export const environment: EnvironmentConfig = {
+  production: true,
+  gaTrackingId: '${GA_TRACKING_ID}',
+  formspreeEndpoint: '${FORMSPREE_ENDPOINT}',
+  enableAnalytics: ${ENABLE_ANALYTICS},
+  enableErrorTracking: ${ENABLE_ERROR_TRACKING},
+  sentryDsn: '${SENTRY_DSN}',
+  sentryTracesSampleRate: 1.0,
+};
+
+export type { EnvironmentConfig } from './environment.config';
+EOF
+
       - name: Build preview
         run: npm run build -- --output-path=dist/portfolio --base-href="$PREVIEW_BASE_HREF"
 
