@@ -42,6 +42,7 @@ This repository contains a portfolio application built with **Angular 18**. It u
 │   │   ├── data/             # Multilingual data files
 │   │   └── dtos/             # TypeScript interfaces
 │   └── styles/               # Global SCSS
+├── public/                   # Static files copied verbatim into the build output
 └── angular.json              # Angular CLI configuration
 ```
 
@@ -159,6 +160,7 @@ The Express server listens on `http://localhost:4000` by default.
   git tag v1.0.0 && git push origin v1.0.0
   ```
 - **Pull Request preview** – Each open PR gets its own preview at `https://<github-username>.github.io/portfolio/previews/pr-<PR_NUMBER>/`. Once the `Deploy Preview to GitHub Pages / build-and-deploy` job succeeds, the same URL is shown in the PR environments panel.
+  If the preview job fails with `ENOENT: no such file or directory, scandir 'public'`, ensure the `public/` directory is committed (even when it only contains a `.gitkeep`).
 
 ### License
 This repository is distributed under the [MIT License](LICENSE). Key dependencies such as Angular and Express also adopt the MIT terms, ensuring the stack remains permissively licensed.
@@ -286,6 +288,7 @@ Il server Express è in ascolto su `http://localhost:4000`.
   git tag v1.0.0 && git push origin v1.0.0
   ```
 - **Anteprima delle Pull Request** – Ogni PR aperta pubblica un'anteprima su `https://<github-username>.github.io/portfolio/previews/pr-<NUMERO_PR>/`. Quando il job `Deploy Preview to GitHub Pages / build-and-deploy` va a buon fine, lo stesso link compare anche nel pannello degli ambienti della PR.
+  Se il job fallisce con l'errore `ENOENT: no such file or directory, scandir 'public'`, verifica che la cartella `public/` sia tracciata nel repository (anche solo con un file `.gitkeep`).
 
 ### Licenza
 Questo repository è distribuito con [licenza MIT](LICENSE). Anche dipendenze principali come Angular ed Express adottano condizioni MIT, mantenendo l'intero stack con una licenza permissiva.
