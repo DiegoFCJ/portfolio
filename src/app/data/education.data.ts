@@ -66,5 +66,71 @@ export const educationData: EducationFullLangs = {
                 description: 'Scientific-track diploma with advanced mathematics, physics, and lab activities that strengthened analytical skills.'
             }
         ]
+    },
+    no: {
+        title: 'Utdanning',
+        education: [
+            {
+                title: 'Boomi-kurs og sertifiseringer',
+                institution: 'Boomi',
+                startDate: 'feb. 2025',
+                endDate: 'mar. 2025',
+                description: 'Fullførte sertifiseringene Integration Professional, API Management og API Design med fokus på hybride integrasjoner og API-styring.'
+            },
+            {
+                title: 'Sky-native utvikling med OpenShift og Kubernetes',
+                institution: 'Red Hat - Coursera',
+                startDate: 'aug. 2023',
+                endDate: 'sep. 2023',
+                description: 'Praktisk kurs om containerorkestrering, administrasjon av applikasjoner på OpenShift og innføring i CI/CD-pipeline.'
+            },
+            {
+                title: 'Junior fullstack-utvikler',
+                institution: 'TNV Academy',
+                startDate: 'feb. 2022',
+                endDate: 'des. 2022',
+                description: 'Junior fullstack-bootcamp som dekket C, C#, .NET, Java, Spring Boot, Angular, React, Node.js, Android og Unity, avsluttet med et sluttprosjekt.'
+            },
+            {
+                title: 'Vitenskapelig videregående diplom',
+                institution: 'Liceo Scientifico A. Scorcu',
+                startDate: 'sep. 2010',
+                endDate: 'jul. 2016',
+                description: 'Vitenskapelig linje med fordypning i matematikk, fysikk og laboratoriearbeid som styrket analytiske ferdigheter.'
+            }
+        ]
+    },
+    ru: {
+        title: 'Образование',
+        education: [
+            {
+                title: 'Обучение и сертификаты Boomi',
+                institution: 'Boomi',
+                startDate: 'фев. 2025',
+                endDate: 'мар. 2025',
+                description: 'Получены сертификаты Integration Professional, API Management и API Design с упором на проектирование гибридных интеграций и управление API.'
+            },
+            {
+                title: 'Разработка cloud-native с OpenShift и Kubernetes',
+                institution: 'Red Hat - Coursera',
+                startDate: 'авг. 2023',
+                endDate: 'сен. 2023',
+                description: 'Практический курс по оркестрации контейнеров, управлению приложениями в OpenShift и введению в CI/CD-пайплайны.'
+            },
+            {
+                title: 'Junior full-stack разработчик',
+                institution: 'TNV Academy',
+                startDate: 'фев. 2022',
+                endDate: 'дек. 2022',
+                description: 'Интенсив по full-stack разработке, охватывающий C, C#, .NET, Java, Spring Boot, Angular, React, Node.js, Android и Unity, завершён выпускным проектом.'
+            },
+            {
+                title: 'Лицейский диплом с уклоном на естественные науки',
+                institution: 'Liceo Scientifico A. Scorcu',
+                startDate: 'сен. 2010',
+                endDate: 'июл. 2016',
+                description: 'Программа с углублённым изучением математики, физики и лабораторной практики, укрепившая аналитические навыки.'
+            }
+        ]
     }
 };

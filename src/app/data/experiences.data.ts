@@ -168,5 +168,173 @@ export const experiencesData: ExperienceFullLangs = {
                 ]
             }
         ]
+    },
+    no: {
+        title: 'Erfaring',
+        experiences: [
+            {
+                position: 'Programvareutvikler',
+                location: 'Next.js-prosjekt · Fjernarbeid',
+                startDate: 'jun. 2025',
+                endDate: 'sep. 2025',
+                technologies: 'Next.js, TypeScript, Google Analytics, utrulling på Aruba',
+                responsibilities: 'Omskriving av nettsted og migrering fra en eldre PHP-hosting til en moderne Next.js-app.',
+                responsibilityList: [
+                    'Gikk gjennom det eksisterende PHP-nettstedet og planla migrasjonen til en moderne stack.',
+                    'Utviklet det nye flerspråklige Next.js-grensesnittet med skreddersydde komponenter.',
+                    'Håndterte statisk utrulling på Aruba, DNS-konfigurasjon og overvåking via Google Analytics.'
+                ]
+            },
+            {
+                position: 'Programvareutvikler',
+                location: 'Empowerely-plattform · Fullt fjernarbeid',
+                startDate: 'apr. 2025',
+                endDate: 'aug. 2025',
+                technologies: 'Java 24, Spring Boot, Next.js, MySQL, Dataiku',
+                responsibilities: 'Fullstack-forbedringer og dataintegrasjoner for en edtech-plattform.',
+                responsibilityList: [
+                    'Levererte målrettede funksjoner i tett samarbeid med produktteamet.',
+                    'Sørget for at Spring Boot-API-ene samsvarte med dataprosessene i Dataiku.',
+                    'Oppdaterte Next.js-grensesnittet for å vise de nye interaktive innsiktene.'
+                ]
+            },
+            {
+                position: 'Programvareutvikler',
+                location: 'Detaljhandel · Torino (hybrid)',
+                startDate: 'jan. 2025',
+                endDate: 'jun. 2025',
+                technologies: 'Java, Spring Boot, Linux, Bash-skript, Dell Boomi',
+                responsibilities: 'Støttet IT-driften med loggsystemer og prosessautomatisering.',
+                responsibilityList: [
+                    'Vedlikeholdt og optimaliserte en tilpasset loggplattform på Linux-servere.',
+                    'Overvåket prosesser daglig og automatiserte gjentakende oppgaver med skript.',
+                    'Bidro til feilretting og målrettede ytelsesforbedringer.',
+                    'Integrerte applikasjonsoppdateringer gjennom Boomi-pipelines.'
+                ]
+            },
+            {
+                position: 'Programvareutvikler',
+                location: 'Bil- og banksektoren · Fullt fjernarbeid',
+                startDate: 'apr. 2024',
+                endDate: 'okt. 2024',
+                technologies: 'Spring Boot, JSP, AngularJS, Java, AMS',
+                responsibilities: 'Rådgivning på enterprise-plattformer med fokus på vedlikehold og videreutvikling.',
+                responsibilityList: [
+                    'Bidro med nye funksjoner i en løsning basert på Spring Boot og JSP.',
+                    'Undersøkte og løste feil i AngularJS- og Spring Boot-stack sammen med teamet.',
+                    'Automatiserte gjentatte AMS-aktiviteter med Java-skript for å redusere manuelt arbeid.'
+                ]
+            },
+            {
+                position: 'Programvareutvikler',
+                location: 'Frilans · Fullt fjernarbeid',
+                startDate: 'okt. 2023',
+                endDate: 'apr. 2024',
+                technologies: 'Spring Boot, Angular, MySQL, Git, deploy-automatisering',
+                responsibilities: 'Selvstendig leveranse av et e-handelsprosjekt for frilanskunder.',
+                responsibilityList: [
+                    'Ansvarlig for hele prosjektets livssyklus, repository og utrullinger.',
+                    'Koordinerte utviklingsteamet og fordelte oppgaver.',
+                    'Implementerte og dokumenterte nye funksjoner for kundeprosjekter.'
+                ]
+            },
+            {
+                position: 'Programvareutvikler',
+                location: 'Benevento (hybrid)',
+                startDate: 'feb. 2023',
+                endDate: 'okt. 2023',
+                technologies: 'Java, Spring Boot, MySQL, Angular, grunnleggende DevOps',
+                responsibilities: 'Støtte på interne initiativer og deltakelse i et DevOps-opplæringsløp.',
+                responsibilityList: [
+                    'Utviklet back-end- og front-end-løsninger for interne initiativer.',
+                    'Håndterte feilretting og vedlikehold av kodebasen.',
+                    'Fullførte et internt kurs om nettverk, VM-er, Linux, Docker, OpenShift, CI/CD, monitorering og logging.'
+                ]
+            }
+        ]
+    },
+    ru: {
+        title: 'Опыт',
+        experiences: [
+            {
+                position: 'Разработчик программного обеспечения',
+                location: 'Проект на Next.js · Удалённо',
+                startDate: 'июн. 2025',
+                endDate: 'сен. 2025',
+                technologies: 'Next.js, TypeScript, Google Analytics, развёртывание на Aruba',
+                responsibilities: 'Перезапуск сайта и миграция с устаревшего PHP-хостинга на современное приложение Next.js.',
+                responsibilityList: [
+                    'Проанализировал текущий PHP-сайт и спланировал миграцию на современный стек.',
+                    'Реализовал новый многоязычный интерфейс на Next.js с индивидуальными компонентами.',
+                    'Настроил статическое развёртывание на Aruba, DNS и мониторинг через Google Analytics.'
+                ]
+            },
+            {
+                position: 'Разработчик программного обеспечения',
+                location: 'Платформа Empowerely · Полностью удалённо',
+                startDate: 'апр. 2025',
+                endDate: 'авг. 2025',
+                technologies: 'Java 24, Spring Boot, Next.js, MySQL, Dataiku',
+                responsibilities: 'Full-stack доработки и интеграции данных для edtech-платформы.',
+                responsibilityList: [
+                    'Разрабатывал целевые функции вместе с продуктовой командой.',
+                    'Согласовал API на Spring Boot с конвейерами подготовки данных в Dataiku.',
+                    'Обновил интерфейс Next.js, чтобы показать новые интерактивные инсайты.'
+                ]
+            },
+            {
+                position: 'Разработчик программного обеспечения',
+                location: 'Розничный сектор · Турин (гибридный формат)',
+                startDate: 'янв. 2025',
+                endDate: 'июн. 2025',
+                technologies: 'Java, Spring Boot, Linux, скрипты Bash, Dell Boomi',
+                responsibilities: 'Поддержка ИТ-операций: системы логирования и автоматизация процессов.',
+                responsibilityList: [
+                    'Поддерживал и оптимизировал кастомную платформу логирования на Linux-серверах.',
+                    'Ежедневно мониторил процессы и автоматизировал повторяющиеся задачи с помощью скриптов.',
+                    'Участвовал в исправлении ошибок и точечных улучшениях производительности.',
+                    'Внедрял обновления приложений через конвейеры Boomi.'
+                ]
+            },
+            {
+                position: 'Разработчик программного обеспечения',
+                location: 'Автомобильный и банковский секторы · Полностью удалённо',
+                startDate: 'апр. 2024',
+                endDate: 'окт. 2024',
+                technologies: 'Spring Boot, JSP, AngularJS, Java, AMS',
+                responsibilities: 'Консалтинг по корпоративным платформам с упором на поддержку и развитие.',
+                responsibilityList: [
+                    'Разрабатывал новые функции для решения на Spring Boot и JSP.',
+                    'Исследовал и устранял дефекты в стеке AngularJS и Spring Boot вместе с командой.',
+                    'Автоматизировал повторяющиеся процессы AMS с помощью Java-скриптов, чтобы сократить ручной труд.'
+                ]
+            },
+            {
+                position: 'Разработчик программного обеспечения',
+                location: 'Фриланс · Полностью удалённо',
+                startDate: 'окт. 2023',
+                endDate: 'апр. 2024',
+                technologies: 'Spring Boot, Angular, MySQL, Git, автоматизация развёртывания',
+                responsibilities: 'Самостоятельная разработка проекта интернет-магазина для фриланс-клиентов.',
+                responsibilityList: [
+                    'Управлял полным жизненным циклом проекта, репозиторием и развёртываниями.',
+                    'Координировал работу команды разработки и распределял задачи.',
+                    'Реализовывал и документировал новые функции для клиентских проектов.'
+                ]
+            },
+            {
+                position: 'Разработчик программного обеспечения',
+                location: 'Беневенто (гибридный формат)',
+                startDate: 'фев. 2023',
+                endDate: 'окт. 2023',
+                technologies: 'Java, Spring Boot, MySQL, Angular, основы DevOps',
+                responsibilities: 'Поддержка внутренних инициатив и участие в программе обучения DevOps.',
+                responsibilityList: [
+                    'Создавал серверные и клиентские решения для внутренних инициатив.',
+                    'Занимался исправлением ошибок и поддержкой кода.',
+                    'Прошёл внутренний курс по сетям, виртуальным машинам, Linux, Docker, OpenShift, CI/CD, мониторингу и логированию.'
+                ]
+            }
+        ]
     }
 };

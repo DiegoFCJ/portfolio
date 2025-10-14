@@ -94,6 +94,56 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
         'In the Key numbers section each card is clickable and opens a dialog with insights on how that number is calculated.'
       ]
     }
+  },
+  no: {
+    title: 'Hurtigguide til porteføljen',
+    closingHint: 'Når du er ferdig kan du lukke meg – guiden ligger alltid ett klikk unna.',
+    desktop: {
+      intro: 'Bruker du porteføljen på PC? Slik får du mest ut av hver kontroll.',
+      steps: [
+        'Åpne navigasjonsfeltet med chevron-ned-knappen nederst til høyre.',
+        'Bytt mellom seksjonene med pil opp og pil ned i navigasjonen; du kan også rulle med musehjulet hvis du foretrekker det.',
+        'Hold musepekeren over en knapp for å vise et hint om hva den gjør.',
+        'Tema- og språkknappene åpner horisontale undermenyer til venstre slik at du kan justere innstillingene dine.',
+        'I seksjonen Nøkkeltall er hvert kort klikkbart og åpner en dialog med innsikt i hvordan tallet er beregnet.'
+      ]
+    },
+    mobile: {
+      intro: 'På mobil får du berøringsvennlige kontroller – følg disse raske trinnene.',
+      steps: [
+        'Åpne navigasjonsfeltet med knappen med nedovervendt chevron nederst til høyre.',
+        'Bruk pil opp og pil ned i navigasjonen, eller sveip med fingrene for å bytte seksjon.',
+        'Hold inne en knapp for å vise et hint som forklarer funksjonen.',
+        'Tema- og språkknappene åpner horisontale undermenyer til venstre for å endre innstillingene på et øyeblikk.',
+        'I seksjonen Teknologistack velger du mellom back, front og tooling: en karusell vises og legger til venstre- og høyrepiler i navigasjonen for å bla gjennom ferdighetskortene.',
+        'I seksjonen Nøkkeltall kan hvert kort trykkes på for å åpne en dialog med detaljer om hvordan tallet er beregnet.'
+      ]
+    }
+  },
+  ru: {
+    title: 'Краткое руководство по портфолио',
+    closingHint: 'Когда будете готовы, просто закройте меня — помощник всегда в одном клике.',
+    desktop: {
+      intro: 'Просматриваете с компьютера? Вот как использовать все элементы управления.',
+      steps: [
+        'Откройте панель навигации кнопкой со стрелкой вниз в правом нижнем углу.',
+        'Переключайте разделы стрелками вверх и вниз на навбаре; при желании можно прокручивать колесом мыши.',
+        'Наведите курсор на любую кнопку, чтобы увидеть подсказку с описанием действия.',
+        'Кнопки темы и языка открывают горизонтальные подменю слева, где можно настроить параметры.',
+        'В разделе «Ключевые показатели» каждую карточку можно нажать, чтобы открыть диалог с пояснением расчёта.'
+      ]
+    },
+    mobile: {
+      intro: 'На мобильном доступны элементы управления под касание — выполните эти шаги.',
+      steps: [
+        'Откройте панель навигации кнопкой со стрелкой вниз в правом нижнем углу.',
+        'Переключайте разделы стрелками вверх и вниз или свайпайте пальцами.',
+        'Удерживайте кнопку, чтобы увидеть подсказку с описанием действия.',
+        'Кнопки темы и языка открывают горизонтальные подменю слева для быстрого изменения настроек.',
+        'В разделе «Технологический стек» выберите back, front или tooling: появится карусель и в навигации добавятся стрелки влево и вправо для просмотра карточек навыков.',
+        'В разделе «Ключевые показатели» каждую карточку можно нажать, чтобы открыть диалог с деталями расчёта.'
+      ]
+    }
   }
 };
 
