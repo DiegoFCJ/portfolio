@@ -22,7 +22,13 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./hero.component.scss']
 })
 export class HeroComponent implements OnInit, OnDestroy {
-  heroData: HeroFull = heroDataSource.it ?? heroDataSource.en;
+  private readonly defaultHeroData: HeroFull = {
+    button: '',
+    description: '',
+    texts: []
+  };
+
+  heroData: HeroFull = this.resolveHeroData();
   isLoading = true;
   @Output() navigateNextSection = new EventEmitter<void>();
 
@@ -56,7 +62,7 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.translationService.getTranslatedData<HeroFull>(heroDataSource, 'it')
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        this.heroData = data;
+        this.heroData = this.resolveHeroData(data);
         this.isLoading = false;
         this.resetAnimation();  // Reset animation before starting again
         setTimeout(() => {
@@ -94,7 +100,14 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   // Handles the typing of text
   typeText() {
-    const currentText = this.heroData.texts[this.currentTextIndex];
+    const texts = this.heroData.texts ?? [];
+
+    if (!texts.length) {
+      this.isAnimating = false;
+      return;
+    }
+
+    const currentText = texts[this.currentTextIndex] ?? '';
     const textLength = currentText.length;
 
     if (this.isWriting) {
@@ -103,7 +116,7 @@ export class HeroComponent implements OnInit, OnDestroy {
         const timeoutId = setTimeout(() => this.typeText(), this.typingSpeed);  // Continue typing
         this.timeoutIds.push(timeoutId); // Store the timeout ID to clear it later
       } else {
-        if (this.currentTextIndex === this.heroData.texts.length - 1) {
+        if (this.currentTextIndex === texts.length - 1) {
           this.isFinalText = true;
           this.isAnimating = false; // Animation finished
           return;
@@ -137,6 +150,28 @@ export class HeroComponent implements OnInit, OnDestroy {
   }
 
   navigateToNextSection(): void {
-  this.navigateNextSection.emit();
-}
+    this.navigateNextSection.emit();
+  }
+
+  private resolveHeroData(data?: HeroFull | null): HeroFull {
+    if (data) {
+      return {
+        ...this.defaultHeroData,
+        ...data,
+        texts: data.texts?.length ? data.texts : this.defaultHeroData.texts
+      };
+    }
+
+    const fallback = heroDataSource.it ?? heroDataSource.en;
+
+    if (fallback) {
+      return {
+        ...this.defaultHeroData,
+        ...fallback,
+        texts: fallback.texts?.length ? fallback.texts : this.defaultHeroData.texts
+      };
+    }
+
+    return this.defaultHeroData;
+  }
 }
