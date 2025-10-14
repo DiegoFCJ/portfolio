@@ -94,6 +94,59 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
         'In the Key numbers section each card is clickable and opens a dialog with insights on how that number is calculated.'
       ]
     }
+  },
+  no: {
+    title: 'Hurtigguide til porteføljen',
+    closingHint: 'Når du er ferdig kan du lukke meg – jeg er alltid bare ett klikk unna.',
+    desktop: {
+      intro:
+        'Bruker du porteføljen på PC? Slik får du mest ut av kontrollene.',
+      steps: [
+        'Åpne navigasjonsfeltet med knappen med nedoverpilen nederst til høyre på skjermen.',
+        'Naviger mellom seksjonene med pil opp og ned i navigasjonen; du kan også rulle med musehjulet om du foretrekker det.',
+        'Hold musepekeren over en knapp for å vise et hint som forklarer handlingen.',
+        'Tema- og språkknappene åpner vannrette undermenyer til venstre slik at du kan velge egne innstillinger.',
+        'I seksjonen Nøkkeltall er hvert kort klikkbart og åpner en dialog med detaljer om hvordan tallet er beregnet.'
+      ]
+    },
+    mobile: {
+      intro:
+        'På mobil får du berøringsvennlige kontroller – her er stegene du trenger.',
+      steps: [
+        'Åpne navigasjonsfeltet med knappen med nedoverpilen nederst til høyre.',
+        'Bruk pil opp og ned i navigasjonen for å bytte seksjon, eller sveip med fingrene.',
+        'Hold inne en knapp for å vise hintet som forklarer funksjonen.',
+        'Tema- og språkknappene åpner vannrette undermenyer til venstre for raske innstillinger.',
+        'I seksjonen Teknologisk stack kan du velge mellom backend, frontend og verktøy: et karuselloppsett dukker opp og legger til venstre- og høyrepiler i navigasjonen for å bla i kortene.',
+        'I seksjonen Nøkkeltall er hvert kort klikkbart og åpner en dialog med detaljer om beregningen.'
+      ]
+    }
+  },
+  ru: {
+    title: 'Краткое руководство по портфолио',
+    closingHint: 'Когда закончишь, просто закрой меня — подсказка всегда в одном клике.',
+    desktop: {
+      intro:
+        'Смотришь портфолио с компьютера? Вот как использовать каждый элемент на максимум.',
+      steps: [
+        'Открой навигационную панель кнопкой со стрелкой вниз в правом нижнем углу.',
+        'Переключай разделы стрелками вверх и вниз на панели; при желании можно прокручивать колесиком мыши.',
+        'Наведи курсор на кнопку, чтобы увидеть подсказку с описанием её действия.',
+        'Кнопки темы и языка открывают горизонтальные подменю слева, где можно выбрать нужные настройки.',
+        'В разделе «Ключевые показатели» каждую карточку можно нажать — появится диалог с пояснением расчёта.'
+      ]
+    },
+    mobile: {
+      intro: 'На мобильном доступны элементы для жестов — следуй этим шагам.',
+      steps: [
+        'Открой навигационную панель кнопкой со стрелкой вниз в правом нижнем углу.',
+        'Переключай разделы стрелками вверх и вниз или пролистывай пальцем.',
+        'Удерживай кнопку, чтобы увидеть подсказку о её действии.',
+        'Кнопки темы и языка открывают горизонтальные подменю слева для быстрого переключения настроек.',
+        'В разделе «Технологический стек» выбери между бэкендом, фронтендом и инструментами: появится карусель и в навигаторе добавятся стрелки влево и вправо для просмотра карточек навыков.',
+        'В разделе «Ключевые показатели» каждая карточка нажимается и открывает диалог с деталями расчёта.'
+      ]
+    }
   }
 };
 

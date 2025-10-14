@@ -78,4 +78,20 @@ describe('AppComponent', () => {
     expect(document.title).toEqual('Portfolio de Diego');
     expect(metaService.getTag("name='twitter:card'")?.content).toBe('summary_large_image');
   });
+
+  it('should set the document title to "Diegos portefølje" for Norwegian', () => {
+    languageSubject.next('no');
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    expect(document.title).toEqual('Diegos portefølje');
+    expect(metaService.getTag("property='og:locale'")?.content).toBe('nb_NO');
+  });
+
+  it('should set the document title to "Портфолио Диего" for Russian', () => {
+    languageSubject.next('ru');
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    expect(document.title).toEqual('Портфолио Диего');
+    expect(metaService.getTag("name='twitter:title'")?.content).toEqual('Портфолио Диего');
+  });
 });

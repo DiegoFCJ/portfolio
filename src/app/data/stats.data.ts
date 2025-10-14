@@ -56,5 +56,61 @@ export const statsData: Stats = {
                 detail: 'Core technology stack applied daily to design interfaces and orchestrate full-stack applications.'
             },
         ]
+    },
+    no: {
+        title: 'Nøkkeltall',
+        stats: [
+            {
+                icon: 'schedule',
+                label: 'Totale timer',
+                valueSuffix: 'timer med utvikling',
+                detail: 'Anslått sum av utviklingstimer i dokumenterte oppdrag, beregnet med 40-timers uker uten dobbeltføring av overlappende perioder og med slingringsmonn for pågående arbeid.'
+            },
+            {
+                icon: 'today',
+                label: 'Erfaringsmåneder',
+                valueSuffix: 'måneder på virkelige prosjekter',
+                detail: 'Totalt antall aktive måneder på reelle prosjekter, telt uten å legge sammen parallelle perioder og med fokus på konkrete ansvarsområder.'
+            },
+            {
+                icon: 'work',
+                label: 'Prosjekter jeg har bidratt til',
+                valueSuffix: 'initiativ med direkte påvirkning',
+                detail: 'Omfatter nettapplikasjoner, interne verktøy og MVP-er der jeg har bidratt fra tidlig innsikt til lansering og videre støtte.'
+            },
+            {
+                icon: 'code',
+                label: 'Kjernestack',
+                detail: 'Hovedstacken jeg bruker daglig for å designe grensesnitt og orkestrere fullstack-applikasjoner.'
+            },
+        ]
+    },
+    ru: {
+        title: 'Ключевые показатели',
+        stats: [
+            {
+                icon: 'schedule',
+                label: 'Всего часов',
+                valueSuffix: 'часов разработки',
+                detail: 'Оценка суммарных часов разработки по документированным проектам, рассчитанная исходя из 40-часовой недели без учёта пересекающихся периодов и с запасом на текущую работу.'
+            },
+            {
+                icon: 'today',
+                label: 'Месяцы опыта',
+                valueSuffix: 'месяцев на реальных проектах',
+                detail: 'Количество активных месяцев, проведённых на реальных проектах, без двойного учёта параллельных назначений и с упором на практические задачи.'
+            },
+            {
+                icon: 'work',
+                label: 'Проекты с моим участием',
+                valueSuffix: 'инициативы с прямым вкладом',
+                detail: 'Включает веб-приложения, внутренние инструменты и MVP, где я участвовал от раннего анализа до релиза и последующей поддержки.'
+            },
+            {
+                icon: 'code',
+                label: 'Основной стек',
+                detail: 'Базовый технологический стек, который я ежедневно применяю для проектирования интерфейсов и оркестрации full-stack приложений.'
+            },
+        ]
     }
 };

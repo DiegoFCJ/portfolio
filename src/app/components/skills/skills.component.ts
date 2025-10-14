@@ -324,7 +324,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
       return { content: preferredContent, language: preferred };
     }
 
-    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
+    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es', 'no', 'ru'];
     for (const fallback of fallbackOrder) {
       const content = data[fallback];
       if (content) {

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID, DestroyRef } from '@angular/cor
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { TranslationService } from './services/translation.service'; // Servizio per gestire la lingua
-import { APP_TITLE_en, APP_TITLE_it, APP_TITLE_de, APP_TITLE_es } from './constants/general.const';
+import { APP_TITLE_en, APP_TITLE_it, APP_TITLE_de, APP_TITLE_es, APP_TITLE_no, APP_TITLE_ru } from './constants/general.const';
 import { filter } from 'rxjs/operators';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -53,6 +53,8 @@ export class AppComponent implements OnInit {
     if (language === 'en') appTitle = APP_TITLE_en;
     else if (language === 'de') appTitle = APP_TITLE_de;
     else if (language === 'es') appTitle = APP_TITLE_es;
+    else if (language === 'no') appTitle = APP_TITLE_no;
+    else if (language === 'ru') appTitle = APP_TITLE_ru;
 
     this.titleService.setTitle(appTitle);
   }

@@ -88,4 +88,38 @@ export const LANGUAGE_META_CONFIGURATION: Record<LanguageCode, LanguageMetaConfi
     ogType: 'website',
     ogLocale: 'es_ES',
   },
+  no: {
+    lang: 'no',
+    direction: 'ltr',
+    title: 'Diegos portefølje',
+    description:
+      'Junior programvareutvikler som bygger brukervennlige fullstack-opplevelser for team og sluttbrukere.',
+    keywords:
+      'Diego Fois, programvareutvikler, fullstack, portefølje, Angular, TypeScript, prosjekter, webapplikasjoner',
+    siteName: 'Diegos portefølje',
+    url: SITE_URL,
+    image: SOCIAL_PREVIEW_IMAGE,
+    imageAlt: 'Forhåndsvisning av Diego Fois sitt portefølje med fremhevede prosjekter',
+    twitterCard: 'summary_large_image',
+    twitterCreator: '@diegofois',
+    ogType: 'website',
+    ogLocale: 'nb_NO',
+  },
+  ru: {
+    lang: 'ru',
+    direction: 'ltr',
+    title: 'Портфолио Диего',
+    description:
+      'Младший разработчик программного обеспечения, создающий понятные full-stack решения для команд и пользователей.',
+    keywords:
+      'Диего Фойс, разработчик программного обеспечения, full-stack, портфолио, Angular, TypeScript, проекты, веб-приложения',
+    siteName: 'Портфолио Диего',
+    url: SITE_URL,
+    image: SOCIAL_PREVIEW_IMAGE,
+    imageAlt: 'Превью портфолио Диего Фойса с избранными проектами',
+    twitterCard: 'summary_large_image',
+    twitterCreator: '@diegofois',
+    ogType: 'website',
+    ogLocale: 'ru_RU',
+  },
 };

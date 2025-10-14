@@ -48,7 +48,7 @@ export class MockTranslationService {
       return { content: preferredContent, language: preferred };
     }
 
-    const fallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es'];
+    const fallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es', 'no', 'ru'];
     for (const fallback of fallbackOrder) {
       if (fallback === preferred) {
         continue;

@@ -66,5 +66,71 @@ export const educationData: EducationFullLangs = {
                 description: 'Scientific-track diploma with advanced mathematics, physics, and lab activities that strengthened analytical skills.'
             }
         ]
+    },
+    no: {
+        title: 'Utdanning',
+        education: [
+            {
+                title: 'Boomi-opplæring og sertifiseringer',
+                institution: 'Boomi',
+                startDate: 'feb 2025',
+                endDate: 'mar 2025',
+                description: 'Fullførte Boomi Integration Professional, API Management og API Design med fokus på å utforme integrasjoner og API-styring i hybride miljøer.'
+            },
+            {
+                title: 'Sky-native utvikling med OpenShift og Kubernetes',
+                institution: 'Red Hat - Coursera',
+                startDate: 'aug 2023',
+                endDate: 'sep 2023',
+                description: 'Praktisk kurs i containerorkestrering, administrasjon av applikasjoner på OpenShift og innføring i CI/CD-pipelines.'
+            },
+            {
+                title: 'Junior fullstack-utvikler',
+                institution: 'TNV Academy',
+                startDate: 'feb 2022',
+                endDate: 'des 2022',
+                description: 'Junior bootcamp innen fullstack med C, C#, .NET, Java, Spring Boot, Angular, React, Node.js, Android og Unity, avsluttet med et prosjekt.'
+            },
+            {
+                title: 'Studiespesialisering ved videregående skole',
+                institution: 'Liceo Scientifico A. Scorcu',
+                startDate: 'sep 2010',
+                endDate: 'jul 2016',
+                description: 'Studiespesialisering med fordypning i matematikk, fysikk og laboratoriefag som styrket analytiske ferdigheter.'
+            }
+        ]
+    },
+    ru: {
+        title: 'Образование',
+        education: [
+            {
+                title: 'Обучение и сертификаты Boomi',
+                institution: 'Boomi',
+                startDate: 'фев 2025',
+                endDate: 'мар 2025',
+                description: 'Программа Boomi Integration Professional, API Management и API Design с упором на проектирование интеграций и управление API в гибридных средах.'
+            },
+            {
+                title: 'Cloud-native разработка с OpenShift и Kubernetes',
+                institution: 'Red Hat - Coursera',
+                startDate: 'авг 2023',
+                endDate: 'сен 2023',
+                description: 'Практический курс по оркестрации контейнеров, управлению приложениями в OpenShift и основам CI/CD-пайплайнов.'
+            },
+            {
+                title: 'Junior full-stack разработчик',
+                institution: 'TNV Academy',
+                startDate: 'фев 2022',
+                endDate: 'дек 2022',
+                description: 'Full-stack буткемп для начинающих по C, C#, .NET, Java, Spring Boot, Angular, React, Node.js, Android и Unity с итоговым проектом.'
+            },
+            {
+                title: 'Аттестат средней школы (естественно-научное направление)',
+                institution: 'Liceo Scientifico A. Scorcu',
+                startDate: 'сен 2010',
+                endDate: 'июл 2016',
+                description: 'Профильное обучение с углублённой математикой, физикой и лабораторными работами, укрепившее аналитические навыки.'
+            }
+        ]
     }
 };

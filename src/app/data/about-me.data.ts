@@ -28,5 +28,33 @@ export const aboutMeData: AboutMeLangs = {
             'Automation of recurring tasks on Linux with scripting and Boomi integrations.',
             'Team collaboration backed by clear documentation and knowledge sharing.'
         ]
+    },
+    no: {
+        title: 'Om meg',
+        paragraphs: [
+            'Jeg er en motivert junior programvareutvikler med erfaring innen fullstack-utvikling og prosessautomatisering.',
+            'I de siste oppdragene har jeg støttet enterprise- og frilans-team med Java, Spring Boot, Angular og Next.js i hybride og helremote miljøer.',
+            'Jeg lærer raskt, samarbeider gjerne med kollegaer og fokuserer på skalerbare løsninger som forblir enkle å bruke.'
+        ],
+        highlightsTitle: 'Hva jeg tar med til teamet',
+        highlights: [
+            'Fullstack-utvikling med Java/Spring Boot og frontend i Angular eller React.',
+            'Automatisering av gjentakende oppgaver med Linux-skript og Boomi-integrasjoner.',
+            'Samarbeid med tverrfaglige team og fokus på tydelig dokumentasjon.'
+        ]
+    },
+    ru: {
+        title: 'Обо мне',
+        paragraphs: [
+            'Я мотивированный младший разработчик программного обеспечения с опытом во full-stack разработке и автоматизации процессов.',
+            'В недавних проектах поддерживал корпоративные и фриланс-команды, работая с Java, Spring Boot, Angular и Next.js в гибридных и полностью удалённых форматах.',
+            'Я быстро учусь, с удовольствием сотрудничаю с коллегами и сосредоточен на масштабируемых решениях, которые остаются простыми в использовании.'
+        ],
+        highlightsTitle: 'Что я привношу в команду',
+        highlights: [
+            'Full-stack разработка с использованием Java/Spring Boot и фронтенда на Angular или React.',
+            'Автоматизация повторяющихся задач с помощью скриптов в Linux и интеграций Boomi.',
+            'Сотрудничество с кросс-функциональными командами и внимание к документации.'
+        ]
     }
 };

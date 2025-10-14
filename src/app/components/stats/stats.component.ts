@@ -519,6 +519,10 @@ export class StatsComponent implements OnInit, OnDestroy {
         return 'Detail schließen';
       case 'es':
         return 'Cerrar detalle';
+      case 'no':
+        return 'Lukk detalj';
+      case 'ru':
+        return 'Закрыть подробности';
       case 'it':
       default:
         return 'Chiudi dettaglio';
@@ -533,6 +537,10 @@ export class StatsComponent implements OnInit, OnDestroy {
         return 'de-DE';
       case 'es':
         return 'es-ES';
+      case 'no':
+        return 'nb-NO';
+      case 'ru':
+        return 'ru-RU';
       case 'it':
       default:
         return 'it-IT';
@@ -548,7 +556,7 @@ export class StatsComponent implements OnInit, OnDestroy {
       return { content: preferredContent, language: preferred };
     }
 
-    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es'];
+    const fallbackOrder: LanguageCode[] = ['en', 'de', 'es', 'no', 'ru'];
     for (const fallback of fallbackOrder) {
       const content = data[fallback];
       if (content) {
