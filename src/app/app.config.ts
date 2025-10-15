@@ -1,6 +1,7 @@
-import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { Router } from '@angular/router';
+import * as Sentry from "@sentry/angular";
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -13,9 +14,18 @@ import { SentryErrorHandler } from './services/sentry-error-handler.service';
 const errorTrackingProviders = (environment.enableErrorTracking && environment.sentryDsn)
   ? [{
     provide: ErrorHandler,
-    useClass: SentryErrorHandler,
-  }]
-  : [];
+    useValue: Sentry.createErrorHandler(),
+  },
+  {
+    provide: Sentry.TraceService,
+    deps: [Router],
+  },
+  {
+    provide: APP_INITIALIZER,
+    useFactory: () => () => { },
+    deps: [Sentry.TraceService],
+    multi: true,
+  },] : [];
 
 export const appConfig: ApplicationConfig = {
   providers: [

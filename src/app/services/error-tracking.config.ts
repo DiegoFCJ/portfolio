@@ -1,4 +1,5 @@
 import { EnvironmentConfig } from '../../environments/environment';
+import * as Sentry from "@sentry/angular";
 
 type ErrorTrackingConfiguration = {
   enabled: boolean;
@@ -13,6 +14,14 @@ let currentConfig: ErrorTrackingConfiguration = {
 };
 
 export function configureErrorTracking(environment: EnvironmentConfig): void {
+
+  Sentry.init({
+    dsn: "https://3c44deecd427ceb15fc38b0dae3f2c15@o4510193552719872.ingest.de.sentry.io/4510193574281296",
+    // Setting this option to true will send default PII data to Sentry.
+    // For example, automatic IP address collection on events
+    sendDefaultPii: true
+  });
+
   const { enableErrorTracking, sentryDsn, sentryTracesSampleRate } = environment;
   if (!enableErrorTracking || !sentryDsn) {
     currentConfig = { enabled: false, sampleRate: 0 };
