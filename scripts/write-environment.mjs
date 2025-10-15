@@ -29,14 +29,22 @@ const parseNumber = (value, fallback) => {
   return Number.isNaN(parsed) ? fallback : parsed;
 };
 
-const gaTrackingId = process.env.NG_APP_GA_TRACKING_ID ?? '';
-const formspreeEndpoint = process.env.NG_APP_FORMSPREE_ENDPOINT ?? '';
-const sentryDsn = process.env.NG_APP_SENTRY_DSN ?? '';
+const readEnv = (...keys) => keys.map((key) => process.env[key]).find((value) => value !== undefined);
 
-const enableAnalytics = parseBoolean(process.env.NG_APP_ENABLE_ANALYTICS, gaTrackingId.length > 0);
-const enableErrorTracking = parseBoolean(process.env.NG_APP_ENABLE_ERROR_TRACKING, sentryDsn.length > 0);
+const gaTrackingId = readEnv('NG_APP_GA_TRACKING_ID', 'GA_TRACKING_ID') ?? '';
+const formspreeEndpoint = readEnv('NG_APP_FORMSPREE_ENDPOINT', 'FORMSPREE_ENDPOINT') ?? '';
+const sentryDsn = readEnv('NG_APP_SENTRY_DSN', 'SENTRY_DSN') ?? '';
+
+const enableAnalytics = parseBoolean(
+  readEnv('NG_APP_ENABLE_ANALYTICS', 'ENABLE_ANALYTICS'),
+  gaTrackingId.length > 0,
+);
+const enableErrorTracking = parseBoolean(
+  readEnv('NG_APP_ENABLE_ERROR_TRACKING', 'ENABLE_ERROR_TRACKING'),
+  sentryDsn.length > 0,
+);
 const sentryTracesSampleRate = parseNumber(
-  process.env.NG_APP_SENTRY_TRACES_SAMPLE_RATE,
+  readEnv('NG_APP_SENTRY_TRACES_SAMPLE_RATE', 'SENTRY_TRACES_SAMPLE_RATE'),
   enableErrorTracking ? 1 : 0,
 );
 

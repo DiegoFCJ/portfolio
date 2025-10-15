@@ -97,6 +97,8 @@ Keep the production file (`environment.prod.ts`) free from private secrets. Both
     NG_APP_SENTRY_TRACES_SAMPLE_RATE: '0.5'
 ```
 
+The configuration script also accepts the unprefixed keys (`GA_TRACKING_ID`, `FORMSPREE_ENDPOINT`, `SENTRY_DSN`, `ENABLE_ANALYTICS`, `ENABLE_ERROR_TRACKING`, `SENTRY_TRACES_SAMPLE_RATE`). This makes it easier to reuse existing provider secret names without duplicating values.
+
 Store the secrets in the repository or organisation settings (Formspree values can live in secrets for convenience even though they are public). Refer to [docs/environment-configuration.md](docs/environment-configuration.md) for a more detailed checklist.
 
 ### Scripts
