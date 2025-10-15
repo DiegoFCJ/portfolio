@@ -5,6 +5,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
 import { AnalyticsService } from './services/analytics.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
@@ -44,7 +45,7 @@ describe('AppComponent', () => {
     analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView']);
 
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [RouterTestingModule, AppComponent],
       providers: [
         { provide: TranslationService, useValue: mockTranslationService },
         { provide: AnalyticsService, useValue: analyticsService },
