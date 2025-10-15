@@ -11,7 +11,8 @@
     "test": "ng test",
     "test:headless": "CHROME_BIN=\"$(node -p \\\"require('puppeteer').executablePath()\\\")\" ng test --watch=false --browsers=ChromeHeadlessPuppeteer",
     "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs",
-    "generate:sitemap": "node scripts/generate-sitemap.mjs"
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "configure:env:prod": "node scripts/write-environment.mjs"
   },
   "dependencies": {
     "@angular/animations": "^18.2.0",

@@ -6,10 +6,12 @@ import { EnvironmentConfig } from '../../environments/environment';
 describe('EmailService', () => {
   let service: EmailService;
 
+  const formspreeEndpoint = 'https://formspree.io/f/example';
+
   const environmentStub: EnvironmentConfig = {
     production: false,
     gaTrackingId: 'G-1234567890',
-    formspreeEndpoint: 'https://formspree.io/f/xrbgldjz',
+    formspreeEndpoint,
     enableAnalytics: true,
     enableErrorTracking: true,
     sentryDsn: 'https://example@sentry.test/1',
@@ -94,9 +96,9 @@ describe('EmailService', () => {
 
     it('should send an email with the correct payload', async () => {
       await service.sendEmail(mockFormData);
-      expect(window.fetch).toHaveBeenCalledWith('https://formspree.io/f/xrbgldjz', {
+      expect(window.fetch).toHaveBeenCalledWith(formspreeEndpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(mockFormData),
       });
     });
