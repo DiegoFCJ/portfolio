@@ -114,15 +114,13 @@ describe('HomeComponent', () => {
     expect(component.totalSections).toBe(2);
   });
 
-  it('should bind carousel aria labels to translated properties', async () => {
+  it('should bind carousel aria labels to translated properties', () => {
     component.viewInitialized = true;
     (component as any).isMobileViewport = true;
     (component as any).skillsSectionIndex = 0;
     component.currentSectionIndex = 0;
     (component as any).skillsComponent = {} as SkillsComponent;
 
-    fixture.detectChanges();
-    await fixture.whenStable();
     fixture.detectChanges();
 
     const hostElement: HTMLElement = fixture.nativeElement;
