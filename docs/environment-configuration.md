@@ -23,6 +23,7 @@ Both `src/environments/environment.ts` (development) and `src/environments/envir
    npm run configure:env:prod
    ```
    The script overwrites `environment.prod.ts`, so commit any changes only when updating the defaults.
+   It also recognises the unprefixed variants (`FORMSPREE_ENDPOINT`, `GA_TRACKING_ID`, etc.) so you can reuse provider-specific environment names if you prefer.
 3. The `EmailService` will fall back to a logged message when `formspreeEndpoint` is empty, allowing front-end validation to be tested without a live backend.
 
 ## Continuous integration
@@ -41,4 +42,4 @@ Provide the analytics and Sentry secrets as encrypted values in the CI system (f
     NG_APP_SENTRY_TRACES_SAMPLE_RATE: '0.5'
 ```
 
-Adjust the sampling rate and toggles as needed per environment. Store the secrets in your CI system (Formspree can live there even if it is public) so each build writes a fresh `environment.prod.ts` without committing the real identifiers to git.
+Adjust the sampling rate and toggles as needed per environment. You can swap the variables for the unprefixed equivalents (for example `GA_TRACKING_ID` or `SENTRY_DSN`) when your CI already exposes them with those names. Store the secrets in your CI system (Formspree can live there even if it is public) so each build writes a fresh `environment.prod.ts` without committing the real identifiers to git.
