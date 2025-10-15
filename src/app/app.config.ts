@@ -14,7 +14,7 @@ import { SentryErrorHandler } from './services/sentry-error-handler.service';
 const errorTrackingProviders = (environment.enableErrorTracking && environment.sentryDsn)
   ? [{
     provide: ErrorHandler,
-    useValue: Sentry.createErrorHandler(),
+    useClass: SentryErrorHandler,
   },
   {
     provide: Sentry.TraceService,
