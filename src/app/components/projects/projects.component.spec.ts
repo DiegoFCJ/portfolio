@@ -129,4 +129,16 @@ describe('ProjectsComponent', () => {
     expect(component.getStatusLevelLabel('active')).toBe('active');
     expect(component.getStatusTagLabel('openSource')).toBe('openSource');
   });
+
+  it('should use localized alt prefix for project images', () => {
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const image = nativeElement.querySelector<HTMLImageElement>('.proj-image');
+
+    expect(image).withContext('Expected an image element in the template').not.toBeNull();
+
+    const firstProject = component.projects.projects[0];
+    expect(firstProject).withContext('Expected at least one project to be available').toBeDefined();
+
+    expect(image?.alt).toBe(`${component.projects.imageAltPrefix}${firstProject.title}`);
+  });
 });

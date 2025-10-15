@@ -25,7 +25,7 @@
     <ng-template #projectCard let-project let-i="index">
         <article class="project-card" [attr.data-status-level]="project.status.level">
             <div class="project-visual">
-                <img class="proj-image" [src]="project.image" [attr.alt]="'Anteprima del progetto ' + project.title" />
+                <img class="proj-image" [src]="project.image" [attr.alt]="projects.imageAltPrefix + project.title" />
             </div>
 
             <div class="project-header">
