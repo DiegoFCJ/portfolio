@@ -1,0 +1,16 @@
+<div class="cookie-consent" *ngIf="isVisible">
+  <div class="cookie-consent__content" *ngIf="content$ | async as content">
+    <p class="cookie-consent__message">{{ content.message }}</p>
+    <div class="cookie-consent__actions">
+      <button type="button" class="cookie-consent__button cookie-consent__button--accept" (click)="accept()">
+        {{ content.accept }}
+      </button>
+      <button type="button" class="cookie-consent__button cookie-consent__button--reject" (click)="reject()">
+        {{ content.reject }}
+      </button>
+      <a class="cookie-consent__link" href="/privacy" target="_blank" rel="noopener noreferrer">
+        {{ content.privacy }}
+      </a>
+    </div>
+  </div>
+</div>

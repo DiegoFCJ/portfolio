@@ -16,14 +16,20 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
 import { LANGUAGE_META_CONFIGURATION } from './constants/meta.const';
 import { AnalyticsService } from './services/analytics.service';
+import { CookieConsentComponent } from './components/cookie-consent/cookie-consent.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: '<router-outlet />',
+  imports: [RouterOutlet, CookieConsentComponent],
+  template: `
+    <app-cookie-consent (consentChange)="onConsentChange($event)"></app-cookie-consent>
+    <router-outlet />
+  `,
 })
 export class AppComponent implements OnInit {
+  private hasInitializedAnalytics = false;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
@@ -45,14 +51,21 @@ export class AppComponent implements OnInit {
       });
 
     if (isPlatformBrowser(this.platformId)) {
-      this.analyticsService.initialize();
-
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
       ).subscribe((event: NavigationEnd) => {
         this.analyticsService.trackPageView(event.urlAfterRedirects);
       });
     }
+  }
+
+  onConsentChange(consented: boolean): void {
+    if (!consented || this.hasInitializedAnalytics || !isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.analyticsService.initialize();
+    this.hasInitializedAnalytics = true;
   }
 
   private updatePageTitle(language: LanguageCode): void {

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslationService } from './services/translation.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
 import { AnalyticsService } from './services/analytics.service';
@@ -11,6 +11,14 @@ describe('AppComponent', () => {
   let languageSubject: BehaviorSubject<LanguageCode>;
   let metaService: Meta;
   let analyticsService: jasmine.SpyObj<AnalyticsService>;
+  const consentKeys = ['analytics-consent', 'cookie-consent', 'cookie_consent'];
+
+  const clearConsent = () => {
+    consentKeys.forEach((key) => {
+      window.localStorage.removeItem(key);
+      document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    });
+  };
 
   beforeEach(async () => {
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
@@ -20,6 +28,9 @@ describe('AppComponent', () => {
       setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: LanguageCode) => {
         languageSubject.next(language);
       }),
+      getTranslatedData: jasmine.createSpy('getTranslatedData').and.returnValue(
+        of({ message: '', accept: '', reject: '', privacy: '' })
+      ),
     };
 
     analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView']);
@@ -33,6 +44,7 @@ describe('AppComponent', () => {
     }).compileComponents();
 
     metaService = TestBed.inject(Meta);
+    clearConsent();
   });
 
   it('should create the app', () => {
@@ -41,9 +53,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should initialize analytics on bootstrap', () => {
+  it('should not initialize analytics without consent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
+    expect(analyticsService.initialize).not.toHaveBeenCalled();
+  });
+
+  it('should initialize analytics when consent has been granted previously', () => {
+    window.localStorage.setItem('analytics-consent', 'granted');
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
     expect(analyticsService.initialize).toHaveBeenCalled();
   });
 
