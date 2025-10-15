@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslationService } from './services/translation.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
 import { AnalyticsService } from './services/analytics.service';
@@ -24,11 +24,21 @@ describe('AppComponent', () => {
 
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
     languageSubject = new BehaviorSubject<LanguageCode>('it');
+    const getTranslatedDataSpy = jasmine
+      .createSpy('getTranslatedData')
+      .and.callFake(<T>(data: Partial<Record<LanguageCode, T>>, source: LanguageCode = 'it') => {
+        const fallback = (
+          data[source] ?? Object.values(data).find((value): value is T => value !== undefined)
+        ) as T | undefined;
+        return of((fallback ?? ({} as T)) as T);
+      });
+
     mockTranslationService = {
       currentLanguage$: languageSubject.asObservable(),
       setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: LanguageCode) => {
         languageSubject.next(language);
       }),
+      getTranslatedData: getTranslatedDataSpy as TranslationService['getTranslatedData'],
     };
 
     analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView']);

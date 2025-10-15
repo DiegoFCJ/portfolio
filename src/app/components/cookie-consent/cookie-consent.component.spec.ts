@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, fakeAsync, flushMicrotasks } from '@angular/
 import { CookieConsentComponent } from './cookie-consent.component';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const CONSENT_KEYS = ['analytics-consent', 'cookie-consent', 'cookie_consent'];
 
@@ -35,7 +36,7 @@ describe('CookieConsentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CookieConsentComponent],
+      imports: [RouterTestingModule, CookieConsentComponent],
       providers: [
         { provide: TranslationService, useClass: MockTranslationService },
       ],
