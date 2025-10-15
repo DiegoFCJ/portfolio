@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { fromEvent, Subscription } from 'rxjs';
+import { Observable, fromEvent, Subscription } from 'rxjs';
 import { ProjectsComponent } from '../../components/projects/projects.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { HeroComponent } from '../../components/hero/hero.component';
@@ -22,6 +22,8 @@ import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
 import { ExperiencesComponent } from '../../components/experiences/experiences.component';
 import { AssistantComponent } from '../../components/assistant/assistant.component';
+import { TranslationService } from '../../services/translation.service';
+import { LanguageCode } from '../../models/language-code.type';
 
 @Component({
   selector: 'app-home',
@@ -54,12 +56,38 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   private scrollSubscription: Subscription | null = null;
   private sectionsChangeSubscription: Subscription | null = null;
 
+  private readonly stackCarouselLabels: Record<'prev' | 'next', Partial<Record<LanguageCode, string>>> = {
+    prev: {
+      it: 'Stack precedente',
+      en: 'Previous stack',
+      de: 'Vorheriger Stack',
+      es: 'Stack anterior',
+      no: 'Forrige stack',
+      ru: 'Предыдущий стек'
+    },
+    next: {
+      it: 'Stack successivo',
+      en: 'Next stack',
+      de: 'Nächster Stack',
+      es: 'Stack siguiente',
+      no: 'Neste stack',
+      ru: 'Следующий стек'
+    }
+  };
+
+  readonly stackCarouselPreviousLabel$: Observable<string>;
+  readonly stackCarouselNextLabel$: Observable<string>;
+
   @ViewChildren('section') sections!: QueryList<ElementRef>;
   @ViewChild(SkillsComponent) skillsComponent?: SkillsComponent;
 
   constructor(
     private cdr: ChangeDetectorRef,
-  ) { }
+    private translationService: TranslationService,
+  ) {
+    this.stackCarouselPreviousLabel$ = this.translationService.getTranslatedData(this.stackCarouselLabels.prev, 'it');
+    this.stackCarouselNextLabel$ = this.translationService.getTranslatedData(this.stackCarouselLabels.next, 'it');
+  }
 
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {

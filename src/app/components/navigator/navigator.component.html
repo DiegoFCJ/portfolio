@@ -4,13 +4,13 @@
     <ng-container *ngIf="isOpen">
       <div class="arrow-container">
         <!-- Previous button -->
-        <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" aria-label="Sezione precedente"
+        <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" [attr.aria-label]="getTooltip('prev')"
           [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
           <mat-icon>arrow_upward</mat-icon>
         </button>
 
         <!-- Next button -->
-        <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" aria-label="Sezione successiva"
+        <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" [attr.aria-label]="getTooltip('next')"
           [matTooltip]="getTooltip('next')" matTooltipPosition="left">
           <mat-icon>arrow_downward</mat-icon>
         </button>

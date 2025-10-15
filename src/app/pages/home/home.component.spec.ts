@@ -5,6 +5,7 @@ import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
 import { APP_ENVIRONMENT } from '../../tokens/environment.token';
 import { EnvironmentConfig } from '../../../environments/environment';
+import { SkillsComponent } from '../../components/skills/skills.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -111,5 +112,24 @@ describe('HomeComponent', () => {
     (component as any).updateCurrentSectionFromViewport();
 
     expect(component.totalSections).toBe(2);
+  });
+
+  it('should bind carousel aria labels to translated properties', async () => {
+    component.viewInitialized = true;
+    (component as any).isMobileViewport = true;
+    (component as any).skillsSectionIndex = 0;
+    component.currentSectionIndex = 0;
+    (component as any).skillsComponent = {} as SkillsComponent;
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const hostElement: HTMLElement = fixture.nativeElement;
+    const prevButton = hostElement.querySelector('.home__stack-carousel-button--previous');
+    const nextButton = hostElement.querySelector('.home__stack-carousel-button--next');
+
+    expect(prevButton?.getAttribute('aria-label')).toBe('Stack precedente');
+    expect(nextButton?.getAttribute('aria-label')).toBe('Stack successivo');
   });
 });

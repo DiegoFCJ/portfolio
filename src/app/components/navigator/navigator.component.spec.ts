@@ -144,19 +144,27 @@ describe('NavigatorComponent', () => {
   it('should display navigation buttons based on current section index', () => {
     component.currentSectionIndex = 0;
     fixture.detectChanges();
-    let prevButton = fixture.nativeElement.querySelector('button[aria-label="Sezione precedente"]');
+    let prevButton = fixture.nativeElement.querySelector(`button[aria-label="${component.getTooltip('prev')}"]`);
     expect(prevButton).toBeNull();  // Previous button should be hidden
 
     component.currentSectionIndex = 7;
     fixture.detectChanges();
-    let nextButton = fixture.nativeElement.querySelector('button[aria-label="Sezione successiva"]');
+    let nextButton = fixture.nativeElement.querySelector(`button[aria-label="${component.getTooltip('next')}"]`);
     expect(nextButton).toBeNull();  // Next button should be hidden
 
     component.currentSectionIndex = 4;
     fixture.detectChanges();
-    prevButton = fixture.nativeElement.querySelector('button[aria-label="Sezione precedente"]');
-    nextButton = fixture.nativeElement.querySelector('button[aria-label="Sezione successiva"]');
+    prevButton = fixture.nativeElement.querySelector(`button[aria-label="${component.getTooltip('prev')}"]`);
+    nextButton = fixture.nativeElement.querySelector(`button[aria-label="${component.getTooltip('next')}"]`);
     expect(prevButton).toBeTruthy();  // Previous button should be visible
     expect(nextButton).toBeTruthy();  // Next button should be visible
+  });
+
+  it('should provide fallback tooltip text for unsupported languages', () => {
+    component.currentLang = 'fr';
+
+    const tooltip = component.getTooltip('prev');
+
+    expect(tooltip).toBe(component.tooltipTexts['it'].prev);
   });
 });

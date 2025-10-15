@@ -40,7 +40,7 @@ export class NavigatorComponent implements OnInit {
   private programmaticScrollTimeout: ReturnType<typeof setTimeout> | null = null;
 
   /** Tooltip translations */
-  tooltipTexts: { [key: string]: { prev: string; next: string; theme: string; language: string } } = {
+  tooltipTexts: Record<LanguageKey, { prev: string; next: string; theme: string; language: string }> = {
     en: {
       prev: 'Previous section',
       next: 'Next section',
@@ -78,6 +78,8 @@ export class NavigatorComponent implements OnInit {
       language: 'Язык'
     }
   };
+
+  private readonly tooltipFallbackOrder: LanguageKey[] = ['it', 'en', 'de', 'es', 'no', 'ru'];
 
   themeNames: Record<string, Record<ThemeKey, string>> = {
     en: { light: 'Light theme', dark: 'Dark theme', blue: 'Blue theme', green: 'Green theme', red: 'Red theme' },
@@ -181,7 +183,31 @@ export class NavigatorComponent implements OnInit {
 
   /** Returns the tooltip text for the given key based on current language */
   getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
-    return this.tooltipTexts[this.currentLang][key];
+    const languagesToCheck = this.getTooltipFallbackLanguages();
+
+    for (const language of languagesToCheck) {
+      const translation = this.tooltipTexts[language]?.[key];
+      if (translation) {
+        return translation;
+      }
+    }
+
+    const defaultLanguage = this.tooltipFallbackOrder[0];
+    return this.tooltipTexts[defaultLanguage]?.[key] ?? key;
+  }
+
+  private getTooltipFallbackLanguages(): LanguageKey[] {
+    const fallback = [...this.tooltipFallbackOrder];
+
+    if (this.isSupportedLanguage(this.currentLang)) {
+      fallback.unshift(this.currentLang);
+    }
+
+    return fallback.filter((language, index, array) => array.indexOf(language) === index);
+  }
+
+  private isSupportedLanguage(language: string): language is LanguageKey {
+    return Object.prototype.hasOwnProperty.call(this.tooltipTexts, language);
   }
 
   getToggleButtonLabel(): string {
