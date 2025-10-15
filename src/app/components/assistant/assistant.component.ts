@@ -15,6 +15,7 @@ import { map, tap } from 'rxjs/operators';
 import { LanguageCode } from '../../models/language-code.type';
 import { TranslationService } from '../../services/translation.service';
 import { PLATFORM_ID } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 export type AssistantAnimationPhase =
   | 'sleeping'
@@ -39,12 +40,20 @@ interface AssistantGuideContent {
   readonly closingHint: string;
   readonly desktop: AssistantGuideVariant;
   readonly mobile: AssistantGuideVariant;
+  readonly privacyLink: {
+    readonly label: string;
+    readonly description: string;
+  };
 }
 
 const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>> = {
   it: {
     title: 'Guida rapida al portfolio',
     closingHint: 'Quando hai finito, puoi richiudermi: rimango sempre a portata di click.',
+    privacyLink: {
+      label: 'Leggi l\'informativa privacy',
+      description: 'Trovi tutti i dettagli su cookie, dati personali e canali di contatto nella pagina dedicata.'
+    },
     desktop: {
       intro:
         'Se stai usando il portfolio da PC, ecco come sfruttare al meglio ogni controllo.',
@@ -72,6 +81,10 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
   en: {
     title: 'Quick guide to the portfolio',
     closingHint: 'Close me once you are ready—your guide will stay one click away.',
+    privacyLink: {
+      label: 'Read the privacy notice',
+      description: 'Head over to the dedicated page to review cookies, data usage and how to get in touch.'
+    },
     desktop: {
       intro:
         "Browsing from a desktop? Here's how to make the most of every control.",
@@ -98,6 +111,10 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
   no: {
     title: 'Hurtigguide til porteføljen',
     closingHint: 'Når du er ferdig kan du lukke meg – guiden ligger alltid ett klikk unna.',
+    privacyLink: {
+      label: 'Les personvernerklæringen',
+      description: 'På den dedikerte siden finner du detaljer om cookies, databruk og kontaktpunkter.'
+    },
     desktop: {
       intro: 'Bruker du porteføljen på PC? Slik får du mest ut av hver kontroll.',
       steps: [
@@ -123,6 +140,10 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
   ru: {
     title: 'Краткое руководство по портфолио',
     closingHint: 'Когда будете готовы, просто закройте меня — помощник всегда в одном клике.',
+    privacyLink: {
+      label: 'Ознакомьтесь с политикой конфиденциальности',
+      description: 'На отдельной странице описаны cookies, обработка данных и способы связи.'
+    },
     desktop: {
       intro: 'Просматриваете с компьютера? Вот как использовать все элементы управления.',
       steps: [
@@ -150,7 +171,7 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
 @Component({
   selector: 'app-assistant',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './assistant.component.html',
   styleUrls: ['./assistant.component.scss']
 })
@@ -175,6 +196,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
   readonly guideContent$: Observable<AssistantGuideVariant & {
     readonly title: string;
     readonly closingHint: string;
+    readonly privacyLinkLabel: string;
+    readonly privacyLinkDescription: string;
   }>;
 
   guideScrollState = {
@@ -229,7 +252,9 @@ export class AssistantComponent implements OnInit, OnDestroy {
           title: content.title,
           closingHint: content.closingHint,
           intro: variant.intro,
-          steps: variant.steps
+          steps: variant.steps,
+          privacyLinkLabel: content.privacyLink.label,
+          privacyLinkDescription: content.privacyLink.description
         };
       }),
       tap(() => this.requestGuideScrollEvaluation())
@@ -283,6 +308,10 @@ export class AssistantComponent implements OnInit, OnDestroy {
     }
 
     this.goToSleep();
+  }
+
+  onNavigateToPrivacy(): void {
+    this.closeAssistant();
   }
 
   private startWakeSequence(): void {

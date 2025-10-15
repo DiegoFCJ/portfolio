@@ -14,7 +14,11 @@ import { filter } from 'rxjs/operators';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
-import { LANGUAGE_META_CONFIGURATION } from './constants/meta.const';
+import {
+  LANGUAGE_META_CONFIGURATION,
+  PRIVACY_LANGUAGE_META_CONFIGURATION,
+  type LanguageMetaConfig
+} from './constants/meta.const';
 import { AnalyticsService } from './services/analytics.service';
 
 @Component({
@@ -24,6 +28,8 @@ import { AnalyticsService } from './services/analytics.service';
   template: '<router-outlet />',
 })
 export class AppComponent implements OnInit {
+  private currentMetaKey: 'home' | 'privacy' = 'home';
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
@@ -36,6 +42,8 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.currentMetaKey = this.resolveMetaKey(this.router.url);
+
     // Cambia il titolo dinamicamente in base alla lingua
     this.translationService.currentLanguage$
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -49,8 +57,12 @@ export class AppComponent implements OnInit {
 
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
       ).subscribe((event: NavigationEnd) => {
-        this.analyticsService.trackPageView(event.urlAfterRedirects);
+        const url = event.urlAfterRedirects ?? event.url;
+        this.currentMetaKey = this.resolveMetaKey(url);
+        this.analyticsService.trackPageView(url);
+        this.updateSeoTags(this.translationService.getCurrentLanguage());
       });
     }
   }
@@ -67,7 +79,7 @@ export class AppComponent implements OnInit {
   }
 
   private updateSeoTags(language: LanguageCode): void {
-    const configuration = LANGUAGE_META_CONFIGURATION[language] ?? LANGUAGE_META_CONFIGURATION['it'];
+    const configuration = this.getMetaConfiguration(language);
 
     this.setDocumentLanguage(configuration.lang, configuration.direction ?? 'ltr');
 
@@ -111,5 +123,18 @@ export class AppComponent implements OnInit {
 
     root.setAttribute('lang', lang);
     root.setAttribute('dir', direction);
+  }
+
+  private resolveMetaKey(url: string): 'home' | 'privacy' {
+    const normalized = (url ?? '').split('?')[0].split('#')[0];
+    return normalized.includes('privacy') ? 'privacy' : 'home';
+  }
+
+  private getMetaConfiguration(language: LanguageCode): LanguageMetaConfig {
+    const dictionary = this.currentMetaKey === 'privacy'
+      ? PRIVACY_LANGUAGE_META_CONFIGURATION
+      : LANGUAGE_META_CONFIGURATION;
+
+    return dictionary[language] ?? dictionary['it'];
   }
 }

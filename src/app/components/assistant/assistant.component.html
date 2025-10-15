@@ -58,6 +58,17 @@
              [class.assistant__closing--active]="animationPhase === 'wondering'">
             {{ guide.closingHint }}
           </p>
+
+          <div class="assistant__privacy">
+            <a
+              routerLink="/privacy"
+              class="assistant__privacy-link"
+              (click)="onNavigateToPrivacy()"
+            >
+              {{ guide.privacyLinkLabel }}
+            </a>
+            <p class="assistant__privacy-description">{{ guide.privacyLinkDescription }}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import {
 } from './assistant.component';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
+import { provideRouter } from '@angular/router';
 
 describe('AssistantComponent', () => {
   let component: AssistantComponent;
@@ -17,7 +18,8 @@ describe('AssistantComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AssistantComponent],
       providers: [
-        { provide: TranslationService, useClass: MockTranslationService }
+        { provide: TranslationService, useClass: MockTranslationService },
+        provideRouter([])
       ]
     }).compileComponents();
 
