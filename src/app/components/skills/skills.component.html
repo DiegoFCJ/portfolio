@@ -6,7 +6,7 @@
       class="stack-tabs is-mobile"
       role="tablist"
       aria-orientation="horizontal"
-      aria-label="Skill stack selector"
+      [attr.aria-label]="stackSelectorLabel"
     >
       <button
         *ngFor="let tab of tabs"
@@ -72,7 +72,7 @@
           class="stack-tabs"
           role="tablist"
           aria-orientation="vertical"
-          aria-label="Skill stack selector"
+          [attr.aria-label]="stackSelectorLabel"
         >
           <button
             *ngFor="let tab of tabs"
