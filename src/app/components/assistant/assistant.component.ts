@@ -51,6 +51,11 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     title: 'Schnellguide zum Portfolio',
     closingHint:
       'Wenn du fertig bist, kannst du mich schließen – die Anleitung bleibt immer nur einen Klick entfernt.',
+    privacyLink: {
+      label: 'Datenschutzhinweise lesen',
+      description:
+        'Alle Details zu Cookies, personenbezogenen Daten und Kontaktmöglichkeiten findest du auf der Datenschutzseite.'
+    },
     desktop: {
       intro:
         'Du nutzt das Portfolio am Desktop? So holst du das Beste aus allen Steuerelementen heraus.',
@@ -197,6 +202,11 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
   es: {
     title: 'Guía rápida del portafolio',
     closingHint: 'Cuando termines, puedes cerrarme: la guía siempre estará a un clic.',
+    privacyLink: {
+      label: 'Lee el aviso de privacidad',
+      description:
+        'En la página dedicada encontrarás todos los detalles sobre cookies, datos personales y canales de contacto.'
+    },
     desktop: {
       intro:
         '¿Usas el portafolio desde el ordenador? Así sacas el máximo partido de cada control.',
