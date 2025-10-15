@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslationService } from './services/translation.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
 import { AnalyticsService } from './services/analytics.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
@@ -13,19 +14,38 @@ describe('AppComponent', () => {
   let analyticsService: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(async () => {
+    ['analytics-consent', 'cookie-consent', 'cookie_consent'].forEach(key => {
+      try {
+        window.localStorage?.removeItem(key);
+      } catch {
+        // Ignore
+      }
+      document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    });
+
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
     languageSubject = new BehaviorSubject<LanguageCode>('it');
+    const getTranslatedDataSpy = jasmine
+      .createSpy('getTranslatedData')
+      .and.callFake(<T>(data: Partial<Record<LanguageCode, T>>, source: LanguageCode = 'it') => {
+        const fallback = (
+          data[source] ?? Object.values(data).find((value): value is T => value !== undefined)
+        ) as T | undefined;
+        return of((fallback ?? ({} as T)) as T);
+      });
+
     mockTranslationService = {
       currentLanguage$: languageSubject.asObservable(),
       setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: LanguageCode) => {
         languageSubject.next(language);
       }),
+      getTranslatedData: getTranslatedDataSpy as TranslationService['getTranslatedData'],
     };
 
     analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView']);
 
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [RouterTestingModule, AppComponent],
       providers: [
         { provide: TranslationService, useValue: mockTranslationService },
         { provide: AnalyticsService, useValue: analyticsService },
@@ -41,10 +61,22 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should initialize analytics on bootstrap', () => {
+  it('should defer analytics initialization until consent is granted', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    expect(analyticsService.initialize).toHaveBeenCalled();
+    expect(analyticsService.initialize).not.toHaveBeenCalled();
+
+    const app = fixture.componentInstance;
+    app.onConsentChange(true);
+
+    expect(analyticsService.initialize).toHaveBeenCalledTimes(1);
+
+    app.onConsentChange(true);
+    expect(analyticsService.initialize).toHaveBeenCalledTimes(1);
+
+    app.onConsentChange(false);
+    app.onConsentChange(true);
+    expect(analyticsService.initialize).toHaveBeenCalledTimes(2);
   });
 
   it('should set the document title to "Portfolio di Diego" for Italian', () => {
