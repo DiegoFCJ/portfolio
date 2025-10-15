@@ -1,1 +1,24 @@
 /* Styles moved to global component stylesheet. */
+
+.assistant__privacy {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.assistant__privacy-link {
+  color: var(--navigator-accent, #7bf7ff);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.assistant__privacy-link:hover,
+.assistant__privacy-link:focus {
+  text-decoration: underline;
+}
+
+.assistant__privacy-description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}

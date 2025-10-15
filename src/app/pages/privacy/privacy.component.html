@@ -1,0 +1,28 @@
+<section class="privacy" *ngIf="content$ | async as content">
+  <header class="privacy__header">
+    <p class="privacy__meta">{{ content.meta }}</p>
+    <h1 class="privacy__title">{{ content.heading }}</h1>
+    <p *ngFor="let paragraph of content.intro" class="privacy__intro">{{ paragraph }}</p>
+  </header>
+
+  <div class="privacy__sections">
+    <article *ngFor="let section of content.sections" class="privacy__section" [attr.id]="section.id">
+      <h2 class="privacy__section-title">{{ section.title }}</h2>
+      <p *ngFor="let paragraph of section.paragraphs" class="privacy__paragraph">{{ paragraph }}</p>
+      <ul *ngIf="section.items?.length" class="privacy__list">
+        <li *ngFor="let item of section.items" class="privacy__list-item">{{ item }}</li>
+      </ul>
+    </article>
+  </div>
+
+  <section class="privacy__contacts" id="contacts">
+    <h2 class="privacy__section-title">{{ content.contacts.title }}</h2>
+    <p class="privacy__paragraph">{{ content.contacts.description }}</p>
+    <ul class="privacy__contact-list">
+      <li *ngFor="let channel of content.contacts.channels" class="privacy__contact-item">
+        <span class="privacy__contact-label">{{ channel.label }}:</span>
+        <a class="privacy__contact-link" [href]="channel.href">{{ channel.display }}</a>
+      </li>
+    </ul>
+  </section>
+</section>
