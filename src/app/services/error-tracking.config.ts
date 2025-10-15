@@ -5,12 +5,10 @@ type ErrorTrackingConfiguration = {
   enabled: boolean;
   endpoint?: string;
   authHeader?: string;
-  sampleRate: number;
 };
 
 let currentConfig: ErrorTrackingConfiguration = {
   enabled: false,
-  sampleRate: 0,
 };
 
 export function configureErrorTracking(environment: EnvironmentConfig): void {
@@ -22,9 +20,9 @@ export function configureErrorTracking(environment: EnvironmentConfig): void {
     sendDefaultPii: true
   });
 
-  const { enableErrorTracking, sentryDsn, sentryTracesSampleRate } = environment;
+  const { enableErrorTracking, sentryDsn } = environment;
   if (!enableErrorTracking || !sentryDsn) {
-    currentConfig = { enabled: false, sampleRate: 0 };
+    currentConfig = { enabled: false };
     return;
   }
 
@@ -32,7 +30,7 @@ export function configureErrorTracking(environment: EnvironmentConfig): void {
     const url = new URL(sentryDsn);
     const projectId = url.pathname.replace(/^\//, '');
     if (!projectId || !url.username) {
-      currentConfig = { enabled: false, sampleRate: 0 };
+      currentConfig = { enabled: false };
       return;
     }
 
@@ -50,10 +48,9 @@ export function configureErrorTracking(environment: EnvironmentConfig): void {
       enabled: true,
       endpoint,
       authHeader: parts.join(', '),
-      sampleRate: Math.max(0, Math.min(1, sentryTracesSampleRate ?? 0)),
     };
   } catch {
-    currentConfig = { enabled: false, sampleRate: 0 };
+    currentConfig = { enabled: false };
   }
 }
 

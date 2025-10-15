@@ -81,7 +81,7 @@ Update the following keys before publishing:
 - `gaTrackingId` – Google Analytics 4 tracking code (the GA measurement ID is public and ships with the client bundle).
 - `formspreeEndpoint` – Formspree project endpoint used by `EmailService` (it is also public because it must be reachable from the browser).
 - `enableAnalytics` / `enableErrorTracking` – Toggle for loading the external scripts.
-- `sentryDsn` and `sentryTracesSampleRate` – Sentry credentials and sampling rate.
+- `sentryDsn` and `sentryTracesSampleRate` – Sentry credentials and trace sampling rate. Set the rate to `0` to disable tracing while keeping error reporting enabled.
 
 Keep the production file (`environment.prod.ts`) free from private secrets. Both identifiers are safe to expose, but you can keep the real production values outside of git by generating the file during the build. Run `npm run configure:env:prod` locally or in CI to write the production configuration from environment variables:
 
@@ -205,7 +205,7 @@ Aggiorna le seguenti chiavi prima di pubblicare:
 - `gaTrackingId` – codice di tracciamento di Google Analytics 4 (il measurement ID è pubblico e distribuito insieme al bundle client).
 - `formspreeEndpoint` – endpoint Formspree utilizzato da `EmailService` (anch'esso pubblico perché deve essere raggiungibile dal browser).
 - `enableAnalytics` / `enableErrorTracking` – flag per caricare gli script esterni.
-- `sentryDsn` e `sentryTracesSampleRate` – credenziali di Sentry e frequenza di campionamento.
+- `sentryDsn` e `sentryTracesSampleRate` – credenziali di Sentry e frequenza di campionamento delle tracce. Impostare il valore a `0` disattiva le tracce lasciando attivo l'invio degli errori.
 
 Mantieni il file di produzione (`environment.prod.ts`) libero da credenziali private. Entrambi gli identificativi possono essere pubblici, ma puoi tenere i valori reali fuori da git generando il file durante la build. Esegui `npm run configure:env:prod` in locale o in CI per scrivere la configurazione di produzione partendo dalle variabili d'ambiente:
 
@@ -319,7 +319,7 @@ Aktualisiere vor einer Veröffentlichung folgende Schlüssel:
 - `gaTrackingId` – Google-Analytics-4-Tracking-ID (die Measurement-ID ist öffentlich und wird mit dem Client-Bundle ausgeliefert).
 - `formspreeEndpoint` – Formspree-Endpunkt, den `EmailService` verwendet (ebenfalls öffentlich, da der Browser ihn erreichen muss).
 - `enableAnalytics` / `enableErrorTracking` – Schalter zum Laden der externen Skripte.
-- `sentryDsn` und `sentryTracesSampleRate` – Sentry-Zugangsdaten und Sampling-Rate.
+- `sentryDsn` und `sentryTracesSampleRate` – Sentry-Zugangsdaten und Sampling-Rate für Traces. Ein Wert von `0` deaktiviert Traces, Fehler werden dennoch gemeldet.
 
 Halte die Produktionsdatei (`environment.prod.ts`) frei von privaten Zugangsdaten. Beide Kennungen dürfen zwar öffentlich sein, du kannst die produktiven Werte jedoch außerhalb von Git belassen, indem du die Datei während des Builds generierst. Führe `npm run configure:env:prod` lokal oder in CI aus, um die Produktionskonfiguration aus Umgebungsvariablen zu schreiben:
 
@@ -413,7 +413,7 @@ Actualiza las siguientes claves antes de desplegar:
 - `gaTrackingId` – identificador de seguimiento de Google Analytics 4 (el measurement ID es público y se entrega con el bundle del cliente).
 - `formspreeEndpoint` – endpoint de Formspree usado por `EmailService` (también público porque el navegador debe acceder a él).
 - `enableAnalytics` / `enableErrorTracking` – interruptores para cargar los scripts externos.
-- `sentryDsn` y `sentryTracesSampleRate` – credenciales de Sentry y tasa de muestreo.
+- `sentryDsn` y `sentryTracesSampleRate` – credenciales de Sentry y tasa de muestreo de las trazas. Un valor de `0` desactiva las trazas sin afectar el envío de errores.
 
 Mantén el archivo de producción (`environment.prod.ts`) libre de credenciales privadas. Ambos identificadores pueden ser públicos, pero puedes mantener los valores reales fuera de git generando el archivo durante la compilación. Ejecuta `npm run configure:env:prod` en local o en CI para escribir la configuración de producción a partir de variables de entorno:
 

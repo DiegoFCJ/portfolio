@@ -5,5 +5,6 @@ export interface EnvironmentConfig {
   enableAnalytics: boolean;
   enableErrorTracking: boolean;
   sentryDsn: string;
+  /** Sampling rate for performance traces. Errors are always reported when tracking is enabled. */
   sentryTracesSampleRate: number;
 }

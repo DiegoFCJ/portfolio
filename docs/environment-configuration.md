@@ -11,7 +11,7 @@ Both `src/environments/environment.ts` (development) and `src/environments/envir
 - `enableAnalytics` – Enables Google Analytics initialisation.
 - `enableErrorTracking` – Activates Sentry error handlers.
 - `sentryDsn` – Sentry DSN.
-- `sentryTracesSampleRate` – Sampling rate applied to traces (0 disables tracing).
+- `sentryTracesSampleRate` – Sampling rate applied to traces. Set this to `0` to disable tracing without affecting error reporting.
 
 ## Local development
 

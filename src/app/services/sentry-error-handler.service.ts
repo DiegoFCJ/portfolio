@@ -11,7 +11,7 @@ export class SentryErrorHandler extends ErrorHandler {
 
   override handleError(error: unknown): void {
     const config = getErrorTrackingConfiguration();
-    if (config.enabled && this.shouldSample(config.sampleRate) && typeof fetch === 'function' && config.endpoint && config.authHeader) {
+    if (config.enabled && typeof fetch === 'function' && config.endpoint && config.authHeader) {
       const payload = this.buildPayload(error);
       void fetch(config.endpoint, {
         method: 'POST',
@@ -24,16 +24,6 @@ export class SentryErrorHandler extends ErrorHandler {
     }
 
     super.handleError(error);
-  }
-
-  private shouldSample(rate: number): boolean {
-    if (!rate) {
-      return false;
-    }
-    if (rate >= 1) {
-      return true;
-    }
-    return Math.random() < rate;
   }
 
   private buildPayload(error: unknown): Record<string, unknown> {

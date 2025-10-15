@@ -45,7 +45,7 @@ const enableErrorTracking = parseBoolean(
 );
 const sentryTracesSampleRate = parseNumber(
   readEnv('NG_APP_SENTRY_TRACES_SAMPLE_RATE', 'SENTRY_TRACES_SAMPLE_RATE'),
-  enableErrorTracking ? 1 : 0,
+  0,
 );
 
 const content = `import { EnvironmentConfig } from './environment.config';
