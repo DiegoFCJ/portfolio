@@ -78,32 +78,26 @@ This repository contains a portfolio application built with **Angular 18**. It u
 Analytics, the contact form and error tracking are configured through the Angular environment files under [`src/environments/`](src/environments/).
 Update the following keys before publishing:
 
-- `gaTrackingId` – Google Analytics 4 tracking code.
-- `formspreeEndpoint` – Formspree project endpoint used by `EmailService` (this value is public and tracked in the repository).
+- `gaTrackingId` – Google Analytics 4 tracking code (the GA measurement ID is public and ships with the client bundle).
+- `formspreeEndpoint` – Formspree project endpoint used by `EmailService` (it is also public because it must be reachable from the browser).
 - `enableAnalytics` / `enableErrorTracking` – Toggle for loading the external scripts.
 - `sentryDsn` and `sentryTracesSampleRate` – Sentry credentials and sampling rate.
 
-Keep the production file (`environment.prod.ts`) free from private secrets. The Formspree endpoint is public and already versioned so the deployed site can submit messages out of the box. Override the analytics and Sentry values during the CI build using encrypted secrets. A GitHub Actions step can look like this:
+Keep the production file (`environment.prod.ts`) free from private secrets. Both identifiers are safe to expose, but you can keep the real production values outside of git by generating the file during the build. Run `npm run configure:env:prod` locally or in CI to write the production configuration from environment variables:
 
 ```yaml
 - name: Write production environment file
-  run: |
-    cat <<'EOF' > src/environments/environment.prod.ts
-    import { EnvironmentConfig } from './environment';
-
-    export const environment: EnvironmentConfig = {
-      production: true,
-      gaTrackingId: '${{ secrets.GA_TRACKING_ID }}',
-      formspreeEndpoint: 'https://formspree.io/f/xrbgldjz',
-      enableAnalytics: true,
-      enableErrorTracking: true,
-      sentryDsn: '${{ secrets.SENTRY_DSN }}',
-      sentryTracesSampleRate: 0.5,
-    };
-    EOF
+  run: npm run configure:env:prod
+  env:
+    NG_APP_GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
+    NG_APP_FORMSPREE_ENDPOINT: ${{ secrets.FORMSPREE_ENDPOINT }}
+    NG_APP_ENABLE_ANALYTICS: 'true'
+    NG_APP_ENABLE_ERROR_TRACKING: 'true'
+    NG_APP_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+    NG_APP_SENTRY_TRACES_SAMPLE_RATE: '0.5'
 ```
 
-Store `GA_TRACKING_ID` and `SENTRY_DSN` as repository or organisation secrets. Refer to [docs/environment-configuration.md](docs/environment-configuration.md) for a more detailed checklist.
+Store the secrets in the repository or organisation settings (Formspree values can live in secrets for convenience even though they are public). Refer to [docs/environment-configuration.md](docs/environment-configuration.md) for a more detailed checklist.
 
 ### Scripts
 - `npm start` – run the dev server
@@ -206,32 +200,26 @@ La struttura del progetto è descritta nella sezione [Project Structure](#projec
 Le impostazioni di analytics, del modulo contatti e del monitoraggio errori sono definite nei file Angular in [`src/environments/`](src/environments/).
 Aggiorna le seguenti chiavi prima di pubblicare:
 
-- `gaTrackingId` – codice di tracciamento di Google Analytics 4.
-- `formspreeEndpoint` – endpoint Formspree utilizzato da `EmailService` (valore pubblico versionato nel repository).
+- `gaTrackingId` – codice di tracciamento di Google Analytics 4 (il measurement ID è pubblico e distribuito insieme al bundle client).
+- `formspreeEndpoint` – endpoint Formspree utilizzato da `EmailService` (anch'esso pubblico perché deve essere raggiungibile dal browser).
 - `enableAnalytics` / `enableErrorTracking` – flag per caricare gli script esterni.
 - `sentryDsn` e `sentryTracesSampleRate` – credenziali di Sentry e frequenza di campionamento.
 
-Mantieni il file di produzione (`environment.prod.ts`) libero da credenziali private. L'endpoint Formspree è pubblico e già versionato così il sito distribuito può inviare messaggi senza configurazioni aggiuntive. Sovrascrivi i valori di analytics e Sentry durante la build CI tramite secret cifrati. Esempio di step GitHub Actions:
+Mantieni il file di produzione (`environment.prod.ts`) libero da credenziali private. Entrambi gli identificativi possono essere pubblici, ma puoi tenere i valori reali fuori da git generando il file durante la build. Esegui `npm run configure:env:prod` in locale o in CI per scrivere la configurazione di produzione partendo dalle variabili d'ambiente:
 
 ```yaml
 - name: Write production environment file
-  run: |
-    cat <<'EOF' > src/environments/environment.prod.ts
-    import { EnvironmentConfig } from './environment';
-
-    export const environment: EnvironmentConfig = {
-      production: true,
-      gaTrackingId: '${{ secrets.GA_TRACKING_ID }}',
-      formspreeEndpoint: 'https://formspree.io/f/xrbgldjz',
-      enableAnalytics: true,
-      enableErrorTracking: true,
-      sentryDsn: '${{ secrets.SENTRY_DSN }}',
-      sentryTracesSampleRate: 0.5,
-    };
-    EOF
+  run: npm run configure:env:prod
+  env:
+    NG_APP_GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
+    NG_APP_FORMSPREE_ENDPOINT: ${{ secrets.FORMSPREE_ENDPOINT }}
+    NG_APP_ENABLE_ANALYTICS: 'true'
+    NG_APP_ENABLE_ERROR_TRACKING: 'true'
+    NG_APP_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+    NG_APP_SENTRY_TRACES_SAMPLE_RATE: '0.5'
 ```
 
-Memorizza `GA_TRACKING_ID` e `SENTRY_DSN` tra i secret del repository o dell'organizzazione. Consulta [docs/environment-configuration.md](docs/environment-configuration.md) per una checklist dettagliata.
+Archivia i secret nelle impostazioni del repository o dell'organizzazione (puoi salvare anche l'endpoint Formspree per praticità, pur essendo pubblico). Consulta [docs/environment-configuration.md](docs/environment-configuration.md) per una checklist dettagliata.
 
 ### Script
 - `npm start` – avvia il server di sviluppo
@@ -326,32 +314,26 @@ Die Projektstruktur findest du in der gemeinsamen Sektion [Project Structure](#p
 Analytics, Kontaktformular und Fehlüberwachung werden über die Angular-Umgebungsdateien unter [`src/environments/`](src/environments/) gesteuert.
 Aktualisiere vor einer Veröffentlichung folgende Schlüssel:
 
-- `gaTrackingId` – Google-Analytics-4-Tracking-ID.
-- `formspreeEndpoint` – Formspree-Endpunkt, den `EmailService` verwendet (öffentlicher Wert im Repository).
+- `gaTrackingId` – Google-Analytics-4-Tracking-ID (die Measurement-ID ist öffentlich und wird mit dem Client-Bundle ausgeliefert).
+- `formspreeEndpoint` – Formspree-Endpunkt, den `EmailService` verwendet (ebenfalls öffentlich, da der Browser ihn erreichen muss).
 - `enableAnalytics` / `enableErrorTracking` – Schalter zum Laden der externen Skripte.
 - `sentryDsn` und `sentryTracesSampleRate` – Sentry-Zugangsdaten und Sampling-Rate.
 
-Halte die Produktionsdatei (`environment.prod.ts`) frei von privaten Zugangsdaten. Der Formspree-Endpunkt ist öffentlich und bereits versioniert, damit die Live-Seite ohne Zusatzaufwand Nachrichten versenden kann. Überschreibe während des CI-Builds lediglich die Analytics- und Sentry-Werte mithilfe verschlüsselter Secrets. Beispielschritt für GitHub Actions:
+Halte die Produktionsdatei (`environment.prod.ts`) frei von privaten Zugangsdaten. Beide Kennungen dürfen zwar öffentlich sein, du kannst die produktiven Werte jedoch außerhalb von Git belassen, indem du die Datei während des Builds generierst. Führe `npm run configure:env:prod` lokal oder in CI aus, um die Produktionskonfiguration aus Umgebungsvariablen zu schreiben:
 
 ```yaml
 - name: Write production environment file
-  run: |
-    cat <<'EOF' > src/environments/environment.prod.ts
-    import { EnvironmentConfig } from './environment';
-
-    export const environment: EnvironmentConfig = {
-      production: true,
-      gaTrackingId: '${{ secrets.GA_TRACKING_ID }}',
-      formspreeEndpoint: 'https://formspree.io/f/xrbgldjz',
-      enableAnalytics: true,
-      enableErrorTracking: true,
-      sentryDsn: '${{ secrets.SENTRY_DSN }}',
-      sentryTracesSampleRate: 0.5,
-    };
-    EOF
+  run: npm run configure:env:prod
+  env:
+    NG_APP_GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
+    NG_APP_FORMSPREE_ENDPOINT: ${{ secrets.FORMSPREE_ENDPOINT }}
+    NG_APP_ENABLE_ANALYTICS: 'true'
+    NG_APP_ENABLE_ERROR_TRACKING: 'true'
+    NG_APP_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+    NG_APP_SENTRY_TRACES_SAMPLE_RATE: '0.5'
 ```
 
-Lege `GA_TRACKING_ID` und `SENTRY_DSN` als Repository- oder Organisations-Secrets an. Weitere Details findest du in [docs/environment-configuration.md](docs/environment-configuration.md).
+Hinterlege die Secrets in den Repository- oder Organisations-Einstellungen (auch der Formspree-Endpunkt kann dort aus Gründen der Übersichtlichkeit liegen, obwohl er öffentlich ist). Weitere Details findest du in [docs/environment-configuration.md](docs/environment-configuration.md).
 
 ### Skripte
 - `npm start` – startet den Entwicklungsserver
@@ -426,32 +408,26 @@ La estructura es la misma descrita en [Project Structure](#project-structure) y 
 La analítica, el formulario de contacto y el seguimiento de errores se controlan mediante los archivos de entorno de Angular que se encuentran en [`src/environments/`](src/environments/).
 Actualiza las siguientes claves antes de desplegar:
 
-- `gaTrackingId` – identificador de seguimiento de Google Analytics 4.
-- `formspreeEndpoint` – endpoint de Formspree usado por `EmailService` (valor público versionado en el repositorio).
+- `gaTrackingId` – identificador de seguimiento de Google Analytics 4 (el measurement ID es público y se entrega con el bundle del cliente).
+- `formspreeEndpoint` – endpoint de Formspree usado por `EmailService` (también público porque el navegador debe acceder a él).
 - `enableAnalytics` / `enableErrorTracking` – interruptores para cargar los scripts externos.
 - `sentryDsn` y `sentryTracesSampleRate` – credenciales de Sentry y tasa de muestreo.
 
-Mantén el archivo de producción (`environment.prod.ts`) libre de credenciales privadas. El endpoint de Formspree es público y ya está versionado para que el sitio desplegado pueda enviar mensajes sin configuraciones extra. Sobrescribe únicamente los valores de analítica y Sentry durante la compilación en CI usando secretos cifrados. Ejemplo de paso en GitHub Actions:
+Mantén el archivo de producción (`environment.prod.ts`) libre de credenciales privadas. Ambos identificadores pueden ser públicos, pero puedes mantener los valores reales fuera de git generando el archivo durante la compilación. Ejecuta `npm run configure:env:prod` en local o en CI para escribir la configuración de producción a partir de variables de entorno:
 
 ```yaml
 - name: Write production environment file
-  run: |
-    cat <<'EOF' > src/environments/environment.prod.ts
-    import { EnvironmentConfig } from './environment';
-
-    export const environment: EnvironmentConfig = {
-      production: true,
-      gaTrackingId: '${{ secrets.GA_TRACKING_ID }}',
-      formspreeEndpoint: 'https://formspree.io/f/xrbgldjz',
-      enableAnalytics: true,
-      enableErrorTracking: true,
-      sentryDsn: '${{ secrets.SENTRY_DSN }}',
-      sentryTracesSampleRate: 0.5,
-    };
-    EOF
+  run: npm run configure:env:prod
+  env:
+    NG_APP_GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
+    NG_APP_FORMSPREE_ENDPOINT: ${{ secrets.FORMSPREE_ENDPOINT }}
+    NG_APP_ENABLE_ANALYTICS: 'true'
+    NG_APP_ENABLE_ERROR_TRACKING: 'true'
+    NG_APP_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+    NG_APP_SENTRY_TRACES_SAMPLE_RATE: '0.5'
 ```
 
-Guarda `GA_TRACKING_ID` y `SENTRY_DSN` como secretos del repositorio u organización. Consulta [docs/environment-configuration.md](docs/environment-configuration.md) para un listado detallado.
+Guarda los secretos en la configuración del repositorio u organización (puedes incluir el endpoint de Formspree por comodidad, aunque sea público). Consulta [docs/environment-configuration.md](docs/environment-configuration.md) para un listado detallado.
 
 ### Scripts disponibles
 - `npm start` – ejecuta el servidor de desarrollo
