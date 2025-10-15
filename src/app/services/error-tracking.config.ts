@@ -1,5 +1,5 @@
-import { EnvironmentConfig } from '../../environments/environment';
 import * as Sentry from "@sentry/angular";
+import { EnvironmentConfig } from '../../environments/environment';
 
 type ErrorTrackingConfiguration = {
   enabled: boolean;
@@ -11,16 +11,24 @@ let currentConfig: ErrorTrackingConfiguration = {
   enabled: false,
 };
 
+function normaliseSampleRate(rate: number | undefined | null): number {
+  if (typeof rate !== 'number' || !Number.isFinite(rate)) {
+    return 0;
+  }
+
+  if (rate <= 0) {
+    return 0;
+  }
+
+  if (rate >= 1) {
+    return 1;
+  }
+
+  return rate;
+}
+
 export function configureErrorTracking(environment: EnvironmentConfig): void {
-
-  Sentry.init({
-    dsn: "https://3c44deecd427ceb15fc38b0dae3f2c15@o4510193552719872.ingest.de.sentry.io/4510193574281296",
-    // Setting this option to true will send default PII data to Sentry.
-    // For example, automatic IP address collection on events
-    sendDefaultPii: true
-  });
-
-  const { enableErrorTracking, sentryDsn } = environment;
+  const { enableErrorTracking, sentryDsn, sentryTracesSampleRate } = environment;
   if (!enableErrorTracking || !sentryDsn) {
     currentConfig = { enabled: false };
     return;
@@ -43,6 +51,19 @@ export function configureErrorTracking(environment: EnvironmentConfig): void {
     if (url.password) {
       parts.push(`sentry_secret=${url.password}`);
     }
+
+    const tracesRate = normaliseSampleRate(sentryTracesSampleRate);
+
+    Sentry.init({
+      dsn: sentryDsn,
+      enabled: true,
+      // Setting this option to true will send default PII data to Sentry.
+      // For example, automatic IP address collection on events
+      sendDefaultPii: true,
+      sampleRate: 1,
+      tracesSampleRate: tracesRate,
+      environment: environment.production ? 'production' : 'development',
+    });
 
     currentConfig = {
       enabled: true,
