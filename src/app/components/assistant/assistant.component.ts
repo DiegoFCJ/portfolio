@@ -172,7 +172,7 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
         'В разделе «Ключевые показатели» каждую карточку можно нажать, чтобы открыть диалог с деталями расчёта.'
       ]
     }
-  }
+  },
   es: {
     title: 'Guía rápida del portafolio',
     closingHint: 'Cuando termines, puedes cerrarme: la guía siempre estará a un clic.',
