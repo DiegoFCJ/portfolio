@@ -20,15 +20,20 @@ import {
   type LanguageMetaConfig
 } from './constants/meta.const';
 import { AnalyticsService } from './services/analytics.service';
+import { CookieConsentComponent } from './components/cookie-consent/cookie-consent.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: '<router-outlet />',
+  imports: [RouterOutlet, CookieConsentComponent],
+  template: `
+    <app-cookie-consent (consentChange)="onConsentChange($event)"></app-cookie-consent>
+    <router-outlet />
+  `,
 })
 export class AppComponent implements OnInit {
   private currentMetaKey: 'home' | 'privacy' = 'home';
+  private analyticsConsentGranted = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -53,8 +58,6 @@ export class AppComponent implements OnInit {
       });
 
     if (isPlatformBrowser(this.platformId)) {
-      this.analyticsService.initialize();
-
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd),
         takeUntilDestroyed(this.destroyRef)
@@ -64,6 +67,19 @@ export class AppComponent implements OnInit {
         this.analyticsService.trackPageView(url);
         this.updateSeoTags(this.translationService.getCurrentLanguage());
       });
+    }
+  }
+
+  onConsentChange(consentGranted: boolean): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    if (consentGranted && !this.analyticsConsentGranted) {
+      this.analyticsService.initialize();
+      this.analyticsConsentGranted = true;
+    } else if (!consentGranted) {
+      this.analyticsConsentGranted = false;
     }
   }
 

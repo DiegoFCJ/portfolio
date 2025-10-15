@@ -1,0 +1,24 @@
+<section
+  *ngIf="isVisible"
+  class="cookie-consent"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Cookie consent"
+  data-testid="cookie-consent-banner"
+>
+  <p class="cookie-consent__message">
+    {{ content.message }}
+    <a routerLink="/privacy" class="cookie-consent__link">
+      {{ content.privacyLinkLabel }}
+    </a>
+  </p>
+
+  <div class="cookie-consent__actions">
+    <button type="button" class="cookie-consent__button cookie-consent__button--reject" (click)="reject()">
+      {{ content.rejectLabel }}
+    </button>
+    <button type="button" class="cookie-consent__button cookie-consent__button--accept" (click)="accept()">
+      {{ content.acceptLabel }}
+    </button>
+  </div>
+</section>

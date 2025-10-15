@@ -13,6 +13,15 @@ describe('AppComponent', () => {
   let analyticsService: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(async () => {
+    ['analytics-consent', 'cookie-consent', 'cookie_consent'].forEach(key => {
+      try {
+        window.localStorage?.removeItem(key);
+      } catch {
+        // Ignore
+      }
+      document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    });
+
     // Creiamo un BehaviorSubject per simulare il currentLanguage$
     languageSubject = new BehaviorSubject<LanguageCode>('it');
     mockTranslationService = {
@@ -41,10 +50,22 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should initialize analytics on bootstrap', () => {
+  it('should defer analytics initialization until consent is granted', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    expect(analyticsService.initialize).toHaveBeenCalled();
+    expect(analyticsService.initialize).not.toHaveBeenCalled();
+
+    const app = fixture.componentInstance;
+    app.onConsentChange(true);
+
+    expect(analyticsService.initialize).toHaveBeenCalledTimes(1);
+
+    app.onConsentChange(true);
+    expect(analyticsService.initialize).toHaveBeenCalledTimes(1);
+
+    app.onConsentChange(false);
+    app.onConsentChange(true);
+    expect(analyticsService.initialize).toHaveBeenCalledTimes(2);
   });
 
   it('should set the document title to "Portfolio di Diego" for Italian', () => {
