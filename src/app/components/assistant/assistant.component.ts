@@ -47,6 +47,34 @@ interface AssistantGuideContent {
 }
 
 const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>> = {
+  de: {
+    title: 'Schnellguide zum Portfolio',
+    closingHint:
+      'Wenn du fertig bist, kannst du mich schließen – die Anleitung bleibt immer nur einen Klick entfernt.',
+    desktop: {
+      intro:
+        'Du nutzt das Portfolio am Desktop? So holst du das Beste aus allen Steuerelementen heraus.',
+      steps: [
+        'Öffne die Navigationsleiste mit der Chevron-nach-unten-Schaltfläche unten rechts auf dem Bildschirm.',
+        'Wechsle zwischen den Abschnitten mit den Pfeilen nach oben und unten in der Navbar; alternativ kannst du auch mit dem Mausrad scrollen.',
+        'Fahre mit der Maus über eine beliebige Schaltfläche, um einen Hinweis zu sehen, der ihre Funktion erklärt.',
+        'Die Schaltflächen für Thema und Sprache öffnen links horizontale Untermenüs, damit du deine Einstellungen anpassen kannst.',
+        'Im Abschnitt Kennzahlen ist jede Karte anklickbar und öffnet einen Dialog mit Details zur Berechnung der Zahl.'
+      ]
+    },
+    mobile: {
+      intro:
+        'Auf dem Smartphone erwarten dich touchfreundliche Steuerelemente – folge diesen kurzen Schritten.',
+      steps: [
+        'Öffne die Navigationsleiste mit der Chevron-nach-unten-Schaltfläche unten rechts auf dem Bildschirm.',
+        'Navigiere zwischen den Abschnitten mit den Pfeilen nach oben und unten in der Navbar oder streiche mit den Fingern.',
+        'Halte eine Schaltfläche gedrückt, um einen Hinweis zu sehen, der ihre Aktion beschreibt.',
+        'Die Schaltflächen für Thema und Sprache öffnen links horizontale Untermenüs, damit du deine Einstellungen sofort ändern kannst.',
+        'Im Abschnitt Tech-Stack wählst du zwischen Back, Front und Tooling: Es erscheint ein Karussell und die Navbar erhält linke und rechte Pfeile, um durch die Skill-Karten zu blättern.',
+        'Im Abschnitt Kennzahlen ist jede Karte antippbar und öffnet einen Dialog mit Details zur Berechnung der Zahl.'
+      ]
+    }
+  },
   it: {
     title: 'Guida rapida al portfolio',
     closingHint: 'Quando hai finito, puoi richiudermi: rimango sempre a portata di click.',
@@ -163,6 +191,32 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
         'Кнопки темы и языка открывают горизонтальные подменю слева для быстрого изменения настроек.',
         'В разделе «Технологический стек» выберите back, front или tooling: появится карусель и в навигации добавятся стрелки влево и вправо для просмотра карточек навыков.',
         'В разделе «Ключевые показатели» каждую карточку можно нажать, чтобы открыть диалог с деталями расчёта.'
+      ]
+    }
+  },
+  es: {
+    title: 'Guía rápida del portafolio',
+    closingHint: 'Cuando termines, puedes cerrarme: la guía siempre estará a un clic.',
+    desktop: {
+      intro:
+        '¿Usas el portafolio desde el ordenador? Así sacas el máximo partido de cada control.',
+      steps: [
+        'Abre la barra de navegación con el botón del chevron hacia abajo en la esquina inferior derecha de la pantalla.',
+        'Cambia de sección con las flechas arriba y abajo de la barra; si lo prefieres, también puedes desplazarte con la rueda del ratón.',
+        'Pasa el cursor sobre cualquier botón para mostrar una pista que explique su acción.',
+        'Los botones de tema e idioma abren submenús horizontales a la izquierda para que ajustes tus preferencias.',
+        'En la sección Números clave cada tarjeta se puede pulsar y abre un diálogo con detalles sobre cómo se calcula la cifra.'
+      ]
+    },
+    mobile: {
+      intro: 'En el móvil tienes controles pensados para el tacto: sigue estos pasos rápidos.',
+      steps: [
+        'Abre la barra de navegación con el botón del chevron hacia abajo en la esquina inferior derecha de la pantalla.',
+        'Muévete entre secciones con las flechas arriba y abajo de la barra o desliza con los dedos.',
+        'Mantén pulsado un botón para mostrar una pista que describa su función.',
+        'Los botones de tema e idioma abren submenús horizontales a la izquierda para que cambies la configuración al instante.',
+        'En la sección Stack tecnológico elige entre back, front y tooling: aparece un carrusel y se añaden flechas izquierda y derecha a la barra para recorrer las tarjetas de habilidades.',
+        'En la sección Números clave cada tarjeta se puede pulsar y abre un diálogo con detalles sobre cómo se calcula la cifra.'
       ]
     }
   }
