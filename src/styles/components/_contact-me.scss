@@ -56,7 +56,47 @@ body.dark-mode app-contact-me .contact-me-section {
   --contact-status-error-bg: rgba(239, 68, 68, 0.22);
   --contact-status-error-border: rgba(248, 113, 113, 0.5);
   --contact-status-error-text: #fca5a5;
+  --mdc-outlined-text-field-input-text-color: #f8fafc;
+  --mdc-outlined-text-field-label-text-color: rgba(226, 232, 240, 0.85);
+  --mdc-outlined-text-field-caret-color: #c4b5fd;
+  --mdc-outlined-text-field-outline-color: rgba(148, 163, 184, 0.55);
+  --mdc-outlined-text-field-hover-outline-color: rgba(196, 181, 253, 0.8);
+  --mdc-outlined-text-field-focus-outline-color: #c4b5fd;
+  --mdc-outlined-text-field-disabled-outline-color: rgba(148, 163, 184, 0.35);
+  --mdc-outlined-text-field-disabled-label-text-color: rgba(148, 163, 184, 0.55);
+  --mdc-outlined-text-field-disabled-input-text-color: rgba(203, 213, 225, 0.5);
+  --mdc-outlined-text-field-disabled-placeholder-text-color: rgba(148, 163, 184, 0.45);
+  --mdc-outlined-text-field-placeholder-text-color: rgba(226, 232, 240, 0.6);
+  --mdc-outlined-text-field-supporting-text-color: rgba(226, 232, 240, 0.85);
+  --mdc-outlined-text-field-disabled-supporting-text-color: rgba(148, 163, 184, 0.55);
   background: linear-gradient(160deg, rgba(129, 140, 248, 0.16), rgba(79, 70, 229, 0.08));
+}
+
+body.dark-mode app-contact-me {
+  .mat-mdc-form-field.mat-focused {
+    color: #f8fafc;
+
+    .mdc-floating-label {
+      color: rgba(226, 232, 240, 0.95) !important;
+    }
+  }
+
+  .mdc-floating-label--float-above,
+  .mdc-floating-label--float-above.mdc-floating-label--shake {
+    color: rgba(226, 232, 240, 0.95) !important;
+  }
+
+  .mat-mdc-form-field-hint {
+    color: rgba(226, 232, 240, 0.85) !important;
+  }
+
+  .mat-mdc-form-field-error {
+    color: var(--contact-status-error-text, #fca5a5) !important;
+  }
+
+  .mat-mdc-form-field-required-marker {
+    color: var(--contact-status-error-text, #fca5a5) !important;
+  }
 }
 
 body.blue-mode app-contact-me .contact-me-section {
