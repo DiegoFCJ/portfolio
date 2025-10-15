@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Subject } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { skills as skillsData } from '../../data/skills.data';
 import { SkillFull, SkillItem, SkillSection } from '../../dtos/SkillDTO';
@@ -34,6 +34,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
   currentIndex = 0;
   isBrowser = false;
   currentLanguage: LanguageCode = 'it';
+  stackSelectorLabel = 'Skill stack selector';
   tabs: SkillTab[] = [];
   activeTabId: SkillTabId = 'backend';
   spotlightGroups: Record<SkillTabId, SpotlightPanel[]> = {
@@ -52,6 +53,10 @@ export class SkillsComponent implements OnInit, OnDestroy {
     devops: ['devops', 'container', 'containerizzazione', 'orchestrazione', 'ci/cd', 'cicd', 'platform', 'scripting', 'configuration', 'configurazione', 'script', 'versioning', 'operating systems', 'sistemi operativi']
   };
   private readonly skillResetTimers = new WeakMap<SkillItem, number>();
+  private readonly stackSelectorLabelSource: { text: string; language: LanguageCode } = {
+    text: 'Skill stack selector',
+    language: 'en'
+  };
 
   private readonly tabLabelDictionary: Record<SkillTabId, Record<LanguageCode | 'default', string>> = {
     // TODO(content): Provide bespoke tab labels for Norwegian and Russian if desired.
@@ -116,22 +121,33 @@ export class SkillsComponent implements OnInit, OnDestroy {
         switchMap((lang) => {
           this.currentLanguage = lang;
           const source = this.resolveLocalizedContent(skillsData);
-          return this.translationService.translateContent<SkillFull>(
+          const translatedContent$ = this.translationService.translateContent<SkillFull>(
             source.content,
             source.language,
             lang
           );
+          const translatedLabel$ = this.translationService.translateText(
+            this.stackSelectorLabelSource.text,
+            this.stackSelectorLabelSource.language,
+            lang
+          );
+
+          return forkJoin({
+            content: translatedContent$,
+            label: translatedLabel$
+          });
         })
       )
-      .subscribe(translated => {
-        this.skillFullTitle = translated.title;
-        this.sections = translated.skills.map(section => this.resetSection(section));
+      .subscribe(({ content, label }) => {
+        this.skillFullTitle = content.title;
+        this.sections = content.skills.map(section => this.resetSection(section));
         this.timelineSections = this.buildTimelineSections(this.sections);
         this.spotlightGroups = this.buildSpotlightGroups(this.timelineSections);
         this.buildTabs();
         this.ensureActiveTab();
         this.currentIndex = 0;
         this.resetCarouselIndex();
+        this.stackSelectorLabel = label?.trim() ? label : this.stackSelectorLabelSource.text;
         this.isLoading = false;
       });
 
