@@ -9,6 +9,7 @@ export interface ProjectsLangs {
 export interface ProjectFull {
     title: string;
     button: string;
+    imageAltPrefix: string;
     toggle: {
         expand: string;
         collapse: string;

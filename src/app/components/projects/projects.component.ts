@@ -20,6 +20,7 @@ export class ProjectsComponent implements OnInit, OnDestroy, AfterViewInit {
   projects: ProjectFull = {
     title: '',
     button: '',
+    imageAltPrefix: '',
     toggle: { expand: '', collapse: '' },
     navigation: { previous: '', next: '' },
     statusLegend: {

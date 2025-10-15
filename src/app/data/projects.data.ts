@@ -4,6 +4,7 @@ export const projects: ProjectsLangs = {
     it: {
         title: 'Progetti in Evidenza',
         button: 'Apri il progetto',
+        imageAltPrefix: 'Anteprima del progetto ',
         toggle: {
             expand: 'Mostra dettagli',
             collapse: 'Riduci dettagli'
@@ -126,6 +127,7 @@ export const projects: ProjectsLangs = {
     en: {
         title: 'Featured Projects',
         button: 'View Project',
+        imageAltPrefix: 'Project preview: ',
         toggle: {
             expand: 'Show details',
             collapse: 'Hide details'
@@ -248,6 +250,7 @@ export const projects: ProjectsLangs = {
     de: {
         title: 'Ausgewählte Projekte',
         button: 'Projekt ansehen',
+        imageAltPrefix: 'Projektvorschau: ',
         toggle: {
             expand: 'Details anzeigen',
             collapse: 'Details ausblenden'
@@ -370,6 +373,7 @@ export const projects: ProjectsLangs = {
     es: {
         title: 'Proyectos destacados',
         button: 'Ver proyecto',
+        imageAltPrefix: 'Vista previa del proyecto ',
         toggle: {
             expand: 'Mostrar detalles',
             collapse: 'Ocultar detalles'
@@ -492,6 +496,7 @@ export const projects: ProjectsLangs = {
     no: {
         title: 'Utvalgte prosjekter',
         button: 'Åpne prosjektet',
+        imageAltPrefix: 'Forhåndsvisning av prosjektet ',
         toggle: {
             expand: 'Vis detaljer',
             collapse: 'Skjul detaljer'
@@ -614,6 +619,7 @@ export const projects: ProjectsLangs = {
     ru: {
         title: 'Избранные проекты',
         button: 'Открыть проект',
+        imageAltPrefix: 'Превью проекта ',
         toggle: {
             expand: 'Показать детали',
             collapse: 'Скрыть детали'
