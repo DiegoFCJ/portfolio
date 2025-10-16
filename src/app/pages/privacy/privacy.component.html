@@ -6,7 +6,7 @@
   </header>
 
   <div class="privacy__layout">
-    <nav class="privacy__toc" aria-label="{{ content.tocTitle }}">
+    <nav class="privacy__toc" [attr.aria-label]="content.tocTitle">
       <p class="privacy__toc-title">{{ content.tocTitle }}</p>
       <ol class="privacy__toc-list">
         <li *ngFor="let section of content.sections" class="privacy__toc-item">
