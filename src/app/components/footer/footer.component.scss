@@ -6,7 +6,6 @@
   color: var(--footer-text-color, #f8fafc);
   padding: 2.5rem var(--footer-padding-inline, 1.5rem)
     calc(1.5rem + var(--assistant-safe-area-bottom));
-  margin-top: 4rem;
   border-top: 1px solid var(--footer-border-color, rgba(148, 163, 184, 0.2));
   box-shadow: 0 -10px 25px var(--footer-shadow-color, rgba(15, 23, 42, 0.35));
 }
