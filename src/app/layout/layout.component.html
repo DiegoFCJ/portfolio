@@ -1,0 +1,70 @@
+<div class="layout">
+  <header class="layout__header">
+    <div class="layout__bar">
+      <a class="layout__brand" routerLink="/" aria-label="Vai alla home" (click)="menuOpen = false">
+        {{ getBrandTitle() }}
+      </a>
+
+      <button
+        type="button"
+        class="layout__toggle"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="main-navigation"
+        aria-label="Apri o chiudi il menu di navigazione"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav
+        id="main-navigation"
+        class="layout__nav"
+        [class.layout__nav--open]="menuOpen"
+        aria-label="Navigazione principale"
+      >
+        <a
+          *ngFor="let link of navLinks"
+          class="layout__nav-link"
+          [routerLink]="link.path"
+          routerLinkActive="layout__nav-link--active"
+          [routerLinkActiveOptions]="{ exact: link.exact ?? false }"
+          (click)="menuOpen = false"
+        >
+          {{ getNavLabel(link.key) }}
+        </a>
+
+        <div class="layout__tools">
+          <label class="layout__select">
+            <span class="layout__select-label">Lingua</span>
+            <select
+              [value]="currentLanguage"
+              (change)="changeLanguage($any($event.target).value)">
+              <option *ngFor="let language of availableLanguages" [value]="language">
+                {{ getLanguageLabel(language) }}
+              </option>
+            </select>
+          </label>
+
+          <label class="layout__select">
+            <span class="layout__select-label">Tema</span>
+            <select [value]="currentTheme" (change)="changeTheme($any($event.target).value)">
+              <option *ngFor="let theme of availableThemes" [value]="theme">
+                {{ getThemeLabel(theme) }}
+              </option>
+            </select>
+          </label>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout__content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <div class="layout__floating">
+    <app-assistant></app-assistant>
+  </div>
+</div>

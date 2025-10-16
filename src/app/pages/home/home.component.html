@@ -1,84 +1,33 @@
-<div *ngIf="viewInitialized" class="home">
-  <section #section class="home__section" id="hero">
-    <div class="home__section-content">
-      <div class="home__panel">
-        <app-hero (navigateNextSection)="navigateNext()"></app-hero>
-      </div>
-    </div>
-  </section>
-  <section #section class="home__section" id="about">
-    <div class="home__section-content">
-      <div class="home__panel">
-        <app-about></app-about>
-      </div>
-    </div>
-  </section>
-  <section #section class="home__section" id="projects">
-    <div class="home__section-content">
-      <div class="home__panel">
-        <app-projects></app-projects>
-      </div>
-    </div>
-  </section>
-  <section #section class="home__section" id="skills">
-    <div class="home__section-content">
-      <div class="home__panel">
-        <app-skills></app-skills>
-      </div>
-    </div>
-  </section>
-  <section #section class="home__section" id="education">
-    <div class="home__section-content">
-      <div class="home__panel">
-        <app-education></app-education>
-      </div>
-    </div>
-  </section>
-  <section #section class="home__section" id="experiences">
-    <div class="home__section-content">
-      <div class="home__panel">
-        <app-experiences></app-experiences>
-      </div>
-    </div>
-  </section>
-  <section #section class="home__section" id="stats">
-    <div class="home__section-content">
-      <div class="home__panel">
-        <app-stats></app-stats>
-      </div>
-    </div>
-  </section>
-  <section #section class="home__section" id="contact">
-    <div class="home__section-content">
-      <div class="home__panel">
-        <app-contact-me></app-contact-me>
-      </div>
-    </div>
+<div class="home-page">
+  <section class="page-section home-page__section home-page__section--hero">
+    <app-hero></app-hero>
   </section>
 
-  <div class="home__floating-controls" [class.home__floating-controls--assistant-open]="isAssistantOpen">
-    <div class="home__stack-carousel-controls" *ngIf="showStackCarouselControls">
-      <button
-        type="button"
-        class="home__stack-carousel-button home__stack-carousel-button--previous navigator-circle-button"
-        [attr.aria-label]="(stackCarouselPreviousLabel$ | async) ?? ''"
-        (click)="onStackCarouselPrevious()"
-      >
-        <mat-icon>arrow_upward</mat-icon>
-      </button>
-      <button
-        type="button"
-        class="home__stack-carousel-button home__stack-carousel-button--next navigator-circle-button"
-        [attr.aria-label]="(stackCarouselNextLabel$ | async) ?? ''"
-        (click)="onStackCarouselNext()"
-      >
-        <mat-icon>arrow_downward</mat-icon>
-      </button>
-    </div>
-    <app-assistant (opened)="onAssistantOpened()" (closed)="onAssistantClosed()"></app-assistant>
+  <section class="page-section home-page__section">
+    <app-about></app-about>
+  </section>
 
-    <app-navigator [totalSections]="totalSections" [currentSectionIndex]="currentSectionIndex"
-      (navigateNext)="navigateNext()" (navigatePrevious)="navigatePrevious()">
-    </app-navigator>
-  </div>
+  <section class="page-section home-page__section">
+    <app-projects></app-projects>
+  </section>
+
+  <section class="page-section home-page__section">
+    <app-skills></app-skills>
+  </section>
+
+  <section class="page-section home-page__section">
+    <app-experiences></app-experiences>
+  </section>
+
+  <section class="page-section home-page__section">
+    <app-education></app-education>
+  </section>
+
+  <section class="page-section home-page__section">
+    <app-stats></app-stats>
+  </section>
+
+  <section class="page-section home-page__section home-page__section--contact">
+    <app-contact-me></app-contact-me>
+  </section>
 </div>
