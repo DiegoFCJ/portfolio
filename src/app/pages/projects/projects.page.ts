@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from '../../components/projects/projects.component';
+import { SectionPageShellComponent } from '../shared/section-page-shell.component';
 
 @Component({
   selector: 'app-projects-page',
   standalone: true,
-  imports: [CommonModule, ProjectsComponent],
+  imports: [SectionPageShellComponent, ProjectsComponent],
   templateUrl: './projects.page.html',
   styleUrls: ['./projects.page.scss']
 })
-export class ProjectsPageComponent { }
+export class ProjectsPageComponent {
+  readonly previousRoute = '/about';
+  readonly nextRoute = '/skills';
+}

@@ -19,13 +19,14 @@ const normalizedBaseUrl = (rawBaseUrl ?? DEFAULT_BASE_URL)
 
 const pages = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
-  { path: '/#about', changefreq: 'monthly', priority: '0.8' },
-  { path: '/#projects', changefreq: 'monthly', priority: '0.8' },
-  { path: '/#skills', changefreq: 'monthly', priority: '0.7' },
-  { path: '/#education', changefreq: 'monthly', priority: '0.7' },
-  { path: '/#experiences', changefreq: 'monthly', priority: '0.7' },
-  { path: '/#stats', changefreq: 'monthly', priority: '0.6' },
-  { path: '/#contact', changefreq: 'monthly', priority: '0.6' },
+  { path: '/about', changefreq: 'monthly', priority: '0.8' },
+  { path: '/projects', changefreq: 'monthly', priority: '0.8' },
+  { path: '/skills', changefreq: 'monthly', priority: '0.7' },
+  { path: '/education', changefreq: 'monthly', priority: '0.7' },
+  { path: '/experiences', changefreq: 'monthly', priority: '0.7' },
+  { path: '/stats', changefreq: 'monthly', priority: '0.6' },
+  { path: '/contact', changefreq: 'monthly', priority: '0.6' },
+  { path: '/privacy', changefreq: 'yearly', priority: '0.3' },
 ];
 
 const sitemapTimestamp = new Date().toISOString();
