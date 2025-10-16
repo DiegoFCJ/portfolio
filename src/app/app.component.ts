@@ -27,16 +27,11 @@ import { CookieConsentComponent } from './components/cookie-consent/cookie-conse
   standalone: true,
   imports: [RouterOutlet, CookieConsentComponent],
   template: `
-    <button (click)="throwTestError()">Test Sentry Error</button>
     <app-cookie-consent (consentChange)="onConsentChange($event)"></app-cookie-consent>
     <router-outlet />
   `,
 })
 export class AppComponent implements OnInit {
-  public throwTestError(): void {
-    throw new Error("Sentry Test Error");
-  }
-  
   private currentMetaKey: 'home' | 'privacy' = 'home';
   private analyticsConsentGranted = false;
 

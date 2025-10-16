@@ -1,12 +1,12 @@
 import { EnvironmentConfig } from './environment.config';
 
 export const environment: EnvironmentConfig = {
-  production: true,
+  production: false,
   gaTrackingId: '',
   formspreeEndpoint: '',
   enableAnalytics: false,
   enableErrorTracking: true,
-  sentryDsn: 'https://3c44deecd427ceb15fc38b0dae3f2c15@o4510193552719872.ingest.de.sentry.io/4510193574281296',
+  sentryDsn: 'https://dfe186d21a11e5397b5baf0c88109a28@o4510193552719872.ingest.de.sentry.io/4510198684713040',
   sentryTracesSampleRate: 1,
 };
 

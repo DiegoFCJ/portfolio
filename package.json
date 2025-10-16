@@ -12,7 +12,8 @@
     "test:headless": "CHROME_BIN=\"$(node -p \\\"require('puppeteer').executablePath()\\\")\" ng test --watch=false --browsers=ChromeHeadlessPuppeteer",
     "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
-    "configure:env:prod": "node scripts/write-environment.mjs"
+    "configure:env:prod": "node scripts/write-environment.mjs",
+    "deploy": "ng build --base-href=/portfolio/ && npx gh-pages -d dist/portfolio/browser"
   },
   "dependencies": {
     "@angular/animations": "^18.2.0",

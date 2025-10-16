@@ -13,21 +13,21 @@ const enableSentry = environment.enableErrorTracking && !!environment.sentryDsn;
 
 const errorTrackingProviders = enableSentry
   ? [
-      {
-        provide: ErrorHandler,
-        useValue: Sentry.createErrorHandler(),
-      },
-      {
-        provide: Sentry.TraceService,
-        deps: [Router],
-      },
-      {
-        provide: APP_INITIALIZER,
-        useFactory: () => () => {},
-        deps: [Sentry.TraceService],
-        multi: true,
-      },
-    ]
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler(),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => { },
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
+  ]
   : [];
 
 export const appConfig: ApplicationConfig = {
