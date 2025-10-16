@@ -1,33 +1,42 @@
 <div class="home">
-  <section class="home__section home__section--hero">
+  <section class="home__section home__section--hero" #homeSection>
     <app-hero></app-hero>
   </section>
 
-  <section class="home__section">
+  <section class="home__section" #homeSection>
     <app-about></app-about>
   </section>
 
-  <section class="home__section">
+  <section class="home__section" #homeSection>
     <app-projects></app-projects>
   </section>
 
-  <section class="home__section">
+  <section class="home__section" #homeSection>
     <app-skills></app-skills>
   </section>
 
-  <section class="home__section">
+  <section class="home__section" #homeSection>
     <app-education></app-education>
   </section>
 
-  <section class="home__section">
+  <section class="home__section" #homeSection>
     <app-experiences></app-experiences>
   </section>
 
-  <section class="home__section">
+  <section class="home__section" #homeSection>
     <app-stats></app-stats>
   </section>
 
-  <section class="home__section home__section--contacts">
+  <section class="home__section home__section--contacts" #homeSection>
     <app-contact-me></app-contact-me>
   </section>
+</div>
+
+<div class="home__floating home__floating--navigator" *ngIf="isMobileViewport">
+  <app-navigator
+    [totalSections]="totalSections"
+    [currentSectionIndex]="currentSectionIndex"
+    (navigateNext)="onNavigateNext()"
+    (navigatePrevious)="onNavigatePrevious()"
+  ></app-navigator>
 </div>

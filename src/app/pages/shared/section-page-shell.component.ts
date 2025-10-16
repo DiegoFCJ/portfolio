@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssistantComponent } from '../../components/assistant/assistant.component';
 import { NavigatorComponent } from '../../components/navigator/navigator.component';
@@ -11,7 +11,7 @@ import { NavigatorComponent } from '../../components/navigator/navigator.compone
   templateUrl: './section-page-shell.component.html',
   styleUrls: ['./section-page-shell.component.scss']
 })
-export class SectionPageShellComponent {
+export class SectionPageShellComponent implements OnInit {
   /** Optional route to reach when navigating to the previous section */
   @Input() previousRoute?: string;
 
@@ -27,10 +27,30 @@ export class SectionPageShellComponent {
   /** Controls whether opening the assistant expands the navigator automatically */
   @Input() autoRevealNavigator = true;
 
+  /** Controls whether the floating navigator should be displayed */
+  isMobileViewport = false;
+
   @ViewChild(NavigatorComponent)
   private navigator?: NavigatorComponent;
 
-  constructor(private readonly router: Router) { }
+  private readonly mobileBreakpoint = 960;
+  private readonly isBrowser: boolean;
+
+  constructor(
+    private readonly router: Router,
+    @Inject(PLATFORM_ID) platformId: Object,
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
+
+  ngOnInit(): void {
+    this.updateViewportFlag();
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    this.updateViewportFlag();
+  }
 
   get navigatorTotalSections(): number {
     if (this.previousRoute && this.nextRoute) {
@@ -80,5 +100,14 @@ export class SectionPageShellComponent {
     }
 
     this.navigator?.closeNavigator();
+  }
+
+  private updateViewportFlag(): void {
+    if (!this.isBrowser) {
+      this.isMobileViewport = false;
+      return;
+    }
+
+    this.isMobileViewport = window.innerWidth <= this.mobileBreakpoint;
   }
 }

@@ -5,6 +5,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeswitchComponent } from './themeswitch/themeswitch.component';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
+import { ThemeService } from '../../services/theme.service';
 
 /**
  * Unit tests for NavigatorComponent to ensure correct functionality.
@@ -20,7 +21,8 @@ describe('NavigatorComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent],
       providers: [
-        { provide: TranslationService, useClass: MockTranslationService }
+        { provide: TranslationService, useClass: MockTranslationService },
+        ThemeService,
       ]
     })
       .compileComponents();

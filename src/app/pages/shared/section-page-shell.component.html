@@ -3,7 +3,10 @@
     <ng-content></ng-content>
   </div>
 
-  <div class="section-page-shell__floating section-page-shell__floating--navigator">
+  <div
+    class="section-page-shell__floating section-page-shell__floating--navigator"
+    *ngIf="isMobileViewport"
+  >
     <app-navigator
       [totalSections]="navigatorTotalSections"
       [currentSectionIndex]="navigatorCurrentSectionIndex"

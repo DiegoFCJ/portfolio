@@ -12,6 +12,7 @@
 @use 'components/education';
 @use 'components/skills';
 @use 'components/navigator';
+@use 'components/topbar';
 @use 'components/footer';
 @use 'components/stats' as stats_component;
 @use 'components/contact-me';
@@ -51,6 +52,8 @@ svg {
     --layer-floating-controls: 40;
     --layer-modal-overlay: 80;
     --layer-modal-dialog: 90;
+    --app-topbar-height: clamp(3.5rem, 6vw, 4.25rem);
+    --app-topbar-padding: 0px;
 }
 
 @supports (padding: env(safe-area-inset-bottom)) {
@@ -78,6 +81,13 @@ body {
     overflow-x: hidden;
     --section-transition-glow: rgba(148, 163, 184, 0.18);
     background-color: inherit;
+    padding-top: var(--app-topbar-padding);
+}
+
+@media (min-width: 961px) {
+    body {
+        --app-topbar-padding: var(--app-topbar-height);
+    }
 }
 
 body.home-scroll-snapping {

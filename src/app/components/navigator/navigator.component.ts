@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, EventEmitter, Input, Output, OnInit, HostListener, ElementRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
+import { ThemeService } from '../../services/theme.service';
+import { ThemeKey } from '../../models/theme-key.type';
 
-type ThemeKey = 'light' | 'dark' | 'blue' | 'green' | 'red';
 type LanguageKey = 'en' | 'it' | 'de' | 'es' | 'no' | 'ru';
 
 @Component({
@@ -29,7 +30,7 @@ export class NavigatorComponent implements OnInit {
 
   currentLang: string;
   currentTheme: ThemeKey = 'dark';
-  readonly availableThemes: ThemeKey[] = ['light', 'dark', 'blue', 'green', 'red'];
+  readonly availableThemes: ThemeKey[];
   readonly availableLanguages: LanguageKey[] = ['en', 'it', 'de', 'es', 'no', 'ru'];
 
   /** Controls visibility of the navigator */
@@ -119,10 +120,11 @@ export class NavigatorComponent implements OnInit {
 
   constructor(
     private translationService: TranslationService,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    private themeService: ThemeService,
     private elementRef: ElementRef
   ) {
     this.currentLang = this.translationService.getCurrentLanguage();
+    this.availableThemes = this.themeService.getAvailableThemes();
   }
 
   ngOnInit(): void {
@@ -130,12 +132,10 @@ export class NavigatorComponent implements OnInit {
     this.translationService.currentLanguage$.subscribe(lang => {
       this.currentLang = lang;
     });
-    if (isPlatformBrowser(this.platformId)) {
-      const storedTheme = localStorage.getItem('theme');
-      const nextTheme: ThemeKey = this.isValidTheme(storedTheme) ? storedTheme : 'dark';
-      this.currentTheme = nextTheme;
-      this.applyTheme(nextTheme);
-    }
+    this.currentTheme = this.themeService.getCurrentTheme();
+    this.themeService.currentTheme$.subscribe(theme => {
+      this.currentTheme = theme;
+    });
   }
 
   onNext(): void {
@@ -173,11 +173,7 @@ export class NavigatorComponent implements OnInit {
   }
 
   changeTheme(theme: ThemeKey): void {
-    this.currentTheme = theme;
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('theme', theme);
-      this.applyTheme(theme);
-    }
+    this.themeService.setTheme(theme);
     this.showThemeOptions = false;
   }
 
@@ -215,23 +211,6 @@ export class NavigatorComponent implements OnInit {
     return this.isOpen ? labels.close : labels.open;
   }
 
-  private applyTheme(theme: ThemeKey): void {
-    if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.remove('light-mode', 'dark-mode', 'blue-mode', 'green-mode', 'red-mode');
-      if (theme === 'light') {
-        document.body.classList.add('light-mode');
-      } else if (theme === 'dark') {
-        document.body.classList.add('dark-mode');
-      } else if (theme === 'blue') {
-        document.body.classList.add('blue-mode');
-      } else if (theme === 'green') {
-        document.body.classList.add('green-mode');
-      } else if (theme === 'red') {
-        document.body.classList.add('red-mode');
-      }
-    }
-  }
-
   /**
    * Returns the Material icon name corresponding to the given theme.
    */
@@ -262,10 +241,6 @@ export class NavigatorComponent implements OnInit {
 
   getLanguageFlag(language: LanguageKey): string {
     return this.languageFlags[language] ?? this.languageFlags['en'];
-  }
-
-  private isValidTheme(theme: string | null): theme is ThemeKey {
-    return !!theme && this.availableThemes.includes(theme as ThemeKey);
   }
 
   /** Toggles navigator visibility */

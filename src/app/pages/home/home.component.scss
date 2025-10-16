@@ -26,3 +26,25 @@
 .home__section--contacts {
   padding-bottom: clamp(1rem, 4vw, 2.5rem);
 }
+
+.home__floating {
+  position: fixed;
+  pointer-events: none;
+  z-index: var(--layer-floating-controls);
+}
+
+.home__floating app-navigator {
+  pointer-events: auto;
+}
+
+.home__floating--navigator {
+  left: clamp(1rem, 4vw, 2.5rem);
+  bottom: clamp(1.25rem, 4vw, 2.75rem);
+}
+
+@media (max-width: 720px) {
+  .home__floating--navigator {
+    left: clamp(0.75rem, 4vw, 2rem);
+    bottom: clamp(1rem, 6vw, 2.25rem);
+  }
+}
