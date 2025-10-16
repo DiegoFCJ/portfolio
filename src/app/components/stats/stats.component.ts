@@ -1,6 +1,6 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { experiencesData } from '../../data/experiences.data';
@@ -48,6 +48,9 @@ export class StatsComponent implements OnInit, OnDestroy {
   private metricsCache: StatsMetrics | null = null;
   private lastFocusedElement: HTMLElement | null = null;
   private dialogBodyRef?: ElementRef<HTMLDivElement>;
+  private bodyOriginalOverflow: string | null = null;
+  private bodyOriginalPaddingRight: string | null = null;
+  private scrollLockActive = false;
 
   @ViewChild('detailCloseButton')
   set detailCloseButton(button: ElementRef<HTMLButtonElement> | undefined) {
@@ -69,7 +72,11 @@ export class StatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private translationService: TranslationService) { }
+  constructor(
+    private translationService: TranslationService,
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private readonly documentRef: Document
+  ) { }
 
   ngOnInit(): void {
     this.translationService.currentLanguage$
@@ -130,6 +137,7 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.restoreScrollLock();
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -139,6 +147,7 @@ export class StatsComponent implements OnInit, OnDestroy {
       this.lastFocusedElement = triggerElement;
     }
 
+    this.applyScrollLock();
     this.selectedStat = stat;
     this.dialogScrollable = false;
     this.dialogAtEnd = false;
@@ -151,9 +160,11 @@ export class StatsComponent implements OnInit, OnDestroy {
     event?.preventDefault();
 
     if (!this.selectedStat) {
+      this.restoreScrollLock();
       return;
     }
 
+    this.restoreScrollLock();
     this.selectedStat = null;
     this.dialogScrollable = false;
     this.dialogAtEnd = false;
@@ -349,6 +360,61 @@ export class StatsComponent implements OnInit, OnDestroy {
   private updateDialogEdgeState(element: HTMLElement): void {
     const isAtEnd = Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight;
     this.dialogAtEnd = isAtEnd || !this.dialogScrollable;
+  }
+
+  private applyScrollLock(): void {
+    if (this.scrollLockActive) {
+      return;
+    }
+
+    const body = this.documentRef?.body;
+    if (!body) {
+      return;
+    }
+
+    this.bodyOriginalOverflow = body.style.overflow ?? '';
+    this.bodyOriginalPaddingRight = body.style.paddingRight ?? '';
+
+    const hasWindow = typeof window !== 'undefined';
+    const documentElement = this.documentRef?.documentElement;
+    const scrollBarWidth = hasWindow && documentElement
+      ? window.innerWidth - documentElement.clientWidth
+      : 0;
+
+    this.renderer.setStyle(body, 'overflow', 'hidden');
+
+    if (scrollBarWidth > 0) {
+      this.renderer.setStyle(body, 'paddingRight', `${scrollBarWidth}px`);
+    }
+
+    this.scrollLockActive = true;
+  }
+
+  private restoreScrollLock(): void {
+    if (!this.scrollLockActive) {
+      return;
+    }
+
+    const body = this.documentRef?.body;
+    if (!body) {
+      return;
+    }
+
+    if (this.bodyOriginalOverflow && this.bodyOriginalOverflow.length > 0) {
+      this.renderer.setStyle(body, 'overflow', this.bodyOriginalOverflow);
+    } else {
+      this.renderer.removeStyle(body, 'overflow');
+    }
+
+    if (this.bodyOriginalPaddingRight && this.bodyOriginalPaddingRight.length > 0) {
+      this.renderer.setStyle(body, 'paddingRight', this.bodyOriginalPaddingRight);
+    } else {
+      this.renderer.removeStyle(body, 'paddingRight');
+    }
+
+    this.scrollLockActive = false;
+    this.bodyOriginalOverflow = null;
+    this.bodyOriginalPaddingRight = null;
   }
 
   private parseDate(value: string): Date {

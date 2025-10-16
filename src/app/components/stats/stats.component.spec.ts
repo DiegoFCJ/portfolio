@@ -55,6 +55,11 @@ describe('StatsComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  });
+
   /**
    * Verifies that the component is created successfully.
    */
@@ -209,6 +214,34 @@ describe('StatsComponent', () => {
 
     expect(component.selectedStat).toBeNull();
     expect(trigger.focus).toHaveBeenCalled();
+  });
+
+  it('should lock body scroll when opening details and restore it when closing', () => {
+    fixture.detectChanges();
+    const stat = component.statistics[0];
+
+    document.body.style.overflow = 'auto';
+
+    component.openStatDetail(stat);
+
+    expect(document.body.style.overflow).toBe('hidden');
+
+    component.closeStatDetail();
+
+    expect(document.body.style.overflow).toBe('auto');
+  });
+
+  it('should restore body scroll when component is destroyed', () => {
+    fixture.detectChanges();
+    const stat = component.statistics[0];
+
+    component.openStatDetail(stat);
+
+    expect(document.body.style.overflow).toBe('hidden');
+
+    component.ngOnDestroy();
+
+    expect(document.body.style.overflow).toBe('');
   });
 
   it('should close popup on escape key press', () => {
