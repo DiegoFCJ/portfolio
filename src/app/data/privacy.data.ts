@@ -11,6 +11,7 @@ export interface PrivacyContactsContent {
   readonly title: string;
   readonly description: string;
   readonly channels: readonly PrivacyContactChannel[];
+  readonly ctaLabel: string;
 }
 
 export interface PrivacyContactChannel {
@@ -24,6 +25,7 @@ export interface PrivacyContent {
   readonly heading: string;
   readonly meta: string;
   readonly intro: readonly string[];
+  readonly tocTitle: string;
   readonly sections: readonly PrivacySectionContent[];
   readonly contacts: PrivacyContactsContent;
 }
@@ -32,6 +34,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
   it: {
     heading: 'Informativa sulla privacy',
     meta: 'Ultimo aggiornamento: 20 marzo 2024',
+    tocTitle: 'Indice dei contenuti',
     intro: [
       'Questa pagina descrive come tratto i dati personali e le informazioni raccolte quando utilizzi questo portfolio.',
       'Le informazioni riportate sono pensate per essere trasparenti e semplici da consultare in qualsiasi momento.'
@@ -70,6 +73,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
     contacts: {
       title: 'Contatti',
       description: 'Per dubbi, richieste di chiarimento o esercizio dei tuoi diritti puoi utilizzare questi canali:',
+      ctaLabel: 'Scrivimi ora',
       channels: [
         {
           type: 'email',
@@ -89,6 +93,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
   en: {
     heading: 'Privacy notice',
     meta: 'Last updated: 20 March 2024',
+    tocTitle: 'On this page',
     intro: [
       'This page explains how personal data and information are handled while you browse this portfolio.',
       'The goal is to keep every detail transparent and easy to review whenever you need to.'
@@ -127,6 +132,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
     contacts: {
       title: 'Contacts',
       description: 'Reach out for clarifications, questions or to exercise your privacy rights using the following channels:',
+      ctaLabel: 'Contact me',
       channels: [
         {
           type: 'email',

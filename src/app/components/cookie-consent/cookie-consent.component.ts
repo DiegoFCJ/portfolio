@@ -16,6 +16,7 @@ export class CookieConsentComponent implements OnInit {
   @Output() consentChange = new EventEmitter<boolean>();
 
   content: CookieConsentContent = {
+    title: '',
     message: '',
     acceptLabel: '',
     rejectLabel: '',
