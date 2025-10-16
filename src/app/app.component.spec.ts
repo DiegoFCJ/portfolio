@@ -39,6 +39,9 @@ describe('AppComponent', () => {
       setLanguage: jasmine.createSpy('setLanguage').and.callFake((language: LanguageCode) => {
         languageSubject.next(language);
       }),
+      getCurrentLanguage: jasmine
+        .createSpy('getCurrentLanguage')
+        .and.callFake(() => languageSubject.value),
       getTranslatedData: getTranslatedDataSpy as TranslationService['getTranslatedData'],
     };
 
