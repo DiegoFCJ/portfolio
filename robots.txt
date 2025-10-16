@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://your-domain.example.com/sitemap.xml
+Sitemap: https://diegofois.github.io/portfolio/sitemap.xml
