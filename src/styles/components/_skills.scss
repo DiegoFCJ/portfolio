@@ -158,7 +158,7 @@ app-skills .nav-container{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
 }
 
 app-skills .skills-grid {
@@ -168,13 +168,14 @@ app-skills .skills-grid {
   grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
   gap: clamp(1.75rem, 3.5vw, 3rem);
   align-items: start;
+  margin-inline: auto;
   justify-items: stretch;
   padding-inline: clamp(0.75rem, 4vw, 2rem);
 }
 
 app-skills .stack-tabs {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 0.75rem;
   padding: clamp(1.25rem, 2vw, 1.75rem);
   background: var(--skills-tabs-bg);
@@ -186,6 +187,8 @@ app-skills .stack-tabs {
 app-skills .stack-tabs.is-mobile {
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+  width: 100%;
   padding: 0.75rem;
   border-radius: 20px;
   background: var(--skills-tabs-mobile-bg);
@@ -344,6 +347,7 @@ app-skills .skill-icon.clicked .icon-asset img {
 
   app-skills .stack-tabs {
     flex-direction: row;
+    align-items: center;
     justify-content: center;
     border-radius: 999px;
   }
