@@ -30,6 +30,33 @@ export class NavigationDataService {
     { key: 'red', label: 'Red' },
   ];
 
+  private readonly themeNames: Record<LanguageCode, Record<ThemeKey, string>> = {
+    en: { light: 'Light theme', dark: 'Dark theme', blue: 'Blue theme', green: 'Green theme', red: 'Red theme' },
+    it: { light: 'Tema chiaro', dark: 'Tema scuro', blue: 'Tema blu', green: 'Tema verde', red: 'Tema rosso' },
+    de: { light: 'Helles Thema', dark: 'Dunkles Thema', blue: 'Blaues Thema', green: 'Grünes Thema', red: 'Rotes Thema' },
+    es: { light: 'Tema claro', dark: 'Tema oscuro', blue: 'Tema azul', green: 'Tema verde', red: 'Tema rojo' },
+    no: { light: 'Lyst tema', dark: 'Mørkt tema', blue: 'Blått tema', green: 'Grønt tema', red: 'Rødt tema' },
+    ru: { light: 'Светлая тема', dark: 'Тёмная тема', blue: 'Синяя тема', green: 'Зелёная тема', red: 'Красная тема' },
+  };
+
+  private readonly languageNames: Record<LanguageCode, Record<LanguageCode, string>> = {
+    en: { en: 'English', it: 'Italian', de: 'German', es: 'Spanish', no: 'Norwegian', ru: 'Russian' },
+    it: { en: 'Inglese', it: 'Italiano', de: 'Tedesco', es: 'Spagnolo', no: 'Norvegese', ru: 'Russo' },
+    de: { en: 'Englisch', it: 'Italienisch', de: 'Deutsch', es: 'Spanisch', no: 'Norwegisch', ru: 'Russisch' },
+    es: { en: 'Inglés', it: 'Italiano', de: 'Alemán', es: 'Español', no: 'Noruego', ru: 'Ruso' },
+    no: { en: 'Engelsk', it: 'Italiensk', de: 'Tysk', es: 'Spansk', no: 'Norsk', ru: 'Russisk' },
+    ru: { en: 'Английский', it: 'Итальянский', de: 'Немецкий', es: 'Испанский', no: 'Норвежский', ru: 'Русский' },
+  };
+
+  private readonly languageFlags: Record<LanguageCode, string> = {
+    en: 'assets/flags/en.svg',
+    it: 'assets/flags/it.svg',
+    de: 'assets/flags/de.svg',
+    es: 'assets/flags/es.svg',
+    no: 'assets/flags/no.svg',
+    ru: 'assets/flags/ru.svg',
+  };
+
   private readonly navigationDictionary: Record<LanguageCode, NavigationItem[]> = {
     it: [
       { label: 'Home', route: '/', exact: true },
@@ -117,5 +144,19 @@ export class NavigationDataService {
 
   getPageMenuLabel(language: LanguageCode): string {
     return this.pageMenuLabels[language] ?? this.pageMenuLabels['en'];
+  }
+
+  getThemeName(language: LanguageCode, theme: ThemeKey): string {
+    const dictionary = this.themeNames[language] ?? this.themeNames['en'];
+    return dictionary[theme] ?? dictionary['dark'];
+  }
+
+  getLanguageName(currentLanguage: LanguageCode, target: LanguageCode): string {
+    const dictionary = this.languageNames[currentLanguage] ?? this.languageNames['en'];
+    return dictionary[target] ?? dictionary['en'];
+  }
+
+  getLanguageFlag(language: LanguageCode): string {
+    return this.languageFlags[language] ?? this.languageFlags['en'];
   }
 }

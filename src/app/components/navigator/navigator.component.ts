@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef, DestroyRef } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, EventEmitter, Input, Output, OnInit, HostListener, ElementRef, DestroyRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
@@ -10,18 +10,13 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { A11yModule } from '@angular/cdk/a11y';
+import { ThemeService } from '../../services/theme.service';
 
 type TooltipKey = 'prev' | 'next' | 'theme' | 'language';
 
 type TooltipDictionary = Record<LanguageCode, Record<TooltipKey, string>>;
 
 type ToggleButtonLabels = Record<LanguageCode, { open: string; close: string }>;
-
-type ThemeNamesDictionary = Record<LanguageCode, Record<ThemeKey, string>>;
-
-type LanguageNamesDictionary = Record<LanguageCode, Record<LanguageCode, string>>;
-
-type LanguageFlagsDictionary = Record<LanguageCode, string>;
 
 @Component({
   selector: 'app-navigator',
@@ -100,33 +95,6 @@ export class NavigatorComponent implements OnInit {
 
   private readonly tooltipFallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es', 'no', 'ru'];
 
-  private readonly themeNames: ThemeNamesDictionary = {
-    en: { light: 'Light theme', dark: 'Dark theme', blue: 'Blue theme', green: 'Green theme', red: 'Red theme' },
-    it: { light: 'Tema chiaro', dark: 'Tema scuro', blue: 'Tema blu', green: 'Tema verde', red: 'Tema rosso' },
-    de: { light: 'Helles Thema', dark: 'Dunkles Thema', blue: 'Blaues Thema', green: 'Grünes Thema', red: 'Rotes Thema' },
-    es: { light: 'Tema claro', dark: 'Tema oscuro', blue: 'Tema azul', green: 'Tema verde', red: 'Tema rojo' },
-    no: { light: 'Lyst tema', dark: 'Mørkt tema', blue: 'Blått tema', green: 'Grønt tema', red: 'Rødt tema' },
-    ru: { light: 'Светлая тема', dark: 'Тёмная тема', blue: 'Синяя тема', green: 'Зелёная тема', red: 'Красная тема' }
-  };
-
-  private readonly languageNames: LanguageNamesDictionary = {
-    en: { en: 'English', it: 'Italian', de: 'German', es: 'Spanish', no: 'Norwegian', ru: 'Russian' },
-    it: { en: 'Inglese', it: 'Italiano', de: 'Tedesco', es: 'Spagnolo', no: 'Norvegese', ru: 'Russo' },
-    de: { en: 'Englisch', it: 'Italienisch', de: 'Deutsch', es: 'Spanisch', no: 'Norwegisch', ru: 'Russisch' },
-    es: { en: 'Inglés', it: 'Italiano', de: 'Alemán', es: 'Español', no: 'Noruego', ru: 'Ruso' },
-    no: { en: 'Engelsk', it: 'Italiensk', de: 'Tysk', es: 'Spansk', no: 'Norsk', ru: 'Russisk' },
-    ru: { en: 'Английский', it: 'Итальянский', de: 'Немецкий', es: 'Испанский', no: 'Норвежский', ru: 'Русский' }
-  };
-
-  private readonly languageFlags: LanguageFlagsDictionary = {
-    en: 'assets/flags/en.svg',
-    it: 'assets/flags/it.svg',
-    de: 'assets/flags/de.svg',
-    es: 'assets/flags/es.svg',
-    no: 'assets/flags/no.svg',
-    ru: 'assets/flags/ru.svg'
-  };
-
   private readonly toggleButtonLabels: ToggleButtonLabels = {
     en: { open: 'Open navigator', close: 'Close navigator' },
     it: { open: 'Apri navigatore', close: 'Chiudi navigatore' },
@@ -140,16 +108,17 @@ export class NavigatorComponent implements OnInit {
 
   constructor(
     private readonly translationService: TranslationService,
-    @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly elementRef: ElementRef,
     private readonly navigationData: NavigationDataService,
     private readonly router: Router,
     private readonly destroyRef: DestroyRef,
+    private readonly themeService: ThemeService,
   ) {
     this.currentLang = this.translationService.getCurrentLanguage();
     this.availableThemes = this.navigationData.getThemes().map((theme) => theme.key);
     this.availableLanguages = this.navigationData.getLanguages();
     this.pageLinks = this.navigationData.getNavigationItems(this.currentLang);
+    this.currentTheme = this.themeService.getCurrentTheme();
   }
 
   ngOnInit(): void {
@@ -168,12 +137,11 @@ export class NavigatorComponent implements OnInit {
       )
       .subscribe(() => this.closePageOptions());
 
-    if (isPlatformBrowser(this.platformId)) {
-      const storedTheme = localStorage.getItem('theme');
-      const nextTheme: ThemeKey = this.isValidTheme(storedTheme) ? storedTheme : 'dark';
-      this.currentTheme = nextTheme;
-      this.applyTheme(nextTheme);
-    }
+    this.themeService.theme$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((theme) => {
+        this.currentTheme = theme;
+      });
   }
 
   get canNavigatePrevious(): boolean {
@@ -232,11 +200,11 @@ export class NavigatorComponent implements OnInit {
   }
 
   changeTheme(theme: ThemeKey): void {
-    this.currentTheme = theme;
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('theme', theme);
-      this.applyTheme(theme);
+    if (!this.availableThemes.includes(theme)) {
+      return;
     }
+
+    this.themeService.setTheme(theme);
     this.showThemeOptions = false;
     this.closePageOptions();
   }
@@ -284,23 +252,6 @@ export class NavigatorComponent implements OnInit {
     return this.isOpen ? labels.close : labels.open;
   }
 
-  private applyTheme(theme: ThemeKey): void {
-    if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.remove('light-mode', 'dark-mode', 'blue-mode', 'green-mode', 'red-mode');
-      if (theme === 'light') {
-        document.body.classList.add('light-mode');
-      } else if (theme === 'dark') {
-        document.body.classList.add('dark-mode');
-      } else if (theme === 'blue') {
-        document.body.classList.add('blue-mode');
-      } else if (theme === 'green') {
-        document.body.classList.add('green-mode');
-      } else if (theme === 'red') {
-        document.body.classList.add('red-mode');
-      }
-    }
-  }
-
   /**
    * Returns the Material icon name corresponding to the given theme.
    */
@@ -320,21 +271,15 @@ export class NavigatorComponent implements OnInit {
   }
 
   getThemeName(theme: ThemeKey): string {
-    const names = this.themeNames[this.currentLang] || this.themeNames['en'];
-    return names[theme];
+    return this.navigationData.getThemeName(this.currentLang, theme);
   }
 
   getLanguageName(language: LanguageCode): string {
-    const names = this.languageNames[this.currentLang] || this.languageNames['en'];
-    return names[language];
+    return this.navigationData.getLanguageName(this.currentLang, language);
   }
 
   getLanguageFlag(language: LanguageCode): string {
-    return this.languageFlags[language] ?? this.languageFlags['en'];
-  }
-
-  private isValidTheme(theme: string | null): theme is ThemeKey {
-    return !!theme && this.availableThemes.includes(theme as ThemeKey);
+    return this.navigationData.getLanguageFlag(language);
   }
 
   /** Toggles navigator visibility */

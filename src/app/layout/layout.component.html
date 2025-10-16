@@ -1,63 +1,90 @@
 <header class="layout__header">
   <div class="layout__topbar">
-    <a class="layout__brand" routerLink="/">Mirko Bottazzo</a>
+    <a class="layout__brand" routerLink="/" (click)="onNavigateLink()">Mirko Bottazzo</a>
 
-    <button
-      type="button"
-      class="layout__menu-toggle"
-      (click)="toggleMenu()"
-      [attr.aria-expanded]="menuOpen"
-      aria-controls="primary-navigation"
-      aria-label="Toggle navigation"
-    >
-      <span class="layout__menu-icon" aria-hidden="true">
-        <span class="layout__menu-icon-line"></span>
-      </span>
-    </button>
-
-    <nav
-      id="primary-navigation"
-      class="layout__nav"
-      [class.layout__nav--open]="menuOpen"
-      aria-label="Primary"
-    >
+    <nav class="layout__navigation" aria-label="Primary">
       <a
         *ngFor="let item of navigationItems; trackBy: trackByRoute"
         [routerLink]="item.route"
         routerLinkActive="layout__link--active"
         [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
         class="layout__link"
-        (click)="menuOpen = false"
+        (click)="onNavigateLink()"
       >
         {{ item.label }}
       </a>
-
-      <div class="layout__preferences">
-        <label class="visually-hidden" for="language-select">{{ languageLabel }}</label>
-        <select
-          id="language-select"
-          class="layout__select"
-          [value]="currentLanguage"
-          (change)="onSelectLanguage($any($event.target).value)"
-        >
-          <option *ngFor="let language of languages" [value]="language">
-            {{ language | uppercase }}
-          </option>
-        </select>
-
-        <label class="visually-hidden" for="theme-select">{{ themeLabel }}</label>
-        <select
-          id="theme-select"
-          class="layout__select"
-          [value]="currentTheme"
-          (change)="onSelectTheme($any($event.target).value)"
-        >
-          <option *ngFor="let theme of themes" [value]="theme.key">
-            {{ theme.label }}
-          </option>
-        </select>
-      </div>
     </nav>
+
+    <div class="layout__preferences" role="group" [attr.aria-label]="languageLabel + ' & ' + themeLabel">
+      <div class="layout__dropdown" [class.layout__dropdown--open]="showLanguageMenu">
+        <button
+          type="button"
+          class="layout__dropdown-trigger"
+          (click)="toggleLanguageMenu($event)"
+          [attr.aria-expanded]="showLanguageMenu"
+          [attr.aria-controls]="languageMenuId"
+          aria-haspopup="menu"
+          [attr.aria-label]="languageLabel"
+        >
+          <span class="layout__dropdown-label">{{ currentLanguage | uppercase }}</span>
+          <span class="layout__dropdown-chevron" aria-hidden="true"></span>
+        </button>
+
+        <div
+          *ngIf="showLanguageMenu"
+          class="layout__dropdown-menu"
+          [id]="languageMenuId"
+          role="menu"
+          [attr.aria-label]="languageLabel"
+        >
+          <button
+            *ngFor="let language of languages"
+            type="button"
+            class="layout__dropdown-option"
+            role="menuitemradio"
+            [attr.aria-checked]="language === currentLanguage"
+            (click)="onSelectLanguage(language)"
+          >
+            <span class="layout__dropdown-option-label">{{ getLanguageName(language) }}</span>
+            <span class="layout__dropdown-option-hint">{{ language | uppercase }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="layout__dropdown" [class.layout__dropdown--open]="showThemeMenu">
+        <button
+          type="button"
+          class="layout__dropdown-trigger layout__dropdown-trigger--wide"
+          (click)="toggleThemeMenu($event)"
+          [attr.aria-expanded]="showThemeMenu"
+          [attr.aria-controls]="themeMenuId"
+          aria-haspopup="menu"
+          [attr.aria-label]="themeLabel"
+        >
+          <span class="layout__dropdown-label">{{ getThemeName(currentTheme) }}</span>
+          <span class="layout__dropdown-chevron" aria-hidden="true"></span>
+        </button>
+
+        <div
+          *ngIf="showThemeMenu"
+          class="layout__dropdown-menu"
+          [id]="themeMenuId"
+          role="menu"
+          [attr.aria-label]="themeLabel"
+        >
+          <button
+            *ngFor="let theme of themes"
+            type="button"
+            class="layout__dropdown-option"
+            role="menuitemradio"
+            [attr.aria-checked]="theme.key === currentTheme"
+            (click)="onSelectTheme(theme.key)"
+          >
+            <span class="layout__dropdown-option-label">{{ getThemeName(theme.key) }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -67,4 +94,13 @@
 
 <div class="layout__assistant">
   <app-assistant></app-assistant>
+</div>
+
+<div class="layout__navigator">
+  <app-navigator
+    [totalSections]="totalSections"
+    [currentSectionIndex]="currentSectionIndex"
+    (navigateNext)="onNavigateNextSection()"
+    (navigatePrevious)="onNavigatePreviousSection()"
+  ></app-navigator>
 </div>
