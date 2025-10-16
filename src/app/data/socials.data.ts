@@ -16,6 +16,11 @@ export const socialsByLanguage: SocialsByLanguage = {
             label: 'Profilo GitHub'
         },
         {
+            link: 'https://discord.gg/9p7U3pcW4T',
+            icon: 'assets/icons/discord.svg',
+            label: 'Unisciti al server Discord'
+        },
+        {
             link: 'mailto:diegoeffe96@gmail.com',
             icon: 'assets/icons/mail.svg',
             label: 'Invia una email a diegoeffe96@gmail.com'
@@ -31,6 +36,11 @@ export const socialsByLanguage: SocialsByLanguage = {
             link: 'https://github.com/DiegoFCJ',
             icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg',
             label: 'GitHub Profile'
+        },
+        {
+            link: 'https://discord.gg/9p7U3pcW4T',
+            icon: 'assets/icons/discord.svg',
+            label: 'Join the Discord server'
         },
         {
             link: 'mailto:diegoeffe96@gmail.com',
@@ -50,6 +60,11 @@ export const socialsByLanguage: SocialsByLanguage = {
             label: 'Perfil de GitHub'
         },
         {
+            link: 'https://discord.gg/9p7U3pcW4T',
+            icon: 'assets/icons/discord.svg',
+            label: 'Únete al servidor de Discord'
+        },
+        {
             link: 'mailto:diegoeffe96@gmail.com',
             icon: 'assets/icons/mail.svg',
             label: 'Enviar un correo a diegoeffe96@gmail.com'
@@ -65,6 +80,11 @@ export const socialsByLanguage: SocialsByLanguage = {
             link: 'https://github.com/DiegoFCJ',
             icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg',
             label: 'GitHub-Profil'
+        },
+        {
+            link: 'https://discord.gg/9p7U3pcW4T',
+            icon: 'assets/icons/discord.svg',
+            label: 'Tritt dem Discord-Server bei'
         },
         {
             link: 'mailto:diegoeffe96@gmail.com',
@@ -84,6 +104,11 @@ export const socialsByLanguage: SocialsByLanguage = {
             label: 'GitHub-profil'
         },
         {
+            link: 'https://discord.gg/9p7U3pcW4T',
+            icon: 'assets/icons/discord.svg',
+            label: 'Bli med på Discord-serveren'
+        },
+        {
             link: 'mailto:diegoeffe96@gmail.com',
             icon: 'assets/icons/mail.svg',
             label: 'Send en e-post til diegoeffe96@gmail.com'
@@ -99,6 +124,11 @@ export const socialsByLanguage: SocialsByLanguage = {
             link: 'https://github.com/DiegoFCJ',
             icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg',
             label: 'Профиль GitHub'
+        },
+        {
+            link: 'https://discord.gg/9p7U3pcW4T',
+            icon: 'assets/icons/discord.svg',
+            label: 'Присоединиться к серверу Discord'
         },
         {
             link: 'mailto:diegoeffe96@gmail.com',
