@@ -1,13 +1,3 @@
 :host {
   display: block;
 }
-
-.page {
-  padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 3.5rem);
-  display: flex;
-  justify-content: center;
-}
-
-.page__content {
-  inline-size: min(1200px, 100%);
-}

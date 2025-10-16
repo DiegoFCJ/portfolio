@@ -2,50 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://diegofois.github.io/portfolio/</loc>
-    <lastmod>2025-10-14T13:57:31.211Z</lastmod>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://diegofois.github.io/portfolio/#about</loc>
-    <lastmod>2025-10-14T13:57:31.211Z</lastmod>
+    <loc>https://diegofois.github.io/portfolio/about</loc>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://diegofois.github.io/portfolio/#projects</loc>
-    <lastmod>2025-10-14T13:57:31.211Z</lastmod>
+    <loc>https://diegofois.github.io/portfolio/projects</loc>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://diegofois.github.io/portfolio/#skills</loc>
-    <lastmod>2025-10-14T13:57:31.211Z</lastmod>
+    <loc>https://diegofois.github.io/portfolio/skills</loc>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://diegofois.github.io/portfolio/#education</loc>
-    <lastmod>2025-10-14T13:57:31.211Z</lastmod>
+    <loc>https://diegofois.github.io/portfolio/education</loc>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://diegofois.github.io/portfolio/#experiences</loc>
-    <lastmod>2025-10-14T13:57:31.211Z</lastmod>
+    <loc>https://diegofois.github.io/portfolio/experiences</loc>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://diegofois.github.io/portfolio/#stats</loc>
-    <lastmod>2025-10-14T13:57:31.211Z</lastmod>
+    <loc>https://diegofois.github.io/portfolio/stats</loc>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://diegofois.github.io/portfolio/#contact</loc>
-    <lastmod>2025-10-14T13:57:31.211Z</lastmod>
+    <loc>https://diegofois.github.io/portfolio/contact</loc>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://diegofois.github.io/portfolio/privacy</loc>
+    <lastmod>2025-10-16T15:13:37.719Z</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>
