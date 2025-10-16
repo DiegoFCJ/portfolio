@@ -26,3 +26,36 @@
 .home__section--contacts {
   padding-bottom: clamp(1rem, 4vw, 2.5rem);
 }
+
+.home__floating {
+  position: fixed;
+  pointer-events: none;
+  z-index: var(--layer-floating-controls, 40);
+}
+
+.home__floating app-assistant,
+.home__floating app-navigator {
+  pointer-events: auto;
+}
+
+.home__floating--navigator {
+  left: clamp(1rem, 4vw, 2.5rem);
+  bottom: clamp(1.25rem, 4vw, 2.75rem);
+}
+
+.home__floating--assistant {
+  right: clamp(1rem, 4vw, 2.5rem);
+  bottom: clamp(1.25rem, 4vw, 2.75rem);
+}
+
+@media (max-width: 720px) {
+  .home__floating--navigator {
+    left: clamp(0.75rem, 4vw, 2rem);
+    bottom: clamp(1rem, 6vw, 2.25rem);
+  }
+
+  .home__floating--assistant {
+    right: clamp(0.75rem, 4vw, 2rem);
+    bottom: clamp(1rem, 6vw, 2.25rem);
+  }
+}

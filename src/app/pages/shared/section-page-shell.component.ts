@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssistantComponent } from '../../components/assistant/assistant.component';
 import { NavigatorComponent } from '../../components/navigator/navigator.component';
@@ -11,7 +11,7 @@ import { NavigatorComponent } from '../../components/navigator/navigator.compone
   templateUrl: './section-page-shell.component.html',
   styleUrls: ['./section-page-shell.component.scss']
 })
-export class SectionPageShellComponent {
+export class SectionPageShellComponent implements OnInit {
   /** Optional route to reach when navigating to the previous section */
   @Input() previousRoute?: string;
 
@@ -30,7 +30,19 @@ export class SectionPageShellComponent {
   @ViewChild(NavigatorComponent)
   private navigator?: NavigatorComponent;
 
+  private readonly mobileBreakpoint = 960;
+  isMobileViewport = false;
+
   constructor(private readonly router: Router) { }
+
+  ngOnInit(): void {
+    this.updateViewportState();
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    this.updateViewportState();
+  }
 
   get navigatorTotalSections(): number {
     if (this.previousRoute && this.nextRoute) {
@@ -80,5 +92,14 @@ export class SectionPageShellComponent {
     }
 
     this.navigator?.closeNavigator();
+  }
+
+  private updateViewportState(): void {
+    if (typeof window === 'undefined') {
+      this.isMobileViewport = false;
+      return;
+    }
+
+    this.isMobileViewport = window.innerWidth <= this.mobileBreakpoint;
   }
 }

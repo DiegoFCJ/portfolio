@@ -1,0 +1,111 @@
+:host {
+  display: block;
+}
+
+.topbar {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: var(--layer-topbar, 30);
+  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  color: #f8fafc;
+}
+
+.topbar__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--topbar-height, 4rem);
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  gap: 1.5rem;
+}
+
+.topbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  letter-spacing: 0.04em;
+}
+
+.topbar__logo {
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: 0.75rem;
+  display: grid;
+  place-items: center;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+}
+
+.topbar__nav {
+  display: flex;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: center;
+}
+
+.topbar__link {
+  color: rgba(226, 232, 240, 0.92);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease;
+}
+
+.topbar__link:hover,
+.topbar__link:focus-visible {
+  color: #ffffff;
+  outline: none;
+}
+
+.topbar__link--active {
+  color: #7dd3fc;
+}
+
+.topbar__preferences {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.topbar__select {
+  appearance: none;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.7);
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.topbar__select:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 960px) {
+  .topbar {
+    display: none;
+  }
+}

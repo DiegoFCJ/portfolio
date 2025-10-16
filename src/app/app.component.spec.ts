@@ -6,6 +6,30 @@ import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
 import { AnalyticsService } from './services/analytics.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ThemeService } from './services/theme.service';
+import { ThemeKey } from './models/theme-key.type';
+import { LanguageCode } from './models/language-code.type';
+
+class MockThemeService {
+  private readonly themeSubject = new BehaviorSubject<ThemeKey>('dark');
+  readonly currentTheme$ = this.themeSubject.asObservable();
+
+  getAvailableThemes(): ThemeKey[] {
+    return ['light', 'dark', 'blue', 'green', 'red'];
+  }
+
+  getCurrentTheme(): ThemeKey {
+    return this.themeSubject.value;
+  }
+
+  setTheme(theme: ThemeKey): void {
+    this.themeSubject.next(theme);
+  }
+
+  getThemeLabel(_theme: ThemeKey, _language: LanguageCode): string {
+    return 'Theme';
+  }
+}
 
 describe('AppComponent', () => {
   let mockTranslationService: Partial<TranslationService>;
@@ -40,6 +64,7 @@ describe('AppComponent', () => {
         languageSubject.next(language);
       }),
       getTranslatedData: getTranslatedDataSpy as TranslationService['getTranslatedData'],
+      getCurrentLanguage: jasmine.createSpy('getCurrentLanguage').and.callFake(() => languageSubject.value),
     };
 
     analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView']);
@@ -48,6 +73,7 @@ describe('AppComponent', () => {
       imports: [RouterTestingModule, AppComponent],
       providers: [
         { provide: TranslationService, useValue: mockTranslationService },
+        { provide: ThemeService, useClass: MockThemeService },
         { provide: AnalyticsService, useValue: analyticsService },
       ],
     }).compileComponents();

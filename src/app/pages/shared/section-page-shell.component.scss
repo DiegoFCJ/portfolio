@@ -17,7 +17,7 @@
 .section-page-shell__floating {
   position: fixed;
   pointer-events: none;
-  z-index: 90;
+  z-index: var(--layer-floating-controls, 40);
 }
 
 .section-page-shell__floating app-assistant,

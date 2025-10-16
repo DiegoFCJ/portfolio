@@ -31,3 +31,11 @@
     <app-contact-me></app-contact-me>
   </section>
 </div>
+
+<div class="home__floating home__floating--navigator" *ngIf="isMobileViewport">
+  <app-navigator></app-navigator>
+</div>
+
+<div class="home__floating home__floating--assistant">
+  <app-assistant></app-assistant>
+</div>
