@@ -13,6 +13,11 @@
   gap: 3rem;
 }
 
+%privacy-card {
+  padding: 1.75rem;
+  border-radius: 1.25rem;
+}
+
 .privacy__header {
   display: flex;
   flex-direction: column;
@@ -47,16 +52,15 @@
 }
 
 .privacy__toc {
+  @extend %privacy-card;
   position: sticky;
   top: 6rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  padding: 1.75rem 1.5rem;
-  border-radius: 1.25rem;
-  background: var(--app-surface, rgba(255, 255, 255, 0.04));
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: var(--app-surface, rgba(255 255 255 / 0.04));
+  box-shadow: 0 18px 45px rgba(15 23 42 / 0.25);
+  border: 1px solid rgba(255 255 255 / 0.04);
 }
 
 .privacy__toc-title {
@@ -68,16 +72,13 @@
   color: var(--app-text-muted, #a3a3a3);
 }
 
-.privacy__toc-list {
+.privacy__toc-list,
+.privacy__contact-list {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
   gap: 0.75rem;
-}
-
-.privacy__toc-item {
-  margin: 0;
 }
 
 .privacy__toc-link {
@@ -87,7 +88,7 @@
   font-size: 0.95rem;
   color: var(--app-text-secondary, #d4d4d4);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 
   &::before {
     content: '';
@@ -96,7 +97,7 @@
     border-radius: 999px;
     background: color-mix(in srgb, var(--app-accent, #76e4ff) 60%, transparent);
     transform: scale(0.75);
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s, background 0.2s;
   }
 
   &:hover,
@@ -131,11 +132,10 @@
 }
 
 .privacy__section {
-  padding: 1.75rem;
-  border-radius: 1.25rem;
-  background: var(--app-surface, rgba(255, 255, 255, 0.05));
-  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  @extend %privacy-card;
+  background: var(--app-surface, rgba(255 255 255 / 0.05));
+  box-shadow: 0 22px 55px rgba(15 23 42 / 0.25);
+  border: 1px solid rgba(255 255 255 / 0.05);
 }
 
 .privacy__section-title {
@@ -166,8 +166,8 @@
   padding: 2rem;
   border-radius: 1.5rem;
   background: linear-gradient(135deg, rgba(14, 116, 144, 0.8), rgba(37, 99, 235, 0.8));
-  box-shadow: 0 25px 60px rgba(14, 116, 144, 0.35);
-  border: 1px solid rgba(118, 228, 255, 0.25);
+  box-shadow: 0 25px 60px rgba(14 116 144 / 0.35);
+  border: 1px solid rgba(118 228 255 / 0.25);
 }
 
 .privacy__contacts-header {
@@ -183,26 +183,18 @@
   gap: 0.5rem;
   padding: 0.65rem 1.6rem;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15 23 42 / 0.85);
   color: #f8fafc;
   font-weight: 600;
   text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 14px 30px rgba(15 23 42 / 0.35);
 
   &:hover,
   &:focus-visible {
     transform: translateY(-1px);
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(15 23 42 / 0.95);
   }
-}
-
-.privacy__contact-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.75rem;
 }
 
 .privacy__contact-item {
@@ -219,7 +211,7 @@
 .privacy__contact-link {
   color: #f8fafc;
   text-decoration: underline;
-  text-decoration-color: rgba(248, 250, 252, 0.45);
+  text-decoration-color: rgba(248 250 252 / 0.45);
   text-underline-offset: 0.2rem;
   word-break: break-word;
 
@@ -252,7 +244,7 @@
   .privacy__toc {
     position: static;
     order: 2;
-    background: var(--app-surface, rgba(255, 255, 255, 0.06));
+    background: var(--app-surface, rgba(255 255 255 / 0.06));
   }
 
   .privacy__content {
