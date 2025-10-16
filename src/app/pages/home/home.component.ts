@@ -8,6 +8,9 @@ import { EducationComponent } from '../../components/education/education.compone
 import { ExperiencesComponent } from '../../components/experiences/experiences.component';
 import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
+import { NavigatorComponent } from '../../components/navigator/navigator.component';
+import { ViewportService } from '../../services/viewport.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -22,8 +25,15 @@ import { ContactMeComponent } from '../../components/contact-me/contact-me.compo
     ExperiencesComponent,
     StatsComponent,
     ContactMeComponent,
+    NavigatorComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent { }
+export class HomeComponent {
+  protected readonly isMobileViewport$: Observable<boolean>;
+
+  constructor(private readonly viewportService: ViewportService) {
+    this.isMobileViewport$ = this.viewportService.isMobile$;
+  }
+}

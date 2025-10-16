@@ -5,6 +5,8 @@ import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
 import { APP_ENVIRONMENT } from '../../tokens/environment.token';
 import { EnvironmentConfig } from '../../../environments/environment';
+import { ViewportService } from '../../services/viewport.service';
+import { MockViewportService } from '../../testing/mock-viewport.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -15,6 +17,7 @@ describe('HomeComponent', () => {
       imports: [HomeComponent, NoopAnimationsModule],
       providers: [
         { provide: TranslationService, useClass: MockTranslationService },
+        { provide: ViewportService, useClass: MockViewportService },
         {
           provide: APP_ENVIRONMENT,
           useValue: {
