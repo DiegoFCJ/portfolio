@@ -39,6 +39,17 @@ svg {
 :root {
     --assistant-avatar-size-sm: 48px;
     --assistant-safe-area-bottom: 0px;
+    /*
+     * Layering scale for global UI elements (lower values are behind higher ones):
+     * base content (-1 / 0), section content (1), reserved topbar (30),
+     * floating controls (40), overlays (80) and dialogs (90).
+     */
+    --layer-section-effects: -1;
+    --layer-section-content: 1;
+    --layer-topbar: 30;
+    --layer-floating-controls: 40;
+    --layer-modal-overlay: 80;
+    --layer-modal-dialog: 90;
 }
 
 @supports (padding: env(safe-area-inset-bottom)) {
