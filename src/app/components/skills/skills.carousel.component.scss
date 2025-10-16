@@ -3,10 +3,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: min(100%, 540px);
+    margin-inline: auto;
     overflow: hidden;
-    padding-block: 1rem;
-        height: 100%;
+    padding: 1rem clamp(0.75rem, 5vw, 1.5rem);
+    box-sizing: border-box;
+    height: 100%;
 
     .carousel-wrapper {
         display: flex;
