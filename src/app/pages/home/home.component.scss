@@ -132,7 +132,6 @@
   z-index: 9999;
   pointer-events: none;
 
-  app-navigator,
   app-assistant,
   .home__stack-carousel-controls {
     pointer-events: auto;
@@ -141,11 +140,6 @@
 
 .home__floating-controls > *:not(:first-child) {
   margin-inline-start: calc(var(--floating-controls-gap) / 2);
-}
-
-.home__floating-controls--assistant-open app-navigator {
-  transition: transform 0.35s ease;
-  transform: translateY(-6px);
 }
 
 .home__floating-controls.home__floating-controls--assistant-open > *:not(:first-child) {

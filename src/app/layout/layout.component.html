@@ -1,0 +1,100 @@
+<div class="layout">
+  <header class="layout__header">
+    <div class="layout__bar">
+      <a class="layout__brand" [routerLink]="['/']">{{ appTitle$ | async }}</a>
+
+      <button
+        type="button"
+        class="layout__toggle"
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        aria-controls="layout-main-nav"
+        aria-label="Toggle navigation"
+      >
+        <span class="layout__toggle-line"></span>
+        <span class="layout__toggle-line"></span>
+        <span class="layout__toggle-line"></span>
+      </button>
+
+      <nav
+        id="layout-main-nav"
+        class="layout__nav"
+        role="navigation"
+        [class.layout__nav--open]="isMobileMenuOpen"
+      >
+        <ul class="layout__nav-list">
+          <li class="layout__nav-item" *ngFor="let link of navLinks; trackBy: trackByNavLinkId">
+            <a
+              class="layout__link"
+              [routerLink]="link.commands"
+              routerLinkActive="layout__link--active"
+              [routerLinkActiveOptions]="{ exact: link.exact ?? false }"
+              (click)="closeMobileMenu()"
+            >
+              {{ link.label$ | async }}
+            </a>
+          </li>
+        </ul>
+
+        <div class="layout__actions">
+          <div class="layout__action-group" [class.layout__action-group--open]="isThemeMenuOpen">
+            <button
+              type="button"
+              class="layout__action-trigger"
+              (click)="toggleThemeMenu()"
+              [attr.aria-expanded]="isThemeMenuOpen"
+              [attr.aria-label]="getTooltip('theme')"
+            >
+              <mat-icon aria-hidden="true">{{ getThemeIcon(currentTheme) }}</mat-icon>
+              <span class="layout__action-label">{{ getTooltip('theme') }}</span>
+            </button>
+            <ul class="layout__menu" *ngIf="isThemeMenuOpen">
+              <li class="layout__menu-item" *ngFor="let theme of availableThemes">
+                <button
+                  type="button"
+                  class="layout__menu-button"
+                  (click)="changeTheme(theme)"
+                  [class.layout__menu-button--active]="currentTheme === theme"
+                >
+                  <mat-icon aria-hidden="true">{{ getThemeIcon(theme) }}</mat-icon>
+                  <span>{{ getThemeName(theme) }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="layout__action-group" [class.layout__action-group--open]="isLanguageMenuOpen">
+            <button
+              type="button"
+              class="layout__action-trigger"
+              (click)="toggleLanguageMenu()"
+              [attr.aria-expanded]="isLanguageMenuOpen"
+              [attr.aria-label]="getTooltip('language')"
+            >
+              <span class="layout__language-code">{{ currentLanguage | uppercase }}</span>
+              <span class="layout__action-label">{{ getTooltip('language') }}</span>
+            </button>
+            <ul class="layout__menu" *ngIf="isLanguageMenuOpen">
+              <li class="layout__menu-item" *ngFor="let language of availableLanguages">
+                <button
+                  type="button"
+                  class="layout__menu-button layout__menu-button--language"
+                  (click)="changeLanguage(language)"
+                >
+                  <span class="layout__language-code">{{ language | uppercase }}</span>
+                  <span>{{ getLanguageName(language) }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout__backdrop" *ngIf="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+
+  <main class="layout__content">
+    <router-outlet />
+  </main>
+</div>

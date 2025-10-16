@@ -16,7 +16,6 @@ import { ProjectsComponent } from '../../components/projects/projects.component'
 import { AboutComponent } from '../../components/about/about.component';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { SkillsComponent } from '../../components/skills/skills.component';
-import { NavigatorComponent } from '../../components/navigator/navigator.component';
 import { EducationComponent } from '../../components/education/education.component';
 import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
@@ -34,7 +33,6 @@ import { LanguageCode } from '../../models/language-code.type';
     AboutComponent,
     HeroComponent,
     SkillsComponent,
-    NavigatorComponent,
     AssistantComponent,
     EducationComponent,
     StatsComponent,
