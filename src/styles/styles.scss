@@ -11,6 +11,7 @@
 @use 'components/projects';
 @use 'components/education';
 @use 'components/skills';
+@use 'components/topbar';
 @use 'components/navigator';
 @use 'components/footer';
 @use 'components/stats' as stats_component;
@@ -40,6 +41,7 @@ svg {
 :root {
     --assistant-avatar-size-sm: 48px;
     --assistant-safe-area-bottom: 0px;
+    --topbar-height: clamp(3.5rem, 6vw, 4.25rem);
     /*
      * Layering scale for global UI elements (lower values are behind higher ones):
      * base content (-1 / 0), section content (1), reserved topbar (30),
@@ -78,6 +80,13 @@ body {
     overflow-x: hidden;
     --section-transition-glow: rgba(148, 163, 184, 0.18);
     background-color: inherit;
+    padding-top: var(--topbar-height);
+}
+
+@media (max-width: 960px) {
+    body {
+        padding-top: 0;
+    }
 }
 
 body.home-scroll-snapping {

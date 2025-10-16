@@ -1,0 +1,43 @@
+<header class="topbar" role="banner">
+  <div class="topbar__inner">
+    <a class="topbar__brand" routerLink="/" aria-label="Mirko Bottazzo home">Mirko Bottazzo</a>
+
+    <nav class="topbar__nav" aria-label="Primary">
+      <a
+        *ngFor="let item of navigationItems; trackBy: trackByRoute"
+        [routerLink]="item.route"
+        routerLinkActive="topbar__link--active"
+        [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+        class="topbar__link"
+      >
+        {{ item.label }}
+      </a>
+    </nav>
+
+    <div class="topbar__preferences">
+      <label class="visually-hidden" for="topbar-language">{{ languageLabel }}</label>
+      <select
+        id="topbar-language"
+        class="topbar__select"
+        [value]="currentLanguage"
+        (change)="onSelectLanguage($any($event.target).value)"
+      >
+        <option *ngFor="let language of languages" [value]="language">
+          {{ language | uppercase }}
+        </option>
+      </select>
+
+      <label class="visually-hidden" for="topbar-theme">{{ themeLabel }}</label>
+      <select
+        id="topbar-theme"
+        class="topbar__select"
+        [value]="currentTheme"
+        (change)="onSelectTheme($any($event.target).value)"
+      >
+        <option *ngFor="let theme of themes" [value]="theme">
+          {{ getThemeLabel(theme) }}
+        </option>
+      </select>
+    </div>
+  </div>
+</header>
