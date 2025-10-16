@@ -120,7 +120,9 @@ app-skills .skills-section {
   inline-size: 100%;
   block-size: 100vh;
   min-block-size: 100%;
-  padding: clamp(1rem, 1vw, 1rem) clamp(1rem, 1vw, 1rem);
+  padding-block-start: 0;
+  padding-block-end: clamp(1rem, 1vw, 1rem);
+  padding-inline: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -368,7 +370,9 @@ app-skills .skill-icon.clicked .icon-asset img {
 
   app-skills .skills-section {
     block-size: 100%;
-    padding: clamp(2rem, 6vw, 3.25rem) clamp(1rem, 5vw, 2.5rem);
+    padding-block-start: 0;
+    padding-block-end: clamp(2rem, 6vw, 3.25rem);
+    padding-inline: 0;
   }
 
   app-skills .spotlight-icons {

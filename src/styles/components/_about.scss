@@ -75,7 +75,9 @@ app-about .about-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: clamp(1rem, 1vw, 1rem) clamp(1rem, 1vw, 1rem);
+    padding-block-start: 0;
+    padding-block-end: clamp(1rem, 1vw, 1rem);
+    padding-inline: 0;
     background: var(--about-section-bg);
     overflow: auto;
 }
@@ -206,7 +208,9 @@ app-about .about-skeleton__list {
 
 @media (max-width: 992px) {
     app-about .about-section {
-        padding: clamp(1rem, 1vw, 1rem) clamp(1rem, 1vw, 1rem);
+        padding-block-start: 0;
+        padding-block-end: clamp(1rem, 1vw, 1rem);
+        padding-inline: 0;
     }
 
     app-about .about-container {
@@ -234,8 +238,10 @@ app-about .about-skeleton__list {
 
 @media (max-width: 420px) {
     app-about .about-section {
-    block-size: 100%;
-        padding: clamp(1rem, 1vw, 1rem) clamp(1rem, 1vw, 1rem);
+        block-size: 100%;
+        padding-block-start: 0;
+        padding-block-end: clamp(1rem, 1vw, 1rem);
+        padding-inline: 0;
     }
 
     app-about .about-body {

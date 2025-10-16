@@ -3,5 +3,6 @@
 }
 
 .layout__main {
+  padding-top: calc(clamp(2.5rem, 3vw, 4.25rem) + 1.5rem);
   min-height: 100vh;
 }

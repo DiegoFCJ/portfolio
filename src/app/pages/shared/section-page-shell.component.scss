@@ -4,7 +4,9 @@
 
 .section-page-shell {
   position: relative;
-  padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 3.5rem);
+  padding-block-start: 0;
+  padding-block-end: clamp(3rem, 8vw, 5rem);
+  padding-inline: 0;
   display: flex;
   justify-content: center;
   min-height: 100vh;
@@ -37,7 +39,7 @@
 
 @media (max-width: 960px) {
   .section-page-shell {
-    padding-bottom: clamp(5rem, 14vw, 8rem);
+    padding-block-end: clamp(5rem, 14vw, 8rem);
   }
 }
 
