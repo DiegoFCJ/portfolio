@@ -1,0 +1,57 @@
+@use '../variables' as *;
+
+:root {
+    --footer-background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+    --footer-text-color: #f8fafc;
+    --footer-accent-color: #facc15;
+    --footer-border-color: rgba(148, 163, 184, 0.2);
+    --footer-shadow-color: rgba(15, 23, 42, 0.35);
+    --footer-padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+body.light-mode,
+body:not(.dark-mode):not(.blue-mode):not(.green-mode):not(.red-mode) {
+    --footer-background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.85));
+    --footer-text-color: #f8fafc;
+    --footer-accent-color: #facc15;
+    --footer-border-color: rgba(15, 23, 42, 0.25);
+    --footer-shadow-color: rgba(15, 23, 42, 0.35);
+}
+
+body.dark-mode {
+    --footer-background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.92));
+    --footer-text-color: #e2e8f0;
+    --footer-accent-color: #fbbf24;
+    --footer-border-color: rgba(148, 163, 184, 0.28);
+    --footer-shadow-color: rgba(2, 6, 23, 0.45);
+}
+
+body.blue-mode {
+    --footer-background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(3, 105, 161, 0.9));
+    --footer-text-color: #e0f2fe;
+    --footer-accent-color: #38bdf8;
+    --footer-border-color: rgba(56, 189, 248, 0.35);
+    --footer-shadow-color: rgba(3, 105, 161, 0.45);
+}
+
+body.green-mode {
+    --footer-background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 118, 110, 0.9));
+    --footer-text-color: #dcfce7;
+    --footer-accent-color: #34d399;
+    --footer-border-color: rgba(16, 185, 129, 0.4);
+    --footer-shadow-color: rgba(6, 78, 59, 0.45);
+}
+
+body.red-mode {
+    --footer-background: linear-gradient(180deg, rgba(88, 28, 28, 0.95), rgba(127, 29, 29, 0.9));
+    --footer-text-color: #fee2e2;
+    --footer-accent-color: #f87171;
+    --footer-border-color: rgba(239, 68, 68, 0.4);
+    --footer-shadow-color: rgba(127, 29, 29, 0.45);
+}
+
+@media (max-width: 600px) {
+    :root {
+        --footer-padding-inline: clamp(1rem, 5vw, 1.5rem);
+    }
+}

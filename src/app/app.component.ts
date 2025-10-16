@@ -21,14 +21,16 @@ import {
 } from './constants/meta.const';
 import { AnalyticsService } from './services/analytics.service';
 import { CookieConsentComponent } from './components/cookie-consent/cookie-consent.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CookieConsentComponent],
+  imports: [RouterOutlet, CookieConsentComponent, FooterComponent],
   template: `
     <app-cookie-consent (consentChange)="onConsentChange($event)"></app-cookie-consent>
     <router-outlet />
+    <app-footer></app-footer>
   `,
 })
 export class AppComponent implements OnInit {

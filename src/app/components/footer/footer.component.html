@@ -1,0 +1,15 @@
+<footer class="site-footer" aria-label="Piè di pagina">
+  <div class="footer-content">
+    <p class="footer-copy">&copy; {{ currentYear }} Portfolio. Tutti i diritti riservati.</p>
+    <nav class="footer-nav" aria-label="Link rapidi">
+      <a
+        *ngFor="let item of quickLinks"
+        class="footer-link"
+        [routerLink]="item.link"
+        [fragment]="item.fragment"
+      >
+        {{ item.label }}
+      </a>
+    </nav>
+  </div>
+</footer>
