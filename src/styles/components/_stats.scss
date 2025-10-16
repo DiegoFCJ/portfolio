@@ -65,7 +65,9 @@ app-stats {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: clamp(2.25rem, 6vh, 4.25rem) clamp(1rem, 5vw, 3rem);
+        padding-block-start: 0;
+        padding-block-end: clamp(2.25rem, 6vh, 4.25rem);
+        padding-inline: 0;
         background: var(--stat-surface);
         overflow: hidden;
         isolation: isolate;
