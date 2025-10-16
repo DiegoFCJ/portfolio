@@ -58,25 +58,24 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     },
     desktop: {
       intro:
-        'Du nutzt das Portfolio am Desktop? So holst du das Beste aus allen Steuerelementen heraus.',
+        'Du nutzt das Portfolio am Desktop? So navigierst du komfortabel durch die neuen Seiten.',
       steps: [
-        'Öffne die Navigationsleiste mit der Chevron-nach-unten-Schaltfläche unten rechts auf dem Bildschirm.',
-        'Wechsle zwischen den Abschnitten mit den Pfeilen nach oben und unten in der Navbar; alternativ kannst du auch mit dem Mausrad scrollen.',
-        'Fahre mit der Maus über eine beliebige Schaltfläche, um einen Hinweis zu sehen, der ihre Funktion erklärt.',
-        'Die Schaltflächen für Thema und Sprache öffnen links horizontale Untermenüs, damit du deine Einstellungen anpassen kannst.',
-        'Im Abschnitt Kennzahlen ist jede Karte anklickbar und öffnet einen Dialog mit Details zur Berechnung der Zahl.'
+        'Die obere Navigationsleiste bleibt stets sichtbar – nutze Home, Projekte, Fähigkeiten, Erfahrungen und Kontakt, um zwischen den Seiten zu wechseln.',
+        'Scrolle frei durch jede Seite; die Leiste folgt dir, sodass du jederzeit die Sektion wechseln kannst.',
+        'Über die Menüs Sprache und Thema stellst du Übersetzung und Farbschema nach Wunsch ein.',
+        'Alle Inhalte der Startseite findest du auch auf den Unterseiten in einer übersichtlichen vertikalen Darstellung.',
+        'Im Bereich Kennzahlen öffnet jede Karte einen Dialog mit Details zur Berechnung.'
       ]
     },
     mobile: {
       intro:
-        'Auf dem Smartphone erwarten dich touchfreundliche Steuerelemente – folge diesen kurzen Schritten.',
+        'Auf dem Smartphone sorgt eine kompakte Topbar für Übersicht – so verwendest du sie.',
       steps: [
-        'Öffne die Navigationsleiste mit der Chevron-nach-unten-Schaltfläche unten rechts auf dem Bildschirm.',
-        'Navigiere zwischen den Abschnitten mit den Pfeilen nach oben und unten in der Navbar oder streiche mit den Fingern.',
-        'Halte eine Schaltfläche gedrückt, um einen Hinweis zu sehen, der ihre Aktion beschreibt.',
-        'Die Schaltflächen für Thema und Sprache öffnen links horizontale Untermenüs, damit du deine Einstellungen sofort ändern kannst.',
-        'Im Abschnitt Tech-Stack wählst du zwischen Back, Front und Tooling: Es erscheint ein Karussell und die Navbar erhält linke und rechte Pfeile, um durch die Skill-Karten zu blättern.',
-        'Im Abschnitt Kennzahlen ist jede Karte antippbar und öffnet einen Dialog mit Details zur Berechnung der Zahl.'
+        'Öffne das Menü über die Schaltfläche oben rechts und wähle die gewünschte Seite.',
+        'Die Leiste bleibt oben angeheftet; nach dem Antippen schließt sich das Menü automatisch.',
+        'Sprache und Thema findest du im selben Menü – passe Übersetzung und Farbstil in Sekunden an.',
+        'Die Seiten sind für vertikales Scrollen optimiert, also streiche bequem durch die Inhalte.',
+        'Im Bereich Kennzahlen kannst du jede Karte antippen, um einen Dialog mit weiteren Details zu öffnen.'
       ]
     }
   },
@@ -89,25 +88,24 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     },
     desktop: {
       intro:
-        'Se stai usando il portfolio da PC, ecco come sfruttare al meglio ogni controllo.',
+        'Se stai usando il portfolio da PC, ecco come sfruttare la nuova navigazione.',
       steps: [
-        'Apri la barra di navigazione con il pulsante con il chevron verso il basso in basso a destra dello schermo.',
-        'Naviga tra le sezioni con le frecce su e giù della navbar; in alternativa puoi scorrere anche con la rotella del mouse.',
-        'Passando il mouse sopra i pulsanti compare un suggerimento che descrive la loro azione.',
-        'I pulsanti del tema e della lingua aprono sottomenu orizzontali a sinistra per scegliere impostazioni personalizzate.',
+        'La barra superiore resta sempre visibile: usa Home, Progetti, Competenze, Esperienze e Contatti per raggiungere le pagine dedicate.',
+        'Puoi scorrere liberamente ogni pagina: la barra ti segue così puoi cambiare sezione in qualsiasi momento.',
+        'Nel menu della lingua scegli la traduzione preferita; il selettore Tema cambia la palette di colori.',
+        'Le stesse informazioni della landing sono disponibili anche nelle pagine dedicate, organizzate in verticale.',
         'Nella sezione Numeri chiave ogni card è cliccabile e apre un dialog con dettagli sul calcolo del numero corrispondente.'
       ]
     },
     mobile: {
       intro:
-        'Da smartphone il portfolio offre comandi dedicati al tocco: segui questi passaggi rapidi.',
+        'Su smartphone trovi una topbar compatta: ecco come usarla al meglio.',
       steps: [
-        'Apri la barra di navigazione con il pulsante con il chevron verso il basso in basso a destra dello schermo.',
-        'Muoviti tra le sezioni con le frecce su e giù della navbar; se preferisci puoi anche scorrere con le dita.',
-        'Tieni premuto un pulsante per mostrare il suggerimento che spiega la sua funzione.',
-        'I pulsanti del tema e della lingua aprono sottomenu orizzontali a sinistra per modificare rapidamente le impostazioni.',
-        'Nella sezione Stack tecnologico scegli tra back, front e tooling: si apre un carosello che aggiunge le frecce sinistra e destra alla navbar per esplorare le card di competenze.',
-        'Nella sezione Numeri chiave ogni card è cliccabile e apre un dialog con dettagli sul calcolo del numero corrispondente.'
+        'Apri il menu con il pulsante in alto a destra e scegli la pagina che vuoi visitare.',
+        'La barra resta fissata in alto: dopo aver toccato una voce il menu si richiude automaticamente.',
+        'Gli switch di lingua e tema si trovano nello stesso menu: seleziona la combinazione che preferisci.',
+        'Ogni pagina è ottimizzata per lo scorrimento verticale, quindi puoi navigare con un semplice swipe.',
+        'Le card dei Numeri chiave sono interattive: toccale per leggere le spiegazioni dettagliate.'
       ]
     }
   },
@@ -120,24 +118,23 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     },
     desktop: {
       intro:
-        "Browsing from a desktop? Here's how to make the most of every control.",
+        "Browsing from a desktop? Here's how to make the most of the new navigation.",
       steps: [
-        'Open the navigation bar with the chevron-down button in the lower-right corner.',
-        'Move between sections with the navbar up and down arrows; you can also scroll with the mouse wheel if you prefer.',
-        'Hover any button to reveal a tooltip that explains what it does.',
-        'Theme and language buttons open horizontal submenus on the left so you can adjust your preferences.',
-        'In the Key numbers section each card is clickable and opens a dialog with insights on how that number is calculated.'
+        'The top bar stays visible at all times—use Home, Projects, Skills, Experiences and Contacts to jump between dedicated pages.',
+        'Scroll freely within each page; the bar follows you so you can switch section whenever you like.',
+        'Use the Language menu to pick your preferred translation and the Theme selector to change the colour palette.',
+        'Every page reprises the landing content in a vertical layout, so you can explore each topic at your own pace.',
+        'In the Key numbers section each card opens a dialog with details about how the metric is calculated.'
       ]
     },
     mobile: {
-      intro: "On mobile you get touch-friendly controls—follow these quick steps.",
+      intro: 'On mobile you get a compact top bar—follow these quick tips.',
       steps: [
-        'Open the navigation bar with the chevron-down button in the lower-right corner.',
-        'Use the navbar up and down arrows to switch sections, or swipe with your fingers if you like.',
-        'Long-press a button to display a hint describing its action.',
-        'Theme and language buttons open horizontal submenus on the left so you can switch settings instantly.',
-        'In the Tech stack section choose between back, front and tooling: a carousel appears and adds left and right arrows to the navbar to browse the skill cards.',
-        'In the Key numbers section each card is clickable and opens a dialog with insights on how that number is calculated.'
+        'Open the menu with the button in the upper-right corner and pick the page you need.',
+        'The bar stays fixed at the top; after tapping an item the menu closes automatically.',
+        'Language and Theme selectors live in the same menu so you can adjust style and translation instantly.',
+        'Every page is optimised for vertical scrolling, so swipe through the content just like a standard app.',
+        'Key numbers cards remain interactive: tap them to read the detailed explanations.'
       ]
     }
   },
@@ -149,24 +146,23 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       description: 'På den dedikerte siden finner du detaljer om cookies, databruk og kontaktpunkter.'
     },
     desktop: {
-      intro: 'Bruker du porteføljen på PC? Slik får du mest ut av hver kontroll.',
+      intro: 'Bruker du porteføljen på PC? Slik får du mest ut av den nye navigasjonen.',
       steps: [
-        'Åpne navigasjonsfeltet med chevron-ned-knappen nederst til høyre.',
-        'Bytt mellom seksjonene med pil opp og pil ned i navigasjonen; du kan også rulle med musehjulet hvis du foretrekker det.',
-        'Hold musepekeren over en knapp for å vise et hint om hva den gjør.',
-        'Tema- og språkknappene åpner horisontale undermenyer til venstre slik at du kan justere innstillingene dine.',
-        'I seksjonen Nøkkeltall er hvert kort klikkbart og åpner en dialog med innsikt i hvordan tallet er beregnet.'
+        'Den øvre navigasjonslinjen er alltid synlig – bruk Hjem, Prosjekter, Kompetanser, Erfaringer og Kontakt for å hoppe mellom sidene.',
+        'Du kan bla fritt på hver side; linjen følger deg slik at du kan bytte seksjon når som helst.',
+        'Språk- og temavelgerne lar deg endre oversettelse og fargepalett etter behov.',
+        'Innholdet fra landingssiden finnes også på de dedikerte sidene i et ryddig vertikalt oppsett.',
+        'I seksjonen Nøkkeltall kan du åpne et dialogvindu fra hver kort for å lese hvordan tallet er beregnet.'
       ]
     },
     mobile: {
-      intro: 'På mobil får du berøringsvennlige kontroller – følg disse raske trinnene.',
+      intro: 'På mobil får du en kompakt topplinje – følg disse tipsene.',
       steps: [
-        'Åpne navigasjonsfeltet med knappen med nedovervendt chevron nederst til høyre.',
-        'Bruk pil opp og pil ned i navigasjonen, eller sveip med fingrene for å bytte seksjon.',
-        'Hold inne en knapp for å vise et hint som forklarer funksjonen.',
-        'Tema- og språkknappene åpner horisontale undermenyer til venstre for å endre innstillingene på et øyeblikk.',
-        'I seksjonen Teknologistack velger du mellom back, front og tooling: en karusell vises og legger til venstre- og høyrepiler i navigasjonen for å bla gjennom ferdighetskortene.',
-        'I seksjonen Nøkkeltall kan hvert kort trykkes på for å åpne en dialog med detaljer om hvordan tallet er beregnet.'
+        'Åpne menyen med knappen øverst til høyre og velg siden du trenger.',
+        'Linjen blir liggende øverst; menyen lukkes automatisk etter at du har trykket på et element.',
+        'Språk- og temavalgene ligger i den samme menyen, så du kan endre stil og språk med et trykk.',
+        'Hver side er tilpasset vertikal scrolling, så sveip gjennom innholdet som i en vanlig app.',
+        'I Nøkkeltall er hvert kort interaktivt – trykk for å lese de detaljerte forklaringene.'
       ]
     }
   },
@@ -178,24 +174,23 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       description: 'На отдельной странице описаны cookies, обработка данных и способы связи.'
     },
     desktop: {
-      intro: 'Просматриваете с компьютера? Вот как использовать все элементы управления.',
+      intro: 'Просматриваете портфолио с компьютера? Вот как использовать обновлённую навигацию.',
       steps: [
-        'Откройте панель навигации кнопкой со стрелкой вниз в правом нижнем углу.',
-        'Переключайте разделы стрелками вверх и вниз на навбаре; при желании можно прокручивать колесом мыши.',
-        'Наведите курсор на любую кнопку, чтобы увидеть подсказку с описанием действия.',
-        'Кнопки темы и языка открывают горизонтальные подменю слева, где можно настроить параметры.',
-        'В разделе «Ключевые показатели» каждую карточку можно нажать, чтобы открыть диалог с пояснением расчёта.'
+        'Верхняя панель всегда остаётся на виду: используйте пункты «Главная», «Проекты», «Навыки», «Опыт» и «Контакты», чтобы переходить между страницами.',
+        'Прокручивайте содержимое любой страницы как обычно — панель остаётся закреплённой, поэтому сменить раздел можно в любой момент.',
+        'В меню языка выберите нужную локализацию, а переключатель темы изменит цветовую палитру.',
+        'Все материалы из лендинга доступны и на отдельных страницах в удобном вертикальном формате.',
+        'В разделе «Ключевые показатели» каждая карточка открывает диалог с подробностями расчёта.'
       ]
     },
     mobile: {
-      intro: 'На мобильном доступны элементы управления под касание — выполните эти шаги.',
+      intro: 'На мобильных устройствах доступна компактная верхняя панель — вот как ей пользоваться.',
       steps: [
-        'Откройте панель навигации кнопкой со стрелкой вниз в правом нижнем углу.',
-        'Переключайте разделы стрелками вверх и вниз или свайпайте пальцами.',
-        'Удерживайте кнопку, чтобы увидеть подсказку с описанием действия.',
-        'Кнопки темы и языка открывают горизонтальные подменю слева для быстрого изменения настроек.',
-        'В разделе «Технологический стек» выберите back, front или tooling: появится карусель и в навигации добавятся стрелки влево и вправо для просмотра карточек навыков.',
-        'В разделе «Ключевые показатели» каждую карточку можно нажать, чтобы открыть диалог с деталями расчёта.'
+        'Откройте меню кнопкой в правом верхнем углу и выберите нужную страницу.',
+        'Панель остаётся закреплённой сверху; после нажатия пункт меню закрывается автоматически.',
+        'Переключатели языка и темы находятся в том же меню, поэтому изменить стиль и перевод можно мгновенно.',
+        'Каждая страница оптимизирована под вертикальную прокрутку — просто пролистывайте содержимое жестами.',
+        'Карточки раздела «Ключевые показатели» интерактивны: нажмите, чтобы увидеть подробные пояснения.'
       ]
     }
   },
@@ -209,24 +204,23 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     },
     desktop: {
       intro:
-        '¿Usas el portafolio desde el ordenador? Así sacas el máximo partido de cada control.',
+        '¿Usas el portafolio desde el ordenador? Así aprovechas la nueva navegación.',
       steps: [
-        'Abre la barra de navegación con el botón del chevron hacia abajo en la esquina inferior derecha de la pantalla.',
-        'Cambia de sección con las flechas arriba y abajo de la barra; si lo prefieres, también puedes desplazarte con la rueda del ratón.',
-        'Pasa el cursor sobre cualquier botón para mostrar una pista que explique su acción.',
-        'Los botones de tema e idioma abren submenús horizontales a la izquierda para que ajustes tus preferencias.',
-        'En la sección Números clave cada tarjeta se puede pulsar y abre un diálogo con detalles sobre cómo se calcula la cifra.'
+        'La barra superior permanece siempre visible: usa Inicio, Proyectos, Competencias, Experiencias y Contactos para saltar entre las páginas.',
+        'Puedes desplazarte libremente por cada página; la barra te acompaña para que cambies de sección cuando quieras.',
+        'El selector de idioma y el de tema te permiten ajustar la traducción y la paleta de colores al instante.',
+        'El contenido de la landing también está disponible en las páginas dedicadas con un diseño vertical y cómodo.',
+        'En la sección Números clave cada tarjeta abre un diálogo con detalles sobre cómo se calcula la cifra.'
       ]
     },
     mobile: {
-      intro: 'En el móvil tienes controles pensados para el tacto: sigue estos pasos rápidos.',
+      intro: 'En el móvil tienes una barra superior compacta: sigue estos consejos.',
       steps: [
-        'Abre la barra de navegación con el botón del chevron hacia abajo en la esquina inferior derecha de la pantalla.',
-        'Muévete entre secciones con las flechas arriba y abajo de la barra o desliza con los dedos.',
-        'Mantén pulsado un botón para mostrar una pista que describa su función.',
-        'Los botones de tema e idioma abren submenús horizontales a la izquierda para que cambies la configuración al instante.',
-        'En la sección Stack tecnológico elige entre back, front y tooling: aparece un carrusel y se añaden flechas izquierda y derecha a la barra para recorrer las tarjetas de habilidades.',
-        'En la sección Números clave cada tarjeta se puede pulsar y abre un diálogo con detalles sobre cómo se calcula la cifra.'
+        'Abre el menú con el botón de la esquina superior derecha y elige la página que necesitas.',
+        'La barra queda fija arriba; después de tocar una opción el menú se cierra automáticamente.',
+        'Los selectores de idioma y tema están en el mismo menú, así puedes cambiar estilo y traducción al instante.',
+        'Cada página está optimizada para el desplazamiento vertical, así que desliza el contenido como en cualquier app.',
+        'Las tarjetas de Números clave siguen siendo interactivas: tócalas para leer las explicaciones detalladas.'
       ]
     }
   }
