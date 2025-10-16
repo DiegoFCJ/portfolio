@@ -60,8 +60,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         'Du nutzt das Portfolio am Desktop? So navigierst du komfortabel durch die neuen Seiten.',
       steps: [
-        'Die obere Navigationsleiste bleibt stets sichtbar – nutze Home, Projekte, Fähigkeiten, Erfahrungen und Kontakt, um zwischen den Seiten zu wechseln.',
-        'Scrolle frei durch jede Seite; die Leiste folgt dir, sodass du jederzeit die Sektion wechseln kannst.',
+        'Die fixierte Topbar bleibt stets sichtbar – nutze Home, Projekte, Fähigkeiten, Erfahrungen und Kontakt, um zwischen den Seiten zu wechseln.',
+        'Scrolle frei durch jede Seite; die Topbar folgt dir, sodass du jederzeit die Sektion wechseln kannst.',
         'Über die Menüs Sprache und Thema stellst du Übersetzung und Farbschema nach Wunsch ein.',
         'Alle Inhalte der Startseite findest du auch auf den Unterseiten in einer übersichtlichen vertikalen Darstellung.',
         'Im Bereich Kennzahlen öffnet jede Karte einen Dialog mit Details zur Berechnung.'
@@ -71,8 +71,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         'Auf dem Smartphone sorgt eine kompakte Topbar für Übersicht – so verwendest du sie.',
       steps: [
-        'Öffne das Menü über die Schaltfläche oben rechts und wähle die gewünschte Seite.',
-        'Die Leiste bleibt oben angeheftet; nach dem Antippen schließt sich das Menü automatisch.',
+        'Öffne das Seitenmenü über den neuen Button oben rechts und wähle die gewünschte Ansicht.',
+        'Die Topbar bleibt oben angeheftet; nach dem Antippen schließt sich das Menü automatisch.',
         'Sprache und Thema findest du im selben Menü – passe Übersetzung und Farbstil in Sekunden an.',
         'Die Seiten sind für vertikales Scrollen optimiert, also streiche bequem durch die Inhalte.',
         'Im Bereich Kennzahlen kannst du jede Karte antippen, um einen Dialog mit weiteren Details zu öffnen.'
@@ -90,8 +90,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         'Se stai usando il portfolio da PC, ecco come sfruttare la nuova navigazione.',
       steps: [
-        'La barra superiore resta sempre visibile: usa Home, Progetti, Competenze, Esperienze e Contatti per raggiungere le pagine dedicate.',
-        'Puoi scorrere liberamente ogni pagina: la barra ti segue così puoi cambiare sezione in qualsiasi momento.',
+        'La topbar fissa resta sempre visibile: usa Home, Progetti, Competenze, Esperienze e Contatti per raggiungere le pagine dedicate.',
+        'Puoi scorrere liberamente ogni pagina: la topbar ti segue così puoi cambiare sezione in qualsiasi momento.',
         'Nel menu della lingua scegli la traduzione preferita; il selettore Tema cambia la palette di colori.',
         'Le stesse informazioni della landing sono disponibili anche nelle pagine dedicate, organizzate in verticale.',
         'Nella sezione Numeri chiave ogni card è cliccabile e apre un dialog con dettagli sul calcolo del numero corrispondente.'
@@ -101,8 +101,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         'Su smartphone trovi una topbar compatta: ecco come usarla al meglio.',
       steps: [
-        'Apri il menu con il pulsante in alto a destra e scegli la pagina che vuoi visitare.',
-        'La barra resta fissata in alto: dopo aver toccato una voce il menu si richiude automaticamente.',
+        'Apri il menu pagine con il nuovo pulsante in alto a destra e scegli la vista che vuoi visitare.',
+        'La topbar resta fissata in alto: dopo aver toccato una voce il menu si richiude automaticamente.',
         'Gli switch di lingua e tema si trovano nello stesso menu: seleziona la combinazione che preferisci.',
         'Ogni pagina è ottimizzata per lo scorrimento verticale, quindi puoi navigare con un semplice swipe.',
         'Le card dei Numeri chiave sono interattive: toccale per leggere le spiegazioni dettagliate.'
@@ -120,8 +120,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         "Browsing from a desktop? Here's how to make the most of the new navigation.",
       steps: [
-        'The top bar stays visible at all times—use Home, Projects, Skills, Experiences and Contacts to jump between dedicated pages.',
-        'Scroll freely within each page; the bar follows you so you can switch section whenever you like.',
+        'The fixed top bar stays visible at all times—use Home, Projects, Skills, Experiences and Contacts to jump between dedicated pages.',
+        'Scroll freely within each page; the top bar follows you so you can switch section whenever you like.',
         'Use the Language menu to pick your preferred translation and the Theme selector to change the colour palette.',
         'Every page reprises the landing content in a vertical layout, so you can explore each topic at your own pace.',
         'In the Key numbers section each card opens a dialog with details about how the metric is calculated.'
@@ -130,8 +130,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     mobile: {
       intro: 'On mobile you get a compact top bar—follow these quick tips.',
       steps: [
-        'Open the menu with the button in the upper-right corner and pick the page you need.',
-        'The bar stays fixed at the top; after tapping an item the menu closes automatically.',
+        'Open the pages menu with the new button in the upper-right corner and pick the view you need.',
+        'The top bar stays fixed at the top; after tapping an item the menu closes automatically.',
         'Language and Theme selectors live in the same menu so you can adjust style and translation instantly.',
         'Every page is optimised for vertical scrolling, so swipe through the content just like a standard app.',
         'Key numbers cards remain interactive: tap them to read the detailed explanations.'
@@ -148,8 +148,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     desktop: {
       intro: 'Bruker du porteføljen på PC? Slik får du mest ut av den nye navigasjonen.',
       steps: [
-        'Den øvre navigasjonslinjen er alltid synlig – bruk Hjem, Prosjekter, Kompetanser, Erfaringer og Kontakt for å hoppe mellom sidene.',
-        'Du kan bla fritt på hver side; linjen følger deg slik at du kan bytte seksjon når som helst.',
+        'Den fastlåste topplinjen er alltid synlig – bruk Hjem, Prosjekter, Kompetanser, Erfaringer og Kontakt for å hoppe mellom sidene.',
+        'Du kan bla fritt på hver side; topplinjen følger deg slik at du kan bytte seksjon når som helst.',
         'Språk- og temavelgerne lar deg endre oversettelse og fargepalett etter behov.',
         'Innholdet fra landingssiden finnes også på de dedikerte sidene i et ryddig vertikalt oppsett.',
         'I seksjonen Nøkkeltall kan du åpne et dialogvindu fra hver kort for å lese hvordan tallet er beregnet.'
@@ -158,8 +158,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     mobile: {
       intro: 'På mobil får du en kompakt topplinje – følg disse tipsene.',
       steps: [
-        'Åpne menyen med knappen øverst til høyre og velg siden du trenger.',
-        'Linjen blir liggende øverst; menyen lukkes automatisk etter at du har trykket på et element.',
+        'Åpne sidenmenyen med den nye knappen øverst til høyre og velg visningen du trenger.',
+        'Topplinjen blir liggende øverst; menyen lukkes automatisk etter at du har trykket på et element.',
         'Språk- og temavalgene ligger i den samme menyen, så du kan endre stil og språk med et trykk.',
         'Hver side er tilpasset vertikal scrolling, så sveip gjennom innholdet som i en vanlig app.',
         'I Nøkkeltall er hvert kort interaktivt – trykk for å lese de detaljerte forklaringene.'
@@ -176,8 +176,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     desktop: {
       intro: 'Просматриваете портфолио с компьютера? Вот как использовать обновлённую навигацию.',
       steps: [
-        'Верхняя панель всегда остаётся на виду: используйте пункты «Главная», «Проекты», «Навыки», «Опыт» и «Контакты», чтобы переходить между страницами.',
-        'Прокручивайте содержимое любой страницы как обычно — панель остаётся закреплённой, поэтому сменить раздел можно в любой момент.',
+        'Зафиксированная верхняя панель всегда остаётся на виду: используйте пункты «Главная», «Проекты», «Навыки», «Опыт» и «Контакты», чтобы переходить между страницами.',
+        'Прокручивайте содержимое любой страницы как обычно — топбар остаётся закреплённым, поэтому сменить раздел можно в любой момент.',
         'В меню языка выберите нужную локализацию, а переключатель темы изменит цветовую палитру.',
         'Все материалы из лендинга доступны и на отдельных страницах в удобном вертикальном формате.',
         'В разделе «Ключевые показатели» каждая карточка открывает диалог с подробностями расчёта.'
@@ -186,8 +186,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     mobile: {
       intro: 'На мобильных устройствах доступна компактная верхняя панель — вот как ей пользоваться.',
       steps: [
-        'Откройте меню кнопкой в правом верхнем углу и выберите нужную страницу.',
-        'Панель остаётся закреплённой сверху; после нажатия пункт меню закрывается автоматически.',
+        'Откройте меню страниц новой кнопкой в правом верхнем углу и выберите нужный раздел.',
+        'Топбар остаётся закреплённым сверху; после нажатия пункт меню закрывается автоматически.',
         'Переключатели языка и темы находятся в том же меню, поэтому изменить стиль и перевод можно мгновенно.',
         'Каждая страница оптимизирована под вертикальную прокрутку — просто пролистывайте содержимое жестами.',
         'Карточки раздела «Ключевые показатели» интерактивны: нажмите, чтобы увидеть подробные пояснения.'
@@ -206,8 +206,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         '¿Usas el portafolio desde el ordenador? Así aprovechas la nueva navegación.',
       steps: [
-        'La barra superior permanece siempre visible: usa Inicio, Proyectos, Competencias, Experiencias y Contactos para saltar entre las páginas.',
-        'Puedes desplazarte libremente por cada página; la barra te acompaña para que cambies de sección cuando quieras.',
+        'La topbar fija permanece siempre visible: usa Inicio, Proyectos, Competencias, Experiencias y Contactos para saltar entre las páginas.',
+        'Puedes desplazarte libremente por cada página; la topbar te acompaña para que cambies de sección cuando quieras.',
         'El selector de idioma y el de tema te permiten ajustar la traducción y la paleta de colores al instante.',
         'El contenido de la landing también está disponible en las páginas dedicadas con un diseño vertical y cómodo.',
         'En la sección Números clave cada tarjeta abre un diálogo con detalles sobre cómo se calcula la cifra.'
@@ -216,8 +216,8 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     mobile: {
       intro: 'En el móvil tienes una barra superior compacta: sigue estos consejos.',
       steps: [
-        'Abre el menú con el botón de la esquina superior derecha y elige la página que necesitas.',
-        'La barra queda fija arriba; después de tocar una opción el menú se cierra automáticamente.',
+        'Abre el menú de páginas con el nuevo botón en la esquina superior derecha y elige la vista que necesitas.',
+        'La topbar queda fija arriba; después de tocar una opción el menú se cierra automáticamente.',
         'Los selectores de idioma y tema están en el mismo menú, así puedes cambiar estilo y traducción al instante.',
         'Cada página está optimizada para el desplazamiento vertical, así que desliza el contenido como en cualquier app.',
         'Las tarjetas de Números clave siguen siendo interactivas: tócalas para leer las explicaciones detalladas.'

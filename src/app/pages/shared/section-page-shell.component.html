@@ -1,0 +1,21 @@
+<section class="section-page-shell">
+  <div class="section-page-shell__content">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="section-page-shell__floating section-page-shell__floating--navigator">
+    <app-navigator
+      [totalSections]="navigatorTotalSections"
+      [currentSectionIndex]="navigatorCurrentSectionIndex"
+      (navigatePrevious)="onNavigatorPrevious()"
+      (navigateNext)="onNavigatorNext()"
+    ></app-navigator>
+  </div>
+
+  <div class="section-page-shell__floating section-page-shell__floating--assistant">
+    <app-assistant
+      (opened)="onAssistantOpened()"
+      (closed)="onAssistantClosed()"
+    ></app-assistant>
+  </div>
+</section>
