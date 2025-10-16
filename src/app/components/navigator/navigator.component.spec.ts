@@ -5,6 +5,31 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeswitchComponent } from './themeswitch/themeswitch.component';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
+import { ThemeService } from '../../services/theme.service';
+import { BehaviorSubject } from 'rxjs';
+import { ThemeKey } from '../../models/theme-key.type';
+import { LanguageCode } from '../../models/language-code.type';
+
+class MockThemeService {
+  private readonly themeSubject = new BehaviorSubject<ThemeKey>('dark');
+  readonly currentTheme$ = this.themeSubject.asObservable();
+
+  getAvailableThemes(): ThemeKey[] {
+    return ['light', 'dark', 'blue', 'green', 'red'];
+  }
+
+  getCurrentTheme(): ThemeKey {
+    return this.themeSubject.value;
+  }
+
+  setTheme(theme: ThemeKey): void {
+    this.themeSubject.next(theme);
+  }
+
+  getThemeLabel(theme: ThemeKey, language: LanguageCode): string {
+    return `${language}-${theme}`;
+  }
+}
 
 /**
  * Unit tests for NavigatorComponent to ensure correct functionality.
@@ -20,7 +45,8 @@ describe('NavigatorComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent],
       providers: [
-        { provide: TranslationService, useClass: MockTranslationService }
+        { provide: TranslationService, useClass: MockTranslationService },
+        { provide: ThemeService, useClass: MockThemeService }
       ]
     })
       .compileComponents();
@@ -161,7 +187,7 @@ describe('NavigatorComponent', () => {
   });
 
   it('should provide fallback tooltip text for unsupported languages', () => {
-    component.currentLang = 'fr';
+    component.currentLang = 'fr' as unknown as LanguageCode;
 
     const tooltip = component.getTooltip('prev');
 

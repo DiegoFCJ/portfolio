@@ -14,13 +14,15 @@ import {
 import { AnalyticsService } from './services/analytics.service';
 import { CookieConsentComponent } from './components/cookie-consent/cookie-consent.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CookieConsentComponent, FooterComponent],
+  imports: [RouterOutlet, CookieConsentComponent, FooterComponent, TopbarComponent],
   template: `
     <app-cookie-consent (consentChange)="onConsentChange($event)"></app-cookie-consent>
+    <app-topbar></app-topbar>
     <router-outlet />
     <app-footer></app-footer>
   `,
