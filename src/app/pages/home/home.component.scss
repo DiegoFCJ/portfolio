@@ -15,15 +15,6 @@
   width: 100%;
 }
 
-.home__section > * {
-  inline-size: min(1200px, 100%);
-  margin-inline: auto;
-}
-
 .home__section--hero {
   padding-top: 0;
-}
-
-.home__section--contacts {
-  padding-bottom: clamp(1rem, 4vw, 2.5rem);
 }
