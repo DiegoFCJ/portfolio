@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslationService } from './services/translation.service';
 import { BehaviorSubject, of } from 'rxjs';
-import { LanguageCode } from './models/language-code.type';
 import { Meta } from '@angular/platform-browser';
 import { AnalyticsService } from './services/analytics.service';
 import { RouterTestingModule } from '@angular/router/testing';

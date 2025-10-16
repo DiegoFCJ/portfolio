@@ -187,7 +187,7 @@ describe('NavigatorComponent', () => {
   });
 
   it('should provide fallback tooltip text for unsupported languages', () => {
-    component.currentLang = 'fr';
+    component.currentLang = 'fr' as unknown as LanguageCode;
 
     const tooltip = component.getTooltip('prev');
 
