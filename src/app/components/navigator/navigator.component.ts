@@ -1,11 +1,28 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnInit,
+  Inject,
+  PLATFORM_ID,
+  HostListener,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+  DestroyRef,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslationService } from '../../services/translation.service';
-
-type ThemeKey = 'light' | 'dark' | 'blue' | 'green' | 'red';
-type LanguageKey = 'en' | 'it' | 'de' | 'es' | 'no' | 'ru';
+import { NavigationDictionaryService } from '../../services/navigation-dictionary.service';
+import { ThemeKey } from '../../models/theme-key.type';
+import { LanguageCode } from '../../models/language-code.type';
+import { NavigatorPageLinkDefinition } from '../../constants/navigation-dictionary.const';
 
 @Component({
   selector: 'app-navigator',
@@ -19,18 +36,50 @@ type LanguageKey = 'en' | 'it' | 'de' | 'es' | 'no' | 'ru';
   styleUrls: ['./navigator.component.scss']
 })
 export class NavigatorComponent implements OnInit {
-  @Input() totalSections: number = 8;
-  @Input() currentSectionIndex: number = 0;
+  private _totalSections = 8;
+  private _currentSectionIndex = 0;
+
+  @Input()
+  set totalSections(value: number) {
+    const sanitized = Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
+    this._totalSections = sanitized;
+    if (this._currentSectionIndex > this._totalSections - 1) {
+      this._currentSectionIndex = Math.max(0, this._totalSections - 1);
+    }
+  }
+
+  get totalSections(): number {
+    return this._totalSections;
+  }
+
+  @Input()
+  set currentSectionIndex(value: number) {
+    if (!Number.isFinite(value)) {
+      this._currentSectionIndex = 0;
+      return;
+    }
+    const normalized = Math.max(0, Math.floor(value));
+    this._currentSectionIndex = this.totalSections > 0
+      ? Math.min(normalized, this.totalSections - 1)
+      : 0;
+  }
+
+  get currentSectionIndex(): number {
+    return this._currentSectionIndex;
+  }
+
   @Output() navigateNext = new EventEmitter<void>();
   @Output() navigatePrevious = new EventEmitter<void>();
 
   showLanguageOptions = false;
   showThemeOptions = false;
+  showPageOptions = false;
 
-  currentLang: string;
+  currentLang: LanguageCode;
   currentTheme: ThemeKey = 'dark';
-  readonly availableThemes: ThemeKey[] = ['light', 'dark', 'blue', 'green', 'red'];
-  readonly availableLanguages: LanguageKey[] = ['en', 'it', 'de', 'es', 'no', 'ru'];
+  readonly availableThemes: ThemeKey[];
+  readonly availableLanguages: LanguageCode[];
+  readonly pageLinks: NavigatorPageLinkDefinition[];
 
   /** Controls visibility of the navigator */
   isOpen = true;
@@ -39,97 +88,50 @@ export class NavigatorComponent implements OnInit {
   private programmaticScroll = false;
   private programmaticScrollTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  /** Tooltip translations */
-  tooltipTexts: Record<LanguageKey, { prev: string; next: string; theme: string; language: string }> = {
-    en: {
-      prev: 'Previous section',
-      next: 'Next section',
-      theme: 'Theme',
-      language: 'Language'
-    },
-    it: {
-      prev: 'Sezione precedente',
-      next: 'Sezione successiva',
-      theme: 'Tema',
-      language: 'Lingua'
-    },
-    de: {
-      prev: 'Vorheriger Abschnitt',
-      next: 'Nächster Abschnitt',
-      theme: 'Thema',
-      language: 'Sprache'
-    },
-    es: {
-      prev: 'Sección anterior',
-      next: 'Siguiente sección',
-      theme: 'Tema',
-      language: 'Idioma'
-    },
-    no: {
-      prev: 'Forrige seksjon',
-      next: 'Neste seksjon',
-      theme: 'Tema',
-      language: 'Språk'
-    },
-    ru: {
-      prev: 'Предыдущий раздел',
-      next: 'Следующий раздел',
-      theme: 'Тема',
-      language: 'Язык'
-    }
-  };
+  private readonly tooltipTexts = this.navigationDictionary.getNavigatorTooltips();
+  private readonly tooltipFallbackOrder = this.navigationDictionary.getTooltipFallbackOrder();
+  private readonly themeNames = this.navigationDictionary.getThemeNames();
+  private readonly languageNames = this.navigationDictionary.getLanguageNames();
+  private readonly languageFlags = this.navigationDictionary.getLanguageFlags();
+  private readonly toggleButtonLabels = this.navigationDictionary.getToggleButtonLabels();
+  private readonly menuLabels = this.navigationDictionary.getMenuLabels();
 
-  private readonly tooltipFallbackOrder: LanguageKey[] = ['it', 'en', 'de', 'es', 'no', 'ru'];
-
-  themeNames: Record<string, Record<ThemeKey, string>> = {
-    en: { light: 'Light theme', dark: 'Dark theme', blue: 'Blue theme', green: 'Green theme', red: 'Red theme' },
-    it: { light: 'Tema chiaro', dark: 'Tema scuro', blue: 'Tema blu', green: 'Tema verde', red: 'Tema rosso' },
-    de: { light: 'Helles Thema', dark: 'Dunkles Thema', blue: 'Blaues Thema', green: 'Grünes Thema', red: 'Rotes Thema' },
-    es: { light: 'Tema claro', dark: 'Tema oscuro', blue: 'Tema azul', green: 'Tema verde', red: 'Tema rojo' },
-    no: { light: 'Lyst tema', dark: 'Mørkt tema', blue: 'Blått tema', green: 'Grønt tema', red: 'Rødt tema' },
-    ru: { light: 'Светлая тема', dark: 'Тёмная тема', blue: 'Синяя тема', green: 'Зелёная тема', red: 'Красная тема' }
-  };
-
-  languageNames: Record<string, Record<LanguageKey, string>> = {
-    en: { en: 'English', it: 'Italian', de: 'German', es: 'Spanish', no: 'Norwegian', ru: 'Russian' },
-    it: { en: 'Inglese', it: 'Italiano', de: 'Tedesco', es: 'Spagnolo', no: 'Norvegese', ru: 'Russo' },
-    de: { en: 'Englisch', it: 'Italienisch', de: 'Deutsch', es: 'Spanisch', no: 'Norwegisch', ru: 'Russisch' },
-    es: { en: 'Inglés', it: 'Italiano', de: 'Alemán', es: 'Español', no: 'Noruego', ru: 'Ruso' },
-    no: { en: 'Engelsk', it: 'Italiensk', de: 'Tysk', es: 'Spansk', no: 'Norsk', ru: 'Russisk' },
-    ru: { en: 'Английский', it: 'Итальянский', de: 'Немецкий', es: 'Испанский', no: 'Норвежский', ru: 'Русский' }
-  };
-
-  private readonly languageFlags: Record<LanguageKey, string> = {
-    en: 'assets/flags/en.svg',
-    it: 'assets/flags/it.svg',
-    de: 'assets/flags/de.svg',
-    es: 'assets/flags/es.svg',
-    no: 'assets/flags/no.svg',
-    ru: 'assets/flags/ru.svg'
-  };
-
-  toggleButtonLabels: { [key: string]: { open: string; close: string } } = {
-    en: { open: 'Open navigator', close: 'Close navigator' },
-    it: { open: 'Apri navigatore', close: 'Chiudi navigatore' },
-    de: { open: 'Navigator öffnen', close: 'Navigator schließen' },
-    es: { open: 'Abrir navegador', close: 'Cerrar navegador' },
-    no: { open: 'Åpne navigator', close: 'Lukk navigator' },
-    ru: { open: 'Открыть навигатор', close: 'Закрыть навигатор' }
-  };
+  @ViewChildren('pageLinkButton')
+  private pageLinkButtons!: QueryList<ElementRef<HTMLButtonElement>>;
 
   constructor(
     private translationService: TranslationService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private router: Router,
+    private navigationDictionary: NavigationDictionaryService,
+    private readonly destroyRef: DestroyRef,
   ) {
     this.currentLang = this.translationService.getCurrentLanguage();
+    this.availableThemes = this.navigationDictionary.getAvailableThemes();
+    this.availableLanguages = this.navigationDictionary.getAvailableLanguages();
+    this.pageLinks = this.navigationDictionary.getPageLinks();
   }
 
   ngOnInit(): void {
-    // keep language in sync with translation service
-    this.translationService.currentLanguage$.subscribe(lang => {
-      this.currentLang = lang;
-    });
+    this.translationService.currentLanguage$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(lang => {
+        this.currentLang = lang;
+        this.closePageOptions();
+      });
+
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        this.closePageOptions();
+        this.showLanguageOptions = false;
+        this.showThemeOptions = false;
+      });
+
     if (isPlatformBrowser(this.platformId)) {
       const storedTheme = localStorage.getItem('theme');
       const nextTheme: ThemeKey = this.isValidTheme(storedTheme) ? storedTheme : 'dark';
@@ -138,15 +140,23 @@ export class NavigatorComponent implements OnInit {
     }
   }
 
+  get canNavigatePrevious(): boolean {
+    return this.totalSections > 0 && this.currentSectionIndex > 0;
+  }
+
+  get canNavigateNext(): boolean {
+    return this.totalSections > 0 && this.currentSectionIndex < this.totalSections - 1;
+  }
+
   onNext(): void {
-    if (this.currentSectionIndex < this.totalSections - 1) {
+    if (this.canNavigateNext) {
       this.startProgrammaticScroll();
       this.navigateNext.emit();
     }
   }
 
   onPrevious(): void {
-    if (this.currentSectionIndex > 0) {
+    if (this.canNavigatePrevious) {
       this.startProgrammaticScroll();
       this.navigatePrevious.emit();
     }
@@ -156,6 +166,7 @@ export class NavigatorComponent implements OnInit {
     this.showLanguageOptions = !this.showLanguageOptions;
     if (this.showLanguageOptions) {
       this.showThemeOptions = false;
+      this.closePageOptions();
     }
   }
 
@@ -163,13 +174,24 @@ export class NavigatorComponent implements OnInit {
     this.showThemeOptions = !this.showThemeOptions;
     if (this.showThemeOptions) {
       this.showLanguageOptions = false;
+      this.closePageOptions();
     }
   }
 
-  changeLanguage(language: LanguageKey): void {
+  togglePageOptions(): void {
+    this.showPageOptions = !this.showPageOptions;
+    if (this.showPageOptions) {
+      this.showLanguageOptions = false;
+      this.showThemeOptions = false;
+      setTimeout(() => this.focusFirstPageLink(), 0);
+    }
+  }
+
+  changeLanguage(language: LanguageCode): void {
     this.translationService.setLanguage(language);
     this.currentLang = language;
     this.showLanguageOptions = false;
+    this.closePageOptions();
   }
 
   changeTheme(theme: ThemeKey): void {
@@ -179,10 +201,20 @@ export class NavigatorComponent implements OnInit {
       this.applyTheme(theme);
     }
     this.showThemeOptions = false;
+    this.closePageOptions();
+  }
+
+  async navigateToPage(link: NavigatorPageLinkDefinition): Promise<void> {
+    this.closePageOptions();
+    try {
+      await this.router.navigateByUrl(link.path);
+    } catch {
+      // Navigation failures are handled by Angular's router
+    }
   }
 
   /** Returns the tooltip text for the given key based on current language */
-  getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
+  getTooltip(key: 'prev' | 'next' | 'theme' | 'language' | 'pages'): string {
     const languagesToCheck = this.getTooltipFallbackLanguages();
 
     for (const language of languagesToCheck) {
@@ -196,7 +228,76 @@ export class NavigatorComponent implements OnInit {
     return this.tooltipTexts[defaultLanguage]?.[key] ?? key;
   }
 
-  private getTooltipFallbackLanguages(): LanguageKey[] {
+  getMenuLabel(): string {
+    return this.menuLabels[this.currentLang] ?? this.menuLabels['en'];
+  }
+
+  getPageLabel(link: NavigatorPageLinkDefinition): string {
+    return link.labels[this.currentLang] ?? link.labels['en'];
+  }
+
+  isActiveLink(link: NavigatorPageLinkDefinition): boolean {
+    const currentPath = this.normalizePath(this.router.url ?? '');
+    const linkPath = this.normalizePath(link.path);
+    return currentPath === linkPath;
+  }
+
+  getAriaCurrent(link: NavigatorPageLinkDefinition): 'page' | undefined {
+    return this.isActiveLink(link) ? 'page' : undefined;
+  }
+
+  onPageOptionsKeydown(event: KeyboardEvent): void {
+    if (!this.showPageOptions || event.key !== 'Tab') {
+      return;
+    }
+
+    const buttons = this.pageLinkButtons?.filter(ref => !!ref.nativeElement) ?? [];
+    if (buttons.length === 0) {
+      return;
+    }
+
+    const first = buttons[0].nativeElement;
+    const last = buttons[buttons.length - 1].nativeElement;
+    const active = document.activeElement as HTMLElement | null;
+
+    if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onDocumentKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape' && (this.showLanguageOptions || this.showThemeOptions || this.showPageOptions)) {
+      this.resetOptionMenus();
+      event.stopPropagation();
+    }
+  }
+
+  /** Host listener to detect clicks outside and close */
+  @HostListener('document:click', ['$event.target'])
+  onDocumentClick(target: HTMLElement): void {
+    const clickedInside = this.elementRef.nativeElement.contains(target);
+    if (!clickedInside && this.isOpen) {
+      this.closeNavigator();
+    }
+  }
+
+  /** Host listener to close navigator on scroll */
+  @HostListener('window:wheel', ['$event'])
+  onWindowWheel(event: WheelEvent): void {
+    this.handleManualScrollEvent(event.target as HTMLElement | null);
+  }
+
+  @HostListener('window:touchmove', ['$event'])
+  onWindowTouchMove(event: TouchEvent): void {
+    this.handleManualScrollEvent(event.target as HTMLElement | null);
+  }
+
+  private getTooltipFallbackLanguages(): LanguageCode[] {
     const fallback = [...this.tooltipFallbackOrder];
 
     if (this.isSupportedLanguage(this.currentLang)) {
@@ -206,7 +307,7 @@ export class NavigatorComponent implements OnInit {
     return fallback.filter((language, index, array) => array.indexOf(language) === index);
   }
 
-  private isSupportedLanguage(language: string): language is LanguageKey {
+  private isSupportedLanguage(language: string): language is LanguageCode {
     return Object.prototype.hasOwnProperty.call(this.tooltipTexts, language);
   }
 
@@ -255,12 +356,12 @@ export class NavigatorComponent implements OnInit {
     return names[theme];
   }
 
-  getLanguageName(language: LanguageKey): string {
+  getLanguageName(language: LanguageCode): string {
     const names = this.languageNames[this.currentLang] || this.languageNames['en'];
     return names[language];
   }
 
-  getLanguageFlag(language: LanguageKey): string {
+  getLanguageFlag(language: LanguageCode): string {
     return this.languageFlags[language] ?? this.languageFlags['en'];
   }
 
@@ -295,26 +396,16 @@ export class NavigatorComponent implements OnInit {
   private resetOptionMenus(): void {
     this.showLanguageOptions = false;
     this.showThemeOptions = false;
+    this.showPageOptions = false;
   }
 
-  /** Host listener to detect clicks outside and close */
-  @HostListener('document:click', ['$event.target'])
-  onDocumentClick(target: HTMLElement): void {
-    const clickedInside = this.elementRef.nativeElement.contains(target);
-    if (!clickedInside && this.isOpen) {
-      this.closeNavigator();
-    }
+  private closePageOptions(): void {
+    this.showPageOptions = false;
   }
 
-  /** Host listener to close navigator on scroll */
-  @HostListener('window:wheel', ['$event'])
-  onWindowWheel(event: WheelEvent): void {
-    this.handleManualScrollEvent(event.target as HTMLElement | null);
-  }
-
-  @HostListener('window:touchmove', ['$event'])
-  onWindowTouchMove(event: TouchEvent): void {
-    this.handleManualScrollEvent(event.target as HTMLElement | null);
+  private focusFirstPageLink(): void {
+    const first = this.pageLinkButtons?.first?.nativeElement;
+    first?.focus({ preventScroll: true });
   }
 
   private handleManualScrollEvent(target: HTMLElement | null): void {
@@ -341,5 +432,17 @@ export class NavigatorComponent implements OnInit {
       this.programmaticScroll = false;
       this.programmaticScrollTimeout = null;
     }, 800);
+  }
+
+  private normalizePath(path: string): string {
+    if (!path) {
+      return '/';
+    }
+    const [clean] = path.split('?');
+    const withoutHash = clean.split('#')[0];
+    const trimmed = withoutHash.endsWith('/') && withoutHash.length > 1
+      ? withoutHash.slice(0, -1)
+      : withoutHash;
+    return trimmed || '/';
   }
 }

@@ -5,6 +5,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeswitchComponent } from './themeswitch/themeswitch.component';
 import { TranslationService } from '../../services/translation.service';
 import { MockTranslationService } from '../../testing/mock-translation.service';
+import { provideRouter } from '@angular/router';
 
 /**
  * Unit tests for NavigatorComponent to ensure correct functionality.
@@ -20,7 +21,8 @@ describe('NavigatorComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent],
       providers: [
-        { provide: TranslationService, useClass: MockTranslationService }
+        { provide: TranslationService, useClass: MockTranslationService },
+        provideRouter([]),
       ]
     })
       .compileComponents();
@@ -61,6 +63,7 @@ describe('NavigatorComponent', () => {
     component.isOpen = true;
     component.showLanguageOptions = true;
     component.showThemeOptions = true;
+    component.showPageOptions = true;
     fixture.detectChanges();
 
     const toggleButton: HTMLButtonElement = fixture.nativeElement.querySelector('.close-button');
@@ -72,24 +75,28 @@ describe('NavigatorComponent', () => {
     expect(component.isOpen).toBeFalse();
     expect(component.showLanguageOptions).toBeFalse();
     expect(component.showThemeOptions).toBeFalse();
+    expect(component.showPageOptions).toBeFalse();
   });
 
   it('should close navigator and reset menus on manual wheel interactions outside the component', () => {
     component.isOpen = true;
     component.showLanguageOptions = true;
     component.showThemeOptions = true;
+    component.showPageOptions = true;
 
     component.onWindowWheel({ target: null } as unknown as WheelEvent);
 
     expect(component.isOpen).toBeFalse();
     expect(component.showLanguageOptions).toBeFalse();
     expect(component.showThemeOptions).toBeFalse();
+    expect(component.showPageOptions).toBeFalse();
   });
 
   it('should close navigator and reset menus when close button is clicked', () => {
     component.isOpen = true;
     component.showLanguageOptions = true;
     component.showThemeOptions = true;
+    component.showPageOptions = true;
     fixture.detectChanges();
 
     const closeButton: HTMLButtonElement = fixture.nativeElement.querySelector('.close-button');
@@ -101,12 +108,14 @@ describe('NavigatorComponent', () => {
     expect(component.isOpen).toBeFalse();
     expect(component.showLanguageOptions).toBeFalse();
     expect(component.showThemeOptions).toBeFalse();
+    expect(component.showPageOptions).toBeFalse();
   });
 
   it('should keep the navigator open for wheel events that originate within the component', () => {
     component.isOpen = true;
     component.showLanguageOptions = true;
     component.showThemeOptions = true;
+    component.showPageOptions = true;
 
     const hostElement = fixture.nativeElement as HTMLElement;
     component.onWindowWheel({ target: hostElement } as unknown as WheelEvent);
@@ -114,12 +123,14 @@ describe('NavigatorComponent', () => {
     expect(component.isOpen).toBeTrue();
     expect(component.showLanguageOptions).toBeTrue();
     expect(component.showThemeOptions).toBeTrue();
+    expect(component.showPageOptions).toBeTrue();
   });
 
   it('should keep the navigator open during programmatic scrolls triggered by navigation buttons', fakeAsync(() => {
     component.isOpen = true;
     component.showLanguageOptions = true;
     component.showThemeOptions = true;
+    component.showPageOptions = true;
 
     component.onNext();
 
@@ -128,6 +139,7 @@ describe('NavigatorComponent', () => {
     expect(component.isOpen).toBeTrue();
     expect(component.showLanguageOptions).toBeTrue();
     expect(component.showThemeOptions).toBeTrue();
+    expect(component.showPageOptions).toBeTrue();
 
     tick(800);
 
@@ -136,28 +148,40 @@ describe('NavigatorComponent', () => {
     expect(component.isOpen).toBeFalse();
     expect(component.showLanguageOptions).toBeFalse();
     expect(component.showThemeOptions).toBeFalse();
+    expect(component.showPageOptions).toBeFalse();
   }));
 
   /**
    * Verifies that the navigation buttons are displayed conditionally.
    */
   it('should display navigation buttons based on current section index', () => {
+    component.totalSections = 5;
     component.currentSectionIndex = 0;
     fixture.detectChanges();
-    let prevButton = fixture.nativeElement.querySelector(`button[aria-label="${component.getTooltip('prev')}"]`);
-    expect(prevButton).toBeNull();  // Previous button should be hidden
 
-    component.currentSectionIndex = 7;
-    fixture.detectChanges();
-    let nextButton = fixture.nativeElement.querySelector(`button[aria-label="${component.getTooltip('next')}"]`);
-    expect(nextButton).toBeNull();  // Next button should be hidden
+    const prevButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      `button[aria-label="${component.getTooltip('prev')}"]`
+    );
+    const nextButtonInitial: HTMLButtonElement = fixture.nativeElement.querySelector(
+      `button[aria-label="${component.getTooltip('next')}"]`
+    );
+
+    expect(prevButton.disabled).toBeTrue();
+    expect(nextButtonInitial.disabled).toBeFalse();
 
     component.currentSectionIndex = 4;
     fixture.detectChanges();
-    prevButton = fixture.nativeElement.querySelector(`button[aria-label="${component.getTooltip('prev')}"]`);
-    nextButton = fixture.nativeElement.querySelector(`button[aria-label="${component.getTooltip('next')}"]`);
-    expect(prevButton).toBeTruthy();  // Previous button should be visible
-    expect(nextButton).toBeTruthy();  // Next button should be visible
+
+    const nextButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      `button[aria-label="${component.getTooltip('next')}"]`
+    );
+    expect(nextButton.disabled).toBeTrue();
+
+    component.currentSectionIndex = 2;
+    fixture.detectChanges();
+
+    expect(prevButton.disabled).toBeFalse();
+    expect(nextButton.disabled).toBeFalse();
   });
 
   it('should provide fallback tooltip text for unsupported languages', () => {
@@ -165,6 +189,16 @@ describe('NavigatorComponent', () => {
 
     const tooltip = component.getTooltip('prev');
 
-    expect(tooltip).toBe(component.tooltipTexts['it'].prev);
+    expect(tooltip).toBe(component['tooltipTexts']['it'].prev);
   });
+
+  it('should close page options when navigating to a route', fakeAsync(() => {
+    component.showPageOptions = true;
+    fixture.detectChanges();
+
+    component.navigateToPage(component.pageLinks[0]);
+
+    tick();
+    expect(component.showPageOptions).toBeFalse();
+  }));
 });

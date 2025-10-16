@@ -1,1 +1,102 @@
-/* Styles moved to global component stylesheet. */
+:host {
+  .arrow-button--inactive {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .nav-button--pages {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-inline: 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-button__label {
+    white-space: nowrap;
+  }
+
+  .nav-group--pages {
+    position: relative;
+  }
+
+  .page-options-container {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 0.75rem);
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: min(80vw, 22rem);
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    background: var(--navigator-option-background, rgba(255, 255, 255, 0.92));
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--navigator-button-border, rgba(168, 85, 247, 0.5)) transparent;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-options-container:focus-visible {
+    outline: none;
+  }
+
+  .page-options-container::-webkit-scrollbar {
+    height: 0.35rem;
+  }
+
+  .page-options-container::-webkit-scrollbar-thumb {
+    background: var(--navigator-button-border, rgba(168, 85, 247, 0.5));
+    border-radius: 999px;
+  }
+
+  .page-option-button {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: var(--navigator-option-background, rgba(255, 255, 255, 0.9));
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    color: var(--navigator-text-color, #111);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .page-option-button__text {
+    pointer-events: none;
+  }
+
+  .page-option-button:hover {
+    background: var(--navigator-option-hover-background, rgba(0, 0, 0, 0.08));
+    transform: translateY(-1px);
+  }
+
+  .page-option-button:focus-visible {
+    outline: 2px solid var(--navigator-button-border, rgba(168, 85, 247, 0.6));
+    outline-offset: 2px;
+  }
+
+  .page-option-button--active {
+    background: var(--navigator-option-selected-background, rgba(0, 0, 0, 0.12));
+    border-color: var(--navigator-button-border, rgba(168, 85, 247, 0.6));
+  }
+
+  @media (min-width: 64rem) {
+    .nav-group--pages {
+      display: none;
+    }
+  }
+}
