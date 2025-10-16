@@ -275,7 +275,7 @@ app-stats {
             padding: clamp(1.5rem, 6vw, 3rem);
             background: var(--stat-overlay-bg);
             backdrop-filter: blur(12px);
-            z-index: 20;
+            z-index: var(--layer-modal-overlay, 80);
             overflow-y: auto;
             overscroll-behavior: contain;
         }
@@ -295,6 +295,7 @@ app-stats {
             isolation: isolate;
             max-block-size: min(90vh, 32rem);
             overflow: hidden;
+            z-index: var(--layer-modal-dialog, 90);
         }
 
         .statistics-dialog::after {

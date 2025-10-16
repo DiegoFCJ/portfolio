@@ -37,7 +37,7 @@
     max-inline-size: min(80rem, 100%);
     block-size: clamp(54px, 12vh, 140px);
     pointer-events: none;
-    z-index: 0;
+    z-index: var(--layer-section-effects, -1);
     background: radial-gradient(
       ellipse at center,
       var(--section-transition-glow, rgba(148, 163, 184, 0.18)) 0%,
@@ -75,7 +75,7 @@
   justify-content: center;
   align-items: stretch;
   gap: clamp(1rem, 3vh, 2rem);
-  z-index: 1;
+  z-index: var(--layer-section-content, 1);
   padding: 0;
   box-sizing: border-box;
 }
@@ -120,6 +120,13 @@
   min-block-size: 100%;
 }
 
+/*
+ * Layer order within the home page:
+ *   1. Section glows (::before/::after) → --layer-section-effects
+ *   2. Section content → --layer-section-content
+ *   3. Floating controls → --layer-floating-controls
+ *   4. Overlays/dialogs (e.g. statistics) → --layer-modal-overlay / --layer-modal-dialog
+ */
 .home__floating-controls {
   position: fixed;
   bottom: 30px;
@@ -129,7 +136,7 @@
   align-items: flex-end;
   --floating-controls-gap: clamp(14px, 2.4vw, 22px);
   row-gap: var(--floating-controls-gap);
-  z-index: 9999;
+  z-index: var(--layer-floating-controls, 40);
   pointer-events: none;
 
   app-navigator,
