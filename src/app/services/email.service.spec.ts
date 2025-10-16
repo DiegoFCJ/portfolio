@@ -15,7 +15,7 @@ describe('EmailService', () => {
     enableAnalytics: true,
     enableErrorTracking: true,
     sentryDsn: 'https://example@sentry.test/1',
-    sentryTracesSampleRate: 1,
+    sentryTracesSampleRate: 0,
   };
 
   beforeEach(() => {
