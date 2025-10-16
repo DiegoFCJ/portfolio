@@ -110,10 +110,10 @@ export class TopbarComponent implements OnInit {
     private readonly translationService: TranslationService,
     private readonly themeService: ThemeService,
   ) {
-    this.currentLanguage = this.translationService.getCurrentLanguage();
-    this.currentTheme = this.themeService.getCurrentTheme();
+    this.currentLanguage = this.resolveInitialLanguage();
+    this.currentTheme = this.resolveInitialTheme();
     this.navigationItems = this.resolveNavigationItems(this.currentLanguage);
-    this.themes = this.themeService.getAvailableThemes();
+    this.themes = this.resolveAvailableThemes();
     this.updatePreferenceLabels(this.currentLanguage);
   }
 
@@ -176,5 +176,61 @@ export class TopbarComponent implements OnInit {
     const labels = this.preferenceLabels[language] ?? this.preferenceLabels['en'];
     this.languageLabel = labels.language;
     this.themeLabel = labels.theme;
+  }
+
+  private resolveInitialLanguage(): LanguageCode {
+    const fallback: LanguageCode = 'it';
+    const getter = this.translationService
+      .getCurrentLanguage as (() => LanguageCode) | undefined;
+
+    if (typeof getter === 'function') {
+      try {
+        const language = getter.call(this.translationService);
+        if (this.languages.includes(language)) {
+          return language;
+        }
+      } catch {
+        // Ignore and fallback
+      }
+    }
+
+    return fallback;
+  }
+
+  private resolveInitialTheme(): ThemeKey {
+    const fallback: ThemeKey = 'dark';
+    const getter = this.themeService.getCurrentTheme as (() => ThemeKey) | undefined;
+
+    if (typeof getter === 'function') {
+      try {
+        const theme = getter.call(this.themeService);
+        if (this.themeService.getAvailableThemes().includes(theme)) {
+          return theme;
+        }
+      } catch {
+        // Ignore and fallback
+      }
+    }
+
+    return fallback;
+  }
+
+  private resolveAvailableThemes(): readonly ThemeKey[] {
+    const getter = this.themeService.getAvailableThemes as
+      | (() => readonly ThemeKey[])
+      | undefined;
+
+    if (typeof getter === 'function') {
+      try {
+        const themes = getter.call(this.themeService);
+        if (Array.isArray(themes) && themes.length) {
+          return themes;
+        }
+      } catch {
+        // Ignore and fallback
+      }
+    }
+
+    return ['light', 'dark', 'blue', 'green', 'red'];
   }
 }

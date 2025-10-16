@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
         const url = event.urlAfterRedirects ?? event.url;
         this.currentMetaKey = this.resolveMetaKey(url);
         this.analyticsService.trackPageView(url);
-        this.updateSeoTags(this.translationService.getCurrentLanguage());
+        this.updateSeoTags(this.getCurrentLanguageSafe());
       });
     }
   }
@@ -156,5 +156,21 @@ export class AppComponent implements OnInit {
       : LANGUAGE_META_CONFIGURATION;
 
     return dictionary[language] ?? dictionary['it'];
+  }
+
+  private getCurrentLanguageSafe(): LanguageCode {
+    const getter = this.translationService.getCurrentLanguage as
+      | (() => LanguageCode)
+      | undefined;
+
+    if (typeof getter === 'function') {
+      try {
+        return getter.call(this.translationService);
+      } catch {
+        // Ignore and fallback to Italian
+      }
+    }
+
+    return 'it';
   }
 }
