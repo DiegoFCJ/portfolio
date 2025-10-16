@@ -2,7 +2,20 @@ app-assistant {
   --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
   --assistant-spacing: clamp(12px, 2vw, 18px);
   --assistant-popup-width: clamp(420px, 68vw, 640px);
+  --assistant-inline-gap: clamp(16px, 4vw, 28px);
+  --assistant-popup-effective-width: min(
+    var(--assistant-popup-width),
+    calc(100vw - (var(--assistant-inline-gap) * 2))
+  );
   --assistant-popup-offset-right: 590px;
+  --assistant-popup-safe-area-bottom: var(--assistant-safe-area-bottom, 0px);
+  --assistant-popup-viewport-margin: calc(
+    clamp(72px, 18vh, 132px) + var(--assistant-popup-safe-area-bottom)
+  );
+  --assistant-popup-max-height: min(
+    520px,
+    calc(100vh - var(--assistant-popup-viewport-margin))
+  );
   --assistant-jump-landing-x: -72%;
   --assistant-jump-landing-y: -168%;
   --assistant-hop-height-strong: clamp(28px, 3.4vw, 38px);
@@ -40,7 +53,7 @@ app-assistant .assistant {
   left: -50px;
   pointer-events: none;
   min-height: var(--assistant-avatar-size);
-  min-width: min(var(--assistant-popup-width), calc(100vw - 32px));
+  min-width: var(--assistant-popup-effective-width);
 }
 
 app-assistant .assistant__anchor {
@@ -141,9 +154,13 @@ app-assistant .assistant__avatar-wave {
 
 app-assistant .assistant__popup {
   position: absolute;
-  right: var(--assistant-popup-offset-right);
+  right: clamp(
+    var(--assistant-inline-gap),
+    var(--assistant-popup-offset-right),
+    calc(100vw - var(--assistant-inline-gap) - var(--assistant-popup-effective-width))
+  );
   bottom: calc(100% + var(--assistant-spacing));
-  width: min(var(--assistant-popup-width), calc(100vw - 48px));
+  width: var(--assistant-popup-effective-width);
   background: var(--assistant-popup-bg);
   color: var(--assistant-popup-color);
   border-radius: 20px;
@@ -155,6 +172,8 @@ app-assistant .assistant__popup {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  max-height: var(--assistant-popup-max-height);
+  overflow: hidden;
   z-index: 2;
 }
 
@@ -168,6 +187,9 @@ app-assistant .assistant__content {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
 }
 
 app-assistant .assistant__content::after {
@@ -195,6 +217,9 @@ app-assistant .assistant__content-scroll {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 app-assistant .assistant__title {
@@ -919,16 +944,23 @@ app-assistant .assistant__closing--active {
 @media (max-width: 768px) {
   app-assistant {
     --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
+    --assistant-inline-gap: clamp(12px, 6vw, 20px);
     --assistant-popup-width: min(94vw, 420px);
+    --assistant-popup-effective-width: min(
+      var(--assistant-popup-width),
+      calc(100vw - (var(--assistant-inline-gap) * 2))
+    );
     --assistant-popup-offset-right: 250px;
+    --assistant-popup-viewport-margin: calc(
+      clamp(88px, 24vh, 148px) + var(--assistant-popup-safe-area-bottom)
+    );
   }
 
   app-assistant .assistant {
-    min-width: min(var(--assistant-popup-width), calc(100vw - 24px));
+    min-width: var(--assistant-popup-effective-width);
   }
 
   app-assistant .assistant__popup {
     padding: 1rem 1rem 1.25rem;
-    width: min(var(--assistant-popup-width), calc(100vw - 32px));
   }
 }
