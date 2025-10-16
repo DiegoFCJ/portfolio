@@ -6,19 +6,8 @@ import { TranslationService } from '../services/translation.service';
 import { LanguageCode } from '../models/language-code.type';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AssistantComponent } from '../components/assistant/assistant.component';
-
-interface NavigationItem {
-  readonly label: string;
-  readonly route: string;
-  readonly exact?: boolean;
-}
-
-interface ThemeOption {
-  readonly key: ThemeKey;
-  readonly label: string;
-}
-
-type ThemeKey = 'light' | 'dark' | 'blue' | 'green' | 'red';
+import { NavigationDataService, NavigationItem, PreferenceLabels, ThemeOption } from '../services/navigation-data.service';
+import { ThemeKey } from '../models/theme-key.type';
 
 @Component({
   selector: 'app-layout',
@@ -33,84 +22,26 @@ export class LayoutComponent implements OnInit {
   currentTheme: ThemeKey = 'dark';
 
   navigationItems: NavigationItem[] = [];
-  readonly languages: LanguageCode[] = ['it', 'en', 'de', 'es', 'no', 'ru'];
-  readonly themes: ThemeOption[] = [
-    { key: 'light', label: 'Light' },
-    { key: 'dark', label: 'Dark' },
-    { key: 'blue', label: 'Blue' },
-    { key: 'green', label: 'Green' },
-    { key: 'red', label: 'Red' },
-  ];
-
+  readonly languages: LanguageCode[];
+  readonly themes: ThemeOption[];
   languageLabel = 'Language';
   themeLabel = 'Theme';
 
-  private readonly navDictionary: Record<LanguageCode, NavigationItem[]> = {
-    it: [
-      { label: 'Home', route: '/', exact: true },
-      { label: 'Progetti', route: '/projects' },
-      { label: 'Competenze', route: '/skills' },
-      { label: 'Esperienze', route: '/experiences' },
-      { label: 'Contatti', route: '/contacts' },
-      { label: 'Privacy', route: '/privacy' },
-    ],
-    en: [
-      { label: 'Home', route: '/', exact: true },
-      { label: 'Projects', route: '/projects' },
-      { label: 'Skills', route: '/skills' },
-      { label: 'Experiences', route: '/experiences' },
-      { label: 'Contacts', route: '/contacts' },
-      { label: 'Privacy', route: '/privacy' },
-    ],
-    de: [
-      { label: 'Start', route: '/', exact: true },
-      { label: 'Projekte', route: '/projects' },
-      { label: 'Fähigkeiten', route: '/skills' },
-      { label: 'Erfahrungen', route: '/experiences' },
-      { label: 'Kontakt', route: '/contacts' },
-      { label: 'Datenschutz', route: '/privacy' },
-    ],
-    es: [
-      { label: 'Inicio', route: '/', exact: true },
-      { label: 'Proyectos', route: '/projects' },
-      { label: 'Competencias', route: '/skills' },
-      { label: 'Experiencias', route: '/experiences' },
-      { label: 'Contactos', route: '/contacts' },
-      { label: 'Privacidad', route: '/privacy' },
-    ],
-    no: [
-      { label: 'Hjem', route: '/', exact: true },
-      { label: 'Prosjekter', route: '/projects' },
-      { label: 'Kompetanser', route: '/skills' },
-      { label: 'Erfaringer', route: '/experiences' },
-      { label: 'Kontakt', route: '/contacts' },
-      { label: 'Personvern', route: '/privacy' },
-    ],
-    ru: [
-      { label: 'Главная', route: '/', exact: true },
-      { label: 'Проекты', route: '/projects' },
-      { label: 'Навыки', route: '/skills' },
-      { label: 'Опыт', route: '/experiences' },
-      { label: 'Контакты', route: '/contacts' },
-      { label: 'Конфиденциальность', route: '/privacy' },
-    ],
-  };
-
-  private readonly preferenceLabels: Record<LanguageCode, { language: string; theme: string }> = {
-    it: { language: 'Lingua', theme: 'Tema' },
-    en: { language: 'Language', theme: 'Theme' },
-    de: { language: 'Sprache', theme: 'Thema' },
-    es: { language: 'Idioma', theme: 'Tema' },
-    no: { language: 'Språk', theme: 'Tema' },
-    ru: { language: 'Язык', theme: 'Тема' },
-  };
+  private readonly preferenceLabels: Record<LanguageCode, PreferenceLabels>;
 
   constructor(
     private readonly translationService: TranslationService,
     private readonly router: Router,
     private readonly destroyRef: DestroyRef,
+    private readonly navigationData: NavigationDataService,
   ) {
     this.currentLanguage = this.translationService.getCurrentLanguage();
+    this.languages = this.navigationData.getLanguages();
+    this.themes = this.navigationData.getThemes();
+    this.preferenceLabels = this.languages.reduce((labels, language) => {
+      labels[language] = this.navigationData.getPreferenceLabels(language);
+      return labels;
+    }, {} as Record<LanguageCode, PreferenceLabels>);
     this.navigationItems = this.resolveNavigationItems(this.currentLanguage);
     this.updatePreferenceLabels(this.currentLanguage);
   }
@@ -184,7 +115,7 @@ export class LayoutComponent implements OnInit {
   }
 
   private resolveNavigationItems(language: LanguageCode): NavigationItem[] {
-    return this.navDictionary[language] ?? this.navDictionary['it'];
+    return this.navigationData.getNavigationItems(language);
   }
 
   private restoreTheme(): void {
@@ -237,7 +168,7 @@ export class LayoutComponent implements OnInit {
   }
 
   private updatePreferenceLabels(language: LanguageCode): void {
-    const labels = this.preferenceLabels[language] ?? this.preferenceLabels['en'];
+    const labels = this.preferenceLabels[language] ?? this.navigationData.getPreferenceLabels('en');
     this.languageLabel = labels.language;
     this.themeLabel = labels.theme;
   }

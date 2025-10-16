@@ -1,11 +1,27 @@
-import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject, PLATFORM_ID, HostListener, ElementRef, DestroyRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
+import { NavigationDataService, NavigationItem } from '../../services/navigation-data.service';
+import { ThemeKey } from '../../models/theme-key.type';
+import { LanguageCode } from '../../models/language-code.type';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { A11yModule } from '@angular/cdk/a11y';
 
-type ThemeKey = 'light' | 'dark' | 'blue' | 'green' | 'red';
-type LanguageKey = 'en' | 'it' | 'de' | 'es' | 'no' | 'ru';
+type TooltipKey = 'prev' | 'next' | 'theme' | 'language';
+
+type TooltipDictionary = Record<LanguageCode, Record<TooltipKey, string>>;
+
+type ToggleButtonLabels = Record<LanguageCode, { open: string; close: string }>;
+
+type ThemeNamesDictionary = Record<LanguageCode, Record<ThemeKey, string>>;
+
+type LanguageNamesDictionary = Record<LanguageCode, Record<LanguageCode, string>>;
+
+type LanguageFlagsDictionary = Record<LanguageCode, string>;
 
 @Component({
   selector: 'app-navigator',
@@ -14,23 +30,26 @@ type LanguageKey = 'en' | 'it' | 'de' | 'es' | 'no' | 'ru';
     CommonModule,
     MatIconModule,
     MatTooltipModule,
+    A11yModule,
   ],
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
 })
 export class NavigatorComponent implements OnInit {
-  @Input() totalSections: number = 8;
-  @Input() currentSectionIndex: number = 0;
+  @Input() totalSections = 8;
+  @Input() currentSectionIndex = 0;
   @Output() navigateNext = new EventEmitter<void>();
   @Output() navigatePrevious = new EventEmitter<void>();
 
   showLanguageOptions = false;
   showThemeOptions = false;
+  showPageOptions = false;
 
-  currentLang: string;
+  currentLang: LanguageCode;
   currentTheme: ThemeKey = 'dark';
-  readonly availableThemes: ThemeKey[] = ['light', 'dark', 'blue', 'green', 'red'];
-  readonly availableLanguages: LanguageKey[] = ['en', 'it', 'de', 'es', 'no', 'ru'];
+  readonly availableThemes: ThemeKey[];
+  readonly availableLanguages: LanguageCode[];
+  pageLinks: NavigationItem[] = [];
 
   /** Controls visibility of the navigator */
   isOpen = true;
@@ -40,7 +59,7 @@ export class NavigatorComponent implements OnInit {
   private programmaticScrollTimeout: ReturnType<typeof setTimeout> | null = null;
 
   /** Tooltip translations */
-  tooltipTexts: Record<LanguageKey, { prev: string; next: string; theme: string; language: string }> = {
+  private readonly tooltipTexts: TooltipDictionary = {
     en: {
       prev: 'Previous section',
       next: 'Next section',
@@ -79,9 +98,9 @@ export class NavigatorComponent implements OnInit {
     }
   };
 
-  private readonly tooltipFallbackOrder: LanguageKey[] = ['it', 'en', 'de', 'es', 'no', 'ru'];
+  private readonly tooltipFallbackOrder: LanguageCode[] = ['it', 'en', 'de', 'es', 'no', 'ru'];
 
-  themeNames: Record<string, Record<ThemeKey, string>> = {
+  private readonly themeNames: ThemeNamesDictionary = {
     en: { light: 'Light theme', dark: 'Dark theme', blue: 'Blue theme', green: 'Green theme', red: 'Red theme' },
     it: { light: 'Tema chiaro', dark: 'Tema scuro', blue: 'Tema blu', green: 'Tema verde', red: 'Tema rosso' },
     de: { light: 'Helles Thema', dark: 'Dunkles Thema', blue: 'Blaues Thema', green: 'Grünes Thema', red: 'Rotes Thema' },
@@ -90,7 +109,7 @@ export class NavigatorComponent implements OnInit {
     ru: { light: 'Светлая тема', dark: 'Тёмная тема', blue: 'Синяя тема', green: 'Зелёная тема', red: 'Красная тема' }
   };
 
-  languageNames: Record<string, Record<LanguageKey, string>> = {
+  private readonly languageNames: LanguageNamesDictionary = {
     en: { en: 'English', it: 'Italian', de: 'German', es: 'Spanish', no: 'Norwegian', ru: 'Russian' },
     it: { en: 'Inglese', it: 'Italiano', de: 'Tedesco', es: 'Spagnolo', no: 'Norvegese', ru: 'Russo' },
     de: { en: 'Englisch', it: 'Italienisch', de: 'Deutsch', es: 'Spanisch', no: 'Norwegisch', ru: 'Russisch' },
@@ -99,7 +118,7 @@ export class NavigatorComponent implements OnInit {
     ru: { en: 'Английский', it: 'Итальянский', de: 'Немецкий', es: 'Испанский', no: 'Норвежский', ru: 'Русский' }
   };
 
-  private readonly languageFlags: Record<LanguageKey, string> = {
+  private readonly languageFlags: LanguageFlagsDictionary = {
     en: 'assets/flags/en.svg',
     it: 'assets/flags/it.svg',
     de: 'assets/flags/de.svg',
@@ -108,7 +127,7 @@ export class NavigatorComponent implements OnInit {
     ru: 'assets/flags/ru.svg'
   };
 
-  toggleButtonLabels: { [key: string]: { open: string; close: string } } = {
+  private readonly toggleButtonLabels: ToggleButtonLabels = {
     en: { open: 'Open navigator', close: 'Close navigator' },
     it: { open: 'Apri navigatore', close: 'Chiudi navigatore' },
     de: { open: 'Navigator öffnen', close: 'Navigator schließen' },
@@ -117,19 +136,38 @@ export class NavigatorComponent implements OnInit {
     ru: { open: 'Открыть навигатор', close: 'Закрыть навигатор' }
   };
 
+  readonly pageMenuId = 'navigator-page-menu';
+
   constructor(
-    private translationService: TranslationService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private elementRef: ElementRef
+    private readonly translationService: TranslationService,
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly elementRef: ElementRef,
+    private readonly navigationData: NavigationDataService,
+    private readonly router: Router,
+    private readonly destroyRef: DestroyRef,
   ) {
     this.currentLang = this.translationService.getCurrentLanguage();
+    this.availableThemes = this.navigationData.getThemes().map((theme) => theme.key);
+    this.availableLanguages = this.navigationData.getLanguages();
+    this.pageLinks = this.navigationData.getNavigationItems(this.currentLang);
   }
 
   ngOnInit(): void {
-    // keep language in sync with translation service
-    this.translationService.currentLanguage$.subscribe(lang => {
-      this.currentLang = lang;
-    });
+    this.translationService.currentLanguage$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((lang) => {
+        this.currentLang = lang;
+        this.pageLinks = this.navigationData.getNavigationItems(lang);
+        this.closePageOptions();
+      });
+
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => this.closePageOptions());
+
     if (isPlatformBrowser(this.platformId)) {
       const storedTheme = localStorage.getItem('theme');
       const nextTheme: ThemeKey = this.isValidTheme(storedTheme) ? storedTheme : 'dark';
@@ -138,24 +176,35 @@ export class NavigatorComponent implements OnInit {
     }
   }
 
+  get canNavigatePrevious(): boolean {
+    return this.totalSections > 0 && this.currentSectionIndex > 0;
+  }
+
+  get canNavigateNext(): boolean {
+    return this.totalSections > 0 && this.currentSectionIndex < this.totalSections - 1;
+  }
+
   onNext(): void {
-    if (this.currentSectionIndex < this.totalSections - 1) {
-      this.startProgrammaticScroll();
-      this.navigateNext.emit();
+    if (!this.canNavigateNext) {
+      return;
     }
+    this.startProgrammaticScroll();
+    this.navigateNext.emit();
   }
 
   onPrevious(): void {
-    if (this.currentSectionIndex > 0) {
-      this.startProgrammaticScroll();
-      this.navigatePrevious.emit();
+    if (!this.canNavigatePrevious) {
+      return;
     }
+    this.startProgrammaticScroll();
+    this.navigatePrevious.emit();
   }
 
   toggleLanguageOptions(): void {
     this.showLanguageOptions = !this.showLanguageOptions;
     if (this.showLanguageOptions) {
       this.showThemeOptions = false;
+      this.closePageOptions();
     }
   }
 
@@ -163,13 +212,23 @@ export class NavigatorComponent implements OnInit {
     this.showThemeOptions = !this.showThemeOptions;
     if (this.showThemeOptions) {
       this.showLanguageOptions = false;
+      this.closePageOptions();
     }
   }
 
-  changeLanguage(language: LanguageKey): void {
+  togglePageOptions(): void {
+    this.showPageOptions = !this.showPageOptions;
+    if (this.showPageOptions) {
+      this.showLanguageOptions = false;
+      this.showThemeOptions = false;
+    }
+  }
+
+  changeLanguage(language: LanguageCode): void {
     this.translationService.setLanguage(language);
     this.currentLang = language;
     this.showLanguageOptions = false;
+    this.closePageOptions();
   }
 
   changeTheme(theme: ThemeKey): void {
@@ -179,10 +238,16 @@ export class NavigatorComponent implements OnInit {
       this.applyTheme(theme);
     }
     this.showThemeOptions = false;
+    this.closePageOptions();
+  }
+
+  onSelectPage(link: NavigationItem): void {
+    this.closePageOptions();
+    this.router.navigateByUrl(link.route);
   }
 
   /** Returns the tooltip text for the given key based on current language */
-  getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
+  getTooltip(key: TooltipKey): string {
     const languagesToCheck = this.getTooltipFallbackLanguages();
 
     for (const language of languagesToCheck) {
@@ -196,7 +261,11 @@ export class NavigatorComponent implements OnInit {
     return this.tooltipTexts[defaultLanguage]?.[key] ?? key;
   }
 
-  private getTooltipFallbackLanguages(): LanguageKey[] {
+  getPageMenuLabel(): string {
+    return this.navigationData.getPageMenuLabel(this.currentLang);
+  }
+
+  private getTooltipFallbackLanguages(): LanguageCode[] {
     const fallback = [...this.tooltipFallbackOrder];
 
     if (this.isSupportedLanguage(this.currentLang)) {
@@ -206,7 +275,7 @@ export class NavigatorComponent implements OnInit {
     return fallback.filter((language, index, array) => array.indexOf(language) === index);
   }
 
-  private isSupportedLanguage(language: string): language is LanguageKey {
+  private isSupportedLanguage(language: string): language is LanguageCode {
     return Object.prototype.hasOwnProperty.call(this.tooltipTexts, language);
   }
 
@@ -255,12 +324,12 @@ export class NavigatorComponent implements OnInit {
     return names[theme];
   }
 
-  getLanguageName(language: LanguageKey): string {
+  getLanguageName(language: LanguageCode): string {
     const names = this.languageNames[this.currentLang] || this.languageNames['en'];
     return names[language];
   }
 
-  getLanguageFlag(language: LanguageKey): string {
+  getLanguageFlag(language: LanguageCode): string {
     return this.languageFlags[language] ?? this.languageFlags['en'];
   }
 
@@ -295,6 +364,11 @@ export class NavigatorComponent implements OnInit {
   private resetOptionMenus(): void {
     this.showLanguageOptions = false;
     this.showThemeOptions = false;
+    this.showPageOptions = false;
+  }
+
+  private closePageOptions(): void {
+    this.showPageOptions = false;
   }
 
   /** Host listener to detect clicks outside and close */
@@ -315,6 +389,14 @@ export class NavigatorComponent implements OnInit {
   @HostListener('window:touchmove', ['$event'])
   onWindowTouchMove(event: TouchEvent): void {
     this.handleManualScrollEvent(event.target as HTMLElement | null);
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (!this.isOpen) {
+      return;
+    }
+    this.resetOptionMenus();
   }
 
   private handleManualScrollEvent(target: HTMLElement | null): void {

@@ -1,1 +1,98 @@
-/* Styles moved to global component stylesheet. */
+:host {
+  .arrow-button[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+
+    mat-icon {
+      opacity: 0.8;
+    }
+  }
+
+  .nav-group--pages {
+    position: relative;
+    width: 100%;
+  }
+
+  .nav-button--with-label {
+    min-width: 3.25rem;
+    padding-inline: 0.85rem;
+    border-radius: 999px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+
+    mat-icon {
+      margin: 0;
+    }
+  }
+
+  .nav-button__text {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--navigator-text-color, #ffffff);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .page-options {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 12px);
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: var(--navigator-dropdown-background, rgba(20, 20, 20, 0.92));
+    backdrop-filter: blur(18px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+    max-width: min(88vw, 360px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    z-index: 5;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .page-option-button {
+    flex: 0 0 auto;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 18px;
+    background: transparent;
+    color: var(--navigator-text-color, #f5f5f5);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    span {
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      outline: none;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .nav-group--pages {
+      display: none;
+    }
+  }
+}

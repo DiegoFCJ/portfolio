@@ -4,30 +4,57 @@
     <ng-container *ngIf="isOpen">
       <div class="arrow-container">
         <!-- Previous button -->
-        <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" [attr.aria-label]="getTooltip('prev')"
-          [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
+        <button
+          type="button"
+          class="arrow-button navigator-circle-button"
+          (click)="onPrevious()"
+          [disabled]="!canNavigatePrevious"
+          [attr.aria-disabled]="!canNavigatePrevious"
+          [attr.aria-label]="getTooltip('prev')"
+          [matTooltip]="getTooltip('prev')"
+          matTooltipPosition="left"
+        >
           <mat-icon>arrow_upward</mat-icon>
         </button>
 
         <!-- Next button -->
-        <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" [attr.aria-label]="getTooltip('next')"
-          [matTooltip]="getTooltip('next')" matTooltipPosition="left">
+        <button
+          type="button"
+          class="arrow-button navigator-circle-button"
+          (click)="onNext()"
+          [disabled]="!canNavigateNext"
+          [attr.aria-disabled]="!canNavigateNext"
+          [attr.aria-label]="getTooltip('next')"
+          [matTooltip]="getTooltip('next')"
+          matTooltipPosition="left"
+        >
           <mat-icon>arrow_downward</mat-icon>
         </button>
       </div>
 
       <div class="nav-groups">
         <div class="nav-group">
-          <button class="nav-button" (click)="toggleThemeOptions()" [attr.aria-label]="getTooltip('theme')"
-            [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
+          <button
+            type="button"
+            class="nav-button"
+            (click)="toggleThemeOptions()"
+            [attr.aria-label]="getTooltip('theme')"
+            [matTooltip]="getTooltip('theme')"
+            matTooltipPosition="left"
+          >
             <mat-icon>{{ getThemeIcon(currentTheme) }}</mat-icon>
           </button>
           <div class="option-container" *ngIf="showThemeOptions">
             <div class="option-item" *ngFor="let theme of availableThemes">
               <span class="option-hint" [id]="'theme-option-hint-' + theme">{{ getThemeName(theme) }}</span>
-              <button class="option-button" (click)="changeTheme(theme)" [attr.aria-label]="getThemeName(theme)"
+              <button
+                type="button"
+                class="option-button"
+                (click)="changeTheme(theme)"
+                [attr.aria-label]="getThemeName(theme)"
                 [class.selected]="currentTheme === theme"
-                [attr.aria-describedby]="'theme-option-hint-' + theme">
+                [attr.aria-describedby]="'theme-option-hint-' + theme"
+              >
                 <mat-icon>{{ getThemeIcon(theme) }}</mat-icon>
               </button>
             </div>
@@ -35,28 +62,76 @@
         </div>
 
         <div class="nav-group">
-          <button class="nav-button" (click)="toggleLanguageOptions()" [attr.aria-label]="getTooltip('language')"
-            [matTooltip]="getTooltip('language')" matTooltipPosition="left">
+          <button
+            type="button"
+            class="nav-button"
+            (click)="toggleLanguageOptions()"
+            [attr.aria-label]="getTooltip('language')"
+            [matTooltip]="getTooltip('language')"
+            matTooltipPosition="left"
+          >
             <span class="lang-label">{{ currentLang | slice:0:3 | uppercase }}</span>
           </button>
           <div class="option-container" *ngIf="showLanguageOptions">
             <div class="option-item" *ngFor="let language of availableLanguages">
               <span class="option-hint" [id]="'language-option-hint-' + language">{{ getLanguageName(language) }}</span>
-              <button class="option-button" (click)="changeLanguage(language)"
+              <button
+                type="button"
+                class="option-button"
+                (click)="changeLanguage(language)"
                 [attr.aria-label]="getLanguageName(language)"
-                [attr.aria-describedby]="'language-option-hint-' + language">
+                [attr.aria-describedby]="'language-option-hint-' + language"
+              >
                 <img class="lang-flag" [src]="getLanguageFlag(language)" [alt]="getLanguageName(language)" />
               </button>
             </div>
           </div>
         </div>
+
+        <div class="nav-group nav-group--pages">
+          <button
+            type="button"
+            class="nav-button nav-button--with-label"
+            (click)="togglePageOptions()"
+            [attr.aria-controls]="pageMenuId"
+            [attr.aria-expanded]="showPageOptions"
+            [attr.aria-label]="getPageMenuLabel()"
+          >
+            <mat-icon aria-hidden="true">menu</mat-icon>
+            <span class="nav-button__text">{{ getPageMenuLabel() }}</span>
+          </button>
+          <div
+            *ngIf="showPageOptions"
+            class="page-options"
+            [id]="pageMenuId"
+            role="menu"
+            [attr.aria-label]="getPageMenuLabel()"
+            cdkTrapFocus
+            [cdkTrapFocusAutoCapture]="true"
+          >
+            <button
+              *ngFor="let link of pageLinks"
+              type="button"
+              class="page-option-button"
+              role="menuitem"
+              (click)="onSelectPage(link)"
+            >
+              <span>{{ link.label }}</span>
+            </button>
+          </div>
+        </div>
       </div>
     </ng-container>
 
-    <button class="nav-button close-button nav-toggle-button" (click)="toggleNavigator()"
+    <button
+      type="button"
+      class="nav-button close-button nav-toggle-button"
+      (click)="toggleNavigator()"
       [attr.aria-label]="getToggleButtonLabel()"
-      [matTooltip]="getToggleButtonLabel()" matTooltipPosition="left"
-      [attr.aria-expanded]="isOpen">
+      [matTooltip]="getToggleButtonLabel()"
+      matTooltipPosition="left"
+      [attr.aria-expanded]="isOpen"
+    >
       <mat-icon>expand_more</mat-icon>
     </button>
   </div>
