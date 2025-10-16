@@ -12,6 +12,7 @@
 @use 'components/education';
 @use 'components/skills';
 @use 'components/navigator';
+@use 'components/topbar';
 @use 'components/footer';
 @use 'components/stats' as stats_component;
 @use 'components/contact-me';
@@ -40,6 +41,7 @@ svg {
 :root {
     --assistant-avatar-size-sm: 48px;
     --assistant-safe-area-bottom: 0px;
+    --topbar-height: 72px;
     /*
      * Layering scale for global UI elements (lower values are behind higher ones):
      * base content (-1 / 0), section content (1), reserved topbar (30),
@@ -78,6 +80,7 @@ body {
     overflow-x: hidden;
     --section-transition-glow: rgba(148, 163, 184, 0.18);
     background-color: inherit;
+    padding-block-start: var(--topbar-height, 0);
 }
 
 body.home-scroll-snapping {
@@ -199,6 +202,12 @@ mat-error {
 
 .cdk-overlay-connected-position-bounding-box {
     bottom: 80px !important;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-block-start: 0;
+    }
 }
 
 @media (max-width: 480px) {

@@ -1,0 +1,276 @@
+.topbar {
+  --topbar-surface: rgba(15, 23, 42, 0.85);
+  --topbar-border: rgba(148, 163, 184, 0.3);
+  --topbar-text: #f8fafc;
+  --topbar-muted: rgba(226, 232, 240, 0.75);
+  --topbar-dropdown-surface: rgba(15, 23, 42, 0.95);
+  --topbar-dropdown-border: rgba(148, 163, 184, 0.3);
+  --topbar-shadow: 0 12px 30px rgba(15, 23, 42, 0.2);
+
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--layer-topbar, 30);
+  block-size: var(--topbar-height, 72px);
+  display: flex;
+  align-items: center;
+  background-color: var(--topbar-surface);
+  color: var(--topbar-text);
+  border-block-end: 1px solid var(--topbar-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.topbar__content {
+  inline-size: min(1180px, 92vw);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.topbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.topbar__brand-mark {
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.95), rgba(59, 130, 246, 0.85));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
+}
+
+.topbar__brand-name {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.topbar__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2.75rem);
+}
+
+.topbar__nav-link {
+  position: relative;
+  color: var(--topbar-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: color 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: calc(100% + 10px);
+    block-size: 2px;
+    background: linear-gradient(90deg, rgba(129, 140, 248, 0.85), rgba(236, 72, 153, 0.85));
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--topbar-text);
+    outline: none;
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  &--active {
+    color: var(--topbar-text);
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.topbar__dropdown {
+  position: relative;
+}
+
+.topbar__dropdown-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
+  mat-icon {
+    font-size: 1.15rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+    border-color: rgba(148, 163, 184, 0.35);
+    background: rgba(148, 163, 184, 0.12);
+  }
+}
+
+.topbar__dropdown-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.topbar__dropdown-flag {
+  inline-size: 18px;
+  block-size: 18px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 8px rgba(15, 23, 42, 0.35);
+}
+
+.topbar__dropdown-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.25s ease;
+}
+
+.topbar__dropdown--open .topbar__dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.topbar__dropdown-panel {
+  position: absolute;
+  inset-block-start: calc(100% + 0.75rem);
+  inset-inline-end: 0;
+  min-inline-size: 220px;
+  padding: 0.5rem;
+  margin: 0;
+  list-style: none;
+  background: var(--topbar-dropdown-surface);
+  border: 1px solid var(--topbar-dropdown-border);
+  border-radius: 14px;
+  box-shadow: var(--topbar-shadow);
+  display: grid;
+  gap: 0.25rem;
+  z-index: calc(var(--layer-topbar, 30) + 1);
+}
+
+.topbar__dropdown-option-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  mat-icon {
+    font-size: 1.1rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
+    background: rgba(148, 163, 184, 0.16);
+  }
+
+  &--active {
+    background: rgba(129, 140, 248, 0.18);
+    color: var(--topbar-text);
+  }
+}
+
+body.light-mode {
+  .topbar {
+    --topbar-surface: rgba(255, 255, 255, 0.9);
+    --topbar-border: rgba(148, 163, 184, 0.25);
+    --topbar-text: #0f172a;
+    --topbar-muted: rgba(51, 65, 85, 0.75);
+    --topbar-dropdown-surface: rgba(248, 250, 252, 0.98);
+    --topbar-dropdown-border: rgba(148, 163, 184, 0.25);
+    --topbar-shadow: 0 12px 28px rgba(148, 163, 184, 0.25);
+  }
+}
+
+body.blue-mode {
+  .topbar {
+    --topbar-surface: rgba(30, 58, 138, 0.9);
+    --topbar-border: rgba(191, 219, 254, 0.35);
+    --topbar-text: #e0f2fe;
+    --topbar-muted: rgba(191, 219, 254, 0.78);
+    --topbar-dropdown-surface: rgba(30, 64, 175, 0.96);
+    --topbar-dropdown-border: rgba(147, 197, 253, 0.35);
+  }
+}
+
+body.green-mode {
+  .topbar {
+    --topbar-surface: rgba(22, 101, 52, 0.9);
+    --topbar-border: rgba(187, 247, 208, 0.35);
+    --topbar-text: #dcfce7;
+    --topbar-muted: rgba(187, 247, 208, 0.78);
+    --topbar-dropdown-surface: rgba(21, 128, 61, 0.96);
+    --topbar-dropdown-border: rgba(134, 239, 172, 0.35);
+  }
+}
+
+body.red-mode {
+  .topbar {
+    --topbar-surface: rgba(153, 27, 27, 0.9);
+    --topbar-border: rgba(254, 202, 202, 0.3);
+    --topbar-text: #fee2e2;
+    --topbar-muted: rgba(254, 202, 202, 0.78);
+    --topbar-dropdown-surface: rgba(185, 28, 28, 0.96);
+    --topbar-dropdown-border: rgba(252, 165, 165, 0.35);
+  }
+}
+
+@media (max-width: 1024px) {
+  .topbar__content {
+    inline-size: min(100%, 96vw);
+    gap: 1.25rem;
+  }
+
+  .topbar__nav {
+    gap: clamp(0.75rem, 3vw, 1.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    display: none;
+  }
+}

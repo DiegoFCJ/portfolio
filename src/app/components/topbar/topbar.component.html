@@ -1,0 +1,80 @@
+<header class="topbar" role="banner">
+  <div class="topbar__content">
+    <a class="topbar__brand" routerLink="/" aria-label="Diego's portfolio home">
+      <span class="topbar__brand-mark" aria-hidden="true">D</span>
+      <span class="topbar__brand-name">Diego</span>
+    </a>
+
+    <nav class="topbar__nav" aria-label="Primary navigation">
+      <a
+        *ngFor="let link of menuLinks; trackBy: trackByLink"
+        [routerLink]="link.path"
+        [routerLinkActive]="'topbar__nav-link--active'"
+        [routerLinkActiveOptions]="{ exact: link.exact ?? true }"
+        class="topbar__nav-link"
+      >
+        {{ getLinkLabel(link) }}
+      </a>
+    </nav>
+
+    <div class="topbar__actions">
+      <div class="topbar__dropdown" [class.topbar__dropdown--open]="showThemeOptions">
+        <button
+          type="button"
+          class="topbar__dropdown-button"
+          (click)="toggleThemeOptions()"
+          [attr.aria-expanded]="showThemeOptions"
+          [attr.aria-label]="getThemeMenuLabel()"
+        >
+          <mat-icon aria-hidden="true">{{ getThemeIcon(currentTheme) }}</mat-icon>
+          <span class="topbar__dropdown-label">{{ getThemeName(currentTheme) }}</span>
+          <mat-icon aria-hidden="true" class="topbar__dropdown-arrow">expand_more</mat-icon>
+        </button>
+        <ul class="topbar__dropdown-panel" *ngIf="showThemeOptions">
+          <li *ngFor="let theme of availableThemes; trackBy: trackByTheme" class="topbar__dropdown-option">
+            <button
+              type="button"
+              class="topbar__dropdown-option-button"
+              (click)="changeTheme(theme)"
+              [class.topbar__dropdown-option-button--active]="currentTheme === theme"
+            >
+              <mat-icon aria-hidden="true">{{ getThemeIcon(theme) }}</mat-icon>
+              <span>{{ getThemeName(theme) }}</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="topbar__dropdown" [class.topbar__dropdown--open]="showLanguageOptions">
+        <button
+          type="button"
+          class="topbar__dropdown-button"
+          (click)="toggleLanguageOptions()"
+          [attr.aria-expanded]="showLanguageOptions"
+          [attr.aria-label]="getLanguageMenuLabel()"
+        >
+          <img
+            class="topbar__dropdown-flag"
+            [src]="getLanguageFlag(currentLang)"
+            [alt]="getLanguageName(currentLang)"
+          />
+          <span class="topbar__dropdown-label">{{ getLanguageName(currentLang) }}</span>
+          <mat-icon aria-hidden="true" class="topbar__dropdown-arrow">expand_more</mat-icon>
+        </button>
+        <ul class="topbar__dropdown-panel" *ngIf="showLanguageOptions">
+          <li *ngFor="let language of availableLanguages; trackBy: trackByLanguage" class="topbar__dropdown-option">
+            <button
+              type="button"
+              class="topbar__dropdown-option-button"
+              (click)="changeLanguage(language)"
+              [class.topbar__dropdown-option-button--active]="currentLang === language"
+            >
+              <img class="topbar__dropdown-flag" [src]="getLanguageFlag(language)" [alt]="getLanguageName(language)" />
+              <span>{{ getLanguageName(language) }}</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
