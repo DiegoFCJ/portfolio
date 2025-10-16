@@ -1,0 +1,27 @@
+<app-section-page-shell>
+  <app-skills></app-skills>
+
+  <div
+    *ngIf="showStackCarouselControls"
+    class="section-page-shell__stack-carousel-controls"
+    shellFloatingControls
+  >
+    <button
+      type="button"
+      class="section-page-shell__stack-carousel-button section-page-shell__stack-carousel-button--previous navigator-circle-button"
+      [attr.aria-label]="(stackCarouselPreviousLabel$ | async) ?? ''"
+      (click)="onStackCarouselPrevious()"
+    >
+      <mat-icon>arrow_upward</mat-icon>
+    </button>
+
+    <button
+      type="button"
+      class="section-page-shell__stack-carousel-button section-page-shell__stack-carousel-button--next navigator-circle-button"
+      [attr.aria-label]="(stackCarouselNextLabel$ | async) ?? ''"
+      (click)="onStackCarouselNext()"
+    >
+      <mat-icon>arrow_downward</mat-icon>
+    </button>
+  </div>
+</app-section-page-shell>

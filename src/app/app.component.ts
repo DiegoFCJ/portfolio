@@ -2,22 +2,15 @@ import { Component, OnInit, Inject, PLATFORM_ID, DestroyRef } from '@angular/cor
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { TranslationService } from './services/translation.service'; // Servizio per gestire la lingua
-import {
-  APP_TITLE_en,
-  APP_TITLE_it,
-  APP_TITLE_de,
-  APP_TITLE_es,
-  APP_TITLE_no,
-  APP_TITLE_ru
-} from './constants/general.const';
 import { filter } from 'rxjs/operators';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LanguageCode } from './models/language-code.type';
 import {
-  LANGUAGE_META_CONFIGURATION,
-  PRIVACY_LANGUAGE_META_CONFIGURATION,
-  type LanguageMetaConfig
+  DEFAULT_META_KEY,
+  META_CONFIGURATION_DICTIONARY,
+  type LanguageMetaConfig,
+  type MetaKey,
 } from './constants/meta.const';
 import { AnalyticsService } from './services/analytics.service';
 import { CookieConsentComponent } from './components/cookie-consent/cookie-consent.component';
@@ -34,7 +27,7 @@ import { FooterComponent } from './components/footer/footer.component';
   `,
 })
 export class AppComponent implements OnInit {
-  private currentMetaKey: 'home' | 'privacy' = 'home';
+  private currentMetaKey: MetaKey = DEFAULT_META_KEY;
   private analyticsConsentGranted = false;
 
   constructor(
@@ -67,7 +60,9 @@ export class AppComponent implements OnInit {
         const url = event.urlAfterRedirects ?? event.url;
         this.currentMetaKey = this.resolveMetaKey(url);
         this.analyticsService.trackPageView(url);
-        this.updateSeoTags(this.translationService.getCurrentLanguage());
+        const currentLanguage = this.translationService.getCurrentLanguage();
+        this.updateSeoTags(currentLanguage);
+        this.updatePageTitle(currentLanguage);
       });
     }
   }
@@ -86,14 +81,8 @@ export class AppComponent implements OnInit {
   }
 
   private updatePageTitle(language: LanguageCode): void {
-    let appTitle = APP_TITLE_it;
-    if (language === 'en') appTitle = APP_TITLE_en;
-    else if (language === 'de') appTitle = APP_TITLE_de;
-    else if (language === 'es') appTitle = APP_TITLE_es;
-    else if (language === 'no') appTitle = APP_TITLE_no;
-    else if (language === 'ru') appTitle = APP_TITLE_ru;
-
-    this.titleService.setTitle(appTitle);
+    const configuration = this.getMetaConfiguration(language);
+    this.titleService.setTitle(configuration.title);
   }
 
   private updateSeoTags(language: LanguageCode): void {
@@ -143,15 +132,37 @@ export class AppComponent implements OnInit {
     root.setAttribute('dir', direction);
   }
 
-  private resolveMetaKey(url: string): 'home' | 'privacy' {
+  private resolveMetaKey(url: string): MetaKey {
     const normalized = (url ?? '').split('?')[0].split('#')[0];
-    return normalized.includes('privacy') ? 'privacy' : 'home';
+    const path = normalized.startsWith('/') ? normalized.slice(1) : normalized;
+    const segment = path.split('/').filter(Boolean)[0] ?? '';
+
+    switch (segment) {
+      case 'privacy':
+        return 'privacy';
+      case 'about':
+        return 'about';
+      case 'projects':
+        return 'projects';
+      case 'skills':
+        return 'skills';
+      case 'education':
+        return 'education';
+      case 'experiences':
+        return 'experiences';
+      case 'stats':
+        return 'stats';
+      case 'contact':
+        return 'contact';
+      default:
+        return DEFAULT_META_KEY;
+    }
   }
 
   private getMetaConfiguration(language: LanguageCode): LanguageMetaConfig {
-    const dictionary = this.currentMetaKey === 'privacy'
-      ? PRIVACY_LANGUAGE_META_CONFIGURATION
-      : LANGUAGE_META_CONFIGURATION;
+    const dictionary =
+      META_CONFIGURATION_DICTIONARY[this.currentMetaKey] ??
+      META_CONFIGURATION_DICTIONARY[DEFAULT_META_KEY];
 
     return dictionary[language] ?? dictionary['it'];
   }

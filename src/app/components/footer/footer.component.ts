@@ -21,6 +21,6 @@ export class FooterComponent {
   readonly quickLinks: FooterLink[] = [
     { label: 'Privacy', link: '/privacy' },
     { label: 'Cookies', link: '/privacy', fragment: 'cookies' },
-    { label: 'Social', link: '/', fragment: 'social' },
+    { label: 'Social', link: '/contact' },
   ];
 }

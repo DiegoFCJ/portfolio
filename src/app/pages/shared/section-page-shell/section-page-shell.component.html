@@ -1,0 +1,21 @@
+<div class="section-page-shell__container">
+  <div class="section-page-shell__content">
+    <ng-content></ng-content>
+  </div>
+
+  <div
+    class="section-page-shell__floating-controls"
+    [class.section-page-shell__floating-controls--assistant-open]="isAssistantOpen"
+  >
+    <ng-content select="[shellFloatingControls]"></ng-content>
+
+    <app-assistant (opened)="onAssistantOpened()" (closed)="onAssistantClosed()"></app-assistant>
+
+    <app-navigator
+      [totalSections]="navigatorTotalSections"
+      [currentSectionIndex]="navigatorCurrentSectionIndex"
+      (navigateNext)="onNavigateNext()"
+      (navigatePrevious)="onNavigatePrevious()"
+    ></app-navigator>
+  </div>
+</div>
