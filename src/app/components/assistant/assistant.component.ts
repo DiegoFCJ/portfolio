@@ -60,10 +60,10 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         'Du nutzt das Portfolio am Desktop? So holst du das Beste aus allen Steuerelementen heraus.',
       steps: [
-        'Öffne die Navigationsleiste mit der Chevron-nach-unten-Schaltfläche unten rechts auf dem Bildschirm.',
-        'Wechsle zwischen den Abschnitten mit den Pfeilen nach oben und unten in der Navbar; alternativ kannst du auch mit dem Mausrad scrollen.',
+        'Die feste Topbar oben bündelt die Navigation – nutze dort die Chevron-nach-unten-Schaltfläche, um die kontextuellen Steuerelemente einzublenden.',
+        'Wechsle zwischen den Abschnitten mit den Pfeilen nach oben und unten in der Topbar; alternativ kannst du auch mit dem Mausrad scrollen.',
         'Fahre mit der Maus über eine beliebige Schaltfläche, um einen Hinweis zu sehen, der ihre Funktion erklärt.',
-        'Die Schaltflächen für Thema und Sprache öffnen links horizontale Untermenüs, damit du deine Einstellungen anpassen kannst.',
+        'Die Schaltflächen für Thema und Sprache in der Topbar öffnen links horizontale Untermenüs, damit du deine Einstellungen anpassen kannst.',
         'Im Abschnitt Kennzahlen ist jede Karte anklickbar und öffnet einen Dialog mit Details zur Berechnung der Zahl.'
       ]
     },
@@ -71,10 +71,10 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         'Auf dem Smartphone erwarten dich touchfreundliche Steuerelemente – folge diesen kurzen Schritten.',
       steps: [
-        'Öffne die Navigationsleiste mit der Chevron-nach-unten-Schaltfläche unten rechts auf dem Bildschirm.',
-        'Navigiere zwischen den Abschnitten mit den Pfeilen nach oben und unten in der Navbar oder streiche mit den Fingern.',
+        'Die feste Topbar oben enthält jetzt die neue Seitenmenü-Schaltfläche – tippe darauf, um die Liste aller Abschnitte zu öffnen.',
+        'Navigiere zwischen den Abschnitten mit den Pfeilen nach oben und unten in der Topbar oder streiche mit den Fingern.',
         'Halte eine Schaltfläche gedrückt, um einen Hinweis zu sehen, der ihre Aktion beschreibt.',
-        'Die Schaltflächen für Thema und Sprache öffnen links horizontale Untermenüs, damit du deine Einstellungen sofort ändern kannst.',
+        'Die Schaltflächen für Thema und Sprache in der Topbar öffnen links horizontale Untermenüs, damit du deine Einstellungen sofort ändern kannst.',
         'Im Abschnitt Tech-Stack wählst du zwischen Back, Front und Tooling: Es erscheint ein Karussell und die Navbar erhält linke und rechte Pfeile, um durch die Skill-Karten zu blättern.',
         'Im Abschnitt Kennzahlen ist jede Karte antippbar und öffnet einen Dialog mit Details zur Berechnung der Zahl.'
       ]
@@ -91,10 +91,10 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         'Se stai usando il portfolio da PC, ecco come sfruttare al meglio ogni controllo.',
       steps: [
-        'Apri la barra di navigazione con il pulsante con il chevron verso il basso in basso a destra dello schermo.',
-        'Naviga tra le sezioni con le frecce su e giù della navbar; in alternativa puoi scorrere anche con la rotella del mouse.',
+        'La topbar fissa in alto raccoglie la navigazione: usa il pulsante con il chevron verso il basso per mostrare i controlli contestuali.',
+        'Naviga tra le sezioni con le frecce su e giù presenti nella topbar; in alternativa puoi scorrere anche con la rotella del mouse.',
         'Passando il mouse sopra i pulsanti compare un suggerimento che descrive la loro azione.',
-        'I pulsanti del tema e della lingua aprono sottomenu orizzontali a sinistra per scegliere impostazioni personalizzate.',
+        'I pulsanti del tema e della lingua nella topbar aprono sottomenu orizzontali a sinistra per scegliere impostazioni personalizzate.',
         'Nella sezione Numeri chiave ogni card è cliccabile e apre un dialog con dettagli sul calcolo del numero corrispondente.'
       ]
     },
@@ -102,10 +102,10 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         'Da smartphone il portfolio offre comandi dedicati al tocco: segui questi passaggi rapidi.',
       steps: [
-        'Apri la barra di navigazione con il pulsante con il chevron verso il basso in basso a destra dello schermo.',
-        'Muoviti tra le sezioni con le frecce su e giù della navbar; se preferisci puoi anche scorrere con le dita.',
+        'Nella topbar fissa trovi il nuovo pulsante menu pagine: toccalo per aprire l’elenco completo delle sezioni.',
+        'Muoviti tra le sezioni con le frecce su e giù presenti nella topbar; se preferisci puoi anche scorrere con le dita.',
         'Tieni premuto un pulsante per mostrare il suggerimento che spiega la sua funzione.',
-        'I pulsanti del tema e della lingua aprono sottomenu orizzontali a sinistra per modificare rapidamente le impostazioni.',
+        'I pulsanti del tema e della lingua nella topbar aprono sottomenu orizzontali a sinistra per modificare rapidamente le impostazioni.',
         'Nella sezione Stack tecnologico scegli tra back, front e tooling: si apre un carosello che aggiunge le frecce sinistra e destra alla navbar per esplorare le card di competenze.',
         'Nella sezione Numeri chiave ogni card è cliccabile e apre un dialog con dettagli sul calcolo del numero corrispondente.'
       ]
@@ -122,20 +122,20 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         "Browsing from a desktop? Here's how to make the most of every control.",
       steps: [
-        'Open the navigation bar with the chevron-down button in the lower-right corner.',
-        'Move between sections with the navbar up and down arrows; you can also scroll with the mouse wheel if you prefer.',
+        'The fixed topbar keeps navigation at hand—use its chevron-down button to reveal the contextual controls.',
+        'Move between sections with the topbar up and down arrows; you can also scroll with the mouse wheel if you prefer.',
         'Hover any button to reveal a tooltip that explains what it does.',
-        'Theme and language buttons open horizontal submenus on the left so you can adjust your preferences.',
+        'Theme and language buttons in the topbar open horizontal submenus on the left so you can adjust your preferences.',
         'In the Key numbers section each card is clickable and opens a dialog with insights on how that number is calculated.'
       ]
     },
     mobile: {
       intro: "On mobile you get touch-friendly controls—follow these quick steps.",
       steps: [
-        'Open the navigation bar with the chevron-down button in the lower-right corner.',
-        'Use the navbar up and down arrows to switch sections, or swipe with your fingers if you like.',
+        'The fixed topbar now includes the new page menu button—tap it to open the full list of sections.',
+        'Use the topbar up and down arrows to switch sections, or swipe with your fingers if you like.',
         'Long-press a button to display a hint describing its action.',
-        'Theme and language buttons open horizontal submenus on the left so you can switch settings instantly.',
+        'Theme and language buttons in the topbar open horizontal submenus on the left so you can switch settings instantly.',
         'In the Tech stack section choose between back, front and tooling: a carousel appears and adds left and right arrows to the navbar to browse the skill cards.',
         'In the Key numbers section each card is clickable and opens a dialog with insights on how that number is calculated.'
       ]
@@ -151,20 +151,20 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     desktop: {
       intro: 'Bruker du porteføljen på PC? Slik får du mest ut av hver kontroll.',
       steps: [
-        'Åpne navigasjonsfeltet med chevron-ned-knappen nederst til høyre.',
-        'Bytt mellom seksjonene med pil opp og pil ned i navigasjonen; du kan også rulle med musehjulet hvis du foretrekker det.',
+        'Den faste topplinjen øverst samler navigasjonen – bruk chevron-ned-knappen der for å vise de kontekstuelle kontrollene.',
+        'Bytt mellom seksjonene med pil opp og pil ned i topplinjen; du kan også rulle med musehjulet hvis du foretrekker det.',
         'Hold musepekeren over en knapp for å vise et hint om hva den gjør.',
-        'Tema- og språkknappene åpner horisontale undermenyer til venstre slik at du kan justere innstillingene dine.',
+        'Tema- og språkknappene i topplinjen åpner horisontale undermenyer til venstre slik at du kan justere innstillingene dine.',
         'I seksjonen Nøkkeltall er hvert kort klikkbart og åpner en dialog med innsikt i hvordan tallet er beregnet.'
       ]
     },
     mobile: {
       intro: 'På mobil får du berøringsvennlige kontroller – følg disse raske trinnene.',
       steps: [
-        'Åpne navigasjonsfeltet med knappen med nedovervendt chevron nederst til høyre.',
-        'Bruk pil opp og pil ned i navigasjonen, eller sveip med fingrene for å bytte seksjon.',
+        'Den faste topplinjen har nå den nye menyknappen for sider – trykk på den for å åpne hele seksjonsoversikten.',
+        'Bruk pil opp og pil ned i topplinjen, eller sveip med fingrene for å bytte seksjon.',
         'Hold inne en knapp for å vise et hint som forklarer funksjonen.',
-        'Tema- og språkknappene åpner horisontale undermenyer til venstre for å endre innstillingene på et øyeblikk.',
+        'Tema- og språkknappene i topplinjen åpner horisontale undermenyer til venstre for å endre innstillingene på et øyeblikk.',
         'I seksjonen Teknologistack velger du mellom back, front og tooling: en karusell vises og legger til venstre- og høyrepiler i navigasjonen for å bla gjennom ferdighetskortene.',
         'I seksjonen Nøkkeltall kan hvert kort trykkes på for å åpne en dialog med detaljer om hvordan tallet er beregnet.'
       ]
@@ -180,20 +180,20 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     desktop: {
       intro: 'Просматриваете с компьютера? Вот как использовать все элементы управления.',
       steps: [
-        'Откройте панель навигации кнопкой со стрелкой вниз в правом нижнем углу.',
-        'Переключайте разделы стрелками вверх и вниз на навбаре; при желании можно прокручивать колесом мыши.',
+        'Фиксированная верхняя панель собирает навигацию — нажмите на ней кнопку со стрелкой вниз, чтобы показать контекстные элементы управления.',
+        'Переключайте разделы стрелками вверх и вниз на верхней панели; при желании можно прокручивать колесом мыши.',
         'Наведите курсор на любую кнопку, чтобы увидеть подсказку с описанием действия.',
-        'Кнопки темы и языка открывают горизонтальные подменю слева, где можно настроить параметры.',
+        'Кнопки темы и языка на верхней панели открывают горизонтальные подменю слева, где можно настроить параметры.',
         'В разделе «Ключевые показатели» каждую карточку можно нажать, чтобы открыть диалог с пояснением расчёта.'
       ]
     },
     mobile: {
       intro: 'На мобильном доступны элементы управления под касание — выполните эти шаги.',
       steps: [
-        'Откройте панель навигации кнопкой со стрелкой вниз в правом нижнем углу.',
-        'Переключайте разделы стрелками вверх и вниз или свайпайте пальцами.',
+        'Фиксированная верхняя панель теперь содержит новую кнопку меню страниц — нажмите её, чтобы открыть полный список разделов.',
+        'Переключайте разделы стрелками вверх и вниз на верхней панели или свайпайте пальцами.',
         'Удерживайте кнопку, чтобы увидеть подсказку с описанием действия.',
-        'Кнопки темы и языка открывают горизонтальные подменю слева для быстрого изменения настроек.',
+        'Кнопки темы и языка на верхней панели открывают горизонтальные подменю слева для быстрого изменения настроек.',
         'В разделе «Технологический стек» выберите back, front или tooling: появится карусель и в навигации добавятся стрелки влево и вправо для просмотра карточек навыков.',
         'В разделе «Ключевые показатели» каждую карточку можно нажать, чтобы открыть диалог с деталями расчёта.'
       ]
@@ -211,20 +211,20 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
       intro:
         '¿Usas el portafolio desde el ordenador? Así sacas el máximo partido de cada control.',
       steps: [
-        'Abre la barra de navegación con el botón del chevron hacia abajo en la esquina inferior derecha de la pantalla.',
-        'Cambia de sección con las flechas arriba y abajo de la barra; si lo prefieres, también puedes desplazarte con la rueda del ratón.',
+        'La barra superior fija reúne la navegación: usa allí el botón del chevron hacia abajo para mostrar los controles contextuales.',
+        'Cambia de sección con las flechas arriba y abajo de la barra superior; si lo prefieres, también puedes desplazarte con la rueda del ratón.',
         'Pasa el cursor sobre cualquier botón para mostrar una pista que explique su acción.',
-        'Los botones de tema e idioma abren submenús horizontales a la izquierda para que ajustes tus preferencias.',
+        'Los botones de tema e idioma en la barra superior abren submenús horizontales a la izquierda para que ajustes tus preferencias.',
         'En la sección Números clave cada tarjeta se puede pulsar y abre un diálogo con detalles sobre cómo se calcula la cifra.'
       ]
     },
     mobile: {
       intro: 'En el móvil tienes controles pensados para el tacto: sigue estos pasos rápidos.',
       steps: [
-        'Abre la barra de navegación con el botón del chevron hacia abajo en la esquina inferior derecha de la pantalla.',
-        'Muévete entre secciones con las flechas arriba y abajo de la barra o desliza con los dedos.',
+        'La barra superior fija ahora incluye el nuevo botón del menú de páginas: tócala para abrir la lista completa de secciones.',
+        'Muévete entre secciones con las flechas arriba y abajo de la barra superior o desliza con los dedos.',
         'Mantén pulsado un botón para mostrar una pista que describa su función.',
-        'Los botones de tema e idioma abren submenús horizontales a la izquierda para que cambies la configuración al instante.',
+        'Los botones de tema e idioma en la barra superior abren submenús horizontales a la izquierda para que cambies la configuración al instante.',
         'En la sección Stack tecnológico elige entre back, front y tooling: aparece un carrusel y se añaden flechas izquierda y derecha a la barra para recorrer las tarjetas de habilidades.',
         'En la sección Números clave cada tarjeta se puede pulsar y abre un diálogo con detalles sobre cómo se calcula la cifra.'
       ]
