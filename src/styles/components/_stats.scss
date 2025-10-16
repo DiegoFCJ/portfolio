@@ -321,35 +321,67 @@ app-stats {
 
         .statistics-dialog-close {
             position: absolute;
-            top: clamp(0.75rem, 2vw, 1rem);
-            inset-inline-end: clamp(-1rem, 2vw, 0rem);
-            inline-size: clamp(2.4rem, 6vw, 2.9rem);
-            aspect-ratio: 1 / 1;
-            border-radius: 999px;
-            border: 1px solid var(--stat-dialog-border);
-            background: transparent;
-            color: var(--stat-dialog-text);
-            font-size: clamp(1.4rem, 4vw, 1.75rem);
+            inset-block-start: clamp(0.75rem, 2vw, 1rem);
+            inset-inline-end: clamp(0.75rem, 2vw, 1rem);
+            inline-size: clamp(2.75rem, 6vw, 3rem);
+            block-size: clamp(2.75rem, 6vw, 3rem);
+            border-radius: 50%;
+            border: 1px solid var(--navigator-button-border, #a855f7);
+            background: var(
+                --navigator-button-bg,
+                linear-gradient(145deg, #f8f9ff, #e7e9ff)
+            );
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2),
+                0 0 14px var(--navigator-button-glow, rgba(168, 85, 247, 0.45));
+            color: var(--navigator-icon-color, var(--stat-dialog-text));
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
             padding: 0;
             line-height: 1;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease,
+                border-color 0.3s ease;
+            overflow: hidden;
+            touch-action: manipulation;
         }
 
-        .statistics-dialog-close span {
-            display: block;
-            transform: translateY(-0.04em);
+        .statistics-dialog-close::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 60%);
+            opacity: 0.45;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .statistics-dialog-close mat-icon {
+            font-size: clamp(1.6rem, 4vw, 1.9rem);
+            color: currentColor;
         }
 
         .statistics-dialog-close:hover,
         .statistics-dialog-close:focus-visible {
-            background: rgba(148, 163, 184, 0.18);
             transform: translateY(-1px) scale(1.04);
-            border-color: var(--stat-card-border-active);
-            outline: none;
+            background: var(
+                --navigator-button-hover-bg,
+                linear-gradient(145deg, #ffffff, #e4e7ff)
+            );
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35),
+                0 0 20px var(--navigator-button-glow, rgba(168, 85, 247, 0.45));
+            border-color: var(--navigator-button-border, #a855f7);
+        }
+
+        .statistics-dialog-close:hover::after,
+        .statistics-dialog-close:focus-visible::after {
+            opacity: 0.7;
+        }
+
+        .statistics-dialog-close:focus-visible {
+            outline: 2px solid var(--stat-card-border-active);
+            outline-offset: 3px;
         }
 
         .statistics-dialog-header {
