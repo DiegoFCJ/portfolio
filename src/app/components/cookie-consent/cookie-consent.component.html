@@ -3,22 +3,36 @@
   class="cookie-consent"
   role="dialog"
   aria-live="polite"
-  aria-label="Cookie consent"
+  aria-labelledby="cookie-consent-title"
+  aria-describedby="cookie-consent-message"
   data-testid="cookie-consent-banner"
 >
-  <p class="cookie-consent__message">
-    {{ content.message }}
-    <a routerLink="/privacy" class="cookie-consent__link">
-      {{ content.privacyLinkLabel }}
-    </a>
-  </p>
+  <div class="cookie-consent__card">
+    <div class="cookie-consent__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+        <path
+          d="M12 2a10 10 0 1 0 9.54 12.79 1 1 0 0 0-.92-1.28 2.5 2.5 0 0 1-2.5-2.5 1 1 0 0 0-1-1 2.5 2.5 0 0 1-2.5-2.5 1 1 0 0 0-1-1 2.5 2.5 0 0 1-2.5-2.5 1 1 0 0 0-1.12-.99A9.94 9.94 0 0 0 12 2Zm-3 6a1 1 0 1 1-1.41 0A1 1 0 0 1 9 8Zm-1 4a1 1 0 1 1-1 1 1 1 0 0 1 1-1Zm5 5a1 1 0 1 1 1-1 1 1 0 0 1-1 1Zm4-3a1 1 0 1 1-1-1 1 1 0 0 1 1 1Z"
+        />
+      </svg>
+    </div>
 
-  <div class="cookie-consent__actions">
-    <button type="button" class="cookie-consent__button cookie-consent__button--reject" (click)="reject()">
-      {{ content.rejectLabel }}
-    </button>
-    <button type="button" class="cookie-consent__button cookie-consent__button--accept" (click)="accept()">
-      {{ content.acceptLabel }}
-    </button>
+    <div class="cookie-consent__body">
+      <h2 class="cookie-consent__title" id="cookie-consent-title">{{ content.title }}</h2>
+      <p class="cookie-consent__message" id="cookie-consent-message">
+        {{ content.message }}
+        <a routerLink="/privacy" class="cookie-consent__link">
+          {{ content.privacyLinkLabel }}
+        </a>
+      </p>
+    </div>
+
+    <div class="cookie-consent__actions">
+      <button type="button" class="cookie-consent__button cookie-consent__button--reject" (click)="reject()">
+        {{ content.rejectLabel }}
+      </button>
+      <button type="button" class="cookie-consent__button cookie-consent__button--accept" (click)="accept()">
+        {{ content.acceptLabel }}
+      </button>
+    </div>
   </div>
 </section>
