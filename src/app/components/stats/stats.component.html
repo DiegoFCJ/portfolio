@@ -51,12 +51,12 @@
     >
       <button
         #detailCloseButton
-        class="statistics-dialog-close"
+        class="statistics-dialog-close navigator-circle-button"
         type="button"
         (click)="closeStatDetail($event)"
         [attr.aria-label]="closeButtonLabel"
       >
-        <span aria-hidden="true">&times;</span>
+        <mat-icon aria-hidden="true">close</mat-icon>
       </button>
       <div class="statistics-dialog-header">
         <div class="statistics-dialog-icon" aria-hidden="true">
