@@ -19,12 +19,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { PLATFORM_ID } from '@angular/core';
-
-interface NavigationItem {
-  readonly label: string;
-  readonly route: string;
-  readonly exact?: boolean;
-}
+import { NavigationService } from '../../services/navigation.service';
+import { NavigationItem } from '../../models/navigation-item.interface';
 
 @Component({
   selector: 'app-topbar',
@@ -48,75 +44,6 @@ export class TopbarComponent implements AfterViewInit {
   overflowMenuLabel = 'Open navigation menu';
   overflowMenuId = 'topbar-overflow-menu';
   isOverflowMenuOpen = false;
-
-  private readonly navDictionary: Record<LanguageCode, NavigationItem[]> = {
-    it: [
-      { label: 'Home', route: '/', exact: true },
-      { label: 'Chi sono', route: '/about' },
-      { label: 'Progetti', route: '/projects' },
-      { label: 'Competenze', route: '/skills' },
-      { label: 'Formazione', route: '/education' },
-      { label: 'Esperienze', route: '/experiences' },
-      { label: 'Numeri chiave', route: '/stats' },
-      { label: 'Contatti', route: '/contact' },
-      { label: 'Privacy', route: '/privacy' },
-    ],
-    en: [
-      { label: 'Home', route: '/', exact: true },
-      { label: 'About', route: '/about' },
-      { label: 'Projects', route: '/projects' },
-      { label: 'Skills', route: '/skills' },
-      { label: 'Education', route: '/education' },
-      { label: 'Experiences', route: '/experiences' },
-      { label: 'Stats', route: '/stats' },
-      { label: 'Contacts', route: '/contact' },
-      { label: 'Privacy', route: '/privacy' },
-    ],
-    de: [
-      { label: 'Start', route: '/', exact: true },
-      { label: 'Über mich', route: '/about' },
-      { label: 'Projekte', route: '/projects' },
-      { label: 'Fähigkeiten', route: '/skills' },
-      { label: 'Ausbildung', route: '/education' },
-      { label: 'Erfahrungen', route: '/experiences' },
-      { label: 'Kennzahlen', route: '/stats' },
-      { label: 'Kontakt', route: '/contact' },
-      { label: 'Datenschutz', route: '/privacy' },
-    ],
-    es: [
-      { label: 'Inicio', route: '/', exact: true },
-      { label: 'Sobre mí', route: '/about' },
-      { label: 'Proyectos', route: '/projects' },
-      { label: 'Competencias', route: '/skills' },
-      { label: 'Formación', route: '/education' },
-      { label: 'Experiencias', route: '/experiences' },
-      { label: 'Números clave', route: '/stats' },
-      { label: 'Contactos', route: '/contact' },
-      { label: 'Privacidad', route: '/privacy' },
-    ],
-    no: [
-      { label: 'Hjem', route: '/', exact: true },
-      { label: 'Om meg', route: '/about' },
-      { label: 'Prosjekter', route: '/projects' },
-      { label: 'Kompetanser', route: '/skills' },
-      { label: 'Utdanning', route: '/education' },
-      { label: 'Erfaringer', route: '/experiences' },
-      { label: 'Nøkkeltall', route: '/stats' },
-      { label: 'Kontakt', route: '/contact' },
-      { label: 'Personvern', route: '/privacy' },
-    ],
-    ru: [
-      { label: 'Главная', route: '/', exact: true },
-      { label: 'Обо мне', route: '/about' },
-      { label: 'Проекты', route: '/projects' },
-      { label: 'Навыки', route: '/skills' },
-      { label: 'Образование', route: '/education' },
-      { label: 'Опыт', route: '/experiences' },
-      { label: 'Статистика', route: '/stats' },
-      { label: 'Контакты', route: '/contact' },
-      { label: 'Конфиденциальность', route: '/privacy' },
-    ],
-  };
 
   @ViewChild('navContainer') private readonly navContainer?: ElementRef<HTMLElement>;
 
@@ -150,12 +77,13 @@ export class TopbarComponent implements AfterViewInit {
     private readonly destroyRef: DestroyRef,
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly navigationService: NavigationService,
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.themes = this.themeService.getAvailableThemes();
     this.currentLanguage = this.translationService.getCurrentLanguage();
     this.currentTheme = this.themeService.getCurrentTheme();
-    this.navigationItems = this.resolveNavigationItems(this.currentLanguage);
+    this.navigationItems = this.navigationService.getNavigationItems(this.currentLanguage);
     this.visibleNavigationItems = [...this.navigationItems];
     this.overflowNavigationItems = [];
     this.updatePreferenceLabels(this.currentLanguage);
@@ -164,7 +92,7 @@ export class TopbarComponent implements AfterViewInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(language => {
         this.currentLanguage = language;
-        this.navigationItems = this.resolveNavigationItems(language);
+        this.navigationItems = this.navigationService.getNavigationItems(language);
         this.visibleNavigationItems = [...this.navigationItems];
         this.overflowNavigationItems = [];
         this.isOverflowMenuOpen = false;
@@ -349,10 +277,6 @@ export class TopbarComponent implements AfterViewInit {
 
   private hasOverflow(navElement: HTMLElement): boolean {
     return navElement.scrollWidth - navElement.clientWidth > 1;
-  }
-
-  private resolveNavigationItems(language: LanguageCode): NavigationItem[] {
-    return this.navDictionary[language] ?? this.navDictionary['it'];
   }
 
   private updatePreferenceLabels(language: LanguageCode): void {

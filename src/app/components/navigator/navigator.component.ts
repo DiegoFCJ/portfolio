@@ -7,6 +7,9 @@ import { ThemeService } from '../../services/theme.service';
 import { ThemeKey } from '../../models/theme-key.type';
 import { LanguageCode } from '../../models/language-code.type';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationItem } from '../../models/navigation-item.interface';
+import { NavigationService } from '../../services/navigation.service';
+import { Router } from '@angular/router';
 
 type LanguageKey = LanguageCode;
 
@@ -31,11 +34,13 @@ export class NavigatorComponent implements OnInit {
 
   showLanguageOptions = false;
   showThemeOptions = false;
+  showPageOptions = false;
 
   currentLang: LanguageCode;
   currentTheme: ThemeKey;
   readonly availableThemes: ThemeKey[];
   readonly availableLanguages: LanguageKey[] = ['en', 'it', 'de', 'es', 'no', 'ru'];
+  pageNavigationItems: NavigationItem[] = [];
 
   /** Controls visibility of the navigator */
   isOpen = true;
@@ -45,42 +50,48 @@ export class NavigatorComponent implements OnInit {
   private programmaticScrollTimeout: ReturnType<typeof setTimeout> | null = null;
 
   /** Tooltip translations */
-  tooltipTexts: Record<LanguageKey, { prev: string; next: string; theme: string; language: string }> = {
+  tooltipTexts: Record<LanguageKey, { prev: string; next: string; theme: string; language: string; pages: string }> = {
     en: {
       prev: 'Previous section',
       next: 'Next section',
       theme: 'Theme',
-      language: 'Language'
+      language: 'Language',
+      pages: 'Open pages menu'
     },
     it: {
       prev: 'Sezione precedente',
       next: 'Sezione successiva',
       theme: 'Tema',
-      language: 'Lingua'
+      language: 'Lingua',
+      pages: 'Apri il menu delle pagine'
     },
     de: {
       prev: 'Vorheriger Abschnitt',
       next: 'Nächster Abschnitt',
       theme: 'Thema',
-      language: 'Sprache'
+      language: 'Sprache',
+      pages: 'Seitenauswahl öffnen'
     },
     es: {
       prev: 'Sección anterior',
       next: 'Siguiente sección',
       theme: 'Tema',
-      language: 'Idioma'
+      language: 'Idioma',
+      pages: 'Abrir menú de páginas'
     },
     no: {
       prev: 'Forrige seksjon',
       next: 'Neste seksjon',
       theme: 'Tema',
-      language: 'Språk'
+      language: 'Språk',
+      pages: 'Åpne sidemeny'
     },
     ru: {
       prev: 'Предыдущий раздел',
       next: 'Следующий раздел',
       theme: 'Тема',
-      language: 'Язык'
+      language: 'Язык',
+      pages: 'Открыть меню страниц'
     }
   };
 
@@ -118,11 +129,14 @@ export class NavigatorComponent implements OnInit {
   constructor(
     private readonly translationService: TranslationService,
     private readonly themeService: ThemeService,
-    private readonly elementRef: ElementRef
+    private readonly elementRef: ElementRef,
+    private readonly navigationService: NavigationService,
+    private readonly router: Router,
   ) {
     this.currentLang = this.translationService.getCurrentLanguage();
     this.availableThemes = this.themeService.getAvailableThemes();
     this.currentTheme = this.themeService.getCurrentTheme();
+    this.pageNavigationItems = this.navigationService.getNavigationItems(this.currentLang);
   }
 
   ngOnInit(): void {
@@ -131,6 +145,7 @@ export class NavigatorComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(lang => {
         this.currentLang = lang;
+        this.pageNavigationItems = this.navigationService.getNavigationItems(lang);
       });
 
     this.themeService.currentTheme$
@@ -158,6 +173,7 @@ export class NavigatorComponent implements OnInit {
     this.showLanguageOptions = !this.showLanguageOptions;
     if (this.showLanguageOptions) {
       this.showThemeOptions = false;
+      this.showPageOptions = false;
     }
   }
 
@@ -165,6 +181,15 @@ export class NavigatorComponent implements OnInit {
     this.showThemeOptions = !this.showThemeOptions;
     if (this.showThemeOptions) {
       this.showLanguageOptions = false;
+      this.showPageOptions = false;
+    }
+  }
+
+  togglePageOptions(): void {
+    this.showPageOptions = !this.showPageOptions;
+    if (this.showPageOptions) {
+      this.showLanguageOptions = false;
+      this.showThemeOptions = false;
     }
   }
 
@@ -172,6 +197,7 @@ export class NavigatorComponent implements OnInit {
     this.translationService.setLanguage(language);
     this.currentLang = language;
     this.showLanguageOptions = false;
+    this.pageNavigationItems = this.navigationService.getNavigationItems(language);
   }
 
   changeTheme(theme: ThemeKey): void {
@@ -179,8 +205,13 @@ export class NavigatorComponent implements OnInit {
     this.showThemeOptions = false;
   }
 
+  navigateToPage(item: NavigationItem): void {
+    this.router.navigateByUrl(item.route);
+    this.showPageOptions = false;
+  }
+
   /** Returns the tooltip text for the given key based on current language */
-  getTooltip(key: 'prev' | 'next' | 'theme' | 'language'): string {
+  getTooltip(key: 'prev' | 'next' | 'theme' | 'language' | 'pages'): string {
     const languagesToCheck = this.getTooltipFallbackLanguages();
 
     for (const language of languagesToCheck) {
@@ -271,6 +302,7 @@ export class NavigatorComponent implements OnInit {
   private resetOptionMenus(): void {
     this.showLanguageOptions = false;
     this.showThemeOptions = false;
+    this.showPageOptions = false;
   }
 
   /** Host listener to detect clicks outside and close */
@@ -317,5 +349,9 @@ export class NavigatorComponent implements OnInit {
       this.programmaticScroll = false;
       this.programmaticScrollTimeout = null;
     }, 800);
+  }
+
+  trackPageByRoute(_: number, item: NavigationItem): string {
+    return item.route;
   }
 }
