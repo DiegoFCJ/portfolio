@@ -32,7 +32,10 @@ interface TranslatableStatsTemplate {
     CommonModule
   ],
   templateUrl: './stats.component.html',
-  styleUrls: ['./stats.component.scss']
+  styleUrls: ['./stats.component.scss'],
+  host: {
+    '[class.dialog-open]': 'selectedStat !== null'
+  }
 })
 export class StatsComponent implements OnInit, OnDestroy {
   metrics: StatsMetrics | null = null;
