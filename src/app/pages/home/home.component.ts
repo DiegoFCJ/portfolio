@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('homeSection', { read: ElementRef })
   private sectionElements?: QueryList<ElementRef<HTMLElement>>;
 
-  private programmaticScrollTimeout: ReturnType<typeof setTimeout> | null = null;
+  private programmaticScrollTimeout: ReturnType<typeof setTimeout> | number | null = null;
   private isProgrammaticScroll = false;
   private targetSectionIndex: number | null = null;
 
