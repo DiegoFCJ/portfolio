@@ -70,8 +70,8 @@ app-about .about-section {
     position: relative;
     z-index: 6;
     inline-size: 100%;
-    block-size: 100vh;
-    min-block-size: 100%;
+    block-size: auto;
+    min-block-size: clamp(100vh, calc(100vh + 8rem), 140vh);
     display: flex;
     justify-content: center;
     align-items: center;
