@@ -7,6 +7,17 @@ import { BehaviorSubject } from 'rxjs';
 import { ThemeKey } from '../../models/theme-key.type';
 import { LanguageCode } from '../../models/language-code.type';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NavigationService } from '../../services/navigation.service';
+import { NavigationItem } from '../../models/navigation-item.interface';
+
+class MockNavigationService {
+  getNavigationItems(_: LanguageCode): NavigationItem[] {
+    return [
+      { label: 'Home', route: '/', exact: true },
+      { label: 'About', route: '/about' },
+    ];
+  }
+}
 
 class MockThemeService {
   private readonly themeSubject = new BehaviorSubject<ThemeKey>('dark');
@@ -39,6 +50,7 @@ describe('TopbarComponent', () => {
       providers: [
         { provide: TranslationService, useClass: MockTranslationService },
         { provide: ThemeService, useClass: MockThemeService },
+        { provide: NavigationService, useClass: MockNavigationService },
       ],
     }).compileComponents();
 

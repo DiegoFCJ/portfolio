@@ -17,6 +17,32 @@
       </div>
 
       <div class="nav-groups">
+        <div class="nav-group" *ngIf="pageNavigationItems.length > 0">
+          <button
+            class="nav-button"
+            (click)="togglePageOptions()"
+            [attr.aria-label]="getTooltip('pages')"
+            [matTooltip]="getTooltip('pages')"
+            matTooltipPosition="left"
+            [attr.aria-expanded]="showPageOptions"
+            aria-haspopup="true"
+          >
+            <mat-icon aria-hidden="true" fontIcon="menu"></mat-icon>
+          </button>
+
+          <div class="page-menu" *ngIf="showPageOptions" role="menu">
+            <button
+              type="button"
+              class="page-menu__item"
+              *ngFor="let item of pageNavigationItems; trackBy: trackPageByRoute"
+              (click)="navigateToPage(item)"
+              role="menuitem"
+            >
+              {{ item.label | uppercase }}
+            </button>
+          </div>
+        </div>
+
         <div class="nav-group">
           <button class="nav-button" (click)="toggleThemeOptions()" [attr.aria-label]="getTooltip('theme')"
             [matTooltip]="getTooltip('theme')" matTooltipPosition="left">

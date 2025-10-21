@@ -9,6 +9,10 @@ import { ThemeService } from '../../services/theme.service';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeKey } from '../../models/theme-key.type';
 import { LanguageCode } from '../../models/language-code.type';
+import { NavigationService } from '../../services/navigation.service';
+import { NavigationItem } from '../../models/navigation-item.interface';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 class MockThemeService {
   private readonly themeSubject = new BehaviorSubject<ThemeKey>('dark');
@@ -31,6 +35,15 @@ class MockThemeService {
   }
 }
 
+class MockNavigationService {
+  getNavigationItems(_: LanguageCode): NavigationItem[] {
+    return [
+      { label: 'Home', route: '/', exact: true },
+      { label: 'About', route: '/about' },
+    ];
+  }
+}
+
 /**
  * Unit tests for NavigatorComponent to ensure correct functionality.
  */
@@ -43,10 +56,11 @@ describe('NavigatorComponent', () => {
    */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent],
+      imports: [NavigatorComponent, MatIconModule, MatTooltipModule, ThemeswitchComponent, RouterTestingModule],
       providers: [
         { provide: TranslationService, useClass: MockTranslationService },
-        { provide: ThemeService, useClass: MockThemeService }
+        { provide: ThemeService, useClass: MockThemeService },
+        { provide: NavigationService, useClass: MockNavigationService }
       ]
     })
       .compileComponents();
@@ -81,6 +95,23 @@ describe('NavigatorComponent', () => {
     component.currentSectionIndex = 1;
     component.onPrevious();
     expect(component.navigatePrevious.emit).toHaveBeenCalled();
+  });
+
+  it('should toggle and close page menu when navigating', () => {
+    const router = TestBed.inject(Router);
+    spyOn(router, 'navigateByUrl').and.stub();
+
+    component.pageNavigationItems = [
+      { label: 'Test', route: '/test' }
+    ];
+
+    component.togglePageOptions();
+    expect(component.showPageOptions).toBeTrue();
+
+    component.navigateToPage(component.pageNavigationItems[0]);
+
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/test');
+    expect(component.showPageOptions).toBeFalse();
   });
 
   it('should close navigator and reset menus when toggle button is clicked', () => {

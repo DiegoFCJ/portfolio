@@ -1,40 +1,18 @@
 <header class="topbar" aria-label="Primary navigation">
   <div class="topbar__content">
     <nav class="topbar__nav" aria-label="Main menu" #navContainer>
-      <ng-container
-        *ngFor="let item of visibleNavigationItems; trackBy: trackByRoute; let last = last"
-      >
-        <a
-          [routerLink]="item.route"
-          routerLinkActive="topbar__link--active"
-          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
-          class="topbar__link"
-        >
-          {{ item.label | uppercase }}
-        </a>
-        <span *ngIf="!last" class="topbar__separator" aria-hidden="true">|</span>
-      </ng-container>
-
       <ng-container *ngIf="overflowNavigationItems.length > 0">
-        <span
-          *ngIf="visibleNavigationItems.length > 0"
-          class="topbar__separator"
-          aria-hidden="true"
-        >
-          |
-        </span>
-
         <div class="topbar__overflow">
           <button
             type="button"
-            class="topbar__menu-button"
+            class="topbar__menu-button navigator-circle-button"
             (click)="toggleOverflowMenu()"
             [attr.aria-expanded]="isOverflowMenuOpen"
             aria-haspopup="true"
             [attr.aria-controls]="overflowMenuId"
           >
             <span class="visually-hidden">{{ overflowMenuLabel }}</span>
-            <mat-icon aria-hidden="true">menu</mat-icon>
+            <mat-icon aria-hidden="true" fontIcon="menu"></mat-icon>
           </button>
 
           <div
@@ -56,6 +34,28 @@
             </a>
           </div>
         </div>
+
+        <span
+          *ngIf="visibleNavigationItems.length > 0"
+          class="topbar__separator"
+          aria-hidden="true"
+        >
+          |
+        </span>
+      </ng-container>
+
+      <ng-container
+        *ngFor="let item of visibleNavigationItems; trackBy: trackByRoute; let last = last"
+      >
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="topbar__link--active"
+          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+          class="topbar__link"
+        >
+          {{ item.label | uppercase }}
+        </a>
+        <span *ngIf="!last" class="topbar__separator" aria-hidden="true">|</span>
       </ng-container>
     </nav>
 

@@ -11,6 +11,11 @@
   background: rgba(15, 23, 42, 0.85);
   border-bottom: 1px solid rgba(148, 163, 184, 0.25);
   color: #f8fafc;
+  --navigator-button-bg: linear-gradient(145deg, #1f2933, #0f172a);
+  --navigator-button-hover-bg: linear-gradient(145deg, #273445, #111c31);
+  --navigator-button-border: rgba(148, 163, 184, 0.45);
+  --navigator-button-glow: rgba(125, 211, 252, 0.35);
+  --navigator-icon-color: #e2e8f0;
 }
 
 .topbar__content {
@@ -95,31 +100,17 @@
 }
 
 .topbar__menu-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: 2.4rem;
-  block-size: 2.4rem;
-  border-radius: 0.6rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(15, 23, 42, 0.7);
-  color: #e2e8f0;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
   padding: 0;
-}
 
-.topbar__menu-button:hover,
-.topbar__menu-button:focus-visible {
-  border-color: rgba(125, 211, 252, 0.65);
-  color: #ffffff;
-  outline: none;
+  mat-icon {
+    color: var(--navigator-icon-color, #e2e8f0);
+  }
 }
 
 .topbar__overflow-menu {
   position: absolute;
   inset-block-start: calc(100% + 0.5rem);
-  inset-inline-end: 0;
+  inset-inline-start: 0;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
