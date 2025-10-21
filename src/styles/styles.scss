@@ -132,8 +132,12 @@ button {
     mat-icon {
         font-size: 24px;
         color: var(--navigator-icon-color, #111111);
-        position: absolute;
-        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        inline-size: 1em;
+        block-size: 1em;
+        line-height: 1;
     }
 
     svg {
