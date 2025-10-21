@@ -1,8 +1,8 @@
 <header class="topbar" aria-label="Primary navigation">
   <div class="topbar__content">
-    <nav class="topbar__nav" aria-label="Main menu">
+    <nav class="topbar__nav" aria-label="Main menu" #navContainer>
       <ng-container
-        *ngFor="let item of navigationItems; trackBy: trackByRoute; let last = last"
+        *ngFor="let item of visibleNavigationItems; trackBy: trackByRoute; let last = last"
       >
         <a
           [routerLink]="item.route"
@@ -13,6 +13,49 @@
           {{ item.label | uppercase }}
         </a>
         <span *ngIf="!last" class="topbar__separator" aria-hidden="true">|</span>
+      </ng-container>
+
+      <ng-container *ngIf="overflowNavigationItems.length > 0">
+        <span
+          *ngIf="visibleNavigationItems.length > 0"
+          class="topbar__separator"
+          aria-hidden="true"
+        >
+          |
+        </span>
+
+        <div class="topbar__overflow">
+          <button
+            type="button"
+            class="topbar__menu-button"
+            (click)="toggleOverflowMenu()"
+            [attr.aria-expanded]="isOverflowMenuOpen"
+            aria-haspopup="true"
+            [attr.aria-controls]="overflowMenuId"
+          >
+            <span class="visually-hidden">{{ overflowMenuLabel }}</span>
+            <mat-icon aria-hidden="true">menu</mat-icon>
+          </button>
+
+          <div
+            *ngIf="isOverflowMenuOpen"
+            class="topbar__overflow-menu"
+            [id]="overflowMenuId"
+            role="menu"
+          >
+            <a
+              *ngFor="let item of overflowNavigationItems; trackBy: trackByRoute"
+              [routerLink]="item.route"
+              routerLinkActive="topbar__overflow-link--active"
+              [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+              class="topbar__overflow-link"
+              role="menuitem"
+              (click)="onOverflowItemSelected()"
+            >
+              {{ item.label | uppercase }}
+            </a>
+          </div>
+        </div>
       </ng-container>
     </nav>
 
