@@ -2,19 +2,23 @@
   <div class="topbar__content">
     <a class="topbar__brand" routerLink="/">
       <span class="topbar__logo" aria-hidden="true">MB</span>
-      <span class="topbar__brand-text">Mirko Bottazzo</span>
+      <span class="visually-hidden">Home</span>
     </a>
 
     <nav class="topbar__nav" aria-label="Main menu">
-      <a
-        *ngFor="let item of navigationItems; trackBy: trackByRoute"
-        [routerLink]="item.route"
-        routerLinkActive="topbar__link--active"
-        [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
-        class="topbar__link"
+      <ng-container
+        *ngFor="let item of navigationItems; trackBy: trackByRoute; let last = last"
       >
-        {{ item.label }}
-      </a>
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="topbar__link--active"
+          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+          class="topbar__link"
+        >
+          {{ item.label | uppercase }}
+        </a>
+        <span *ngIf="!last" class="topbar__separator" aria-hidden="true">|</span>
+      </ng-container>
     </nav>
 
     <div class="topbar__preferences">

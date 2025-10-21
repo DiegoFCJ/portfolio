@@ -25,31 +25,37 @@
 .topbar__brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: center;
+  inline-size: clamp(2.25rem, 4vw, 2.75rem);
+  block-size: clamp(2.25rem, 4vw, 2.75rem);
+  border-radius: 0.75rem;
   text-decoration: none;
   color: inherit;
-  font-weight: 700;
-  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
-  letter-spacing: 0.04em;
+  transition: outline 0.2s ease;
+}
+
+.topbar__brand:focus-visible {
+  outline: 2px solid rgba(125, 211, 252, 0.65);
+  outline-offset: 2px;
 }
 
 .topbar__logo {
-  inline-size: 2.5rem;
-  block-size: 2.5rem;
-  border-radius: 0.75rem;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: inherit;
   display: grid;
   place-items: center;
   background: rgba(59, 130, 246, 0.2);
   border: 1px solid rgba(148, 163, 184, 0.35);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
   letter-spacing: 0.12em;
 }
 
 .topbar__nav {
-  display: flex;
-  gap: clamp(1rem, 2.5vw, 2rem);
+  display: inline-flex;
   align-items: center;
+  gap: 0.75rem;
 }
 
 .topbar__link {
@@ -58,16 +64,27 @@
   font-weight: 500;
   letter-spacing: 0.02em;
   transition: color 0.25s ease;
+  padding: 0.25rem 0.35rem;
+  border-radius: 0.35rem;
 }
 
 .topbar__link:hover,
 .topbar__link:focus-visible {
   color: #ffffff;
-  outline: none;
+  outline: 2px solid rgba(125, 211, 252, 0.65);
+  outline-offset: 2px;
 }
 
 .topbar__link--active {
   color: #7dd3fc;
+}
+
+.topbar__separator {
+  color: rgba(148, 163, 184, 0.55);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  user-select: none;
+  margin-inline: 0.1rem 0.4rem;
 }
 
 .topbar__preferences {
