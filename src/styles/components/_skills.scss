@@ -118,10 +118,10 @@ body.red-mode app-skills {
 
 app-skills .skills-section {
   inline-size: 100%;
-  block-size: 100vh;
-  min-block-size: 100%;
-  padding-block-start: 0;
-  padding-block-end: clamp(1rem, 1vw, 1rem);
+  block-size: auto;
+  min-block-size: 100vh;
+  padding-block-start: clamp(1.75rem, 5vw, 3.5rem);
+  padding-block-end: clamp(2rem, 5vw, 3.5rem);
   padding-inline: 0;
   display: flex;
   flex-direction: column;
@@ -130,7 +130,6 @@ app-skills .skills-section {
   background: var(--skills-section-bg);
   width: 100%;
   max-width: 100% !important;
-  overflow: auto;
 }
 
 app-skills .skills-title {
