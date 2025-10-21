@@ -119,7 +119,7 @@ body.red-mode app-skills {
 app-skills .skills-section {
   inline-size: 100%;
   block-size: auto;
-  min-block-size: 100vh;
+  min-block-size: clamp(100vh, calc(100vh + 10rem), 150vh);
   padding-block-start: clamp(1.75rem, 5vw, 3.5rem);
   padding-block-end: clamp(2rem, 5vw, 3.5rem);
   padding-inline: 0;
