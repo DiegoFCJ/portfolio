@@ -1,4 +1,5 @@
 .social-container {
+    color: #0f172a;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -17,4 +18,8 @@
             }
         }
     }
+}
+
+:host-context(body.dark-mode) .social-container {
+    color: #f3f4f6;
 }
