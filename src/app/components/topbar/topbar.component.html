@@ -1,10 +1,5 @@
 <header class="topbar" aria-label="Primary navigation">
   <div class="topbar__content">
-    <a class="topbar__brand" routerLink="/">
-      <span class="topbar__logo" aria-hidden="true">MB</span>
-      <span class="visually-hidden">Home</span>
-    </a>
-
     <nav class="topbar__nav" aria-label="Main menu">
       <ng-container
         *ngFor="let item of navigationItems; trackBy: trackByRoute; let last = last"

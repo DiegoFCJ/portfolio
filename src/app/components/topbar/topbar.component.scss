@@ -22,36 +22,6 @@
   gap: 1.5rem;
 }
 
-.topbar__brand {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: clamp(2.25rem, 4vw, 2.75rem);
-  block-size: clamp(2.25rem, 4vw, 2.75rem);
-  border-radius: 0.75rem;
-  text-decoration: none;
-  color: inherit;
-  transition: outline 0.2s ease;
-}
-
-.topbar__brand:focus-visible {
-  outline: 2px solid rgba(125, 211, 252, 0.65);
-  outline-offset: 2px;
-}
-
-.topbar__logo {
-  inline-size: 100%;
-  block-size: 100%;
-  border-radius: inherit;
-  display: grid;
-  place-items: center;
-  background: rgba(59, 130, 246, 0.2);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-}
-
 .topbar__nav {
   display: inline-flex;
   align-items: center;
