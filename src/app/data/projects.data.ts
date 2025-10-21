@@ -43,8 +43,8 @@ export const projects: ProjectsLangs = {
                 status: {
                     level: 'active'
                 },
-                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
-                description: 'Portale turistico responsive per valorizzare il borgo con itinerari, galleria stagionale e copy gestito da CMS headless (codice privato).',
+                technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Portale turistico responsive sviluppato in Next.js per valorizzare il borgo con itinerari, galleria stagionale e copy gestito da CMS headless (codice privato).',
                 image: 'assets/projects/borgo-samarina-cover.png',
                 links: {
                     code: {
@@ -62,15 +62,14 @@ export const projects: ProjectsLangs = {
             {
                 title: 'Micro Games',
                 status: {
-                    level: 'active',
-                    tags: ['openSource']
+                    level: 'inDevelopment'
                 },
-                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
-                description: 'Suite modulare di mini-giochi casual con core condiviso, profili giocatore e leaderboard mobile-ready per sessioni rapide.',
+                technologies: ['Angular 16', 'TypeScript', 'SCSS', 'Java', 'Spring Boot', 'Docker', 'Docker Compose', 'Firebase'],
+                description: 'Suite modulare di mini-giochi casual con core condiviso, backend Spring Boot containerizzato e servizi Firebase per profili e classifiche.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 links: {
                     code: {
-                        state: 'unavailable'
+                        state: 'private'
                     },
                     site: {
                         state: 'unavailable'
@@ -81,20 +80,40 @@ export const projects: ProjectsLangs = {
                 }
             },
             {
-                title: 'Self',
+                title: 'Daily Reporter',
                 status: {
-                    level: 'publicBeta',
-                    tags: ['release2024']
+                    level: 'active'
                 },
-                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
-                description: 'Hub di produttività che traccia abitudini, espone un marketplace di plugin e sincronizza obiettivi con promemoria su calendario multi-dispositivo.',
-                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                technologies: ['Angular 17', 'TypeScript', 'Google Apps Script', 'Google Workspace'],
+                description: 'App Angular collegata a Google Apps Script che automatizza il recap giornaliero delle attività su Fogli Google e invia report al team.',
+                image: 'assets/projects/daily-reporter-cover.svg',
+                links: {
+                    code: {
+                        state: 'private'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Scriptagher',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['SQLite', 'Dart', 'Flutter', 'Angular'],
+                description: 'Ecosistema ibrido che raccoglie script di automazione: app Flutter offline con storage SQLite e pannello Angular per pubblicare snippet riutilizzabili.',
+                image: 'assets/projects/scriptagher-cover.svg',
                 links: {
                     code: {
                         state: 'unavailable'
                     },
                     site: {
-                        state: 'unavailable'
+                        state: 'available',
+                        url: 'https://diegofcj.github.io/scriptagher/'
                     },
                     demo: {
                         state: 'unavailable'
@@ -166,8 +185,8 @@ export const projects: ProjectsLangs = {
                 status: {
                     level: 'active'
                 },
-                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
-                description: 'Responsive tourism portal celebrating the seaside village with curated itineraries, seasonal gallery and CMS-driven copy (private codebase).',
+                technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Responsive tourism portal built with Next.js to celebrate the seaside village with curated itineraries, seasonal gallery and CMS-driven copy (private codebase).',
                 image: 'assets/projects/borgo-samarina-cover.png',
                 links: {
                     code: {
@@ -185,15 +204,14 @@ export const projects: ProjectsLangs = {
             {
                 title: 'Micro Games',
                 status: {
-                    level: 'active',
-                    tags: ['openSource']
+                    level: 'inDevelopment'
                 },
-                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
-                description: 'Modular suite of casual mini-games with shared core, player profiles and a mobile-ready leaderboard for quick sessions.',
+                technologies: ['Angular 16', 'TypeScript', 'SCSS', 'Java', 'Spring Boot', 'Docker', 'Docker Compose', 'Firebase'],
+                description: 'Modular suite of casual mini-games with a shared Angular core, Spring Boot microservices packaged with Docker and Firebase services for players and leaderboards.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 links: {
                     code: {
-                        state: 'unavailable'
+                        state: 'private'
                     },
                     site: {
                         state: 'unavailable'
@@ -204,20 +222,40 @@ export const projects: ProjectsLangs = {
                 }
             },
             {
-                title: 'Self',
+                title: 'Daily Reporter',
                 status: {
-                    level: 'publicBeta',
-                    tags: ['release2024']
+                    level: 'active'
                 },
-                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
-                description: 'Productivity hub that tracks habits, exposes a plugin marketplace and syncs goals with calendar reminders across devices.',
-                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                technologies: ['Angular 17', 'TypeScript', 'Google Apps Script', 'Google Workspace'],
+                description: 'Angular companion app wired to Google Apps Script that automates the daily recap on Google Sheets and sends structured reports to the team.',
+                image: 'assets/projects/daily-reporter-cover.svg',
+                links: {
+                    code: {
+                        state: 'private'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Scriptagher',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['SQLite', 'Dart', 'Flutter', 'Angular'],
+                description: 'Hybrid automation ecosystem combining an offline Flutter app backed by SQLite with an Angular dashboard to publish reusable scripting recipes.',
+                image: 'assets/projects/scriptagher-cover.svg',
                 links: {
                     code: {
                         state: 'unavailable'
                     },
                     site: {
-                        state: 'unavailable'
+                        state: 'available',
+                        url: 'https://diegofcj.github.io/scriptagher/'
                     },
                     demo: {
                         state: 'unavailable'
@@ -289,8 +327,8 @@ export const projects: ProjectsLangs = {
                 status: {
                     level: 'active'
                 },
-                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
-                description: 'Responsives Tourismusportal, das das Küstendorf mit kuratierten Routen, saisonaler Galerie und CMS-verwaltetem Text hervorhebt (private Codebasis).',
+                technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Responsives Tourismusportal auf Next.js-Basis, das das Küstendorf mit kuratierten Routen, saisonaler Galerie und CMS-verwaltetem Text hervorhebt (private Codebasis).',
                 image: 'assets/projects/borgo-samarina-cover.png',
                 links: {
                     code: {
@@ -308,15 +346,14 @@ export const projects: ProjectsLangs = {
             {
                 title: 'Micro Games',
                 status: {
-                    level: 'active',
-                    tags: ['openSource']
+                    level: 'inDevelopment'
                 },
-                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
-                description: 'Modulare Suite lässiger Minispiele mit gemeinsamem Kern, Spielerprofilen und einer mobiloptimierten Bestenliste für kurze Sessions.',
+                technologies: ['Angular 16', 'TypeScript', 'SCSS', 'Java', 'Spring Boot', 'Docker', 'Docker Compose', 'Firebase'],
+                description: 'Modulare Suite lässiger Minispiele mit gemeinsamem Angular-Kern, Spring-Boot-Backend in Docker-Containern und Firebase-Diensten für Profile und Bestenlisten.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 links: {
                     code: {
-                        state: 'unavailable'
+                        state: 'private'
                     },
                     site: {
                         state: 'unavailable'
@@ -327,20 +364,40 @@ export const projects: ProjectsLangs = {
                 }
             },
             {
-                title: 'Self',
+                title: 'Daily Reporter',
                 status: {
-                    level: 'publicBeta',
-                    tags: ['release2024']
+                    level: 'active'
                 },
-                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
-                description: 'Produktivitätshub, der Gewohnheiten verfolgt, einen Plugin-Marktplatz anbietet und Ziele mit geräteübergreifenden Kalendererinnerungen synchronisiert.',
-                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                technologies: ['Angular 17', 'TypeScript', 'Google Apps Script', 'Google Workspace'],
+                description: 'Angular-Anwendung, die mit Google Apps Script verbunden ist, um tägliche Zusammenfassungen in Google Sheets zu automatisieren und strukturierte Reports ans Team zu senden.',
+                image: 'assets/projects/daily-reporter-cover.svg',
+                links: {
+                    code: {
+                        state: 'private'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Scriptagher',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['SQLite', 'Dart', 'Flutter', 'Angular'],
+                description: 'Hybrides Automations-Ökosystem mit einer offlinefähigen Flutter-App auf SQLite-Basis und einem Angular-Dashboard zum Veröffentlichen wiederverwendbarer Skript-Rezepte.',
+                image: 'assets/projects/scriptagher-cover.svg',
                 links: {
                     code: {
                         state: 'unavailable'
                     },
                     site: {
-                        state: 'unavailable'
+                        state: 'available',
+                        url: 'https://diegofcj.github.io/scriptagher/'
                     },
                     demo: {
                         state: 'unavailable'
@@ -412,8 +469,8 @@ export const projects: ProjectsLangs = {
                 status: {
                     level: 'active'
                 },
-                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
-                description: 'Portal turístico responsive que destaca el pueblo costero con itinerarios curados, galería estacional y textos gestionados desde un CMS headless (código privado).',
+                technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Portal turístico responsive construido con Next.js que destaca el pueblo costero con itinerarios curados, galería estacional y textos gestionados desde un CMS headless (código privado).',
                 image: 'assets/projects/borgo-samarina-cover.png',
                 links: {
                     code: {
@@ -431,15 +488,14 @@ export const projects: ProjectsLangs = {
             {
                 title: 'Micro Games',
                 status: {
-                    level: 'active',
-                    tags: ['openSource']
+                    level: 'inDevelopment'
                 },
-                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
-                description: 'Suite modular de minijuegos casuales con núcleo compartido, perfiles de jugador y clasificación preparada para móviles para partidas rápidas.',
+                technologies: ['Angular 16', 'TypeScript', 'SCSS', 'Java', 'Spring Boot', 'Docker', 'Docker Compose', 'Firebase'],
+                description: 'Suite modular de minijuegos casuales con núcleo Angular compartido, microservicios Spring Boot en contenedores Docker y servicios Firebase para perfiles y clasificaciones.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 links: {
                     code: {
-                        state: 'unavailable'
+                        state: 'private'
                     },
                     site: {
                         state: 'unavailable'
@@ -450,20 +506,40 @@ export const projects: ProjectsLangs = {
                 }
             },
             {
-                title: 'Self',
+                title: 'Daily Reporter',
                 status: {
-                    level: 'publicBeta',
-                    tags: ['release2024']
+                    level: 'active'
                 },
-                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
-                description: 'Centro de productividad que registra hábitos, ofrece un mercado de plugins y sincroniza objetivos con recordatorios en calendario multiplataforma.',
-                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                technologies: ['Angular 17', 'TypeScript', 'Google Apps Script', 'Google Workspace'],
+                description: 'Aplicación Angular conectada a Google Apps Script que automatiza el resumen diario en Hojas de Google y envía reportes estructurados al equipo.',
+                image: 'assets/projects/daily-reporter-cover.svg',
+                links: {
+                    code: {
+                        state: 'private'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Scriptagher',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['SQLite', 'Dart', 'Flutter', 'Angular'],
+                description: 'Ecosistema híbrido de automatización con app Flutter offline sobre SQLite y panel Angular para publicar recetas de scripts reutilizables.',
+                image: 'assets/projects/scriptagher-cover.svg',
                 links: {
                     code: {
                         state: 'unavailable'
                     },
                     site: {
-                        state: 'unavailable'
+                        state: 'available',
+                        url: 'https://diegofcj.github.io/scriptagher/'
                     },
                     demo: {
                         state: 'unavailable'
@@ -535,8 +611,8 @@ export const projects: ProjectsLangs = {
                 status: {
                     level: 'active'
                 },
-                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
-                description: 'Responsivt turistnettsted som fremhever kystlandsbyen med kuraterte ruter, sesonggalleri og CMS-styrt innhold (privat kodebase).',
+                technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Responsivt turistnettsted bygget med Next.js som fremhever kystlandsbyen med kuraterte ruter, sesonggalleri og CMS-styrt innhold (privat kodebase).',
                 image: 'assets/projects/borgo-samarina-cover.png',
                 links: {
                     code: {
@@ -554,15 +630,14 @@ export const projects: ProjectsLangs = {
             {
                 title: 'Micro Games',
                 status: {
-                    level: 'active',
-                    tags: ['openSource']
+                    level: 'inDevelopment'
                 },
-                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
-                description: 'Modulær samling av uformelle minispill med delt kjerne, spillerprofiler og en mobiltilpasset toppliste for korte økter.',
+                technologies: ['Angular 16', 'TypeScript', 'SCSS', 'Java', 'Spring Boot', 'Docker', 'Docker Compose', 'Firebase'],
+                description: 'Modulær samling av uformelle minispill med delt Angular-kjerne, Spring Boot-mikrotjenester i Docker-containere og Firebase-tjenester for profiler og topplister.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 links: {
                     code: {
-                        state: 'unavailable'
+                        state: 'private'
                     },
                     site: {
                         state: 'unavailable'
@@ -573,20 +648,40 @@ export const projects: ProjectsLangs = {
                 }
             },
             {
-                title: 'Self',
+                title: 'Daily Reporter',
                 status: {
-                    level: 'publicBeta',
-                    tags: ['release2024']
+                    level: 'active'
                 },
-                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
-                description: 'Produktivitetshub som følger vaner, tilbyr et plugin-marked og synkroniserer mål med påminnelser på tvers av enheter.',
-                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                technologies: ['Angular 17', 'TypeScript', 'Google Apps Script', 'Google Workspace'],
+                description: 'Angular-applikasjon koblet til Google Apps Script som automatiserer den daglige oppsummeringen i Google Regneark og sender strukturerte rapporter til teamet.',
+                image: 'assets/projects/daily-reporter-cover.svg',
+                links: {
+                    code: {
+                        state: 'private'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Scriptagher',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['SQLite', 'Dart', 'Flutter', 'Angular'],
+                description: 'Hybrid automasjonsøkosystem med offline Flutter-app på SQLite og et Angular-kontrollpanel for å publisere gjenbrukbare skriptoppskrifter.',
+                image: 'assets/projects/scriptagher-cover.svg',
                 links: {
                     code: {
                         state: 'unavailable'
                     },
                     site: {
-                        state: 'unavailable'
+                        state: 'available',
+                        url: 'https://diegofcj.github.io/scriptagher/'
                     },
                     demo: {
                         state: 'unavailable'
@@ -658,8 +753,8 @@ export const projects: ProjectsLangs = {
                 status: {
                     level: 'active'
                 },
-                technologies: ['Angular 17', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
-                description: 'Адаптивный туристический портал, рассказывающий о прибрежном городке с подобранными маршрутами, сезонной галереей и контентом из headless CMS (код закрытый).',
+                technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase Hosting'],
+                description: 'Адаптивный туристический портал на Next.js, рассказывающий о прибрежном городке с подобранными маршрутами, сезонной галереей и контентом из headless CMS (код закрытый).',
                 image: 'assets/projects/borgo-samarina-cover.png',
                 links: {
                     code: {
@@ -677,15 +772,14 @@ export const projects: ProjectsLangs = {
             {
                 title: 'Micro Games',
                 status: {
-                    level: 'active',
-                    tags: ['openSource']
+                    level: 'inDevelopment'
                 },
-                technologies: ['Angular 16', 'TypeScript', 'RxJS', 'SCSS', 'Node.js'],
-                description: 'Модульный набор казуальных мини-игр с общей основой, профилями игроков и мобильным рейтинговым списком для коротких сессий.',
+                technologies: ['Angular 16', 'TypeScript', 'SCSS', 'Java', 'Spring Boot', 'Docker', 'Docker Compose', 'Firebase'],
+                description: 'Модульный набор казуальных мини-игр с общей Angular-основой, микросервисами Spring Boot в Docker-контейнерах и Firebase для профилей и таблиц лидеров.',
                 image: 'https://github.com/DiegoFCJ/MicroGames/blob/master/overview/loggedPage.png?raw=true',
                 links: {
                     code: {
-                        state: 'unavailable'
+                        state: 'private'
                     },
                     site: {
                         state: 'unavailable'
@@ -696,20 +790,40 @@ export const projects: ProjectsLangs = {
                 }
             },
             {
-                title: 'Self',
+                title: 'Daily Reporter',
                 status: {
-                    level: 'publicBeta',
-                    tags: ['release2024']
+                    level: 'active'
                 },
-                technologies: ['Angular 17', 'NestJS', 'PostgreSQL', 'Docker', 'Redis'],
-                description: 'Платформа продуктивности, которая отслеживает привычки, предлагает маркетплейс плагинов и синхронизирует цели с напоминаниями на разных устройствах.',
-                image: 'https://github.com/DiegoFCJ/self/blob/master/self.png?raw=true',
+                technologies: ['Angular 17', 'TypeScript', 'Google Apps Script', 'Google Workspace'],
+                description: 'Angular-приложение, интегрированное с Google Apps Script, автоматизирует ежедневный свод в Google Sheets и отправляет структурированные отчёты команде.',
+                image: 'assets/projects/daily-reporter-cover.svg',
+                links: {
+                    code: {
+                        state: 'private'
+                    },
+                    site: {
+                        state: 'unavailable'
+                    },
+                    demo: {
+                        state: 'unavailable'
+                    }
+                }
+            },
+            {
+                title: 'Scriptagher',
+                status: {
+                    level: 'active'
+                },
+                technologies: ['SQLite', 'Dart', 'Flutter', 'Angular'],
+                description: 'Гибридная экосистема автоматизации с офлайн-приложением на Flutter и SQLite и Angular-панелью для публикации повторно используемых сценариев.',
+                image: 'assets/projects/scriptagher-cover.svg',
                 links: {
                     code: {
                         state: 'unavailable'
                     },
                     site: {
-                        state: 'unavailable'
+                        state: 'available',
+                        url: 'https://diegofcj.github.io/scriptagher/'
                     },
                     demo: {
                         state: 'unavailable'
