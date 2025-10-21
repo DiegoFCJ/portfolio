@@ -26,6 +26,8 @@ export class NavigatorComponent implements OnInit {
   @Input() currentSectionIndex: number = 0;
   @Output() navigateNext = new EventEmitter<void>();
   @Output() navigatePrevious = new EventEmitter<void>();
+  /** Controls whether the section navigation arrows are rendered */
+  @Input() showSectionNavigation = true;
 
   showLanguageOptions = false;
   showThemeOptions = false;
