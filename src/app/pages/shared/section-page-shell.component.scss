@@ -28,7 +28,8 @@
 }
 
 .section-page-shell__floating--assistant {
-  left: clamp(1rem, 4vw, 2.5rem);
+  right: clamp(1rem, 4vw, 2.5rem);
+  left: auto;
   bottom: clamp(1.25rem, 4vw, 2.75rem);
 }
 
@@ -50,7 +51,10 @@
   }
 
   .section-page-shell__floating--assistant {
-    left: clamp(0.75rem, 4vw, 2rem);
+    right: calc(
+      clamp(0.75rem, 4vw, 2rem) + var(--navigator-mobile-footprint, 3.75rem)
+    );
+    left: auto;
     bottom: clamp(1rem, 6vw, 2.25rem);
   }
 }
