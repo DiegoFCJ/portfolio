@@ -20,12 +20,16 @@
   min-height: var(--topbar-height, 4rem);
   padding: 0 clamp(1rem, 4vw, 2.5rem);
   gap: 1.5rem;
+  flex-wrap: nowrap;
 }
 
 .topbar__nav {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
 }
 
 .topbar__link {
@@ -36,6 +40,7 @@
   transition: color 0.25s ease;
   padding: 0.25rem 0.35rem;
   border-radius: 0.35rem;
+  flex-shrink: 0;
 }
 
 .topbar__link:hover,
@@ -55,12 +60,14 @@
   letter-spacing: 0.2em;
   user-select: none;
   margin-inline: 0.1rem 0.4rem;
+  flex-shrink: 0;
 }
 
 .topbar__preferences {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .topbar__select {
@@ -78,6 +85,73 @@
 .topbar__select:focus-visible {
   outline: 2px solid #7dd3fc;
   outline-offset: 2px;
+}
+
+.topbar__overflow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.topbar__menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.4rem;
+  block-size: 2.4rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.7);
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  padding: 0;
+}
+
+.topbar__menu-button:hover,
+.topbar__menu-button:focus-visible {
+  border-color: rgba(125, 211, 252, 0.65);
+  color: #ffffff;
+  outline: none;
+}
+
+.topbar__overflow-menu {
+  position: absolute;
+  inset-block-start: calc(100% + 0.5rem);
+  inset-inline-end: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.6rem;
+  border-radius: 0.85rem;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
+  min-inline-size: 12rem;
+  z-index: 5;
+}
+
+.topbar__overflow-link {
+  color: rgba(226, 232, 240, 0.92);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.6rem;
+  transition: background 0.2s ease, color 0.2s ease;
+  display: block;
+}
+
+.topbar__overflow-link:hover,
+.topbar__overflow-link:focus-visible {
+  background: rgba(125, 211, 252, 0.15);
+  color: #ffffff;
+  outline: none;
+}
+
+.topbar__overflow-link--active {
+  color: #7dd3fc;
 }
 
 .visually-hidden {
