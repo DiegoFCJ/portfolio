@@ -3,16 +3,13 @@
     --topbar-offset: clamp(0.75rem, 2vw, 1.5rem);
 }
 
-@media (min-width: 961px) {
-    body {
-        padding-top: calc(var(--topbar-height, 4rem) + var(--topbar-offset, 1.5rem));
-        scroll-padding-top: calc(var(--topbar-height, 4rem) + 1rem);
-    }
+body {
+    padding-top: 0;
+    scroll-padding-top: 0;
 }
 
-@media (max-width: 960px) {
+@media (min-width: 961px) {
     body {
-        padding-top: 0;
-        scroll-padding-top: 0;
+        scroll-padding-top: calc(var(--topbar-height, 4rem) + 1rem);
     }
 }
