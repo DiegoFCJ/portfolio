@@ -3,7 +3,21 @@
 }
 
 .layout__main {
-  padding-top: 0;
-  height: 100vh;
+  padding-block-start: 0;
+  min-height: 100vh;
   width: 100%;
+}
+
+@media (min-width: 961px) {
+  .layout__main {
+    padding-block-start: calc(
+      var(--topbar-height, 4rem) + var(--topbar-offset, 0rem)
+    );
+  }
+}
+
+@media (max-width: 960px) {
+  .layout__main {
+    padding-block-start: 0;
+  }
 }
