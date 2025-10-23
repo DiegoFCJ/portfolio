@@ -32,37 +32,16 @@
   </section>
 </div>
 
-<div class="home__floating home__floating--assistant">
+<div class="home__floating home__floating--navigator" *ngIf="isMobileViewport">
+  <app-navigator
+    [totalSections]="totalSections"
+    [currentSectionIndex]="currentSectionIndex"
+    [showEmbeddedAssistant]="true"
+    (navigateNext)="onNavigatorNext()"
+    (navigatePrevious)="onNavigatorPrevious()"
+  ></app-navigator>
+</div>
+
+<div class="home__floating home__floating--assistant" *ngIf="!isMobileViewport">
   <app-assistant></app-assistant>
-
-  <div class="home__assistant-controls" *ngIf="isMobileViewport">
-    <div class="home__stack-carousel-controls" *ngIf="showStackCarouselControls">
-      <button
-        type="button"
-        class="home__stack-carousel-button home__stack-carousel-button--previous navigator-circle-button"
-        aria-label="Stack precedente"
-        (click)="onStackCarouselPrevious()"
-      >
-        <mat-icon aria-hidden="true">arrow_back</mat-icon>
-      </button>
-
-      <button
-        type="button"
-        class="home__stack-carousel-button home__stack-carousel-button--next navigator-circle-button"
-        aria-label="Stack successivo"
-        (click)="onStackCarouselNext()"
-      >
-        <mat-icon aria-hidden="true">arrow_forward</mat-icon>
-      </button>
-    </div>
-
-    <button
-      type="button"
-      class="home__section-button navigator-circle-button"
-      aria-label="Sezione precedente"
-      (click)="onNavigatorPrevious()"
-    >
-      <mat-icon aria-hidden="true">keyboard_arrow_up</mat-icon>
-    </button>
-  </div>
 </div>
