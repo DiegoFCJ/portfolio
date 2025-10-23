@@ -1,0 +1,19 @@
+.section-heading {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.75rem, 2vw, 1rem);
+    text-align: center;
+    margin-inline: auto;
+}
+
+.section-heading .statistics-title-accent {
+    inline-size: clamp(56px, 10vw, 88px);
+    block-size: 2px;
+    border-radius: 999px;
+    background: var(
+        --section-accent-bar,
+        var(--stat-accent-bar, linear-gradient(90deg, #3b82f6, #6c63ff))
+    );
+}

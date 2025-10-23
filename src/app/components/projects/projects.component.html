@@ -1,5 +1,8 @@
 <section *ngIf="!isLoading" #projectsSection class="projects-section">
-    <h2 class="projects-title">{{ projects.title }}</h2>
+    <header class="projects-header section-heading">
+        <span class="statistics-title-accent" aria-hidden="true"></span>
+        <h2 class="projects-title">{{ projects.title }}</h2>
+    </header>
 
     <!-- Carosello per mobile -->
     <div class="carousel-container" *ngIf="isMobile" [class.is-peeking]="shouldPeek">

@@ -1,10 +1,13 @@
 <section class="about-section">
   <div class="about-container" [class.is-loading]="isLoading">
-    <h2 class="about-title">
-      <ng-container *ngIf="!isLoading && aboutMe.title; else titleSkeleton">
-        {{ aboutMe.title }}
-      </ng-container>
-    </h2>
+    <header class="about-header section-heading">
+      <span class="statistics-title-accent" aria-hidden="true"></span>
+      <h2 class="about-title">
+        <ng-container *ngIf="!isLoading && aboutMe.title; else titleSkeleton">
+          {{ aboutMe.title }}
+        </ng-container>
+      </h2>
+    </header>
 
     <ng-container *ngIf="!isLoading; else loadingBody">
       <div class="about-body">

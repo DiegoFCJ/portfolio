@@ -111,6 +111,10 @@ app-experiences .experiences-content {
   padding-inline: clamp(1rem, 4vw, 2.75rem);
 }
 
+app-experiences .experiences-header {
+  --section-accent-bar: linear-gradient(90deg, var(--timeline-accent), rgba(99, 102, 241, 0.45));
+}
+
 app-experiences .experiences-title {
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 700;
