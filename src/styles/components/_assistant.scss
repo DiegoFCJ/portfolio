@@ -52,7 +52,7 @@ app-assistant {
   --assistant-inline-gap: clamp(12px, 3vw, 20px);
   --assistant-popup-effective-width: min(
     var(--assistant-popup-width),
-    calc(100% - (var(--assistant-inline-gap) * 2))
+    calc(100vw - (var(--assistant-inline-gap) * 2))
   );
 }
 
