@@ -11,11 +11,11 @@
   background: rgba(15, 23, 42, 0.85);
   border-bottom: 1px solid rgba(148, 163, 184, 0.25);
   color: #f8fafc;
-  --navigator-button-bg: linear-gradient(145deg, #1f2933, #0f172a);
-  --navigator-button-hover-bg: linear-gradient(145deg, #273445, #111c31);
-  --navigator-button-border: rgba(148, 163, 184, 0.45);
-  --navigator-button-glow: rgba(125, 211, 252, 0.35);
-  --navigator-icon-color: #e2e8f0;
+  --navigator-button-bg: linear-gradient(145deg, #0f67c9, #0ea5e9);
+  --navigator-button-hover-bg: linear-gradient(145deg, #1783ff, #38bdf8);
+  --navigator-button-border: rgba(14, 165, 233, 0.75);
+  --navigator-button-glow: rgba(56, 189, 248, 0.55);
+  --navigator-icon-color: #f8fafc;
 }
 
 .topbar__content {
@@ -108,11 +108,11 @@
   justify-content: center;
 
   mat-icon {
-    color: var(--navigator-icon-color, #e2e8f0);
-    font-size: 26px;
+    color: var(--navigator-icon-color, #f8fafc);
+    font-size: 28px;
     position: relative;
     z-index: 1;
-    filter: drop-shadow(0 0 6px rgba(125, 211, 252, 0.45));
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
   }
 }
 
