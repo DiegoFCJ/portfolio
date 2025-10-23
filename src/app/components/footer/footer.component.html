@@ -2,11 +2,11 @@
   <ng-container *ngIf="content$ | async as content">
     <div class="footer-shell">
       <div class="footer-top">
-        <section class="footer-brand" aria-labelledby="footer-brand-title">
+        <section class="footer-card footer-brand" aria-labelledby="footer-brand-title">
           <div class="footer-brand-header">
             <span class="footer-logo" aria-hidden="true">{{ getInitials(content.brandName) }}</span>
 
-            <div>
+            <div class="footer-brand-copy">
               <p class="footer-brand-title" id="footer-brand-title">{{ content.brandName }}</p>
               <p class="footer-brand-subtitle">{{ content.brandSubtitle }}</p>
             </div>
@@ -33,33 +33,31 @@
           </div>
         </section>
 
-        <div class="footer-grid">
-          <section
-            class="footer-column"
-            *ngFor="let group of content.navigationGroups; trackBy: trackByGroupTitle"
-          >
-            <p class="footer-column-title">{{ group.title }}</p>
-            <nav class="footer-links" [attr.aria-label]="group.title">
-              <ng-container *ngFor="let link of group.links; trackBy: trackByLink">
-                <ng-container
-                  *ngTemplateOutlet="link.external ? externalLink : internalLink; context: { $implicit: link }"
-                ></ng-container>
-              </ng-container>
-            </nav>
-          </section>
+        <section
+          class="footer-card footer-column"
+          *ngFor="let group of content.navigationGroups; trackBy: trackByGroupTitle"
+        >
+          <p class="footer-column-title">{{ group.title }}</p>
+          <nav class="footer-links" [attr.aria-label]="group.title">
+            <ng-container *ngFor="let link of group.links; trackBy: trackByLink">
+              <ng-container
+                *ngTemplateOutlet="link.external ? externalLink : internalLink; context: { $implicit: link }"
+              ></ng-container>
+            </ng-container>
+          </nav>
+        </section>
 
-          <section class="footer-column footer-contact">
-            <p class="footer-column-title">{{ content.contact.title }}</p>
-            <p class="footer-contact-text">{{ content.contact.availability }}</p>
-            <p class="footer-contact-text footer-contact-callout">
-              {{ content.contact.invitation }}
-            </p>
-            <a class="footer-email" [href]="content.contact.email.link">
-              {{ content.contact.email.label }}
-            </a>
-            <p class="footer-contact-text footer-contact-muted">{{ content.contact.location }}</p>
-          </section>
-        </div>
+        <section class="footer-card footer-contact">
+          <p class="footer-column-title">{{ content.contact.title }}</p>
+          <p class="footer-contact-text">{{ content.contact.availability }}</p>
+          <p class="footer-contact-text footer-contact-callout">
+            {{ content.contact.invitation }}
+          </p>
+          <a class="footer-email" [href]="content.contact.email.link">
+            {{ content.contact.email.label }}
+          </a>
+          <p class="footer-contact-text footer-contact-muted">{{ content.contact.location }}</p>
+        </section>
       </div>
 
       <div class="footer-bottom">
