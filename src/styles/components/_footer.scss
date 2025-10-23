@@ -7,6 +7,7 @@
     --footer-border-color: rgba(148, 163, 184, 0.2);
     --footer-shadow-color: rgba(15, 23, 42, 0.35);
     --footer-padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    --footer-social-icon-filter: none;
 }
 
 body.light-mode,
@@ -16,6 +17,7 @@ body:not(.dark-mode):not(.blue-mode):not(.green-mode):not(.red-mode) {
     --footer-accent-color: #facc15;
     --footer-border-color: rgba(15, 23, 42, 0.25);
     --footer-shadow-color: rgba(15, 23, 42, 0.35);
+    --footer-social-icon-filter: none;
 }
 
 body.dark-mode {
@@ -24,6 +26,7 @@ body.dark-mode {
     --footer-accent-color: #fbbf24;
     --footer-border-color: rgba(148, 163, 184, 0.28);
     --footer-shadow-color: rgba(2, 6, 23, 0.45);
+    --footer-social-icon-filter: brightness(0) saturate(100%) invert(1);
 }
 
 body.blue-mode {
@@ -32,6 +35,7 @@ body.blue-mode {
     --footer-accent-color: #38bdf8;
     --footer-border-color: rgba(56, 189, 248, 0.35);
     --footer-shadow-color: rgba(3, 105, 161, 0.45);
+    --footer-social-icon-filter: brightness(0) saturate(100%) invert(1);
 }
 
 body.green-mode {
@@ -40,6 +44,7 @@ body.green-mode {
     --footer-accent-color: #34d399;
     --footer-border-color: rgba(16, 185, 129, 0.4);
     --footer-shadow-color: rgba(6, 78, 59, 0.45);
+    --footer-social-icon-filter: brightness(0) saturate(100%) invert(1);
 }
 
 body.red-mode {
@@ -48,6 +53,7 @@ body.red-mode {
     --footer-accent-color: #f87171;
     --footer-border-color: rgba(239, 68, 68, 0.4);
     --footer-shadow-color: rgba(127, 29, 29, 0.45);
+    --footer-social-icon-filter: brightness(0) saturate(100%) invert(1);
 }
 
 @media (max-width: 600px) {
