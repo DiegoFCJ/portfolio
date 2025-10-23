@@ -5,6 +5,10 @@
   width: min(26rem, calc(100vw - 2rem));
   color: var(--app-text-primary, #f4f4f8);
 
+  & :where(p) {
+    margin: 0;
+  }
+
   &__card {
     display: flex;
     gap: 1rem;
@@ -44,13 +48,11 @@
   }
 
   &__title {
-    margin: 0;
     font-size: 1.05rem;
     font-weight: 600;
   }
 
   &__message {
-    margin: 0;
     font-size: 0.92rem;
     line-height: 1.55;
     color: color-mix(in srgb, var(--app-text-secondary, #d4d4d4) 85%, transparent);
@@ -62,8 +64,7 @@
     text-decoration: underline;
     text-underline-offset: 0.22rem;
 
-    &:hover,
-    &:focus-visible {
+    &:is(:hover, :focus-visible) {
       color: color-mix(in srgb, var(--navigator-button-border, #60a5fa) 70%, #ffffff 30%);
     }
   }
@@ -101,8 +102,7 @@
       border-color: var(--navigator-button-border, #60a5fa);
       box-shadow: 0 12px 32px var(--navigator-button-glow, rgba(96 165 250 / 0.45));
 
-      &:hover,
-      &:focus-visible {
+      &:is(:hover, :focus-visible) {
         transform: translateY(-1px);
         background: var(--navigator-button-hover-bg, linear-gradient(145deg, #273445, #111c31));
       }
@@ -113,8 +113,7 @@
       background: transparent;
       border-color: color-mix(in srgb, var(--navigator-button-border, #60a5fa) 55%, transparent);
 
-      &:hover,
-      &:focus-visible {
+      &:is(:hover, :focus-visible) {
         background: color-mix(in srgb, var(--navigator-button-border, #60a5fa) 20%, transparent);
       }
     }
