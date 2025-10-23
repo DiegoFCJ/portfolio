@@ -10,9 +10,7 @@
 
 @media (min-width: 961px) {
   .layout__main {
-    padding-block-start: calc(
-      var(--topbar-height, 4rem) + var(--topbar-offset, 0rem)
-    );
+    padding-block-start: var(--topbar-height, 4rem);
   }
 }
 

@@ -109,7 +109,9 @@ export class TopbarComponent implements AfterViewInit {
     if (this.isBrowser) {
       fromEvent(window, 'resize')
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => this.scheduleOverflowDetection());
+        .subscribe(() => {
+          this.scheduleOverflowDetection();
+        });
     }
 
     this.destroyRef.onDestroy(() => {

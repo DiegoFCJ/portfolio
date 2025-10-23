@@ -1,6 +1,6 @@
 :root {
-    --topbar-height: clamp(3.5rem, 6vw, 4.25rem);
-    --topbar-offset: clamp(0.75rem, 2vw, 1.5rem);
+    --topbar-height: 4rem;
+    --topbar-anchor-gap: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 body {
@@ -10,6 +10,8 @@ body {
 
 @media (min-width: 961px) {
     body {
-        scroll-padding-top: calc(var(--topbar-height, 4rem) + 1rem);
+        scroll-padding-top: calc(
+            var(--topbar-height, 4rem) + var(--topbar-anchor-gap, 1rem)
+        );
     }
 }
