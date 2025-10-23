@@ -25,7 +25,7 @@ app-contact-me .contact-me-section {
   --contact-card-padding: clamp(1.5rem, 4vw, 2.25rem);
 
   inline-size: 100%;
-  padding-block-start: 0;
+  padding-block-start: clamp(2rem, 5vw, 4rem);
   padding-block-end: clamp(2rem, 5vw, 4rem);
   padding-inline: 0;
   display: flex;
