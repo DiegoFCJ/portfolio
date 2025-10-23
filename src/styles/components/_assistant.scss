@@ -7,7 +7,13 @@ app-assistant {
     var(--assistant-popup-width),
     calc(100vw - (var(--assistant-inline-gap) * 2))
   );
-  --assistant-popup-offset-right: 590px;
+  --assistant-popup-offset-right: max(
+    var(--assistant-inline-gap),
+    min(
+      calc(var(--assistant-popup-effective-width) * 0.4),
+      calc(100vw - var(--assistant-popup-effective-width) - clamp(1rem, 4vw, 2.5rem))
+    )
+  );
   --assistant-popup-safe-area-bottom: var(--assistant-safe-area-bottom, 0px);
   --assistant-popup-viewport-margin: calc(
     clamp(72px, 18vh, 132px) + var(--assistant-popup-safe-area-bottom)
@@ -948,13 +954,13 @@ app-assistant .assistant__closing--active {
 @media (max-width: 768px) {
   app-assistant {
     --assistant-avatar-size: var(--assistant-avatar-size-sm, 48px);
-    --assistant-inline-gap: clamp(12px, 6vw, 20px);
-    --assistant-popup-width: min(94vw, 420px);
+    --assistant-inline-gap: clamp(12px, 5vw, 18px);
+    --assistant-popup-width: min(90vw, 420px);
     --assistant-popup-effective-width: min(
       var(--assistant-popup-width),
       calc(100vw - (var(--assistant-inline-gap) * 2))
     );
-    --assistant-popup-offset-right: 250px;
+    --assistant-popup-offset-right: var(--assistant-inline-gap);
     --assistant-popup-viewport-margin: calc(
       clamp(88px, 24vh, 148px) + var(--assistant-popup-safe-area-bottom)
     );
