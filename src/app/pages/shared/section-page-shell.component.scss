@@ -32,12 +32,16 @@
 .section-page-shell__floating--assistant {
   right: clamp(1rem, 4vw, 2.5rem);
   left: auto;
-  bottom: clamp(1.25rem, 4vw, 2.75rem);
+  bottom: calc(
+    clamp(1.25rem, 4vw, 2.75rem) + var(--assistant-safe-area-bottom, 0px)
+  );
 }
 
 .section-page-shell__floating--navigator {
   right: clamp(1rem, 4vw, 2.5rem);
-  bottom: clamp(1.25rem, 4vw, 2.75rem);
+  bottom: calc(
+    clamp(1.25rem, 4vw, 2.75rem) + var(--assistant-safe-area-bottom, 0px)
+  );
 }
 
 @media (max-width: 960px) {
@@ -49,12 +53,12 @@
 @media (max-width: 720px) {
   .section-page-shell__floating--navigator {
     right: 20px;
-    bottom: 20px;
+    bottom: calc(20px + var(--assistant-safe-area-bottom, 0px));
   }
 
   .section-page-shell__floating--assistant {
-    right: 30px;
+    right: calc(30px + var(--navigator-mobile-footprint, clamp(3.75rem, 12vw, 4.5rem)));
     left: auto;
-    bottom: 20px;
+    bottom: calc(20px + var(--assistant-safe-area-bottom, 0px));
   }
 }
