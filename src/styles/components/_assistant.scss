@@ -49,8 +49,8 @@ app-assistant {
 
 :host-context(.navigator-wrapper__assistant) app-assistant,
 .navigator-wrapper__assistant app-assistant {
-  --assistant-popup-width: clamp(280px, 56vw, 360px);
-  --assistant-inline-gap: clamp(12px, 3vw, 20px);
+  --assistant-popup-width: clamp(320px, 88vw, 420px);
+  --assistant-inline-gap: clamp(16px, 4vw, 24px);
   --assistant-popup-effective-width: min(
     var(--assistant-popup-width),
     calc(100vw - (var(--assistant-inline-gap) * 2))

@@ -187,9 +187,10 @@ app-navigator {
   }
 
   .navigator-wrapper__assistant {
-    scale: 0.8;
       display: none;
       position: relative;
+      flex: 1 1 auto;
+      min-width: 0;
   }
 
   .navigator-wrapper--with-assistant {
@@ -197,6 +198,7 @@ app-navigator {
           display: flex;
           align-items: flex-end;
           pointer-events: auto;
+          justify-content: flex-end;
       }
   }
 
