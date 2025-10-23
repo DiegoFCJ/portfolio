@@ -7,27 +7,12 @@ export interface PrivacySectionContent {
   readonly items?: readonly string[];
 }
 
-export interface PrivacyContactsContent {
-  readonly title: string;
-  readonly description: string;
-  readonly channels: readonly PrivacyContactChannel[];
-  readonly ctaLabel: string;
-}
-
-export interface PrivacyContactChannel {
-  readonly type: 'email' | 'link';
-  readonly label: string;
-  readonly href: string;
-  readonly display: string;
-}
-
 export interface PrivacyContent {
   readonly heading: string;
   readonly meta: string;
   readonly intro: readonly string[];
   readonly tocTitle: string;
   readonly sections: readonly PrivacySectionContent[];
-  readonly contacts: PrivacyContactsContent;
 }
 
 export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
@@ -44,7 +29,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
         id: 'controller',
         title: 'Titolare del trattamento',
         paragraphs: [
-          'Il titolare del trattamento è Diego Fois, contattabile ai riferimenti indicati nella sezione "Contatti".',
+          'Il titolare del trattamento è Diego Fois, contattabile ai riferimenti indicati nella pagina "Contatti".',
           'Per qualsiasi domanda relativa alla presente informativa o all\'esercizio dei tuoi diritti puoi scrivere in qualunque momento.'
         ]
       },
@@ -99,7 +84,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
         paragraphs: [
           'Hai diritto di ottenere l\'accesso, la rettifica, l\'aggiornamento o la cancellazione dei tuoi dati personali, nonché di richiederne la limitazione o di opporti al loro trattamento.',
           'Puoi inoltre richiedere la portabilità dei dati e proporre reclamo all\'Autorità Garante per la Protezione dei Dati Personali qualora ritenga che il trattamento violi la normativa vigente.',
-          'Per esercitare i tuoi diritti invia una richiesta ai recapiti indicati nella sezione "Contatti"; riceverai riscontro entro i termini previsti dal GDPR.'
+          'Per esercitare i tuoi diritti invia una richiesta ai recapiti indicati nella pagina "Contatti"; riceverai riscontro entro i termini previsti dal GDPR.'
         ]
       },
       {
@@ -122,26 +107,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
           'Le modifiche saranno pubblicate su questa pagina; ti invitiamo pertanto a consultarla periodicamente.'
         ]
       }
-    ],
-    contacts: {
-      title: 'Contatti',
-      description: 'Per richieste di chiarimento, esercizio dei diritti o segnalazioni relative alla privacy puoi utilizzare i seguenti canali:',
-      ctaLabel: 'Scrivimi ora',
-      channels: [
-        {
-          type: 'email',
-          label: 'Email',
-          href: 'mailto:diegofois.dev@gmail.com',
-          display: 'diegofois.dev@gmail.com'
-        },
-        {
-          type: 'link',
-          label: 'GitHub',
-          href: 'https://github.com/diegofois',
-          display: 'github.com/diegofois'
-        }
-      ]
-    }
+    ]
   },
   en: {
     heading: 'Privacy notice',
@@ -156,7 +122,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
         id: 'controller',
         title: 'Data controller',
         paragraphs: [
-          'The data controller is Diego Fois, who can be contacted using the details listed in the "Contacts" section.',
+          'The data controller is Diego Fois, who can be contacted using the details listed on the "Contacts" page.',
           'Feel free to reach out with any question about this notice or to exercise your privacy rights.'
         ]
       },
@@ -211,7 +177,7 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
         paragraphs: [
           'You may request access, rectification, updating or erasure of your personal data, ask for restriction or object to processing.',
           'You can also request data portability and lodge a complaint with your local supervisory authority if you believe the processing infringes data protection laws.',
-          'Send your requests to the contacts listed below; a response will be provided within the time limits set by the GDPR.'
+          'Send your requests using the contacts provided on the "Contacts" page; a response will be provided within the time limits set by the GDPR.'
         ]
       },
       {
@@ -234,25 +200,6 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
           'Updates will be published on this page, so please review it periodically.'
         ]
       }
-    ],
-    contacts: {
-      title: 'Contacts',
-      description: 'If you need clarification, want to exercise your rights or report a privacy concern, please use the following channels:',
-      ctaLabel: 'Contact me',
-      channels: [
-        {
-          type: 'email',
-          label: 'Email',
-          href: 'mailto:diegofois.dev@gmail.com',
-          display: 'diegofois.dev@gmail.com'
-        },
-        {
-          type: 'link',
-          label: 'GitHub',
-          href: 'https://github.com/diegofois',
-          display: 'github.com/diegofois'
-        }
-      ]
-    }
+    ]
   }
 };

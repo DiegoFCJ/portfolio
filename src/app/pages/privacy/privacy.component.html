@@ -23,13 +23,6 @@
             </a>
           </li>
         </ol>
-        <a
-          class="privacy__toc-link privacy__toc-link--accent"
-          href="#contacts"
-          (click)="onNavigateTo('contacts', $event)"
-        >
-          {{ content.contacts.title }}
-        </a>
       </nav>
 
       <div class="privacy__content">
@@ -46,22 +39,6 @@
             </ul>
           </article>
         </div>
-
-        <section class="privacy__contacts" id="contacts">
-          <div class="privacy__contacts-header">
-            <h2 class="privacy__section-title">{{ content.contacts.title }}</h2>
-            <p class="privacy__paragraph">{{ content.contacts.description }}</p>
-            <ng-container *ngIf="content.contacts.channels[0] as primaryChannel">
-              <a class="privacy__contact-cta" [href]="primaryChannel.href">{{ content.contacts.ctaLabel }}</a>
-            </ng-container>
-          </div>
-          <ul class="privacy__contact-list">
-            <li *ngFor="let channel of content.contacts.channels" class="privacy__contact-item">
-              <span class="privacy__contact-label">{{ channel.label }}:</span>
-              <a class="privacy__contact-link" [href]="channel.href">{{ channel.display }}</a>
-            </li>
-          </ul>
-        </section>
       </div>
     </div>
   </section>
