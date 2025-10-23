@@ -97,8 +97,7 @@ app-assistant .assistant__avatar:focus-visible {
   box-shadow: 0 0 0 3px var(--assistant-avatar-focus-ring), var(--assistant-avatar-shadow-rest);
 }
 
-app-assistant .assistant__avatar::after {
-  content: '';
+app-assistant .assistant__shadow {
   position: absolute;
   inset-inline-start: 50%;
   inset-block-end: -18px;
@@ -112,12 +111,13 @@ app-assistant .assistant__avatar::after {
     var(--assistant-floor-shadow-color) 55%,
     transparent 80%
   );
-  transform: translateX(-50%) scale(0.8) translateZ(0);
+  transform: translate3d(-50%, 0, 0) scale(0.8);
   opacity: 0.35;
   filter: blur(0.5px);
   transition: opacity 0.35s ease, transform 0.35s ease;
   pointer-events: none;
-  z-index: -1;
+  z-index: 2;
+  will-change: transform, opacity;
 }
 
 app-assistant .assistant__avatar-face {
@@ -336,9 +336,9 @@ app-assistant .assistant--phase-sleeping .assistant__avatar-eye-closed {
   opacity: 1;
 }
 
-app-assistant .assistant--phase-sleeping .assistant__avatar::after {
+app-assistant .assistant--phase-sleeping .assistant__shadow {
   opacity: 0.28;
-  transform: translateX(-50%) scale(0.7) translateZ(0);
+  transform: translate3d(-50%, 0, 0) scale(0.7);
 }
 
 app-assistant .assistant--phase-waking .assistant__avatar {
@@ -349,7 +349,7 @@ app-assistant .assistant--phase-waking .assistant__avatar-eye-open {
   transform: translateY(-2px) scaleY(1.05);
 }
 
-app-assistant .assistant--phase-waking .assistant__avatar::after {
+app-assistant .assistant--phase-waking .assistant__shadow {
   animation: assistant-shadow-wake 0.6s ease-out forwards;
 }
 
@@ -357,7 +357,7 @@ app-assistant .assistant--phase-jumping .assistant__avatar {
   animation: assistant-jump 1.4s cubic-bezier(0.18, 0.54, 0.26, 1) forwards;
 }
 
-app-assistant .assistant--phase-jumping .assistant__avatar::after {
+app-assistant .assistant--phase-jumping .assistant__shadow {
   animation: assistant-shadow-jump 1.4s cubic-bezier(0.18, 0.54, 0.26, 1) forwards;
 }
 
@@ -374,7 +374,7 @@ app-assistant .assistant--phase-wondering .assistant__avatar-eye-open {
   transform: translateY(-3px) scaleY(1.02);
 }
 
-app-assistant .assistant--phase-wondering .assistant__avatar::after {
+app-assistant .assistant--phase-wondering .assistant__shadow {
   animation: assistant-shadow-landing-hops 2.4s ease-out forwards;
 }
 
@@ -383,16 +383,21 @@ app-assistant .assistant--phase-perched .assistant__avatar {
   box-shadow: var(--assistant-avatar-shadow-active);
 }
 
-app-assistant .assistant--phase-perched .assistant__avatar::after {
+app-assistant .assistant--phase-perched .assistant__shadow {
   opacity: 0.45;
-  transform: translateX(-50%) scale(0.98) translateZ(0);
+  transform: translate3d(
+      calc(-50% + var(--assistant-jump-landing-x)),
+      calc(var(--assistant-jump-landing-y) * -1),
+      0
+    )
+    scale(0.98);
 }
 
 app-assistant .assistant--phase-falling .assistant__avatar {
   animation: assistant-fall 0.98s cubic-bezier(0.12, 0.02, 0.32, 1) forwards;
 }
 
-app-assistant .assistant--phase-falling .assistant__avatar::after {
+app-assistant .assistant--phase-falling .assistant__shadow {
   animation: assistant-shadow-fall 0.98s cubic-bezier(0.12, 0.02, 0.32, 1) forwards;
 }
 
@@ -738,79 +743,78 @@ app-assistant .assistant__closing--active {
 @keyframes assistant-shadow-wake {
   0% {
     opacity: 0.28;
-    transform: translateX(-50%) scale(0.7) translateZ(0);
+    transform: translate3d(-50%, 0, 0) scale(0.7);
   }
 
   50% {
     opacity: 0.18;
-    transform: translateX(-50%) scale(0.6) translateZ(0);
+    transform: translate3d(-50%, 0, 0) scale(0.6);
   }
 
   100% {
     opacity: 0.3;
-    transform: translateX(-50%) scale(0.75) translateZ(0);
+    transform: translate3d(-50%, 0, 0) scale(0.75);
   }
 }
 
 @keyframes assistant-shadow-jump {
   0% {
     opacity: 0.3;
-    transform: translateX(-50%) scale(0.75) translateZ(0);
+    transform: translate3d(-50%, 0, 0) scale(0.75);
   }
 
   12% {
     opacity: 0.24;
-    transform: translateX(-50%) scale(0.62) translateZ(0);
+    transform: translate3d(
+        -50%,
+        calc(var(--assistant-jump-landing-y) * -0.08),
+        0
+      ) scale(0.62);
   }
 
   32% {
     opacity: 0.12;
     transform: translate3d(
         calc(-50% + (var(--assistant-jump-landing-x) * 0.35)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -0.18),
         0
-      )
-      scale(0.38) translateZ(0);
+      ) scale(0.38);
   }
 
   55% {
     opacity: 0.4;
     transform: translate3d(
-        calc(-50% + (var(--assistant-jump-landing-x) * 0.75)),
-        0,
+        calc(-50% + (var(--assistant-jump-landing-x) * 0.78)),
+        calc(var(--assistant-jump-landing-y) * -0.72),
         0
-      )
-      scale(1) translateZ(0);
+      ) scale(1);
   }
 
   78% {
     opacity: 0.48;
     transform: translate3d(
         calc(-50% + (var(--assistant-jump-landing-x) * 1.04)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1.02),
         0
-      )
-      scale(1.12) translateZ(0);
+      ) scale(1.12);
   }
 
   92% {
     opacity: 0.36;
     transform: translate3d(
         calc(-50% + (var(--assistant-jump-landing-x) * 0.96)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -0.96),
         0
-      )
-      scale(0.86) translateZ(0);
+      ) scale(0.86);
   }
 
   100% {
     opacity: 0.38;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1),
         0
-      )
-      scale(0.9) translateZ(0);
+      ) scale(0.9);
   }
 }
 
@@ -819,80 +823,72 @@ app-assistant .assistant__closing--active {
     opacity: 0.36;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1),
         0
-      )
-      scale(0.9) translateZ(0);
+      ) scale(0.9);
   }
 
   10% {
     opacity: 0.28;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x) - var(--assistant-hop-horizontal-small)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1 + var(--assistant-hop-height-light)),
         0
-      )
-      scale(0.8) translateZ(0);
+      ) scale(0.8);
   }
 
   26% {
     opacity: 0.32;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x) - var(--assistant-hop-horizontal-medium)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1 + var(--assistant-hop-height-medium)),
         0
-      )
-      scale(0.85) translateZ(0);
+      ) scale(0.85);
   }
 
   42% {
     opacity: 0.38;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x) - var(--assistant-hop-horizontal-big)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1 + var(--assistant-hop-height-strong)),
         0
-      )
-      scale(0.94) translateZ(0);
+      ) scale(0.94);
   }
 
   58% {
     opacity: 0.34;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x) - var(--assistant-hop-horizontal-medium)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1 + var(--assistant-hop-height-medium)),
         0
-      )
-      scale(0.88) translateZ(0);
+      ) scale(0.88);
   }
 
   74% {
     opacity: 0.3;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x) - var(--assistant-hop-horizontal-small)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1 + var(--assistant-hop-height-light)),
         0
-      )
-      scale(0.82) translateZ(0);
+      ) scale(0.82);
   }
 
   90% {
     opacity: 0.38;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x) + 6px),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1 + 6px),
         0
-      )
-      scale(0.94) translateZ(0);
+      ) scale(0.94);
   }
 
   100% {
     opacity: 0.36;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1),
         0
-      )
-      scale(0.9) translateZ(0);
+      ) scale(0.9);
   }
 }
 
@@ -901,50 +897,50 @@ app-assistant .assistant__closing--active {
     opacity: 0.36;
     transform: translate3d(
         calc(-50% + var(--assistant-jump-landing-x)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -1),
         0
-      )
-      scale(0.92) translateZ(0);
+      ) scale(0.92);
   }
 
   20% {
     opacity: 0.48;
     transform: translate3d(
         calc(-50% + (var(--assistant-jump-landing-x) * 0.94)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -0.94),
         0
-      )
-      scale(1.12) translateZ(0);
+      ) scale(1.12);
   }
 
   40% {
     opacity: 0.3;
     transform: translate3d(
         calc(-50% + (var(--assistant-jump-landing-x) * 0.75)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -0.75),
         0
-      )
-      scale(0.82) translateZ(0);
+      ) scale(0.82);
   }
 
   65% {
     opacity: 0.46;
     transform: translate3d(
         calc(-50% + (var(--assistant-jump-landing-x) * 0.35)),
-        0,
+        calc(var(--assistant-jump-landing-y) * -0.35),
         0
-      )
-      scale(1.08) translateZ(0);
+      ) scale(1.08);
   }
 
   88% {
     opacity: 0.36;
-    transform: translate3d(-50%, 0, 0) scale(0.9) translateZ(0);
+    transform: translate3d(
+        -50%,
+        calc(var(--assistant-jump-landing-y) * -0.12),
+        0
+      ) scale(0.9);
   }
 
   100% {
     opacity: 0.32;
-    transform: translate3d(-50%, 0, 0) scale(0.8) translateZ(0);
+    transform: translate3d(-50%, 0, 0) scale(0.8);
   }
 }
 
