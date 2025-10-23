@@ -46,6 +46,16 @@ app-assistant {
   max-width: 100%;
 }
 
+:host-context(.navigator-wrapper__assistant) app-assistant,
+.navigator-wrapper__assistant app-assistant {
+  --assistant-popup-width: clamp(280px, 56vw, 360px);
+  --assistant-inline-gap: clamp(12px, 3vw, 20px);
+  --assistant-popup-effective-width: min(
+    var(--assistant-popup-width),
+    calc(100% - (var(--assistant-inline-gap) * 2))
+  );
+}
+
 app-assistant .assistant {
   position: absolute;
   bottom: 0;
@@ -57,6 +67,16 @@ app-assistant .assistant {
   pointer-events: none;
   min-height: var(--assistant-avatar-size);
   min-width: var(--assistant-popup-effective-width);
+}
+
+:host-context(.navigator-wrapper__assistant) app-assistant .assistant,
+.navigator-wrapper__assistant app-assistant .assistant {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  min-width: 0;
+  width: 100%;
 }
 
 app-assistant .assistant__anchor {
