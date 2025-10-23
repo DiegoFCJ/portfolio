@@ -224,6 +224,23 @@ app-about .about-skeleton__list {
     }
 }
 
+@media (max-width: 768px) {
+    app-about .about-section {
+        min-block-size: auto;
+        block-size: auto;
+        padding-block-start: clamp(2.5rem, 8vw, 4rem);
+        padding-block-end: clamp(2.5rem, 8vw, 4rem);
+        padding-inline: clamp(0.75rem, 4vw, 1.5rem);
+        align-items: stretch;
+        justify-content: flex-start;
+        overflow: visible;
+    }
+
+    app-about .about-container {
+        margin-inline: auto;
+    }
+}
+
 @media (max-width: 540px) {
     app-about .about-container {
         max-width: 520px;
@@ -238,10 +255,11 @@ app-about .about-skeleton__list {
 
 @media (max-width: 420px) {
     app-about .about-section {
-        block-size: 100%;
-        padding-block-start: 0;
-        padding-block-end: clamp(1rem, 1vw, 1rem);
-        padding-inline: 0;
+        padding-block-start: clamp(2rem, 8vw, 3rem);
+        padding-block-end: clamp(2rem, 8vw, 3rem);
+        padding-inline: clamp(0.75rem, 5vw, 1.5rem);
+        align-items: stretch;
+        justify-content: flex-start;
     }
 
     app-about .about-body {
