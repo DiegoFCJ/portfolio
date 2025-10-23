@@ -17,7 +17,6 @@ import { LanguageCode } from '../../models/language-code.type';
 import { ThemeKey } from '../../models/theme-key.type';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
 import { PLATFORM_ID } from '@angular/core';
 import { NavigationService } from '../../services/navigation.service';
 import { NavigationItem } from '../../models/navigation-item.interface';
@@ -25,7 +24,7 @@ import { NavigationItem } from '../../models/navigation-item.interface';
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
