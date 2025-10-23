@@ -1,15 +1,91 @@
 <footer class="site-footer" aria-label="Piè di pagina">
-  <div class="footer-content">
-    <p class="footer-copy">&copy; {{ currentYear }} Portfolio. Tutti i diritti riservati.</p>
-    <nav class="footer-nav" aria-label="Link rapidi">
-      <a
-        *ngFor="let item of quickLinks"
-        class="footer-link"
-        [routerLink]="item.link"
-        [fragment]="item.fragment"
-      >
-        {{ item.label }}
-      </a>
-    </nav>
-  </div>
+  <ng-container *ngIf="content$ | async as content">
+    <div class="footer-shell">
+      <div class="footer-upper">
+        <section class="footer-brand" aria-labelledby="footer-brand-title">
+          <span class="footer-logo" aria-hidden="true">{{ getInitials(content.brandName) }}</span>
+
+          <div class="footer-brand-text">
+            <p class="footer-brand-title" id="footer-brand-title">{{ content.brandName }}</p>
+            <p class="footer-brand-subtitle">{{ content.brandSubtitle }}</p>
+          </div>
+
+          <ul class="footer-badges" aria-label="Focus principali">
+            <li class="footer-badge" *ngFor="let badge of content.highlightChips; trackBy: trackByValue">
+              {{ badge }}
+            </li>
+          </ul>
+        </section>
+
+        <div class="footer-columns">
+          <section
+            class="footer-column"
+            *ngFor="let group of content.navigationGroups; trackBy: trackByGroupTitle"
+          >
+            <p class="footer-column-title">{{ group.title }}</p>
+            <nav class="footer-column-links" [attr.aria-label]="group.title">
+              <ng-container *ngFor="let link of group.links; trackBy: trackByLink">
+                <ng-container
+                  *ngTemplateOutlet="link.external ? externalLink : internalLink; context: { $implicit: link }"
+                ></ng-container>
+              </ng-container>
+            </nav>
+          </section>
+
+          <section class="footer-column footer-column--contact">
+            <p class="footer-column-title">{{ content.contact.title }}</p>
+            <p class="footer-contact-line">{{ content.contact.availability }}</p>
+            <p class="footer-contact-line footer-contact-line--accent">
+              {{ content.contact.invitation }}
+            </p>
+            <a class="footer-link footer-link--emphasis" [href]="content.contact.email.link">
+              {{ content.contact.email.label }}
+            </a>
+            <p class="footer-contact-line footer-contact-line--muted">{{ content.contact.location }}</p>
+
+            <div class="footer-social" *ngIf="socials$ | async as socials" aria-label="Social media">
+              <a
+                *ngFor="let social of socials; trackBy: trackBySocial"
+                class="footer-social-link"
+                [href]="social.link"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="social.label"
+                [title]="social.label"
+              >
+                <img [src]="social.icon" [alt]="social.label" loading="lazy" />
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="footer-lower">
+        <p class="footer-copy">
+          &copy; {{ currentYear }} {{ content.brandName }}. {{ content.bottomNote }}
+        </p>
+
+        <div class="footer-bottom-links">
+          <ng-container *ngFor="let link of content.bottomLinks; trackBy: trackByLink; let last = last">
+            <ng-container
+              *ngTemplateOutlet="link.external ? externalLink : internalLink; context: { $implicit: link }"
+            ></ng-container>
+            <span *ngIf="!last" class="footer-divider" aria-hidden="true">•</span>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #internalLink let-link>
+    <a class="footer-link" [routerLink]="link.link" [fragment]="link.fragment">
+      {{ link.label }}
+    </a>
+  </ng-template>
+
+  <ng-template #externalLink let-link>
+    <a class="footer-link" [href]="link.link" target="_blank" rel="noopener noreferrer">
+      {{ link.label }}
+    </a>
+  </ng-template>
 </footer>
