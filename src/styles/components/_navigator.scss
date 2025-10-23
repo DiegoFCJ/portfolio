@@ -175,6 +175,29 @@ app-navigator {
       align-items: flex-end;
       gap: 12px;
       z-index: 1;
+
+      &.navigator-wrapper--with-assistant {
+          flex-direction: row-reverse;
+          align-items: flex-end;
+          flex-wrap: nowrap;
+          gap: clamp(0.75rem, 4vw, 1.25rem);
+
+          .modern-navigator {
+              flex-shrink: 0;
+          }
+      }
+  }
+
+  .navigator-wrapper__assistant {
+      display: none;
+  }
+
+  .navigator-wrapper--with-assistant {
+      .navigator-wrapper__assistant {
+          display: flex;
+          align-items: flex-end;
+          pointer-events: auto;
+      }
   }
 
   .nav-toggle-button {
