@@ -1,25 +1,39 @@
 <footer class="site-footer" aria-label="Piè di pagina">
   <ng-container *ngIf="content$ | async as content">
-    <div class="footer-inner">
-      <div class="footer-main">
-        <section class="footer-about" aria-labelledby="footer-brand-title">
-          <div class="footer-heading">
+    <div class="footer-shell">
+      <div class="footer-top">
+        <section class="footer-brand" aria-labelledby="footer-brand-title">
+          <div class="footer-brand-header">
             <span class="footer-logo" aria-hidden="true">{{ getInitials(content.brandName) }}</span>
 
-            <div class="footer-brand-text">
+            <div>
               <p class="footer-brand-title" id="footer-brand-title">{{ content.brandName }}</p>
               <p class="footer-brand-subtitle">{{ content.brandSubtitle }}</p>
             </div>
           </div>
 
-          <ul class="footer-tags" aria-label="Focus principali">
-            <li class="footer-tag" *ngFor="let badge of content.highlightChips; trackBy: trackByValue">
+          <ul class="footer-highlights" aria-label="Focus principali">
+            <li class="footer-highlight" *ngFor="let badge of content.highlightChips; trackBy: trackByValue">
               {{ badge }}
             </li>
           </ul>
+
+          <div class="footer-social" *ngIf="socials$ | async as socials" aria-label="Social media">
+            <a
+              *ngFor="let social of socials; trackBy: trackBySocial"
+              class="footer-social-link"
+              [href]="social.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="social.label"
+              [title]="social.label"
+            >
+              <img [src]="social.icon" [alt]="social.label" loading="lazy" />
+            </a>
+          </div>
         </section>
 
-        <div class="footer-columns">
+        <div class="footer-grid">
           <section
             class="footer-column"
             *ngFor="let group of content.navigationGroups; trackBy: trackByGroupTitle"
@@ -34,30 +48,16 @@
             </nav>
           </section>
 
-          <section class="footer-column footer-column--contact">
+          <section class="footer-column footer-contact">
             <p class="footer-column-title">{{ content.contact.title }}</p>
             <p class="footer-contact-text">{{ content.contact.availability }}</p>
-            <p class="footer-contact-text footer-contact-text--accent">
+            <p class="footer-contact-text footer-contact-callout">
               {{ content.contact.invitation }}
             </p>
             <a class="footer-email" [href]="content.contact.email.link">
               {{ content.contact.email.label }}
             </a>
-            <p class="footer-contact-text footer-contact-text--muted">{{ content.contact.location }}</p>
-
-            <div class="footer-social" *ngIf="socials$ | async as socials" aria-label="Social media">
-              <a
-                *ngFor="let social of socials; trackBy: trackBySocial"
-                class="footer-social-link"
-                [href]="social.link"
-                target="_blank"
-                rel="noopener noreferrer"
-                [attr.aria-label]="social.label"
-                [title]="social.label"
-              >
-                <img [src]="social.icon" [alt]="social.label" loading="lazy" />
-              </a>
-            </div>
+            <p class="footer-contact-text footer-contact-muted">{{ content.contact.location }}</p>
           </section>
         </div>
       </div>

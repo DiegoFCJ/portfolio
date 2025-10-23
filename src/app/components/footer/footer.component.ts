@@ -41,8 +41,8 @@ interface FooterContent {
 const FOOTER_CONTENT = {
   it: {
     brandName: 'Diego Fois',
-    brandSubtitle: 'Designer e sviluppatore front-end con sede in Sardegna.',
-    highlightChips: ['Interfacce web', 'Design system', 'Accessibilità'],
+    brandSubtitle: 'Progetto interfacce web chiare e accessibili.',
+    highlightChips: ['UI moderne', 'Design system', 'Accessibilità'],
     navigationGroups: [
       {
         title: 'Esplora',
@@ -64,12 +64,12 @@ const FOOTER_CONTENT = {
     ],
     contact: {
       title: 'Contatti',
-      availability: 'Disponibile per progetti digitali e collaborazioni remote.',
-      invitation: 'Scrivimi un messaggio',
+      availability: 'Aperto a nuove collaborazioni e sfide digitali.',
+      invitation: 'Scrivimi quando vuoi',
       email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Sardegna, collaboro con team in tutta Europa.',
+      location: 'Dalla Sardegna, lavoro con team distribuiti.',
     },
-    bottomNote: 'Portfolio aggiornato con nuovi progetti e articoli.',
+    bottomNote: 'Aggiornato di recente con progetti e appunti.',
     bottomLinks: [
       { label: 'Privacy', link: '/privacy' },
       { label: 'Cookies', link: '/privacy', fragment: 'cookies' },
@@ -78,8 +78,8 @@ const FOOTER_CONTENT = {
   },
   en: {
     brandName: 'Diego Fois',
-    brandSubtitle: 'Front-end designer & developer based in Sardinia.',
-    highlightChips: ['Interface design', 'Design systems', 'Accessibility'],
+    brandSubtitle: 'I design and build clear, accessible web interfaces.',
+    highlightChips: ['Modern UI', 'Design systems', 'Accessibility'],
     navigationGroups: [
       {
         title: 'Explore',
@@ -101,12 +101,12 @@ const FOOTER_CONTENT = {
     ],
     contact: {
       title: 'Contact',
-      availability: 'Available for digital projects and remote-friendly teams.',
-      invitation: 'Send an email',
+      availability: 'Open to new collaborations and digital challenges.',
+      invitation: 'Say hello over email',
       email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Sardinia, working with teams across Europe.',
+      location: 'Based in Sardinia, working with distributed teams.',
     },
-    bottomNote: 'Portfolio updated with recent work and notes.',
+    bottomNote: 'Recently updated with projects and field notes.',
     bottomLinks: [
       { label: 'Privacy', link: '/privacy' },
       { label: 'Cookies', link: '/privacy', fragment: 'cookies' },
@@ -115,8 +115,8 @@ const FOOTER_CONTENT = {
   },
   de: {
     brandName: 'Diego Fois',
-    brandSubtitle: 'Frontend-Designer und -Entwickler mit Sitz in Sardinien.',
-    highlightChips: ['Weboberflächen', 'Designsysteme', 'Barrierefreiheit'],
+    brandSubtitle: 'Ich gestalte klare und zugängliche Weboberflächen.',
+    highlightChips: ['Moderne UI', 'Designsysteme', 'Barrierefreiheit'],
     navigationGroups: [
       {
         title: 'Entdecken',
@@ -138,12 +138,12 @@ const FOOTER_CONTENT = {
     ],
     contact: {
       title: 'Kontakt',
-      availability: 'Verfügbar für digitale Projekte und ortsunabhängige Teams.',
-      invitation: 'Schreib mir gern',
+      availability: 'Offen für neue Kooperationen und digitale Projekte.',
+      invitation: 'Schreib mir gern eine Mail',
       email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Sardinien, Zusammenarbeit mit Teams in ganz Europa.',
+      location: 'Aus Sardinien, arbeite mit verteilten Teams.',
     },
-    bottomNote: 'Portfolio mit aktuellen Projekten und Einblicken.',
+    bottomNote: 'Zuletzt mit Projekten und Notizen aktualisiert.',
     bottomLinks: [
       { label: 'Datenschutz', link: '/privacy' },
       { label: 'Cookies', link: '/privacy', fragment: 'cookies' },
@@ -152,8 +152,8 @@ const FOOTER_CONTENT = {
   },
   es: {
     brandName: 'Diego Fois',
-    brandSubtitle: 'Diseñador y desarrollador front-end con base en Cerdeña.',
-    highlightChips: ['Interfaces web', 'Sistemas de diseño', 'Accesibilidad'],
+    brandSubtitle: 'Diseño interfaces web claras y accesibles.',
+    highlightChips: ['UI moderna', 'Sistemas de diseño', 'Accesibilidad'],
     navigationGroups: [
       {
         title: 'Explorar',
@@ -175,12 +175,12 @@ const FOOTER_CONTENT = {
     ],
     contact: {
       title: 'Contacto',
-      availability: 'Disponible para proyectos digitales y equipos remotos.',
-      invitation: 'Envíame un correo',
+      availability: 'Abierto a nuevas colaboraciones y retos digitales.',
+      invitation: 'Escríbeme cuando quieras',
       email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Cerdeña, colaboro con equipos en toda Europa.',
+      location: 'Desde Cerdeña, colaboro con equipos distribuidos.',
     },
-    bottomNote: 'Portafolio actualizado con nuevos proyectos y notas.',
+    bottomNote: 'Actualizado con proyectos y apuntes recientes.',
     bottomLinks: [
       { label: 'Privacidad', link: '/privacy' },
       { label: 'Cookies', link: '/privacy', fragment: 'cookies' },
@@ -189,8 +189,8 @@ const FOOTER_CONTENT = {
   },
   no: {
     brandName: 'Diego Fois',
-    brandSubtitle: 'Frontend-designer og utvikler basert på Sardinia.',
-    highlightChips: ['Nettsider', 'Designsystemer', 'Tilgjengelighet'],
+    brandSubtitle: 'Jeg designer klare og tilgjengelige nettopplevelser.',
+    highlightChips: ['Moderne UI', 'Designsystemer', 'Tilgjengelighet'],
     navigationGroups: [
       {
         title: 'Utforsk',
@@ -212,12 +212,12 @@ const FOOTER_CONTENT = {
     ],
     contact: {
       title: 'Kontakt',
-      availability: 'Tilgjengelig for digitale prosjekter og distribuerte team.',
-      invitation: 'Send meg en e-post',
+      availability: 'Åpen for nye samarbeid og digitale prosjekter.',
+      invitation: 'Send meg gjerne en e-post',
       email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Sardinia, samarbeider med team i hele Europa.',
+      location: 'Basert på Sardinia, jobber med distribuerte team.',
     },
-    bottomNote: 'Porteføljen oppdateres med nye prosjekter.',
+    bottomNote: 'Nylig oppdatert med prosjekter og notater.',
     bottomLinks: [
       { label: 'Personvern', link: '/privacy' },
       { label: 'Informasjonskapsler', link: '/privacy', fragment: 'cookies' },
@@ -226,8 +226,8 @@ const FOOTER_CONTENT = {
   },
   ru: {
     brandName: 'Диего Фойс',
-    brandSubtitle: 'Фронтенд‑дизайнер и разработчик из Сардинии.',
-    highlightChips: ['Веб-интерфейсы', 'Дизайн-системы', 'Доступность'],
+    brandSubtitle: 'Я создаю понятные и доступные веб-интерфейсы.',
+    highlightChips: ['Современный UI', 'Дизайн-системы', 'Доступность'],
     navigationGroups: [
       {
         title: 'Исследовать',
@@ -249,12 +249,12 @@ const FOOTER_CONTENT = {
     ],
     contact: {
       title: 'Контакты',
-      availability: 'Доступен для цифровых проектов и удалённых команд.',
-      invitation: 'Напишите письмо',
+      availability: 'Открыт к новым сотрудничествам и цифровым задачам.',
+      invitation: 'Пишите в любое время',
       email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Сардиния, работаю с командами по всей Европе.',
+      location: 'На Сардинии, работаю с распределёнными командами.',
     },
-    bottomNote: 'Портфолио регулярно пополняется новыми проектами.',
+    bottomNote: 'Недавно обновлён проектами и заметками.',
     bottomLinks: [
       { label: 'Конфиденциальность', link: '/privacy' },
       { label: 'Файлы cookie', link: '/privacy', fragment: 'cookies' },
