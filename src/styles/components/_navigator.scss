@@ -229,20 +229,14 @@ app-navigator {
       gap: 16px;
       align-items: flex-end;
 
-      .navigator-stack {
-          display: flex;
-          flex-direction: column;
-          gap: 18px;
-          align-items: flex-end;
-          max-width: 100%;
-      }
-
       &.modern-navigator--collapsed {
           gap: 8px;
+      }
 
-          .navigator-stack {
-              gap: 12px;
-          }
+      .navigator-content {
+          display: flex;
+          align-items: flex-start;
+          gap: 18px;
       }
 
       .nav-groups {
@@ -451,11 +445,6 @@ app-navigator {
           border-color: var(--navigator-button-border, $default-button-border);
       }
 
-      &:focus-visible {
-          outline: 2px solid var(--navigator-button-border, $default-button-border);
-          outline-offset: 3px;
-      }
-
       mat-icon {
           position: absolute;
           font-size: 20px;
@@ -475,58 +464,9 @@ app-navigator {
       }
   }
 
-  .option-button:focus-visible + .option-hint {
+  .option-item:hover .option-hint,
+  .option-item:focus-within .option-hint {
       opacity: 1;
       transform: translate(-50%, 0);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-      .option-item:hover .option-hint {
-          opacity: 1;
-          transform: translate(-50%, 0);
-      }
-  }
-
-  @media (hover: none), (pointer: coarse) {
-      .option-hint {
-          display: none;
-      }
-  }
-
-  @media (max-width: 720px) {
-      .navigator-wrapper {
-          max-height: calc(100vh - (40px + var(--assistant-safe-area-bottom, 0px)));
-      }
-
-      @supports (height: 100dvh) {
-          .navigator-wrapper {
-              max-height: calc(100dvh - (40px + var(--assistant-safe-area-bottom, 0px)));
-          }
-      }
-
-      .modern-navigator {
-          gap: 12px;
-          max-height: 100%;
-      }
-
-      .modern-navigator .navigator-stack {
-          max-height: calc(100% - $navigator-button-size - 12px);
-          overflow-y: auto;
-          overflow-x: visible;
-          padding-block: 4px;
-          padding-inline-end: 4px;
-          scroll-padding-block: 8px;
-          overscroll-behavior: contain;
-          -webkit-overflow-scrolling: touch;
-      }
-
-      .modern-navigator .navigator-stack::-webkit-scrollbar {
-          width: 6px;
-      }
-
-      .modern-navigator .navigator-stack::-webkit-scrollbar-thumb {
-          background-color: rgba(148, 163, 184, 0.4);
-          border-radius: 999px;
-      }
   }
 }

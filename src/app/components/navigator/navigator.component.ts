@@ -41,7 +41,6 @@ export class NavigatorComponent implements OnInit {
   readonly availableThemes: ThemeKey[];
   readonly availableLanguages: LanguageKey[] = ['en', 'it', 'de', 'es', 'no', 'ru'];
   pageNavigationItems: NavigationItem[] = [];
-  readonly themeIconFontSet = 'material-icons-round';
 
   /** Controls visibility of the navigator */
   isOpen = true;

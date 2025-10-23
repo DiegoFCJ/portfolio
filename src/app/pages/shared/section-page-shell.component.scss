@@ -49,12 +49,12 @@
 @media (max-width: 720px) {
   .section-page-shell__floating--navigator {
     right: 20px;
-    bottom: calc(20px + var(--assistant-safe-area-bottom, 0px));
+    bottom: 20px;
   }
 
   .section-page-shell__floating--assistant {
-    right: calc(30px + var(--navigator-mobile-footprint, 3.75rem));
+    right: 30px;
     left: auto;
-    bottom: calc(20px + var(--assistant-safe-area-bottom, 0px));
+    bottom: 20px;
   }
 }
