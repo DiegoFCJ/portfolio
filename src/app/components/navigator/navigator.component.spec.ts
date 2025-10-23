@@ -173,6 +173,29 @@ describe('NavigatorComponent', () => {
     expect(component.showThemeOptions).toBeTrue();
   });
 
+  it('should emit stack navigation events when stack controls are used', () => {
+    component.showStackControls = true;
+    fixture.detectChanges();
+
+    spyOn(component.stackPrevious, 'emit');
+    spyOn(component.stackNext, 'emit');
+
+    const previousLabel = component.getTooltip('prev');
+    const nextLabel = component.getTooltip('next');
+
+    const prevButton: HTMLButtonElement = fixture.nativeElement.querySelector(`button[aria-label="${previousLabel}"]`);
+    const nextButton: HTMLButtonElement = fixture.nativeElement.querySelector(`button[aria-label="${nextLabel}"]`);
+
+    expect(prevButton).withContext('Previous stack button should be rendered when controls are visible').toBeTruthy();
+    expect(nextButton).withContext('Next stack button should be rendered when controls are visible').toBeTruthy();
+
+    prevButton.click();
+    nextButton.click();
+
+    expect(component.stackPrevious.emit).toHaveBeenCalled();
+    expect(component.stackNext.emit).toHaveBeenCalled();
+  });
+
   it('should keep the navigator open during programmatic scrolls triggered by navigation buttons', fakeAsync(() => {
     component.isOpen = true;
     component.showLanguageOptions = true;
