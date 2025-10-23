@@ -105,8 +105,7 @@ app-privacy .privacy__toc-title {
   color: var(--privacy-subtle);
 }
 
-app-privacy .privacy__toc-list,
-app-privacy .privacy__contact-list {
+app-privacy .privacy__toc-list {
   margin: 0;
   padding: 0;
   display: grid;
@@ -141,15 +140,9 @@ app-privacy .privacy__toc-link:focus-visible {
 }
 
 app-privacy .privacy__toc-link:hover::before,
-app-privacy .privacy__toc-link:focus-visible::before,
-app-privacy .privacy__toc-link--accent::before {
+app-privacy .privacy__toc-link:focus-visible::before {
   transform: scale(1);
   background: var(--privacy-accent);
-}
-
-app-privacy .privacy__toc-link--accent {
-  font-weight: 600;
-  color: var(--privacy-accent);
 }
 
 app-privacy .privacy__content {
@@ -172,8 +165,7 @@ app-privacy .privacy__section {
   backdrop-filter: blur(10px);
 }
 
-app-privacy .privacy__section,
-app-privacy .privacy__contacts {
+app-privacy .privacy__section {
   scroll-margin-top: clamp(5.5rem, 12vh, 6.5rem);
 }
 
@@ -200,67 +192,6 @@ app-privacy .privacy__list-item {
   line-height: 1.6;
 }
 
-app-privacy .privacy__contacts {
-  display: grid;
-  gap: 1.35rem;
-  padding: clamp(1.75rem, 3vw, 2.5rem);
-  border-radius: 1.75rem;
-  background: linear-gradient(140deg, color-mix(in srgb, var(--privacy-accent) 65%, rgba(14, 116, 144, 0.85)), rgba(14, 116, 144, 0.82));
-  color: #f8fafc;
-  box-shadow: 0 24px 60px rgba(14, 116, 144, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-}
-
-app-privacy .privacy__contacts-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-app-privacy .privacy__contact-cta {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.6rem;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.85);
-  color: inherit;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-app-privacy .privacy__contact-cta:hover,
-app-privacy .privacy__contact-cta:focus-visible {
-  transform: translateY(-1px);
-  background: rgba(15, 23, 42, 0.92);
-}
-
-app-privacy .privacy__contact-item {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  align-items: baseline;
-}
-
-app-privacy .privacy__contact-label {
-  font-weight: 600;
-}
-
-app-privacy .privacy__contact-link {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: rgba(248, 250, 252, 0.45);
-  text-underline-offset: 0.2rem;
-  word-break: break-word;
-}
-
-app-privacy .privacy__contact-link:hover,
-app-privacy .privacy__contact-link:focus-visible {
-  text-decoration-color: currentColor;
-}
-
 @media (max-width: 1024px) {
   app-privacy .privacy__layout {
     grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
@@ -274,7 +205,8 @@ app-privacy .privacy__contact-link:focus-visible {
   }
 
   app-privacy .privacy__toc {
-    top: clamp(4.75rem, 10vh, 5.5rem);
+    position: static;
+    top: auto;
   }
 }
 
@@ -283,12 +215,7 @@ app-privacy .privacy__contact-link:focus-visible {
     padding-inline: clamp(0.75rem, 6vw, 1.5rem);
   }
 
-  app-privacy .privacy__section,
-  app-privacy .privacy__contacts {
+  app-privacy .privacy__section {
     padding: clamp(1.35rem, 5vw, 1.75rem);
-  }
-
-  app-privacy .privacy__contacts {
-    border-radius: 1.5rem;
   }
 }
