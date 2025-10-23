@@ -72,7 +72,6 @@ export class TopbarComponent implements AfterViewInit {
   private overflowDetectionFrameId: number | null = null;
   private resizeObserver?: ResizeObserver;
   private lastMeasuredTopbarHeight = 0;
-  private lastComputedOffset = 0;
 
   constructor(
     private readonly translationService: TranslationService,
@@ -170,30 +169,13 @@ export class TopbarComponent implements AfterViewInit {
     }
 
     const roundedHeight = Math.round(height * 100) / 100;
-    const offset = this.calculateTopbarOffset(roundedHeight);
-
-    if (
-      Math.abs(roundedHeight - this.lastMeasuredTopbarHeight) < 0.5 &&
-      Math.abs(offset - this.lastComputedOffset) < 0.5
-    ) {
-      this.lastMeasuredTopbarHeight = roundedHeight;
-      this.lastComputedOffset = offset;
+    if (Math.abs(roundedHeight - this.lastMeasuredTopbarHeight) < 0.5) {
       return;
     }
 
     const rootElement = this.document.documentElement;
     rootElement.style.setProperty('--topbar-height', `${roundedHeight}px`);
-    rootElement.style.setProperty('--topbar-offset', `${offset}px`);
     this.lastMeasuredTopbarHeight = roundedHeight;
-    this.lastComputedOffset = offset;
-  }
-
-  private calculateTopbarOffset(height: number): number {
-    const minOffset = 12; // 0.75rem
-    const maxOffset = 24; // 1.5rem
-    const preferredRatio = 0.35;
-    const idealOffset = Math.round(height * preferredRatio * 100) / 100;
-    return Math.min(Math.max(idealOffset, minOffset), maxOffset);
   }
 
   onSelectLanguage(language: string): void {
