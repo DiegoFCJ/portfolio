@@ -123,6 +123,8 @@
 .footer-social-link img {
   width: 16px;
   height: 16px;
+  filter: var(--footer-social-icon-filter, none);
+  transition: filter 0.2s ease;
 }
 
 .footer-column {
