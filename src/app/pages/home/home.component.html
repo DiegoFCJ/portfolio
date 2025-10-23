@@ -43,4 +43,28 @@
 
 <div class="home__floating home__floating--assistant">
   <app-assistant></app-assistant>
+
+  <div class="home__stack-controls" *ngIf="showStackCarouselControls">
+    <button
+      type="button"
+      class="home__stack-controls-button"
+      aria-label="Previous stack section"
+      (click)="onStackCarouselPrevious()"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      class="home__stack-controls-button"
+      aria-label="Next stack section"
+      (click)="onStackCarouselNext()"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="m8.59 16.59 1.41 1.41 6-6-6-6-1.41 1.41L13.17 12z"></path>
+      </svg>
+    </button>
+  </div>
 </div>
