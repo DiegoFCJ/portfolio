@@ -39,7 +39,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     {
       provide: MAT_ICON_DEFAULT_OPTIONS,
-      useValue: { fontSet: 'material-icons' },
+      useValue: { fontSet: 'material-symbols-rounded' },
     },
     { provide: APP_ENVIRONMENT, useValue: environment },
     ...errorTrackingProviders,
