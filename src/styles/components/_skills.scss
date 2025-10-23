@@ -188,6 +188,18 @@ app-skills .mobile-layout {
   gap: clamp(1.5rem, 5vw, 2.5rem);
 }
 
+app-skills .mobile-layout--stacked {
+  width: min(100%, var(--skills-mobile-max-width));
+  margin-inline: auto;
+}
+
+app-skills .stacked-panels {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 5vw, 2.5rem);
+  width: 100%;
+}
+
 app-skills .nav-container {
   width: 100%;
   display: flex;

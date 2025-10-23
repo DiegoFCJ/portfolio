@@ -2,7 +2,7 @@
   <h2 class="skills-title">{{ skillFullTitle }}</h2>
 
   <ng-container *ngIf="isMobile; else desktopLayout">
-    <div class="mobile-layout">
+    <div class="mobile-layout" [class.mobile-layout--stacked]="variant === 'page'">
       <nav
         class="stack-tabs is-mobile"
         role="tablist"
@@ -24,46 +24,79 @@
         </button>
       </nav>
 
-      <div
-        class="carousel-container"
-        role="tabpanel"
-        [attr.id]="'panel-' + activeTabId"
-        [attr.aria-labelledby]="'tab-' + activeTabId"
-        [attr.aria-live]="activePanels.length ? 'polite' : 'off'"
-        *ngIf="activePanels.length"
-      >
-        <div class="carousel-wrapper" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
-          <article
-            *ngFor="let panel of activePanels; let i = index"
-            class="carousel-item"
-            [class.active]="i === currentIndex"
-            role="group"
-            [attr.aria-roledescription]="'slide'"
-            [attr.aria-label]="panel.title"
-          >
-            <div class="spotlight-card is-mobile" data-skill-host>
-              <div class="spotlight-content">
-                <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
-                <div class="spotlight-icons" role="list">
-                  <div
-                    *ngFor="let skill of panel.skills"
-                    class="skill-icon"
-                    role="listitem"
-                    data-skill-host
-                    [attr.aria-label]="skill.name"
-                    [class.clicked]="skill.clicked"
-                    (click)="onSkillClick(skill)"
-                  >
-                    <span class="icon-asset">
-                      <img [src]="skill.icon" [alt]="skill.name" />
-                    </span>
-                  </div>
+      <ng-container *ngIf="variant === 'page'; else mobileCarousel">
+        <div
+          class="stacked-panels"
+          role="tabpanel"
+          [attr.id]="'panel-' + activeTabId"
+          [attr.aria-labelledby]="'tab-' + activeTabId"
+          *ngIf="activePanels.length"
+        >
+          <article class="spotlight-card is-mobile" *ngFor="let panel of activePanels" data-skill-host>
+            <div class="spotlight-content">
+              <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
+              <div class="spotlight-icons" role="list">
+                <div
+                  *ngFor="let skill of panel.skills"
+                  class="skill-icon"
+                  role="listitem"
+                  data-skill-host
+                  [attr.aria-label]="skill.name"
+                  [class.clicked]="skill.clicked"
+                  (click)="onSkillClick(skill)"
+                >
+                  <span class="icon-asset">
+                    <img [src]="skill.icon" [alt]="skill.name" />
+                  </span>
                 </div>
               </div>
             </div>
           </article>
         </div>
-      </div>
+      </ng-container>
+
+      <ng-template #mobileCarousel>
+        <div
+          class="carousel-container"
+          role="tabpanel"
+          [attr.id]="'panel-' + activeTabId"
+          [attr.aria-labelledby]="'tab-' + activeTabId"
+          [attr.aria-live]="activePanels.length ? 'polite' : 'off'"
+          *ngIf="activePanels.length"
+        >
+          <div class="carousel-wrapper" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+            <article
+              *ngFor="let panel of activePanels; let i = index"
+              class="carousel-item"
+              [class.active]="i === currentIndex"
+              role="group"
+              [attr.aria-roledescription]="'slide'"
+              [attr.aria-label]="panel.title"
+            >
+              <div class="spotlight-card is-mobile" data-skill-host>
+                <div class="spotlight-content">
+                  <p class="spotlight-subtitle" *ngIf="panel.subtitle">{{ panel.subtitle }}</p>
+                  <div class="spotlight-icons" role="list">
+                    <div
+                      *ngFor="let skill of panel.skills"
+                      class="skill-icon"
+                      role="listitem"
+                      data-skill-host
+                      [attr.aria-label]="skill.name"
+                      [class.clicked]="skill.clicked"
+                      (click)="onSkillClick(skill)"
+                    >
+                      <span class="icon-asset">
+                        <img [src]="skill.icon" [alt]="skill.name" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </ng-container>
 
