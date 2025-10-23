@@ -44,15 +44,13 @@
 
 @media (max-width: 720px) {
   .home__floating--navigator {
-    right: clamp(0.75rem, 4vw, 2rem);
-    bottom: clamp(1rem, 6vw, 2.25rem);
+    right: 20px;
+    bottom: 20px;
   }
 
   .home__floating--assistant {
-    right: calc(
-      clamp(0.75rem, 4vw, 2rem) + var(--navigator-mobile-footprint, 3.75rem)
-    );
+    right: 30px;
     left: auto;
-    bottom: clamp(1rem, 6vw, 2.25rem);
+    bottom: 20px;
   }
 }
