@@ -445,6 +445,11 @@ app-navigator {
           border-color: var(--navigator-button-border, $default-button-border);
       }
 
+      &:focus-visible {
+          outline: 2px solid var(--navigator-button-border, $default-button-border);
+          outline-offset: 3px;
+      }
+
       mat-icon {
           position: absolute;
           font-size: 20px;
@@ -464,9 +469,15 @@ app-navigator {
       }
   }
 
-  .option-item:hover .option-hint,
-  .option-item:focus-within .option-hint {
+  .option-button:focus-visible + .option-hint {
       opacity: 1;
       transform: translate(-50%, 0);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+      .option-item:hover .option-hint {
+          opacity: 1;
+          transform: translate(-50%, 0);
+      }
   }
 }

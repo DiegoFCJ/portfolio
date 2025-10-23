@@ -6,13 +6,13 @@
         <!-- Previous button -->
         <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" [attr.aria-label]="getTooltip('prev')"
           [matTooltip]="getTooltip('prev')" matTooltipPosition="left">
-          <mat-icon aria-hidden="true" fontIcon="arrow_upward"></mat-icon>
+          <mat-icon aria-hidden="true">arrow_upward</mat-icon>
         </button>
 
         <!-- Next button -->
         <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex < totalSections - 1" (click)="onNext()" [attr.aria-label]="getTooltip('next')"
           [matTooltip]="getTooltip('next')" matTooltipPosition="left">
-          <mat-icon aria-hidden="true" fontIcon="arrow_downward"></mat-icon>
+          <mat-icon aria-hidden="true">arrow_downward</mat-icon>
         </button>
       </div>
 
@@ -27,7 +27,7 @@
             [attr.aria-expanded]="showPageOptions"
             aria-haspopup="true"
           >
-            <mat-icon aria-hidden="true" fontIcon="menu"></mat-icon>
+            <mat-icon aria-hidden="true">menu</mat-icon>
           </button>
 
           <div class="page-menu" *ngIf="showPageOptions" role="menu">
@@ -46,16 +46,16 @@
         <div class="nav-group">
           <button class="nav-button" (click)="toggleThemeOptions()" [attr.aria-label]="getTooltip('theme')"
             [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
-            <mat-icon aria-hidden="true" [fontIcon]="getThemeIcon(currentTheme)"></mat-icon>
+            <mat-icon aria-hidden="true">{{ getThemeIcon(currentTheme) }}</mat-icon>
           </button>
           <div class="option-container" *ngIf="showThemeOptions">
             <div class="option-item" *ngFor="let theme of availableThemes">
-              <span class="option-hint" [id]="'theme-option-hint-' + theme">{{ getThemeName(theme) }}</span>
               <button class="option-button" (click)="changeTheme(theme)" [attr.aria-label]="getThemeName(theme)"
                 [class.selected]="currentTheme === theme"
                 [attr.aria-describedby]="'theme-option-hint-' + theme">
-                <mat-icon aria-hidden="true" [fontIcon]="getThemeIcon(theme)"></mat-icon>
+                <mat-icon aria-hidden="true">{{ getThemeIcon(theme) }}</mat-icon>
               </button>
+              <span class="option-hint" [id]="'theme-option-hint-' + theme">{{ getThemeName(theme) }}</span>
             </div>
           </div>
         </div>
@@ -67,12 +67,12 @@
           </button>
           <div class="option-container" *ngIf="showLanguageOptions">
             <div class="option-item" *ngFor="let language of availableLanguages">
-              <span class="option-hint" [id]="'language-option-hint-' + language">{{ getLanguageName(language) }}</span>
               <button class="option-button" (click)="changeLanguage(language)"
                 [attr.aria-label]="getLanguageName(language)"
                 [attr.aria-describedby]="'language-option-hint-' + language">
                 <img class="lang-flag" [src]="getLanguageFlag(language)" [alt]="getLanguageName(language)" />
               </button>
+              <span class="option-hint" [id]="'language-option-hint-' + language">{{ getLanguageName(language) }}</span>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@
       [attr.aria-label]="getToggleButtonLabel()"
       [matTooltip]="getToggleButtonLabel()" matTooltipPosition="left"
       [attr.aria-expanded]="isOpen">
-      <mat-icon aria-hidden="true" fontIcon="expand_more"></mat-icon>
+      <mat-icon aria-hidden="true">expand_more</mat-icon>
     </button>
   </div>
 </div>
