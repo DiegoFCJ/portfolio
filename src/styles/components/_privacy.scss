@@ -274,7 +274,8 @@ app-privacy .privacy__contact-link:focus-visible {
   }
 
   app-privacy .privacy__toc {
-    top: clamp(4.75rem, 10vh, 5.5rem);
+    position: static;
+    top: auto;
   }
 }
 
