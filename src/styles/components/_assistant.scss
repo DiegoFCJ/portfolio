@@ -7,6 +7,7 @@ app-assistant {
     var(--assistant-popup-width),
     calc(100vw - (var(--assistant-inline-gap) * 2))
   );
+  --assistant-popup-mobile-lift: 0px;
   --assistant-popup-safe-area-bottom: var(--assistant-safe-area-bottom, 0px);
   --assistant-popup-viewport-margin: calc(
     clamp(72px, 18vh, 132px) + var(--assistant-popup-safe-area-bottom)
@@ -52,7 +53,7 @@ app-assistant {
   --assistant-inline-gap: clamp(12px, 3vw, 20px);
   --assistant-popup-effective-width: min(
     var(--assistant-popup-width),
-    calc(100% - (var(--assistant-inline-gap) * 2))
+    calc(100vw - (var(--assistant-inline-gap) * 2))
   );
 }
 
@@ -179,7 +180,9 @@ app-assistant .assistant__avatar-wave {
 app-assistant .assistant__popup {
   position: absolute;
   right: 0;
-  bottom: calc(100% + var(--assistant-spacing));
+  bottom: calc(
+    100% + var(--assistant-spacing) + var(--assistant-popup-mobile-lift)
+  );
   width: var(--assistant-popup-effective-width);
   background: var(--assistant-popup-bg);
   color: var(--assistant-popup-color);
@@ -977,6 +980,7 @@ app-assistant .assistant__closing--active {
     --assistant-popup-viewport-margin: calc(
       clamp(88px, 24vh, 148px) + var(--assistant-popup-safe-area-bottom)
     );
+    --assistant-popup-mobile-lift: clamp(24px, 10vh, 72px);
   }
 
   app-assistant .assistant {
