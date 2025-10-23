@@ -57,6 +57,21 @@ app-assistant {
   );
 }
 
+:host-context(.navigator-wrapper--assistant-active) app-assistant,
+.navigator-wrapper--assistant-active app-assistant {
+  --assistant-popup-width: clamp(340px, 92vw, 480px);
+  --assistant-inline-gap: clamp(18px, 6vw, 28px);
+  --assistant-popup-effective-width: min(
+    var(--assistant-popup-width),
+    calc(100vw - (var(--assistant-inline-gap) * 2))
+  );
+  --assistant-popup-bg: linear-gradient(180deg, rgba(30, 64, 110, 0.95) 0%, rgba(17, 24, 39, 0.96) 100%);
+  --assistant-popup-border: 1px solid rgba(148, 163, 184, 0.38);
+  --assistant-popup-shadow: 0 28px 60px rgba(8, 15, 35, 0.6);
+  --assistant-popup-radius: 26px;
+  --assistant-popup-mobile-lift: clamp(10px, 3vh, 18px);
+}
+
 app-assistant .assistant {
   position: absolute;
   bottom: 0;
@@ -78,6 +93,13 @@ app-assistant .assistant {
   right: auto;
   min-width: 0;
   width: 100%;
+}
+
+:host-context(.navigator-wrapper--assistant-active) app-assistant .assistant,
+.navigator-wrapper--assistant-active app-assistant .assistant {
+  min-width: var(--assistant-popup-effective-width);
+  width: var(--assistant-popup-effective-width);
+  flex: 0 0 auto;
 }
 
 app-assistant .assistant__anchor {
@@ -186,7 +208,7 @@ app-assistant .assistant__popup {
   width: var(--assistant-popup-effective-width);
   background: var(--assistant-popup-bg);
   color: var(--assistant-popup-color);
-  border-radius: 20px;
+  border-radius: var(--assistant-popup-radius, 20px);
   padding: 1.25rem 1.25rem 1.5rem;
   box-shadow: var(--assistant-popup-shadow);
   border: var(--assistant-popup-border);
