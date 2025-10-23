@@ -20,20 +20,11 @@ interface FooterGroup {
   links: FooterLink[];
 }
 
-interface FooterContact {
-  title: string;
-  availability: string;
-  invitation: string;
-  email: FooterLink;
-  location: string;
-}
-
 interface FooterContent {
   brandName: string;
   brandSubtitle: string;
   highlightChips: string[];
   navigationGroups: FooterGroup[];
-  contact: FooterContact;
   bottomNote: string;
   bottomLinks: FooterLink[];
 }
@@ -62,13 +53,6 @@ const FOOTER_CONTENT = {
         ],
       },
     ],
-    contact: {
-      title: 'Contatti',
-      availability: 'Aperto a nuove collaborazioni e sfide digitali.',
-      invitation: 'Scrivimi quando vuoi',
-      email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Dalla Sardegna, lavoro con team distribuiti.',
-    },
     bottomNote: 'Aggiornato di recente con progetti e appunti.',
     bottomLinks: [
       { label: 'Privacy', link: '/privacy' },
@@ -99,13 +83,6 @@ const FOOTER_CONTENT = {
         ],
       },
     ],
-    contact: {
-      title: 'Contact',
-      availability: 'Open to new collaborations and digital challenges.',
-      invitation: 'Say hello over email',
-      email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Based in Sardinia, working with distributed teams.',
-    },
     bottomNote: 'Recently updated with projects and field notes.',
     bottomLinks: [
       { label: 'Privacy', link: '/privacy' },
@@ -136,13 +113,6 @@ const FOOTER_CONTENT = {
         ],
       },
     ],
-    contact: {
-      title: 'Kontakt',
-      availability: 'Offen für neue Kooperationen und digitale Projekte.',
-      invitation: 'Schreib mir gern eine Mail',
-      email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Aus Sardinien, arbeite mit verteilten Teams.',
-    },
     bottomNote: 'Zuletzt mit Projekten und Notizen aktualisiert.',
     bottomLinks: [
       { label: 'Datenschutz', link: '/privacy' },
@@ -173,13 +143,6 @@ const FOOTER_CONTENT = {
         ],
       },
     ],
-    contact: {
-      title: 'Contacto',
-      availability: 'Abierto a nuevas colaboraciones y retos digitales.',
-      invitation: 'Escríbeme cuando quieras',
-      email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Desde Cerdeña, colaboro con equipos distribuidos.',
-    },
     bottomNote: 'Actualizado con proyectos y apuntes recientes.',
     bottomLinks: [
       { label: 'Privacidad', link: '/privacy' },
@@ -210,13 +173,6 @@ const FOOTER_CONTENT = {
         ],
       },
     ],
-    contact: {
-      title: 'Kontakt',
-      availability: 'Åpen for nye samarbeid og digitale prosjekter.',
-      invitation: 'Send meg gjerne en e-post',
-      email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'Basert på Sardinia, jobber med distribuerte team.',
-    },
     bottomNote: 'Nylig oppdatert med prosjekter og notater.',
     bottomLinks: [
       { label: 'Personvern', link: '/privacy' },
@@ -247,13 +203,6 @@ const FOOTER_CONTENT = {
         ],
       },
     ],
-    contact: {
-      title: 'Контакты',
-      availability: 'Открыт к новым сотрудничествам и цифровым задачам.',
-      invitation: 'Пишите в любое время',
-      email: { label: 'diegoeffe96@gmail.com', link: 'mailto:diegoeffe96@gmail.com', external: true },
-      location: 'На Сардинии, работаю с распределёнными командами.',
-    },
     bottomNote: 'Недавно обновлён проектами и заметками.',
     bottomLinks: [
       { label: 'Конфиденциальность', link: '/privacy' },
