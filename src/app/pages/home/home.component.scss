@@ -44,6 +44,25 @@
   bottom: calc(
     clamp(1.25rem, 4vw, 2.75rem) + var(--assistant-safe-area-bottom, 0px)
   );
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.5rem, 3vw, 0.75rem);
+}
+
+.home__floating--assistant .home__stack-carousel-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 3vw, 0.75rem);
+  pointer-events: auto;
+}
+
+.home__stack-carousel-button {
+  pointer-events: auto;
+}
+
+.home__stack-carousel-button mat-icon {
+  font-size: clamp(1.35rem, 5vw, 1.75rem);
 }
 
 @media (max-width: 720px) {
@@ -64,5 +83,7 @@
     );
     left: auto;
     bottom: calc(20px + var(--assistant-safe-area-bottom, 0px));
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 }

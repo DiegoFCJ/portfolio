@@ -43,4 +43,24 @@
 
 <div class="home__floating home__floating--assistant">
   <app-assistant></app-assistant>
+
+  <div class="home__stack-carousel-controls" *ngIf="showStackCarouselControls">
+    <button
+      type="button"
+      class="home__stack-carousel-button home__stack-carousel-button--previous navigator-circle-button"
+      aria-label="Stack precedente"
+      (click)="onStackCarouselPrevious()"
+    >
+      <mat-icon aria-hidden="true">arrow_upward</mat-icon>
+    </button>
+
+    <button
+      type="button"
+      class="home__stack-carousel-button home__stack-carousel-button--next navigator-circle-button"
+      aria-label="Stack successivo"
+      (click)="onStackCarouselNext()"
+    >
+      <mat-icon aria-hidden="true">arrow_downward</mat-icon>
+    </button>
+  </div>
 </div>

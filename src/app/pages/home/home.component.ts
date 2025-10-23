@@ -1,5 +1,17 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { ProjectsComponent } from '../../components/projects/projects.component';
@@ -16,6 +28,7 @@ import { AssistantComponent } from '../../components/assistant/assistant.compone
   standalone: true,
   imports: [
     CommonModule,
+    MatIconModule,
     HeroComponent,
     AboutComponent,
     ProjectsComponent,
@@ -35,9 +48,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   isMobileViewport = false;
   totalSections = 0;
   currentSectionIndex = 0;
+  private skillsSectionIndex = -1;
 
   @ViewChildren('homeSection', { read: ElementRef })
   private sectionElements?: QueryList<ElementRef<HTMLElement>>;
+
+  @ViewChild(SkillsComponent)
+  private skillsComponent?: SkillsComponent;
 
   private programmaticScrollTimeout: ReturnType<typeof setTimeout> | number | null = null;
   private isProgrammaticScroll = false;
@@ -108,7 +125,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private updateSectionsMetrics(): void {
-    this.totalSections = this.sectionElements?.length ?? 0;
+    const sections = this.sectionElements?.toArray() ?? [];
+    this.totalSections = sections.length;
+    this.updateSkillsSectionIndex(sections);
     this.updateCurrentSectionIndex();
     this.cdr.detectChanges();
   }
@@ -175,5 +194,41 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const sections = this.sectionElements.toArray();
     return sections[index]?.nativeElement ?? null;
+  }
+
+  private updateSkillsSectionIndex(sections: ElementRef<HTMLElement>[]): void {
+    const nextIndex = sections.findIndex(section =>
+      !!section.nativeElement.querySelector('app-skills')
+    );
+
+    if (nextIndex !== this.skillsSectionIndex) {
+      this.skillsSectionIndex = nextIndex;
+      this.cdr.markForCheck();
+    }
+  }
+
+  get showStackCarouselControls(): boolean {
+    if (!this.isMobileViewport || this.skillsSectionIndex === -1) {
+      return false;
+    }
+
+    if (this.currentSectionIndex !== this.skillsSectionIndex) {
+      return false;
+    }
+
+    if (!this.skillsComponent?.isMobile) {
+      return false;
+    }
+
+    const activePanels = this.skillsComponent.activePanels ?? [];
+    return activePanels.length > 0;
+  }
+
+  onStackCarouselPrevious(): void {
+    this.skillsComponent?.moveToPrevious();
+  }
+
+  onStackCarouselNext(): void {
+    this.skillsComponent?.moveToNext();
   }
 }
