@@ -99,13 +99,13 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
     },
     mobile: {
       intro:
-        'Su smartphone trovi una topbar compatta: ecco come usarla al meglio.',
+        'Da smartphone il portfolio offre comandi dedicati al tocco: segui questi passaggi rapidi.',
       steps: [
-        'Apri il menu pagine con il nuovo pulsante in alto a destra e scegli la vista che vuoi visitare.',
-        'La topbar resta fissata in alto: dopo aver toccato una voce il menu si richiude automaticamente.',
-        'Gli switch di lingua e tema si trovano nello stesso menu: seleziona la combinazione che preferisci.',
-        'Ogni pagina è ottimizzata per lo scorrimento verticale, quindi puoi navigare con un semplice swipe.',
-        'Le card dei Numeri chiave sono interattive: toccale per leggere le spiegazioni dettagliate.'
+        'Apri la barra di navigazione con il pulsante con il chevron verso il basso in basso a destra dello schermo.',
+        'Muoviti tra le sezioni con le frecce su e giù della navbar: puoi anche scorrere con le dita.',
+        'Tieni premuto un pulsante per mostrare il suggerimento che spiega la sua funzione.',
+        'I pulsanti del tema e della lingua aprono sottomenu orizzontali a sinistra e a destra per regolare le impostazioni.',
+        'Nella sezione Stack tecnologico scegli tra back, front e tooling: si apre un carosello che aggiunge le frecce sinistra e destra alla navigazione.'
       ]
     }
   },
