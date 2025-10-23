@@ -53,11 +53,8 @@
   }
 
   .home__floating--assistant {
-    right: 30px;
+    right: calc(30px + var(--navigator-mobile-footprint, clamp(3.75rem, 12vw, 4.5rem)));
     left: auto;
-    bottom: calc(
-      20px + var(--navigator-mobile-footprint, clamp(3.75rem, 12vw, 4.5rem)) +
-        var(--assistant-safe-area-bottom, 0px)
-    );
+    bottom: calc(20px + var(--assistant-safe-area-bottom, 0px));
   }
 }
