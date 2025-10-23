@@ -66,8 +66,9 @@ app-stats {
         .statistics-component {
             min-block-size: clamp(100vh, calc(100vh + 10rem), 150vh);
             padding-block-start: clamp(3rem, 6vw, 5rem);
-            padding-block-end: 0;
+            padding-block-end: clamp(2.5rem, 6vw, 4rem);
             padding-inline: clamp(1.5rem, 5vw, 3.25rem);
+            align-items: flex-start;
         }
 
         .statistics-surface {
@@ -81,8 +82,9 @@ app-stats {
         @media (max-width: 640px) {
             .statistics-component {
                 padding-block-start: clamp(2.25rem, 7vw, 3.25rem);
-                padding-block-end: 0;
+                padding-block-end: clamp(2rem, 7vw, 3rem);
                 padding-inline: clamp(0.9rem, 6vw, 1.75rem);
+                align-items: flex-start;
             }
         }
     }
