@@ -103,18 +103,24 @@
   padding: 0;
   inline-size: 44px;
   block-size: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   mat-icon {
     color: var(--navigator-icon-color, #e2e8f0);
-    font-size: 24px;
+    font-size: 26px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 6px rgba(125, 211, 252, 0.45));
   }
 }
 
 .topbar__overflow-menu {
   position: absolute;
   inset-block-start: calc(100% + 0.5rem);
-  inset-inline-start: auto;
-  inset-inline-end: 0;
+  inset-inline-start: 0;
+  inset-inline-end: auto;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
