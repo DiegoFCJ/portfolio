@@ -3,12 +3,6 @@
   [class.navigator-wrapper--collapsed]="!isOpen"
   [class.navigator-wrapper--with-assistant]="showEmbeddedAssistant"
 >
-  <div class="navigator-wrapper__assistant" *ngIf="showEmbeddedAssistant">
-    <app-assistant
-      (opened)="onAssistantOpened()"
-      (closed)="onAssistantClosed()"
-    ></app-assistant>
-  </div>
   <!-- Modern, animated, circular floating navbar -->
   <div class="modern-navigator" [class.modern-navigator--collapsed]="!isOpen">
     <ng-container *ngIf="isOpen">
@@ -95,5 +89,34 @@
       [attr.aria-expanded]="isOpen">
       <mat-icon aria-hidden="true">expand_more</mat-icon>
     </button>
+  </div>
+
+  <div class="home__floating home__floating--stack" *ngIf="showStackControls">
+    <div class="home__stack-controls">
+      <button
+        type="button"
+        class="home__stack-button navigator-circle-button"
+        (click)="onStackPreviousClick()"
+        [attr.aria-label]="computedStackPreviousLabel"
+      >
+        <mat-icon aria-hidden="true">arrow_back</mat-icon>
+      </button>
+
+      <button
+        type="button"
+        class="home__stack-button navigator-circle-button"
+        (click)="onStackNextClick()"
+        [attr.aria-label]="computedStackNextLabel"
+      >
+        <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="navigator-wrapper__assistant" *ngIf="showEmbeddedAssistant">
+    <app-assistant
+      (opened)="onAssistantOpened()"
+      (closed)="onAssistantClosed()"
+    ></app-assistant>
   </div>
 </div>

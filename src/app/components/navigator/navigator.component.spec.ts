@@ -173,6 +173,33 @@ describe('NavigatorComponent', () => {
     expect(component.showThemeOptions).toBeTrue();
   });
 
+  it('should emit stack navigation events when stack controls are used', () => {
+    component.showStackControls = true;
+    fixture.detectChanges();
+
+    spyOn(component.stackPrevious, 'emit');
+    spyOn(component.stackNext, 'emit');
+
+    const stackButtons: NodeListOf<HTMLButtonElement> = fixture.nativeElement.querySelectorAll(
+      '.home__stack-controls .home__stack-button'
+    );
+
+    expect(stackButtons.length)
+      .withContext('Two stack navigation buttons should be rendered when controls are visible')
+      .toBe(2);
+
+    const [prevButton, nextButton] = Array.from(stackButtons);
+
+    expect(prevButton).withContext('Previous stack button should be rendered when controls are visible').toBeTruthy();
+    expect(nextButton).withContext('Next stack button should be rendered when controls are visible').toBeTruthy();
+
+    prevButton.click();
+    nextButton.click();
+
+    expect(component.stackPrevious.emit).toHaveBeenCalled();
+    expect(component.stackNext.emit).toHaveBeenCalled();
+  });
+
   it('should keep the navigator open during programmatic scrolls triggered by navigation buttons', fakeAsync(() => {
     component.isOpen = true;
     component.showLanguageOptions = true;

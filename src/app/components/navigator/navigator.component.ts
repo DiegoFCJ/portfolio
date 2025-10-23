@@ -37,6 +37,13 @@ export class NavigatorComponent implements OnInit {
   @Input() showEmbeddedAssistant = false;
   @Output() assistantOpened = new EventEmitter<void>();
   @Output() assistantClosed = new EventEmitter<void>();
+  /** Controls visibility of the stack navigation floating controls */
+  @Input() showStackControls = false;
+  /** Labels used for the stack navigation buttons */
+  @Input() stackPreviousLabel?: string;
+  @Input() stackNextLabel?: string;
+  @Output() stackPrevious = new EventEmitter<void>();
+  @Output() stackNext = new EventEmitter<void>();
 
   showLanguageOptions = false;
   showThemeOptions = false;
@@ -258,6 +265,14 @@ export class NavigatorComponent implements OnInit {
     return this.isOpen ? labels.close : labels.open;
   }
 
+  get computedStackPreviousLabel(): string {
+    return this.stackPreviousLabel || this.getTooltip('prev');
+  }
+
+  get computedStackNextLabel(): string {
+    return this.stackNextLabel || this.getTooltip('next');
+  }
+
   /**
    * Returns the Material icon name corresponding to the given theme.
    */
@@ -367,5 +382,13 @@ export class NavigatorComponent implements OnInit {
 
   trackPageByRoute(_: number, item: NavigationItem): string {
     return item.route;
+  }
+
+  onStackPreviousClick(): void {
+    this.stackPrevious.emit();
+  }
+
+  onStackNextClick(): void {
+    this.stackNext.emit();
   }
 }
