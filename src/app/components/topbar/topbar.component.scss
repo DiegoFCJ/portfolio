@@ -34,8 +34,7 @@
   gap: 0.75rem;
   flex: 1 1 auto;
   min-inline-size: 0;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: visible;
 }
 
 .topbar__link {
@@ -102,19 +101,20 @@
 
 .topbar__menu-button {
   padding: 0;
-  inline-size: 42px;
-  block-size: 42px;
+  inline-size: 44px;
+  block-size: 44px;
 
   mat-icon {
     color: var(--navigator-icon-color, #e2e8f0);
-    font-size: 22px;
+    font-size: 24px;
   }
 }
 
 .topbar__overflow-menu {
   position: absolute;
   inset-block-start: calc(100% + 0.5rem);
-  inset-inline-start: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
