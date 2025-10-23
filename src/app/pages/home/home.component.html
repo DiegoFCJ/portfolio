@@ -36,11 +36,12 @@
   <app-navigator
     [totalSections]="totalSections"
     [currentSectionIndex]="currentSectionIndex"
+    [showEmbeddedAssistant]="true"
     (navigateNext)="onNavigatorNext()"
     (navigatePrevious)="onNavigatorPrevious()"
   ></app-navigator>
 </div>
 
-<div class="home__floating home__floating--assistant">
+<div class="home__floating home__floating--assistant" *ngIf="!isMobileViewport">
   <app-assistant></app-assistant>
 </div>
