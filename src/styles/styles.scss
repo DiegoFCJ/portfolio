@@ -43,6 +43,12 @@ svg {
     --assistant-avatar-size-sm: 48px;
     --assistant-safe-area-bottom: 0px;
     --navigator-mobile-footprint: clamp(3.75rem, 12vw, 4.5rem);
+    --hamburger-menu-surface: rgba(9, 16, 30, 0.97);
+    --hamburger-menu-border: rgba(125, 211, 252, 0.35);
+    --hamburger-menu-shadow: 0 28px 58px rgba(7, 14, 27, 0.55);
+    --hamburger-menu-item-color: rgba(226, 232, 240, 0.92);
+    --hamburger-menu-item-hover: rgba(125, 211, 252, 0.18);
+    --hamburger-menu-item-active: #7dd3fc;
     /*
      * Layering scale for global UI elements (lower values are behind higher ones):
      * base content (-1 / 0), section content (1), reserved topbar (30),

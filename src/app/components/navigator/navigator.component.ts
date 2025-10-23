@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationItem } from '../../models/navigation-item.interface';
 import { NavigationService } from '../../services/navigation.service';
 import { Router } from '@angular/router';
+import { AssistantComponent } from '../assistant/assistant.component';
 
 type LanguageKey = LanguageCode;
 
@@ -20,6 +21,7 @@ type LanguageKey = LanguageCode;
     CommonModule,
     MatIconModule,
     MatTooltipModule,
+    AssistantComponent,
   ],
   templateUrl: './navigator.component.html',
   styleUrls: ['./navigator.component.scss']
@@ -31,6 +33,10 @@ export class NavigatorComponent implements OnInit {
   @Output() navigatePrevious = new EventEmitter<void>();
   /** Controls whether the section navigation arrows are rendered */
   @Input() showSectionNavigation = true;
+  /** Renders the floating assistant anchored to the navigator when enabled */
+  @Input() showEmbeddedAssistant = false;
+  @Output() assistantOpened = new EventEmitter<void>();
+  @Output() assistantClosed = new EventEmitter<void>();
 
   showLanguageOptions = false;
   showThemeOptions = false;
@@ -198,6 +204,14 @@ export class NavigatorComponent implements OnInit {
     this.currentLang = language;
     this.showLanguageOptions = false;
     this.pageNavigationItems = this.navigationService.getNavigationItems(language);
+  }
+
+  onAssistantOpened(): void {
+    this.assistantOpened.emit();
+  }
+
+  onAssistantClosed(): void {
+    this.assistantClosed.emit();
   }
 
   changeTheme(theme: ThemeKey): void {

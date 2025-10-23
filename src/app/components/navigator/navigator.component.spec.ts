@@ -195,6 +195,17 @@ describe('NavigatorComponent', () => {
     expect(component.showThemeOptions).toBeFalse();
   }));
 
+  it('should emit assistant lifecycle events when embedded assistant fires callbacks', () => {
+    spyOn(component.assistantOpened, 'emit');
+    spyOn(component.assistantClosed, 'emit');
+
+    component.onAssistantOpened();
+    component.onAssistantClosed();
+
+    expect(component.assistantOpened.emit).toHaveBeenCalled();
+    expect(component.assistantClosed.emit).toHaveBeenCalled();
+  });
+
   /**
    * Verifies that the navigation buttons are displayed conditionally.
    */
