@@ -90,7 +90,7 @@ app-experiences .experiences-section {
   block-size: auto;
   min-block-size: 100%;
   box-sizing: border-box;
-  padding-block-start: 0;
+  padding-block-start: clamp(2rem, 5vw, 4rem);
   padding-block-end: clamp(2rem, 4vw, 4.5rem);
   padding-inline: 0;
   display: flex;
@@ -269,7 +269,7 @@ app-experiences .timeline-responsibilities li {
 
 @media (max-width: 600px) {
   app-experiences .experiences-section {
-    padding-block-start: 0;
+    padding-block-start: clamp(1.5rem, 6vw, 3rem);
     padding-block-end: clamp(1.5rem, 5vw, 3rem);
     padding-inline: 0;
   }
