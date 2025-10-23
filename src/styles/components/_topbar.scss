@@ -10,6 +10,8 @@ body {
 
 @media (min-width: 961px) {
     body {
-        scroll-padding-top: calc(var(--topbar-height, 4rem) + 1rem);
+        scroll-padding-top: calc(
+            var(--topbar-height, 4rem) + var(--topbar-offset, 1rem)
+        );
     }
 }
