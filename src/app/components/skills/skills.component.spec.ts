@@ -28,6 +28,20 @@ describe('SkillsComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should apply the page variant by default', () => {
+    const hostElement = fixture.nativeElement as HTMLElement;
+    expect(hostElement.classList.contains('skills--page')).toBeTrue();
+  });
+
+  it('should apply the home variant when requested', () => {
+    component.variant = 'home';
+    fixture.detectChanges();
+
+    const hostElement = fixture.nativeElement as HTMLElement;
+    expect(hostElement.classList.contains('skills--home')).toBeTrue();
+    expect(hostElement.classList.contains('skills--page')).toBeFalse();
+  });
+
   it('should initialize skill sections correctly', () => {
     expect(component.sections.length).toBeGreaterThan(0);
     expect(component.sections[0].skills.length).toBeGreaterThan(0);

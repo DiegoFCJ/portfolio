@@ -19,6 +19,15 @@ app-skills {
   --skills-carousel-arrow-color: #0f172a;
   --skills-carousel-arrow-hover-bg: rgba(99, 102, 241, 0.18);
   --skills-carousel-arrow-hover-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
+  --skills-section-min-height: auto;
+  --skills-section-padding-inline: clamp(1.5rem, 5vw, 3rem);
+  --skills-section-padding-start: clamp(2rem, 6vw, 3.25rem);
+  --skills-section-padding-end: clamp(2.5rem, 6vw, 3.5rem);
+  --skills-section-gap: clamp(1.75rem, 4vw, 3rem);
+  --skills-content-max-width: 68rem;
+  --skills-grid-gap: clamp(1.75rem, 3.5vw, 3rem);
+  --skills-mobile-max-width: 540px;
+  --skills-nav-alignment: stretch;
   display: block;
   inline-size: 100%;
   block-size: 100%;
@@ -116,20 +125,45 @@ body.red-mode app-skills {
   --skills-carousel-arrow-hover-shadow: 0 12px 30px rgba(239, 68, 68, 0.26);
 }
 
+app-skills.skills--page {
+  --skills-section-min-height: clamp(100vh, calc(100vh + 10rem), 150vh);
+  --skills-section-padding-inline: clamp(1.5rem, 4vw, 3rem);
+  --skills-section-padding-start: clamp(2.5rem, 5vw, 4rem);
+  --skills-section-padding-end: clamp(3rem, 5vw, 4rem);
+  --skills-section-gap: clamp(2rem, 4vw, 3.5rem);
+  --skills-content-max-width: 70rem;
+  --skills-grid-gap: clamp(2rem, 4vw, 3.5rem);
+  --skills-mobile-max-width: 560px;
+  --skills-nav-alignment: stretch;
+}
+
+app-skills.skills--home {
+  --skills-section-min-height: auto;
+  --skills-section-padding-inline: clamp(1rem, 5vw, 1.75rem);
+  --skills-section-padding-start: clamp(1.5rem, 6vw, 2.5rem);
+  --skills-section-padding-end: clamp(2rem, 6vw, 3rem);
+  --skills-section-gap: clamp(1.5rem, 4vw, 2.5rem);
+  --skills-content-max-width: min(62rem, 100%);
+  --skills-grid-gap: clamp(1.5rem, 4vw, 2.5rem);
+  --skills-mobile-max-width: 520px;
+  --skills-nav-alignment: center;
+}
+
 app-skills .skills-section {
   inline-size: 100%;
   block-size: auto;
-  min-block-size: clamp(100vh, calc(100vh + 10rem), 150vh);
-  padding-block-start: clamp(1.75rem, 5vw, 3.5rem);
-  padding-block-end: clamp(2rem, 5vw, 3.5rem);
-  padding-inline: 0;
+  min-block-size: var(--skills-section-min-height);
+  padding-block-start: var(--skills-section-padding-start);
+  padding-block-end: var(--skills-section-padding-end);
+  padding-inline: var(--skills-section-padding-inline);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(1.75rem, 4vw, 3rem);
+  gap: var(--skills-section-gap);
   background: var(--skills-section-bg);
   width: 100%;
   max-width: 100% !important;
+  box-sizing: border-box;
 }
 
 app-skills .skills-title {
@@ -141,7 +175,7 @@ app-skills .skills-title {
 
 app-skills .mobile-layout,
 app-skills .carousel-container {
-  width: min(100%, 540px);
+  width: min(100%, var(--skills-mobile-max-width));
   margin: 0 auto;
   padding-inline: clamp(0.75rem, 5vw, 1.5rem);
   box-sizing: border-box;
@@ -154,24 +188,25 @@ app-skills .mobile-layout {
   gap: clamp(1.5rem, 5vw, 2.5rem);
 }
 
-app-skills .nav-container{
+app-skills .nav-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
+  align-items: var(--skills-nav-alignment);
 }
 
 app-skills .skills-grid {
   width: 100%;
-  max-width: 68rem;
+  max-width: var(--skills-content-max-width);
   display: grid;
   grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
-  gap: clamp(1.75rem, 3.5vw, 3rem);
+  gap: var(--skills-grid-gap);
   align-items: start;
   margin-inline: auto;
   justify-items: stretch;
   padding-inline: clamp(0.75rem, 4vw, 2rem);
+  box-sizing: border-box;
 }
 
 app-skills .stack-tabs {
@@ -189,10 +224,13 @@ app-skills .stack-tabs.is-mobile {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: 0.75rem;
+  width: min(100%, var(--skills-mobile-max-width));
+  padding: clamp(0.75rem, 4vw, 1rem);
   border-radius: 20px;
   background: var(--skills-tabs-mobile-bg);
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+  margin-inline: auto;
 }
 
 app-skills .stack-tab {
@@ -337,12 +375,20 @@ app-skills .skill-icon.clicked .icon-asset img {
 @media (max-width: 992px) {
   app-skills .skills-grid {
     grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 5vw, 2.75rem);
+    gap: var(--skills-grid-gap);
+  }
+
+  app-skills.skills--page {
+    --skills-grid-gap: clamp(1.75rem, 5vw, 2.75rem);
+  }
+
+  app-skills.skills--home {
+    --skills-grid-gap: clamp(1.5rem, 5vw, 2.5rem);
   }
 
   app-skills .nav-container,
   app-skills .spotlight-panels {
-    width: min(100%, 540px);
+    width: min(100%, var(--skills-mobile-max-width));
     margin-inline: auto;
   }
 
@@ -355,23 +401,47 @@ app-skills .skill-icon.clicked .icon-asset img {
 }
 
 @media (max-width: 768px) {
+  app-skills.skills--page {
+    --skills-section-min-height: auto;
+    --skills-section-padding-inline: clamp(1rem, 6vw, 1.75rem);
+    --skills-section-padding-start: clamp(2rem, 8vw, 3rem);
+    --skills-section-padding-end: clamp(2.25rem, 8vw, 3.25rem);
+    --skills-section-gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  app-skills.skills--home {
+    --skills-section-padding-inline: clamp(0.85rem, 6vw, 1.5rem);
+    --skills-section-padding-start: clamp(1.5rem, 7vw, 2.25rem);
+    --skills-section-padding-end: clamp(1.75rem, 7vw, 2.5rem);
+    --skills-section-gap: clamp(1.25rem, 5vw, 2rem);
+  }
+
   app-skills .spotlight-icons {
     justify-content: center;
   }
 }
 
 @media (max-width: 600px) {
-  
-  app-skills .stack-tabs {
-    flex-wrap: wrap;
-    margin: 32px;
+  app-skills {
+    --skills-section-padding-inline: clamp(0.75rem, 6vw, 1.25rem);
   }
 
-  app-skills .skills-section {
-    block-size: 100%;
-    padding-block-start: 0;
-    padding-block-end: clamp(2rem, 6vw, 3.25rem);
-    padding-inline: 0;
+  app-skills.skills--home {
+    --skills-section-padding-start: clamp(1.25rem, 7vw, 2rem);
+    --skills-section-padding-end: clamp(1.75rem, 8vw, 2.5rem);
+    --skills-section-gap: clamp(1.2rem, 6vw, 1.8rem);
+  }
+
+  app-skills.skills--page {
+    --skills-section-min-height: auto;
+    --skills-section-padding-start: clamp(1.75rem, 9vw, 2.5rem);
+    --skills-section-padding-end: clamp(2.25rem, 9vw, 3rem);
+    --skills-section-gap: clamp(1.5rem, 6vw, 2.25rem);
+  }
+
+  app-skills .stack-tabs {
+    flex-wrap: wrap;
+    margin: 0;
   }
 
   app-skills .spotlight-icons {
@@ -380,11 +450,18 @@ app-skills .skill-icon.clicked .icon-asset img {
 }
 
 @media (min-width: 992px) {
-  app-skills .skills-section {
-    max-width: 70rem;
-  }
-
   app-skills .spotlight-panels {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  app-skills .stack-tabs.is-mobile .stack-tab {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-inline-size: 8.5rem;
+  }
+
+  app-skills .stack-tab {
+    padding: 0.65rem 1rem;
   }
 }
