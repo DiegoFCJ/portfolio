@@ -180,11 +180,15 @@ describe('NavigatorComponent', () => {
     spyOn(component.stackPrevious, 'emit');
     spyOn(component.stackNext, 'emit');
 
-    const previousLabel = component.getTooltip('prev');
-    const nextLabel = component.getTooltip('next');
+    const stackButtons: NodeListOf<HTMLButtonElement> = fixture.nativeElement.querySelectorAll(
+      '.home__stack-controls .home__stack-button'
+    );
 
-    const prevButton: HTMLButtonElement = fixture.nativeElement.querySelector(`button[aria-label="${previousLabel}"]`);
-    const nextButton: HTMLButtonElement = fixture.nativeElement.querySelector(`button[aria-label="${nextLabel}"]`);
+    expect(stackButtons.length)
+      .withContext('Two stack navigation buttons should be rendered when controls are visible')
+      .toBe(2);
+
+    const [prevButton, nextButton] = Array.from(stackButtons);
 
     expect(prevButton).withContext('Previous stack button should be rendered when controls are visible').toBeTruthy();
     expect(nextButton).withContext('Next stack button should be rendered when controls are visible').toBeTruthy();
