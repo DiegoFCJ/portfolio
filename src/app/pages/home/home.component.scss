@@ -56,3 +56,15 @@
     bottom: clamp(1rem, 6vw, 2.25rem);
   }
 }
+
+@media (max-width: 960px) {
+  .home {
+    /* Reserve space for the floating assistant and navigator on small screens */
+    padding-block-end: calc(
+      clamp(2rem, 6vw, 3rem) +
+      var(--navigator-mobile-footprint, 3.75rem) +
+      clamp(1rem, 6vw, 2.25rem) +
+      var(--assistant-safe-area-bottom, 0px)
+    );
+  }
+}
