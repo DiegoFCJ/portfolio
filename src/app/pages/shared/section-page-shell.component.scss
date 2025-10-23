@@ -6,7 +6,7 @@
 .section-page-shell {
   position: relative;
   padding-block-start: 0;
-  padding-block-end: clamp(3rem, 8vw, 5rem);
+  padding-block-end: 0;
   padding-inline: 0;
   display: flex;
   justify-content: center;
@@ -15,7 +15,8 @@
 }
 
 .section-page-shell__content {
-  inline-size: min(1200px, 100%);
+  width: 100%;
+  inline-size: 100%;
 }
 
 .section-page-shell__floating {
@@ -42,12 +43,6 @@
   bottom: calc(
     clamp(1.25rem, 4vw, 2.75rem) + var(--assistant-safe-area-bottom, 0px)
   );
-}
-
-@media (max-width: 960px) {
-  .section-page-shell {
-    padding-block-end: clamp(5rem, 14vw, 8rem);
-  }
 }
 
 @media (max-width: 720px) {

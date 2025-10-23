@@ -1,51 +1,56 @@
-<section class="privacy" *ngIf="content$ | async as content">
-  <header class="privacy__header">
-    <p class="privacy__meta">{{ content.meta }}</p>
-    <h1 class="privacy__title">{{ content.heading }}</h1>
-    <p *ngFor="let paragraph of content.intro" class="privacy__intro">{{ paragraph }}</p>
-  </header>
+<app-section-page-shell
+  [previousRoute]="previousRoute"
+  [nextRoute]="nextRoute"
+>
+  <section class="privacy" *ngIf="content$ | async as content">
+    <header class="privacy__header">
+      <p class="privacy__meta">{{ content.meta }}</p>
+      <h1 class="privacy__title">{{ content.heading }}</h1>
+      <p *ngFor="let paragraph of content.intro" class="privacy__intro">{{ paragraph }}</p>
+    </header>
 
-  <div class="privacy__layout">
-    <nav class="privacy__toc" [attr.aria-label]="content.tocTitle">
-      <p class="privacy__toc-title">{{ content.tocTitle }}</p>
-      <ol class="privacy__toc-list">
-        <li *ngFor="let section of content.sections" class="privacy__toc-item">
-          <a class="privacy__toc-link" [href]="'#' + section.id">{{ section.title }}</a>
-        </li>
-      </ol>
-      <a class="privacy__toc-link privacy__toc-link--accent" href="#contacts">{{ content.contacts.title }}</a>
-    </nav>
-
-    <div class="privacy__content">
-      <div class="privacy__cards">
-        <article
-          *ngFor="let section of content.sections"
-          class="privacy__section"
-          [attr.id]="section.id"
-        >
-          <h2 class="privacy__section-title">{{ section.title }}</h2>
-          <p *ngFor="let paragraph of section.paragraphs" class="privacy__paragraph">{{ paragraph }}</p>
-          <ul *ngIf="section.items?.length" class="privacy__list">
-            <li *ngFor="let item of section.items" class="privacy__list-item">{{ item }}</li>
-          </ul>
-        </article>
-      </div>
-
-      <section class="privacy__contacts" id="contacts">
-        <div class="privacy__contacts-header">
-          <h2 class="privacy__section-title">{{ content.contacts.title }}</h2>
-          <p class="privacy__paragraph">{{ content.contacts.description }}</p>
-          <ng-container *ngIf="content.contacts.channels[0] as primaryChannel">
-            <a class="privacy__contact-cta" [href]="primaryChannel.href">{{ content.contacts.ctaLabel }}</a>
-          </ng-container>
-        </div>
-        <ul class="privacy__contact-list">
-          <li *ngFor="let channel of content.contacts.channels" class="privacy__contact-item">
-            <span class="privacy__contact-label">{{ channel.label }}:</span>
-            <a class="privacy__contact-link" [href]="channel.href">{{ channel.display }}</a>
+    <div class="privacy__layout">
+      <nav class="privacy__toc" [attr.aria-label]="content.tocTitle">
+        <p class="privacy__toc-title">{{ content.tocTitle }}</p>
+        <ol class="privacy__toc-list">
+          <li *ngFor="let section of content.sections" class="privacy__toc-item">
+            <a class="privacy__toc-link" [href]="'#' + section.id">{{ section.title }}</a>
           </li>
-        </ul>
-      </section>
+        </ol>
+        <a class="privacy__toc-link privacy__toc-link--accent" href="#contacts">{{ content.contacts.title }}</a>
+      </nav>
+
+      <div class="privacy__content">
+        <div class="privacy__cards">
+          <article
+            *ngFor="let section of content.sections"
+            class="privacy__section"
+            [attr.id]="section.id"
+          >
+            <h2 class="privacy__section-title">{{ section.title }}</h2>
+            <p *ngFor="let paragraph of section.paragraphs" class="privacy__paragraph">{{ paragraph }}</p>
+            <ul *ngIf="section.items?.length" class="privacy__list">
+              <li *ngFor="let item of section.items" class="privacy__list-item">{{ item }}</li>
+            </ul>
+          </article>
+        </div>
+
+        <section class="privacy__contacts" id="contacts">
+          <div class="privacy__contacts-header">
+            <h2 class="privacy__section-title">{{ content.contacts.title }}</h2>
+            <p class="privacy__paragraph">{{ content.contacts.description }}</p>
+            <ng-container *ngIf="content.contacts.channels[0] as primaryChannel">
+              <a class="privacy__contact-cta" [href]="primaryChannel.href">{{ content.contacts.ctaLabel }}</a>
+            </ng-container>
+          </div>
+          <ul class="privacy__contact-list">
+            <li *ngFor="let channel of content.contacts.channels" class="privacy__contact-item">
+              <span class="privacy__contact-label">{{ channel.label }}:</span>
+              <a class="privacy__contact-link" [href]="channel.href">{{ channel.display }}</a>
+            </li>
+          </ul>
+        </section>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</app-section-page-shell>
