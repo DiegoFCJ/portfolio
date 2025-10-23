@@ -21,7 +21,7 @@
         <div class="statistics-card-glow" aria-hidden="true"></div>
         <div class="statistics-content">
           <div class="statistics-icon" aria-hidden="true">
-            <mat-icon>{{ stat.icon }}</mat-icon>
+            <mat-icon fontSet="material-icons">{{ stat.icon }}</mat-icon>
           </div>
           <div class="statistics-meta">
             <p class="statistics-value">{{ stat.value }}</p>
@@ -56,11 +56,11 @@
         (click)="closeStatDetail($event)"
         [attr.aria-label]="closeButtonLabel"
       >
-        <mat-icon aria-hidden="true">close</mat-icon>
+        <mat-icon fontSet="material-icons" aria-hidden="true">close</mat-icon>
       </button>
       <div class="statistics-dialog-header">
         <div class="statistics-dialog-icon" aria-hidden="true">
-          <mat-icon>{{ activeStat.icon }}</mat-icon>
+          <mat-icon fontSet="material-icons">{{ activeStat.icon }}</mat-icon>
         </div>
         <div class="statistics-dialog-titles">
           <h3 class="statistics-dialog-title" id="stat-detail-title">{{ activeStat.label }}</h3>
