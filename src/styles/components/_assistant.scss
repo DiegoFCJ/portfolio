@@ -10,7 +10,7 @@ app-assistant {
   --assistant-popup-offset-right: max(
     var(--assistant-inline-gap),
     min(
-      calc(var(--assistant-popup-effective-width) * 0.4),
+      calc(var(--assistant-avatar-size) + var(--assistant-inline-gap)),
       calc(100vw - var(--assistant-popup-effective-width) - clamp(1rem, 4vw, 2.5rem))
     )
   );
@@ -167,7 +167,7 @@ app-assistant .assistant__popup {
   right: clamp(
     var(--assistant-inline-gap),
     var(--assistant-popup-offset-right),
-    calc(100vw - var(--assistant-inline-gap) - var(--assistant-popup-effective-width))
+    calc(100vw - clamp(1rem, 4vw, 2.5rem) - var(--assistant-popup-effective-width))
   );
   bottom: calc(100% + var(--assistant-spacing));
   width: var(--assistant-popup-effective-width);
