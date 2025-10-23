@@ -1,17 +1,19 @@
 <footer class="site-footer" aria-label="Piè di pagina">
   <ng-container *ngIf="content$ | async as content">
-    <div class="footer-shell">
-      <div class="footer-upper">
-        <section class="footer-brand" aria-labelledby="footer-brand-title">
-          <span class="footer-logo" aria-hidden="true">{{ getInitials(content.brandName) }}</span>
+    <div class="footer-inner">
+      <div class="footer-main">
+        <section class="footer-about" aria-labelledby="footer-brand-title">
+          <div class="footer-heading">
+            <span class="footer-logo" aria-hidden="true">{{ getInitials(content.brandName) }}</span>
 
-          <div class="footer-brand-text">
-            <p class="footer-brand-title" id="footer-brand-title">{{ content.brandName }}</p>
-            <p class="footer-brand-subtitle">{{ content.brandSubtitle }}</p>
+            <div class="footer-brand-text">
+              <p class="footer-brand-title" id="footer-brand-title">{{ content.brandName }}</p>
+              <p class="footer-brand-subtitle">{{ content.brandSubtitle }}</p>
+            </div>
           </div>
 
-          <ul class="footer-badges" aria-label="Focus principali">
-            <li class="footer-badge" *ngFor="let badge of content.highlightChips; trackBy: trackByValue">
+          <ul class="footer-tags" aria-label="Focus principali">
+            <li class="footer-tag" *ngFor="let badge of content.highlightChips; trackBy: trackByValue">
               {{ badge }}
             </li>
           </ul>
@@ -23,7 +25,7 @@
             *ngFor="let group of content.navigationGroups; trackBy: trackByGroupTitle"
           >
             <p class="footer-column-title">{{ group.title }}</p>
-            <nav class="footer-column-links" [attr.aria-label]="group.title">
+            <nav class="footer-links" [attr.aria-label]="group.title">
               <ng-container *ngFor="let link of group.links; trackBy: trackByLink">
                 <ng-container
                   *ngTemplateOutlet="link.external ? externalLink : internalLink; context: { $implicit: link }"
@@ -34,14 +36,14 @@
 
           <section class="footer-column footer-column--contact">
             <p class="footer-column-title">{{ content.contact.title }}</p>
-            <p class="footer-contact-line">{{ content.contact.availability }}</p>
-            <p class="footer-contact-line footer-contact-line--accent">
+            <p class="footer-contact-text">{{ content.contact.availability }}</p>
+            <p class="footer-contact-text footer-contact-text--accent">
               {{ content.contact.invitation }}
             </p>
-            <a class="footer-link footer-link--emphasis" [href]="content.contact.email.link">
+            <a class="footer-email" [href]="content.contact.email.link">
               {{ content.contact.email.label }}
             </a>
-            <p class="footer-contact-line footer-contact-line--muted">{{ content.contact.location }}</p>
+            <p class="footer-contact-text footer-contact-text--muted">{{ content.contact.location }}</p>
 
             <div class="footer-social" *ngIf="socials$ | async as socials" aria-label="Social media">
               <a
@@ -60,7 +62,7 @@
         </div>
       </div>
 
-      <div class="footer-lower">
+      <div class="footer-bottom">
         <p class="footer-copy">
           &copy; {{ currentYear }} {{ content.brandName }}. {{ content.bottomNote }}
         </p>
