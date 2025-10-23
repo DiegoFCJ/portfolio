@@ -229,15 +229,20 @@ app-navigator {
       gap: 16px;
       align-items: flex-end;
 
-      &.modern-navigator--collapsed {
-          gap: 8px;
-      }
-
-      .navigator-content {
+      .navigator-stack {
           display: flex;
           flex-direction: column;
-          align-items: flex-end;
           gap: 18px;
+          align-items: flex-end;
+          max-width: 100%;
+      }
+
+      &.modern-navigator--collapsed {
+          gap: 8px;
+
+          .navigator-stack {
+              gap: 12px;
+          }
       }
 
       .nav-groups {
@@ -490,7 +495,13 @@ app-navigator {
 
   @media (max-width: 720px) {
       .navigator-wrapper {
-          max-height: max(0px, calc(100vh - (var(--navigator-mobile-margin, 20px) * 2) - var(--assistant-safe-area-bottom, 0px)));
+          max-height: calc(100vh - (40px + var(--assistant-safe-area-bottom, 0px)));
+      }
+
+      @supports (height: 100dvh) {
+          .navigator-wrapper {
+              max-height: calc(100dvh - (40px + var(--assistant-safe-area-bottom, 0px)));
+          }
       }
 
       .modern-navigator {
@@ -498,24 +509,24 @@ app-navigator {
           max-height: 100%;
       }
 
-      .modern-navigator .navigator-content {
-          max-height: max(
-              0px,
-              calc(
-                  100vh - (var(--navigator-mobile-margin, 20px) * 2) - var(--assistant-safe-area-bottom, 0px) - $navigator-button-size - 12px
-              )
-          );
+      .modern-navigator .navigator-stack {
+          max-height: calc(100% - $navigator-button-size - 12px);
           overflow-y: auto;
           overflow-x: visible;
           padding-block: 4px;
-          padding-inline: 6px 2px;
-          -webkit-overflow-scrolling: touch;
+          padding-inline-end: 4px;
+          scroll-padding-block: 8px;
           overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
       }
 
-      .modern-navigator .arrow-container,
-      .modern-navigator .nav-groups {
-          gap: 10px;
+      .modern-navigator .navigator-stack::-webkit-scrollbar {
+          width: 6px;
+      }
+
+      .modern-navigator .navigator-stack::-webkit-scrollbar-thumb {
+          background-color: rgba(148, 163, 184, 0.4);
+          border-radius: 999px;
       }
   }
 }

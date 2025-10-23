@@ -44,17 +44,13 @@
 
 @media (max-width: 720px) {
   .home__floating--navigator {
-    right: 0;
-    bottom: 0;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    right: 20px;
+    bottom: calc(20px + var(--assistant-safe-area-bottom, 0px));
   }
 
   .home__floating--assistant {
-    right: calc(var(--navigator-mobile-footprint, 3.75rem));
+    right: calc(30px + var(--navigator-mobile-footprint, 3.75rem));
     left: auto;
-    bottom: 0;
-    margin-right: 30px;
-    margin-bottom: 20px;
+    bottom: calc(20px + var(--assistant-safe-area-bottom, 0px));
   }
 }
