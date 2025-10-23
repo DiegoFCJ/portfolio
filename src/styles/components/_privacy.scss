@@ -41,7 +41,7 @@ app-privacy .privacy {
   inline-size: min(1100px, 100%);
   margin-inline: auto;
   padding-block-start: clamp(3rem, 6vw, 4.5rem);
-  padding-block-end: 0;
+  padding-block-end: clamp(3rem, 7vw, 4.5rem);
   padding-inline: clamp(1.25rem, 4vw, 3rem);
   display: flex;
   flex-direction: column;
@@ -172,6 +172,11 @@ app-privacy .privacy__section {
   backdrop-filter: blur(10px);
 }
 
+app-privacy .privacy__section,
+app-privacy .privacy__contacts {
+  scroll-margin-top: clamp(5.5rem, 12vh, 6.5rem);
+}
+
 app-privacy .privacy__section-title {
   margin: 0 0 1rem;
   font-size: clamp(1.65rem, 2vw, 2.15rem);
@@ -269,12 +274,7 @@ app-privacy .privacy__contact-link:focus-visible {
   }
 
   app-privacy .privacy__toc {
-    position: static;
-    order: 2;
-  }
-
-  app-privacy .privacy__content {
-    order: 1;
+    top: clamp(4.75rem, 10vh, 5.5rem);
   }
 }
 

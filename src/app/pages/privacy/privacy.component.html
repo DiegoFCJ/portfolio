@@ -14,10 +14,22 @@
         <p class="privacy__toc-title">{{ content.tocTitle }}</p>
         <ol class="privacy__toc-list">
           <li *ngFor="let section of content.sections" class="privacy__toc-item">
-            <a class="privacy__toc-link" [href]="'#' + section.id">{{ section.title }}</a>
+            <a
+              class="privacy__toc-link"
+              [href]="'#' + section.id"
+              (click)="onNavigateTo(section.id, $event)"
+            >
+              {{ section.title }}
+            </a>
           </li>
         </ol>
-        <a class="privacy__toc-link privacy__toc-link--accent" href="#contacts">{{ content.contacts.title }}</a>
+        <a
+          class="privacy__toc-link privacy__toc-link--accent"
+          href="#contacts"
+          (click)="onNavigateTo('contacts', $event)"
+        >
+          {{ content.contacts.title }}
+        </a>
       </nav>
 
       <div class="privacy__content">
