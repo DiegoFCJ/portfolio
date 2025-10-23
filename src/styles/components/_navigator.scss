@@ -187,9 +187,11 @@ app-navigator {
   }
 
   .navigator-wrapper__assistant {
-    scale: 0.8;
       display: none;
       position: relative;
+      flex: 1 1 auto;
+      min-width: 0;
+      z-index: var(--layer-modal-container, 70);
   }
 
   .navigator-wrapper--with-assistant {
@@ -197,6 +199,21 @@ app-navigator {
           display: flex;
           align-items: flex-end;
           pointer-events: auto;
+          justify-content: flex-end;
+      }
+  }
+
+  @media (max-width: 768px) {
+      .navigator-wrapper.navigator-wrapper--assistant-active {
+          .modern-navigator,
+          .home__floating.home__floating--stack {
+              display: none;
+          }
+
+          .navigator-wrapper__assistant {
+              justify-content: center;
+              width: 100%;
+          }
       }
   }
 

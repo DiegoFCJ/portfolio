@@ -85,7 +85,13 @@ describe('AssistantComponent', () => {
     const closedSpy = jasmine.createSpy('closed');
     component.closed.subscribe(closedSpy);
 
+    const body = document.body;
+    const html = document.documentElement;
+    (component as any).isMobile = true;
+
     component.openAssistant();
+    expect(body.classList.contains('assistant-scroll-locked')).toBeTrue();
+    expect(html.classList.contains('assistant-scroll-locked')).toBeTrue();
     tick(ASSISTANT_WAKE_DURATION_MS + 50);
     component.closeAssistant();
     tick(ASSISTANT_FALL_DURATION_MS);
@@ -93,6 +99,8 @@ describe('AssistantComponent', () => {
     expect(component.isOpen).toBeFalse();
     expect(component.animationPhase).toBe('sleeping');
     expect(closedSpy).toHaveBeenCalled();
+    expect(body.classList.contains('assistant-scroll-locked')).toBeFalse();
+    expect(html.classList.contains('assistant-scroll-locked')).toBeFalse();
   }));
 
   it('should toggle open state when clicking the avatar twice', fakeAsync(() => {
@@ -106,6 +114,21 @@ describe('AssistantComponent', () => {
     expect(component.isOpen).toBeTrue();
 
     component.onAvatarClick();
+    tick(ASSISTANT_FALL_DURATION_MS);
+
+    expect(component.closeAssistant).toHaveBeenCalled();
+    expect(component.isOpen).toBeFalse();
+  }));
+
+  it('should close when tapping the backdrop on mobile', fakeAsync(() => {
+    spyOn(component, 'closeAssistant').and.callThrough();
+
+    (component as any).isMobile = true;
+
+    component.openAssistant();
+    tick(ASSISTANT_WAKE_DURATION_MS);
+
+    component.onBackdropClick(new MouseEvent('click'));
     tick(ASSISTANT_FALL_DURATION_MS);
 
     expect(component.closeAssistant).toHaveBeenCalled();

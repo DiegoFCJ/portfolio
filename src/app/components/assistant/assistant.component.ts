@@ -250,6 +250,12 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private isMobile = false;
   private readonly isBrowser: boolean;
   private visualViewportSubscription?: Subscription;
+  private scrollLockState: {
+    scrollY: number;
+    previousBodyPosition: string;
+    previousBodyTop: string;
+    previousBodyWidth: string;
+  } | null = null;
 
   readonly guideContent$: Observable<AssistantGuideVariant & {
     readonly title: string;
@@ -331,6 +337,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.cancelGuideScrollEvaluation();
     this.clearAllTimers();
     this.isMobileSubject.complete();
+    this.releaseScrollLock();
     this.clearMobileViewportMetrics();
     this.visualViewportSubscription?.unsubscribe();
   }
@@ -346,6 +353,15 @@ export class AssistantComponent implements OnInit, OnDestroy {
     }
   }
 
+  onBackdropClick(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.isOpen) {
+      this.closeAssistant();
+    }
+  }
+
   openAssistant(): void {
     if (this.isOpen || this.animationPhase !== 'sleeping') {
       return;
@@ -356,6 +372,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.updateMobileViewportMetrics();
     this.requestLandingUpdate();
     this.requestGuideScrollEvaluation();
+    this.applyScrollLock();
     this.startWakeSequence();
     this.opened.emit();
   }
@@ -422,6 +439,14 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
     this.isMobile = isMobile;
     this.isMobileSubject.next(isMobile);
+
+    if (this.isOpen) {
+      if (isMobile) {
+        this.applyScrollLock();
+      } else {
+        this.releaseScrollLock();
+      }
+    }
 
     if (isMobile) {
       this.updateMobileViewportMetrics();
@@ -549,6 +574,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
     this.animationPhase = 'falling';
     this.isOpen = false;
+    this.releaseScrollLock();
 
     this.fallTimer = setTimeout(() => {
       this.fallTimer = null;
@@ -635,6 +661,62 @@ export class AssistantComponent implements OnInit, OnDestroy {
       isScrollable: false,
       isAtEnd: true
     };
+  }
+
+  private applyScrollLock(): void {
+    if (!this.isBrowser || !this.isMobile || this.scrollLockState) {
+      return;
+    }
+
+    const body = document.body;
+    const documentElement = document.documentElement;
+
+    if (!body || !documentElement) {
+      return;
+    }
+
+    const scrollY = window.scrollY ?? window.pageYOffset ?? 0;
+
+    this.scrollLockState = {
+      scrollY,
+      previousBodyPosition: body.style.position,
+      previousBodyTop: body.style.top,
+      previousBodyWidth: body.style.width
+    };
+
+    body.classList.add('assistant-scroll-locked');
+    documentElement.classList.add('assistant-scroll-locked');
+
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+  }
+
+  private releaseScrollLock(): void {
+    if (!this.isBrowser || !this.scrollLockState) {
+      return;
+    }
+
+    const { scrollY, previousBodyPosition, previousBodyTop, previousBodyWidth } = this.scrollLockState;
+    const body = document.body;
+    const documentElement = document.documentElement;
+
+    this.scrollLockState = null;
+
+    if (body) {
+      body.classList.remove('assistant-scroll-locked');
+      body.style.position = previousBodyPosition;
+      body.style.top = previousBodyTop;
+      body.style.width = previousBodyWidth;
+    }
+
+    if (documentElement) {
+      documentElement.classList.remove('assistant-scroll-locked');
+    }
+
+    if (typeof window.scrollTo === 'function') {
+      window.scrollTo(0, scrollY);
+    }
   }
 
   private registerVisualViewportListeners(): void {

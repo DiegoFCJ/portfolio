@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, OnInit, HostListener, ElementRef, DestroyRef, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output, OnInit, HostListener, ElementRef, DestroyRef, Inject, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../services/translation.service';
@@ -11,6 +11,7 @@ import { NavigationItem } from '../../models/navigation-item.interface';
 import { NavigationService } from '../../services/navigation.service';
 import { Router } from '@angular/router';
 import { AssistantComponent } from '../assistant/assistant.component';
+import { PLATFORM_ID } from '@angular/core';
 
 type LanguageKey = LanguageCode;
 
@@ -61,6 +62,9 @@ export class NavigatorComponent implements OnInit {
   /** Tracks whether the current scroll was triggered programmatically */
   private programmaticScroll = false;
   private programmaticScrollTimeout: ReturnType<typeof setTimeout> | null = null;
+  private readonly isBrowser: boolean;
+  assistantIsActive = false;
+  private pendingNavigatorOpenState: boolean | null = null;
 
   /** Tooltip translations */
   tooltipTexts: Record<LanguageKey, { prev: string; next: string; theme: string; language: string; pages: string }> = {
@@ -145,11 +149,13 @@ export class NavigatorComponent implements OnInit {
     private readonly elementRef: ElementRef,
     private readonly navigationService: NavigationService,
     private readonly router: Router,
+    @Inject(PLATFORM_ID) platformId: object,
   ) {
     this.currentLang = this.translationService.getCurrentLanguage();
     this.availableThemes = this.themeService.getAvailableThemes();
     this.currentTheme = this.themeService.getCurrentTheme();
     this.pageNavigationItems = this.navigationService.getNavigationItems(this.currentLang);
+    this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
@@ -214,10 +220,22 @@ export class NavigatorComponent implements OnInit {
   }
 
   onAssistantOpened(): void {
+    this.assistantIsActive = true;
+
+    if (this.isMobileViewport()) {
+      if (this.pendingNavigatorOpenState === null) {
+        this.pendingNavigatorOpenState = this.isOpen;
+      }
+
+      this.isOpen = false;
+    }
+
     this.assistantOpened.emit();
   }
 
   onAssistantClosed(): void {
+    this.assistantIsActive = false;
+    this.restoreNavigatorState();
     this.assistantClosed.emit();
   }
 
@@ -390,5 +408,41 @@ export class NavigatorComponent implements OnInit {
 
   onStackNextClick(): void {
     this.stackNext.emit();
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (!this.assistantIsActive) {
+      return;
+    }
+
+    if (this.isMobileViewport()) {
+      if (this.pendingNavigatorOpenState === null) {
+        this.pendingNavigatorOpenState = this.isOpen;
+      }
+
+      this.isOpen = false;
+    } else {
+      this.restoreNavigatorState();
+    }
+  }
+
+  private isMobileViewport(): boolean {
+    if (!this.isBrowser) {
+      return false;
+    }
+
+    if (typeof window.matchMedia === 'function') {
+      return window.matchMedia('(max-width: 768px)').matches;
+    }
+
+    return window.innerWidth <= 768;
+  }
+
+  private restoreNavigatorState(): void {
+    if (this.pendingNavigatorOpenState !== null) {
+      this.isOpen = this.pendingNavigatorOpenState;
+      this.pendingNavigatorOpenState = null;
+    }
   }
 }

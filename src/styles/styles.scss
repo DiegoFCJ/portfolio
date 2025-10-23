@@ -91,6 +91,12 @@ body {
     background-color: inherit;
 }
 
+html.assistant-scroll-locked,
+body.assistant-scroll-locked {
+    overflow: hidden;
+    overscroll-behavior: contain;
+}
+
 body.home-scroll-snapping {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
