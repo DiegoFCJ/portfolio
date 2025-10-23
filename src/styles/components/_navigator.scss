@@ -188,6 +188,26 @@ app-navigator {
       }
   }
 
+  @media (max-width: 960px) {
+      .navigator-wrapper {
+          gap: clamp(0.75rem, 4vw, 1.25rem);
+      }
+
+      .navigator-wrapper--with-assistant {
+          flex-direction: column-reverse;
+          align-items: flex-end;
+
+          .navigator-wrapper__assistant {
+              align-self: flex-end;
+              justify-content: flex-end;
+          }
+
+          .modern-navigator {
+              align-self: flex-end;
+          }
+      }
+  }
+
   .navigator-wrapper__assistant {
       display: none;
       position: relative;
