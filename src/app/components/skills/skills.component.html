@@ -1,5 +1,8 @@
 <section class="skills-section" *ngIf="!isLoading">
-  <h2 class="skills-title">{{ skillFullTitle }}</h2>
+  <header class="skills-header section-heading">
+    <span class="statistics-title-accent" aria-hidden="true"></span>
+    <h2 class="skills-title">{{ skillFullTitle }}</h2>
+  </header>
 
   <ng-container *ngIf="isMobile; else desktopLayout">
     <div class="mobile-layout" [class.mobile-layout--stacked]="variant === 'page'">

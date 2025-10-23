@@ -184,6 +184,10 @@ app-projects .projects-section {
   overflow: auto;
 }
 
+app-projects .projects-header {
+    --section-accent-bar: linear-gradient(90deg, var(--projects-accent), rgba(99, 102, 241, 0.45));
+}
+
 app-projects .projects-title {
     font-size: clamp(1.8rem, 3vw, 2.35rem);
     font-weight: 700;

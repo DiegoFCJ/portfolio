@@ -38,6 +38,10 @@ app-contact-me .contact-me-section {
   color: #0f172a;
 }
 
+app-contact-me .contact-me-header {
+  --section-accent-bar: linear-gradient(90deg, var(--contact-button-bg), rgba(99, 102, 241, 0.35));
+}
+
 body.dark-mode app-contact-me .contact-me-section {
   --contact-card-bg: linear-gradient(135deg, rgba(17, 24, 39, 0.92), rgba(30, 41, 59, 0.78));
   --contact-card-border: rgba(139, 92, 246, 0.35);

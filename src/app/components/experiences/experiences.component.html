@@ -1,6 +1,9 @@
 <section class="experiences-section" *ngIf="!isLoading">
   <div class="experiences-content">
-    <h2 class="experiences-title">{{ experiences.title }}</h2>
+    <header class="experiences-header section-heading">
+      <span class="statistics-title-accent" aria-hidden="true"></span>
+      <h2 class="experiences-title">{{ experiences.title }}</h2>
+    </header>
     <div class="timeline" role="list">
       <article
         class="timeline-item"

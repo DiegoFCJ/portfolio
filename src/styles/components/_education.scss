@@ -90,7 +90,7 @@ app-education .education-section {
   block-size: auto;
   min-block-size: 100%;
   box-sizing: border-box;
-  padding-block-start: 0;
+  padding-block-start: clamp(2rem, 5vw, 4rem);
   padding-block-end: clamp(2rem, 4vw, 4.5rem);
   padding-inline: 0;
   display: flex;
@@ -110,10 +110,15 @@ app-education .education-content {
   padding-inline: clamp(1rem, 4vw, 2.75rem);
 }
 
+app-education .education-header {
+  --section-accent-bar: linear-gradient(90deg, var(--timeline-accent), rgba(99, 102, 241, 0.45));
+  margin-block-end: clamp(2rem, 4vw, 3rem);
+}
+
 app-education .education-title {
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 700;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  margin: 0;
   text-align: center;
 }
 

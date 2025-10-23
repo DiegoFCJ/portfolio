@@ -166,6 +166,10 @@ app-skills .skills-section {
   box-sizing: border-box;
 }
 
+app-skills .skills-header {
+  --section-accent-bar: linear-gradient(90deg, var(--skills-accent), rgba(99, 102, 241, 0.45));
+}
+
 app-skills .skills-title {
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 700;
