@@ -104,6 +104,7 @@ app-assistant .assistant__avatar {
   outline: none;
   z-index: 3;
   will-change: transform;
+  font-size: 0;
 }
 
 app-assistant .assistant__avatar:focus-visible {

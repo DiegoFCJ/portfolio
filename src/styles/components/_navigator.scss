@@ -173,14 +173,12 @@ app-navigator {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 12px;
       z-index: 1;
 
       &.navigator-wrapper--with-assistant {
           flex-direction: row-reverse;
           align-items: flex-end;
           flex-wrap: nowrap;
-          gap: clamp(0.75rem, 4vw, 1.25rem);
 
           .modern-navigator {
               flex-shrink: 0;
@@ -189,6 +187,7 @@ app-navigator {
   }
 
   .navigator-wrapper__assistant {
+    scale: 0.8;
       display: none;
       position: relative;
   }
@@ -250,27 +249,24 @@ app-navigator {
   .modern-navigator {
       display: flex;
       flex-direction: column;
-      gap: 16px;
       align-items: flex-end;
 
       &.modern-navigator--collapsed {
-          gap: 8px;
       }
 
       .navigator-content {
           display: flex;
           align-items: flex-start;
-          gap: 18px;
       }
 
       .nav-groups {
           display: flex;
           flex-direction: column;
-          gap: 12px;
           align-items: flex-end;
       }
 
       .nav-button {
+        scale: 0.8;
           width: $navigator-button-size;
           height: $navigator-button-size;
           border-radius: 50%;
@@ -329,7 +325,6 @@ app-navigator {
           display: flex;
           flex-direction: column;
           align-items: flex-end;
-          gap: 12px;
       }
 
       .arrow-button {
@@ -340,6 +335,7 @@ app-navigator {
               color: var(--navigator-icon-color, #111111);
               z-index: 1;
               transition: transform 0.25s ease;
+              position: absolute;
           }
 
           &:hover mat-icon {
@@ -377,7 +373,6 @@ app-navigator {
       right: calc(100% + 8px);
       transform: translateY(-50%);
       display: flex;
-      gap: 12px;
       background: transparent;
       padding: 0;
       border-radius: 2rem;
@@ -388,12 +383,11 @@ app-navigator {
 
   .page-menu {
       position: absolute;
-      top: 50%;
+      top: -60%;
       right: calc(100% + 8px);
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
       padding: 0.75rem;
       min-inline-size: 12rem;
       border-radius: 0.85rem;
@@ -509,7 +503,6 @@ app-navigator {
       .home__stack-controls {
           display: flex;
           align-items: center;
-          gap: clamp(0.75rem, 3vw, 1.25rem);
           pointer-events: auto;
       }
 
