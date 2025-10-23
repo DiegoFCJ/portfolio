@@ -1,4 +1,14 @@
-<div class="navigator-wrapper" [class.navigator-wrapper--collapsed]="!isOpen">
+<div
+  class="navigator-wrapper"
+  [class.navigator-wrapper--collapsed]="!isOpen"
+  [class.navigator-wrapper--with-assistant]="showEmbeddedAssistant"
+>
+  <div class="navigator-wrapper__assistant" *ngIf="showEmbeddedAssistant">
+    <app-assistant
+      (opened)="onAssistantOpened()"
+      (closed)="onAssistantClosed()"
+    ></app-assistant>
+  </div>
   <!-- Modern, animated, circular floating navbar -->
   <div class="modern-navigator" [class.modern-navigator--collapsed]="!isOpen">
     <ng-container *ngIf="isOpen">

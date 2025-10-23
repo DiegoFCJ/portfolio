@@ -11,12 +11,18 @@
       [totalSections]="navigatorTotalSections"
       [currentSectionIndex]="navigatorCurrentSectionIndex"
       [showSectionNavigation]="false"
+      [showEmbeddedAssistant]="true"
       (navigatePrevious)="onNavigatorPrevious()"
       (navigateNext)="onNavigatorNext()"
+      (assistantOpened)="onAssistantOpened()"
+      (assistantClosed)="onAssistantClosed()"
     ></app-navigator>
   </div>
 
-  <div class="section-page-shell__floating section-page-shell__floating--assistant">
+  <div
+    class="section-page-shell__floating section-page-shell__floating--assistant"
+    *ngIf="!isMobileViewport"
+  >
     <app-assistant
       (opened)="onAssistantOpened()"
       (closed)="onAssistantClosed()"
