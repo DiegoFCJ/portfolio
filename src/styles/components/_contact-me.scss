@@ -304,6 +304,15 @@ app-contact-me .submit-btn button:disabled {
 }
 
 @media (max-width: 768px) {
+  app-contact-me .contact-me-section {
+    padding-inline: clamp(0.75rem, 4vw, 1.5rem);
+    align-items: stretch;
+  }
+
+  app-contact-me .timeline {
+    width: 100%;
+  }
+
   app-contact-me .timeline-item {
     max-width: 100%;
   }
