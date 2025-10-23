@@ -172,7 +172,7 @@ app-projects .projects-section {
   inline-size: 100%;
   block-size: 100%;
   min-block-size: 100%;
-  padding-block-start: 0;
+  padding-block-start: clamp(2.5rem, 7vw, 4.5rem);
   padding-block-end: clamp(2.25rem, 6vw, 4.5rem);
   padding-inline: 0;
   display: flex;
@@ -190,6 +190,7 @@ app-projects .projects-title {
     text-align: center;
     color: var(--projects-text-primary);
     margin: 0;
+    padding-inline: clamp(1.25rem, 6vw, 2rem);
 }
 
 app-projects .project-cards {
@@ -477,7 +478,7 @@ app-projects .description-content::-webkit-scrollbar {
 
 @media (max-width: 768px) {
     app-projects .projects-section {
-        padding-block-start: 0;
+        padding-block-start: clamp(2.25rem, 9vw, 3.5rem);
         padding-block-end: clamp(2rem, 7vw, 3rem);
         padding-inline: 0;
     }
