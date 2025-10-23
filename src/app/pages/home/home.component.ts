@@ -20,7 +20,6 @@ import { EducationComponent } from '../../components/education/education.compone
 import { ExperiencesComponent } from '../../components/experiences/experiences.component';
 import { StatsComponent } from '../../components/stats/stats.component';
 import { ContactMeComponent } from '../../components/contact-me/contact-me.component';
-import { NavigatorComponent } from '../../components/navigator/navigator.component';
 import { AssistantComponent } from '../../components/assistant/assistant.component';
 
 @Component({
@@ -37,7 +36,6 @@ import { AssistantComponent } from '../../components/assistant/assistant.compone
     ExperiencesComponent,
     StatsComponent,
     ContactMeComponent,
-    NavigatorComponent,
     AssistantComponent,
   ],
   templateUrl: './home.component.html',
@@ -89,15 +87,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.updateCurrentSectionIndex();
-  }
-
-  onNavigatorNext(): void {
-    if (this.totalSections === 0) {
-      return;
-    }
-
-    const nextIndex = Math.min(this.currentSectionIndex + 1, this.totalSections - 1);
-    this.scrollToSection(nextIndex);
   }
 
   onNavigatorPrevious(): void {
