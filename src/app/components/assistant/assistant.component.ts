@@ -417,6 +417,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
   }
 
   private updateMobileState(): void {
+    const previousIsMobile = this.isMobile;
     const isMobile = window.innerWidth <= 768;
 
     this.isMobile = isMobile;
@@ -430,6 +431,10 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
     if (!isMobile) {
       this.resetGuideScrollState();
+    }
+
+    if (previousIsMobile !== isMobile) {
+      this.handleViewportModeChange();
     }
 
     this.requestGuideScrollEvaluation();
@@ -522,6 +527,14 @@ export class AssistantComponent implements OnInit, OnDestroy {
     const hostElement = this.hostRef.nativeElement;
     hostElement.style.removeProperty('--assistant-jump-landing-x');
     hostElement.style.removeProperty('--assistant-jump-landing-y');
+  }
+
+  private handleViewportModeChange(): void {
+    if (this.isOpen || this.animationPhase !== 'sleeping') {
+      this.goToSleep();
+    } else {
+      this.resetLandingCoordinates();
+    }
   }
 
   private startFallSequence(wasOpen: boolean): void {
