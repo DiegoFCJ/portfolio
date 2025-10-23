@@ -33,46 +33,99 @@ export interface PrivacyContent {
 export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
   it: {
     heading: 'Informativa sulla privacy',
-    meta: 'Ultimo aggiornamento: 20 marzo 2024',
+    meta: 'Ultimo aggiornamento: 28 maggio 2024',
     tocTitle: 'Indice dei contenuti',
     intro: [
-      'Questa pagina descrive come tratto i dati personali e le informazioni raccolte quando utilizzi questo portfolio.',
-      'Le informazioni riportate sono pensate per essere trasparenti e semplici da consultare in qualsiasi momento.'
+      'La presente informativa descrive le modalità con cui vengono trattati i dati personali degli utenti che consultano o interagiscono con questo portfolio personale.',
+      'Il trattamento avviene nel rispetto del Regolamento (UE) 2016/679 (GDPR) e della normativa nazionale in materia di protezione dei dati personali.'
     ],
     sections: [
       {
-        id: 'privacy-policy',
-        title: 'Trattamento dei dati personali',
+        id: 'controller',
+        title: 'Titolare del trattamento',
         paragraphs: [
-          'Navigando nelle pagine del portfolio non viene richiesto alcun dato personale obbligatorio.',
-          'Eventuali informazioni condivise attraverso il modulo di contatto vengono utilizzate esclusivamente per rispondere al tuo messaggio e non sono cedute a terzi.',
-          'I dati forniti vengono conservati in modo sicuro e solo per il tempo necessario a gestire la tua richiesta.'
+          'Il titolare del trattamento è Diego Fois, contattabile ai riferimenti indicati nella sezione "Contatti".',
+          'Per qualsiasi domanda relativa alla presente informativa o all\'esercizio dei tuoi diritti puoi scrivere in qualunque momento.'
         ]
       },
       {
-        id: 'cookies',
-        title: 'Uso dei cookie',
+        id: 'data-types',
+        title: 'Tipologie di dati trattati',
         paragraphs: [
-          'Il sito utilizza esclusivamente cookie tecnici necessari al corretto funzionamento delle pagine e delle animazioni.',
-          'Non viene effettuato alcun tracciamento a fini commerciali e non sono presenti cookie di profilazione.'
+          'Durante la navigazione vengono raccolti automaticamente alcuni dati tecnici necessari al funzionamento del sito (come indirizzi IP, identificativi dei dispositivi e log di sistema) tramite servizi di hosting e di sicurezza.',
+          'L\'inserimento volontario di dati personali avviene esclusivamente tramite il modulo di contatto e riguarda informazioni identificative e di contatto fornite dall\'utente.'
         ],
         items: [
-          'Cookie essenziali: servono per fornire le funzionalità di base del sito.',
-          'Preferenze locali: eventuali scelte (come lingua e tema) vengono memorizzate nel tuo browser.'
+          'Dati di navigazione: dati tecnici generati dall\'utilizzo del sito, trattati in forma aggregata per finalità di sicurezza e manutenzione.',
+          'Dati comunicati dall\'utente: nome, indirizzo email e contenuto del messaggio inviato tramite il modulo di contatto.'
+        ]
+      },
+      {
+        id: 'purposes-legal-basis',
+        title: 'Finalità e basi giuridiche del trattamento',
+        paragraphs: [
+          'I dati raccolti tramite il modulo di contatto vengono utilizzati esclusivamente per rispondere alle richieste inviate dall\'utente; la base giuridica è l\'esecuzione di misure precontrattuali o l\'esecuzione di un contratto ai sensi dell\'art. 6, par. 1, lett. b) GDPR.',
+          'I dati tecnici di navigazione sono trattati sulla base del legittimo interesse del titolare a garantire la sicurezza e il corretto funzionamento del sito (art. 6, par. 1, lett. f) GDPR).'
+        ]
+      },
+      {
+        id: 'processing',
+        title: 'Modalità del trattamento',
+        paragraphs: [
+          'I dati sono trattati con strumenti informatici e telematici nel rispetto dei principi di liceità, correttezza e trasparenza.',
+          'Sono adottate misure tecniche e organizzative adeguate per prevenire accessi non autorizzati, divulgazione, modifica o distruzione dei dati personali.'
+        ]
+      },
+      {
+        id: 'recipients',
+        title: 'Destinatari e trasferimenti',
+        paragraphs: [
+          'I dati personali non vengono ceduti a soggetti terzi per finalità di marketing né diffusi pubblicamente.',
+          'L\'accesso ai dati è limitato al titolare e, ove necessario, ai fornitori di servizi strettamente funzionali all\'erogazione del sito (come provider di hosting), debitamente nominati responsabili del trattamento.',
+          'Eventuali trasferimenti di dati al di fuori dell\'Unione europea avvengono solo verso Paesi in grado di garantire un livello di protezione adeguato ai sensi degli artt. 44 e ss. GDPR.'
+        ]
+      },
+      {
+        id: 'retention',
+        title: 'Tempi di conservazione',
+        paragraphs: [
+          'I dati trasmessi tramite il modulo di contatto sono conservati per il tempo necessario a gestire la richiesta e comunque non oltre 12 mesi dall\'ultimo contatto utile, salvo esigenze diverse derivanti da obblighi di legge.',
+          'I dati tecnici relativi alla navigazione sono conservati per periodi limitati, in linea con le policy del provider di hosting e con le finalità di sicurezza del sito.'
         ]
       },
       {
         id: 'rights',
-        title: 'I tuoi diritti',
+        title: 'Diritti dell\'interessato',
         paragraphs: [
-          'Puoi richiedere in qualsiasi momento la conferma dell\'esistenza di dati che ti riguardano e ottenerne la cancellazione.',
-          'Per esercitare i tuoi diritti scrivimi tramite i canali indicati nella sezione contatti: riceverai una risposta nel più breve tempo possibile.'
+          'Hai diritto di ottenere l\'accesso, la rettifica, l\'aggiornamento o la cancellazione dei tuoi dati personali, nonché di richiederne la limitazione o di opporti al loro trattamento.',
+          'Puoi inoltre richiedere la portabilità dei dati e proporre reclamo all\'Autorità Garante per la Protezione dei Dati Personali qualora ritenga che il trattamento violi la normativa vigente.',
+          'Per esercitare i tuoi diritti invia una richiesta ai recapiti indicati nella sezione "Contatti"; riceverai riscontro entro i termini previsti dal GDPR.'
+        ]
+      },
+      {
+        id: 'cookies',
+        title: 'Uso dei cookie e tecnologie similari',
+        paragraphs: [
+          'Questo sito utilizza esclusivamente cookie tecnici necessari al funzionamento delle pagine e alla gestione delle preferenze di lingua o tema.',
+          'Non sono utilizzati cookie di profilazione né strumenti di analisi di terze parti che comportino il tracciamento degli utenti a fini commerciali.'
+        ],
+        items: [
+          'Cookie essenziali: garantiscono il caricamento delle pagine e delle funzionalità di base.',
+          'Preferenze locali: memorizzano le scelte effettuate dall\'utente (ad esempio lingua o tema).'
+        ]
+      },
+      {
+        id: 'updates',
+        title: 'Aggiornamenti dell\'informativa',
+        paragraphs: [
+          'Il titolare si riserva di aggiornare la presente informativa per adeguarla a eventuali modifiche normative o tecniche.',
+          'Le modifiche saranno pubblicate su questa pagina; ti invitiamo pertanto a consultarla periodicamente.'
         ]
       }
     ],
     contacts: {
       title: 'Contatti',
-      description: 'Per dubbi, richieste di chiarimento o esercizio dei tuoi diritti puoi utilizzare questi canali:',
+      description: 'Per richieste di chiarimento, esercizio dei diritti o segnalazioni relative alla privacy puoi utilizzare i seguenti canali:',
       ctaLabel: 'Scrivimi ora',
       channels: [
         {
@@ -92,46 +145,99 @@ export const PRIVACY_CONTENT: Partial<Record<LanguageCode, PrivacyContent>> = {
   },
   en: {
     heading: 'Privacy notice',
-    meta: 'Last updated: 20 March 2024',
+    meta: 'Last updated: 28 May 2024',
     tocTitle: 'On this page',
     intro: [
-      'This page explains how personal data and information are handled while you browse this portfolio.',
-      'The goal is to keep every detail transparent and easy to review whenever you need to.'
+      'This notice explains how personal data is processed when you browse or interact with this personal portfolio website.',
+      'All processing activities comply with Regulation (EU) 2016/679 (GDPR) and applicable national data protection laws.'
     ],
     sections: [
       {
-        id: 'privacy-policy',
-        title: 'Personal data processing',
+        id: 'controller',
+        title: 'Data controller',
         paragraphs: [
-          'While you browse the site you are not asked to share mandatory personal information.',
-          'Any details you decide to submit through the contact form are used solely to reply to your message and are never shared with third parties.',
-          'The information you provide is stored securely and only for the time required to follow up on your request.'
+          'The data controller is Diego Fois, who can be contacted using the details listed in the "Contacts" section.',
+          'Feel free to reach out with any question about this notice or to exercise your privacy rights.'
         ]
       },
       {
-        id: 'cookies',
-        title: 'Cookie usage',
+        id: 'data-types',
+        title: 'Categories of data processed',
         paragraphs: [
-          'The website relies only on technical cookies that keep the pages and animations working as expected.',
-          'No commercial tracking takes place and no profiling cookies are stored on your device.'
+          'While you browse the website, certain technical information (such as IP addresses, device identifiers and system logs) is automatically collected by hosting and security providers to keep the service running.',
+          'Personal data is otherwise collected only when you voluntarily submit it through the contact form and typically includes identification and contact details.'
         ],
         items: [
-          'Essential cookies: they make sure the core features of the website stay available.',
-          'Local preferences: your choices (such as language or theme) can be stored in your browser.'
+          'Browsing data: technical information generated while using the website, processed in aggregate form for security and maintenance purposes.',
+          'Data you provide: your name, email address and the message content sent via the contact form.'
+        ]
+      },
+      {
+        id: 'purposes-legal-basis',
+        title: 'Purposes and legal bases',
+        paragraphs: [
+          'Data submitted through the contact form is used solely to follow up on your request; the legal basis is the performance of pre-contractual measures or a contract pursuant to Article 6(1)(b) GDPR.',
+          'Technical browsing data is processed on the basis of the controller\'s legitimate interest in ensuring the security and proper functioning of the website (Article 6(1)(f) GDPR).'
+        ]
+      },
+      {
+        id: 'processing',
+        title: 'Processing methods',
+        paragraphs: [
+          'Data is processed through electronic tools in accordance with the principles of lawfulness, fairness and transparency.',
+          'Appropriate technical and organisational measures are adopted to prevent unauthorised access, disclosure, alteration or destruction of personal data.'
+        ]
+      },
+      {
+        id: 'recipients',
+        title: 'Recipients and transfers',
+        paragraphs: [
+          'Personal data is not sold or shared with third parties for marketing purposes and is never published.',
+          'Access is restricted to the controller and, when strictly necessary, to service providers that enable the website to operate (such as hosting providers) acting as data processors.',
+          'Any transfers outside the European Union occur only towards countries ensuring an adequate level of protection pursuant to Articles 44 et seq. GDPR.'
+        ]
+      },
+      {
+        id: 'retention',
+        title: 'Data retention',
+        paragraphs: [
+          'Messages sent via the contact form are stored for as long as needed to handle your request and in any case for no longer than 12 months after the latest relevant interaction, unless legal obligations require otherwise.',
+          'Technical browsing data is retained for limited periods, in line with the hosting provider\'s policies and the website\'s security purposes.'
         ]
       },
       {
         id: 'rights',
-        title: 'Your rights',
+        title: 'Data subject rights',
         paragraphs: [
-          'You can ask at any time whether information about you is being processed and request its deletion.',
-          'To exercise your rights, write through the channels listed in the contacts section and you will receive a prompt reply.'
+          'You may request access, rectification, updating or erasure of your personal data, ask for restriction or object to processing.',
+          'You can also request data portability and lodge a complaint with your local supervisory authority if you believe the processing infringes data protection laws.',
+          'Send your requests to the contacts listed below; a response will be provided within the time limits set by the GDPR.'
+        ]
+      },
+      {
+        id: 'cookies',
+        title: 'Cookies and similar technologies',
+        paragraphs: [
+          'This website only uses technical cookies that are necessary to deliver pages and remember language or theme preferences.',
+          'No profiling cookies or third-party analytics tools are installed for commercial tracking purposes.'
+        ],
+        items: [
+          'Essential cookies: ensure that pages load and that core features remain available.',
+          'Local preferences: store the options you select (for example language or theme).'
+        ]
+      },
+      {
+        id: 'updates',
+        title: 'Notice updates',
+        paragraphs: [
+          'This notice may be updated to reflect legal, technical or organisational changes relevant to the processing activities.',
+          'Updates will be published on this page, so please review it periodically.'
         ]
       }
     ],
     contacts: {
       title: 'Contacts',
-      description: 'Reach out for clarifications, questions or to exercise your privacy rights using the following channels:',
+      description: 'If you need clarification, want to exercise your rights or report a privacy concern, please use the following channels:',
       ctaLabel: 'Contact me',
       channels: [
         {
