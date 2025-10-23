@@ -297,9 +297,40 @@ app-contact-me .submit-btn button:disabled {
   cursor: not-allowed;
 }
 
+app-contact-me.contact-me--page .contact-me-section {
+  min-block-size: clamp(100vh, calc(100vh + 8rem), 140vh);
+  padding-block-start: clamp(3rem, 6vw, 5rem);
+  padding-block-end: 0;
+  padding-inline: clamp(1.5rem, 5vw, 3rem);
+  gap: clamp(2rem, 5vw, 3.25rem);
+  background: linear-gradient(160deg, rgba(99, 102, 241, 0.12), rgba(14, 116, 144, 0.08));
+}
+
+app-contact-me.contact-me--page .timeline {
+  padding-inline: 0;
+}
+
+app-contact-me.contact-me--page .timeline-item {
+  max-width: min(64rem, 100%);
+}
+
+app-contact-me.contact-me--page .timeline-card {
+  border-radius: clamp(1.6rem, 3vw, 2.5rem);
+  padding: clamp(1.85rem, 4vw, 2.85rem);
+  box-shadow: 0 32px 65px rgba(79, 70, 229, 0.18);
+}
+
 @media (min-width: 768px) {
   app-contact-me .contact-me-section {
     width: min(85vw, 38rem);
+  }
+
+  app-contact-me.contact-me--page .contact-me-section {
+    width: min(72rem, 100%);
+  }
+
+  app-contact-me.contact-me--page .timeline-item {
+    max-width: min(60rem, 100%);
   }
 }
 
@@ -315,6 +346,10 @@ app-contact-me .submit-btn button:disabled {
 
   app-contact-me .timeline-item {
     max-width: 100%;
+  }
+
+  app-contact-me.contact-me--page .contact-me-section {
+    padding-inline: clamp(1rem, 5vw, 1.75rem);
   }
 }
 

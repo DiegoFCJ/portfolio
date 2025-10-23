@@ -62,6 +62,31 @@ app-stats {
         z-index: var(--layer-modal-container, 70);
     }
 
+    &.stats--page {
+        .statistics-component {
+            min-block-size: clamp(100vh, calc(100vh + 10rem), 150vh);
+            padding-block-start: clamp(3rem, 6vw, 5rem);
+            padding-block-end: 0;
+            padding-inline: clamp(1.5rem, 5vw, 3.25rem);
+        }
+
+        .statistics-surface {
+            inline-size: min(75rem, 100%);
+        }
+
+        .statistics-grid {
+            gap: clamp(1.75rem, 4vw, 2.75rem);
+        }
+
+        @media (max-width: 640px) {
+            .statistics-component {
+                padding-block-start: clamp(2.25rem, 7vw, 3.25rem);
+                padding-block-end: 0;
+                padding-inline: clamp(0.9rem, 6vw, 1.75rem);
+            }
+        }
+    }
+
     .statistics-component {
         --stat-grid-gap: clamp(1.5rem, 3vw, 2.75rem);
 

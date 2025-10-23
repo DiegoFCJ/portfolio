@@ -4,16 +4,19 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PrivacyContent, PRIVACY_CONTENT } from '../../data/privacy.data';
 import { TranslationService } from '../../services/translation.service';
+import { SectionPageShellComponent } from '../shared/section-page-shell.component';
 
 @Component({
   selector: 'app-privacy',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SectionPageShellComponent],
   templateUrl: './privacy.component.html',
   styleUrls: ['./privacy.component.scss']
 })
 export class PrivacyComponent {
   readonly content$: Observable<PrivacyContent>;
+  readonly previousRoute = '/contact';
+  readonly nextRoute?: string = undefined;
 
   constructor(private readonly translationService: TranslationService) {
     this.content$ = this.translationService
