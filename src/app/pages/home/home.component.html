@@ -32,6 +32,28 @@
   </section>
 </div>
 
+<div class="home__floating home__floating--stack" *ngIf="showStackControls">
+  <div class="home__stack-controls">
+    <button
+      type="button"
+      class="home__stack-button navigator-circle-button"
+      (click)="onStackPrevious()"
+      [attr.aria-label]="stackPreviousLabel"
+    >
+      <mat-icon aria-hidden="true">arrow_back</mat-icon>
+    </button>
+
+    <button
+      type="button"
+      class="home__stack-button navigator-circle-button"
+      (click)="onStackNext()"
+      [attr.aria-label]="stackNextLabel"
+    >
+      <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+    </button>
+  </div>
+</div>
+
 <div class="home__floating home__floating--navigator" *ngIf="isMobileViewport">
   <app-navigator
     [totalSections]="totalSections"

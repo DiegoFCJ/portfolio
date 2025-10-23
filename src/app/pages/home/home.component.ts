@@ -1,5 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { ProjectsComponent } from '../../components/projects/projects.component';
@@ -16,6 +17,7 @@ import { AssistantComponent } from '../../components/assistant/assistant.compone
   standalone: true,
   imports: [
     CommonModule,
+    MatIconModule,
     HeroComponent,
     AboutComponent,
     ProjectsComponent,
@@ -35,9 +37,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   isMobileViewport = false;
   totalSections = 0;
   currentSectionIndex = 0;
+  private skillsSectionIndex: number | null = null;
 
   @ViewChildren('homeSection', { read: ElementRef })
   private sectionElements?: QueryList<ElementRef<HTMLElement>>;
+
+  @ViewChild(SkillsComponent)
+  skillsComponent?: SkillsComponent;
+
+  @ViewChild(NavigatorComponent)
+  navigatorComponent?: NavigatorComponent;
 
   private programmaticScrollTimeout: ReturnType<typeof setTimeout> | number | null = null;
   private isProgrammaticScroll = false;
@@ -74,6 +83,30 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateCurrentSectionIndex();
   }
 
+  get showStackControls(): boolean {
+    return (
+      this.isMobileViewport &&
+      this.skillsSectionIndex !== null &&
+      this.currentSectionIndex === this.skillsSectionIndex
+    );
+  }
+
+  get stackPreviousLabel(): string {
+    return this.navigatorComponent?.getTooltip('prev') ?? 'Previous section';
+  }
+
+  get stackNextLabel(): string {
+    return this.navigatorComponent?.getTooltip('next') ?? 'Next section';
+  }
+
+  onStackPrevious(): void {
+    this.skillsComponent?.moveToPrevious();
+  }
+
+  onStackNext(): void {
+    this.skillsComponent?.moveToNext();
+  }
+
   onNavigatorNext(): void {
     if (this.totalSections === 0) {
       return;
@@ -100,6 +133,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.isMobileViewport = window.innerWidth <= this.mobileBreakpoint;
     this.updateCurrentSectionIndex();
+    this.cdr.markForCheck();
   }
 
   private observeSections(): void {
@@ -109,6 +143,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private updateSectionsMetrics(): void {
     this.totalSections = this.sectionElements?.length ?? 0;
+    this.updateSkillsSectionIndex();
     this.updateCurrentSectionIndex();
     this.cdr.detectChanges();
   }
@@ -175,5 +210,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const sections = this.sectionElements.toArray();
     return sections[index]?.nativeElement ?? null;
+  }
+
+  private updateSkillsSectionIndex(): void {
+    if (!this.sectionElements) {
+      this.skillsSectionIndex = null;
+      return;
+    }
+
+    const sections = this.sectionElements.toArray();
+    const index = sections.findIndex(section =>
+      section.nativeElement.querySelector('app-skills') !== null
+    );
+
+    this.skillsSectionIndex = index >= 0 ? index : null;
   }
 }
