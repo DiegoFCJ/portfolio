@@ -9,7 +9,7 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslationService } from '../../services/translation.service';
 import { ThemeService } from '../../services/theme.service';
@@ -45,7 +45,6 @@ export class TopbarComponent implements AfterViewInit {
   overflowMenuId = 'topbar-overflow-menu';
   isOverflowMenuOpen = false;
 
-  @ViewChild('topbarRoot') private readonly topbarRoot?: ElementRef<HTMLElement>;
   @ViewChild('navContainer') private readonly navContainer?: ElementRef<HTMLElement>;
 
   private readonly preferenceLabels: Record<LanguageCode, { language: string; theme: string }> = {
@@ -70,15 +69,12 @@ export class TopbarComponent implements AfterViewInit {
   private viewInitialized = false;
   private hasPendingOverflowCheck = false;
   private overflowDetectionFrameId: number | null = null;
-  private resizeObserver?: ResizeObserver;
-  private lastMeasuredTopbarHeight = 0;
 
   constructor(
     private readonly translationService: TranslationService,
     private readonly themeService: ThemeService,
     private readonly cdr: ChangeDetectorRef,
     private readonly destroyRef: DestroyRef,
-    @Inject(DOCUMENT) private readonly document: Document,
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly navigationService: NavigationService,
@@ -115,7 +111,6 @@ export class TopbarComponent implements AfterViewInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
           this.scheduleOverflowDetection();
-          this.updateTopbarDimensions();
         });
     }
 
@@ -124,58 +119,15 @@ export class TopbarComponent implements AfterViewInit {
         cancelAnimationFrame(this.overflowDetectionFrameId);
         this.overflowDetectionFrameId = null;
       }
-      this.resizeObserver?.disconnect();
-      this.resizeObserver = undefined;
     });
   }
 
   ngAfterViewInit(): void {
     this.viewInitialized = true;
-    this.observeTopbarHeight();
     if (this.hasPendingOverflowCheck) {
       this.hasPendingOverflowCheck = false;
     }
     this.scheduleOverflowDetection();
-  }
-
-  private observeTopbarHeight(): void {
-    if (!this.isBrowser || !this.topbarRoot) {
-      return;
-    }
-
-    this.resizeObserver?.disconnect();
-
-    const element = this.topbarRoot.nativeElement;
-    this.updateTopbarDimensions();
-
-    if (typeof ResizeObserver === 'undefined') {
-      return;
-    }
-
-    this.resizeObserver = new ResizeObserver(() => this.updateTopbarDimensions());
-    this.resizeObserver.observe(element);
-  }
-
-  private updateTopbarDimensions(): void {
-    if (!this.isBrowser || !this.viewInitialized || !this.topbarRoot) {
-      return;
-    }
-
-    const element = this.topbarRoot.nativeElement;
-    const height = element.getBoundingClientRect().height;
-
-    if (!Number.isFinite(height) || height <= 0) {
-      return;
-    }
-
-    const roundedHeight = Math.round(height * 100) / 100;
-    if (Math.abs(roundedHeight - this.lastMeasuredTopbarHeight) < 0.5) {
-      return;
-    }
-
-    const rootElement = this.document.documentElement;
-    rootElement.style.setProperty('--topbar-height', `${roundedHeight}px`);
-    this.lastMeasuredTopbarHeight = roundedHeight;
   }
 
   onSelectLanguage(language: string): void {
@@ -275,7 +227,6 @@ export class TopbarComponent implements AfterViewInit {
     this.overflowDetectionFrameId = requestAnimationFrame(() => {
       this.overflowDetectionFrameId = null;
       this.detectOverflow();
-      this.updateTopbarDimensions();
     });
   }
 
