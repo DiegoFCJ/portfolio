@@ -230,6 +230,14 @@ app-assistant .assistant__content-scroll {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
+  padding-inline-end: clamp(0.4rem, 2vw, 0.65rem);
+  margin-inline-end: calc(clamp(0.4rem, 2vw, 0.65rem) * -1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+app-assistant .assistant__content-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 app-assistant .assistant__title {
@@ -296,8 +304,8 @@ app-assistant .assistant__steps li {
 
   app-assistant .assistant__content-scroll {
     overflow-y: auto;
-    padding-right: 0.45rem;
-    margin-right: -0.45rem;
+    padding-inline-end: 0.45rem;
+    margin-inline-end: -0.45rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
     touch-action: pan-y;
