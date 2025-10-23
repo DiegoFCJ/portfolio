@@ -90,6 +90,30 @@ body {
     background-color: inherit;
 }
 
+.mat-icon.material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-variation-settings: 'FILL' var(--material-symbols-rounded-fill, 1),
+        'wght' var(--material-symbols-rounded-weight, 400),
+        'GRAD' var(--material-symbols-rounded-grade, 0),
+        'opsz' var(--material-symbols-rounded-opsz, 24);
+}
+
+.mat-icon.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-variation-settings: 'FILL' var(--material-symbols-outlined-fill, 0),
+        'wght' var(--material-symbols-outlined-weight, 400),
+        'GRAD' var(--material-symbols-outlined-grade, 0),
+        'opsz' var(--material-symbols-outlined-opsz, 24);
+}
+
+.mat-icon.material-symbols-sharp {
+    font-family: 'Material Symbols Sharp';
+    font-variation-settings: 'FILL' var(--material-symbols-sharp-fill, 0),
+        'wght' var(--material-symbols-sharp-weight, 400),
+        'GRAD' var(--material-symbols-sharp-grade, 0),
+        'opsz' var(--material-symbols-sharp-opsz, 24);
+}
+
 body.home-scroll-snapping {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
