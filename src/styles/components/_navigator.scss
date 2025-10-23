@@ -235,7 +235,8 @@ app-navigator {
 
       .navigator-content {
           display: flex;
-          align-items: flex-start;
+          flex-direction: column;
+          align-items: flex-end;
           gap: 18px;
       }
 
@@ -478,6 +479,43 @@ app-navigator {
       .option-item:hover .option-hint {
           opacity: 1;
           transform: translate(-50%, 0);
+      }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+      .option-hint {
+          display: none;
+      }
+  }
+
+  @media (max-width: 720px) {
+      .navigator-wrapper {
+          max-height: max(0px, calc(100vh - (var(--navigator-mobile-margin, 20px) * 2) - var(--assistant-safe-area-bottom, 0px)));
+      }
+
+      .modern-navigator {
+          gap: 12px;
+          max-height: 100%;
+      }
+
+      .modern-navigator .navigator-content {
+          max-height: max(
+              0px,
+              calc(
+                  100vh - (var(--navigator-mobile-margin, 20px) * 2) - var(--assistant-safe-area-bottom, 0px) - $navigator-button-size - 12px
+              )
+          );
+          overflow-y: auto;
+          overflow-x: visible;
+          padding-block: 4px;
+          padding-inline: 6px 2px;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior: contain;
+      }
+
+      .modern-navigator .arrow-container,
+      .modern-navigator .nav-groups {
+          gap: 10px;
       }
   }
 }

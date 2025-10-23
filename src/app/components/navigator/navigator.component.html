@@ -1,7 +1,7 @@
 <div class="navigator-wrapper" [class.navigator-wrapper--collapsed]="!isOpen">
   <!-- Modern, animated, circular floating navbar -->
   <div class="modern-navigator" [class.modern-navigator--collapsed]="!isOpen">
-    <ng-container *ngIf="isOpen">
+    <div class="navigator-content" *ngIf="isOpen">
       <div class="arrow-container" *ngIf="showSectionNavigation">
         <!-- Previous button -->
         <button class="arrow-button navigator-circle-button" *ngIf="currentSectionIndex > 0" (click)="onPrevious()" [attr.aria-label]="getTooltip('prev')"
@@ -46,14 +46,14 @@
         <div class="nav-group">
           <button class="nav-button" (click)="toggleThemeOptions()" [attr.aria-label]="getTooltip('theme')"
             [matTooltip]="getTooltip('theme')" matTooltipPosition="left">
-            <mat-icon aria-hidden="true">{{ getThemeIcon(currentTheme) }}</mat-icon>
+            <mat-icon aria-hidden="true" fontSet="material-symbols-rounded">{{ getThemeIcon(currentTheme) }}</mat-icon>
           </button>
           <div class="option-container" *ngIf="showThemeOptions">
             <div class="option-item" *ngFor="let theme of availableThemes">
               <button class="option-button" (click)="changeTheme(theme)" [attr.aria-label]="getThemeName(theme)"
                 [class.selected]="currentTheme === theme"
                 [attr.aria-describedby]="'theme-option-hint-' + theme">
-                <mat-icon aria-hidden="true">{{ getThemeIcon(theme) }}</mat-icon>
+                <mat-icon aria-hidden="true" fontSet="material-symbols-rounded">{{ getThemeIcon(theme) }}</mat-icon>
               </button>
               <span class="option-hint" [id]="'theme-option-hint-' + theme">{{ getThemeName(theme) }}</span>
             </div>
@@ -77,7 +77,7 @@
           </div>
         </div>
       </div>
-    </ng-container>
+    </div>
 
     <button class="nav-button close-button nav-toggle-button" (click)="toggleNavigator()"
       [attr.aria-label]="getToggleButtonLabel()"

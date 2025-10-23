@@ -42,6 +42,7 @@ svg {
     --assistant-avatar-size-sm: 48px;
     --assistant-safe-area-bottom: 0px;
     --navigator-mobile-footprint: clamp(3.75rem, 12vw, 4.5rem);
+    --navigator-mobile-margin: 20px;
     /*
      * Layering scale for global UI elements (lower values are behind higher ones):
      * base content (-1 / 0), section content (1), reserved topbar (30),
@@ -81,6 +82,23 @@ body {
     overflow-x: hidden;
     --section-transition-glow: rgba(148, 163, 184, 0.18);
     background-color: inherit;
+}
+
+.material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: inherit;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-flex;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 body.home-scroll-snapping {
