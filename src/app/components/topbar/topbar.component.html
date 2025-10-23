@@ -12,7 +12,11 @@
             [attr.aria-controls]="overflowMenuId"
           >
             <span class="visually-hidden">{{ overflowMenuLabel }}</span>
-            <mat-icon aria-hidden="true" fontIcon="menu"></mat-icon>
+            <span class="topbar__menu-icon" aria-hidden="true">
+              <span class="topbar__menu-icon-bar topbar__menu-icon-bar--top"></span>
+              <span class="topbar__menu-icon-bar topbar__menu-icon-bar--middle"></span>
+              <span class="topbar__menu-icon-bar topbar__menu-icon-bar--bottom"></span>
+            </span>
           </button>
 
           <div
