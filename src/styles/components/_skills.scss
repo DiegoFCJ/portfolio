@@ -188,6 +188,87 @@ app-skills .mobile-layout {
   gap: clamp(1.5rem, 5vw, 2.5rem);
 }
 
+app-skills .carousel-controls {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.65rem, 5vw, 1.25rem);
+  margin: clamp(0.5rem, 4vw, 1rem) auto 0;
+  width: min(100%, var(--skills-mobile-max-width));
+}
+
+app-skills .carousel-progress {
+  min-inline-size: clamp(2.5rem, 10vw, 3.25rem);
+  inline-size: clamp(2.5rem, 10vw, 3.25rem);
+  block-size: clamp(2.5rem, 10vw, 3.25rem);
+  border-radius: 999px;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0))
+      padding-box,
+    linear-gradient(135deg, var(--skills-accent), rgba(255, 255, 255, 0)) border-box;
+  border: 1px solid transparent;
+  color: #111827;
+  font-weight: 700;
+  font-size: clamp(0.85rem, 3.2vw, 0.95rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.03em;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.2), 0 0 20px rgba(99, 102, 241, 0.18);
+  text-align: center;
+  padding-inline: clamp(0.5rem, 2vw, 0.75rem);
+}
+
+body.dark-mode app-skills .carousel-progress {
+  color: #f8fafc;
+}
+
+app-skills .carousel-controls__group {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.55rem, 4vw, 1rem);
+}
+
+app-skills .carousel-control {
+  inline-size: clamp(2.75rem, 12vw, 3.25rem);
+  block-size: clamp(2.75rem, 12vw, 3.25rem);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--skills-carousel-arrow-bg);
+  color: var(--skills-carousel-arrow-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+  transition: transform 0.25s ease, background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+app-skills .carousel-control svg {
+  inline-size: clamp(1rem, 4vw, 1.15rem);
+  block-size: clamp(1rem, 4vw, 1.15rem);
+  fill: currentColor;
+}
+
+app-skills .carousel-control:hover,
+app-skills .carousel-control:focus-visible {
+  background: var(--skills-carousel-arrow-hover-bg);
+  box-shadow: var(--skills-carousel-arrow-hover-shadow);
+  transform: translateY(-2px) scale(1.05);
+  color: var(--skills-carousel-arrow-color);
+}
+
+app-skills .carousel-control:focus-visible {
+  outline: 2px solid var(--skills-accent);
+  outline-offset: 3px;
+}
+
+app-skills .carousel-control[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 app-skills .nav-container {
   width: 100%;
   display: flex;

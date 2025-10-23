@@ -4,6 +4,7 @@
   <ng-container *ngIf="isMobile; else desktopLayout">
     <div class="mobile-layout">
       <nav
+        #stackTabs
         class="stack-tabs is-mobile"
         role="tablist"
         aria-orientation="horizontal"
@@ -62,6 +63,54 @@
               </div>
             </div>
           </article>
+        </div>
+      </div>
+
+      <div class="carousel-controls" *ngIf="activePanels.length">
+        <div
+          class="carousel-progress"
+          role="status"
+          aria-live="polite"
+          [attr.aria-label]="getCarouselProgressLabel()"
+        >
+          {{ currentIndex + 1 }} / {{ activePanels.length }}
+        </div>
+
+        <div class="carousel-controls__group">
+          <button
+            type="button"
+            class="carousel-control carousel-control--previous"
+            (click)="moveToPrevious()"
+            [attr.aria-label]="getCarouselControlLabel('previous')"
+            [disabled]="activePanels.length <= 1"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="carousel-control carousel-control--next"
+            (click)="moveToNext()"
+            [attr.aria-label]="getCarouselControlLabel('next')"
+            [disabled]="activePanels.length <= 1"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="carousel-control carousel-control--back-to-tabs"
+            (click)="scrollToTabs()"
+            [attr.aria-label]="getCarouselControlLabel('backToTabs')"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>

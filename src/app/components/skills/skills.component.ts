@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy, Input, HostBinding, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Subject, forkJoin } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -19,6 +19,13 @@ interface SpotlightPanel extends SkillSection {
 }
 
 type SkillsDisplayVariant = 'home' | 'page';
+
+interface CarouselLabels {
+  previous: string;
+  next: string;
+  backToTabs: string;
+  progress: string;
+}
 
 @Component({
   selector: 'app-skills',
@@ -80,6 +87,9 @@ export class SkillsComponent implements OnInit, OnDestroy {
     language: 'en'
   };
 
+  @ViewChild('stackTabs')
+  private stackTabs?: ElementRef<HTMLElement>;
+
   private readonly tabLabelDictionary: Record<SkillTabId, Record<LanguageCode | 'default', string>> = {
     // TODO(content): Provide bespoke tab labels for Norwegian and Russian if desired.
     backend: {
@@ -117,6 +127,51 @@ export class SkillsComponent implements OnInit, OnDestroy {
       no: 'DevOps',
       ru: 'DevOps',
       default: 'DevOps'
+    }
+  };
+
+  private readonly carouselLabelDictionary: Record<LanguageCode | 'default', CarouselLabels> = {
+    it: {
+      previous: 'Mostra la sezione precedente dello stack',
+      next: 'Mostra la sezione successiva dello stack',
+      backToTabs: 'Torna alla selezione dello stack',
+      progress: 'Sezione {current} di {total}'
+    },
+    en: {
+      previous: 'Show previous stack section',
+      next: 'Show next stack section',
+      backToTabs: 'Back to stack selection',
+      progress: 'Section {current} of {total}'
+    },
+    de: {
+      previous: 'Vorherigen Stack-Bereich anzeigen',
+      next: 'Nächsten Stack-Bereich anzeigen',
+      backToTabs: 'Zur Stack-Auswahl zurückkehren',
+      progress: 'Abschnitt {current} von {total}'
+    },
+    es: {
+      previous: 'Mostrar la sección anterior del stack',
+      next: 'Mostrar la siguiente sección del stack',
+      backToTabs: 'Volver a la selección del stack',
+      progress: 'Sección {current} de {total}'
+    },
+    no: {
+      previous: 'Vis forrige stack-seksjon',
+      next: 'Vis neste stack-seksjon',
+      backToTabs: 'Tilbake til stack-valget',
+      progress: 'Seksjon {current} av {total}'
+    },
+    ru: {
+      previous: 'Показать предыдущий раздел стека',
+      next: 'Показать следующий раздел стека',
+      backToTabs: 'Вернуться к выбору стека',
+      progress: 'Раздел {current} из {total}'
+    },
+    default: {
+      previous: 'Show previous stack section',
+      next: 'Show next stack section',
+      backToTabs: 'Back to stack selection',
+      progress: 'Section {current} of {total}'
     }
   };
 
@@ -195,6 +250,44 @@ export class SkillsComponent implements OnInit, OnDestroy {
     this.resetCarouselIndex();
   }
 
+  getCarouselControlLabel(type: 'previous' | 'next' | 'backToTabs'): string {
+    const labels = this.getCarouselLabels();
+
+    switch (type) {
+      case 'previous':
+        return labels.previous;
+      case 'next':
+        return labels.next;
+      case 'backToTabs':
+        return labels.backToTabs;
+      default:
+        return labels.previous;
+    }
+  }
+
+  getCarouselProgressLabel(): string {
+    const labels = this.getCarouselLabels();
+    const current = (this.currentIndex + 1).toString();
+    const total = this.activePanels.length.toString();
+
+    return labels.progress
+      .replace('{current}', current)
+      .replace('{total}', total);
+  }
+
+  scrollToTabs(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const target = this.stackTabs?.nativeElement;
+    if (!target) {
+      return;
+    }
+
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   setActiveTab(tabId: SkillTabId): void {
     if (this.activeTabId === tabId) {
       return;
@@ -255,6 +348,10 @@ export class SkillsComponent implements OnInit, OnDestroy {
     }
 
     this.currentIndex = Math.min(this.currentIndex, length - 1);
+  }
+
+  private getCarouselLabels(): CarouselLabels {
+    return this.carouselLabelDictionary[this.currentLanguage] ?? this.carouselLabelDictionary['default'];
   }
 
   private resetSection(section: SkillSection): SkillSection {
