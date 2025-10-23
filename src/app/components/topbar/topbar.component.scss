@@ -34,7 +34,8 @@
   gap: 0.75rem;
   flex: 1 1 auto;
   min-inline-size: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .topbar__link {
@@ -101,9 +102,12 @@
 
 .topbar__menu-button {
   padding: 0;
+  inline-size: 42px;
+  block-size: 42px;
 
   mat-icon {
     color: var(--navigator-icon-color, #e2e8f0);
+    font-size: 22px;
   }
 }
 
