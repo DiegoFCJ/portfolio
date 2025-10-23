@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, PLATFORM_ID, OnDestroy, Input, HostBinding } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Subject, forkJoin } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -17,6 +17,8 @@ interface SkillTab {
 interface SpotlightPanel extends SkillSection {
   subtitle: string;
 }
+
+type SkillsDisplayVariant = 'home' | 'page';
 
 @Component({
   selector: 'app-skills',
@@ -43,6 +45,26 @@ export class SkillsComponent implements OnInit, OnDestroy {
     tooling: [],
     devops: []
   };
+  private _variant: SkillsDisplayVariant = 'page';
+
+  @Input()
+  set variant(value: SkillsDisplayVariant | null | undefined) {
+    this._variant = value === 'home' ? 'home' : 'page';
+  }
+
+  get variant(): SkillsDisplayVariant {
+    return this._variant;
+  }
+
+  @HostBinding('class.skills--home')
+  get hostClassHome(): boolean {
+    return this.variant === 'home';
+  }
+
+  @HostBinding('class.skills--page')
+  get hostClassPage(): boolean {
+    return this.variant === 'page';
+  }
 
   private readonly destroy$ = new Subject<void>();
   private readonly stackOrder: SkillTabId[] = ['backend', 'frontend', 'tooling', 'devops'];
