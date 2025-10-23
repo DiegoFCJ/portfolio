@@ -102,6 +102,10 @@ app-assistant .assistant {
   flex: 0 0 auto;
 }
 
+app-assistant .assistant__backdrop {
+  display: none;
+}
+
 app-assistant .assistant__anchor {
   position: relative;
   width: var(--assistant-avatar-size);
@@ -321,6 +325,52 @@ app-assistant .assistant__steps li {
     }
   }
 
+  app-assistant .assistant__backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(9, 16, 30, 0.68);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    z-index: var(--layer-modal-overlay, 80);
+  }
+
+  app-assistant .assistant--open .assistant__backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  :host-context(.navigator-wrapper--assistant-active) app-assistant,
+  .navigator-wrapper--assistant-active app-assistant {
+    --assistant-mobile-viewport-buffer: clamp(64px, 18vh, 96px);
+    --assistant-popup-viewport-margin: calc(
+      clamp(120px, 24vh, 168px) + var(--assistant-popup-safe-area-bottom)
+    );
+  }
+
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant,
+  .navigator-wrapper--assistant-active app-assistant .assistant {
+    position: fixed;
+    inset: 0;
+    bottom: auto;
+    right: auto;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-width: 0;
+    padding: clamp(56px, 12vh, 92px) clamp(18px, 8vw, 32px)
+      calc(
+        var(--assistant-mobile-anchor-footprint, 148px) +
+        var(--assistant-mobile-safe-area-bottom, 0px) +
+        clamp(32px, 8vh, 56px)
+      );
+    align-items: flex-start;
+    justify-content: center;
+    pointer-events: none;
+    z-index: var(--layer-modal-dialog, 90);
+  }
+
   app-assistant .assistant__content {
     max-height: min(
       420px,
@@ -346,6 +396,42 @@ app-assistant .assistant__steps li {
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
     padding-bottom: calc(0.75rem + var(--assistant-mobile-safe-area-bottom, 0px));
+  }
+
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__popup,
+  .navigator-wrapper--assistant-active app-assistant .assistant__popup {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(100%, var(--assistant-popup-effective-width));
+    max-width: var(--assistant-popup-effective-width);
+    margin: 0 auto;
+    max-height: min(
+      540px,
+      calc(
+        var(--assistant-mobile-viewport-height, 100vh) -
+          (
+            clamp(56px, 12vh, 92px) +
+            var(--assistant-mobile-anchor-footprint, 148px) +
+            var(--assistant-mobile-safe-area-bottom, 0px) +
+            clamp(32px, 8vh, 56px)
+          )
+      )
+    );
+    z-index: 2;
+  }
+
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__anchor,
+  .navigator-wrapper--assistant-active app-assistant .assistant__anchor {
+    position: fixed;
+    inset-inline-end: clamp(18px, 8vw, 28px);
+    inset-block-end: calc(var(--assistant-mobile-safe-area-bottom, 0px) + clamp(18px, 5vh, 32px));
+    z-index: 3;
+  }
+
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__shadow,
+  .navigator-wrapper--assistant-active app-assistant .assistant__shadow {
+    display: none;
   }
 
   app-assistant .assistant__content-scroll::-webkit-scrollbar {

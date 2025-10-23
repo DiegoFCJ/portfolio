@@ -191,6 +191,7 @@ app-navigator {
       position: relative;
       flex: 1 1 auto;
       min-width: 0;
+      z-index: var(--layer-modal-container, 70);
   }
 
   .navigator-wrapper--with-assistant {
@@ -203,30 +204,15 @@ app-navigator {
   }
 
   @media (max-width: 768px) {
-      .navigator-wrapper.navigator-wrapper--with-assistant.navigator-wrapper--assistant-active {
-          flex-direction: column-reverse;
-          align-items: stretch;
-          gap: clamp(18px, 5vw, 32px);
-
-          .modern-navigator {
-              align-items: center;
-              width: 100%;
-
-              .nav-toggle-button {
-                  align-self: center;
-                  margin-top: clamp(12px, 3vh, 24px);
-              }
+      .navigator-wrapper.navigator-wrapper--assistant-active {
+          .modern-navigator,
+          .home__floating.home__floating--stack {
+              display: none;
           }
 
           .navigator-wrapper__assistant {
               justify-content: center;
               width: 100%;
-              padding-inline: clamp(18px, 6vw, 28px);
-          }
-
-          .home__floating.home__floating--stack {
-              left: 50%;
-              transform: translateX(-50%);
           }
       }
   }
