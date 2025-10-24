@@ -3,15 +3,18 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { EnvironmentConfig } from '../../environments/environment';
 import { APP_ENVIRONMENT } from '../tokens/environment.token';
 
+type GtagFunction = (...args: unknown[]) => void;
+
 interface AnalyticsWindow extends Window {
   dataLayer: unknown[];
-  gtag?: (...args: unknown[]) => void;
+  gtag?: GtagFunction;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AnalyticsService {
   private readonly consentKeys = ['analytics-consent', 'cookie-consent', 'cookie_consent'];
   private isBootstrapped = false;
+  private isConsentDefaultSent = false;
 
   constructor(
     @Inject(APP_ENVIRONMENT) private readonly environment: EnvironmentConfig,
@@ -32,16 +35,31 @@ export class AnalyticsService {
 
     this.appendAnalyticsScript(trackingId);
 
-    win.dataLayer = win.dataLayer || [];
-    win.gtag = win.gtag || function gtag() {
-      // eslint-disable-next-line prefer-rest-params
-      (win.dataLayer as unknown[]).push(arguments);
-    };
+    this.ensureAnalyticsStubs(win);
 
     win.gtag('js', new Date());
     win.gtag('config', trackingId);
 
     this.isBootstrapped = true;
+  }
+
+  updateConsent(consentGranted: boolean): void {
+    const win = this.documentRef.defaultView as AnalyticsWindow | null;
+    if (!win) {
+      return;
+    }
+
+    this.ensureAnalyticsStubs(win);
+
+    if (!this.isConsentDefaultSent) {
+      win.gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied' });
+      this.isConsentDefaultSent = true;
+    }
+
+    win.gtag('consent', 'update', {
+      analytics_storage: consentGranted ? 'granted' : 'denied',
+      ad_storage: 'denied',
+    });
   }
 
   trackPageView(url: string): void {
@@ -106,5 +124,13 @@ export class AnalyticsService {
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
     head.appendChild(script);
+  }
+
+  private ensureAnalyticsStubs(win: AnalyticsWindow): asserts win is AnalyticsWindow & { gtag: GtagFunction } {
+    win.dataLayer = win.dataLayer || [];
+    win.gtag = win.gtag || function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      (win.dataLayer as unknown[]).push(arguments);
+    };
   }
 }
