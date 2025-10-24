@@ -253,7 +253,7 @@ export class AssistantComponent implements OnInit, AfterViewInit, OnDestroy {
   private visualViewportSubscription?: Subscription;
   private anchorTransitionFrame: number | null = null;
   private anchorTransitionPendingCount = 0;
-  private anchorTransitionFallbackTimer: ReturnType<typeof setTimeout> | null = null;
+  private anchorTransitionFallbackTimer: ReturnType<typeof window.setTimeout> | null = null;
   private scrollLockState: {
     scrollY: number;
     previousBodyPosition: string;
