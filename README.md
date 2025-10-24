@@ -150,7 +150,7 @@ The Express server listens on `http://localhost:4000` by default.
   ```bash
   git tag v1.0.0 && git push origin v1.0.0
   ```
-- **Pull Request preview** – Each open PR gets its own preview at `https://<github-username>.github.io/portfolio/previews/pr-<PR_NUMBER>/`. Once the `Deploy Preview to GitHub Pages / build-and-deploy` job succeeds, the same URL is shown in the PR environments panel.
+- **Pull Request preview** – Each open PR gets its own preview at `https://<github-username>.github.io/portfolio/previews/pr-<PR_NUMBER>/`. Once the `Deploy Preview to GitHub Pages / build-and-deploy` job succeeds, the same URL is shown in the PR environments panel. Configure the repository secrets `GA_TRACKING_ID`, `FORMSPREE_ENDPOINT`, `ENABLE_ANALYTICS`, `ENABLE_ERROR_TRACKING`, `SENTRY_DSN` and `SENTRY_TRACES_SAMPLE_RATE` so the preview workflow can run `npm run configure:env:prod` before building.
 
 ### License
 This repository is distributed under the [MIT License](LICENSE). Key dependencies such as Angular and Express also adopt the MIT terms, ensuring the stack remains permissively licensed.
@@ -267,7 +267,7 @@ Il server Express è in ascolto su `http://localhost:4000`.
   ```bash
   git tag v1.0.0 && git push origin v1.0.0
   ```
-- **Anteprima delle Pull Request** – Ogni PR aperta pubblica un'anteprima su `https://<github-username>.github.io/portfolio/previews/pr-<NUMERO_PR>/`. Quando il job `Deploy Preview to GitHub Pages / build-and-deploy` va a buon fine, lo stesso link compare anche nel pannello degli ambienti della PR.
+- **Anteprima delle Pull Request** – Ogni PR aperta pubblica un'anteprima su `https://<github-username>.github.io/portfolio/previews/pr-<NUMERO_PR>/`. Quando il job `Deploy Preview to GitHub Pages / build-and-deploy` va a buon fine, lo stesso link compare anche nel pannello degli ambienti della PR. Imposta i secret del repository `GA_TRACKING_ID`, `FORMSPREE_ENDPOINT`, `ENABLE_ANALYTICS`, `ENABLE_ERROR_TRACKING`, `SENTRY_DSN` e `SENTRY_TRACES_SAMPLE_RATE` per permettere al workflow di eseguire `npm run configure:env:prod` prima della build.
 
 ### Licenza
 Questo repository è distribuito con [licenza MIT](LICENSE). Anche dipendenze principali come Angular ed Express adottano condizioni MIT, mantenendo l'intero stack con una licenza permissiva.

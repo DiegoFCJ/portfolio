@@ -48,6 +48,16 @@ jobs:
       - name: Run unit tests
         run: npm test -- --watch=false --browsers=ChromeHeadless
 
+      - name: Configure preview environment
+        env:
+          NG_APP_GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
+          NG_APP_FORMSPREE_ENDPOINT: ${{ secrets.FORMSPREE_ENDPOINT }}
+          NG_APP_ENABLE_ANALYTICS: ${{ secrets.ENABLE_ANALYTICS }}
+          NG_APP_ENABLE_ERROR_TRACKING: ${{ secrets.ENABLE_ERROR_TRACKING }}
+          NG_APP_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          NG_APP_SENTRY_TRACES_SAMPLE_RATE: ${{ secrets.SENTRY_TRACES_SAMPLE_RATE }}
+        run: npm run configure:env:prod
+
       - name: Build preview
         run: npm run build -- --output-path=dist/portfolio --base-href="$PREVIEW_BASE_HREF"
 
