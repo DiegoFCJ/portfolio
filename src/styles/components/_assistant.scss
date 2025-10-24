@@ -108,6 +108,9 @@ app-assistant .assistant__anchor {
   height: var(--assistant-avatar-size);
   pointer-events: auto;
   z-index: 3;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.46s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
 }
 
 app-assistant .assistant__avatar {
@@ -307,6 +310,19 @@ app-assistant .assistant__steps li {
     --assistant-mobile-anchor-footprint: 148px;
     --assistant-mobile-safe-area-bottom: var(--assistant-safe-area-bottom, 0px);
     --assistant-mobile-viewport-buffer: clamp(20px, 6vh, 36px);
+    --assistant-mobile-anchor-top-gap: clamp(12px, 6vh, 24px);
+    --assistant-mobile-anchor-bottom-gap: clamp(18px, 6vh, 32px);
+    --assistant-mobile-anchor-horizontal-gap: clamp(16px, 6vw, 28px);
+    --assistant-mobile-anchor-rise: max(
+      0px,
+      calc(
+        var(--assistant-mobile-viewport-height, 100vh) -
+          var(--assistant-mobile-anchor-top-gap, 0px) -
+          var(--assistant-mobile-anchor-bottom-gap, 0px) -
+          var(--assistant-avatar-size, 48px) -
+          var(--assistant-mobile-safe-area-bottom, 0px)
+      )
+    );
   }
 
   @supports (height: 100dvh) {
@@ -384,7 +400,7 @@ app-assistant .assistant__steps li {
     width: min(100%, var(--assistant-popup-effective-width));
     max-width: var(--assistant-popup-effective-width);
     margin:
-      calc(var(--assistant-avatar-size, 48px) + clamp(18px, 6vw, 32px))
+      calc(var(--assistant-avatar-size, 48px) + var(--assistant-mobile-anchor-bottom-gap, clamp(18px, 6vw, 32px)))
       clamp(12px, 5vw, 24px)
       0;
     max-height: min(
@@ -402,8 +418,19 @@ app-assistant .assistant__steps li {
   :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__anchor,
   .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__anchor {
     position: fixed;
-    inset-inline-end: clamp(16px, 6vw, 28px);
-    inset-block-start: clamp(12px, 6vh, 24px);
+    inset-inline-end: var(
+      --assistant-mobile-anchor-horizontal-gap,
+      clamp(16px, 6vw, 28px)
+    );
+    inset-block-end: calc(
+      var(--assistant-mobile-safe-area-bottom, 0px) +
+        var(--assistant-mobile-anchor-bottom-gap, clamp(18px, 6vh, 32px))
+    );
+    transform: translate3d(
+      0,
+      calc(-1 * var(--assistant-mobile-anchor-rise, 0px)),
+      0
+    );
     z-index: 3;
   }
 
