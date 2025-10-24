@@ -253,6 +253,7 @@ export class AssistantComponent implements OnInit, AfterViewInit, OnDestroy {
   private visualViewportSubscription?: Subscription;
   private anchorTransitionFrame: number | null = null;
   private anchorTransitionPendingCount = 0;
+  private anchorTransitionFallbackTimer: ReturnType<typeof setTimeout> | null = null;
   private scrollLockState: {
     scrollY: number;
     previousBodyPosition: string;
@@ -595,6 +596,7 @@ export class AssistantComponent implements OnInit, AfterViewInit, OnDestroy {
   private startWonderingPhase(): void {
     this.clearWonderingTimer();
     this.animationPhase = 'wondering';
+    this.ensureAnchorTransitionSync();
 
     this.wonderingTimer = setTimeout(() => {
       this.wonderingTimer = null;
@@ -837,8 +839,43 @@ export class AssistantComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private resetAnchorTransitionState(): void {
+    if (this.anchorTransitionFallbackTimer !== null) {
+      clearTimeout(this.anchorTransitionFallbackTimer);
+      this.anchorTransitionFallbackTimer = null;
+    }
+
     this.anchorTransitionPendingCount = 0;
     this.stopAnchorTransitionSync();
+  }
+
+  private ensureAnchorTransitionSync(durationMs: number = 700): void {
+    if (!this.isBrowser || !this.isOpen || !this.anchorRef || !this.isMobile) {
+      return;
+    }
+
+    if (this.anchorTransitionFallbackTimer === null) {
+      this.anchorTransitionPendingCount += 1;
+    } else {
+      clearTimeout(this.anchorTransitionFallbackTimer);
+    }
+
+    this.startAnchorTransitionSync();
+
+    this.anchorTransitionFallbackTimer = window.setTimeout(() => {
+      this.anchorTransitionFallbackTimer = null;
+
+      if (this.anchorTransitionPendingCount > 0) {
+        this.anchorTransitionPendingCount -= 1;
+      }
+
+      if (this.anchorTransitionPendingCount === 0) {
+        this.stopAnchorTransitionSync();
+
+        if (this.isOpen) {
+          this.requestLandingUpdate();
+        }
+      }
+    }, durationMs);
   }
 
   private registerVisualViewportListeners(): void {
