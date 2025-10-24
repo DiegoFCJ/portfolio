@@ -4,7 +4,7 @@ import { EnvironmentConfig } from '../../environments/environment';
 import { APP_ENVIRONMENT } from '../tokens/environment.token';
 
 interface AnalyticsWindow extends Window {
-  dataLayer: unknown[];
+  dataLayer?: unknown[];
   gtag?: (...args: unknown[]) => void;
 }
 
@@ -30,18 +30,39 @@ export class AnalyticsService {
       return;
     }
 
+    this.ensureDataLayer(win);
     this.appendAnalyticsScript(trackingId);
 
-    win.dataLayer = win.dataLayer || [];
-    win.gtag = win.gtag || function gtag() {
-      // eslint-disable-next-line prefer-rest-params
-      (win.dataLayer as unknown[]).push(arguments);
-    };
-
-    win.gtag('js', new Date());
-    win.gtag('config', trackingId);
+    const gtag = win.gtag!;
+    gtag('js', new Date());
+    gtag('config', trackingId);
 
     this.isBootstrapped = true;
+  }
+
+  updateConsent(consentGranted: boolean): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const win = this.documentRef.defaultView as AnalyticsWindow | null;
+    if (!win) {
+      return;
+    }
+
+    this.ensureDataLayer(win);
+
+    const gtag = win.gtag!;
+
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+    });
+
+    gtag('consent', 'update', {
+      analytics_storage: consentGranted ? 'granted' : 'denied',
+      ad_storage: 'denied',
+    });
   }
 
   trackPageView(url: string): void {
@@ -106,5 +127,18 @@ export class AnalyticsService {
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
     head.appendChild(script);
+  }
+
+  private ensureDataLayer(win: AnalyticsWindow): void {
+    if (!win.dataLayer) {
+      win.dataLayer = [];
+    }
+
+    if (!win.gtag) {
+      win.gtag = function gtag() {
+        // eslint-disable-next-line prefer-rest-params
+        (win.dataLayer as unknown[]).push(arguments);
+      };
+    }
   }
 }

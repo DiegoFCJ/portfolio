@@ -72,12 +72,13 @@ export class AppComponent implements OnInit {
       return;
     }
 
+    this.analyticsService.updateConsent(consentGranted);
+
     if (consentGranted && !this.analyticsConsentGranted) {
       this.analyticsService.initialize();
-      this.analyticsConsentGranted = true;
-    } else if (!consentGranted) {
-      this.analyticsConsentGranted = false;
     }
+
+    this.analyticsConsentGranted = consentGranted;
   }
 
   private updatePageTitle(language: LanguageCode): void {

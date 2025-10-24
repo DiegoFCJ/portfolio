@@ -107,4 +107,42 @@ describe('AnalyticsService', () => {
     const script = getDocument().head.querySelector('script[src*="googletagmanager.com/gtag/js?id=G-TEST123"]');
     expect(script).toBeNull();
   });
+
+  it('should enqueue consent events when gtag is not defined', () => {
+    const analyticsService = getService();
+
+    const win = getDocument().defaultView as Window & { dataLayer?: IArguments[]; gtag?: unknown };
+    delete win.gtag;
+    delete win.dataLayer;
+
+    analyticsService.updateConsent(false);
+
+    expect(win.dataLayer?.length).toBe(2);
+    const [defaultEvent, updateEvent] = (win.dataLayer ?? []) as Array<IArguments | undefined>;
+    expect(defaultEvent?.[0]).toBe('consent');
+    expect(defaultEvent?.[1]).toBe('default');
+    expect(defaultEvent?.[2]).toEqual({ analytics_storage: 'denied', ad_storage: 'denied' });
+    expect(updateEvent?.[0]).toBe('consent');
+    expect(updateEvent?.[1]).toBe('update');
+    expect(updateEvent?.[2]).toEqual({ analytics_storage: 'denied', ad_storage: 'denied' });
+  });
+
+  it('should send consent update with granted status', () => {
+    const analyticsService = getService();
+
+    const win = getDocument().defaultView as Window & { gtag?: jasmine.Spy };
+    win.gtag = jasmine.createSpy('gtag');
+
+    analyticsService.updateConsent(true);
+
+    expect(win.gtag).toHaveBeenCalledWith('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+    });
+    expect(win.gtag).toHaveBeenCalledWith('consent', 'update', {
+      analytics_storage: 'granted',
+      ad_storage: 'denied',
+    });
+    expect(win.gtag?.calls.count()).toBe(2);
+  });
 });
