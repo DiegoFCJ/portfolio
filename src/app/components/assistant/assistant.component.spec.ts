@@ -120,18 +120,4 @@ describe('AssistantComponent', () => {
     expect(component.isOpen).toBeFalse();
   }));
 
-  it('should close when tapping the backdrop on mobile', fakeAsync(() => {
-    spyOn(component, 'closeAssistant').and.callThrough();
-
-    (component as any).isMobile = true;
-
-    component.openAssistant();
-    tick(ASSISTANT_WAKE_DURATION_MS);
-
-    component.onBackdropClick(new MouseEvent('click'));
-    tick(ASSISTANT_FALL_DURATION_MS);
-
-    expect(component.closeAssistant).toHaveBeenCalled();
-    expect(component.isOpen).toBeFalse();
-  }));
 });

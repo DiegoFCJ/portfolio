@@ -102,10 +102,6 @@ app-assistant .assistant {
   flex: 0 0 auto;
 }
 
-app-assistant .assistant__backdrop {
-  display: none;
-}
-
 app-assistant .assistant__anchor {
   position: relative;
   width: var(--assistant-avatar-size);
@@ -325,22 +321,6 @@ app-assistant .assistant__steps li {
     }
   }
 
-  app-assistant .assistant__backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background: rgba(9, 16, 30, 0.68);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s ease;
-    z-index: var(--layer-modal-overlay, 80);
-  }
-
-  app-assistant .assistant--open .assistant__backdrop {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
   :host-context(.navigator-wrapper--assistant-active) app-assistant,
   .navigator-wrapper--assistant-active app-assistant {
     --assistant-mobile-viewport-buffer: clamp(64px, 18vh, 96px);
@@ -349,8 +329,8 @@ app-assistant .assistant__steps li {
     );
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant,
-  .navigator-wrapper--assistant-active app-assistant .assistant {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open {
     position: fixed;
     inset: 0;
     bottom: auto;
@@ -396,8 +376,8 @@ app-assistant .assistant__steps li {
     padding-bottom: calc(0.75rem + var(--assistant-mobile-safe-area-bottom, 0px));
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__popup,
-  .navigator-wrapper--assistant-active app-assistant .assistant__popup {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__popup,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__popup {
     position: relative;
     right: auto;
     bottom: auto;
@@ -419,16 +399,16 @@ app-assistant .assistant__steps li {
     z-index: 2;
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__anchor,
-  .navigator-wrapper--assistant-active app-assistant .assistant__anchor {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__anchor,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__anchor {
     position: fixed;
     inset-inline-end: clamp(16px, 6vw, 28px);
     inset-block-start: clamp(12px, 6vh, 24px);
     z-index: 3;
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__shadow,
-  .navigator-wrapper--assistant-active app-assistant .assistant__shadow {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__shadow,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__shadow {
     display: none;
   }
 
