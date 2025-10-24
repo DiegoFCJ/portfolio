@@ -13,9 +13,6 @@ describe('EmailService', () => {
     gaTrackingId: 'G-1234567890',
     formspreeEndpoint,
     enableAnalytics: true,
-    enableErrorTracking: true,
-    sentryDsn: 'https://example@sentry.test/1',
-    sentryTracesSampleRate: 0,
   };
 
   beforeEach(() => {

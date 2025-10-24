@@ -19,9 +19,6 @@ describe('ContactMeComponent', () => {
     gaTrackingId: '',
     formspreeEndpoint: '',
     enableAnalytics: false,
-    enableErrorTracking: false,
-    sentryDsn: '',
-    sentryTracesSampleRate: 0,
   };
 
   /**

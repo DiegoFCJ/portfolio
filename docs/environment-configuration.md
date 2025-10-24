@@ -1,6 +1,6 @@
 # Environment configuration
 
-This document centralises the steps required to keep analytics, the contact form and error tracking configured across local development and CI builds.
+This document centralises the steps required to keep analytics and the contact form configured across local development and CI builds.
 
 ## Available keys
 
@@ -9,13 +9,10 @@ Both `src/environments/environment.ts` (development) and `src/environments/envir
 - `gaTrackingId` – Google Analytics 4 tracking identifier (the measurement ID is public and ships with the client bundle).
 - `formspreeEndpoint` – Formspree endpoint consumed by `EmailService` (public value; safe to expose but you may keep it outside git for convenience).
 - `enableAnalytics` – Enables Google Analytics initialisation.
-- `enableErrorTracking` – Activates Sentry error handlers.
-- `sentryDsn` – Sentry DSN.
-- `sentryTracesSampleRate` – Sampling rate applied to traces (defaults to `1`). Set this to `0` to disable tracing without affecting error reporting.
 
 ## Local development
 
-1. Keep `enableAnalytics` and `enableErrorTracking` disabled while developing unless you want to interact with the real services.
+1. Keep `enableAnalytics` disabled while developing unless you want to interact with the real services.
 2. When testing integrations locally, temporarily set the desired IDs in `environment.ts` or export them while running the generator:
    ```bash
    NG_APP_FORMSPREE_ENDPOINT="https://formspree.io/f/your-form" \
@@ -28,7 +25,7 @@ Both `src/environments/environment.ts` (development) and `src/environments/envir
 
 ## Continuous integration
 
-Provide the analytics and Sentry secrets as encrypted values in the CI system (for GitHub Actions use **Settings → Secrets and variables**). Although both identifiers are public once the site is deployed, keeping them in secrets ensures the repository stays environment-agnostic. Generate the production file during the build with `npm run configure:env:prod`:
+Provide the analytics secrets as encrypted values in the CI system (for GitHub Actions use **Settings → Secrets and variables**). Although the identifiers are public once the site is deployed, keeping them in secrets ensures the repository stays environment-agnostic. Generate the production file during the build with `npm run configure:env:prod`:
 
 ```yaml
 - name: Configure Angular environment
@@ -37,9 +34,6 @@ Provide the analytics and Sentry secrets as encrypted values in the CI system (f
     NG_APP_GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
     NG_APP_FORMSPREE_ENDPOINT: ${{ secrets.FORMSPREE_ENDPOINT }}
     NG_APP_ENABLE_ANALYTICS: 'true'
-    NG_APP_ENABLE_ERROR_TRACKING: 'true'
-    NG_APP_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-    NG_APP_SENTRY_TRACES_SAMPLE_RATE: '0.5'
 ```
 
-Adjust the sampling rate and toggles as needed per environment. You can swap the variables for the unprefixed equivalents (for example `GA_TRACKING_ID` or `SENTRY_DSN`) when your CI already exposes them with those names. Store the secrets in your CI system (Formspree can live there even if it is public) so each build writes a fresh `environment.prod.ts` without committing the real identifiers to git.
+Adjust the toggles as needed per environment. You can swap the variables for the unprefixed equivalents (for example `GA_TRACKING_ID`) when your CI already exposes them with those names. Store the secrets in your CI system (Formspree can live there even if it is public) so each build writes a fresh `environment.prod.ts` without committing the real identifiers to git.

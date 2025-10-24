@@ -11,9 +11,6 @@ describe('AnalyticsService', () => {
     gaTrackingId: 'G-TEST123',
     formspreeEndpoint: '',
     enableAnalytics: true,
-    enableErrorTracking: false,
-    sentryDsn: '',
-    sentryTracesSampleRate: 0,
   };
 
   let service: AnalyticsService | undefined;
