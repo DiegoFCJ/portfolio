@@ -353,15 +353,6 @@ export class AssistantComponent implements OnInit, OnDestroy {
     }
   }
 
-  onBackdropClick(event: MouseEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (this.isOpen) {
-      this.closeAssistant();
-    }
-  }
-
   openAssistant(): void {
     if (this.isOpen || this.animationPhase !== 'sleeping') {
       return;

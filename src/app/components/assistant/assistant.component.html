@@ -6,12 +6,6 @@
      [class.assistant--phase-wondering]="animationPhase === 'wondering'"
      [class.assistant--phase-perched]="animationPhase === 'perched'"
       [class.assistant--phase-falling]="animationPhase === 'falling'">
-  <div
-    *ngIf="isOpen"
-    class="assistant__backdrop"
-    (click)="onBackdropClick($event)"
-    aria-hidden="true"
-  ></div>
   <div class="assistant__anchor">
     <span class="assistant__shadow" aria-hidden="true"></span>
     <button #avatar

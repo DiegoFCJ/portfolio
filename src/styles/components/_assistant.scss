@@ -102,16 +102,15 @@ app-assistant .assistant {
   flex: 0 0 auto;
 }
 
-app-assistant .assistant__backdrop {
-  display: none;
-}
-
 app-assistant .assistant__anchor {
   position: relative;
   width: var(--assistant-avatar-size);
   height: var(--assistant-avatar-size);
   pointer-events: auto;
   z-index: 3;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.46s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
 }
 
 app-assistant .assistant__avatar {
@@ -311,6 +310,9 @@ app-assistant .assistant__steps li {
     --assistant-mobile-anchor-footprint: 148px;
     --assistant-mobile-safe-area-bottom: var(--assistant-safe-area-bottom, 0px);
     --assistant-mobile-viewport-buffer: clamp(20px, 6vh, 36px);
+    --assistant-mobile-anchor-top-gap: clamp(12px, 6vh, 24px);
+    --assistant-mobile-anchor-bottom-gap: clamp(18px, 6vh, 32px);
+    --assistant-mobile-anchor-horizontal-gap: clamp(16px, 6vw, 28px);
   }
 
   @supports (height: 100dvh) {
@@ -325,22 +327,6 @@ app-assistant .assistant__steps li {
     }
   }
 
-  app-assistant .assistant__backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background: rgba(9, 16, 30, 0.68);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s ease;
-    z-index: var(--layer-modal-overlay, 80);
-  }
-
-  app-assistant .assistant--open .assistant__backdrop {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
   :host-context(.navigator-wrapper--assistant-active) app-assistant,
   .navigator-wrapper--assistant-active app-assistant {
     --assistant-mobile-viewport-buffer: clamp(64px, 18vh, 96px);
@@ -349,8 +335,8 @@ app-assistant .assistant__steps li {
     );
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant,
-  .navigator-wrapper--assistant-active app-assistant .assistant {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open {
     position: fixed;
     inset: 0;
     bottom: auto;
@@ -359,14 +345,12 @@ app-assistant .assistant__steps li {
     top: 0;
     width: 100%;
     min-width: 0;
-    padding: clamp(56px, 12vh, 92px) clamp(18px, 8vw, 32px)
-      calc(
-        var(--assistant-mobile-anchor-footprint, 148px) +
-        var(--assistant-mobile-safe-area-bottom, 0px) +
-        clamp(32px, 8vh, 56px)
-      );
-    align-items: flex-start;
-    justify-content: center;
+    padding:
+      clamp(24px, 8vh, 48px)
+      clamp(16px, 6vw, 28px)
+      calc(var(--assistant-mobile-safe-area-bottom, 0px) + clamp(32px, 10vh, 64px));
+    align-items: stretch;
+    justify-content: flex-start;
     pointer-events: none;
     z-index: var(--layer-modal-dialog, 90);
   }
@@ -398,39 +382,59 @@ app-assistant .assistant__steps li {
     padding-bottom: calc(0.75rem + var(--assistant-mobile-safe-area-bottom, 0px));
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__popup,
-  .navigator-wrapper--assistant-active app-assistant .assistant__popup {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__popup,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__popup {
     position: relative;
     right: auto;
     bottom: auto;
     width: min(100%, var(--assistant-popup-effective-width));
     max-width: var(--assistant-popup-effective-width);
-    margin: 0 auto;
+    margin:
+      calc(var(--assistant-avatar-size, 48px) + var(--assistant-mobile-anchor-bottom-gap, clamp(18px, 6vw, 32px)))
+      clamp(12px, 5vw, 24px)
+      0;
     max-height: min(
       540px,
       calc(
         var(--assistant-mobile-viewport-height, 100vh) -
-          (
-            clamp(56px, 12vh, 92px) +
-            var(--assistant-mobile-anchor-footprint, 148px) +
-            var(--assistant-mobile-safe-area-bottom, 0px) +
-            clamp(32px, 8vh, 56px)
-          )
+          clamp(24px, 8vh, 48px) -
+          calc(var(--assistant-avatar-size, 48px) + clamp(18px, 6vw, 32px)) -
+          calc(var(--assistant-mobile-safe-area-bottom, 0px) + clamp(32px, 10vh, 64px))
       )
     );
     z-index: 2;
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__anchor,
-  .navigator-wrapper--assistant-active app-assistant .assistant__anchor {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant .assistant__anchor,
+  .navigator-wrapper--assistant-active app-assistant .assistant .assistant__anchor {
     position: fixed;
-    inset-inline-end: clamp(18px, 8vw, 28px);
-    inset-block-end: calc(var(--assistant-mobile-safe-area-bottom, 0px) + clamp(18px, 5vh, 32px));
+    inset-inline-end: var(
+      --assistant-mobile-anchor-horizontal-gap,
+      clamp(16px, 6vw, 28px)
+    );
+    inset-block-end: calc(
+      var(--assistant-mobile-safe-area-bottom, 0px) +
+        var(--assistant-mobile-anchor-bottom-gap, clamp(18px, 6vh, 32px))
+    );
+    inset-block-start: auto;
+    transition:
+      inset-block-start 0.46s cubic-bezier(0.23, 1, 0.32, 1),
+      inset-block-end 0.46s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: inset-block-start, inset-block-end;
     z-index: 3;
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__shadow,
-  .navigator-wrapper--assistant-active app-assistant .assistant__shadow {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__anchor,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__anchor {
+    inset-block-end: auto;
+    inset-block-start: var(
+      --assistant-mobile-anchor-top-gap,
+      clamp(12px, 6vh, 24px)
+    );
+  }
+
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__shadow,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__shadow {
     display: none;
   }
 
