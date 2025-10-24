@@ -433,6 +433,29 @@ app-assistant .assistant__steps li {
     );
   }
 
+  :host-context(.navigator-wrapper--assistant-active)
+    app-assistant
+    .assistant.assistant--open.assistant--phase-waking
+    .assistant__anchor,
+  :host-context(.navigator-wrapper--assistant-active)
+    app-assistant
+    .assistant.assistant--open.assistant--phase-jumping
+    .assistant__anchor,
+  .navigator-wrapper--assistant-active
+    app-assistant
+    .assistant.assistant--open.assistant--phase-waking
+    .assistant__anchor,
+  .navigator-wrapper--assistant-active
+    app-assistant
+    .assistant.assistant--open.assistant--phase-jumping
+    .assistant__anchor {
+    inset-block-end: calc(
+      var(--assistant-mobile-safe-area-bottom, 0px) +
+        var(--assistant-mobile-anchor-bottom-gap, clamp(18px, 6vh, 32px))
+    );
+    inset-block-start: auto;
+  }
+
   :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__shadow,
   .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__shadow {
     display: none;
