@@ -59,6 +59,7 @@ export class ContactMeComponent implements OnInit, OnDestroy {
   statusMessage: string | null = null;
   currentStatus: ContactFormStatus = ContactFormStatus.Idle;
   readonly ContactFormStatus = ContactFormStatus;
+  readonly isFormspreeConfigured = this.emailService.isConfigured();
 
   private readonly destroy$ = new Subject<void>();
   private statusKey: string | null = null;
@@ -77,7 +78,7 @@ export class ContactMeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.contactMe = data;
-        this.refreshStatusMessage();
+        this.handleFormspreeConfiguration();
         this.isLoading = false;
       });
   }
@@ -93,6 +94,12 @@ export class ContactMeComponent implements OnInit, OnDestroy {
    */
   onSubmit(form: NgForm): void {
     if (!form) {
+      return;
+    }
+
+    if (!this.isFormspreeConfigured) {
+      const message = this.setStatus(ContactFormStatus.Warning, 'formspree-disabled');
+      this.showPopup(message);
       return;
     }
 
@@ -194,6 +201,16 @@ export class ContactMeComponent implements OnInit, OnDestroy {
       this.statusKey = null;
     }
     return message;
+  }
+
+  private handleFormspreeConfiguration(): void {
+    if (!this.isFormspreeConfigured) {
+      const message = this.setStatus(ContactFormStatus.Warning, 'formspree-disabled');
+      this.popupMessage = message;
+      return;
+    }
+
+    this.refreshStatusMessage();
   }
 
   private getMessageByKey(key: string): string {

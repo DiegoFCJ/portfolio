@@ -19,6 +19,7 @@ export const contactMeData: ContactMeLangs = {
       { keyMess: 'fail-retry', valueMess: 'Invio non riuscito. Riprova, per favore.' },
       { keyMess: 'err', valueMess: 'Errore:' },
       { keyMess: 'err-sending', valueMess: "Si è verificato un errore durante l'invio del messaggio." },
+      { keyMess: 'formspree-disabled', valueMess: 'Formspree non è configurato. Abilita il servizio prima di inviare.' },
       { keyMess: 'one-each-two', valueMess: 'Puoi inviare solo un messaggio ogni 2 ore. Riprova più tardi.' }
     ]
   },
@@ -40,6 +41,7 @@ export const contactMeData: ContactMeLangs = {
       { keyMess: 'fail-retry', valueMess: 'Failed to send the message. Please try again.' },
       { keyMess: 'err', valueMess: 'Error:' },
       { keyMess: 'err-sending', valueMess: 'An error occurred while sending the message.' },
+      { keyMess: 'formspree-disabled', valueMess: 'Formspree is not configured. Enable the service before sending.' },
       { keyMess: 'one-each-two', valueMess: 'You can only send one message every 2 hours. Please try again later.' }
     ]
   },
@@ -61,6 +63,7 @@ export const contactMeData: ContactMeLangs = {
       { keyMess: 'fail-retry', valueMess: 'Senden fehlgeschlagen. Bitte versuche es erneut.' },
       { keyMess: 'err', valueMess: 'Fehler:' },
       { keyMess: 'err-sending', valueMess: 'Beim Senden der Nachricht ist ein Fehler aufgetreten.' },
+      { keyMess: 'formspree-disabled', valueMess: 'Formspree ist nicht konfiguriert. Aktiviere den Dienst, bevor du sendest.' },
       { keyMess: 'one-each-two', valueMess: 'Du kannst nur alle 2 Stunden eine Nachricht senden. Bitte versuche es später noch einmal.' }
     ]
   },
@@ -82,6 +85,7 @@ export const contactMeData: ContactMeLangs = {
       { keyMess: 'fail-retry', valueMess: 'No se pudo enviar el mensaje. Inténtalo de nuevo.' },
       { keyMess: 'err', valueMess: 'Error:' },
       { keyMess: 'err-sending', valueMess: 'Se produjo un error al enviar el mensaje.' },
+      { keyMess: 'formspree-disabled', valueMess: 'Formspree no está configurado. Habilita el servicio antes de enviar.' },
       { keyMess: 'one-each-two', valueMess: 'Solo puedes enviar un mensaje cada 2 horas. Inténtalo más tarde.' }
     ]
   },
@@ -103,6 +107,7 @@ export const contactMeData: ContactMeLangs = {
       { keyMess: 'fail-retry', valueMess: 'Sending mislyktes. Prøv igjen.' },
       { keyMess: 'err', valueMess: 'Feil:' },
       { keyMess: 'err-sending', valueMess: 'Det oppstod en feil under sending av meldingen.' },
+      { keyMess: 'formspree-disabled', valueMess: 'Formspree er ikke konfigurert. Aktiver tjenesten før du sender.' },
       { keyMess: 'one-each-two', valueMess: 'Du kan bare sende én melding hver 2. time. Prøv igjen senere.' }
     ]
   },
@@ -124,6 +129,7 @@ export const contactMeData: ContactMeLangs = {
       { keyMess: 'fail-retry', valueMess: 'Не удалось отправить сообщение. Попробуйте ещё раз.' },
       { keyMess: 'err', valueMess: 'Ошибка:' },
       { keyMess: 'err-sending', valueMess: 'Произошла ошибка при отправке сообщения.' },
+      { keyMess: 'formspree-disabled', valueMess: 'Formspree не настроен. Включите сервис перед отправкой.' },
       { keyMess: 'one-each-two', valueMess: 'Можно отправлять только одно сообщение каждые 2 часа. Попробуйте позже.' }
     ]
   }

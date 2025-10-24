@@ -54,8 +54,8 @@
           </mat-form-field>
 
           <div class="submit-btn">
-            <button mat-raised-button type="submit" [disabled]="!contactForm.valid"
-              [ngClass]="{ 'enabled': contactForm.valid, 'disabled': !contactForm.valid }">
+            <button mat-raised-button type="submit" [disabled]="!contactForm.valid || !isFormspreeConfigured"
+              [ngClass]="{ 'enabled': contactForm.valid && isFormspreeConfigured, 'disabled': !contactForm.valid || !isFormspreeConfigured }">
               {{ contactMe.sendBtn }}
             </button>
           </div>

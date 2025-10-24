@@ -62,4 +62,21 @@ describe('ContactMeComponent', () => {
 
     expect(titleElement.textContent).toBe(component.contactMe.title);
   });
+
+  it('should disable the submit button when Formspree is not configured', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const button = compiled.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+    expect(button.disabled).toBeTrue();
+  });
+
+  it('should surface a warning message when Formspree is not configured', () => {
+    fixture.detectChanges();
+    expect(component.statusMessage).toBe('Formspree non è configurato. Abilita il servizio prima di inviare.');
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const statusBanner = compiled.querySelector('.status-banner');
+    expect(statusBanner?.textContent?.trim()).toBe(component.statusMessage);
+  });
 });

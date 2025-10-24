@@ -13,6 +13,8 @@ export class EmailService {
   private readonly lastSubmissionKey = 'lastSubmissionTimestamp'; // Key to store in localStorage
   private readonly cooldownPeriod = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
   private readonly endpoint: string;
+  private readonly configurationErrorMessage =
+    '[EmailService] Formspree endpoint not configured.';
 
   constructor(@Inject(APP_ENVIRONMENT) private readonly environment: EnvironmentConfig) {
     this.endpoint = environment.formspreeEndpoint;
@@ -72,12 +74,8 @@ export class EmailService {
    */
   sendEmail(formData: { name: string; email: string; message: string }): Promise<Response> {
     if (!this.endpoint) {
-      console.info('[EmailService] Formspree endpoint not configured. Payload:', formData);
-      return Promise.resolve(new Response(JSON.stringify({ simulated: true }), {
-        status: 200,
-        statusText: 'Simulated submission',
-        headers: { 'Content-Type': 'application/json' },
-      }));
+      console.error(this.configurationErrorMessage, { payload: formData });
+      return Promise.reject(new Error(this.configurationErrorMessage));
     }
 
     return fetch(this.endpoint, {
@@ -88,5 +86,12 @@ export class EmailService {
       },
       body: JSON.stringify(formData),
     });
+  }
+
+  /**
+   * Indicates whether the Formspree endpoint is configured.
+   */
+  isConfigured(): boolean {
+    return Boolean(this.endpoint);
   }
 }

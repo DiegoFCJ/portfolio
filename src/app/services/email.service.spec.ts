@@ -15,12 +15,22 @@ describe('EmailService', () => {
     enableAnalytics: true,
   };
 
-  beforeEach(() => {
+  const configureTestingModule = (overrides?: Partial<EnvironmentConfig>) => {
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      providers: [{ provide: APP_ENVIRONMENT, useValue: environmentStub }],
+      providers: [
+        {
+          provide: APP_ENVIRONMENT,
+          useValue: { ...environmentStub, ...overrides },
+        },
+      ],
     });
     service = TestBed.inject(EmailService);
     localStorage.clear();
+  };
+
+  beforeEach(() => {
+    configureTestingModule();
   });
 
   it('should be created', () => {
@@ -78,6 +88,17 @@ describe('EmailService', () => {
     });
   });
 
+  describe('isConfigured', () => {
+    it('should return true when the Formspree endpoint is set', () => {
+      expect(service.isConfigured()).toBeTrue();
+    });
+
+    it('should return false when the Formspree endpoint is missing', () => {
+      configureTestingModule({ formspreeEndpoint: '' });
+      expect(service.isConfigured()).toBeFalse();
+    });
+  });
+
   describe('sendEmail', () => {
     const mockFormData = {
       name: 'John Doe',
@@ -86,6 +107,7 @@ describe('EmailService', () => {
     };
 
     beforeEach(() => {
+      configureTestingModule();
       spyOn(window, 'fetch').and.returnValue(
         Promise.resolve(new Response(null, { status: 200 }))
       );
@@ -111,6 +133,26 @@ describe('EmailService', () => {
       );
       const response = await service.sendEmail(mockFormData);
       expect(response.ok).toBeFalse();
+    });
+  });
+
+  describe('sendEmail when Formspree is not configured', () => {
+    const mockFormData = {
+      name: 'Jane Smith',
+      email: 'jane.smith@example.com',
+      message: 'Testing missing endpoint handling.',
+    };
+
+    beforeEach(() => {
+      configureTestingModule({ formspreeEndpoint: '' });
+      spyOn(window, 'fetch');
+    });
+
+    it('should reject with a configuration error and avoid network calls', async () => {
+      await expectAsync(service.sendEmail(mockFormData)).toBeRejectedWithError(
+        '[EmailService] Formspree endpoint not configured.'
+      );
+      expect(window.fetch).not.toHaveBeenCalled();
     });
   });
 });
