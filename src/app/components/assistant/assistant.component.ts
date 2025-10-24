@@ -253,7 +253,7 @@ export class AssistantComponent implements OnInit, AfterViewInit, OnDestroy {
   private visualViewportSubscription?: Subscription;
   private anchorTransitionFrame: number | null = null;
   private anchorTransitionPendingCount = 0;
-  private anchorTransitionFallbackTimer: ReturnType<typeof window.setTimeout> | null = null;
+  private anchorTransitionFallbackTimer: number | null = null;
   private scrollLockState: {
     scrollY: number;
     previousBodyPosition: string;
@@ -840,7 +840,7 @@ export class AssistantComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private resetAnchorTransitionState(): void {
     if (this.anchorTransitionFallbackTimer !== null) {
-      clearTimeout(this.anchorTransitionFallbackTimer);
+      window.clearTimeout(this.anchorTransitionFallbackTimer);
       this.anchorTransitionFallbackTimer = null;
     }
 
@@ -856,7 +856,7 @@ export class AssistantComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.anchorTransitionFallbackTimer === null) {
       this.anchorTransitionPendingCount += 1;
     } else {
-      clearTimeout(this.anchorTransitionFallbackTimer);
+      window.clearTimeout(this.anchorTransitionFallbackTimer);
     }
 
     this.startAnchorTransitionSync();
