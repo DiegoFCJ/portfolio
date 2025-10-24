@@ -3,9 +3,11 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { EnvironmentConfig } from '../../environments/environment';
 import { APP_ENVIRONMENT } from '../tokens/environment.token';
 
+type GtagFunction = (...args: unknown[]) => void;
+
 interface AnalyticsWindow extends Window {
   dataLayer: unknown[];
-  gtag?: (...args: unknown[]) => void;
+  gtag?: GtagFunction;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -124,7 +126,7 @@ export class AnalyticsService {
     head.appendChild(script);
   }
 
-  private ensureAnalyticsStubs(win: AnalyticsWindow): void {
+  private ensureAnalyticsStubs(win: AnalyticsWindow): asserts win is AnalyticsWindow & { gtag: GtagFunction } {
     win.dataLayer = win.dataLayer || [];
     win.gtag = win.gtag || function gtag() {
       // eslint-disable-next-line prefer-rest-params
