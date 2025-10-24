@@ -22,9 +22,6 @@ describe('HomeComponent', () => {
             gaTrackingId: 'test-tracking-id',
             formspreeEndpoint: '',
             enableAnalytics: false,
-            enableErrorTracking: false,
-            sentryDsn: '',
-            sentryTracesSampleRate: 0,
           } satisfies EnvironmentConfig,
         },
       ]
