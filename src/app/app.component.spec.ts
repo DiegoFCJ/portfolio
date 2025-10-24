@@ -66,7 +66,7 @@ describe('AppComponent', () => {
       getCurrentLanguage: jasmine.createSpy('getCurrentLanguage').and.callFake(() => languageSubject.value),
     };
 
-    analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView']);
+    analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView', 'updateConsent']);
 
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, AppComponent],
@@ -90,18 +90,27 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     expect(analyticsService.initialize).not.toHaveBeenCalled();
+    expect(analyticsService.updateConsent).not.toHaveBeenCalled();
 
     const app = fixture.componentInstance;
     app.onConsentChange(true);
 
+    expect(analyticsService.updateConsent).toHaveBeenCalledTimes(1);
+    expect(analyticsService.updateConsent).toHaveBeenCalledWith(true);
     expect(analyticsService.initialize).toHaveBeenCalledTimes(1);
 
     app.onConsentChange(true);
     expect(analyticsService.initialize).toHaveBeenCalledTimes(1);
+    expect(analyticsService.updateConsent).toHaveBeenCalledTimes(2);
 
     app.onConsentChange(false);
+    expect(analyticsService.updateConsent).toHaveBeenCalledTimes(3);
+    expect(analyticsService.updateConsent).toHaveBeenCalledWith(false);
     app.onConsentChange(true);
     expect(analyticsService.initialize).toHaveBeenCalledTimes(2);
+    expect(analyticsService.updateConsent).toHaveBeenCalledTimes(4);
+    const consentCalls = analyticsService.updateConsent.calls.allArgs();
+    expect(consentCalls).toEqual([[true], [true], [false], [true]]);
   });
 
   it('should set the document title to "Portfolio di Diego" for Italian', () => {

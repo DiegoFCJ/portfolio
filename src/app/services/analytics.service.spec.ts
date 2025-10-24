@@ -84,6 +84,48 @@ describe('AnalyticsService', () => {
     expect(script).not.toBeNull();
   });
 
+  it('should initialise gtag and send consent updates even before loading the script', () => {
+    const analyticsService = getService();
+    const doc = getDocument();
+    const win = doc.defaultView as Window & { dataLayer?: unknown[]; gtag?: jasmine.Spy } | null;
+
+    analyticsService.updateConsent(false);
+
+    expect(win?.dataLayer).toBeTruthy();
+    expect(Array.isArray(win?.dataLayer)).toBeTrue();
+    expect(typeof win?.gtag).toBe('function');
+
+    const dataLayerEntries = (win?.dataLayer as IArguments[]) ?? [];
+    expect(dataLayerEntries.length).toBe(2);
+    expect(Array.from(dataLayerEntries[0])).toEqual([
+      'consent',
+      'update',
+      { analytics_storage: 'denied', ad_storage: 'denied' },
+    ]);
+    expect(Array.from(dataLayerEntries[1])).toEqual([
+      'consent',
+      'update',
+      { analytics_storage: 'denied', ad_storage: 'denied' },
+    ]);
+  });
+
+  it('should send consent updates without repeating the default denied value', () => {
+    const analyticsService = getService();
+    const doc = getDocument();
+    const win = doc.defaultView as Window & { dataLayer?: unknown[] } | null;
+
+    analyticsService.updateConsent(false);
+    analyticsService.updateConsent(true);
+
+    const dataLayerEntries = (win?.dataLayer as IArguments[]) ?? [];
+    expect(dataLayerEntries.length).toBe(3);
+    expect(Array.from(dataLayerEntries[2])).toEqual([
+      'consent',
+      'update',
+      { analytics_storage: 'granted', ad_storage: 'denied' },
+    ]);
+  });
+
   it('should send page views after initialization', () => {
     spyOn(window.localStorage, 'getItem').and.returnValue('granted');
     const analyticsService = getService();

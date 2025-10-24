@@ -72,10 +72,14 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    if (consentGranted && !this.analyticsConsentGranted) {
-      this.analyticsService.initialize();
-      this.analyticsConsentGranted = true;
-    } else if (!consentGranted) {
+    if (consentGranted) {
+      this.analyticsService.updateConsent(true);
+      if (!this.analyticsConsentGranted) {
+        this.analyticsService.initialize();
+        this.analyticsConsentGranted = true;
+      }
+    } else {
+      this.analyticsService.updateConsent(false);
       this.analyticsConsentGranted = false;
     }
   }
