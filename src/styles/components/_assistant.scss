@@ -359,14 +359,12 @@ app-assistant .assistant__steps li {
     top: 0;
     width: 100%;
     min-width: 0;
-    padding: clamp(56px, 12vh, 92px) clamp(18px, 8vw, 32px)
-      calc(
-        var(--assistant-mobile-anchor-footprint, 148px) +
-        var(--assistant-mobile-safe-area-bottom, 0px) +
-        clamp(32px, 8vh, 56px)
-      );
-    align-items: flex-start;
-    justify-content: center;
+    padding:
+      clamp(24px, 8vh, 48px)
+      clamp(16px, 6vw, 28px)
+      calc(var(--assistant-mobile-safe-area-bottom, 0px) + clamp(32px, 10vh, 64px));
+    align-items: stretch;
+    justify-content: flex-start;
     pointer-events: none;
     z-index: var(--layer-modal-dialog, 90);
   }
@@ -405,17 +403,17 @@ app-assistant .assistant__steps li {
     bottom: auto;
     width: min(100%, var(--assistant-popup-effective-width));
     max-width: var(--assistant-popup-effective-width);
-    margin: 0 auto;
+    margin:
+      calc(var(--assistant-avatar-size, 48px) + clamp(18px, 6vw, 32px))
+      clamp(12px, 5vw, 24px)
+      0;
     max-height: min(
       540px,
       calc(
         var(--assistant-mobile-viewport-height, 100vh) -
-          (
-            clamp(56px, 12vh, 92px) +
-            var(--assistant-mobile-anchor-footprint, 148px) +
-            var(--assistant-mobile-safe-area-bottom, 0px) +
-            clamp(32px, 8vh, 56px)
-          )
+          clamp(24px, 8vh, 48px) -
+          calc(var(--assistant-avatar-size, 48px) + clamp(18px, 6vw, 32px)) -
+          calc(var(--assistant-mobile-safe-area-bottom, 0px) + clamp(32px, 10vh, 64px))
       )
     );
     z-index: 2;
@@ -424,8 +422,8 @@ app-assistant .assistant__steps li {
   :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant__anchor,
   .navigator-wrapper--assistant-active app-assistant .assistant__anchor {
     position: fixed;
-    inset-inline-end: clamp(18px, 8vw, 28px);
-    inset-block-end: calc(var(--assistant-mobile-safe-area-bottom, 0px) + clamp(18px, 5vh, 32px));
+    inset-inline-end: clamp(16px, 6vw, 28px);
+    inset-block-start: clamp(12px, 6vh, 24px);
     z-index: 3;
   }
 
