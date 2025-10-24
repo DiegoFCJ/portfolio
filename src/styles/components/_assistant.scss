@@ -313,16 +313,6 @@ app-assistant .assistant__steps li {
     --assistant-mobile-anchor-top-gap: clamp(12px, 6vh, 24px);
     --assistant-mobile-anchor-bottom-gap: clamp(18px, 6vh, 32px);
     --assistant-mobile-anchor-horizontal-gap: clamp(16px, 6vw, 28px);
-    --assistant-mobile-anchor-rise: max(
-      0px,
-      calc(
-        var(--assistant-mobile-viewport-height, 100vh) -
-          var(--assistant-mobile-anchor-top-gap, 0px) -
-          var(--assistant-mobile-anchor-bottom-gap, 0px) -
-          var(--assistant-avatar-size, 48px) -
-          var(--assistant-mobile-safe-area-bottom, 0px)
-      )
-    );
   }
 
   @supports (height: 100dvh) {
@@ -415,8 +405,8 @@ app-assistant .assistant__steps li {
     z-index: 2;
   }
 
-  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__anchor,
-  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__anchor {
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant .assistant__anchor,
+  .navigator-wrapper--assistant-active app-assistant .assistant .assistant__anchor {
     position: fixed;
     inset-inline-end: var(
       --assistant-mobile-anchor-horizontal-gap,
@@ -426,12 +416,21 @@ app-assistant .assistant__steps li {
       var(--assistant-mobile-safe-area-bottom, 0px) +
         var(--assistant-mobile-anchor-bottom-gap, clamp(18px, 6vh, 32px))
     );
-    transform: translate3d(
-      0,
-      calc(-1 * var(--assistant-mobile-anchor-rise, 0px)),
-      0
-    );
+    inset-block-start: auto;
+    transition:
+      inset-block-start 0.46s cubic-bezier(0.23, 1, 0.32, 1),
+      inset-block-end 0.46s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: inset-block-start, inset-block-end;
     z-index: 3;
+  }
+
+  :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__anchor,
+  .navigator-wrapper--assistant-active app-assistant .assistant.assistant--open .assistant__anchor {
+    inset-block-end: auto;
+    inset-block-start: var(
+      --assistant-mobile-anchor-top-gap,
+      clamp(12px, 6vh, 24px)
+    );
   }
 
   :host-context(.navigator-wrapper--assistant-active) app-assistant .assistant.assistant--open .assistant__shadow,
