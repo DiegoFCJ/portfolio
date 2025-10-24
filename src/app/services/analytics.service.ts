@@ -20,7 +20,11 @@ export class AnalyticsService {
     @Inject(APP_ENVIRONMENT) private readonly environment: EnvironmentConfig,
     @Inject(DOCUMENT) private readonly documentRef: Document,
     @Inject(PLATFORM_ID) private readonly platformId: Object,
-  ) { }
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.initializeDataLayer();
+    }
+  }
 
   initialize(): void {
     if (!this.shouldBootstrapAnalytics()) {
@@ -52,7 +56,7 @@ export class AnalyticsService {
     this.ensureAnalyticsStubs(win);
 
     if (!this.isConsentDefaultSent) {
-      win.gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied' });
+      win.gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
       this.isConsentDefaultSent = true;
     }
 
@@ -132,5 +136,14 @@ export class AnalyticsService {
       // eslint-disable-next-line prefer-rest-params
       (win.dataLayer as unknown[]).push(arguments);
     };
+  }
+
+  private initializeDataLayer(): void {
+    const win = this.documentRef.defaultView as AnalyticsWindow | null;
+    if (!win) {
+      return;
+    }
+
+    win.dataLayer = win.dataLayer || [];
   }
 }
