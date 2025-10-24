@@ -1,5 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -233,7 +234,7 @@ const assistantGuideContent: Partial<Record<LanguageCode, AssistantGuideContent>
   templateUrl: './assistant.component.html',
   styleUrls: ['./assistant.component.scss']
 })
-export class AssistantComponent implements OnInit, OnDestroy {
+export class AssistantComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() opened = new EventEmitter<void>();
   @Output() closed = new EventEmitter<void>();
 
@@ -250,6 +251,9 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private isMobile = false;
   private readonly isBrowser: boolean;
   private visualViewportSubscription?: Subscription;
+  private anchorTransitionFrame: number | null = null;
+  private anchorTransitionPendingCount = 0;
+  private anchorTransitionFallbackTimer: number | null = null;
   private scrollLockState: {
     scrollY: number;
     previousBodyPosition: string;
@@ -271,6 +275,11 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
   @ViewChild('avatar', { static: true })
   private readonly avatarRef!: ElementRef<HTMLButtonElement>;
+
+  @ViewChild('anchor', { static: true })
+  private readonly anchorRef!: ElementRef<HTMLDivElement>;
+  private anchorTransitionStartListener?: (event: TransitionEvent) => void;
+  private anchorTransitionEndListener?: (event: TransitionEvent) => void;
 
   private popupRef?: ElementRef<HTMLDivElement>;
   private guideScrollAreaRef?: ElementRef<HTMLDivElement>;
@@ -332,11 +341,16 @@ export class AssistantComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit(): void {
+    this.registerAnchorTransitionListeners();
+  }
+
   ngOnDestroy(): void {
     this.cancelLandingUpdate();
     this.cancelGuideScrollEvaluation();
     this.clearAllTimers();
     this.isMobileSubject.complete();
+    this.unregisterAnchorTransitionListeners();
     this.releaseScrollLock();
     this.clearMobileViewportMetrics();
     this.visualViewportSubscription?.unsubscribe();
@@ -521,18 +535,18 @@ export class AssistantComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const avatarElement = this.avatarRef?.nativeElement;
+    const anchorElement = this.anchorRef?.nativeElement;
     const popupElement = this.popupRef.nativeElement;
 
-    if (!avatarElement) {
+    if (!anchorElement) {
       return;
     }
 
-    const avatarRect = avatarElement.getBoundingClientRect();
+    const anchorRect = anchorElement.getBoundingClientRect();
     const popupRect = popupElement.getBoundingClientRect();
 
-    const landingX = popupRect.right - avatarRect.right;
-    const landingY = popupRect.top - avatarRect.bottom + 10;
+    const landingX = popupRect.right - anchorRect.right;
+    const landingY = popupRect.top - anchorRect.bottom + 10;
 
     const hostElement = this.hostRef.nativeElement;
     hostElement.style.setProperty('--assistant-jump-landing-x', `${landingX}px`);
@@ -562,6 +576,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.cancelLandingUpdate();
     this.cancelGuideScrollEvaluation();
     this.resetGuideScrollState();
+    this.resetAnchorTransitionState();
 
     this.animationPhase = 'falling';
     this.isOpen = false;
@@ -581,6 +596,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private startWonderingPhase(): void {
     this.clearWonderingTimer();
     this.animationPhase = 'wondering';
+    this.ensureAnchorTransitionSync();
 
     this.wonderingTimer = setTimeout(() => {
       this.wonderingTimer = null;
@@ -708,6 +724,158 @@ export class AssistantComponent implements OnInit, OnDestroy {
     if (typeof window.scrollTo === 'function') {
       window.scrollTo(0, scrollY);
     }
+  }
+
+  private registerAnchorTransitionListeners(): void {
+    if (!this.isBrowser || !this.anchorRef) {
+      return;
+    }
+
+    const anchorElement = this.anchorRef.nativeElement;
+
+    if (!anchorElement || this.anchorTransitionStartListener || this.anchorTransitionEndListener) {
+      return;
+    }
+
+    this.anchorTransitionStartListener = (event: TransitionEvent) => {
+      if (!this.isOpen || !this.isAnchorTransitionProperty(event.propertyName)) {
+        return;
+      }
+
+      this.anchorTransitionPendingCount += 1;
+
+      if (this.anchorTransitionPendingCount === 1) {
+        this.startAnchorTransitionSync();
+      }
+    };
+
+    this.anchorTransitionEndListener = (event: TransitionEvent) => {
+      if (!this.isAnchorTransitionProperty(event.propertyName)) {
+        return;
+      }
+
+      if (this.anchorTransitionPendingCount > 0) {
+        this.anchorTransitionPendingCount -= 1;
+      }
+
+      if (this.anchorTransitionPendingCount === 0) {
+        this.stopAnchorTransitionSync();
+
+        if (this.isOpen) {
+          this.requestLandingUpdate();
+        }
+      }
+    };
+
+    anchorElement.addEventListener('transitionstart', this.anchorTransitionStartListener);
+    anchorElement.addEventListener('transitionend', this.anchorTransitionEndListener);
+    anchorElement.addEventListener('transitioncancel', this.anchorTransitionEndListener);
+  }
+
+  private unregisterAnchorTransitionListeners(): void {
+    if (!this.isBrowser || !this.anchorRef) {
+      return;
+    }
+
+    const anchorElement = this.anchorRef.nativeElement;
+
+    if (this.anchorTransitionStartListener) {
+      anchorElement.removeEventListener('transitionstart', this.anchorTransitionStartListener);
+      this.anchorTransitionStartListener = undefined;
+    }
+
+    if (this.anchorTransitionEndListener) {
+      anchorElement.removeEventListener('transitionend', this.anchorTransitionEndListener);
+      anchorElement.removeEventListener('transitioncancel', this.anchorTransitionEndListener);
+      this.anchorTransitionEndListener = undefined;
+    }
+
+    this.resetAnchorTransitionState();
+  }
+
+  private isAnchorTransitionProperty(propertyName: string): boolean {
+    return (
+      propertyName === 'inset-block-start' ||
+      propertyName === 'inset-block-end' ||
+      propertyName === 'top' ||
+      propertyName === 'bottom'
+    );
+  }
+
+  private startAnchorTransitionSync(): void {
+    if (!this.isBrowser || this.anchorTransitionFrame !== null) {
+      return;
+    }
+
+    const step = () => {
+      if (this.anchorTransitionPendingCount === 0) {
+        this.anchorTransitionFrame = null;
+        return;
+      }
+
+      this.updateLandingCoordinates();
+
+      if (!this.isBrowser) {
+        this.anchorTransitionFrame = null;
+        return;
+      }
+
+      this.anchorTransitionFrame = window.requestAnimationFrame(step);
+    };
+
+    this.anchorTransitionFrame = window.requestAnimationFrame(step);
+  }
+
+  private stopAnchorTransitionSync(): void {
+    if (!this.isBrowser) {
+      this.anchorTransitionFrame = null;
+      return;
+    }
+
+    if (this.anchorTransitionFrame !== null) {
+      window.cancelAnimationFrame(this.anchorTransitionFrame);
+      this.anchorTransitionFrame = null;
+    }
+  }
+
+  private resetAnchorTransitionState(): void {
+    if (this.anchorTransitionFallbackTimer !== null) {
+      window.clearTimeout(this.anchorTransitionFallbackTimer);
+      this.anchorTransitionFallbackTimer = null;
+    }
+
+    this.anchorTransitionPendingCount = 0;
+    this.stopAnchorTransitionSync();
+  }
+
+  private ensureAnchorTransitionSync(durationMs: number = 700): void {
+    if (!this.isBrowser || !this.isOpen || !this.anchorRef || !this.isMobile) {
+      return;
+    }
+
+    if (this.anchorTransitionFallbackTimer === null) {
+      this.anchorTransitionPendingCount += 1;
+    } else {
+      window.clearTimeout(this.anchorTransitionFallbackTimer);
+    }
+
+    this.startAnchorTransitionSync();
+
+    this.anchorTransitionFallbackTimer = window.setTimeout(() => {
+      this.anchorTransitionFallbackTimer = null;
+
+      if (this.anchorTransitionPendingCount > 0) {
+        this.anchorTransitionPendingCount -= 1;
+      }
+
+      if (this.anchorTransitionPendingCount === 0) {
+        this.stopAnchorTransitionSync();
+
+        if (this.isOpen) {
+          this.requestLandingUpdate();
+        }
+      }
+    }, durationMs);
   }
 
   private registerVisualViewportListeners(): void {

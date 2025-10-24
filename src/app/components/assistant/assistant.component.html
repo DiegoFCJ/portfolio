@@ -6,7 +6,7 @@
      [class.assistant--phase-wondering]="animationPhase === 'wondering'"
      [class.assistant--phase-perched]="animationPhase === 'perched'"
       [class.assistant--phase-falling]="animationPhase === 'falling'">
-  <div class="assistant__anchor">
+  <div #anchor class="assistant__anchor">
     <span class="assistant__shadow" aria-hidden="true"></span>
     <button #avatar
             type="button"
