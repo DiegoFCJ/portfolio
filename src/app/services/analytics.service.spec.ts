@@ -84,22 +84,23 @@ describe('AnalyticsService', () => {
     expect(script).not.toBeNull();
   });
 
-  it('should initialise gtag and send consent updates even before loading the script', () => {
+  it('should initialise dataLayer immediately and send default consent before updates', () => {
     const analyticsService = getService();
     const doc = getDocument();
     const win = doc.defaultView as Window & { dataLayer?: unknown[]; gtag?: jasmine.Spy } | null;
 
+    expect(Array.isArray(win?.dataLayer)).toBeTrue();
+
     analyticsService.updateConsent(false);
 
     expect(win?.dataLayer).toBeTruthy();
-    expect(Array.isArray(win?.dataLayer)).toBeTrue();
     expect(typeof win?.gtag).toBe('function');
 
     const dataLayerEntries = (win?.dataLayer as IArguments[]) ?? [];
     expect(dataLayerEntries.length).toBe(2);
     expect(Array.from(dataLayerEntries[0])).toEqual([
       'consent',
-      'update',
+      'default',
       { analytics_storage: 'denied', ad_storage: 'denied' },
     ]);
     expect(Array.from(dataLayerEntries[1])).toEqual([

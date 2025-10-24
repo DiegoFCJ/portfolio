@@ -66,7 +66,10 @@ describe('AppComponent', () => {
       getCurrentLanguage: jasmine.createSpy('getCurrentLanguage').and.callFake(() => languageSubject.value),
     };
 
-    analyticsService = jasmine.createSpyObj<AnalyticsService>('AnalyticsService', ['initialize', 'trackPageView', 'updateConsent']);
+    analyticsService = jasmine.createSpyObj<AnalyticsService>(
+      'AnalyticsService',
+      ['initialize', 'trackPageView', 'updateConsent'],
+    );
 
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, AppComponent],
@@ -106,6 +109,7 @@ describe('AppComponent', () => {
     app.onConsentChange(false);
     expect(analyticsService.updateConsent).toHaveBeenCalledTimes(3);
     expect(analyticsService.updateConsent).toHaveBeenCalledWith(false);
+    expect(analyticsService.initialize).toHaveBeenCalledTimes(1);
     app.onConsentChange(true);
     expect(analyticsService.initialize).toHaveBeenCalledTimes(2);
     expect(analyticsService.updateConsent).toHaveBeenCalledTimes(4);
